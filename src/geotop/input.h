@@ -46,14 +46,11 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
                    METEO *met, WATER *wat, CHANNEL *cnet,
                    PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times);
 
-void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT,
-                    FILE *flog);
+void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT);
 
-void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl,
-                            TIMES *times, INIT_TOOLS *IT, FILE *flog);
+void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT);
 
-void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top,
-                 DOUBLEMATRIX *LC, FILE *flog);
+void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, DOUBLEMATRIX *LC);
 
 DOUBLETENSOR *find_Z_of_any_layer(DOUBLEMATRIX *Zsurface, DOUBLEMATRIX *slope,
                                   DOUBLEMATRIX *LC, SOIL *sl, short point);

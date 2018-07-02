@@ -46,9 +46,6 @@ void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top,
 
   long i,r,c,year,j;
   double JD;
-  FILE *flog;
-
-
 
   //INTERPOLATION OF METEO VARIABLES
   for (i=1; i<=met->st->Z->nh; i++)
@@ -87,18 +84,14 @@ void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top,
     }
 
   //DISTRIBUTION OF METEROLOGICAL VARIABLES FROM MEASUREMENTS IN SOME STATIONS
-  flog = fopen(logfile, "a");
-  Meteodistr(UV->U->co[2], UV->U->co[1], top->East, top->North, top->Z0,
-             top->curvature1, top->curvature2, top->curvature3,
-             top->curvature4, top->slope, top->aspect, met, par->slopewtD, par->curvewtD,
-             par->slopewtI, par->curvewtI, par->Vmin, par->RHmin, par->dn,
-             par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt, met->Tgrid->co,
-             met->RHgrid->co, met->Vgrid->co,
-             met->Vdir->co, met->Pgrid->co, wat->PrecTot->co, met->LRv[ilsTa],
-             met->LRv[ilsTdew], met->LRv[ilsPrec],
-             par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew, par->T_rain,
-             par->T_snow, par->snowcorrfact, par->raincorrfact, flog);
-  fclose(flog);
+  Meteodistr(UV->U->co[2], UV->U->co[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2,
+             top->curvature3, top->curvature4, top->slope, top->aspect, met, par->slopewtD, par->curvewtD,
+             par->slopewtI, par->curvewtI,
+             par->Vmin, par->RHmin, par->dn, par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt, met->Tgrid->co,
+             met->RHgrid->co, met->Vgrid->co, met->Vdir->co, met->Pgrid->co, wat->PrecTot->co, met->LRv[ilsTa],
+             met->LRv[ilsTdew], met->LRv[ilsPrec], par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew,
+             par->T_rain, par->T_snow,
+             par->snowcorrfact, par->raincorrfact);
 
   if (par->en_balance==0)
     {

@@ -69,7 +69,6 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 {
     GEOLOG_PREFIX(__func__);
 
-    FILE *flog; /** log file */
     FILE *f; /** failed run file*/
     DOUBLEMATRIX *M;
     std::unique_ptr<INIT_TOOLS> IT;
@@ -84,11 +83,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
     IT.reset(new INIT_TOOLS{});
 
-
-
     // logfile =  nullptr;  //join_strings(WORKING_DIRECTORY, logfile_name);
-    flog = fopen(logfile, "w");
-
 
     // reads the parameters in __control_parameters
     temp = join_strings(WORKING_DIRECTORY, program_name);
@@ -278,11 +273,11 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
     if (par->point_sim!=1)  //distributed simulation
     {
-        read_inputmaps(top, land, sl, par, IT.get(), flog);
+        read_inputmaps(top, land, sl, par, IT.get());
     }
     else
     {
-        read_optionsfile_point(par, top, land, sl, times, IT.get(), flog);
+        read_optionsfile_point(par, top, land, sl, times, IT.get());
     }
 
     Nr=top->Z0->nrh;
@@ -643,14 +638,11 @@ used default values" << std::endl;
     while (met->nstTs<met->st->Z->nh && a==0);
     if (a==0)
     {
-        printf("WARNING: NO Surface temperature measurements available\n");
-        fprintf(flog,"WARNING: NO Surface temperature measurements available\n");
+        geolog << "WARNING: NO Surface temperature measurements available" << std::endl;
     }
     else
     {
-        printf("Surface temperature measurements from station %ld\n",met->nstTs);
-        fprintf(flog,"Surface temperature  measurements from station %ld\n",
-                met->nstTs);
+        geolog << "Surface temperature measurements from station " << met->nstTs << std::endl;
     }
 
     //FIND A STATION WITH BOTTOM TEMPERATURE ABOVE
@@ -665,13 +657,11 @@ used default values" << std::endl;
     while (met->nstTbottom<met->st->Z->nh && a==0);
     if (a==0)
     {
-        printf("WARNING: NO Bottom temperature measurements available\n");
-        fprintf(flog,"WARNING: NO Bottom temperature measurements available\n");
+        geolog << "WARNING: NO Bottom temperature measurements available" << std::endl;
     }
     else
     {
-        printf("Bottom temperature measurements from station %ld\n", met->nstTbottom);
-        fprintf(flog,"Bottom temperature measurements from station %ld\n", met->nstTbottom);
+        geolog << "Bottom temperature measurements from station " << met->nstTbottom << std::endl;
     }
 
     /**************************************************************************************************/
@@ -840,7 +830,7 @@ land cover %ld, meteo station %ld\n",
             if (top->pixel_type->co[r][c]>=10) i++;
         }
     }
-    fprintf(flog,"Channel pixels: %ld\n",i);
+    geolog << "Channel pixels: " << i << std::endl;
     par->total_channel = i;
 
     // allocate channel vectors/matrixes
@@ -937,7 +927,7 @@ land cover %ld, meteo station %ld\n",
     }
 
     // BEDROCK (adjusting soil properties)
-    set_bedrock(IT.get(), sl, cnet, par, top, land->LC, flog);
+    set_bedrock(IT.get(), sl, cnet, par, top, land->LC);
 
     /**************************************************************************************************/
     /*! Completing of the initialization of SOIL structure                                            */
@@ -1500,10 +1490,8 @@ land cover %ld, meteo station %ld\n",
     egy->soil_evap_layer_bare.reset(new Vector<double> {l});
     egy->soil_evap_layer_veg.reset(new Vector<double> {l});
 
-    printf("Soil water evaporates from the first %ld layers\n", egy->soil_evap_layer_bare->nh);
-    printf("Soil water transpires from the first %ld layers\n", egy->soil_transp_layer->nh);
-    fprintf(flog,"Soil water evaporates from the first %ld layers\n", egy->soil_evap_layer_bare->nh);
-    fprintf(flog,"Soil water transpires from the first %ld layers\n", egy->soil_transp_layer->nh);
+    geolog << "Soil water evaporates from the first " << egy->soil_evap_layer_bare->nh << " layers" << std::endl;
+    geolog << "Soil water transpires from the first " << egy->soil_transp_layer->nh << " layers" << std::endl;
 
     /**************************************************************************************************/
     /*! Completing of the struct "water" (of the type WATER) */
@@ -1853,8 +1841,8 @@ land cover %ld, meteo station %ld\n",
                 }
 
                 f = fopen(logfile, "a");
-                snow_layer_combination(par->alpha_snow, r, c, snow->S, -0.1,
-                                       par->inf_snow_layers.get(), par->max_weq_snow, maxSWE, f);
+                snow_layer_combination(par->alpha_snow, r, c, snow->S, -0.1, par->inf_snow_layers.get(),
+                                       par->max_weq_snow, maxSWE);
                 fclose(f);
 
             }
@@ -1900,17 +1888,13 @@ land cover %ld, meteo station %ld\n",
     if ( par->point_sim!=1 && strcmp(files[fgl0], string_novalue) != 0
          && par->max_glac_layers==0)
     {
-        printf("Warning: Glacier map present, but glacier represented with 0 layers\n");
-        fprintf(flog,
-                "Warning: Glacier map present, but glacier represented with 0 layers\n");
+        geolog << "Warning: Glacier map present, but glacier represented with 0 layers" << std::endl;
     }
 
     if (par->max_glac_layers==0 && IT->Dglac0>0)
     {
-        printf("\nWARNING: You have chosen 0 glacier layers in block 10 in the parameter file, \
-but you assigned a value of the glacier depth. The latter will be ignored.\n");
-        fprintf(flog, "\nWARNING: You have chosen 0 glacier layers in block 10 in the parameter file, \
-but you assigned a value of the glacier depth. The latter will be ignored.\n");
+        geolog << std::endl << "WARNING: You have chosen 0 glacier layers in block 10 in the parameter file, \
+but you assigned a value of the glacier depth. The latter will be ignored." << std::endl;
     }
 
     // If the max number of glacier layers is greater than 1, the matrices (or tensors) lnum,
@@ -1920,8 +1904,7 @@ but you assigned a value of the glacier depth. The latter will be ignored.\n");
 
         if ( par->point_sim!=1 && strcmp(files[fgl0], string_novalue) != 0 )
         {
-            printf("Glacier initial condition from file %s\n",files[fgl0]+1);
-            fprintf(flog,"Glacier initial condition from file %s\n",files[fgl0]+1);
+            geolog << "Glacier initial condition from file " << files[fgl0]+1 << std::endl;
             M=read_map(2, files[fgl0], land->LC, UV, (double)number_novalue);
         }
         else
@@ -2034,8 +2017,8 @@ but you assigned a value of the glacier depth. The latter will be ignored.\n");
                     }
 
                     f = fopen(logfile, "a");
-                    snow_layer_combination(par->alpha_snow, r, c, glac->G, -0.1,
-                                           par->inf_glac_layers.get(), par->max_weq_glac, 1.E10, f);
+                    snow_layer_combination(par->alpha_snow, r, c, glac->G, -0.1, par->inf_glac_layers.get(),
+                                           par->max_weq_glac, 1.E10);
                     fclose(f);
 
                 }
@@ -2524,8 +2507,6 @@ but you assigned a value of the glacier depth. The latter will be ignored.\n");
     wat->Klat = new_doublematrix(top->BC_DepthFreeSurface->nh, Nl);
     initialize_doublematrix(wat->Klat, 0.);
 
-    fclose(flog);
-
 }
 
 //***************************************************************************************************
@@ -2533,8 +2514,7 @@ but you assigned a value of the glacier depth. The latter will be ignored.\n");
 //***************************************************************************************************
 //***************************************************************************************************
 
-void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT,
-                    FILE *flog)
+void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
 {
     GEOLOG_PREFIX(__func__);
     long r, c, i, cont;
@@ -2672,7 +2652,6 @@ to the land cover type\n");
                 || par->rc->co[i][2] == number_novalue)
             {
                 geolog << "Point #" << i << " is out of the domain";
-                fclose(flog);
 
                 f = fopen(FailedRunFile, "w");
                 fprintf(f, "Point #%4ld is out of the domain",i);
@@ -2683,7 +2662,6 @@ to the land cover type\n");
             if ((long)land->LC->co[par->rc->co[i][1]][par->rc->co[i][2]]==number_novalue)
             {
                 geolog << "Point #" << i << " corresponds to NOVALUE pixel";
-                fclose(flog);
 
                 f = fopen(FailedRunFile, "w");
                 fprintf(f, "Point #%4ld corresponds to NOVALUE pixel",i);
@@ -2997,8 +2975,7 @@ to the soil type map");
 //***************************************************************************************************
 //***************************************************************************************************
 
-void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl,
-                            TIMES *times, INIT_TOOLS *IT, FILE *flog)
+void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT)
 {
     GEOLOG_PREFIX(__func__);
     long i, r, c, num_lines;
@@ -3018,15 +2995,6 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl,
         if ( (long)par->chkpt->co[i][ptX]==number_novalue
              || (long)par->chkpt->co[i][ptY]==number_novalue ) coordinates = 0;
     }
-    /* if (coordinates == 0 && par->recover>0){
-       printf("Warning: Not possible to recover the simulation because at least one point has no \
-       coordinates\n");
-       printf("Starting from normal initial condition\n");
-       fprintf(flog,"Warning: Not possible to recover the simulation because at least one point has no \
-       coordinates\n");
-       fprintf(flog,"Starting from normal initial condition\n");
-       par->recover = 0;
-       } */
 
     // ---------------------- (a) Read dem ----------------------
     read_dem=0;
@@ -3071,14 +3039,6 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl,
         {
             read_dem=0;
             geolog << "Warning: Dem file not present" << std::endl;
-
-            /*if(par->recover>0){
-              printf("Warning: Not possible to recover the simulation because there is no dem\n");
-              printf("Starting from normal initial condition\n");
-              fprintf(flog,"Warning: Not possible to recover the simulation because there is no dem\n");
-              fprintf(flog,"Starting from normal initial condition\n");
-              par->recover = 0;
-          }*/
         }
     }
 
@@ -3134,14 +3094,6 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl,
             else
             {
                 read_lu=0;
-                /* if(par->recover>0){
-           printf("Warning: Not possible to recover the simulation because there is no dem\n");
-           printf("Starting from normal initial condition\n");
-           fprintf(flog,"Warning: \
-           Not possible to recover the simulation because there is no dem\n");
-           fprintf(flog,"Starting from normal initial condition\n");
-           par->recover = 0;
-           }*/
             }
         }
     }
@@ -3788,8 +3740,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
 //***************************************************************************************************
 //***************************************************************************************************
 
-void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top,
-                 DOUBLEMATRIX *LC, FILE *flog)
+void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, DOUBLEMATRIX *LC)
 {
     GEOLOG_PREFIX(__func__);
     DOUBLETENSOR *T;

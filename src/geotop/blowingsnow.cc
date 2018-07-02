@@ -173,11 +173,10 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                       rho_snow_surface = (snow->S_for_BS->w_ice->co[ns] +
                                           snow->S_for_BS->w_liq->co[ns]) / (1.E-3*snow->S_for_BS->Dzl->co[ns]);
 
-                      Pbsm (r, c, PBSM_fetch, land->ty->co[lu][jN], 1.E-3*land->ty->co[lu][jdv],
-                            canopy_height_over_snow, rho_snow_surface, zmeas,
-                            met->Vgrid->co[r][c], met->Tgrid->co[r][c], met->RHgrid->co[r][c],
-                            &(snow->Qtrans->co[r][c]), &(snow->Qsub->co[r][c]),
-                            &(snow->Qsalt->co[r][c]), D, top->slope->co[r][c], f);
+                        Pbsm(r, c, PBSM_fetch, land->ty->co[lu][jN], 1.E-3 * land->ty->co[lu][jdv],
+                             canopy_height_over_snow, rho_snow_surface, zmeas, met->Vgrid->co[r][c],
+                             met->Tgrid->co[r][c], met->RHgrid->co[r][c], &(snow->Qtrans->co[r][c]),
+                             &(snow->Qsub->co[r][c]), &(snow->Qsalt->co[r][c]), D, top->slope->co[r][c]);
 
 
                     }
@@ -654,8 +653,8 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
 
               wind_packing(snow, par, r, c, Dt);
 
-              snow_layer_combination(par->alpha_snow, r, c, snow->S, met->Tgrid->co[r][c],
-                                     par->inf_snow_layers.get(), par->max_weq_snow, 1.E10, f);
+                snow_layer_combination(par->alpha_snow, r, c, snow->S, met->Tgrid->co[r][c], par->inf_snow_layers.get(),
+                                       par->max_weq_snow, 1.E10);
 
             }
         }

@@ -19,21 +19,17 @@
 
  */
 
-
-
 short water_balance(double Dt, double JD0, double JD1, double JD2,
                     SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, Vector<double> *Vsub,
                     Vector<double> *Vsup,
                     double *Voutnet, double *Voutlandsub, double *Voutlandsup,
                     double *Voutlandbottom);
 
-short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt,
-                 FILE *flog, double *loss, Vector<double> *Vsub, double *Vbottom,
-                 double *Vlatsub, double *Total_Pnet, short updateK);
+short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *loss, Vector<double> *Vsub,
+                 double *Vbottom, double *Vlatsub, double *Total_Pnet, short updateK);
 
-short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog,
-                 double *loss, double *Vbottom, double *Vlat, double *Total_Pnet,
-                 short updateK);
+short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, double *Vbottom, double *Vlat,
+                 double *Total_Pnet, short updateK);
 
 double cm_h(double cm0, double h, double h_thres1, double h_thres2);
 
@@ -65,19 +61,15 @@ void find_dt_max(short DD, double Courant, double *h, LAND *land, TOPO *top,
 void find_dt_max_chla(double Courant, double *h, double *hch, TOPO *top,
                       CHANNEL *cnet, PAR *par, double t, double *dt);
 
-void supflow(short DDland, short DDch, double Dt, double t, double *h,
-             double *dV, double *hch, double *dhch, TOPO *top, LAND *land,
-             WATER *wat, CHANNEL *cnet, PAR *par, METEO *met, Vector<double> *Vsup,
-             double *Voutnet, double *Voutland, FILE *flog,
-             double *mm1, double *mm2, double *mmo) ;
+void supflow(short DDland, short DDch, double Dt, double t, double *h, double *dV, double *hch, double *dhch,
+             TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, METEO *met,
+             Vector<double> *Vsup, double *Voutnet, double *Voutland, double *mm1, double *mm2, double *mmo);
 
-void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top,
-                  WATER *wat, CHANNEL *cnet, PAR *par, Vector<double> *Vsup, FILE *flog,
-                  long *cnt);
+void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top, WATER *wat, CHANNEL *cnet, PAR *par,
+                  Vector<double> *Vsup, long *cnt);
 
-void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV,
-                  TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double *Vout, FILE *f,
-                  long *cnt);
+void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV, TOPO *top, CHANNEL *cnet, PAR *par,
+                  LAND *land, double *Vout, long *cnt);
 
 void find_dt_max_channel(short DDcomplex, double Courant, double *h,
                          TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double t, double *dt);

@@ -42,6 +42,8 @@
 #include "t_utilities.h"
 #include "rw_maps.h"
 #include "meteo.h"
+#include "logger.h"
+
 
 extern long number_novalue, number_absent;
 extern T_INIT *UV;
@@ -52,57 +54,42 @@ extern const char *WORKING_DIRECTORY;
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,
-                DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2,
-                DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4,
-                DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met,
-                double slopewtD, double curvewtD, double slopewtI, double curvewtI,
-                double windspd_min, double RH_min, double dn, short iobsint,
-                long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode,
-                double **Tair_grid, double **RH_grid,
-                double **windspd_grid, double **winddir_grid, double **sfc_pressure,
-                double **prec_grid,
-                double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate,
-                double maxfactorP, double minfactorP,
-                short dew, double Train, double Tsnow, double snow_corr_factor,
-                double rain_corr_factor, FILE *f) {
+void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1,
+                DOUBLEMATRIX *curvature2, DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4,
+                DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met, double slopewtD, double curvewtD,
+                double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint,
+                long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, double **Tair_grid,
+                double **RH_grid, double **windspd_grid, double **winddir_grid, double **sfc_pressure,
+                double **prec_grid, double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate,
+                double maxfactorP, double minfactorP, short dew, double Train, double Tsnow, double snow_corr_factor,
+                double rain_corr_factor) {
 
   short ok;
 
-  ok = get_temperature(dE, dN, E, N, met, Tcode, Tair_grid, dn, topo, iobsint,
-                       T_lapse_rate, f);
+  ok = get_temperature(dE, dN, E, N, met, Tcode, Tair_grid, dn, topo, iobsint, T_lapse_rate);
   if (ok == 0) {
-    //printf("No temperature measurements, used the value of the previous time step\n");
-    fprintf(f,
-            "No temperature measurements, used the value of the previous time step\n");
+    geolog << "No temperature measurements, used the value of the previous time step" << std::endl;
   }
 
-  ok = get_relative_humidity(dE, dN, E, N, met, Tdcode, RH_grid, Tair_grid,
-                             RH_min, dn, topo, iobsint, Td_lapse_rate, f);
+  ok = get_relative_humidity(dE, dN, E, N, met, Tdcode, RH_grid, Tair_grid, RH_min, dn, topo, iobsint, Td_lapse_rate);
   if (ok == 0) {
-    //printf("No RH measurements, used the value of the previous time step\n");
-    fprintf(f, "No RH measurements, used the value of the previous time step\n");
+    geolog << "No RH measurements, used the value of the previous time step" << std::endl;
   }
 
-  ok = get_wind(dE, dN, E, N, met, Vxcode, Vycode, VScode, windspd_grid,
-                winddir_grid, curvature1, curvature2, curvature3,
-                curvature4, slope_az, terrain_slope, slopewtD, curvewtD, slopewtI, curvewtI,
-                windspd_min, dn, topo, iobsint, f);
+  ok = get_wind(dE, dN, E, N, met, Vxcode, Vycode, VScode, windspd_grid, winddir_grid, curvature1, curvature2,
+                curvature3, curvature4, slope_az,
+                terrain_slope, slopewtD, curvewtD, slopewtI, curvewtI, windspd_min, dn, topo, iobsint);
   if (ok == 0) {
-    //printf("No wind measurements, used the value of the previous time step\n");
-    fprintf(f, "No wind measurements, used the value of the previous time step\n");
+    geolog << "No wind measurements, used the value of the previous time step" << std::endl;
   } else if (ok == 1) {
-    //printf("No wind direction measurements, used the value of the previous time step\n");
-    fprintf(f,
-            "No wind direction measurements, used the value of the previous time step\n");
+  geolog << "No wind direction measurements, used the value of the previous time step" << std::endl;
   }
 
   ok = get_precipitation(dE, dN, E, N, met, Pcode, Tcode, Tdcode, prec_grid, dn,
                          topo, iobsint, Prec_lapse_rate, maxfactorP, minfactorP,
                          dew, Train, Tsnow, snow_corr_factor, rain_corr_factor);
   if (ok == 0) {
-    //printf("No precipitation measurements, considered it 0.0\n");
-    fprintf(f, "No precipitation measurements, considered it 0.0\n");
+    geolog << "No precipitation measurements, considered it 0.0" << std::endl;
   }
 
   get_pressure(topo, sfc_pressure, (double) number_novalue);
@@ -115,9 +102,8 @@ void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,
 //***************************************************************************************************************
 
 
-short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,
-                      METEO *met, long Tcode, double **Tair_grid, double dn,
-                      DOUBLEMATRIX *topo, short iobsint, double lapse_rate, FILE *f) {
+short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tcode, double **Tair_grid,
+                      double dn, DOUBLEMATRIX *topo, short iobsint, double lapse_rate) {
 
   double topo_ref;
   long n, r, c;
@@ -168,11 +154,9 @@ short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E,
-                            DOUBLEMATRIX *N, METEO *met, long Tdcode, double **RH_grid,
-                            double **Tair_grid, double RH_min, double dn, DOUBLEMATRIX *topo,
-                            short iobsint, double lapse_rate,
-                            FILE *f) {
+short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tdcode, double **RH_grid,
+                            double **Tair_grid, double RH_min, double dn, DOUBLEMATRIX *topo, short iobsint,
+                            double lapse_rate) {
 
   // First convert stn relative humidity to dew-point temperature.  Use
   //   the Td lapse rate to take the stn Td to sea level.  Interpolate
@@ -334,15 +318,11 @@ void topo_mod_winds(double **winddir_grid, double **windspd_grid,
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
-short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,
-               METEO *met, long ucode, long vcode, long Vscode,
-               double **windspd_grid, double **winddir_grid, DOUBLEMATRIX *curvature1,
-               DOUBLEMATRIX *curvature2,
-               DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az,
-               DOUBLEMATRIX *terrain_slope,
-               double slopewtD, double curvewtD, double slopewtI, double curvewtI,
-               double windspd_min, double dn,
-               DOUBLEMATRIX *topo, short iobsint, FILE *f) {
+short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long ucode, long vcode, long Vscode,
+               double **windspd_grid, double **winddir_grid, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2,
+               DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope,
+               double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double dn,
+               DOUBLEMATRIX *topo, short iobsint) {
 
   // This program takes the station wind speed and direction, converts
   //   them to u and v components, interpolates u and v to a grid,

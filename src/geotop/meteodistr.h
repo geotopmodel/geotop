@@ -32,29 +32,22 @@
  */
 
 
-void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,
-                DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2,
-                DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4,
-                DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met,
-                double slopewtD, double curvewtD, double slopewtI, double curvewtI,
-                double windspd_min, double RH_min, double dn, short iobsint,
-                long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode,
-                double **Tair_grid, double **RH_grid,
-                double **windspd_grid, double **winddir_grid, double **sfc_pressure,
-                double **prec_grid,
-                double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate,
-                double maxfactorP, double minfactorP,
-                short dew, double Train, double Tsnow, double snow_corr_factor,
-                double rain_corr_factor, FILE *f);
+void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1,
+                DOUBLEMATRIX *curvature2, DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4,
+                DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met, double slopewtD, double curvewtD,
+                double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint,
+                long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, double **Tair_grid,
+                double **RH_grid, double **windspd_grid, double **winddir_grid, double **sfc_pressure,
+                double **prec_grid, double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate,
+                double maxfactorP, double minfactorP, short dew, double Train, double Tsnow, double snow_corr_factor,
+                double rain_corr_factor);
 
-short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,
-                      METEO *met, long Tcode, double **Tair_grid, double dn,
-                      DOUBLEMATRIX *topo, short iobsint, double lapse_rate, FILE *f);
+short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tcode,
+                      double **Tair_grid, double dn, DOUBLEMATRIX *topo, short iobsint, double lapse_rate);
 
-short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E,
-                            DOUBLEMATRIX *N, METEO *met, long Tdcode, double **RH_grid,
-                            double **Tair_grid, double RH_min, double dn, DOUBLEMATRIX *topo,
-                            short iobsint, double lapse_rate, FILE *f);
+short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tdcode,
+                            double **RH_grid, double **Tair_grid, double RH_min, double dn, DOUBLEMATRIX *topo,
+                            short iobsint, double lapse_rate);
 
 void topo_mod_winds(double **winddir_grid, double **windspd_grid,
                     double slopewtD, double curvewtD, double slopewtI, double curvewtI,
@@ -62,15 +55,11 @@ void topo_mod_winds(double **winddir_grid, double **windspd_grid,
                     DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az,
                     DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *topo, double undef);
 
-short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N,
-               METEO *met, long ucode, long vcode, long Vscode,
-               double **windspd_grid, double **winddir_grid, DOUBLEMATRIX *curvature1,
-               DOUBLEMATRIX *curvature2,
-               DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az,
-               DOUBLEMATRIX *terrain_slope,
-               double slopewtD, double curvewtD, double slopewtI, double curvewtI,
-               double windspd_min, double dn,
-               DOUBLEMATRIX *topo, short iobsint, FILE *f);
+short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long ucode, long vcode, long Vscode,
+               double **windspd_grid, double **winddir_grid, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2,
+               DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope,
+               double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double dn,
+               DOUBLEMATRIX *topo, short iobsint);
 
 short get_precipitation(double dE, double dN, DOUBLEMATRIX *E,
                         DOUBLEMATRIX *N, METEO *met, long Pcode, long Tcode,

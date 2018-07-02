@@ -16,6 +16,7 @@
 #include "struct.geotop.h"
 #include "PBSM.h"
 #include "util_math.h"
+#include "logger.h"
 
 extern T_INIT *UV;
 extern long Nl, Nr, Nc;
@@ -33,10 +34,8 @@ float CC1, CC2, CC3, CC4, CC5;
 
 //Prarie Blowing Snow Model - Pomeroy et al. (1993)
 
-void Pbsm (long r, long c, double Fetch, double N, double dv, double Hv,
-           double rho_sn, double zmeas, double V, double Ta, double RH,
-           double *Trans, double *Subl, double *Salt, double Dsnow, double slope,
-           FILE *flog)
+void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double rho_sn, double zmeas, double V, double Ta,
+          double RH, double *Trans, double *Subl, double *Salt, double Dsnow, double slope)
 {
 
   //     Modified Calculations for Mean Particle Mass in this version
@@ -132,11 +131,8 @@ void Pbsm (long r, long c, double Fetch, double N, double dv, double Hv,
       if (fabs(F)>1.E-3 || Ustar<0 || Ustar>V)
         {
           Ustar = V/5.;
-          fprintf(flog,
-                  "Warning: Ustar does not converge r:%ld c:%ld F:%e Ustar:%f V:%f Z0:%f Zstb:%f slope:%f Dsnow:%f \n",
-                  r,c,F,Ustar,V,Z0,Zstb, slope, Dsnow);
-          printf("Warning: Ustar does not converge r:%ld c:%ld F:%e Ustar:%f V:%f Z0:%f Zstb:%f slope:%f Dsnow:%f \n",
-                 r,c,F,Ustar,V,Z0,Zstb,slope, Dsnow);
+          geolog << "Warning: Ustar does not converge r:" << r << " c:" << c << " F:" << F << " Ustar:" << Ustar
+            << " V:" << V << " Z0:" << Z0 << " Zstb:" << Zstb << " slope:" << slope << " Dsnow:" << Dsnow << std::endl;
         }
 
       // define saltation parameters and calculate saltation

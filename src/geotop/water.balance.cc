@@ -65,7 +65,6 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 {
 
   clock_t start, end;
-  FILE *flog;
   double Pnet, loss;
   long j;
   short a;
@@ -75,8 +74,6 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
   //double m1=0., m2=0., mo=0.;
   //double ds, area, dz;
   //long r, c, l, sy;
-
-  flog = fopen(logfile, "a");
 
   if (adt->P->qin==1)
     {
@@ -89,9 +86,10 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 
       //surface flow: 1st half of time step
       start=clock();
-      supflow(adt->P->DDland, adt->P->DDchannel, Dt/2., adt->I->time, L->P->co[0],
-              &adt->W->h_sup->co[0], C->P->co[0], &adt->C->h_sup->co[0], adt->T.get(), adt->L.get(), adt->W.get(),
-              adt->C.get(), adt->P.get(), adt->M.get(), Vsup, Voutnet, Voutlandsup, flog, &mm1, &mm2, &mmo);
+      supflow(adt->P->DDland, adt->P->DDchannel, Dt / 2., adt->I->time, L->P->co[0], &adt->W->h_sup->co[0], C->P->co[0],
+              &adt->C->h_sup->co[0], adt->T.get(), adt->L.get(), adt->W.get(), adt->C.get(), adt->P.get(), adt->M.get(),
+              Vsup,
+              Voutnet, Voutlandsup, &mm1, &mm2, &mmo);
       end=clock();
 
       /*MMo += mmo;
@@ -124,13 +122,11 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
       }*/
 
 
-      a = Richards3D(Dt, L, C, adt, flog, &loss, Vsub, Voutlandbottom, Voutlandsub,
-                     &Pnet, adt->P->UpdateK);
+      a = Richards3D(Dt, L, C, adt, &loss, Vsub, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
       end=clock();
       t_sub += (end-start)/(double)CLOCKS_PER_SEC;
       if (a != 0)
         {
-          fclose(flog);
           return 1;
         }
 
@@ -157,9 +153,10 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 
       //surface flow: 2nd half of time step
       start=clock();
-      supflow(adt->P->DDland, adt->P->DDchannel, Dt/2., adt->I->time, L->P->co[0],
-              &adt->W->h_sup->co[0], C->P->co[0], &adt->C->h_sup->co[0], adt->T.get(), adt->L.get(), adt->W.get(),
-              adt->C.get(), adt->P.get(), adt->M.get(), Vsup, Voutnet, Voutlandsup, flog, &mm1, &mm2, &mmo);
+      supflow(adt->P->DDland, adt->P->DDchannel, Dt / 2., adt->I->time, L->P->co[0], &adt->W->h_sup->co[0], C->P->co[0],
+              &adt->C->h_sup->co[0], adt->T.get(), adt->L.get(), adt->W.get(), adt->C.get(), adt->P.get(), adt->M.get(),
+              Vsup,
+              Voutnet, Voutlandsup, &mm1, &mm2, &mmo);
       end=clock();
 
       /*MMo += mmo;
@@ -176,11 +173,9 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
       start = clock();
       for (j=1; j<=adt->P->total_pixel; j++)
         {
-          a = Richards1D(j, Dt, L, adt, flog, &loss, Voutlandbottom, Voutlandsub, &Pnet,
-                         adt->P->UpdateK);
+          a = Richards1D(j, Dt, L, adt, &loss, Voutlandbottom, Voutlandsub, &Pnet, adt->P->UpdateK);
           if (a != 0)
             {
-              fclose(flog);
               return 1;
             }
           if ( L->P->co[0][j] > 0 ) L->P->co[0][j] = Fmin( L->P->co[0][j], Fmax(0.,
@@ -195,7 +190,6 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
   odb[oopnet] = Pnet;
   odb[oomasserror] = loss;
 
-  fclose(flog);
 
   return 0;
 
@@ -233,9 +227,8 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
  K is described storing only its strict lower component (strict = without diagonal) with the 3 vectors Li, Lp, Lx (in the same way as UFMPACK) */
 
 
-short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt,
-                 FILE *flog, double *loss, Vector<double> *Vsub, double *Vbottom,
-                 double *Vlatsub, double *Total_Pnet, short updateK)
+short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *loss, Vector<double> *Vsub,
+                 double *Vbottom, double *Vlatsub, double *Total_Pnet, short updateK)
 {
 
   double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon,
@@ -640,9 +633,8 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, FILE *flog,
-                 double *loss, double *Vbottom, double *Vlat, double *Total_Pnet,
-                 short updateK)
+short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, double *Vbottom, double *Vlat,
+                 double *Total_Pnet, short updateK)
 {
 
   double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon,
@@ -2109,11 +2101,9 @@ void find_dt_max(short DD, double Courant, double *h, LAND *land, TOPO *top,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void supflow(short DDland, short DDch, double Dt, double t, double *h,
-             double *dV, double *hch, double *dhch, TOPO *top, LAND *land,
-             WATER *wat, CHANNEL *cnet, PAR *par, METEO *met, Vector<double> *Vsup,
-             double *Voutnet, double *Voutland, FILE *flog,
-             double *mm1, double *mm2, double *mmo)
+void supflow(short DDland, short DDch, double Dt, double t, double *h, double *dV, double *hch, double *dhch, TOPO *top,
+             LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, METEO *met, Vector<double> *Vsup, double *Voutnet,
+             double *Voutland, double *mm1, double *mm2, double *mmo)
 {
 
 
@@ -2264,9 +2254,8 @@ void supflow(short DDland, short DDch, double Dt, double t, double *h,
         }
 
 
-      supflow_chla(dt, t, h, hch, top, wat, cnet, par, Vsup, flog, &cnt2);
-      channel_flow(dt, t, DDch, hch, dhch, top, cnet, par, land, Voutnet, flog,
-                   &cnt3);
+      supflow_chla(dt, t, h, hch, top, wat, cnet, par, Vsup, &cnt2);
+      channel_flow(dt, t, DDch, hch, dhch, top, cnet, par, land, Voutnet, &cnt3);
 
     }
   while (te<Dt);
@@ -2374,9 +2363,8 @@ void find_dt_max_chla(double Courant, double *h, double *hch, TOPO *top,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top,
-                  WATER *wat, CHANNEL *cnet, PAR *par, Vector<double> *Vsup, FILE *flog,
-                  long *cnt)
+void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top, WATER *wat, CHANNEL *cnet, PAR *par,
+                  Vector<double> *Vsup, long *cnt)
 {
 
   long ch, r, c;
@@ -2592,9 +2580,8 @@ void find_dt_max_channel(short DDcomplex, double Courant, double *h,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV,
-                  TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double *Vout, FILE *f,
-                  long *cnt)
+void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV, TOPO *top, CHANNEL *cnet, PAR *par,
+                  LAND *land, double *Vout, long *cnt)
 
 {
   long r,c,ch,R,C;
