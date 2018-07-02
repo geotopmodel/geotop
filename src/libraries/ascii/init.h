@@ -21,9 +21,3 @@
 
 void initmatrix(double val, DOUBLEMATRIX *destination, DOUBLEMATRIX *origin,
                 double novalue);
-
-void initlongmatrix(long val, LONGMATRIX *destination, DOUBLEMATRIX *origin,
-                    double novalue);
-
-void inittensor(double val, DOUBLETENSOR *destination, DOUBLEMATRIX *origin,
-                double novalue);

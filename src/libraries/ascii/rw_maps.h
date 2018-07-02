@@ -29,31 +29,13 @@ SHORTMATRIX *copyshort_doublematrix(DOUBLEMATRIX *M);
 
 LONGMATRIX *copylong_doublematrix(DOUBLEMATRIX *M);
 
-DOUBLEMATRIX *copydouble_shortmatrix(SHORTMATRIX *S);
-
 DOUBLEMATRIX *copydouble_longmatrix(LONGMATRIX *L);
 
-DOUBLEMATRIX *copydoublematrix_const(double c0, DOUBLEMATRIX *Mref,
-                                     double NOVALUE);
-
-DOUBLEMATRIX *multiplydoublematrix(double f, DOUBLEMATRIX *Mref,
-                                   double NOVALUE);
-
-void build_doubletensor(DOUBLETENSOR *T, DOUBLEMATRIX *M, long l);
-
-DOUBLEMATRIX *extract_doublematrix(DOUBLETENSOR *T, long l);
-
-DOUBLEMATRIX *extract_fromtensor(DOUBLETENSOR *T, long l);
+DOUBLEMATRIX *copydoublematrix_const(double c0, DOUBLEMATRIX *Mref, double NOVALUE);
 
 DOUBLETENSOR *build_frommatrix(DOUBLEMATRIX *M, long l, long lmax);
 
 void write_frommatrix(long l, DOUBLEMATRIX *M, DOUBLETENSOR *T);
-
-void fmultiplydoublematrix(DOUBLEMATRIX *destination, DOUBLEMATRIX *origin,
-                           double f, double novalue);
-
-void assignnovalue(DOUBLEMATRIX *destination, DOUBLEMATRIX *origin,
-                   double novalue);
 
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
@@ -83,15 +65,6 @@ DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref,
 std::unique_ptr<Vector<double>> read_map_vector(short type, char *namefile, DOUBLEMATRIX *mask,
                                                 T_INIT *grid, double no_value, LONGMATRIX *rc);
 
-DOUBLEMATRIX *read_mapseries(long i, char *filename, DOUBLEMATRIX *Mref,
-                             T_INIT *UVref, double no_value);
-
-DOUBLETENSOR *read_tensor(long nl, char *filename, DOUBLEMATRIX *Mref,
-                          T_INIT *UVref, double no_value);
-
-DOUBLETENSOR *read_maptensor(long i, long lmax, char *filename,
-                             DOUBLEMATRIX *Mref, T_INIT *UVref, double no_value);
-
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
 //WRITE subroutines
@@ -103,9 +76,6 @@ void write_map(char *filename, short type, short format, DOUBLEMATRIX *M,
 
 void write_map_vector(char *filename, short type, short format,
                       Vector<double> *V, T_INIT *UV, long novalue, long **j, long nr, long nc);
-
-void write_mapseries(long i, char *filename, short type, short format,
-                     DOUBLEMATRIX *M, T_INIT *UV, long novalue);
 
 void write_tensorseries(short a, long l, long i, char *filename, short type,
                         short format, DOUBLETENSOR *T, T_INIT *UV, long novalue);
@@ -124,9 +94,6 @@ void write_tensorseries2(char *suf, long l, char *filename, short type,
 void write_tensorseries2_vector(char *suf, long l, char *filename, short type,
                                 short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr,
                                 long nc);
-
-void write_tensorseries3(char *suffix, char *filename, short type,
-                         short format, DOUBLETENSOR *T, T_INIT *UV, long novalue);
 
 void write_tensorseries3_vector(char *suffix, char *filename, short type,
                                 short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr,
