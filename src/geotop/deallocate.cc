@@ -24,6 +24,7 @@
 #include "snow.h"
 #include "deallocate.h"
 #include "init.h"
+#include <logger.h>
 
 extern char **files;
 extern FILE *ffbas, *ffpoint, *ffT, *ffTav, *ffpsi, *ffpsitot, *ffliq,
@@ -65,7 +66,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   if (strcmp(files[fliqzwriteend], string_novalue) != 0) fclose(ffliq);
   if (strcmp(files[ficezwriteend], string_novalue) != 0) fclose(ffice);
 
-  printf("Deallocating global variables\n");
+  geolog << "Deallocating global variables" << std::endl;
   if (par->state_pixel == 1)
     {
       for (i=0; i<otot; i++)
@@ -117,7 +118,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   free(osl);
 
   /* Deallocation of struct SOIL "sl": */
-  printf("Deallocating soil\n");
+  geolog << "Deallocating soil" << std::endl;
   free_doublematrix(sl->Ptot);
   if (par->output_soil_bin == 1)
     {
@@ -183,7 +184,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   //  free(sl);
 
   /* Deallocation of struct TOPO "top": */
-  printf("Deallocating top\n");
+  geolog << "Deallocating top" << std::endl;
 
   if (par->point_sim==1)
     {
@@ -252,7 +253,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
 
   /* Deallocation of struct LAND "land": */
-  printf("Deallocating land\n");
+  geolog << "Deallocating land" << std::endl;
   free_doublematrix(land->LC);
   free_doublematrix(land->delay);
   free_shortmatrix(land->shadow);
@@ -280,14 +281,14 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   //  free(land);
 
   /* Deallocation of struct WATER "water": */
-  printf("Deallocating water\n");
+  geolog << "Deallocating water" << std::endl;
   free_doublematrix(wat->PrecTot);
   free_doublematrix(wat->Pnet);
 
   //  free(wat);
 
   /* Deallocation of struct CHANNEL "channel": */
-  printf("Deallocating channel network\n");
+  geolog << "Deallocating channel network" << std::endl;
   free_longmatrix(cnet->ch);
   for (l=0; l<=Nl; l++)
     {
@@ -301,10 +302,10 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   //  free(cnet);
 
   /* Deallocation of struct T_INIT "UV": */
-  printf("Deallocating UV\n");
+  geolog << "Deallocating UV" << std::endl;
 
   /* Deallocation of struct ENERGY "egy": */
-  printf("Deallocating egy\n");
+  geolog << "Deallocating egy" << std::endl;
   if (par->output_surfenergy_bin == 1)
     {
       if (strcmp(files[fshadow], string_novalue) != 0)
@@ -369,7 +370,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
 
   /* Deallocation of struct SNOW "snow": */
-  printf("Deallocating snow\n");
+  geolog << "Deallocating snow" << std::endl;
 
   if (times->JD_plots->nh > 1)
     {
@@ -411,7 +412,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
   //  free(snow);
 
-  printf("Deallocating glacier\n");
+  geolog << "Deallocating glacier" << std::endl;
   if (par->max_glac_layers>0)
     {
       delete glac->G;
@@ -427,7 +428,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     }
   //  free(glac);
 
-  printf("Deallocating met\n");
+  geolog << "Deallocating met" << std::endl;
 
   free_doublematrix(met->Tgrid);
   free_doublematrix(met->Pgrid);
@@ -500,7 +501,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
   //  free(met);
 
-  printf("Deallocating times\n");
+  geolog << "Deallocating times" << std::endl;
   free(times->Dt_vector);
   if (par->tsteps_from_file==1)
     {
@@ -513,7 +514,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   //  free(times);
 
   /* Deallocation of struct PAR "par": */
-  printf("Deallocating par\n");
+  geolog << "Deallocating par" << std::endl;
   if (par->state_pixel == 1)
     {
       free_longmatrix(par->rc);
@@ -529,14 +530,14 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
   //  free(par);
 
   /* Deallocation of struct FILENAMES "filenames": */
-  printf("Deallocating files\n");
+  geolog << "Deallocating files" << std::endl;
   for (i=0; i<nfiles; i++)
     {
       free(files[i]);
     }
   free(files);
 
-  printf("Deallocating novalues\n");
+  geolog << "Deallocating novalues" << std::endl;
   free(string_novalue);
 
 

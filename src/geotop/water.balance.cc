@@ -27,7 +27,7 @@
 #include "util_math.h"
 #include "water.balance.h"
 #include "meteodata.h"
-
+#include <logger.h>
 #include <time.h>
 
 extern long number_novalue;
@@ -442,8 +442,8 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
 
           out2=0;
 
-          printf("cnt:%ld res:%e lambda:%e Dt:%f P:%f\n",cont,res,lambda[0],Dt,
-                 *Total_Pnet);
+          geolog << "cnt:" << cont << " res:" << res << " lambda:" << lambda[0]
+                 << " Dt:" << Dt << " P:" << *Total_Pnet << std::endl;
 
           if (res <= (1.0 - ni*lambda[0]*(1.-mu))*res_av) out2=1;
           if (lambda[0] <= adt->P->min_lambda_wat) cont_lambda_min++;
