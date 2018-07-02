@@ -23,7 +23,6 @@ float *vector(long nl, long nh)
 
 }
 
-
 /*------------------------------------------------------------------------
 
 Standard NR allocation routines for matrixes:
@@ -205,383 +204,243 @@ double **dmatrix(long nrl, long nrh, long ncl, long nch)
 
 }
 
-
-
-
-
-
-
-
 /*------------------------------------------------------------------------
-
-
 Wrappers for vectors and matrixes
-
-
 --------------------------------------------------------------------------*/
-
-
-
-
-
-/*-----------------------------------------------------------------------*/
-
 
 SHORTMATRIX *new_shortmatrix(long nrh, long nch) {
 
-
   SHORTMATRIX *m;
-
 
   m = (SHORTMATRIX *) malloc(sizeof(SHORTMATRIX));
 
-
   if (!m) t_error("allocation failure in SHORTMATRIX()");
-
 
   m->isdynamic = isDynamic;
 
-
   m->nrl = NL;
-
 
   m->nrh = nrh;
 
-
   m->ncl = NL;
 
-
   m->nch = nch;
-
 
   m->co = smatrix(1, nrh, 1, nch);
 
-
   return m;
-
 
 }
 
-
 /*-----------------------------------------------------------------------*/
-
 
 LONGMATRIX *new_longmatrix(long nrh, long nch) {
 
-
   LONGMATRIX *m;
-
 
   m = (LONGMATRIX *) malloc(sizeof(LONGMATRIX));
 
-
   if (!m) t_error("allocation failure in LONGMATRIX()");
-
 
   m->isdynamic = isDynamic;
 
-
   m->nrl = NL;
-
 
   m->nrh = nrh;
 
-
   m->ncl = NL;
 
-
   m->nch = nch;
-
 
   m->co = lmatrix(1, nrh, 1, nch);
 
-
   return m;
-
 
 }
 
-
 /*-----------------------------------------------------------------------*/
-
 
 DOUBLEMATRIX *new_doublematrix(long nrh, long nch) {
 
-
   DOUBLEMATRIX *m;
-
 
   m = (DOUBLEMATRIX *) malloc(sizeof(DOUBLEMATRIX));
 
-
   if (!m) t_error("allocation failure in new_doublematrix()");
-
 
   m->isdynamic = isDynamic;
 
-
   m->nrl = NL;
-
 
   m->nrh = nrh;
 
-
   m->ncl = NL;
 
-
   m->nch = nch;
-
 
   m->co = dmatrix(1, nrh, 1, nch);
 
-
   return m;
-
 
 }
 
-
 /*-----------------------------------------------------------------------*/
-
 
 DOUBLEMATRIX *new_doublematrix0_(long nrh, long nch) {
 
-
   DOUBLEMATRIX *m;
-
 
   m = (DOUBLEMATRIX *) malloc(sizeof(DOUBLEMATRIX));
 
-
   if (!m) t_error("allocation failure in new_doublematrix()");
 
-
   m->isdynamic = isDynamic;
-
 
   m->nrl = 0;
 
-
   m->nrh = nrh;
-
 
   m->ncl = NL;
 
-
   m->nch = nch;
-
 
   m->co = dmatrix(m->nrl, m->nrh, m->ncl, m->nch);
 
-
   return m;
-
 
 }
 
 /*-----------------------------------------------------------------------*/
-
 
 DOUBLEMATRIX *new_doublematrix_0(long nrh, long nch) {
 
-
   DOUBLEMATRIX *m;
-
 
   m = (DOUBLEMATRIX *) malloc(sizeof(DOUBLEMATRIX));
 
-
   if (!m) t_error("allocation failure in new_doublematrix()");
-
 
   m->isdynamic = isDynamic;
 
-
   m->nrl = NL;
-
 
   m->nrh = nrh;
 
-
   m->ncl = 0;
-
 
   m->nch = nch;
 
-
   m->co = dmatrix(m->nrl, m->nrh, m->ncl, m->nch);
-
 
   return m;
 
-
 }
 
-
-
-
-
 /*-----------------------------------------------------------------------*/
-
-
-/*-----------------------------------------------------------------------*/
-
-
-
-
 
 void free_smatrix(short **m, long nrl, long ncl) {
 
-
   free((FREE_ARG) (m[nrl] + ncl - NR_END));
-
 
   free((FREE_ARG) (m + nrl - NR_END));
 
-
 }
 
-
 /*-----------------------------------------------------------------------*/
-
 
 void free_lmatrix(long **m, long nrl, long ncl) {
 
-
   free((FREE_ARG) (m[nrl] + ncl - NR_END));
-
 
   free((FREE_ARG) (m + nrl - NR_END));
 
-
 }
 
-
 /*-----------------------------------------------------------------------*/
-
 
 void free_dmatrix(double **m, long nrl, long ncl) {
 
-
   free((FREE_ARG) (m[nrl] + ncl - NR_END));
-
 
   free((FREE_ARG) (m + nrl - NR_END));
 
-
 }
 
-
 /*-----------------------------------------------------------------------*/
-
-
-
-
 
 void free_shortmatrix(SHORTMATRIX *m) {
 
-
   if (m == NULL || m->co == NULL) {
-
 
     t_error("This matrix was never allocated");
 
-
   } else if (m->isdynamic == 1) {
-
 
     free_smatrix(m->co, NL, NL);
 
-
     m->isdynamic = m->nrl = m->ncl = m->nrh = m->nch = -1;
-
 
     free(m);
 
-
     return;
-
 
   } else {
 
-
     printf("\nWarning::An attemp was made to free a non dynamic matrix\n");
-
 
   }
 
-
 }
 
-
 /*-----------------------------------------------------------------------*/
-
-
-
-
 
 void free_longmatrix(LONGMATRIX *m) {
 
-
   if (m == NULL || m->co == NULL) {
-
 
     t_error("This matrix was never allocated");
 
-
   } else if (m->isdynamic == 1) {
-
 
     free_lmatrix(m->co, NL, NL);
 
-
     m->isdynamic = m->nrl = m->ncl = m->nrh = m->nch = -1;
-
 
     free(m);
 
-
     return;
-
 
   } else {
 
-
     printf("\nWarning::An attemp was made to free a non dynamic matrix\n");
-
 
   }
 
-
 }
 
-
 /*-----------------------------------------------------------------------*/
-
-
-
-
 
 void free_doublematrix(DOUBLEMATRIX *m) {
 
   if (m == NULL || m->co == NULL) {
+
     t_error("This matrix was never allocated");
+
   } else if (m->isdynamic == 1) {
+
     free_dmatrix(m->co, m->nrl, m->ncl);
+
     m->isdynamic = m->nrl = m->ncl = m->nrh = m->nch = -1;
+
     free(m);
+
     return;
+
   } else {
+
     printf("\nWarning::An attemp was made to free a non dynamic matrix\n");
+
   }
 
-
 }
-
-
-
-
-
-
-
 

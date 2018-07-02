@@ -41,44 +41,6 @@
 /*--------------------------------------------------------------------------*/
 
 /*--------------------------------------------------------------------------*/
-/* Another random number generator from Numerical Recipes  with some
-modifications                                                               */
-
-double ran1(long *idum)
-{
-  static long ix1,ix2,ix3;
-  static double r[98];
-  double temp;
-  static long iff;
-  long j;
-
-  if (*idum<0 || iff==0)
-    {
-      iff=1;
-      ix1=(IC1-(*idum)) %  M1;
-      ix1=(IA1*ix1+IC1) % M1;
-      ix2=ix1 % M2;
-      ix1=(IA1*ix1+IC1) % M1;
-      ix3=ix1 % M3;
-      for (j=0; j<=96; j++)
-        {
-          ix1=(IA1*ix1+IC1) % M1;
-          ix2=(IA2*ix2+IC2) % M2;
-          r[j]=(ix1+ix2*RM2)*RM1;
-        }
-      *idum=1;
-    }
-
-  ix1=(IA1*ix1+IC1) % M1;
-  ix2=(IA2*ix2+IC2) % M2;
-  ix3=(IA3*ix3+IC3) % M3;
-  j=1+((96*ix3)/M3);
-  if (j > 96 || j<0) t_error("This cannot happen.");
-  temp=r[j];
-  r[j]=(ix1+ix2*RM2)*RM1;
-  return temp;
-
-}
 
 
 

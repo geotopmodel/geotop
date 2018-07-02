@@ -3,11 +3,6 @@
 //#include "t_statistics.h"
 
 
-
-/*-------------------------------------------------------------------------------*/
-
-
-/*---------------------------------------------------------------------------*/
 void initialize_shortmatrix(SHORTMATRIX *L, short sign) {
 
   long i, j;
@@ -26,7 +21,6 @@ void initialize_shortmatrix(SHORTMATRIX *L, short sign) {
     t_error("A null matrix was addressed");
   }
 }
-
 
 /*---------------------------------------------------------------------------*/
 void initialize_longmatrix(LONGMATRIX *L, long sign) {
@@ -48,7 +42,6 @@ void initialize_longmatrix(LONGMATRIX *L, long sign) {
   }
 }
 
-
 /*---------------------------------------------------------------------------*/
 void initialize_doublematrix(DOUBLEMATRIX *L, double sign) {
 
@@ -68,41 +61,6 @@ void initialize_doublematrix(DOUBLEMATRIX *L, double sign) {
     t_error("A null matrix was addressed");
   }
 }
-
-
-/*--------------------------------------------------------------------------*/
-
-void copy_shortmatrix(SHORTMATRIX *origin, SHORTMATRIX *destination) {
-
-  long i, j;
-
-  if (origin == NULL || destination == NULL || origin->co == NULL
-      || destination->co == NULL) {
-
-    t_error("A matrix was not allocated");
-
-  } else if (origin->isdynamic != 1 || destination->isdynamic != 1 || origin->nrh < 1
-             || destination->nrh < 1 || origin->nch < 1 || destination->nch < 1) {
-
-    t_error("A matrix was not allocated properly");
-
-  } else if (origin->nrh != destination->nrh
-             || origin->nch != destination->nch) {
-
-    t_error("The matrixes do not have the same dimensions");
-
-  }
-
-  for (i = 1; i <= origin->nrh; i++) {
-    for (j = 1; j <= origin->nch; j++) {
-
-      destination->co[i][j] = origin->co[i][j];
-
-    }
-  }
-
-}
-
 
 /*--------------------------------------------------------------------------*/
 
@@ -134,7 +92,6 @@ void copy_doublematrix(DOUBLEMATRIX *origin, DOUBLEMATRIX *destination) {
 
     }
   }
-
 }
 
 
