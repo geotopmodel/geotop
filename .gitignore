@@ -39,10 +39,6 @@ output-tabs/*
 output-tabs/
 output-maps/*
 output-maps/
-output_tabs/*
-output_tabs/
-output_maps/*
-output_maps/
 *.old
 input*
 failing_output

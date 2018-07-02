@@ -69,7 +69,8 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 {
     GEOLOG_PREFIX(__func__);
 
-    FILE *flog, *f;
+    FILE *flog; /** log file */
+    FILE *f; /** failed run file*/
     DOUBLEMATRIX *M;
     std::unique_ptr<INIT_TOOLS> IT;
 
@@ -91,7 +92,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
     // reads the parameters in __control_parameters
     temp = join_strings(WORKING_DIRECTORY, program_name);
-    success = read_inpts_par(par, land, times, sl, met, IT.get(), temp, flog);
+    success = read_inpts_par(par, land, times, sl, met, IT.get(), temp);
     free(temp);
 
     // correct state pixel
@@ -154,12 +155,11 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     }
 
     // soil parameters
-    success = read_soil_parameters(files[fspar], IT.get(), sl,
-                                   par->soil_type_bedr_default, flog);
+    success = read_soil_parameters(files[fspar], IT.get(), sl, par->soil_type_bedr_default);
     Nl=sl->pa->nch;
 
     // pointlist files
-    success = read_point_file(files[fpointlist], IT->point_col_names, par, flog);
+    success = read_point_file(files[fpointlist], IT->point_col_names, par);
 
     // max time that the simulation is supposed to model
     max_time = 0.;
@@ -350,8 +350,8 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     met->line_interp_WEB_LR=0;
     met->line_interp_Bsnow_LR=0;
 
-    success = read_meteostations_file(met->imeteo_stations.get(), met->st.get(),
-                                      files[fmetstlist], IT->meteostations_col_names, flog);
+    success = read_meteostations_file(met->imeteo_stations.get(), met->st.get(), files[fmetstlist],
+                                      IT->meteostations_col_names);
 
     for (i=1; i<=met->st->E->nh; i++)
     {
@@ -373,8 +373,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
         met->var[i-1] = (double *)malloc(num_cols*sizeof(double));
 
         // read horizon
-        met->horizon[i-1] = read_horizon(1, ist, files[fhormet],
-                                         IT->horizon_col_names, &num_lines, flog);
+        met->horizon[i-1] = read_horizon(1, ist, files[fhormet], IT->horizon_col_names, &num_lines);
         met->horizonlines[i-1] = num_lines;
 
         // filename
@@ -383,8 +382,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
             // read matrix
             temp=namefile_i(files[fmet], ist);
-            met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet,
-                                             &num_lines, flog);
+            met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines);
 
             if ((long)met->data[i-1][0][iDate12] == number_absent
                 && (long)met->data[i-1][0][iJDfrom0] == number_absent)
@@ -537,8 +535,7 @@ used default values" << std::endl;
             printf("Lapse rate file unavailable. Check input files. If you do not have a lapse rate file,\
  remove its name and keywords from input file\n");
         temp = join_strings(files[fLRs], textfile);
-        met->LRs = read_txt_matrix(temp, 33, 44, IT->lapserates_col_names, nlstot,
-                                   &num_lines, flog);
+        met->LRs = read_txt_matrix(temp, 33, 44, IT->lapserates_col_names, nlstot, &num_lines);
         free(temp);
         met->LRsnr = num_lines;
         par->LRflag=1;
@@ -588,13 +585,11 @@ used default values" << std::endl;
     while (met->nstsrad<met->st->Z->nh && a==0);
     if (a==0)
     {
-        printf("WARNING: NO shortwave radiation measurements available\n");
-        fprintf(flog,"WARNING: NO shortwave radiation measurements available\n");
+        geolog << "WARNING: NO shortwave radiation measurements available" << std::endl;
     }
     else
     {
-        printf("Shortwave radiation measurements from station %ld\n",met->nstsrad);
-        fprintf(flog,"Shortwave radiation measurements from station %ld\n", met->nstsrad);
+        geolog << "Shortwave radiation measurements from station " << met->nstsrad << std::endl;
     }
 
     // FIND A STATION WITH CLOUD DATA
@@ -610,13 +605,11 @@ used default values" << std::endl;
     while (met->nstcloud<met->st->Z->nh && a==0);
     if (a==0)
     {
-        printf("WARNING: NO cloudiness measurements available\n");
-        fprintf(flog,"WARNING: NO cloudiness measurements available\n");
+        geolog << "WARNING: NO cloudiness measurements available" << std::endl;
     }
     else
     {
-        printf("Cloudiness measurements from station %ld\n",met->nstcloud);
-        fprintf(flog,"Cloudiness measurements from station %ld\n",met->nstcloud);
+        geolog << "Cloudiness measurements from station " << met->nstcloud << std::endl;
     }
 
     // FIND A STATION WITH LONGWAVE RADIATION DATA
@@ -631,14 +624,11 @@ used default values" << std::endl;
     while (met->nstlrad<met->st->Z->nh && a==0);
     if (a==0)
     {
-        printf("WARNING: NO longwave radiation measurements available\n");
-        fprintf(flog,"WARNING: NO longwave radiation measurements available\n");
+        geolog << "WARNING: NO longwave radiation measurements available" << std::endl;
     }
     else
     {
-        printf("Longwave radiation measurements from station %ld\n",met->nstlrad);
-        fprintf(flog,"Longwave radiation measurements from station %ld\n",
-                met->nstlrad);
+        geolog << "Longwave radiation measurements from station " << met->nstlrad << std::endl;
     }
 
     // FIND A STATION WITH SURFACE TEMPERATURE ABOVE
@@ -697,7 +687,7 @@ used default values" << std::endl;
         temp2 = (char **)malloc(2*sizeof(char *));
         temp2[0] = assign_string("Time");
         temp2[1] = assign_string("Qx");
-        met->qins = read_txt_matrix(temp, 33, 44, temp2, 2, &num_lines, flog);
+        met->qins = read_txt_matrix(temp, 33, 44, temp2, 2, &num_lines);
         free(temp);
         free(temp2[0]);
         free(temp2[1]);
@@ -2556,7 +2546,7 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT,
     FILE *f;
 
     // reading TOPOGRAPHY
-    flag = file_exists(fdem, flog);
+    flag = file_exists(fdem);
     if (flag == 1)
     {
         M=new_doublematrix(1,1);
@@ -2595,7 +2585,7 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT,
     }
 
     // reading LAND COVER TYPE
-    flag = file_exists(flu, flog);
+    flag = file_exists(flu);
     if (flag == 1)
     {
         land->LC=read_map(1, files[flu], top->Z0, UV, (double)number_novalue);
@@ -2681,8 +2671,7 @@ to the land cover type\n");
             if (par->rc->co[i][1] == number_novalue
                 || par->rc->co[i][2] == number_novalue)
             {
-                printf("Point #%4ld is out of the domain",i);
-                fprintf(flog, "Point #%4ld is out of the domain",i);
+                geolog << "Point #" << i << " is out of the domain";
                 fclose(flog);
 
                 f = fopen(FailedRunFile, "w");
@@ -2693,8 +2682,7 @@ to the land cover type\n");
 
             if ((long)land->LC->co[par->rc->co[i][1]][par->rc->co[i][2]]==number_novalue)
             {
-                printf("Point #%4ld corresponds to NOVALUE pixel",i);
-                fprintf(flog, "Point #%4ld corresponds to NOVALUE pixel",i);
+                geolog << "Point #" << i << " corresponds to NOVALUE pixel";
                 fclose(flog);
 
                 f = fopen(FailedRunFile, "w");
@@ -2716,7 +2704,7 @@ to the land cover type\n");
 
     /*************************************************************************************************/
     // reading SKY VIEW FACTOR
-    flag = file_exists(fsky, flog);
+    flag = file_exists(fsky);
     if (flag == 1)
     {
         top->sky=read_map(2, files[fsky], land->LC, UV, (double)number_novalue);
@@ -2741,7 +2729,7 @@ to the land cover type\n");
 
     /**************************************************************************************************/
     // reading DELAY
-    flag = file_exists(fdelay, flog);
+    flag = file_exists(fdelay);
     if (flag == 1)
     {
         land->delay = read_map(2, files[fdelay], land->LC, UV,
@@ -2757,7 +2745,7 @@ to the land cover type\n");
 
     /**************************************************************************************************/
     // reading SOIL MAP
-    flag = file_exists(fsoil, flog);
+    flag = file_exists(fsoil);
     if (flag == 1)
     {
         M=read_map(2, files[fsoil], land->LC, UV, (double)number_novalue);
@@ -2796,7 +2784,7 @@ to the soil type map");
     find_slope(UV->U->co[1], UV->U->co[2], top->Z0, top->dzdE, top->dzdN,
                (double)number_novalue);
 
-    flag = file_exists(fslp, flog);
+    flag = file_exists(fslp);
     if (flag == 1)
     {
         top->slope=read_map(2, files[fslp], land->LC, UV, (double)number_novalue); // reads in degrees
@@ -2809,12 +2797,12 @@ to the soil type map");
         write_map(files[fslp], 0, par->format_out, top->slope, UV, number_novalue);
 
     find_min_max(top->slope, (double)number_novalue, &max, &min);
-    printf("Slope Min:%f (%f deg) Max:%f (%f deg) \n",tan(min*Pi/180.),min, tan(max*Pi/180.),max);
-    fprintf(flog,"Slope Min:%f (%f deg) Max:%f (%f deg) \n",tan(min*Pi/180.),min,tan(max*Pi/180.),max);
+    geolog << "Slope Min:" << tan(min*Pi/180.) << "(" << min << "deg)"
+           << "Max:" << tan(max*Pi/180.) << "(" << max << "deg)" << std::endl;
 
     /**************************************************************************************************/
     // ASPECT
-    flag = file_exists(fasp, flog);
+    flag = file_exists(fasp);
     if (flag == 1)
     {
         top->aspect=read_map(2, files[fasp], land->LC, UV, (double)number_novalue);
@@ -2861,20 +2849,16 @@ to the soil type map");
     }
 
     find_min_max(top->curvature1, (double)number_novalue, &max, &min);
-    printf("Curvature N-S Min:%f  Max:%f \n",min,max);
-    fprintf(flog,"Curvature N-S Min:%f  Max:%f \n",min,max);
+    geolog << "Curvature N-S Min:" << min << " Max:" << max << std::endl;
 
     find_min_max(top->curvature2, (double)number_novalue, &max, &min);
-    printf("Curvature W-E Min:%f  Max:%f \n",min,max);
-    fprintf(flog,"Curvature W-E Min:%f  Max:%f \n",min,max);
+    geolog << "Curvature W-E Min:" << min << " Max:" << max << std::endl;
 
     find_min_max(top->curvature3, (double)number_novalue, &max, &min);
-    printf("Curvature NW-SE Min:%f  Max:%f \n",min,max);
-    fprintf(flog,"Curvature NW-SE Min:%f  Max:%f \n",min,max);
+    geolog << "Curvature NW-SE Min:" << min << " Max:" << max << std::endl;
 
     find_min_max(top->curvature4, (double)number_novalue, &max, &min);
-    printf("Curvature NE-SW Min:%f  Max:%f \n",min,max);
-    fprintf(flog,"Curvature NE-SW Min:%f  Max:%f \n",min,max);
+    geolog << "Curvature NW-SE Min:" << min << " Max:" << max << std::endl;
 
     /**************************************************************************************************/
     /*
@@ -2889,7 +2873,7 @@ to the soil type map");
     //pixel type = -1 land pixel where an incoming discharge from outside is considered (as rain)
     */
 
-    flag = file_exists(fnet, flog);
+    flag = file_exists(fnet);
     if (flag == 1)
     {
         M=read_map(2, files[fnet], land->LC, UV, (double)number_novalue);
@@ -2994,7 +2978,7 @@ to the soil type map");
     }
 
     // bedrock
-    flag = file_exists(fbed, flog);
+    flag = file_exists(fbed);
     if (flag == 1)
     {
         IT->bed=read_map(2, files[fbed], land->LC, UV, (double)number_novalue);
@@ -3063,19 +3047,15 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl,
     }
     if (read_dem == 1 && coordinates == 0)
     {
-        printf("Warning: \
-Not possible to read from dem because at least one point has no coordinates\n");
-        fprintf(flog, "Warning: \
-Not possible to read from dem because at least one point has no coordinates\n");
+        geolog << "Warning: Not possible to read from dem because at least one point has no coordinates" << std::endl;
         read_dem = 0;
     }
     if (read_dem==1)
     {
-        flag = file_exists(fdem, flog);
+        flag = file_exists(fdem);
         if (flag == 1)
         {
-            printf("Warning: Dem file %s present\n",files[fdem]+1);
-            fprintf(flog,"Warning: Dem file %s present\n",files[fdem]+1);
+            geolog << "Warning: Dem file " << files[fdem]+1 << "present" << std::endl;
 
             Q=new_doublematrix(1,1);
             Z=read_map(0, files[fdem], Q, UV, (double)number_novalue); //topography
@@ -3090,8 +3070,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         else
         {
             read_dem=0;
-            printf("Warning: Dem file not present\n");
-            fprintf(flog,"Warning: Dem file not present\n");
+            geolog << "Warning: Dem file not present" << std::endl;
 
             /*if(par->recover>0){
               printf("Warning: Not possible to recover the simulation because there is no dem\n");
@@ -3130,7 +3109,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         read_lu=0;
     if (read_lu==1)
     {
-        flag = file_exists(flu, flog);
+        flag = file_exists(flu);
         if (flag == 1)
         {
             if (read_dem==0)
@@ -3147,8 +3126,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         }
         else
         {
-            printf("Warning: Landuse file not present, uniform cover considered\n");
-            fprintf(flog,"Warning: Landuse file not present, uniform cover considered\n");
+            geolog << "Warning: Landuse file not present, uniform cover considered" << std::endl;
             if (read_dem==1)
             {
                 LU=copydoublematrix_const(1.0, Z, (double)number_novalue);
@@ -3192,7 +3170,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         read_soil=0;
     if (read_soil==1)
     {
-        flag = file_exists(fsoil, flog);
+        flag = file_exists(fsoil);
         if (flag == 1)
         {
             if (read_dem==0)
@@ -3209,8 +3187,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         }
         else
         {
-            printf("Warning: Soiltype file not present\n");
-            fprintf(flog,"Warning: Soiltype file not present\n");
+            geolog << "Warning: Soiltype file not present" << std::endl;
             read_soil=0;
         }
     }
@@ -3239,7 +3216,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         read_sl=0;
     if (read_sl==1)
     {
-        flag = file_exists(fslp, flog);
+        flag = file_exists(fslp);
         if (flag == 1)
         {
             if (read_dem==0)
@@ -3258,8 +3235,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         {
             if (read_dem==0)
             {
-                printf("Warning: Slopes file not present\n");
-                fprintf(flog,"Warning: Slopes file not present\n");
+                geolog << "Warning: Slopes file not present" << std::endl;
                 read_sl=0;
             }
             else
@@ -3279,10 +3255,8 @@ Not possible to read from dem because at least one point has no coordinates\n");
     if (read_sl==1)
     {
         find_min_max(P, (double)number_novalue, &max, &min);
-        printf("Slope Min:%f (%f deg) Max:%f (%f deg) \n",tan(min*Pi/180.),min,
-               tan(max*Pi/180.),max);
-        fprintf(flog,"Slope Min:%f (%f deg) Max:%f (%f deg) \n",tan(min*Pi/180.),min,
-                tan(max*Pi/180.),max);
+        geolog << "Slope Min:" << tan(min*Pi/180.) << "(" << min << "deg)"
+               << "Max:" << tan(max*Pi/180.) << "(" << max << "deg)" << std::endl;
 
         for (i=1; i<=par->chkpt->nrh; i++)
         {
@@ -3307,7 +3281,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         read_as=0;
     if (read_as==1)
     {
-        flag = file_exists(fasp, flog);
+        flag = file_exists(fasp);
         if (flag == 1)
         {
             if (read_dem==0)
@@ -3325,8 +3299,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         {
             if (read_dem==0)
             {
-                printf("Warning: Aspect file not present\n");
-                fprintf(flog,"Warning: Aspect file not present\n");
+                geolog << "Warning: Aspect file not present" << std::endl;
                 read_as=0;
             }
             else
@@ -3368,7 +3341,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         read_sk=0;
     if (read_sk==1)
     {
-        flag = file_exists(fsky, flog);
+        flag = file_exists(fsky);
         if (flag == 1)
         {
             if (read_dem==0)
@@ -3386,8 +3359,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         {
             if (read_dem==0)
             {
-                printf("Warning: Sky view factor file not present\n");
-                fprintf(flog,"Warning: Sky view factor file not present\n");
+                geolog << "Warning: Sky view factor file not present" << std::endl;
                 read_sk=0;
             }
             else
@@ -3428,7 +3400,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         read_bed=0;
     if (read_bed==1)
     {
-        flag = file_exists(fbed, flog);
+        flag = file_exists(fbed);
         if (flag == 1)
         {
             if (read_dem==0)
@@ -3444,8 +3416,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
         }
         else
         {
-            printf("Warning: Bedrock depth file not present\n");
-            fprintf(flog,"Warning: Sky view factor file not present\n");
+            geolog << "Warning: Bedrock depth file not present" << std::endl;
             read_bed=0;
         }
     }
@@ -3479,10 +3450,7 @@ Not possible to read from dem because at least one point has no coordinates\n");
     {
         if (read_dem==0)
         {
-            printf("Warning: \
-Dem file is not present, and therefore it is not possible to calculate curvature\n");
-            fprintf(flog, "Warning: \
-Dem file is not present, and therefore it is not possible to calculate curvature\n");
+            geolog << "Warning: Dem file is not present, and therefore it is not possible to calculate curvature" << std::endl;
             read_curv=0;
         }
         else
@@ -3514,20 +3482,17 @@ Dem file is not present, and therefore it is not possible to calculate curvature
             }
 
             find_min_max(P, (double)number_novalue, &max, &min);
-            printf("Curvature N-S Min:%f  Max:%f \n",min,max);
-            fprintf(flog,"Curvature N-S Min:%f  Max:%f \n",min,max);
+            geolog << "Curvature N-S Min:" << min << " Max:" << max << std::endl;
+
 
             find_min_max(R, (double)number_novalue, &max, &min);
-            printf("Curvature W-E Min:%f  Max:%f \n",min,max);
-            fprintf(flog,"Curvature W-E Min:%f  Max:%f \n",min,max);
+            geolog << "Curvature W-E Min:" << min << " Max:" << max << std::endl;
 
             find_min_max(S, (double)number_novalue, &max, &min);
-            printf("Curvature NW-SE Min:%f  Max:%f \n",min,max);
-            fprintf(flog,"Curvature NW-SE Min:%f  Max:%f \n",min,max);
+            geolog << "Curvature NW-SE Min:" << min << " Max:" << max << std::endl;
 
             find_min_max(T, (double)number_novalue, &max, &min);
-            printf("Curvature NE-SW Min:%f  Max:%f \n",min,max);
-            fprintf(flog,"Curvature NE-SW Min:%f  Max:%f \n",min,max);
+            geolog << "Curvature NE-SW Min:" << min << " Max:" << max << std::endl;
         }
     }
     if (read_curv==1)
@@ -3609,19 +3574,19 @@ Dem file is not present, and therefore it is not possible to calculate curvature
     }
 
     // ---------------------- (i) Show results ----------------------
-    fprintf(flog,"\nPOINTS:\n");
-    fprintf(flog, "ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],\
+    geolog << std::endl << "POINTS:" << std::endl;
+    geolog << "ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],\
 SkyViewFactor[-],CurvatureN-S[1/m],CurvatureW-E[1/m],CurvatureNW-SE[1/m],CurvatureNE-SW[1/m],\
-DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]\n");
+DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
 
     for (r=1; r<=par->chkpt->nrh; r++)
     {
         for (c=1; c<=ptTOT; c++)
         {
-            fprintf(flog,"%f",par->chkpt->co[r][c]);
-            if (c<ptTOT) fprintf(flog, ",");
+            geolog << par->chkpt->co[r][c];
+            if (c<ptTOT) geolog << "," << std::endl;
         }
-        fprintf(flog,"\n");
+        geolog << std::endl;
     }
 
     // ---------------------- (l) Set UV ----------------------
@@ -3804,8 +3769,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]\n");
 
         if (c < par->chkpt->nrh)
         {
-            top->horizon_height[i-1] = read_horizon(0, i, files[fhorpoint],
-                                                    IT->horizon_col_names, &num_lines, flog);
+            top->horizon_height[i-1] = read_horizon(0, i, files[fhorpoint], IT->horizon_col_names, &num_lines);
             top->horizon_numlines[i-1] = num_lines;
         }
         else
@@ -4019,36 +3983,30 @@ DOUBLETENSOR *find_Z_of_any_layer(DOUBLEMATRIX *Zsurface, DOUBLEMATRIX *slope,
 /***************************************************************************************************/
 /***************************************************************************************************/
 
-short file_exists(short key, FILE *flog)
+short file_exists(short key)
 {
     GEOLOG_PREFIX(__func__);
     //no keyword -> -1
     //keyword but does not exist -> 0
     //keyword and exists -> 1
 
-    printf("Attempting to read '%s' in the file '%s': ",
-           keywords_char[key+nmet+nsoilprop+2],files[key]);
-    fprintf(flog,"Attempting to read '%s' in the file '%s': ",
-            keywords_char[key+nmet+nsoilprop+2],files[key]);
+    geolog << "Attempting to read '"<< keywords_char[key+nmet+nsoilprop+2] << "' in the file '" << files[key]<< "': ";
 
     if (strcmp(files[key], string_novalue) == 0)
     {
-        printf("not present in file list\n");
-        fprintf(flog,"not present in file list\n");
+        geolog << "not present in file list" << std::endl;
         return (-1);
     }
     else
     {
         if (existing_file(files[key])>0)
         {
-            printf("EXISTING in format %d\n",existing_file(files[key]));
-            fprintf(flog, "EXISTING in format %d\n",existing_file(files[key]));
+            geolog << "EXISTING in format " << existing_file(files[key]) << std::endl;
             return (1);
         }
         else
         {
-            printf("not existing\n");
-            fprintf(flog, "not existing\n");
+            geolog << "not existing" << std::endl;
             return (0);
         }
     }

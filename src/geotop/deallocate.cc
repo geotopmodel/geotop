@@ -559,75 +559,84 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac,
-                   ENERGY *egy, METEO *met, WATER *wat)
-{
 
-  long i, j;
-
-  if (par->state_pixel == 1)
-    {
-      if (strcmp(files[fTzav], string_novalue) != 0
-          || strcmp(files[fTzavwriteend],
-                    string_novalue) != 0) initialize_doublematrix(sl->Tzavplot,0.);
-      if (strcmp(files[fliqzav], string_novalue) != 0
-          || strcmp(files[fliqzavwriteend],
-                    string_novalue) != 0) initialize_doublematrix(sl->thzavplot,0.);
-      if (strcmp(files[ficezav], string_novalue) != 0
-          || strcmp(files[ficezavwriteend],
-                    string_novalue) != 0) initialize_doublematrix(sl->thizavplot,0.);
-
-      for (i=1; i<=par->rc->nrh; i++)
-        {
-          for (j=0; j<otot; j++)
-            {
-              odpnt[j][i-1]=0.0;
-            }
-        }
-    }
-
-  if (par->state_basin== 1)
-    {
-      for (j=0; j<ootot; j++)
-        {
-          odbsn[j]=0.0;
-        }
-    }
-
-  if (par->output_soil_bin == 1)
-    {
-      if (strcmp(files[fTav], string_novalue) != 0
-          || strcmp(files[fTavsup],
-                    string_novalue) != 0) initialize_doublematrix(sl->T_av_tensor, 0.);
-      if (strcmp(files[ficeav],
-                 string_novalue) != 0) initialize_doublematrix(sl->thi_av_tensor, 0.);
-      if (strcmp(files[fliqav],
-                 string_novalue) != 0) initialize_doublematrix(sl->thw_av_tensor, 0.);
-    }
-
-  if (par->output_snow_bin == 1)
-    {
-
-      if (strcmp(files[fswe], string_novalue) != 0 && par->blowing_snow==1)
-        {
-          initmatrix(0.0, snow->Wtrans_plot, land->LC, number_novalue);
-          initmatrix(0.0, snow->Wsubl_plot, land->LC, number_novalue);
-        }
-    }
-
-  if (par->output_surfenergy_bin == 1)
-    {
-
-      if (strcmp(files[fshadow], string_novalue) != 0)
-        {
-          (*egy->nDt_shadow) = 0;
-          (*egy->nDt_sun) = 0;
-        }
-
-    }
-
+void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac, ENERGY *egy, METEO *met, WATER *wat){
+	
+	long i, j;
+		
+	if(par->state_pixel == 1){
+		if(strcmp(files[fTzav] , string_novalue) != 0 || strcmp(files[fTzavwriteend] , string_novalue) != 0) initialize_doublematrix(sl->Tzavplot,0.); 
+		if(strcmp(files[fliqzav] , string_novalue) != 0 || strcmp(files[fliqzavwriteend] , string_novalue) != 0) initialize_doublematrix(sl->thzavplot,0.); 
+		if(strcmp(files[ficezav] , string_novalue) != 0 || strcmp(files[ficezavwriteend] , string_novalue) != 0) initialize_doublematrix(sl->thizavplot,0.); 
+		
+		for(i=1;i<=par->rc->nrh;i++){
+			for(j=0;j<otot;j++) { 
+				odpnt[j][i-1]=0.0; 
+			}
+		}	
+	}
+	
+	if(par->state_basin== 1){
+		for(j=0;j<ootot;j++){ 
+			odbsn[j]=0.0; 
+		}
+	}
+	
+	if(par->output_soil_bin == 1){
+		if(strcmp(files[fTav] , string_novalue) != 0 || strcmp(files[fTavsup] , string_novalue) != 0) initialize_doublematrix(sl->T_av_tensor, 0.);
+		if(strcmp(files[ficeav] , string_novalue) != 0) initialize_doublematrix(sl->thi_av_tensor, 0.);
+		if(strcmp(files[fliqav] , string_novalue) != 0) initialize_doublematrix(sl->thw_av_tensor, 0.);
+		if(strcmp(files[fpnet] , string_novalue) != 0) *(sl->Pnetcum) = 0;
+		if(strcmp(files[fevap] , string_novalue) != 0) *(sl->ETcum) = 0;
+	}
+	
+	if(par->output_snow_bin == 1){
+		if(strcmp(files[fsnowmelt] , string_novalue) != 0) *(snow->MELTED)= 0.;
+		if(strcmp(files[fsnowsubl] , string_novalue) != 0) *(snow->SUBL) = 0;
+		if(strcmp(files[fswe] , string_novalue) != 0 && par->blowing_snow==1){
+			initmatrix(0.0, snow->Wtrans_plot, land->LC, number_novalue);
+			initmatrix(0.0, snow->Wsubl_plot, land->LC, number_novalue);
+		}
+		if(strcmp(files[fsndur] , string_novalue) != 0) *(snow->t_snow) = 0;
+	}
+	
+	if(par->max_glac_layers>0 && par->output_glac_bin==1){
+	  if(strcmp(files[fglacmelt] , string_novalue) != 0) *(glac->MELTED) = 0;
+	  if(strcmp(files[fglacsubl] , string_novalue) != 0) *(glac->SUBL) = 0;
+	}
+	
+	if(par->output_surfenergy_bin == 1){
+		
+	  if(strcmp(files[fradnet] , string_novalue) != 0) *(egy->Rn_mean) = 0;
+	  if(strcmp(files[fradLWin] , string_novalue) != 0) *(egy->LWin_mean) = 0;
+	  if(strcmp(files[fradLW] , string_novalue) != 0) *(egy->LW_mean) = 0;
+	  if(strcmp(files[fradSW] , string_novalue) != 0) *(egy->SW_mean) = 0;
+	  if(strcmp(files[fradSWin] , string_novalue) != 0) *(egy->Rswdown_mean) = 0;
+	  if(strcmp(files[fradSWinbeam] , string_novalue) != 0) *(egy->Rswbeam_mean) = 0;
+		if(strcmp(files[fshadow] , string_novalue) != 0){
+		  *(egy->nDt_shadow) = 0;
+		  *(egy->nDt_sun) = 0;
+		}
+		
+		if(strcmp(files[fG] , string_novalue) != 0) *(egy->SEB_mean) = 0;
+		if(strcmp(files[fH] , string_novalue) != 0) *(egy->H_mean) = 0;
+		if(strcmp(files[fLE] , string_novalue) != 0) *(egy->ET_mean) = 0;
+		if(strcmp(files[fTs] , string_novalue) != 0) *(egy->Ts_mean) = 0;
+	}
+	
+	if (par->output_meteo_bin == 1){
+	  if(strcmp(files[fTa] , string_novalue) != 0) *(met->Tamean) = 0;
+	  if(strcmp(files[fwspd] , string_novalue) != 0) *(met->Vspdmean) = 0;
+	  if(strcmp(files[fwdir] , string_novalue) != 0) *(met->Vdirmean) = 0;
+	  if(strcmp(files[frh] , string_novalue) != 0) *(met->RHmean) = 0;
+		if(strcmp(files[fprec] , string_novalue) != 0){
+		  *(wat->PrTOT_mean) = 0;
+		  *(wat->PrSNW_mean) = 0;
+		}
+	}
 
 }
+
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/

@@ -58,7 +58,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top,
 DOUBLETENSOR *find_Z_of_any_layer(DOUBLEMATRIX *Zsurface, DOUBLEMATRIX *slope,
                                   DOUBLEMATRIX *LC, SOIL *sl, short point);
 
-short file_exists(short key, FILE *flog);
+short file_exists(short key);
 
 void copy_soil_state(SOIL_STATE *from, SOIL_STATE *to);
 

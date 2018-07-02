@@ -63,10 +63,12 @@ FILE *t_fopen(const char *name, const char *mode) {
   if (-1 == ret) {
     fprintf(stderr, "ERROR: Unable to create parent directory `%s`. Exiting.\n",
             basedir);
-    free(basedir);
+    // free(basedir);
     exit(1);
   }
+
 /*  free(basedir); */
+
 
   fp = fopen(name, mode);
   if (fp == NULL) {

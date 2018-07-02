@@ -38,3 +38,14 @@ foreach(_t ${_tests})
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${_t}
                 COMMAND $<TARGET_FILE:geotop> .)
 endforeach()
+
+# setup the test_runner tests. They have an additional suite entry,
+# namely 'test_runner'
+
+foreach(_t ${_tests})
+  add_test(NAME "${_t}.test_runner"
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${_t}
+	COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/compare.sh)
+  set_tests_properties("${_t}.test_runner" PROPERTIES
+	DEPENDS "${_t}")
+endforeach()
