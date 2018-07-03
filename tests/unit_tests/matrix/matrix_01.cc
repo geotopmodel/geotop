@@ -1,28 +1,39 @@
-#include<gtest/gtest.h>
+#include <gtest/gtest.h>
 #include <matrix.h>
+#include <iterator> // std::prev
 
 TEST(Matrix, constructors){
   Matrix<int> m(3,1,5,2); // 3x4
-  EXPECT_EQ(std::size_t{3}, m.n_row);
-  EXPECT_EQ(std::size_t{4}, m.n_col);
+  EXPECT_EQ( std::size_t{3}, m.n_row );
+  EXPECT_EQ( std::size_t{4}, m.n_col );
 }
 
-// TEST(Matrix, initialization){
-//   Matrix<double> m(3,1,5,2);
-//   EXPECT_DOUBLE_EQ(m[0][0], 0);
-//   EXPECT_DOUBLE_EQ(m[2][1], 0);
-// }
+TEST(Matrix, initialization){
+  Matrix<int> m(3,2,3,2); // 2x2
+  EXPECT_EQ( 0, m(0,0));
+  EXPECT_EQ( 0, m(0,1));
+  EXPECT_EQ( 0, m(1,0));
+  EXPECT_EQ( 0, m(1,1));
+}
 
 TEST(Matrix, begin){
-  Matrix<int> m(2,1,2,1); // 2x2
+  Matrix<int> m(3,2,3,2); // 2x2
   m(0,0) = 1;
   m(0,1) = 2;
   m(1,0) = 3;
   m(1,1) = 4;
-  //  m[2][2] = 99;
-
-  EXPECT_EQ(1, *(m.begin()));
+  EXPECT_EQ( 1, *(m.begin()) );
 }
+
+TEST(Matrix, end){
+  Matrix<int> m(3,2,3,2); // 2x2
+  m(0,0) = 1;
+  m(0,1) = 2;
+  m(1,0) = 3;
+  m(1,1) = 4;
+  EXPECT_EQ( 4, *std::prev(m.end()) );
+}
+
 
 // TEST(Matrix, end){
 //   Matrix<int> m(2,1,2,1); // 2x2 matrix
