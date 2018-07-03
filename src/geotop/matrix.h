@@ -14,15 +14,10 @@
 template <class T> class Matrix {
 public:
     /** pointer to the first accessible element (needed by an iterator) */
-    T *begin() noexcept {
-        if (nrl == 0)
-            return &co[nrl*ncl];
-        else
-            return &co[nrl*ncl-1];
-    }
+    T *begin() noexcept { return &co[0]; }
 
     /** pointer to the one-past the last element (needed by an iterator)*/
-    T *end() noexcept { return &co[(nrh-nrl)*(nch-ncl)]; }
+    T *end() noexcept { return &co[(nrh-nrl+1)*(nch-ncl+1)]; }
 
 //
 //    /** const pointer to the first element accessible element */
@@ -89,11 +84,11 @@ public:
         * this is useful to reinizialize all the elements of the vector to zero
         * my_matrix = 0
         */
-    Matrix<T> &operator=(const T v) {
-        for (auto &x : *this)
-            x = v;
-        return *this;
-    }
+//    Matrix<T> &operator=(const T v) {
+//        for (auto &x : *this)
+//            x = v;
+//        return *this;
+//    }
 
     std::size_t nrh, nrl; // rows
     std::size_t nch, ncl; // columns
