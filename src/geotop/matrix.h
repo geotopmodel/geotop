@@ -19,12 +19,11 @@ public:
     /** pointer to the one-past the last element (needed by an iterator)*/
     T *end() noexcept { return &co[(nrh-nrl+1)*(nch-ncl+1)]; }
 
-//
-//    /** const pointer to the first element accessible element */
-//    const T *begin() const noexcept { return &co[nrl*(nch + 1) + ncl]; }
-//
-//    /** const pointer to the one-past the last element */
-//    const T *end() const noexcept { return &co[(nrh + 1)*(nch + 1)]; }
+    /** const pointer to the first element accessible element */
+    const T *begin() const noexcept { return &co[0]; }
+
+    /** const pointer to the one-past the last element */
+    const T *end() const noexcept { return &co[(nrh-nrl+1)*(nch-ncl+1)]; }
 
     /** destructor. default is fine */
     ~Matrix() = default;
@@ -39,31 +38,15 @@ public:
    */
 
     Matrix(const std::size_t nrh, const std::size_t nrl, const std::size_t nch,  const std::size_t ncl):
-    nrh{nrh}, nrl{nrl}, nch{nch}, ncl{ncl},
-    n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co { new T[(nrh-nrl+1)*(nch-ncl+1)]{} } {}
+            nrh{nrh}, nrl{nrl}, nch{nch}, ncl{ncl},
+            n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co { new T[(nrh-nrl+1)*(nch-ncl+1)]{} } {}
 
-  //  Matrix(const std::size_t r, const std::size_t c): Matrix{r,1,c,1} {}
-
-  //  T* operator[](const std::size_t i) noexcept {return &co[i*n_col]; }
+    //  Matrix(const std::size_t r, const std::size_t c): Matrix{r,1,c,1} {}
 
     T& operator()(const std::size_t i, const std::size_t j) noexcept {return co[i*n_col+j]; }
 
+    //  T* operator[](const std::size_t i) noexcept {return &co[i*n_col]; }
     // const  T* operator[](const std::size_t i) const noexcept {return &co[i*n_col]; }
-
-
-
-//    Matrix(const std::size_t nrh, const std::size_t nrl, const std::size_t nch,  const std::size_t ncl):
-//            nrh{nrh}, nrl{nrl}, nch{nch}, ncl{ncl},
-//            n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co { new T[(nrh+1 - nrl)*(nch+1-ncl)]{} } {}
-//
-//    Matrix(const std::size_t r, const std::size_t c): Matrix{r,1,c,1} {}
-//
-//    T* operator[](const std::size_t i) noexcept {return &co[i*n_col]; }
-//    const  T* operator[](const std::size_t i) const noexcept {return &co[i*n_col]; }
-
-
-
-
 
 //    T& at(const std::size_t i, const std::size_t j) {
 //        if (i < n_row && j < n_col)
