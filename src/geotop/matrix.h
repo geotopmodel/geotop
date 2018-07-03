@@ -84,11 +84,11 @@ public:
         * this is useful to reinizialize all the elements of the vector to zero
         * my_matrix = 0
         */
-//    Matrix<T> &operator=(const T v) {
-//        for (auto &x : *this)
-//            x = v;
-//        return *this;
-//    }
+    Matrix<T> &operator=(const T v) {
+        for (auto &x : *this)
+            x = v;
+        return *this;
+    }
 
     std::size_t nrh, nrl; // rows
     std::size_t nch, ncl; // columns
