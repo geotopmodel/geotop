@@ -398,7 +398,7 @@ void time_loop(ALLDATA *A)
                         {
                           for (l=1; l<=Nl; l++)
                             {
-                              r = A->P->rc->co[j][1];
+                              r = A->P->rc->co[j][1];  // r (*A->P->rc)(j,1)
                               c = A->P->rc->co[j][2];
                               sy = A->S->type->co[r][c];
 

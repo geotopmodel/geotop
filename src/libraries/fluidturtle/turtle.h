@@ -9,6 +9,7 @@
 #include <cctype>
 
 #include "vector.h"
+//#include "matrix.h"
 
 #define isDynamic 1         /*This number will be used to mark a dynamic allocates
                               quantity */
