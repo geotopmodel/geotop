@@ -35,8 +35,7 @@ typedef struct {
     std::unique_ptr<Vector<double>> ET_mean;
     std::unique_ptr<Vector<double>> H_mean;
     std::unique_ptr<Vector<double>> SEB_mean;
-    std::unique_ptr<Vector<double>>
-            Ts_mean;  /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
+    std::unique_ptr<Vector<double>> Ts_mean;  /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
     std::unique_ptr<Vector<double>> Rswdown_mean;
     std::unique_ptr<Vector<double>> Rswbeam_mean;
     std::unique_ptr<Vector<long>> nDt_shadow;
@@ -106,7 +105,7 @@ typedef struct {
     std::unique_ptr<Vector<double>> soil_evap_layer_bare;
     std::unique_ptr<Vector<double>> soil_evap_layer_veg;
 
-   // std::unique_ptr<Matrix<double>> *Tgskin_surr;
+  // std::unique_ptr<Matrix<double>> *Tgskin_surr;
     DOUBLEMATRIX*Tgskin_surr;
     DOUBLEMATRIX *SWrefl_surr;
 

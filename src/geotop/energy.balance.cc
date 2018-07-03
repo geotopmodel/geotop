@@ -194,7 +194,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
           else
             {
               A->E->SWrefl_surr->co[r][c] = SWup;
-              A->E->Tgskin_surr->co[r][c] = Tgskin;
+              // A->E->Tgskin_surr->co[r][c] = Tgskin;
             }
         }
 
@@ -207,7 +207,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
           r = A->T->rc_cont->co[i][1];
           c = A->T->rc_cont->co[i][2];
           A->E->SWrefl_surr->co[r][c] = SWrefl_surr_ave;
-          A->E->Tgskin_surr->co[r][c] = Tgskin_surr_ave;
+         // A->E->Tgskin_surr->co[r][c] = Tgskin_surr_ave;
         }
     }
 
@@ -1067,14 +1067,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                                 }
                               else if (opnt[l] == ominLWin)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = (A->T->sky->co[r][c]*epsa_min*SB(
-                                                                          Tpoint) + (1.-A->T->sky->co[r][c])*eps*SB(A->E->Tgskin_surr->co[r][c])) *
-                                                                       Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = (A->T->sky->co[r][c] * epsa_min * SB(Tpoint) + (1.-A->T->sky->co[r][c]) * eps * SB(A->E->Tgskin_surr->co[r][c]))
+                                                                      * Dt/A->P->Dtplot_point->co[i_sim];
                                 }
                               else if (opnt[l] == omaxLWin)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = (A->T->sky->co[r][c]*epsa_max*SB(
-                                                                          Tpoint) + (1.-A->T->sky->co[r][c])*eps*SB(A->E->Tgskin_surr->co[r][c])) *
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = (A->T->sky->co[r][c]*epsa_max*SB(Tpoint) + (1.-A->T->sky->co[r][c])*eps*SB(A->E->Tgskin_surr->co[r][c])) *
                                                                        Dt/A->P->Dtplot_point->co[i_sim];
                                 }
                               else if (opnt[l] == oSW)
