@@ -161,7 +161,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     for (i=1; i<=par->init_date->nh; i++)
     {
         max_time += (*par->run_times)(i)*(par->end_date->co[i] -
-                                           par->init_date->co[i])*86400.;//seconds
+                                          par->init_date->co[i])*86400.;//seconds
     }
 
     // recovering
@@ -1451,9 +1451,9 @@ land cover %ld, meteo station %ld\n",
 
 
     // vectors used in energy_balance()
-   // egy->Tgskin_surr.reset(new Matrix<double>{Nr,Nc});
-     egy->Tgskin_surr = new_doublematrix(Nr, Nc);
-     initialize_doublematrix(egy->Tgskin_surr, 0.);
+//    egy->Tgskin_surr.reset(new Matrix<double>{Nr,Nc});
+    egy->Tgskin_surr = new_doublematrix(Nr, Nc);
+    initialize_doublematrix(egy->Tgskin_surr, 0.);
 
     egy->SWrefl_surr = new_doublematrix(Nr, Nc);
     initialize_doublematrix(egy->SWrefl_surr, 0.);

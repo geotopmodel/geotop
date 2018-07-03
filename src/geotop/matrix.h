@@ -25,6 +25,12 @@ public:
     /** const pointer to the one-past the last element */
     const T *end() const noexcept { return &co[(nrh-nrl+1)*(nch-ncl+1)]; }
 
+//    /** subscripting operator (non-checked) */
+//    T &operator[](const std::size_t i) noexcept { return co[i]; }
+//
+//    /** subscripting operator (non-checked) */
+//    const T &operator[](const std::size_t i) const noexcept { return co[i]; }
+
     /** destructor. default is fine */
     ~Matrix() = default;
 
@@ -41,9 +47,15 @@ public:
             nrh{nrh}, nrl{nrl}, nch{nch}, ncl{ncl},
             n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co { new T[(nrh-nrl+1)*(nch-ncl+1)]{} } {}
 
-    //  Matrix(const std::size_t r, const std::size_t c): Matrix{r,1,c,1} {}
+    Matrix(const std::size_t r, const std::size_t c): Matrix{r,1,c,1} {}
 
     T& operator()(const std::size_t i, const std::size_t j) noexcept {return co[i*n_col+j]; }
+//    T& operator()(const std::size_t i, const std::size_t j) noexcept {return (*this) [i*n_col+j]; } DIFFERENZA
+
+
+//    T &operator()(const std::size_t i) {
+//        return (*this)[i];
+//    }
 
     //  T* operator[](const std::size_t i) noexcept {return &co[i*n_col]; }
     // const  T* operator[](const std::size_t i) const noexcept {return &co[i*n_col]; }
