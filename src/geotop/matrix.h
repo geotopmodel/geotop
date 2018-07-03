@@ -11,28 +11,25 @@
 #include <memory>
 #include <sstream>
 
-template <typename T> class Matrix {
+template <class T> class Matrix {
 public:
-    /** pointer to the first accessible element */
-    T *begin() noexcept { return &co[nrl][ncl]; }
+    /** pointer to the first accessible element (needed by an iterator) */
+    T *begin() noexcept {
+        if (nrl == 0)
+            return &co[nrl*ncl];
+        else
+            return &co[nrl*ncl-1];
+    }
 
-    /** pointer to the one-past the last element */
-    T *end() noexcept { return &co[nrh + 1][nch + 1]; }
+    /** pointer to the one-past the last element (needed by an iterator)*/
+    T *end() noexcept { return &co[(nrh-nrl)*(nch-ncl)]; }
 
-    /** const pointer to the first element accessible element */
-    const T *begin() const noexcept { return &co[nrl][ncl]; }
-
-    /** const pointer to the one-past the last element */
-    const T *end() const noexcept { return &co[nrh + 1][nch + 1]; }
-
-    /** subscripting operator (non-checked) */
-    T &operator[](const std::size_t i, const std::size_t j) noexcept { return co[i][j]; }
-
-    /** subscripting operator (non-checked) */
-    const T &operator[](const std::size_t i) const noexcept { return co[i][j]; }
-
-// suggested by Alberto
- //   T *operator[](const std::size_t i) { return &co[ncol*i]; }
+//
+//    /** const pointer to the first element accessible element */
+//    const T *begin() const noexcept { return &co[nrl*(nch + 1) + ncl]; }
+//
+//    /** const pointer to the one-past the last element */
+//    const T *end() const noexcept { return &co[(nrh + 1)*(nch + 1)]; }
 
     /** destructor. default is fine */
     ~Matrix() = default;
@@ -45,28 +42,68 @@ public:
    * @param _nrl,_nrh lower and upper bound for rows
    * @param _ncl,_nch lower and upper bound for columns
    */
-    Matrix(const std::size_t _nrl = 1, const std::size_t _nrh, const std::size_t _ncl = 1, const std::size_t _nch)
-            : nrl{_nrl}, nrh{_nrh}, ncl{_ncl}, nch{_cch}, co{new T[nrh+1][nch+1]{}} {}
 
-    /** set all elements of the vector to @p m
-  * this is useful to reinizialize all the elements of the vector to zero
-  * my_matrix = 0
-  */
-//    Matrix<T> &operator=(const T m) {
-//      for (auto &x : *this)
-//        x = m;
-//      return *this;
-//    } //    NON SO SE FUNZIONA....
+    Matrix(const std::size_t nrh, const std::size_t nrl, const std::size_t nch,  const std::size_t ncl):
+    nrh{nrh}, nrl{nrl}, nch{nch}, ncl{ncl},
+    n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co { new T[(nrh-nrl+1)*(nch-ncl+1)]{} } {}
 
-    /** lower bound */
-    std::size_t nrl, ncl;
+  //  Matrix(const std::size_t r, const std::size_t c): Matrix{r,1,c,1} {}
 
-    /** upper bound */
-    std::size_t nrh, nch;
+  //  T* operator[](const std::size_t i) noexcept {return &co[i*n_col]; }
 
-    /** the actual data */
+    T& operator()(const std::size_t i, const std::size_t j) noexcept {return co[i*n_col+j]; }
+
+    // const  T* operator[](const std::size_t i) const noexcept {return &co[i*n_col]; }
+
+
+
+//    Matrix(const std::size_t nrh, const std::size_t nrl, const std::size_t nch,  const std::size_t ncl):
+//            nrh{nrh}, nrl{nrl}, nch{nch}, ncl{ncl},
+//            n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co { new T[(nrh+1 - nrl)*(nch+1-ncl)]{} } {}
+//
+//    Matrix(const std::size_t r, const std::size_t c): Matrix{r,1,c,1} {}
+//
+//    T* operator[](const std::size_t i) noexcept {return &co[i*n_col]; }
+//    const  T* operator[](const std::size_t i) const noexcept {return &co[i*n_col]; }
+
+
+
+
+
+//    T& at(const std::size_t i, const std::size_t j) {
+//        if (i < n_row && j < n_col)
+//            return (*this)[i][j];
+//        else
+//            throw std::runtime_error("out of range");
+//    }
+
+//    T& operator()(const std::size_t i, const std::size_t j) {
+//#ifndef DEBUG
+//        return at(i, j); // DEBUG
+//#else
+//        return (*this)[i][j];
+//#endif
+//    }
+
+    /** set all elements of the vector to @p v
+        * this is useful to reinizialize all the elements of the vector to zero
+        * my_matrix = 0
+        */
+    Matrix<T> &operator=(const T v) {
+        for (auto &x : *this)
+            x = v;
+        return *this;
+    }
+
+    std::size_t nrh, nrl; // rows
+    std::size_t nch, ncl; // columns
+
+    std::size_t n_row;
+    std::size_t n_col;
+
     std::unique_ptr<T[]> co;
 
 //private:
+
 };
 #endif // GEOTOP_MATRIX_H
