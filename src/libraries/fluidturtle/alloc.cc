@@ -32,7 +32,7 @@ for documentation refer to turtle.h
 
 float **matrix(long nrl, long nrh, long ncl, long nch)
 
-/* Allocate a float matrix  with subscript range v[nrl ....nrh][ncl ....nrh] */
+/* Allocate a float matrix  with subscript range v[nrl ....nrh][ncl ....nch] */
 {
 
   long i, rows = nrh - nrl + 1, cols = nch - ncl + 1;

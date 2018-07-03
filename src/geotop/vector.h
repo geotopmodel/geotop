@@ -18,7 +18,7 @@ public:
      */
     std::size_t size() const noexcept { return _size; }
 
-    /** pointer to the first element accessible element */
+    /** pointer to the first accessible element */
     T *begin() noexcept { return &co[nl]; }
 
     /** pointer to the one-past the last element */
