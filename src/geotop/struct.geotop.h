@@ -105,8 +105,8 @@ typedef struct {
     std::unique_ptr<Vector<double>> soil_evap_layer_bare;
     std::unique_ptr<Vector<double>> soil_evap_layer_veg;
 
- //   std::unique_ptr<Matrix<double>> Tgskin_surr;
-   DOUBLEMATRIX *Tgskin_surr;
+    std::unique_ptr<Matrix<double>> Tgskin_surr;
+ //  DOUBLEMATRIX *Tgskin_surr;
     DOUBLEMATRIX *SWrefl_surr;
 
 } ENERGY;

@@ -1451,9 +1451,9 @@ land cover %ld, meteo station %ld\n",
 
 
     // vectors used in energy_balance()
-  // egy->Tgskin_surr.reset(new Matrix<double>{Nr,Nc});
-    egy->Tgskin_surr = new_doublematrix(Nr, Nc);
-    initialize_doublematrix(egy->Tgskin_surr, 0.);
+   egy->Tgskin_surr.reset(new Matrix<double>{Nr,Nc});
+//    egy->Tgskin_surr = new_doublematrix(Nr, Nc);
+//    initialize_doublematrix(egy->Tgskin_surr, 0.);
 
     egy->SWrefl_surr = new_doublematrix(Nr, Nc);
     initialize_doublematrix(egy->SWrefl_surr, 0.);
