@@ -49,9 +49,8 @@ public:
 
     Matrix(const std::size_t r, const std::size_t c): Matrix{r,1,c,1} {}
 
-    T& operator()(const std::size_t i, const std::size_t j) noexcept {return co[i*n_col+j]; }
+    T& operator()(const std::size_t i, const std::size_t j) noexcept {return co[(i-nrl)*n_col+(j-ncl)]; }
 //    T& operator()(const std::size_t i, const std::size_t j) noexcept {return (*this) [i*n_col+j]; } DIFFERENZA
-
 
 //    T &operator()(const std::size_t i) {
 //        return (*this)[i];
