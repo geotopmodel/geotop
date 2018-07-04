@@ -2208,6 +2208,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 if (strcmp(files[rpsich], string_novalue) != 0)
                 {
                     M=new_doublematrix0_(Nl, par->total_pixel);
+//                    M=new_doublematrix0_(Nl, par->total_pixel);
+
                     for (l=0; l<=Nl; l++)
                     {
                         for (i=1; i<=par->total_pixel; i++)
