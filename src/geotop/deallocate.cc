@@ -363,7 +363,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
         }
     }
 
- // free_doublematrix(egy->Tgskin_surr);
+  free_doublematrix(egy->Tgskin_surr);
   free_doublematrix(egy->SWrefl_surr);
 
   //  free(egy);
