@@ -106,8 +106,10 @@ typedef struct {
     std::unique_ptr<Vector<double>> soil_evap_layer_veg;
 
     std::unique_ptr<Matrix<double>> Tgskin_surr;
- //  DOUBLEMATRIX *Tgskin_surr;
-    DOUBLEMATRIX *SWrefl_surr;
+    std::unique_ptr<Matrix<double>> SWrefl_surr;
+
+    //  DOUBLEMATRIX *Tgskin_surr;
+    //DOUBLEMATRIX *SWrefl_surr;
 
 } ENERGY;
 
@@ -711,6 +713,7 @@ struct METEO {
     std::unique_ptr<METEO_STATIONS> st;
 
     double ***data;
+
     long *numlines;
     double ***horizon;
     long *horizonlines;

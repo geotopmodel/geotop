@@ -320,8 +320,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     geolog << "Valid pixels: " << par->total_pixel << std::endl;
     geolog << "Number of nodes: " << (Nl+1)*par->total_pixel << std::endl;
     geolog << "Novalue pixels: " << (Nr*Nc-par->total_pixel) << std::endl;
-    geolog << "Basin area: " << (double)par->total_pixel*UV->U->co[1]*UV->U->co[2]/1.E6
-           << " km2" << std::endl;
+    geolog << "Basin area: " << (double)par->total_pixel*UV->U->co[1]*UV->U->co[2]/1.E6 << " km2" << std::endl;
 
 
     /**************************************************************************************************/
@@ -500,8 +499,7 @@ keyword LinearInterpolation at 1.\n");
         else
         {
 
-            geolog << "Warning: File meteo not in the list, meteo data not read, \
-used default values" << std::endl;
+            geolog << "Warning: File meteo not in the list, meteo data not read, used default values" << std::endl;
 
             met->data[i-1] = (double **)malloc(2*sizeof(double *));
 
@@ -1455,8 +1453,9 @@ land cover %ld, meteo station %ld\n",
 //    egy->Tgskin_surr = new_doublematrix(Nr, Nc);
 //    initialize_doublematrix(egy->Tgskin_surr, 0.);
 
-    egy->SWrefl_surr = new_doublematrix(Nr, Nc);
-    initialize_doublematrix(egy->SWrefl_surr, 0.);
+    egy->SWrefl_surr.reset(new Matrix<double>{Nr, Nc});
+//    egy->SWrefl_surr = new_doublematrix(Nr, Nc);
+//    initialize_doublematrix(egy->SWrefl_surr, 0.);
 
     egy->Dlayer.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers });
     egy->liq.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers });
@@ -2982,8 +2981,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     long i, r, c, num_lines;
     DOUBLEMATRIX *Q=NULL, *P=NULL, *R=NULL, *S=NULL, *T=NULL, *Z=NULL, *LU=NULL; // ec 2012 08 22
     SHORTMATRIX *curv;
-    short read_dem, read_lu, read_soil, read_sl, read_as, read_sk, read_bed,
-            read_curv, flag, coordinates;
+    short read_dem, read_lu, read_soil, read_sl, read_as, read_sk, read_bed, read_curv, flag, coordinates;
     char *temp;
     double min, max;
     FILE *f;
@@ -3537,7 +3535,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
         for (c=1; c<=ptTOT; c++)
         {
             geolog << par->chkpt->co[r][c];
-            if (c<ptTOT) geolog << "," << std::endl;
+            if (c<ptTOT) geolog << ",";
         }
         geolog << std::endl;
     }

@@ -193,7 +193,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
             }
           else
             {
-              A->E->SWrefl_surr->co[r][c] = SWup;
+                (*A->E->SWrefl_surr)(r,c) = SWup;
+//                A->E->SWrefl_surr->co[r][c] = SWup;
                 (*A->E->Tgskin_surr)(r,c) = Tgskin;
 //                A->E->Tgskin_surr->co[r][c] = Tgskin;
 
@@ -208,7 +209,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
         {
           r = A->T->rc_cont->co[i][1];
           c = A->T->rc_cont->co[i][2];
-          A->E->SWrefl_surr->co[r][c] = SWrefl_surr_ave;
+            (*A->E->SWrefl_surr)(r,c) = SWrefl_surr_ave;
+   //         A->E->SWrefl_surr->co[r][c] = SWrefl_surr_ave;
             (*A->E->Tgskin_surr)(r,c) = Tgskin_surr_ave;
 //            A->E->Tgskin_surr->co[r][c] = Tgskin_surr_ave;
 
@@ -517,14 +519,15 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                                                 anir_d)/4.;
 
   shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0,
-                      A->T->sky->co[r][c], A->E->SWrefl_surr->co[r][c],
+                      A->T->sky->co[r][c], (*A->E->SWrefl_surr)(r,c),
+//                      A->T->sky->co[r][c], A->E->SWrefl_surr->co[r][c],
                       A->M->tau_cloud, A->L->shadow->co[r][c], &SWbeam, &SWdiff, &cosinc,
                       &tauatm_sinhsun, &SWb_yes);
 
   SWbeam=flux(A->M->nstsrad, iSWb, A->M->var, 1.0, 0.0, SWbeam);
   SWdiff=flux(A->M->nstsrad, iSWd, A->M->var, 1.0,
-              (1.-A->T->sky->co[r][c])*A->E->SWrefl_surr->co[r][c], SWdiff);
-
+              (1.-A->T->sky->co[r][c]) * (*A->E->SWrefl_surr)(r,c), SWdiff);
+//              (1.-A->T->sky->co[r][c])*A->E->SWrefl_surr->co[r][c], SWdiff);
   SWin=SWbeam+SWdiff;
 
   //update snow albedo

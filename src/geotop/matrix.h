@@ -43,8 +43,8 @@ public:
    * @param _ncl,_nch lower and upper bound for columns
    */
 
-    Matrix(const std::size_t nrh, const std::size_t nrl, const std::size_t nch,  const std::size_t ncl):
-            nrh{nrh}, nrl{nrl}, nch{nch}, ncl{ncl},
+    Matrix(const std::size_t _nrh, const std::size_t _nrl, const std::size_t _nch,  const std::size_t _ncl):
+            nrh{_nrh}, nrl{_nrl}, nch{_nch}, ncl{_ncl},
             n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co { new T[(nrh-nrl+1)*(nch-ncl+1)]{} } {}
 
     Matrix(const std::size_t r, const std::size_t c): Matrix{r,1,c,1} {}
