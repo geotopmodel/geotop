@@ -447,19 +447,16 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
         {
         }
     }
-    geolog << "finding errors (1) " << std::endl;
 
     for (i=0; i<met->st->Z->nh; i++)
     {
 
         for (j=0; j<met->numlines[i]; j++)
         {
-            free(met->data[i][j]);
-            geolog << "finding errors (2) " << std::endl;
+          free(met->data[i][j]);
 
         }
         free(met->data[i]);
-        geolog << "finding errors (3) " << std::endl;
 
         free(met->var[i]);
 
