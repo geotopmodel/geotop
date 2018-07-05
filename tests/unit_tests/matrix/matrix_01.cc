@@ -3,7 +3,7 @@
 #include <iterator> // std::prev
 
 TEST(Matrix, constructor_4args){
-  Matrix<int> m{3,1,5,2}; // 3x4 matrix
+  Matrix<int> m{3,1,3,0}; // 3x4 matrix
   EXPECT_EQ( std::size_t{3}, m.n_row );
   EXPECT_EQ( std::size_t{4}, m.n_col );
 }
@@ -48,12 +48,64 @@ TEST(Matrix, range_for){
 
   for (auto &x : m)
     x = ++c;
-
+  
+  // // print to check the resulting matrix
+  // for(int i=1; i<=2; i++){
+  //   for(int j=1; j<=2; j++){
+  //     std::cout << m(i,j) << " ";
+  //   }
+  //   std::cout << std::endl;
+  // }
   EXPECT_DOUBLE_EQ( 2.0, m(1,1) );
   EXPECT_DOUBLE_EQ( 3.0, m(1,2) );
   EXPECT_DOUBLE_EQ( 4.0, m(2,1) );
   EXPECT_DOUBLE_EQ( 5.0, m(2,2) );
 
+}
+
+TEST(Matrix, out_of_range){
+  Matrix<double> m{3,3};
+
+  // testing "at" 
+  EXPECT_NO_THROW(m.at(1,1));
+  EXPECT_NO_THROW(m.at(2,2));
+  EXPECT_NO_THROW(m.at(3,3));
+  
+  EXPECT_ANY_THROW(m.at(0,0));
+  EXPECT_ANY_THROW(m.at(0,1));
+  EXPECT_ANY_THROW(m.at(1,0));
+  EXPECT_ANY_THROW(m.at(4,4));
+
+  // testing "()"
+  EXPECT_NO_THROW(m(1,1));
+  EXPECT_NO_THROW(m(2,2));
+  EXPECT_NO_THROW(m(3,3));
+
+#ifndef NDEBUG 
+  EXPECT_ANY_THROW(m(0,0));
+  EXPECT_ANY_THROW(m(0,1));
+  EXPECT_ANY_THROW(m(1,0));
+  EXPECT_ANY_THROW(m(4,4));
+#else
+  EXPECT_NO_THROW(m(0,0));
+  EXPECT_NO_THROW(m(0,1));
+  EXPECT_NO_THROW(m(1,0));
+  EXPECT_NO_THROW(m(4,4));
+#endif
+}
+
+TEST(Matrix, out_of_range_zero){
+  Matrix<double> m{3,0,3,0};
+  
+  EXPECT_NO_THROW(m.at(0,0));
+  EXPECT_NO_THROW(m.at(1,1));
+  EXPECT_NO_THROW(m.at(2,2));
+  EXPECT_NO_THROW(m.at(3,3));
+  
+  EXPECT_ANY_THROW(m.at(-3,-3));
+  EXPECT_ANY_THROW(m.at(4,4));
+  EXPECT_ANY_THROW(m.at(5000,5000));
+  
 }
 
 // TEST(Matrix, end){
