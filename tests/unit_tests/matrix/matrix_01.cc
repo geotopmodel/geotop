@@ -16,10 +16,10 @@ TEST(Matrix, constructor_2args){
 
 TEST(Matrix, initialization){
   Matrix<int> m{2,2}; // 2x2 matrix
-  EXPECT_EQ( 0, m(1,1));
-  EXPECT_EQ( 0, m(1,2));
-  EXPECT_EQ( 0, m(2,1));
-  EXPECT_EQ( 0, m(2,2));
+  EXPECT_EQ( 0, m(1,1) );
+  EXPECT_EQ( 0, m(1,2) );
+  EXPECT_EQ( 0, m(2,1) );
+  EXPECT_EQ( 0, m(2,2) );
   // EXPECT_EQ( 0, m(0,0)); // => expected to fail => OK
   // EXPECT_EQ( 0, m(3,3)); // => expected to fail => OK
 }
@@ -45,22 +45,62 @@ TEST(Matrix, end){
 TEST(Matrix, range_for){
   Matrix<double> m{2,2}; // 2x2 matrix
   double c{1.0};
+  m(1,1) = -9999;
+  m(2,2) = -9999;
 
   for (auto &x : m)
     x = ++c;
   
-  // // print to check the resulting matrix
-  // for(int i=1; i<=2; i++){
-  //   for(int j=1; j<=2; j++){
-  //     std::cout << m(i,j) << " ";
-  //   }
-  //   std::cout << std::endl;
-  // }
   EXPECT_DOUBLE_EQ( 2.0, m(1,1) );
   EXPECT_DOUBLE_EQ( 3.0, m(1,2) );
   EXPECT_DOUBLE_EQ( 4.0, m(2,1) );
   EXPECT_DOUBLE_EQ( 5.0, m(2,2) );
+}
 
+TEST(Matrix, range_for_zero){
+  Matrix<double> m{1,0,1,0}; // 2x2 matrix
+  double c{0.0};
+  m(0,0) = -9999;
+  m(1,1) = -9999;
+
+  for (auto &x : m)
+    x = ++c;
+  
+  EXPECT_DOUBLE_EQ( 1.0, m(0,0) );
+  EXPECT_DOUBLE_EQ( 2.0, m(0,1) );
+  EXPECT_DOUBLE_EQ( 3.0, m(1,0) );
+  EXPECT_DOUBLE_EQ( 4.0, m(1,1) );
+}
+
+TEST(Matrix, set_value){
+  Matrix<double> m{1,0,1,0};
+  double c{0.0};
+  
+  for (auto &x : m)
+    x = ++c;
+
+  m = -9999.;
+
+  EXPECT_DOUBLE_EQ( m(0,0), -9999. );
+  EXPECT_DOUBLE_EQ( m(0,1), -9999. );
+  EXPECT_DOUBLE_EQ( m(1,0), -9999. );
+  EXPECT_DOUBLE_EQ( m(1,1), -9999. );
+}
+
+TEST(Matrix, copy_semantic){
+  Matrix<double> m{2,2};
+  double c{0.0};
+  
+  for (auto &x : m)
+    x = ++c;
+  
+  Matrix<double> m1{m};
+
+  EXPECT_DOUBLE_EQ( m1(1,1), 1 );
+  EXPECT_DOUBLE_EQ( m1(1,2), 2 );
+  EXPECT_DOUBLE_EQ( m1(2,1), 3 );
+  EXPECT_DOUBLE_EQ( m1(2,2), 4 );
+ 
 }
 
 TEST(Matrix, out_of_range){
@@ -108,22 +148,6 @@ TEST(Matrix, out_of_range_zero){
   
 }
 
-TEST(Matrix, copy_semantic){
-  Matrix<double> m{2,2};
-  double c{0.0};
-  
-  for (auto &x : m)
-    x = ++c;
-  
-  Matrix<double> m1{m};
-
-  EXPECT_DOUBLE_EQ( m1(1,1), 1);
-  EXPECT_DOUBLE_EQ( m1(1,2), 2);
-  EXPECT_DOUBLE_EQ( m1(2,1), 3);
-  EXPECT_DOUBLE_EQ( m1(2,2), 4);
- 
-}
-
 // TEST(Matrix, end){
 //   Matrix<int> m(2,1,2,1); // 2x2 matrix
 //   int c=0;
@@ -135,3 +159,12 @@ TEST(Matrix, copy_semantic){
 //     std::cout << x << std::endl;
 //   EXPECT_EQ("", testing::internal::GetCapturedStdout());
 // }
+
+
+// // print to check the resulting matrix
+  // for(int i=1; i<=2; i++){
+  //   for(int j=1; j<=2; j++){
+  //     std::cout << m(i,j) << " ";
+  //   }
+  //   std::cout << std::endl;
+  // }
