@@ -59,8 +59,6 @@ TEST(Vector, set_value){
   EXPECT_DOUBLE_EQ(v[3], -9999.);
 }
 
-
-
 TEST(Vector, copy_semantic){
   Vector<double> v{3,0};
   double c{0.0};

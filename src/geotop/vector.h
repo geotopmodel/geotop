@@ -12,7 +12,19 @@
 #include <sstream>
 
 template <typename T> class Vector {
+private:
+    /** size of the array */
+    std::size_t _size;
+
 public:
+    /** lower bound */
+    std::size_t nl;
+    /** upper bound */
+    std::size_t nh;
+
+    /** the actual data */
+    std::unique_ptr<T[]> co;
+
     /**
      * @return the size of the vector
      */
@@ -86,7 +98,7 @@ public:
      * you can access elements in the range [l,n] boundaries included
      */
     explicit Vector(const std::size_t ub, const std::size_t lb = 1)
-            : nl{lb}, nh{ub}, co{new T[nh + 1]{}}, _size{nh - nl + 1} {}
+            : nl{lb}, nh{ub}, co{new T[nh + 1]{}}, _size{nh - nl + 1} {} // initialize all elements to 0
 
     /**
      * Copy constructor
@@ -133,18 +145,6 @@ public:
         (*this)[i] += v[i];
       return *this;
     }
-
-    /** lower bound */
-    std::size_t nl;
-    /** upper bound */
-    std::size_t nh;
-
-    /** the actual data */
-    std::unique_ptr<T[]> co;
-
-private:
-    /** size of the array */
-    std::size_t _size;
 };
 
 #endif // GEOTOP_VECTOR_H
