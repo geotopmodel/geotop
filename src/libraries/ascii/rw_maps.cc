@@ -735,7 +735,7 @@ void write_tensorseries(short a, long l, long i, char *filename, short type,
 /******************************************************************************************************************************************/
 
 void write_tensorseries_vector(short a, long l, long i, char *filename,
-                               short type, short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J,
+                               short type, short format, Matrix<double> *T, T_INIT *UV, long novalue, long **J,
                                long nr, long nc)
 {
 
@@ -929,7 +929,7 @@ void write_tensorseries2_vector(char *suf, long l, char *filename, short type,
 /******************************************************************************************************************************************/
 
 void write_tensorseries3_vector(char *suffix, char *filename, short type,
-                                short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr,
+                                short format, Matrix<double> *T, T_INIT *UV, long novalue, long **J, long nr,
                                 long nc)
 {
 
