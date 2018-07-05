@@ -95,6 +95,7 @@ public:
 
 #endif
     }
+
     /**
         * access operator. When the code is compiled in debug mode, it performes
         * a range check. No check is done when the code is compiled in release mode.
@@ -146,5 +147,6 @@ public:
         *this = Matrix<T>{m}; // use move assignment and copy constructor
         return *this;
     }
+
 };
 #endif // GEOTOP_MATRIX_H
