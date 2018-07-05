@@ -94,7 +94,6 @@ TEST(Vector, copy_semantic){
   
 }
 
-
 TEST(Vector, out_of_range){
   Vector<double> v{3};
   double c{1.0};
