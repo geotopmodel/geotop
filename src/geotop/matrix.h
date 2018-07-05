@@ -25,12 +25,6 @@ public:
     /** const pointer to the one-past the last element */
     const T *end() const noexcept { return &co[(nrh-nrl+1)*(nch-ncl+1)]; }
 
-//    /** subscripting operator (non-checked) */
-//    T &operator[](const std::size_t i) noexcept { return co[i]; }
-//
-//    /** subscripting operator (non-checked) */
-//    const T &operator[](const std::size_t i) const noexcept { return co[i]; }
-
     /** destructor. default is fine */
     ~Matrix() = default;
 
@@ -49,30 +43,44 @@ public:
 
     Matrix(const std::size_t r, const std::size_t c): Matrix{r,1,c,1} {}
 
-    T& operator()(const std::size_t i, const std::size_t j) noexcept {return co[(i-nrl)*n_col+(j-ncl)]; }
-//    T& operator()(const std::size_t i, const std::size_t j) noexcept {return (*this) [i*n_col+j]; } DIFFERENZA
+    /** range-checked access operator */
+    T &at(const std::size_t i, const std::size_t j) {
+        GEO_ERROR_IN_RANGE(i, nrl, nrh);
+        GEO_ERROR_IN_RANGE(j, ncl, nch);
+        return co[(i-nrl)*n_col+(j-ncl)];
+    }
 
-//    T &operator()(const std::size_t i) {
-//        return (*this)[i];
-//    }
+    /** range-checked access operator */
+    const T &at(const std::size_t i, const std::size_t j) const {
+        GEO_ERROR_IN_RANGE(i, nrl, nrh);
+        GEO_ERROR_IN_RANGE(j, ncl, nch);
+        return co[(i-nrl)*n_col+(j-ncl)];
+    }
 
-    //  T* operator[](const std::size_t i) noexcept {return &co[i*n_col]; }
-    // const  T* operator[](const std::size_t i) const noexcept {return &co[i*n_col]; }
-
-//    T& at(const std::size_t i, const std::size_t j) {
-//        if (i < n_row && j < n_col)
-//            return (*this)[i][j];
-//        else
-//            throw std::runtime_error("out of range");
-//    }
-
-//    T& operator()(const std::size_t i, const std::size_t j) {
-//#ifndef DEBUG
-//        return at(i, j); // DEBUG
-//#else
-//        return (*this)[i][j];
-//#endif
-//    }
+    /**
+    * access operator. When the code is compiled in debug mode, it performes
+    * a range check. No check is done when the code is compiled in release mode.
+    */
+    T& operator()(const std::size_t i, const std::size_t j) {
+#ifndef NDEBUG
+        return at(i,j);
+#else
+        return co[(i-nrl)*n_col+(j-ncl)];
+#endif
+    }
+    /**
+        * access operator. When the code is compiled in debug mode, it performes
+        * a range check. No check is done when the code is compiled in release mode.
+        */
+    const T& operator()(const std::size_t i, const std::size_t j) const {
+#ifndef NDEBUG
+        return at(i,j);
+#else
+        return co[(i-nrl)*n_col+(j-ncl)];
+#endif
+    }
+//    T& operator()(const std::size_t i, const std::size_t j) noexcept {return co[(i-nrl)*n_col+(j-ncl)]; }
+// SE SCRIVEVO   EXPECT_NO_THROW(m.at(2,2)); MI DICEVA CHE IL TEST ERA GIUSTO!!!
 
     /** set all elements of the vector to @p v
         * this is useful to reinizialize all the elements of the vector to zero
