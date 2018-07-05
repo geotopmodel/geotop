@@ -108,9 +108,6 @@ typedef struct {
     std::unique_ptr<Matrix<double>> Tgskin_surr;
     std::unique_ptr<Matrix<double>> SWrefl_surr;
 
-    //  DOUBLEMATRIX *Tgskin_surr;
-    //DOUBLEMATRIX *SWrefl_surr;
-
 } ENERGY;
 
 /*---------------------------------------------------------------------------*/
@@ -120,9 +117,9 @@ struct SOIL_STATE {
 
     virtual ~SOIL_STATE();
 
-    DOUBLEMATRIX *P;
-    DOUBLEMATRIX *thi;
-    DOUBLEMATRIX *T;
+    std::unique_ptr<Matrix<double>> P;
+    std::unique_ptr<Matrix<double>> thi;
+    std::unique_ptr<Matrix<double>> T;
 };
 
 /*---------------------------------------------------------------------------*/
@@ -140,11 +137,11 @@ struct STATE_VEG {
 struct SOIL {
     LONGMATRIX *type;
     DOUBLETENSOR *pa;
-    DOUBLEMATRIX *T_av_tensor;
-    DOUBLEMATRIX *thw_av_tensor;
-    DOUBLEMATRIX *thi_av_tensor;
-    DOUBLEMATRIX *Ptot;
-    DOUBLEMATRIX *th;
+    std::unique_ptr<Matrix<double>> T_av_tensor;
+    std::unique_ptr<Matrix<double>> thw_av_tensor;
+    std::unique_ptr<Matrix<double>> thi_av_tensor;
+    std::unique_ptr<Matrix<double>> Ptot;
+    std::unique_ptr<Matrix<double>> th;
     DOUBLETENSOR *ET;
     DOUBLEMATRIX *Tzplot;
     DOUBLEMATRIX *Tzavplot;
