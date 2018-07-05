@@ -47,14 +47,25 @@ public:
     T &at(const std::size_t i, const std::size_t j) {
         GEO_ERROR_IN_RANGE(i, nrl, nrh);
         GEO_ERROR_IN_RANGE(j, ncl, nch);
-        return co[(i-nrl)*n_col+(j-ncl)];
+        return (*this)[(i-nrl)*n_col+(j-ncl)];
+        //       return co[(i-nrl)*n_col+(j-ncl)];
     }
 
     /** range-checked access operator */
     const T &at(const std::size_t i, const std::size_t j) const {
         GEO_ERROR_IN_RANGE(i, nrl, nrh);
         GEO_ERROR_IN_RANGE(j, ncl, nch);
-        return co[(i-nrl)*n_col+(j-ncl)];
+        return (*this)[(i-nrl)*n_col+(j-ncl)];
+//        return co[(i-nrl)*n_col+(j-ncl)];
+
+    }
+
+    T& operator[](const std::size_t i) noexcept {
+        return co[i];
+    }
+
+    const T& operator[](const std::size_t i) const noexcept {
+        return co[i];
     }
 
     /**
@@ -65,22 +76,27 @@ public:
 #ifndef NDEBUG
         return at(i,j);
 #else
-        return co[(i-nrl)*n_col+(j-ncl)];
+        return (*this)[(i-nrl)*n_col+(j-ncl)];
+//                return co[(i-nrl)*n_col+(j-ncl)];
+
 #endif
     }
     /**
         * access operator. When the code is compiled in debug mode, it performes
         * a range check. No check is done when the code is compiled in release mode.
         */
-    const T& operator()(const std::size_t i, const std::size_t j) const {
+    const T& operator()(const std::size_t i, const std::size_t j) const
+#ifdef NDEBUG
+    noexcept
+#endif
+    {
 #ifndef NDEBUG
         return at(i,j);
 #else
-        return co[(i-nrl)*n_col+(j-ncl)];
+        return (*this)[(i-nrl)*n_col+(j-ncl)];
+//                return co[(i-nrl)*n_col+(j-ncl)];
 #endif
     }
-//    T& operator()(const std::size_t i, const std::size_t j) noexcept {return co[(i-nrl)*n_col+(j-ncl)]; }
-// SE SCRIVEVO   EXPECT_NO_THROW(m.at(2,2)); MI DICEVA CHE IL TEST ERA GIUSTO!!!
 
     /** set all elements of the vector to @p v
         * this is useful to reinizialize all the elements of the vector to zero
@@ -89,6 +105,31 @@ public:
     Matrix<T> &operator=(const T v) {
         for (auto &x : *this)
             x = v;
+        return *this;
+    }
+
+    /**
+       * Copy constructor
+       */
+    Matrix(const Matrix<T> &m)
+            : nrl{m.nrl}, nrh{m.nrh}, ncl{m.ncl}, nch{m.nch}, n_col{nch-ncl+1}, co{new T[(nrh-nrl+1)*(nch-ncl+1)]} {
+        for (std::size_t i=0; i<(nrh-nrl+1)*(nch-ncl+1); ++i)
+            (*this)[i] = m[i];
+//        for (auto i = nrl; i <= nrh; ++i)
+//            for (auto j = ncl; j <= nch; j++)
+//                co[(i-nrl)*n_col+(j-ncl)] = m(i,j);
+    }
+
+    /** Move constructor */
+    Matrix(Matrix<T> &&m) = default;
+
+    /** Move assignment */
+    Matrix<T>& operator=(Matrix<T> &&m) = default;
+
+    /** Copy assignment */
+    Matrix<T> &operator=(const Matrix<T> &m) {
+        co.reset(); // release acquired memory
+        *this = Matrix<T>{m}; // use move assignment and copy constructor
         return *this;
     }
 
