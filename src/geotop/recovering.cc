@@ -185,7 +185,7 @@ void assign_recovered_tensor(short old, long n, char *name,
 /******************************************************************************************************************************************/
 
 void assign_recovered_tensor_vector(short old, long n, char *name,
-                                    DOUBLEMATRIX *assign, LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr)
+                                    Matrix<double> *assign, LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr)
 {
 
   long r, c, i, l;
@@ -227,7 +227,7 @@ void assign_recovered_tensor_vector(short old, long n, char *name,
 /******************************************************************************************************************************************/
 
 void assign_recovered_tensor_channel(short old, long n, char *name,
-                                     DOUBLEMATRIX *assign, Vector<long> *r, Vector<long> *c, DOUBLEMATRIX *Zdistr)
+                                     Matrix<double> *assign, Vector<long> *r, Vector<long> *c, DOUBLEMATRIX *Zdistr)
 {
 
   long ch, l;

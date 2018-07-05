@@ -936,11 +936,11 @@ land cover %ld, meteo station %ld\n",
     sl->VS.reset(new STATE_VEG{});
     initialize_veg_state(sl->VS.get(), par->total_pixel);
 
-    sl->th=new_doublematrix(Nl,par->total_pixel);
-    initialize_doublematrix(sl->th,(double)number_novalue);
+    sl->th.reset(new Matrix<double>{Nl,par->total_pixel});
+    (*sl->th) = (double)number_novalue;
 
-    sl->Ptot=new_doublematrix(Nl,par->total_pixel);
-    initialize_doublematrix(sl->Ptot,(double)number_novalue);
+    sl->Ptot.reset(new Matrix<double>{Nl,par->total_pixel});
+    (*sl->Ptot) = (double)number_novalue;
 
     sl->ET=new_doubletensor(Nl,Nr,Nc);
     initialize_doubletensor(sl->ET,0.);
@@ -950,20 +950,17 @@ land cover %ld, meteo station %ld\n",
         if (strcmp(files[fTav], string_novalue) != 0
             || strcmp(files[fTavsup], string_novalue) != 0)
         {
-            sl->T_av_tensor=new_doublematrix(Nl,par->total_pixel);
-            initialize_doublematrix(sl->T_av_tensor,0.);
+            sl->T_av_tensor.reset(new Matrix<double>{Nl,par->total_pixel});
         }
 
         if (strcmp(files[ficeav], string_novalue) != 0)
         {
-            sl->thi_av_tensor=new_doublematrix(Nl,par->total_pixel);
-            initialize_doublematrix(sl->thi_av_tensor,0.);
+            sl->thi_av_tensor.reset(new Matrix<double>{Nl,par->total_pixel});
         }
 
         if (strcmp(files[fliqav], string_novalue) != 0)
         {
-            sl->thw_av_tensor=new_doublematrix(Nl,par->total_pixel);
-            initialize_doublematrix(sl->thw_av_tensor,0.);
+            sl->thw_av_tensor.reset(new Matrix<double>{Nl,par->total_pixel});
         }
 
         if (strcmp(files[fpnet], string_novalue) != 0)
@@ -992,12 +989,12 @@ land cover %ld, meteo station %ld\n",
             if ((long)IT->init_water_table_depth->co[sy] != number_novalue)
             {
                 z = 0.;
-                sl->SS->P->co[0][i] = -IT->init_water_table_depth->co[sy] *
+                (*sl->SS->P)(0,i) = -IT->init_water_table_depth->co[sy] *
                                       cos(top->slope->co[r][c]*Pi/180.);
                 for (l=1; l<=Nl; l++)
                 {
                     z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->slope->co[r][c]*Pi/180.);
-                    sl->SS->P->co[l][i] = sl->SS->P->co[0][i] + z;
+                    (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
                     z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->slope->co[r][c]*Pi/180.);
                 }
             }
@@ -1005,7 +1002,7 @@ land cover %ld, meteo station %ld\n",
             {
                 for (l=1; l<=Nl; l++)
                 {
-                    sl->SS->P->co[l][i] = sl->pa->co[sy][jpsi][l];
+                    (*sl->SS->P)(l,i) = sl->pa->co[sy][jpsi][l];
                 }
             }
         }
@@ -1023,11 +1020,11 @@ land cover %ld, meteo station %ld\n",
             sy=sl->type->co[r][c];
 
             z = 0.;
-            sl->SS->P->co[0][i] = -M->co[r][c]*cos(top->slope->co[r][c]*Pi/180.);
+            (*sl->SS->P)(0,i) = -M->co[r][c]*cos(top->slope->co[r][c]*Pi/180.);
             for (l=1; l<=Nl; l++)
             {
                 z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->slope->co[r][c]*Pi/180.);
-                sl->SS->P->co[l][i] = sl->SS->P->co[0][i] + z;
+                (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
                 z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->slope->co[r][c]*Pi/180.);
             }
         }
@@ -1043,41 +1040,41 @@ land cover %ld, meteo station %ld\n",
 
         for (l=1; l<=Nl; l++)
         {
-            sl->SS->T->co[l][i]=sl->pa->co[sy][jT][l];
+            (*sl->SS->T)(l,i)=sl->pa->co[sy][jT][l];
 
-            sl->Ptot->co[l][i] = sl->SS->P->co[l][i];
-            sl->th->co[l][i] = teta_psi(sl->SS->P->co[l][i], 0.0, sl->pa->co[sy][jsat][l],
-                                        sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-                                        sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PsiMin,
-                                        sl->pa->co[sy][jss][l]);
+            (*sl->Ptot)(l,i) = (*sl->SS->P)(l,i);
+            (*sl->th)(l,i) = teta_psi((*sl->SS->P)(l,i), 0.0, sl->pa->co[sy][jsat][l],
+                                      sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
+                                      sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PsiMin,
+                                      sl->pa->co[sy][jss][l]);
 
-            th_oversat = Fmax( sl->SS->P->co[l][i], 0.0 ) * sl->pa->co[sy][jss][l];
-            sl->th->co[l][i] -= th_oversat;
+            th_oversat = Fmax( (*sl->SS->P)(l,i), 0.0 ) * sl->pa->co[sy][jss][l];
+            (*sl->th)(l,i) -= th_oversat;
 
-            if (sl->SS->T->co[l][i]<=Tfreezing)
+            if ((*sl->SS->T)(l,i) <=Tfreezing)
             {
 
                 // Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
-                sl->SS->thi->co[l][i] = sl->th->co[l][i] - teta_psi(Psif(sl->SS->T->co[l][i]),
-                                                                    0.0,
-                                                                    sl->pa->co[sy][jsat][l],
-                                                                    sl->pa->co[sy][jres][l],
-                                                                    sl->pa->co[sy][ja][l],
-                                                                    sl->pa->co[sy][jns][l],
-                                                                    1.-1./sl->pa->co[sy][jns][l],
-                                                                    PsiMin,
-                                                                    sl->pa->co[sy][jss][l]);
+                (*sl->SS->thi)(l,i) = (*sl->th)(l,i) - teta_psi(Psif((*sl->SS->T)(l,i)),
+                                                                  0.0,
+                                                                  sl->pa->co[sy][jsat][l],
+                                                                  sl->pa->co[sy][jres][l],
+                                                                  sl->pa->co[sy][ja][l],
+                                                                  sl->pa->co[sy][jns][l],
+                                                                  1.-1./sl->pa->co[sy][jns][l],
+                                                                  PsiMin,
+                                                                  sl->pa->co[sy][jss][l]);
 
                 // if Theta(without freezing) < Theta_unfrozen(in equilibrium with T):
                 // Theta_ice is set at 0
-                if (sl->SS->thi->co[l][i]<0)
-                    sl->SS->thi->co[l][i]=0.0;
+                if ((*sl->SS->thi)(l,i)<0)
+                    (*sl->SS->thi)(l,i)=0.0;
 
                 // Psi is updated taking into account the freezing
-                sl->th->co[l][i] -= sl->SS->thi->co[l][i];
+                (*sl->th)(l,i) -= (*sl->SS->thi)(l,i);
 
-                sl->SS->P->co[l][i] = psi_teta(sl->th->co[l][i] + th_oversat,
-                                               sl->SS->thi->co[l][i], sl->pa->co[sy][jsat][l],
+                (*sl->SS->P)(l,i) = psi_teta((*sl->th)(l,i) + th_oversat,
+                                               (*sl->SS->thi)(l,i), sl->pa->co[sy][jsat][l],
                                                sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
                                                sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l],
                                                PsiMin, sl->pa->co[sy][jss][l]);
@@ -1123,49 +1120,40 @@ land cover %ld, meteo station %ld\n",
             sy = sl->type->co[r][c];
             for (l=1; l<=Nl; l++)
             {
-                if (strcmp(files[fTz], string_novalue) != 0
-                    || strcmp(files[fTzwriteend],
-                              string_novalue) != 0) sl->Tzplot->co[i][l] = sl->SS->T->co[l][j];
-                if (strcmp(files[fTzav], string_novalue) != 0
-                    || strcmp(files[fTzavwriteend],
-                              string_novalue) != 0) sl->Tzavplot->co[i][l] = sl->SS->T->co[l][j];
-                if (strcmp(files[fliqz], string_novalue) != 0
-                    || strcmp(files[fliqzwriteend],
-                              string_novalue) != 0) sl->thzplot->co[i][l] = sl->th->co[l][j];
-                if (strcmp(files[fliqzav], string_novalue) != 0
-                    || strcmp(files[fliqzavwriteend],
-                              string_novalue) != 0) sl->thzavplot->co[i][l] = sl->th->co[l][j];
-                if (strcmp(files[ficez], string_novalue) != 0
-                    || strcmp(files[ficezwriteend],
-                              string_novalue) != 0) sl->thizplot->co[i][l] = sl->SS->thi->co[l][j];
-                if (strcmp(files[ficezav], string_novalue) != 0
-                    || strcmp(files[ficezavwriteend],
-                              string_novalue) != 0) sl->thizavplot->co[i][l] = sl->SS->thi->co[l][j];
-                if (strcmp(files[fpsiztot], string_novalue) != 0
-                    || strcmp(files[fpsiztotwriteend],
-                              string_novalue) != 0) sl->Ptotzplot->co[i][l] = sl->Ptot->co[l][j];
-                if (strcmp(files[fsatz],
-                           string_novalue) != 0) sl->satratio->co[i][l] = (sl->SS->thi->co[l][j] +
-                                                                           sl->th->co[l][j] -
-                                                                           sl->pa->co[sy][jres][l]) /
-                                                                          (sl->pa->co[sy][jsat][l] - sl->pa->co[sy][jres][l]);
+                if (strcmp(files[fTz], string_novalue) != 0|| strcmp(files[fTzwriteend], string_novalue) != 0)
+                    sl->Tzplot->co[i][l] = (*sl->SS->T)(l,j);
+                if (strcmp(files[fTzav], string_novalue) != 0|| strcmp(files[fTzavwriteend], string_novalue) != 0)
+                    sl->Tzavplot->co[i][l] = (*sl->SS->T)(l,j);
+                if (strcmp(files[fliqz], string_novalue) != 0|| strcmp(files[fliqzwriteend],string_novalue) != 0)
+                    sl->thzplot->co[i][l] = (*sl->th)(l,j);
+                if (strcmp(files[fliqzav], string_novalue) != 0 || strcmp(files[fliqzavwriteend], string_novalue) != 0)
+                    sl->thzavplot->co[i][l] = (*sl->th)(l,j);
+                if (strcmp(files[ficez], string_novalue) != 0 || strcmp(files[ficezwriteend], string_novalue) != 0)
+                    sl->thizplot->co[i][l] = (*sl->SS->thi)(l,j);
+                if (strcmp(files[ficezav], string_novalue) != 0|| strcmp(files[ficezavwriteend], string_novalue) != 0)
+                    sl->thizavplot->co[i][l] = (*sl->SS->thi)(l,j);
+                if (strcmp(files[fpsiztot], string_novalue) != 0 || strcmp(files[fpsiztotwriteend],string_novalue) != 0)
+                    sl->Ptotzplot->co[i][l] = (*sl->Ptot)(l,j);
+                if (strcmp(files[fsatz], string_novalue) != 0)
+                    sl->satratio->co[i][l] = ((*sl->SS->thi)(l,j)
+                                              + (*sl->th)(l,j)
+                                              - sl->pa->co[sy][jres][l]) / (sl->pa->co[sy][jsat][l]- sl->pa->co[sy][jres][l]);
             }
             for (l=0; l<=Nl; l++)
             {
-                if (strcmp(files[fpsiz], string_novalue) != 0
-                    || strcmp(files[fpsizwriteend],
-                              string_novalue) != 0) sl->Pzplot->co[i][l] = sl->SS->P->co[l][j];
+                if (strcmp(files[fpsiz], string_novalue) != 0|| strcmp(files[fpsizwriteend], string_novalue) != 0)
+                    sl->Pzplot->co[i][l] = (*sl->SS->P)(l,j);
             }
         }
     }
 
     if (recovered > 0)
     {
-        assign_recovered_tensor_vector(old, par->recover, files[riceg], sl->SS->thi,
+        assign_recovered_tensor_vector(old, par->recover, files[riceg], sl->SS->thi.get(),
                                        top->rc_cont, par, land->LC);
-        assign_recovered_tensor_vector(old, par->recover, files[rTg], sl->SS->T,
+        assign_recovered_tensor_vector(old, par->recover, files[rTg], sl->SS->T.get(),
                                        top->rc_cont, par, land->LC);
-        assign_recovered_tensor_vector(old, par->recover, files[rpsi], sl->SS->P,
+        assign_recovered_tensor_vector(old, par->recover, files[rpsi], sl->SS->P.get(),
                                        top->rc_cont, par, land->LC);
 
         assign_recovered_map_vector(old, par->recover, files[rwcrn], sl->VS->wrain.get(),
@@ -1193,32 +1181,32 @@ land cover %ld, meteo station %ld\n",
         r=(*cnet->r)(j);
         c=(*cnet->c)(j);
 
-        cnet->SS->P->co[0][j] = sl->SS->P->co[0][top->j_cont[r][c]] +
+        (*cnet->SS->P)(0,j) = (*sl->SS->P)(0,top->j_cont[r][c]) +
                                 par->depr_channel;
 
         for (l=1; l<=Nl; l++)
         {
-            cnet->SS->P->co[l][j] = sl->Ptot->co[l][top->j_cont[r][c]] +
+            (*cnet->SS->P)(l,j) = (*sl->Ptot)(l,top->j_cont[r][c]) +
                                     par->depr_channel;
         }
 
         for (l=1; l<=Nl; l++)
         {
-            cnet->SS->T->co[l][j]=sl->pa->co[sy][jT][l];
+            (*cnet->SS->T)(l,j)=sl->pa->co[sy][jT][l];
 
-            cnet->th->co[l][j] = teta_psi(cnet->SS->P->co[l][j], 0.0,
+            cnet->th->co[l][j] = teta_psi((*cnet->SS->P)(l,j), 0.0,
                                           sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
                                           sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l],
                                           1.-1./sl->pa->co[sy][jns][l],
                                           PsiMin, sl->pa->co[sy][jss][l]);
 
-            th_oversat = Fmax( cnet->SS->P->co[l][j], 0.0 ) * sl->pa->co[sy][jss][l];
+            th_oversat = Fmax( (*cnet->SS->P)(l,j), 0.0 ) * sl->pa->co[sy][jss][l];
             cnet->th->co[l][j] -= th_oversat;
 
-            if (cnet->SS->T->co[l][j]<=Tfreezing)
+            if ((*cnet->SS->T)(l,j) <=Tfreezing)
             {
                 // Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
-                cnet->SS->thi->co[l][j] = cnet->th->co[l][j] - teta_psi(Psif( cnet->SS->T->co[l][j]),
+                (*cnet->SS->thi)(l,j) = cnet->th->co[l][j] - teta_psi(Psif( (*cnet->SS->T)(l,j)),
                                                                         0.0,
                                                                         sl->pa->co[sy][jsat][l],
                                                                         sl->pa->co[sy][jres][l],
@@ -1230,12 +1218,12 @@ land cover %ld, meteo station %ld\n",
 
                 // if Theta(without freezing)< Theta_unfrozen(in equilibrium with T)
                 // Theta_ice is set at 0
-                if (cnet->SS->thi->co[l][j]<0) cnet->SS->thi->co[l][j]=0.0;
+                if ((*cnet->SS->thi)(l,j)<0) (*cnet->SS->thi)(l,j)=0.0;
 
                 // Psi is updated taking into account the freezing
-                cnet->th->co[l][j] -= cnet->SS->thi->co[l][j];
-                cnet->SS->P->co[l][j] = psi_teta(cnet->th->co[l][j] + th_oversat,
-                                                 cnet->SS->thi->co[l][j],
+                cnet->th->co[l][j] -= (*cnet->SS->thi)(l,j);
+                (*cnet->SS->P)(l,j) = psi_teta(cnet->th->co[l][j] + th_oversat,
+                                                 (*cnet->SS->thi)(l,j),
                                                  sl->pa->co[sy][jsat][l],
                                                  sl->pa->co[sy][jres][l],
                                                  sl->pa->co[sy][ja][l],
@@ -1249,11 +1237,11 @@ land cover %ld, meteo station %ld\n",
 
     if (recovered > 0 && par->total_channel > 0)
     {
-        assign_recovered_tensor_channel(old, par->recover, files[rpsich], cnet->SS->P,
+        assign_recovered_tensor_channel(old, par->recover, files[rpsich], cnet->SS->P.get(),
                                         cnet->r.get(), cnet->c.get(), top->Z0);
         assign_recovered_tensor_channel(old, par->recover, files[ricegch],
-                                        cnet->SS->thi, cnet->r.get(), cnet->c.get(), top->Z0);
-        assign_recovered_tensor_channel(old, par->recover, files[rTgch], cnet->SS->T,
+                                        cnet->SS->thi.get(), cnet->r.get(), cnet->c.get(), top->Z0);
+        assign_recovered_tensor_channel(old, par->recover, files[rTgch], cnet->SS->T.get(),
                                         cnet->r.get(), cnet->c.get(), top->Z0);
 
         for (i=1; i<=par->total_channel; i++)
@@ -1261,14 +1249,14 @@ land cover %ld, meteo station %ld\n",
             for (l=1; l<=Nl; l++)
             {
                 sy = (*cnet->soil_type)(i);
-                cnet->th->co[l][i] = teta_psi(Fmin(cnet->SS->P->co[l][i],
-                                                   psi_saturation(cnet->SS->thi->co[l][i],
+                cnet->th->co[l][i] = teta_psi(Fmin((*cnet->SS->P)(l,i),
+                                                   psi_saturation((*cnet->SS->thi)(l,i),
                                                                   sl->pa->co[sy][jsat][l],
                                                                   sl->pa->co[sy][jres][l],
                                                                   sl->pa->co[sy][ja][l],
                                                                   sl->pa->co[sy][jns][l],
                                                                   1.-1./sl->pa->co[sy][jns][l])),
-                                              cnet->SS->thi->co[l][i],
+                                              (*cnet->SS->thi)(l,i),
                                               sl->pa->co[sy][jsat][l],
                                               sl->pa->co[sy][jres][l],
                                               sl->pa->co[sy][ja][l],
@@ -1449,7 +1437,7 @@ land cover %ld, meteo station %ld\n",
 
 
     // vectors used in energy_balance()
-   egy->Tgskin_surr.reset(new Matrix<double>{Nr,Nc});
+    egy->Tgskin_surr.reset(new Matrix<double>{Nr,Nc});
 //    egy->Tgskin_surr = new_doublematrix(Nr, Nc);
 //    initialize_doublematrix(egy->Tgskin_surr, 0.);
 
@@ -3983,12 +3971,12 @@ void copy_soil_state(SOIL_STATE *from, SOIL_STATE *to)
 
     for (i=1; i<=n; i++)
     {
-        to->P->co[0][i] = from->P->co[0][i];
+        (*to->P)(0,i) = (*from->P)(0,i);
         for (l=1; l<=nl; l++)
         {
-            to->P->co[l][i] = from->P->co[l][i];
-            to->T->co[l][i] = from->T->co[l][i];
-            to->thi->co[l][i] = from->thi->co[l][i];
+            (*to->P)(l,i) = (*from->P)(l,i);
+            (*to->T)(l,i) = (*from->T)(l,i);
+            (*to->thi)(l,i) = (*from->thi)(l,i);
         }
     }
 }

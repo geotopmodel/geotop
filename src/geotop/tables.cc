@@ -42,7 +42,7 @@ double find_activelayerdepth_up(long i, long ty, SOIL *sl)
 
     n = nmax;
 
-    if (sl->SS->T->co[n][i]>=thresh)
+    if ((*sl->SS->T)(n,i) >=thresh)
     {
         for (l=1; l<=n; l++)
         {
@@ -57,7 +57,8 @@ double find_activelayerdepth_up(long i, long ty, SOIL *sl)
         {
             n--;
             if (n==1) out=-1;
-            if (sl->SS->T->co[n+1][i]<thresh && sl->SS->T->co[n][i]>=thresh) out=1;
+            if ((*sl->SS->T)(n+1,i)<thresh && (*sl->SS->T)(n,i)>=thresh)
+                out=1;
         }
         while (out==0);
 
@@ -68,8 +69,7 @@ double find_activelayerdepth_up(long i, long ty, SOIL *sl)
                 table += sl->pa->co[ty][jdz][l];
             }
 
-            table += (1.-sl->SS->thi->co[n+1][i]/(sl->SS->thi->co[n+1][i]+sl->th->co[n
-                                                                                     +1][i]-sl->pa->co[ty][jres][n+1]))*sl->pa->co[ty][jdz][n+1];
+            table += (1.-(*sl->SS->thi)(n+1,i)/((*sl->SS->thi)(n+1,i)+ (*sl->th)(n+1,i)-sl->pa->co[ty][jres][n+1]))*sl->pa->co[ty][jdz][n+1];
         }
     }
 
@@ -93,14 +93,15 @@ double find_activelayerdepth_dw(long i, long ty, SOIL *sl)
 
     n = 1;
 
-    if (sl->SS->T->co[n][i]<thresh && nmax>1)
+    if ((*sl->SS->T)(n,i)<thresh && nmax>1)
     {
 
         do
         {
             n++;
             if (n==nmax) out=-1;
-            if (sl->SS->T->co[n][i]>=thresh && sl->SS->T->co[n-1][i]<thresh) out=1;
+            if ((*sl->SS->T)(n,i)>=thresh && (*sl->SS->T)(n-1,i) < thresh)
+                out=1;
         }
         while (out==0);
 
@@ -111,7 +112,7 @@ double find_activelayerdepth_dw(long i, long ty, SOIL *sl)
 
         if (out==1)
         {
-            table += (sl->SS->thi->co[n-1][i]/(sl->SS->thi->co[n-1][i]+sl->th->co[n-1][i]
+            table += ((*sl->SS->thi)(n-1,i)/((*sl->SS->thi)(n-1,i) + (*sl->th)(n-1,i)
                                                -sl->pa->co[ty][jres][n-1]))*sl->pa->co[ty][jdz][n-1];
         }
         else
@@ -144,7 +145,7 @@ double find_watertabledepth_up(double Z, long i, long ty, SOIL *sl)
     if (n>1)
     {
 
-        if (sl->Ptot->co[n][i] < thresh)
+        if ((*sl->Ptot)(n,i) < thresh)
         {
 
             for (l=1; l<=n; l++)
@@ -160,7 +161,7 @@ double find_watertabledepth_up(double Z, long i, long ty, SOIL *sl)
             {
                 n--;
                 if (n==1) out=-1;
-                if (sl->Ptot->co[n+1][i] >= thresh && sl->Ptot->co[n][i] < thresh) out=1;
+                if (sl->Ptot->co[n+1][i] >= thresh && (*sl->Ptot)(n,i) < thresh) out=1;
             }
             while (out==0);
 
@@ -174,7 +175,7 @@ double find_watertabledepth_up(double Z, long i, long ty, SOIL *sl)
 
                 table += 0.5 * sl->pa->co[ty][jdz][n+1];
                 table -= 0.5 * (sl->pa->co[ty][jdz][n]+sl->pa->co[ty][jdz][n+1]) *
-                         (sl->Ptot->co[n+1][i]-thresh) / (sl->Ptot->co[n+1][i]-sl->Ptot->co[n][i]);
+                         (sl->Ptot->co[n+1][i]-thresh) / (sl->Ptot->co[n+1][i]-(*sl->Ptot)(n,i));
 
             }
         }
@@ -202,18 +203,18 @@ double find_watertabledepth_dw(double Z, long i, long ty, SOIL *sl)
     short out=0;
 
     n = 3;
- //   std::cout << "sl->Ptot->co[n][i] = " << sl->Ptot->co[n][i] << std::endl;
-    if (sl->Ptot->co[n][i] < thresh)
+ //   std::cout << "(*sl->Ptot)(n,i) = " << (*sl->Ptot)(n,i) << std::endl;
+    if ((*sl->Ptot)(n,i) < thresh)
     {
 
         do
         {
             n++;
           if (n>=nmax) out=-1;
-          if (n<=nmax && sl->Ptot->co[n][i] >= thresh && sl->Ptot->co[n-1][i] < thresh) out=1;
+          if (n<=nmax && (*sl->Ptot)(n,i) >= thresh && (*sl->Ptot)(n-1,i) < thresh) out=1;
 //            Previosuly written:
 //            if (n==nmax) out=-1;
-//            if (sl->Ptot->co[n][i] >= thresh && sl->Ptot->co[n-1][i] < thresh) out=1; // look here!
+//            if ((*sl->Ptot)(n,i) >= thresh && (*sl->Ptot)(n-1,i) < thresh) out=1; // look here!
 
         }
         while (out==0);
@@ -225,9 +226,9 @@ double find_watertabledepth_dw(double Z, long i, long ty, SOIL *sl)
 
         if (out==1)
         {
-            table += ( 0.5*sl->pa->co[ty][jdz][n] - (sl->Ptot->co[n][i]-thresh)*0.5*
-                                                    (sl->pa->co[ty][jdz][n-1]+sl->pa->co[ty][jdz][n])/(sl->Ptot->co[n][i]
-                                                                                                       -sl->Ptot->co[n-1][i]) );
+            table += ( 0.5*sl->pa->co[ty][jdz][n] - ((*sl->Ptot)(n,i)-thresh)*0.5*
+                                                    (sl->pa->co[ty][jdz][n-1]+sl->pa->co[ty][jdz][n])/((*sl->Ptot)(n,i)
+                                                                                                       -(*sl->Ptot)(n-1,i)) );
         }
         else
         {

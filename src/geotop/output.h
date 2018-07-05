@@ -58,7 +58,7 @@ double interpolate_soil2(long lmin, double h, long max, double *Dz,
                          DOUBLEMATRIX *Q, long i);
 
 void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
-                             short format, DOUBLEMATRIX *T, Vector<double> *n, long **J,
+                             short format, Matrix<double> *T, Vector<double> *n, long **J,
                              LONGMATRIX *RC, double *dz, DOUBLEMATRIX *slope, short vertical);
 
 void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,

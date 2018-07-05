@@ -46,10 +46,9 @@ extern T_INIT *UV;
 /******************************************************************************************************************************************/
 
 void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
-                 PAR *par,ENERGY *egy,SNOW *snow, GLACIER *glac, METEO *met, TIMES *times)
-{
+                 PAR *par,ENERGY *egy,SNOW *snow, GLACIER *glac, METEO *met, TIMES *times) {
 
-    long i,j,r,l,n;
+    long i, j, r, l, n;
 
     printf("Close files\n");
     if (strcmp(files[fpointwriteend], string_novalue) != 0) fclose(ffpoint);
@@ -67,26 +66,22 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     if (strcmp(files[ficezwriteend], string_novalue) != 0) fclose(ffice);
 
     geolog << "Deallocating global variables" << std::endl;
-    if (par->state_pixel == 1)
-    {
-        for (i=0; i<otot; i++)
-        {
+    if (par->state_pixel == 1) {
+        for (i = 0; i < otot; i++) {
             free(odpnt[i]);
             free(odp[i]);
         }
         free(odpnt);
         free(odp);
     }
-    for (i=0; i<otot; i++)
-    {
+    for (i = 0; i < otot; i++) {
         free(hpnt[i]);
     }
     free(hpnt);
     free(opnt);
     free(ipnt);
 
-    for (i=0; i<ootot; i++)
-    {
+    for (i = 0; i < ootot; i++) {
         free(hbsn[i]);
     }
     free(odbsn);
@@ -95,13 +90,11 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     free(obsn);
     free(ibsn);
 
-    for (j=0; j<6; j++)
-    {
+    for (j = 0; j < 6; j++) {
         free(hsnw[j]);
     }
 
-    for (j=0; j<10; j++)
-    {
+    for (j = 0; j < 10; j++) {
         free(hglc[j]);
     }
     free(hsnw);
@@ -110,8 +103,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     free(osnw);
     free(oglc);
 
-    for (j=0; j<6; j++)
-    {
+    for (j = 0; j < 6; j++) {
         free(hsl[j]);
     }
     free(hsl);
@@ -119,18 +111,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
     /* Deallocation of struct SOIL "sl": */
     geolog << "Deallocating soil" << std::endl;
-    free_doublematrix(sl->Ptot);
-    if (par->output_soil_bin == 1)
-    {
-        if (strcmp(files[fTav], string_novalue) != 0
-            || strcmp(files[fTavsup],
-                      string_novalue) != 0) free_doublematrix(sl->T_av_tensor);
-        if (strcmp(files[fliqav],
-                   string_novalue) != 0) free_doublematrix(sl->thw_av_tensor);
-        if (strcmp(files[ficeav],
-                   string_novalue) != 0) free_doublematrix(sl->thi_av_tensor);
-    }
-    free_doublematrix(sl->th);
+
     free_longmatrix(sl->type);
     free_doubletensor(sl->pa);
     free_doubletensor(sl->ET);
@@ -590,11 +571,17 @@ void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac, EN
     }
 
     if(par->output_soil_bin == 1){
-        if(strcmp(files[fTav] , string_novalue) != 0 || strcmp(files[fTavsup] , string_novalue) != 0) initialize_doublematrix(sl->T_av_tensor, 0.);
-        if(strcmp(files[ficeav] , string_novalue) != 0) initialize_doublematrix(sl->thi_av_tensor, 0.);
-        if(strcmp(files[fliqav] , string_novalue) != 0) initialize_doublematrix(sl->thw_av_tensor, 0.);
-        if(strcmp(files[fpnet] , string_novalue) != 0) *(sl->Pnetcum) = 0;
-        if(strcmp(files[fevap] , string_novalue) != 0) *(sl->ETcum) = 0;
+        if(strcmp(files[fTav] , string_novalue) != 0 || strcmp(files[fTavsup] , string_novalue) != 0)
+        (*sl->T_av_tensor) = 0.;
+        //             initialize_doublematrix(sl->T_av_tensor, 0.);
+        if(strcmp(files[ficeav] , string_novalue) != 0)
+            (*sl->thi_av_tensor) = 0.;
+        if(strcmp(files[fliqav] , string_novalue) != 0)
+            (*sl->thw_av_tensor) = 0.;
+        if(strcmp(files[fpnet] , string_novalue) != 0)
+            *(sl->Pnetcum) = 0;
+        if(strcmp(files[fevap] , string_novalue) != 0)
+            *(sl->ETcum) = 0;
     }
 
     if(par->output_snow_bin == 1){
