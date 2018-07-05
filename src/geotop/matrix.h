@@ -12,7 +12,20 @@
 #include <sstream>
 
 template <class T> class Matrix {
+    //private:
+    // ...
+
 public:
+    /** lower and upper bounds */
+    std::size_t nrh, nrl; // rows
+    std::size_t nch, ncl; // columns
+
+    std::size_t n_row;
+    std::size_t n_col;
+
+    /** the actual data */
+    std::unique_ptr<T[]> co; // it has to be written after the lower and upper limits (otherwise: sigfault)
+
     /** pointer to the first accessible element (needed by an iterator) */
     T *begin() noexcept { return &co[0]; }
 
@@ -40,6 +53,7 @@ public:
     Matrix(const std::size_t _nrh, const std::size_t _nrl, const std::size_t _nch,  const std::size_t _ncl):
             nrh{_nrh}, nrl{_nrl}, nch{_nch}, ncl{_ncl},
             n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co { new T[(nrh-nrl+1)*(nch-ncl+1)]{} } {}
+    // ............................................................................|-->initialize all elements to 0
 
     Matrix(const std::size_t r, const std::size_t c): Matrix{r,1,c,1} {}
 
@@ -132,16 +146,5 @@ public:
         *this = Matrix<T>{m}; // use move assignment and copy constructor
         return *this;
     }
-
-    std::size_t nrh, nrl; // rows
-    std::size_t nch, ncl; // columns
-
-    std::size_t n_row;
-    std::size_t n_col;
-
-    std::unique_ptr<T[]> co;
-
-//private:
-
 };
 #endif // GEOTOP_MATRIX_H
