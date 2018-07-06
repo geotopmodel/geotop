@@ -501,8 +501,8 @@ void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac, EN
         if(strcmp(files[fsnowmelt] , string_novalue) != 0) *(snow->MELTED)= 0.;
         if(strcmp(files[fsnowsubl] , string_novalue) != 0) *(snow->SUBL) = 0;
         if(strcmp(files[fswe] , string_novalue) != 0 && par->blowing_snow==1){
-            initmatrix(0.0, snow->Wtrans_plot.get(), land->LC, number_novalue);
-            initmatrix(0.0, snow->Wsubl_plot.get(), land->LC, number_novalue);
+            initmatrix(0.0, snow->Wtrans_plot.get(), land->LC.get(), number_novalue);
+            initmatrix(0.0, snow->Wsubl_plot.get(), land->LC.get(), number_novalue);
         }
         if(strcmp(files[fsndur] , string_novalue) != 0) *(snow->t_snow) = 0;
     }

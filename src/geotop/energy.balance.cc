@@ -1493,8 +1493,8 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
       EnergyFluxes(t, Tg, r, c, ns+ng, Tg0, Qg0, Tv0, zmu, zmT, z0s, d0s, rz0s, z0v,
                    d0v, rz0v, hveg, v, Ta, Qa, P, LR, psi0, eps, fc, LSAI,
                    decaycoeff0, *Wcrn, Wcrnmax, *Wcsn, Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0],
-                   sl->pa->co[sy], land->ty->co[lu],
-                   land->root_fraction->co[lu], par, egy->soil_transp_layer.get(), SWin, LWin, SWv, LW,
+                   sl->pa->co[sy], (*land->ty)(lu,0),
+                   (*land->root_fraction)(lu,0), par, egy->soil_transp_layer.get(), SWin, LWin, SWv, LW,
                    H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans,
                    &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, rh, rv, rc, rb, ruc,
                    &rh_g, &rv_g, Qg, u_top, decay, Locc, LWup_ab_v,
@@ -1805,12 +1805,12 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
                   if (i<=par->total_channel)
                     {
-                      th0 = cnet->th->co[m][j];
+                      th0 = (*cnet->th)(m,j);
                       th1 = teta_psi(Psif(Fmin(egy->Tstar->co[m],egy->Temp->co[l])), 0.0,
                                      sl->pa->co[sy][jsat][m],
                                      sl->pa->co[sy][jres][m], sl->pa->co[sy][ja][m], sl->pa->co[sy][jns][m],
                                      1-1/sl->pa->co[sy][jns][m], PsiMin, sl->pa->co[sy][jss][m]);
-                      if (th1 > cnet->th->co[m][j] + (*SC->thi)(m,j)) th1 = cnet->th->co[m][j] +
+                      if (th1 > (*cnet->th)(m,j) + (*SC->thi)(m,j)) th1 = (*cnet->th)(m,j) +
                                                                                 (*SC->thi)(m,j);
                     }
                   else
@@ -1860,7 +1860,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
                           if (i<=par->total_channel)
                             {
-                              egy->THETA->co[m] = cnet->th->co[m][j] + egy->deltaw->co[l]/(rho_w*egy->Dlayer->co[l]);
+                              egy->THETA->co[m] = (*cnet->th)(m,j) + egy->deltaw->co[l]/(rho_w*egy->Dlayer->co[l]);
                             }
                           else
                             {
@@ -1892,18 +1892,16 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                     }
 
                   //surface energy balance
-                  EnergyFluxes_no_rec_turbulence(t, Tg, r, c, ns+ng, egy->T0->co[1], Qg0, Tv0,
-                                                 zmu, zmT, z0s, d0s, rz0s, z0v, d0v, rz0v, hveg, v, Ta, Qa,
-                                                 P, LR, (*SL->P)(0,j), eps, fc, LSAI, decaycoeff0, *Wcrn, Wcrnmax, *Wcsn,
-                                                 Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0],
-                                                 sl->pa->co[sy], land->ty->co[lu], land->root_fraction->co[lu], par,
-                                                 egy->soil_transp_layer.get(), SWin,
-                                                 LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans, &(V->Tv->co[j]),
-                                                 Qv, Ts, Qs, Hg0, Hg1,
-                                                 Eg0, Eg1, Lob, rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, Locc,
-                                                 LWup_ab_v, &egy->Temp->co[0],
-                                                 egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(), (*top->sky)(r,c),
-                                                 flagTmin, cont);
+                  EnergyFluxes_no_rec_turbulence(t, Tg, r, c, ns+ng, egy->T0->co[1], Qg0, Tv0, zmu, zmT, // 10 parameters
+                                                 z0s, d0s, rz0s, z0v, d0v, rz0v, hveg, v, Ta, Qa, // 10 parameters
+                                                 P, LR, (*SL->P)(0,j), eps, fc, LSAI, decaycoeff0, *Wcrn, Wcrnmax, *Wcsn,  // 10 parameters
+                                                 Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0], sl->pa->co[sy], // 5 parameters
+                                                 (*land->ty)(lu,0), (*land->root_fraction)(lu,0), par, egy->soil_transp_layer.get(), SWin, // 5 parameters
+                                                 LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, // 10 parameters
+                                                 Etrans, &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, // 10 parameters
+                                                 rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, // 10 parameters
+                                                 Locc, LWup_ab_v, &egy->Temp->co[0], egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(), // 5 parameters
+                                                 (*top->sky)(r,c), flagTmin, cont); // 3 parameters => TOT = 78 parameters
 
                   if (micro == 1)
                     {
@@ -2238,12 +2236,12 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
                               pa[ja][l], pa[jns][l], 1.-1./pa[jns][l]);
       th_oversat = Fmax( (*S->P)(l,i) - psisat, 0.0 ) * pa[jss][l];
 
-      th->co[l][i] = Fmax(0.,egy->liq->co[l+n]+egy->deltaw->co[l+n])/
+      (*th)(l,i) = Fmax(0.,egy->liq->co[l+n]+egy->deltaw->co[l+n])/
                      (rho_w*egy->Dlayer->co[l+n]);
       (*S->thi)(l,i) = Fmax(0.,
                               egy->ice->co[l+n]-egy->deltaw->co[l+n])/(rho_w*egy->Dlayer->co[l+n]);
 
-      (*S->P)(l,i) = psi_teta(th->co[l][i]+th_oversat, (*S->thi)(l,i),
+      (*S->P)(l,i) = psi_teta((*th)(l,i)+th_oversat, (*S->thi)(l,i),
                                 pa[jsat][l], pa[jres][l], pa[ja][l], pa[jns][l], 1.-1./pa[jns][l], PsiMin,
                                 pa[jss][l]);
 
@@ -2400,7 +2398,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0,
                   double decaycoeff0, double Wcrn,
                   double Wcrnmax, double Wcsn, double Wcsnmax, double *dWcrn, double *dWcsn,
                   double *theta, double **soil,
-                  double *land, double *root, PAR *par, Vector<double> *soil_transp_layer,
+                  double land, double root, PAR *par, Vector<double> *soil_transp_layer,
                   double SWin, double LWin, double SWv, double *LW,
                   double *H, double *dH_dT, double *E, double *dE_dT, double *LWv, double *Hv,
                   double *LEv, double *Etrans,
@@ -2600,7 +2598,8 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
                                     double decaycoeff0, double Wcrn,
                                     double Wcrnmax, double Wcsn, double Wcsnmax, double *dWcrn, double *dWcsn,
                                     double *theta, double **soil,
-                                    double *land, double *root, PAR *par, Vector<double> *soil_transp_layer,
+                                    double land, double root, PAR *par,
+                                    Vector<double> *soil_transp_layer,
                                     double SWin, double LWin, double SWv, double *LW,
                                     double *H, double *dH_dT, double *E, double *dE_dT, double *LWv, double *Hv,
                                     double *LEv, double *Etrans,

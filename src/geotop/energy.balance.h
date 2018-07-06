@@ -70,8 +70,8 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0,
                   double v, double Ta, double Qa, double P, double LR,
                   double psi, double e, double fc, double LSAI, double decaycoeff0, double Wcrn,
                   double Wcrnmax, double Wcsn, double Wcsnmax,
-                  double *dWcrn, double *dWcsn, double *theta, double **soil, double *land,
-                  double *root, PAR *par, Vector<double> *soil_transp_layer,
+                  double *dWcrn, double *dWcsn, double *theta, double **soil, double land,
+                  double root, PAR *par, Vector<double> *soil_transp_layer,
                   double SWin, double LWin, double SWv, double *LW, double *H, double *dH_dT,
                   double *E, double *dE_dT, double *LWv, double *Hv,
                   double *LEv, double *Etrans, double *Tv, double *Qv, double *Ts, double *Qs,
@@ -83,25 +83,24 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0,
                   Vector<double> *soil_evap_layer_bare, Vector<double> *soil_evap_layer_veg,
                   double sky);
 
-void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
-                                    long n, double Tg0, double Qg0, double Tv0, double zmu, double zmT,
-                                    double z0s,
-                                    double d0s, double rz0s, double z0v, double d0v, double rz0v, double hveg,
-                                    double v, double Ta, double Qa, double P, double LR,
-                                    double psi, double e, double fc, double LSAI, double decaycoeff0, double Wcrn,
-                                    double Wcrnmax, double Wcsn, double Wcsnmax,
-                                    double *dWcrn, double *dWcsn, double *theta, double **soil, double *land,
-                                    double *root, PAR *par, Vector<double> *soil_transp_layer,
-                                    double SWin, double LWin, double SWv, double *LW, double *H, double *dH_dT,
-                                    double *E, double *dE_dT, double *LWv, double *Hv,
-                                    double *LEv, double *Etrans, double *Tv, double *Qv, double *Ts, double *Qs,
-                                    double *Hg0, double *Hg1, double *Eg0,
-                                    double *Eg1, double *Lobukhov, double *rh, double *rv, double *rc, double *rb,
-                                    double *ruc, double *rh_g,
-                                    double *rv_g, double *Qg, double *u_top, double *decay, double *Locc,
-                                    double *LWup_above_v, double *T,
-                                    Vector<double> *soil_evap_layer_bare, Vector<double> *soil_evap_layer_veg,
-                                    double sky, short flagTmin, long cont);
+void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n, double Tg0, double Qg0, double Tv0,
+                                    double zmu, double zmT, // 10 parameters
+                                    double z0s, double d0s, double rz0s, double z0v, double d0v, double rz0v,
+                                    double hveg, double v, double Ta, double Qa, // 10
+                                    double P, double LR, double psi, double e, double fc, double LSAI,
+                                    double decaycoeff0, double Wcrn, double Wcrnmax, double Wcsn, // 10
+                                    double Wcsnmax, double *dWcrn, double *dWcsn, double *theta, double **soil, // 5
+                                    double land, double root, PAR *par, Vector<double> *soil_transp_layer,
+                                    double SWin, // 5
+                                    double LWin, double SWv, double *LW, double *H, double *dH_dT, double *E,
+                                    double *dE_dT, double *LWv, double *Hv, double *LEv, // 10
+                                    double *Etrans, double *Tv, double *Qv, double *Ts, double *Qs, double *Hg0,
+                                    double *Hg1, double *Eg0, double *Eg1, double *Lobukhov, // 10
+                                    double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g,
+                                    double *rv_g, double *Qg, double *u_top, double *decay, // 10
+                                    double *Locc, double *LWup_above_v, double *T, Vector<double> *soil_evap_layer_bare,
+                                    Vector<double> *soil_evap_layer_veg, // 5
+                                    double sky, short flagTmin, long cont); // 3
 
 double k_thermal(short snow, short a, double th_liq, double th_ice,
                  double th_sat, double k_solid);

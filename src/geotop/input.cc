@@ -989,12 +989,12 @@ land cover %ld, meteo station %ld\n",
             {
                 z = 0.;
                 (*sl->SS->P)(0,i) = -IT->init_water_table_depth->co[sy] *
-                                      cos(top->(*slope)(r,c)*Pi/180.);
+                                      cos((*top->slope)(r,c)*Pi/180.);
                 for (l=1; l<=Nl; l++)
                 {
-                    z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->(*slope)(r,c)*Pi/180.);
+                    z += 0.5*sl->pa->co[sy][jdz][l]*cos((*top->slope)(r,c)*Pi/180.);
                     (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
-                    z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->(*slope)(r,c)*Pi/180.);
+                    z += 0.5*sl->pa->co[sy][jdz][l]*cos((*top->slope)(r,c)*Pi/180.);
                 }
             }
             else
@@ -1019,12 +1019,12 @@ land cover %ld, meteo station %ld\n",
             sy=(*sl->type)(r,c);
 
             z = 0.;
-            (*sl->SS->P)(0,i) = -M->co[r][c]*cos(top->(*slope)(r,c)*Pi/180.);
+            (*sl->SS->P)(0,i) = -M->co[r][c]*cos((*top->slope)(r,c)*Pi/180.);
             for (l=1; l<=Nl; l++)
             {
-                z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->(*slope)(r,c)*Pi/180.);
+                z += 0.5*sl->pa->co[sy][jdz][l]*cos((*top->slope)(r,c)*Pi/180.);
                 (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
-                z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->(*slope)(r,c)*Pi/180.);
+                z += 0.5*sl->pa->co[sy][jdz][l]*cos((*top->slope)(r,c)*Pi/180.);
             }
         }
     }

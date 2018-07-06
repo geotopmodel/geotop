@@ -56,15 +56,15 @@ void topo_mod_winds(double **winddir_grid, double **windspd_grid,
                     Matrix<double> *curvature4, Matrix<double> *slope_az,
                     Matrix<double> *terrain_slope, Matrix<double> *topo, double undef);
 
-short get_wind(double dE, double dN, Matrix<double> *E, Matrix<double> *N, METEO *met, long ucode, long vcode, long Vscode,
-               double **windspd_grid, double **winddir_grid, Matrix<double> *curvature1, Matrix<double> *curvature2,
-               Matrix<double> *curvature3, Matrix<double> *curvature4, Matrix<double> *slope_az, Matrix<double> *terrain_slope,
-               double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double dn,
-               Matrix<double> *topo, short iobsint);
+short get_wind(double dE, double dN, Matrix<double> *E, Matrix<double> *N, METEO *met, long ucode, long vcode,
+               long Vscode, Matrix<double> *windspd_grid, Matrix<double> *winddir_grid, Matrix<double> *curvature1,
+               Matrix<double> *curvature2, Matrix<double> *curvature3, Matrix<double> *curvature4,
+               Matrix<double> *slope_az, Matrix<double> *terrain_slope, double slopewtD, double curvewtD,
+               double slopewtI, double curvewtI, double windspd_min, double dn, Matrix<double> *topo, short iobsint);
 
 short get_precipitation(double dE, double dN, Matrix<double> *E,
                         Matrix<double> *N, METEO *met, long Pcode, long Tcode,
-                        long Tdcode, double **prec_grid, double dn, Matrix<double> *topo, short iobsint,
+                        long Tdcode, Matrix<double> *prec_grid, double dn, Matrix<double> *topo, short iobsint,
                         double lapse_rate,
                         double max, double min, short dew, double Train, double Tsnow,
                         double snow_corr_factor, double rain_corr_factor);
