@@ -161,7 +161,7 @@ double find_watertabledepth_up(double Z, long i, long ty, SOIL *sl)
             {
                 n--;
                 if (n==1) out=-1;
-                if (sl->Ptot->co[n+1][i] >= thresh && (*sl->Ptot)(n,i) < thresh) out=1;
+                if ((*sl->Ptot)(n+1,i) >= thresh && (*sl->Ptot)(n,i) < thresh) out=1;
             }
             while (out==0);
 
@@ -175,7 +175,7 @@ double find_watertabledepth_up(double Z, long i, long ty, SOIL *sl)
 
                 table += 0.5 * sl->pa->co[ty][jdz][n+1];
                 table -= 0.5 * (sl->pa->co[ty][jdz][n]+sl->pa->co[ty][jdz][n+1]) *
-                         (sl->Ptot->co[n+1][i]-thresh) / (sl->Ptot->co[n+1][i]-(*sl->Ptot)(n,i));
+                         ((*sl->Ptot)(n+1,i)-thresh) / ((*sl->Ptot)(n+1,i)-(*sl->Ptot)(n,i));
 
             }
         }

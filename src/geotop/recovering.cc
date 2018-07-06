@@ -184,8 +184,8 @@ void assign_recovered_tensor(short old, long n, char *name,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void assign_recovered_tensor_vector(short old, long n, char *name,
-                                    Matrix<double> *assign, LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr)
+void assign_recovered_tensor_vector(short old, long n, char *name, Matrix<double> *assign,
+                                    LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr)
 {
 
   long r, c, i, l;
@@ -211,7 +211,7 @@ void assign_recovered_tensor_vector(short old, long n, char *name,
         {
           r = rc->co[i][1];
           c = rc->co[i][2];
-          assign->co[l][i] = M->co[r][c];
+          (*assign)(l,i) = M->co[r][c];
         }
 
       free_doublematrix(M);
@@ -252,7 +252,8 @@ void assign_recovered_tensor_channel(short old, long n, char *name,
 
       for (ch=1; ch<=r->nh; ch++)
         {
-          if (r->co[ch] > 0) assign->co[l][ch] = M->co[r->co[ch]][c->co[ch]];
+          if (r->co[ch] > 0)
+            (*assign)(l,ch) = M->co[r->co[ch]][c->co[ch]];
         }
 
       free_doublematrix(M);
@@ -271,10 +272,10 @@ void recover_run_averages(short old, DOUBLEMATRIX *A, char *name,
                           DOUBLEMATRIX *LC, LONGMATRIX *rc, PAR *par, long n)
 {
 
-  DOUBLEMATRIX *M;
+  Matrix<double> *M;
   long j, l;
 
-  M = new_doublematrix(n, par->total_pixel);
+  M = new Matrix<double>{n, par->total_pixel};
   assign_recovered_tensor_vector(old, par->recover, name, M, rc, par, LC);
   for (j=1; j<=par->total_pixel; j++)
     {
@@ -282,11 +283,10 @@ void recover_run_averages(short old, DOUBLEMATRIX *A, char *name,
         {
           for (l=1; l<=n; l++)
             {
-              A->co[(*par->jplot)(j)][l] = M->co[l][j];
+              A->co[(*par->jplot)(j)][l] = (*M)(l,j);
             }
         }
     }
-  free_doublematrix(M);
 }
 
 /******************************************************************************************************************************************/
@@ -298,18 +298,18 @@ void print_run_averages_for_recover(DOUBLEMATRIX *A, char *name,
                                     long **j_cont, PAR *par, long n, long nr, long nc)
 {
 
-  DOUBLEMATRIX *M;
+  Matrix<double> *M;
   long j, l;
 
-  M = new_doublematrix(n, par->total_pixel);
-  initialize_doublematrix(M, (double)number_novalue);
+  M = new Matrix<double>{n, par->total_pixel};
+  *M = (double)number_novalue;
   for (j=1; j<=par->total_pixel; j++)
     {
       if ((*par->jplot)(j) > 0)
         {
           for (l=1; l<=n; l++)
             {
-              M->co[l][j] = A->co[(*par->jplot)(j)][l];
+              (*M)(l,j) = A->co[(*par->jplot)(j)][l];
             }
         }
     }
@@ -319,7 +319,6 @@ void print_run_averages_for_recover(DOUBLEMATRIX *A, char *name,
       write_tensorseries_vector(1, l, 0, name, 0, par->format_out, M, UV,
                                 number_novalue, j_cont, nr, nc);
     }
-  free_doublematrix(M);
 }
 
 /******************************************************************************************************************************************/

@@ -130,8 +130,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
       if (A->E->dsun > 2*Pi) A->E->dsun -= 2*Pi;
       A->E->sinhsun = adaptiveSimpsons2(Sinalpha_, A->E->sun, JDb, JDe, 1.E-6,
                                         20) / (JDe - JDb);
-      if (A->P->cast_shadow==1) shadow_haiden(A->T->Z0, A->E->hsun, A->E->dsun,
-                                                A->L->shadow);
+      if (A->P->cast_shadow==1) shadow_haiden(A->T->Z0, A->E->hsun, A->E->dsun, A->L->shadow);
     }
 
   //INITIALIZE BASIN AVERAGES

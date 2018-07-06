@@ -119,47 +119,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
     if (par->state_pixel == 1)
     {
-        if (strcmp(files[fTz], string_novalue) != 0
-            || strcmp(files[fTzwriteend],
-                      string_novalue) != 0) free_doublematrix(sl->Tzplot);
-        if (strcmp(files[fTzav], string_novalue) != 0
-            || strcmp(files[fTzavwriteend],
-                      string_novalue) != 0) free_doublematrix(sl->Tzavplot);
-        if (strcmp(files[fpsiztot], string_novalue) != 0
-            || strcmp(files[fpsiztotwriteend],
-                      string_novalue) != 0) free_doublematrix(sl->Ptotzplot);
-        if (strcmp(files[fpsiz], string_novalue) != 0
-            || strcmp(files[fpsizwriteend],
-                      string_novalue) != 0) free_doublematrix(sl->Pzplot);
-        if (strcmp(files[fliqz], string_novalue) != 0
-            || strcmp(files[fliqzwriteend],
-                      string_novalue) != 0) free_doublematrix(sl->thzplot);
-        if (strcmp(files[fliqzav], string_novalue) != 0
-            || strcmp(files[fliqzavwriteend],
-                      string_novalue) != 0) free_doublematrix(sl->thzavplot);
-        if (strcmp(files[ficez], string_novalue) != 0
-            || strcmp(files[ficezwriteend],
-                      string_novalue) != 0) free_doublematrix(sl->thizplot);
-        if (strcmp(files[ficezav], string_novalue) != 0
-            || strcmp(files[ficezavwriteend],
-                      string_novalue) != 0) free_doublematrix(sl->thizavplot);
-        if (strcmp(files[fsatz],
-                   string_novalue) != 0) free_doublematrix(sl->satratio);
-
-        if (strcmp(files[fTrun], string_novalue) != 0) free_doublematrix(sl->Tzrun);
-        if (strcmp(files[fwrun], string_novalue) != 0) free_doublematrix(sl->wzrun);
-        if (strcmp(files[fdUrun], string_novalue) != 0) free_doublematrix(sl->dUzrun);
-        if (strcmp(files[fSWErun],
-                   string_novalue) != 0) free_doublematrix(sl->SWErun);
-        if (strcmp(files[fTmaxrun],
-                   string_novalue) != 0) free_doublematrix(sl->Tzmaxrun);
-        if (strcmp(files[fTminrun],
-                   string_novalue) != 0) free_doublematrix(sl->Tzminrun);
-        if (strcmp(files[fwmaxrun],
-                   string_novalue) != 0) free_doublematrix(sl->wzmaxrun);
-        if (strcmp(files[fwminrun],
-                   string_novalue) != 0) free_doublematrix(sl->wzminrun);
-
     }
 
     //  free(sl);

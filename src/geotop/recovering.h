@@ -22,23 +22,23 @@
 void assign_recovered_map(short old, long n, char *name, DOUBLEMATRIX *assign,
                           PAR *par, DOUBLEMATRIX *Zdistr);
 
-void assign_recovered_map_vector(short old, long n, char *name,
-                                 Vector<double> *assign, LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr);
+void assign_recovered_map_vector(short old, long n, char *name, Vector<double> *assign,
+                                 LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr);
 
-void assign_recovered_map_long(short old, long n, char *name,
-                               LONGMATRIX *assign, PAR *par, DOUBLEMATRIX *Zdistr);
+void assign_recovered_map_long(short old, long n, char *name, LONGMATRIX *assign,
+                               PAR *par, DOUBLEMATRIX *Zdistr);
 
-void assign_recovered_tensor(short old, long n, char *name,
-                             DOUBLETENSOR *assign, PAR *par, DOUBLEMATRIX *Zdistr);
+void assign_recovered_tensor(short old, long n, char *name, DOUBLETENSOR *assign,
+                             PAR *par, DOUBLEMATRIX *Zdistr);
 
-void assign_recovered_tensor_vector(short old, long n, char *name,
-                                    Matrix<double> *assign, LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr);
+void assign_recovered_tensor_vector(short old, long n, char *name, Matrix<double> *assign,
+                                    LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr);
 
-void assign_recovered_tensor_channel(short old, long n, char *name,
-                                     Matrix<double> *assign, Vector<long> *r, Vector<long> *c, DOUBLEMATRIX *Zdistr);
+void assign_recovered_tensor_channel(short old, long n, char *name, Matrix<double> *assign,
+                                     Vector<long> *r, Vector<long> *c, DOUBLEMATRIX *Zdistr);
 
-void recover_run_averages(short old, DOUBLEMATRIX *A, char *name,
-                          DOUBLEMATRIX *LC, LONGMATRIX *rc, PAR *par, long n);
+void recover_run_averages(short old, DOUBLEMATRIX *A, char *name, DOUBLEMATRIX *LC,
+                          LONGMATRIX *rc, PAR *par, long n);
 
-void print_run_averages_for_recover(DOUBLEMATRIX *A, char *name,
-                                    long **j_cont, PAR *par, long n, long nr, long nc);
+void print_run_averages_for_recover(DOUBLEMATRIX *A, char *name, long **j_cont, PAR *par,
+                                    long n, long nr, long nc);

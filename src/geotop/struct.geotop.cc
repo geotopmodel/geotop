@@ -31,8 +31,8 @@ STATEVAR_3D::~STATEVAR_3D() {
 
 SOIL_STATE::SOIL_STATE(const long n, const long nl) :
         T{new_doublematrix(nl, n)},
-        P{new_doublematrix0_(nl, n)},
-        thi{new_doublematrix(nl, n)}
+        P{new_doublematrix0_(nl, n)}
+//        thi{new_doublematrix(nl, n)}
 {
   T = new_doublematrix(nl, n);
   initialize_doublematrix(T, 0.);
