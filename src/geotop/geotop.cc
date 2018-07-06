@@ -424,7 +424,7 @@ void time_loop(ALLDATA *A)
                 C1 = A->S->pa->co[sy][jct][l] * (1. - A->S->pa->co[sy][jsat][l])
                      * A->S->pa->co[sy][jdz][l] + c_ice*(*L->thi)(l,A->T->j_cont[r][c]) + c_liq*th;
 
-                A->S->dUzrun->co[j][l] += 1.E-6
+                (*A->S->dUzrun)(j,l) += 1.E-6
                                           * (0.5*(C0+C1) * ((*L->T)(l,A->T->j_cont[r][c]) - (*A->S->SS->T)(l,A->T->j_cont[r][c]))
                                              + Lf *(th-th0) *A->S->pa->co[sy][jdz][l] );
               }

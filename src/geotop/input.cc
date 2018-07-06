@@ -289,12 +289,12 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     {
         for (c=1; c<=Nc; c++)
         {
-            if ((long)land->LC->co[r][c]!=number_novalue)
+            if ((long)(*land->LC)(r,c)!=number_novalue)
             {
                 par->total_pixel++;
                 if (par->point_sim != 1)
                 {
-                    par->total_area += (UV->U->co[1]*UV->U->co[2])/cos(top->slope->co[r][c]*Pi/180.);
+                    par->total_area += (UV->U->co[1]*UV->U->co[2])/cos((*top->slope)(r,c)*Pi/180.);
                 }
                 else
                 {
@@ -304,7 +304,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
         }
     }
 
-    top->Z = find_Z_of_any_layer(top->Z0, top->slope, land->LC, sl, par->point_sim);
+    top->Z = find_Z_of_any_layer(top->Z0.get(), top->slope.get(), land->LC.get(), sl, par->point_sim);
 
     top->Jdown = new_longmatrix(par->total_pixel, 4);
     top->Qdown.reset(new Matrix<double>{par->total_pixel, 4});
@@ -313,7 +313,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
         for (j=1; j<=4; j++)
         {
             top->Jdown->co[i][j] = i;
-            top->Qdown->co[i][j] = 0.;
+            (*top->Qdown)(i,j) = 0.;
         }
     }
 
@@ -774,22 +774,22 @@ keyword LinearInterpolation at 1.\n");
         }
 
         // z0 (convert in m)
-        land->ty->co[i][jz0]*=0.001;
+        (*land->ty)(i,jz0)*=0.001;
 
         // find root fraction
-        root(land->root_fraction->nch, land->ty->co[i][jroot], 0.0,
+        root(land->root_fraction->nch, (*land->ty)(i,jroot), 0.0,
              sl->pa->co[1][jdz], land->root_fraction->co[i]);
 
         // error messages
         for (l=1; l<=met->st->Z->nh; l++)
         {
-            if (0.001*land->ty->co[i][jHveg]>met->st->Vheight->co[l]
-                || 0.001*land->ty->co[i][jHveg]>met->st->Theight->co[l])
+            if (0.001*(*land->ty)(i,jHveg)>met->st->Vheight->co[l]
+                || 0.001*(*land->ty)(i,jHveg)>met->st->Theight->co[l])
             {
                 f = fopen(FailedRunFile, "w");
                 fprintf(f, "hc:%f m, zmu:%f m, zmt:%f m - hc must be lower than measurement height - \
 land cover %ld, meteo station %ld\n",
-                        0.001*land->ty->co[i][jHveg], met->st->Vheight->co[l],
+                        0.001*(*land->ty)(i,jHveg), met->st->Vheight->co[l],
                         met->st->Theight->co[l], i, l);
                 fclose(f);
                 t_error("Fatal Error! Geotop is closed. See failing report (5).");
@@ -989,12 +989,12 @@ land cover %ld, meteo station %ld\n",
             {
                 z = 0.;
                 (*sl->SS->P)(0,i) = -IT->init_water_table_depth->co[sy] *
-                                      cos(top->slope->co[r][c]*Pi/180.);
+                                      cos(top->(*slope)(r,c)*Pi/180.);
                 for (l=1; l<=Nl; l++)
                 {
-                    z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->slope->co[r][c]*Pi/180.);
+                    z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->(*slope)(r,c)*Pi/180.);
                     (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
-                    z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->slope->co[r][c]*Pi/180.);
+                    z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->(*slope)(r,c)*Pi/180.);
                 }
             }
             else
@@ -1019,12 +1019,12 @@ land cover %ld, meteo station %ld\n",
             sy=(*sl->type)(r,c);
 
             z = 0.;
-            (*sl->SS->P)(0,i) = -M->co[r][c]*cos(top->slope->co[r][c]*Pi/180.);
+            (*sl->SS->P)(0,i) = -M->co[r][c]*cos(top->(*slope)(r,c)*Pi/180.);
             for (l=1; l<=Nl; l++)
             {
-                z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->slope->co[r][c]*Pi/180.);
+                z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->(*slope)(r,c)*Pi/180.);
                 (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
-                z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->slope->co[r][c]*Pi/180.);
+                z += 0.5*sl->pa->co[sy][jdz][l]*cos(top->(*slope)(r,c)*Pi/180.);
             }
         }
     }
@@ -1536,7 +1536,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                if ((long)land->LC->co[r][c] != number_novalue) snow->S->w_ice->co[1][r][c] =
+                if ((long)(*land->LC)(r,c) != number_novalue) snow->S->w_ice->co[1][r][c] =
                                                                         snow->S->Dzl->co[1][r][c] *
                                                                         IT->rhosnow0/rho_w;
             }
@@ -1559,7 +1559,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                if ((long)land->LC->co[r][c] != number_novalue) snow->S->Dzl->co[1][r][c] =
+                if ((long)(*land->LC)(r,c) != number_novalue) snow->S->Dzl->co[1][r][c] =
                                                                         snow->S->w_ice->co[1][r][c] *
                                                                         rho_w/IT->rhosnow0;
             }
@@ -1572,7 +1572,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                if ((long)land->LC->co[r][c] != number_novalue)
+                if ((long)(*land->LC)(r,c) != number_novalue)
                 {
                     snow->S->w_ice->co[1][r][c] = IT->swe0;
                     snow->S->Dzl->co[1][r][c] = IT->swe0*rho_w/IT->rhosnow0;
@@ -1633,7 +1633,7 @@ land cover %ld, meteo station %ld\n",
             {
                 for (c=1; c<=Nc; c++)
                 {
-                    if ((long)land->LC->co[r][c]==number_novalue)
+                    if ((long)(*land->LC)(r,c)==number_novalue)
                     {
                         snow->Wtrans_plot->co[r][c]=(double)number_novalue;
                         snow->Wsubl_plot->co[r][c]=(double)number_novalue;
@@ -1674,15 +1674,15 @@ land cover %ld, meteo station %ld\n",
         for (c=1; c<=Nc; c++)
         {
 
-            if ( (long)land->LC->co[r][c]!=number_novalue)
+            if ( (long)(*land->LC)(r,c)!=number_novalue)
             {
 
                 // Adjusting snow init depth in case of steep slope (contribution by Stephan Gruber)
-                if (par->snow_curv > 0 && top->slope->co[r][c] > par->snow_smin)
+                if (par->snow_curv > 0 && top->(*slope)(r,c) > par->snow_smin)
                 {
-                    if (top->slope->co[r][c] <= par->snow_smax)
+                    if (top->(*slope)(r,c) <= par->snow_smax)
                     {
-                        k_snowred = ( exp(-pow(top->slope->co[r][c] - par->snow_smin,
+                        k_snowred = ( exp(-pow(top->(*slope)(r,c) - par->snow_smin,
                                                2.)/par->snow_curv) -
                                       exp(-pow(par->snow_smax, 2.)/par->snow_curv) );
                     }
@@ -1834,7 +1834,7 @@ land cover %ld, meteo station %ld\n",
         /* f = fopen(logfile, "a");
        for(r=1;r<=Nr;r++){
        for(c=1;c<=Nc;c++){
-       if( (long)land->LC->co[r][c]!=number_novalue){
+       if( (long)(*land->LC)(r,c)!=number_novalue){
        snow_layer_combination(par->alpha_snow, r, c, snow->S, 0., par->inf_snow_layers,
        par->max_weq_snow, maxSWE, f);
        }
@@ -1896,7 +1896,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         {
             for (c=1; c<=Nc; c++)
             {
-                if ( (long)land->LC->co[r][c]!=number_novalue)
+                if ( (long)(*land->LC)(r,c)!=number_novalue)
                 {
 
                     if (M->co[r][c]<0)
@@ -2368,7 +2368,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
             if (par->output_vertical_distances == 1)
             {
-                cosslope = cos( Fmin(max_slope, top->slope->co[r][c]) * Pi/180. );
+                cosslope = cos( Fmin(max_slope, top->(*slope)(r,c)) * Pi/180. );
             }
             else
             {
@@ -2536,10 +2536,10 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
         {
             for (c=1; c<=land->LC->nch; c++)
             {
-                if ((long)land->LC->co[r][c] != number_novalue)
+                if ((long)(*land->LC)(r,c) != number_novalue)
                 {
-                    if ((long)land->LC->co[r][c] < 1
-                        || (long)land->LC->co[r][c] > par->n_landuses)
+                    if ((long)(*land->LC)(r,c) < 1
+                        || (long)(*land->LC)(r,c) > par->n_landuses)
                     {
                         f = fopen(FailedRunFile, "w");
                         fprintf(f, "Error: It is not possible to assign Value < 1 or > n_landuses \
@@ -2556,14 +2556,14 @@ to the land cover type\n");
         {
             for (c=1; c<=land->LC->nch; c++)
             {
-                if ((long)land->LC->co[r][c]!=number_novalue)
+                if ((long)(*land->LC)(r,c)!=number_novalue)
                 {
                     if ((long)top->Z0->co[r][c]==number_novalue)
                     {
                         printf("ERROR Land use mask include DTM novalue pixels");
                         printf("\nr:%ld c:%ld Z:%f landuse:%f\n",r,c,top->Z0->co[r][c],
-                               land->LC->co[r][c]);
-                        land->LC->co[r][c]=(double)number_novalue;
+                               (*land->LC)(r,c));
+                        (*land->LC)(r,c)=(double)number_novalue;
                         printf("LANDUSE set at novalue where DTM is not available\n");
                     }
                 }
@@ -2597,8 +2597,8 @@ to the land cover type\n");
         par->IDpoint.reset(new Vector<long>{par->chkpt->nrh});
         for (i=1; i<=par->chkpt->nrh; i++)
         {
-            par->rc->co[i][1]=row(par->chkpt->co[i][ptY], top->Z0->nrh, UV, number_novalue);
-            par->rc->co[i][2]=col(par->chkpt->co[i][ptX], top->Z0->nch, UV, number_novalue);
+            par->rc->co[i][1]=row((*par->chkpt)(i,ptY), top->Z0->nrh, UV, number_novalue);
+            par->rc->co[i][2]=col((*par->chkpt)(i,ptX), top->Z0->nch, UV, number_novalue);
 
             if (par->rc->co[i][1] == number_novalue
                 || par->rc->co[i][2] == number_novalue)
@@ -2621,9 +2621,9 @@ to the land cover type\n");
                 t_error("Fatal Error! Geotop is closed. See failing report.");
             }
 
-            if ((long)par->chkpt->co[i][ptID]!=number_novalue)
+            if ((long)(*par->chkpt)(i,ptID)!=number_novalue)
             {
-                (*par->IDpoint)(i)=(long)par->chkpt->co[i][ptID];
+                (*par->IDpoint)(i)=(long)(*par->chkpt)(i,ptID);
             }
             else
             {
@@ -2683,7 +2683,7 @@ to the land cover type\n");
         {
             for (c=1; c<=land->LC->nch; c++)
             {
-                if ((long)land->LC->co[r][c] != number_novalue)
+                if ((long)(*land->LC)(r,c) != number_novalue)
                 {
                     if ((*sl->type)(r,c) < 1 || (*sl->type)(r,c) > par->nsoiltypes)
                     {
@@ -2811,7 +2811,7 @@ to the soil type map");
         {
             for (c=1; c<=top->Z0->nch; c++)
             {
-                if ((long)land->LC->co[r][c]!=number_novalue)
+                if ((long)(*land->LC)(r,c)!=number_novalue)
                 {
                     if (top->pixel_type->co[r][c]!=0 && top->pixel_type->co[r][c]!=1
                         && top->pixel_type->co[r][c]!=2 && top->pixel_type->co[r][c]!=10
@@ -2846,7 +2846,7 @@ to the soil type map");
     {
         for (c=1; c<=land->LC->nch; c++)
         {
-            if ( (long)land->LC->co[r][c]!=number_novalue)
+            if ( (long)(*land->LC)(r,c)!=number_novalue)
             {
                 top->is_on_border->co[r][c] = is_boundary(r, c, land->LC, number_novalue);
             }
@@ -2939,8 +2939,8 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     coordinates = 1;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
-        if ( (long)par->chkpt->co[i][ptX]==number_novalue
-             || (long)par->chkpt->co[i][ptY]==number_novalue ) coordinates = 0;
+        if ( (long)(*par->chkpt)(i,ptX)==number_novalue
+             || (long)(*par->chkpt)(i,ptY)==number_novalue ) coordinates = 0;
     }
 
     // ---------------------- (a) Read dem ----------------------
@@ -2948,9 +2948,9 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     // if(par->recover>0) read_dem=1;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
-        if ((long)par->chkpt->co[i][ptLC]==number_novalue
-            || (long)par->chkpt->co[i][ptSY]==number_novalue ||
-            (long)par->chkpt->co[i][ptS]==number_novalue
+        if ((long)(*par->chkpt)(i,ptLC)==number_novalue
+            || (long)(*par->chkpt)(i,ptSY)==number_novalue ||
+            (long)(*par->chkpt)(i,ptS)==number_novalue
             || (long)par->chkpt->co[i][ptA]==number_novalue ||
             (long)par->chkpt->co[i][ptCNS]==number_novalue
             || (long)par->chkpt->co[i][ptCWE]==number_novalue ||
@@ -2993,10 +2993,10 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
         par->c_points.reset(new Vector<long>{par->chkpt->nrh});
         for (i=1; i<=par->chkpt->nrh; i++)
         {
-            (*par->r_points)(i)=row(par->chkpt->co[i][ptY], Z->nrh, UV, number_novalue);
-            (*par->c_points)(i)=col(par->chkpt->co[i][ptX], Z->nch, UV, number_novalue);
-            if ((long)par->chkpt->co[i][ptZ]==number_novalue)
-                par->chkpt->co[i][ptZ] = Z->co[(*par->r_points)(i)][(*par->c_points)(i)];
+            (*par->r_points)(i)=row((*par->chkpt)(i,ptY), Z->nrh, UV, number_novalue);
+            (*par->c_points)(i)=col((*par->chkpt)(i,ptX), Z->nch, UV, number_novalue);
+            if ((long)(*par->chkpt)(i,ptZ)==number_novalue)
+                (*par->chkpt)(i,ptZ) = Z->co[(*par->r_points)(i)][(*par->c_points)(i)];
             printf("ok");
         }
     }
@@ -3006,7 +3006,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     // if(par->recover>0) read_lu=1;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
-        if ((long)par->chkpt->co[i][ptLC]==number_novalue)
+        if ((long)(*par->chkpt)(i,ptLC)==number_novalue)
             read_lu=1;
     }
     if (read_lu==1 && coordinates==0)
@@ -3045,11 +3045,11 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     {
         for (i=1; i<=par->chkpt->nrh; i++)
         {
-            if ((long)par->chkpt->co[i][ptLC]==number_novalue)
+            if ((long)(*par->chkpt)(i,ptLC)==number_novalue)
             {
-                r=row(par->chkpt->co[i][ptY], LU->nrh, UV, number_novalue);
-                c=col(par->chkpt->co[i][ptX], LU->nch, UV, number_novalue);
-                par->chkpt->co[i][ptLC]=LU->co[r][c];
+                r=row((*par->chkpt)(i,ptY), LU->nrh, UV, number_novalue);
+                c=col((*par->chkpt)(i,ptX), LU->nch, UV, number_novalue);
+                (*par->chkpt)(i,ptLC)=LU->co[r][c];
             }
         }
     }
@@ -3058,7 +3058,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     read_soil=0;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
-        if ((long)par->chkpt->co[i][ptSY]==number_novalue)
+        if ((long)(*par->chkpt)(i,ptSY)==number_novalue)
             read_soil=1;
     }
     if (read_soil==1 && coordinates==0)
@@ -3089,11 +3089,11 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     {
         for (i=1; i<=par->chkpt->nrh; i++)
         {
-            if ((long)par->chkpt->co[i][ptSY]==number_novalue)
+            if ((long)(*par->chkpt)(i,ptSY)==number_novalue)
             {
-                r=row(par->chkpt->co[i][ptY], P->nrh, UV, number_novalue);
-                c=col(par->chkpt->co[i][ptX], P->nch, UV, number_novalue);
-                par->chkpt->co[i][ptSY]=P->co[r][c];
+                r=row((*par->chkpt)(i,ptY), P->nrh, UV, number_novalue);
+                c=col((*par->chkpt)(i,ptX), P->nch, UV, number_novalue);
+                (*par->chkpt)(i,ptSY)=P->co[r][c];
             }
         }
     }
@@ -3102,7 +3102,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     read_sl=0;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
-        if ((long)par->chkpt->co[i][ptS]==number_novalue)
+        if ((long)(*par->chkpt)(i,ptS)==number_novalue)
             read_sl=1;
     }
     if (read_sl==1 && coordinates==0)
@@ -3151,11 +3151,11 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
 
         for (i=1; i<=par->chkpt->nrh; i++)
         {
-            if ((long)par->chkpt->co[i][ptS]==number_novalue)
+            if ((long)(*par->chkpt)(i,ptS)==number_novalue)
             {
-                r=row(par->chkpt->co[i][ptY], P->nrh, UV, number_novalue);
-                c=col(par->chkpt->co[i][ptX], P->nch, UV, number_novalue);
-                par->chkpt->co[i][ptS]=P->co[r][c];
+                r=row((*par->chkpt)(i,ptY), P->nrh, UV, number_novalue);
+                c=col((*par->chkpt)(i,ptX), P->nch, UV, number_novalue);
+                (*par->chkpt)(i,ptS)=P->co[r][c];
             }
         }
     }
@@ -3210,8 +3210,8 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
         {
             if ((long)par->chkpt->co[i][ptA]==number_novalue)
             {
-                r=row(par->chkpt->co[i][ptY], P->nrh, UV, number_novalue);
-                c=col(par->chkpt->co[i][ptX], P->nch, UV, number_novalue);
+                r=row((*par->chkpt)(i,ptY), P->nrh, UV, number_novalue);
+                c=col((*par->chkpt)(i,ptX), P->nch, UV, number_novalue);
                 par->chkpt->co[i][ptA]=P->co[r][c];
             }
         }
@@ -3267,8 +3267,8 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
         {
             if ((long)par->chkpt->co[i][ptSKY]==number_novalue)
             {
-                r=row(par->chkpt->co[i][ptY], P->nrh, UV, number_novalue);
-                c=col(par->chkpt->co[i][ptX], P->nch, UV, number_novalue);
+                r=row((*par->chkpt)(i,ptY), P->nrh, UV, number_novalue);
+                c=col((*par->chkpt)(i,ptX), P->nch, UV, number_novalue);
                 par->chkpt->co[i][ptSKY]=P->co[r][c];
             }
         }
@@ -3278,7 +3278,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     read_bed=0;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
-        if ((long)par->chkpt->co[i][ptBED]==number_novalue)
+        if ((long)(*par->chkpt)(i,ptBED)==number_novalue)
             read_bed=1;
     }
     if (read_bed==1 && coordinates==0)
@@ -3309,11 +3309,11 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     {
         for (i=1; i<=par->chkpt->nrh; i++)
         {
-            if ((long)par->chkpt->co[i][ptBED]==number_novalue)
+            if ((long)(*par->chkpt)(i,ptBED)==number_novalue)
             {
-                r=row(par->chkpt->co[i][ptY], P->nrh, UV, number_novalue);
-                c=col(par->chkpt->co[i][ptX], P->nch, UV, number_novalue);
-                par->chkpt->co[i][ptBED]=P->co[r][c];
+                r=row((*par->chkpt)(i,ptY), P->nrh, UV, number_novalue);
+                c=col((*par->chkpt)(i,ptX), P->nch, UV, number_novalue);
+                (*par->chkpt)(i,ptBED)=P->co[r][c];
             }
         }
     }
@@ -3381,8 +3381,8 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     {
         for (i=1; i<=par->chkpt->nrh; i++)
         {
-            r=row(par->chkpt->co[i][ptY], P->nrh, UV, number_novalue);
-            c=col(par->chkpt->co[i][ptX], P->nch, UV, number_novalue);
+            r=row((*par->chkpt)(i,ptY), P->nrh, UV, number_novalue);
+            c=col((*par->chkpt)(i,ptX), P->nch, UV, number_novalue);
 
             if ((long)par->chkpt->co[i][ptCNS]==number_novalue)
                 par->chkpt->co[i][ptCNS]= P->co[r][c];
@@ -3402,17 +3402,17 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     /** Assign default value if NO value is inserted */
     for (i=1; i<=par->chkpt->nrh; i++)
     {
-        if ((long)par->chkpt->co[i][ptZ]==number_novalue)
-            par->chkpt->co[i][ptZ] = 0.0;
+        if ((long)(*par->chkpt)(i,ptZ)==number_novalue)
+            (*par->chkpt)(i,ptZ) = 0.0;
 
-        if ((long)par->chkpt->co[i][ptLC]==number_novalue)
-            par->chkpt->co[i][ptLC] = 1.0;
+        if ((long)(*par->chkpt)(i,ptLC)==number_novalue)
+            (*par->chkpt)(i,ptLC) = 1.0;
 
-        if ((long)par->chkpt->co[i][ptSY]==number_novalue)
-            par->chkpt->co[i][ptSY] = (double)par->soil_type_land_default;
+        if ((long)(*par->chkpt)(i,ptSY)==number_novalue)
+            (*par->chkpt)(i,ptSY) = (double)par->soil_type_land_default;
 
-        if ((long)par->chkpt->co[i][ptS]==number_novalue)
-            par->chkpt->co[i][ptS] = 0.0;
+        if ((long)(*par->chkpt)(i,ptS)==number_novalue)
+            (*par->chkpt)(i,ptS) = 0.0;
 
         if ((long)par->chkpt->co[i][ptA]==number_novalue)
             par->chkpt->co[i][ptA] = 0.0;
@@ -3435,20 +3435,20 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
         if ((long)par->chkpt->co[i][ptDrDEPTH]==number_novalue)
             par->chkpt->co[i][ptDrDEPTH]=par->DepthFreeSurface; // [mm]
 
-        if ((long)par->chkpt->co[i][ptMAXSWE]==number_novalue)
-            par->chkpt->co[i][ptMAXSWE]=1.E10; // [mm]
+        if ((long)(*par->chkpt)(i,ptMAXSWE)==number_novalue)
+            (*par->chkpt)(i,ptMAXSWE)=1.E10; // [mm]
 
-        if ((long)par->chkpt->co[i][ptLAT]==number_novalue)
-            par->chkpt->co[i][ptLAT]= par->latitude;
+        if ((long)(*par->chkpt)(i,ptLAT)==number_novalue)
+            (*par->chkpt)(i,ptLAT)= par->latitude;
 
-        if ((long)par->chkpt->co[i][ptLON]==number_novalue)
-            par->chkpt->co[i][ptLON] = par->longitude;
+        if ((long)(*par->chkpt)(i,ptLON)==number_novalue)
+            (*par->chkpt)(i,ptLON) = par->longitude;
 
-        if ((long)par->chkpt->co[i][ptID]==number_novalue)
-            par->chkpt->co[i][ptID] = (double)i;
+        if ((long)(*par->chkpt)(i,ptID)==number_novalue)
+            (*par->chkpt)(i,ptID) = (double)i;
 
         if ((long)par->chkpt->co[i][ptHOR]==number_novalue)
-            par->chkpt->co[i][ptHOR] = par->chkpt->co[i][ptID];
+            par->chkpt->co[i][ptHOR] = (*par->chkpt)(i,ptID);
     }
 
     // ---------------------- (i) Show results ----------------------
@@ -3540,12 +3540,12 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
 
     for (i=1; i<=par->chkpt->nrh; i++)
     {
-        top->East->co[1][i]=par->chkpt->co[i][ptX];
-        top->North->co[1][i]=par->chkpt->co[i][ptY];
-        top->Z0->co[1][i]=par->chkpt->co[i][ptZ];
-        land->LC->co[1][i]=par->chkpt->co[i][ptLC];
+        (*top->East)(1,i)=(*par->chkpt)(i,ptX);
+        (*top->North)(1,i)=(*par->chkpt)(i,ptY);
+        (*top->Z0)(1,i)=(*par->chkpt)(i,ptZ);
+        (*land->LC)(1,i)=(*par->chkpt)(i,ptLC);
 
-        if ((long)land->LC->co[1][i] <= 0)
+        if ((long)(*land->LC)(1,i) <= 0)
         {
             f = fopen(FailedRunFile, "w");
             fprintf(f, "Error: Point %ld has land cover type <= 0. This is not admitted.\n",i);
@@ -3553,7 +3553,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
             t_error("Fatal Error! Geotop is closed. See failing report (15).");
         }
 
-        (*sl->type)(1,i)=(long)par->chkpt->co[i][ptSY];
+        (*sl->type)(1,i)=(long)(*par->chkpt)(i,ptSY);
 
         if ((*sl->type)(1,i) <= 0)
         {
@@ -3563,21 +3563,21 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
             t_error("Fatal Error! Geotop is closed. See failing report (16).");
         }
 
-        top->slope->co[1][i]=par->chkpt->co[i][ptS];
-        top->aspect->co[1][i]=par->chkpt->co[i][ptA];
-        top->sky->co[1][i]=par->chkpt->co[i][ptSKY];
-        top->curvature1->co[1][i]=par->chkpt->co[i][ptCNS];
-        top->curvature2->co[1][i]=par->chkpt->co[i][ptCWE];
-        top->curvature3->co[1][i]=par->chkpt->co[i][ptCNwSe];
-        top->curvature4->co[1][i]=par->chkpt->co[i][ptCNeSw];
+        (*top->slope)(1,i)=(*par->chkpt)(i,ptS);
+        (*top->aspect)(1,i)=(*par->chkpt)(i,ptA);
+        (*top->sky)(1,i)=(*par->chkpt)(i,ptSKY);
+        (*top->curvature1)(1,i)=(*par->chkpt)(i,ptCNS);
+        (*top->curvature2)(1,i)=(*par->chkpt)(i,ptCWE);
+        (*top->curvature3)(1,i)=(*par->chkpt)(i,ptCNwSe);
+        (*top->curvature4)(1,i)=(*par->chkpt)(i,ptCNeSw);
 
         top->pixel_type->co[1][i]=1;
         top->BC_counter->co[1][i]=i;
-        top->BC_DepthFreeSurface->co[i]=par->chkpt->co[i][ptDrDEPTH];
-        top->horizon_point->co[1][i]=(long)par->chkpt->co[i][ptHOR];
-        top->dzdE->co[1][i]=0.;
-        top->dzdN->co[1][i]=0.;
-        land->delay->co[1][i]=0.;
+        top->BC_DepthFreeSurface->co[i] = (*par->chkpt)(i,ptDrDEPTH);
+        (top->horizon_point->co[1][i]=(long)(*par->chkpt)(i,ptHOR);
+        (*top->dzdE)(1,i)=0.;
+        (*top->dzdN)(1,i)=0.;
+        (*land->delay)(1,i)=0.;
 
         if ((*sl->type)(1,i) <= 0)
         {
@@ -3587,14 +3587,14 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
             t_error("Fatal Error! Geotop is closed. See failing report (17).");
         }
 
-        par->maxSWE->co[1][i]=par->chkpt->co[i][ptMAXSWE];
-        top->latitude->co[1][i]=par->chkpt->co[i][ptLAT];
-        top->longitude->co[1][i]=par->chkpt->co[i][ptLON];
-        (*par->IDpoint)(i)=(long)par->chkpt->co[i][ptID];
+        (*par->maxSWE)(1,i)=(*par->chkpt)(i,ptMAXSWE);
+        (*top->latitude)(1,i)=(*par->chkpt)(i,ptLAT);
+        (*top->longitude)(1,i)=(*par->chkpt)(i,ptLON);
+        (*par->IDpoint)(i)=(long)(*par->chkpt)(i,ptID);
 
-        IT->bed->co[1][i]=par->chkpt->co[i][ptBED];
-        if ( (long)IT->bed->co[1][i] == number_novalue )
-            IT->bed->co[1][i] = 1.E99;
+        (*IT->bed)(1,i)=(*par->chkpt)(i,ptBED);
+        if ( (long)(*IT->bed)(1,i) == number_novalue )
+            (*IT->bed)(1,i) = 1.E99;
     }
 
     // 7. SET PAR
@@ -3809,10 +3809,10 @@ DOUBLETENSOR *find_Z_of_any_layer(Matrix<double> *Zsurface, Matrix<double> *slop
         {
             for (c=1; c<=Zsurface->nch; c++)
             {
-                if ((long)LC->co[r][c]!=number_novalue)
+                if ((long)(*LC)(r,c)!=number_novalue)
                 {
                     n++;
-                    Zaverage += Zsurface->co[r][c];
+                    Zaverage += (*Zsurface)(r,c);
                 }
             }
         }
@@ -3827,14 +3827,14 @@ DOUBLETENSOR *find_Z_of_any_layer(Matrix<double> *Zsurface, Matrix<double> *slop
     {
         for (c=1; c<=Zsurface->nch; c++)
         {
-            if ((long)LC->co[r][c]!=number_novalue)
+            if ((long)(*LC)(r,c)!=number_novalue)
             {
-                cosine = cos(slope->co[r][c]*Pi/180.);
+                cosine = cos((*slope)(r,c)*Pi/180.);
                 sy=(*sl->type)(r,c);
 
                 if (point!=1)
                 {
-                    z=1.E3*(Zsurface->co[r][c]-Zaverage);//[mm]
+                    z=1.E3*((*Zsurface)(r,c)-Zaverage);//[mm]
                 }
                 else
                 {

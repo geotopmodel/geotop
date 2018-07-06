@@ -84,11 +84,11 @@ void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top,
     }
 
   //DISTRIBUTION OF METEROLOGICAL VARIABLES FROM MEASUREMENTS IN SOME STATIONS
-  Meteodistr(UV->U->co[2], UV->U->co[1], top->East, top->North, top->Z0, top->curvature1, top->curvature2,
-             top->curvature3, top->curvature4, top->slope, top->aspect, met, par->slopewtD, par->curvewtD,
+  Meteodistr(UV->U->co[2], UV->U->co[1], top->East.get(), top->North.get(), top->Z0.get(), top->curvature1.get(), top->curvature2.get(),
+             top->curvature3.get(), top->curvature4.get(), top->slope.get(), top->aspect.get(), met, par->slopewtD, par->curvewtD,
              par->slopewtI, par->curvewtI,
-             par->Vmin, par->RHmin, par->dn, par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt, met->Tgrid->co,
-             met->RHgrid->co, met->Vgrid->co, met->Vdir->co, met->Pgrid->co, wat->PrecTot->co, met->LRv[ilsTa],
+             par->Vmin, par->RHmin, par->dn, par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt, met->Tgrid.get(),
+             met->RHgrid.get(), met->Vgrid.get(), met->Vdir.get(), met->Pgrid.get(), wat->PrecTot.get(), met->LRv[ilsTa],
              met->LRv[ilsTdew], met->LRv[ilsPrec], par->MaxIncrFactWithElev, par->MinIncrFactWithElev, par->dew,
              par->T_rain, par->T_snow,
              par->snowcorrfact, par->raincorrfact);
@@ -99,10 +99,8 @@ void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top,
         {
           for (c=1; c<=Nc; c++)
             {
-              wat->Pnet->co[r][c] = par->raincorrfact*wat->PrecTot->co[r][c]*((
-                                      JDend-JDbeg)*24.)*cos(top->slope->co[r][c]*Pi/180.); //from [mm/h] to [mm]
-              if (par->point_sim==1) wat->Pnet->co[r][c] *= cos(
-                                                                top->slope->co[r][c]*Pi/180.);
+              (*wat->Pnet)(r,c) = par->raincorrfact*(*wat->PrecTot)(r,c)*((JDend-JDbeg)*24.)*cos((*top->slope)(r,c)*Pi/180.); //from [mm/h] to [mm]
+              if (par->point_sim==1) (*wat->Pnet)(r,c) *= cos((*top->slope)(r,c)*Pi/180.);
             }
         }
     }

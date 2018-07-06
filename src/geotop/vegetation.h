@@ -70,7 +70,7 @@ void canopy_snow_interception(double snow_max_loading, double LSAI,
 void update_roughness_veg(double hc, double snowD, double zmu, double zmt,
                           double *z0_ris, double *d0_ris, double *hc_ris);
 
-void root(long n, double d, double slope, double *D, double *root_fraction);
+void root(long n, double d, double slope, double *D, double root_fraction);
 
 void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa,
                                double SWin, double *theta, double *land, double **soil, double *root,

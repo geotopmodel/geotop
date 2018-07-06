@@ -654,7 +654,7 @@ void update_roughness_veg(double hc, double snowD, double zmu, double zmt,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void root(long n, double d, double slope, double *D, double *root_fraction)
+void root(long n, double d, double slope, double *D, double root_fraction)
 {
 
   //n = number of soil layers (from the surface) affected by root absorption

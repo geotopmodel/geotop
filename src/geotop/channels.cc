@@ -291,11 +291,9 @@ void find_max_constraint( Matrix<double> *Z, Matrix<double> *LC,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short neighboring_down_channel_pixel( long r, long c, long ir, long ic,
-                                      double **Z, Matrix<double> *LC, SHORTMATRIX *pixel_type, LONGMATRIX *CH,
-                                      long novalue)
+short neighboring_down_channel_pixel(long r, long c, long ir, long ic, Matrix<double> *Z, Matrix<double> *LC,
+                                     SHORTMATRIX *pixel_type, LONGMATRIX *CH, long novalue)
 {
-
     short yes=0;
     long R=r+ir, C=c+ic;
 

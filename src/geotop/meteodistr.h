@@ -36,17 +36,18 @@ void Meteodistr(double dE, double dN, Matrix<double> *E, Matrix<double> *N, Matr
                 Matrix<double> *curvature2, Matrix<double> *curvature3, Matrix<double> *curvature4,
                 Matrix<double> *terrain_slope, Matrix<double> *slope_az, METEO *met, double slopewtD, double curvewtD,
                 double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint,
-                long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, double **Tair_grid,
-                double **RH_grid, double **windspd_grid, double **winddir_grid, double **sfc_pressure,
-                double **prec_grid, double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate,
+                long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, Matrix<double> *Tair_grid,
+                Matrix<double> *RH_grid, Matrix<double> *windspd_grid, Matrix<double> *winddir_grid, Matrix<double> *sfc_pressure,
+                Matrix<double> *prec_grid, double T_lapse_rate, double Td_lapse_rate, double Prec_lapse_rate,
                 double maxfactorP, double minfactorP, short dew, double Train, double Tsnow, double snow_corr_factor,
                 double rain_corr_factor);
 
 short get_temperature(double dE, double dN, Matrix<double> *E, Matrix<double> *N, METEO *met, long Tcode,
-                      double **Tair_grid, double dn, Matrix<double> *topo, short iobsint, double lapse_rate);
+                      Matrix<double> *Tair_grid, double dn, Matrix<double> *topo, short iobsint, double lapse_rate);
 
 short get_relative_humidity(double dE, double dN, Matrix<double> *E, Matrix<double> *N, METEO *met, long Tdcode,
-                            double **RH_grid, double **Tair_grid, double RH_min, double dn, Matrix<double> *topo,
+                            Matrix<double> *RH_grid, Matrix<double> *Tair_grid, double RH_min, double dn,
+                            Matrix<double> *topo,
                             short iobsint, double lapse_rate);
 
 void topo_mod_winds(double **winddir_grid, double **windspd_grid,

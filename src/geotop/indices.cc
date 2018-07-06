@@ -39,7 +39,7 @@ void i_lrc_cont(Matrix<double> *LC, long ***i, LONGMATRIX *lrc, long nl,
     {
       for (c=1; c<=nc; c++)
         {
-          if ((long)LC->co[r][c]!=number_novalue)
+          if ((long)(*LC)(r,c)!=number_novalue)
             {
               for (l=0; l<=nl; l++)
                 {
@@ -68,7 +68,7 @@ void j_rc_cont(Matrix<double> *LC, long **j, LONGMATRIX *rc, long nr, long nc)
     {
       for (c=1; c<=nc; c++)
         {
-          if ((long)LC->co[r][c]!=number_novalue)
+          if ((long)(*LC)(r,c)!=number_novalue)
             {
               cont++;
               j[r][c]=cont;
@@ -141,22 +141,22 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet,
 
       if (j<=N)
         {
-          if ((long)LC->co[r-1][c]!=number_novalue)
+          if ((long)(*LC)(r-1,c)!=number_novalue)
             {
               if (i[l][r-1][c]>j) cnt ++;
             }
 
-          if ((long)LC->co[r+1][c]!=number_novalue)
+          if ((long)(*LC)(r+1,c)!=number_novalue)
             {
               if (i[l][r+1][c]>j) cnt ++;
             }
 
-          if ((long)LC->co[r][c-1]!=number_novalue)
+          if ((long)(*LC)(r,c-1)!=number_novalue)
             {
               if (i[l][r][c-1]>j) cnt ++;
             }
 
-          if ((long)LC->co[r][c+1]!=number_novalue)
+          if ((long)(*LC)(r,c+1)!=number_novalue)
             {
               if (i[l][r][c+1]>j) cnt ++;
             }
@@ -217,7 +217,7 @@ void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
 
       if (j<=N)
         {
-          if ((long)LC->co[r-1][c]!=number_novalue)
+          if ((long)(*LC)(r-1,c)!=number_novalue)
             {
               if (i[l][r-1][c]>j)
                 {
@@ -226,7 +226,7 @@ void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
                 }
             }
 
-          if ((long)LC->co[r+1][c]!=number_novalue)
+          if ((long)(*LC)(r+1,c)!=number_novalue)
             {
               if (i[l][r+1][c]>j)
                 {
@@ -235,7 +235,7 @@ void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
                 }
             }
 
-          if ((long)LC->co[r][c-1]!=number_novalue)
+          if ((long)(*LC)(r,c-1)!=number_novalue)
             {
               if (i[l][r][c-1]>j)
                 {
@@ -244,7 +244,7 @@ void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
                 }
             }
 
-          if ((long)LC->co[r][c+1]!=number_novalue)
+          if ((long)(*LC)(r,c+1)!=number_novalue)
             {
               if (i[l][r][c+1]>j)
                 {
