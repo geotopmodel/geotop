@@ -34,24 +34,24 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
 double cm_h(double cm0, double h, double h_thres1, double h_thres2);
 
 int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
-                     Vector<double> *Lx, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom_l,
+                     Vector<double> *Lx, Matrix<double> *Klat, Matrix<double> *Kbottom_l,
                      Vector<double> *Kbottom_ch, ALLDATA *adt, Vector<double> *H);
 
 int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *Lx,
-                     DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom, ALLDATA *adt, Vector<double> *H);
+                     Matrix<double> *Klat, Matrix<double> *Kbottom, ALLDATA *adt, Vector<double> *H);
 
 int find_dfdH_3D(double Dt, Vector<double> *df, ALLDATA *adt, SOIL_STATE *L,
-                 SOIL_STATE *C, Vector<double> *H, DOUBLEMATRIX *Klat);
+                 SOIL_STATE *C, Vector<double> *H, Matrix<double> *Klat);
 
 int find_dfdH_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *df,
-                 ALLDATA *adt, Vector<double> *H, DOUBLEMATRIX *Klat);
+                 ALLDATA *adt, Vector<double> *H, Matrix<double> *Klat);
 
 int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
-              SOIL_STATE *C, Vector<double> *H, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom_l,
+              SOIL_STATE *C, Vector<double> *H, Matrix<double> *Klat, Matrix<double> *Kbottom_l,
               Vector<double> *Kbottom_ch);
 
 int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
-              Vector<double> *H, DOUBLEMATRIX *Klat, DOUBLEMATRIX *Kbottom);
+              Vector<double> *H, Matrix<double> *Klat, Matrix<double> *Kbottom);
 
 double find_3Ddistance(double horizontal_distance, double vertical_distance);
 
@@ -77,7 +77,7 @@ void find_dt_max_channel(short DDcomplex, double Courant, double *h,
 void draining_land(double alpha, long i, TOPO *T, LAND *L, PAR *P,
                    CHANNEL *cnet, double *h, long *I, double *Q);
 
-void draining_channel(double alpha, long ch, DOUBLEMATRIX *Z, double *h,
+void draining_channel(double alpha, long ch, Matrix<double> *Z, double *h,
                       CHANNEL *cnet, long *CH);
 
 

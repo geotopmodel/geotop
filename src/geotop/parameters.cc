@@ -1243,7 +1243,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   //land cover types
   par->n_landuses = (long) assignation_number(14, 0, keyword, num_param, num_param_components, 1., 0);
 
-  land->ty = new_doublematrix(par->n_landuses, nlandprop);
+  land->ty.reset(new Matrix<double>{par->n_landuses, nlandprop});
 
   land->ty->co[1][jz0] = assignation_number(15, 0, keyword, num_param, num_param_components, 10., 0);
   land->ty->co[1][jz0thressoil] = assignation_number(16, 0, keyword, num_param, num_param_components,
@@ -1459,11 +1459,11 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 
   if (par->point_sim == 1)
     {
-      par->chkpt = new_doublematrix(npoints, ptTOT);
+      par->chkpt.reset(new Matrix<double>{npoints, ptTOT});
     }
   else
     {
-      par->chkpt = new_doublematrix(npoints, 3);
+      par->chkpt.reset(new Matrix<double>{npoints, 3});
     }
 
   for (i=1; i<=par->chkpt->nrh; i++)
@@ -2657,7 +2657,7 @@ short read_point_file(char *name, char **key_header, PAR *par)
 {
   GEOLOG_PREFIX(__func__);
 
-  DOUBLEMATRIX *chkpt2;
+  std::unique_ptr<Matrix<double>> chkpt2;
   double **points;
   long nlines, n, j;
   char *temp;
@@ -2669,11 +2669,11 @@ short read_point_file(char *name, char **key_header, PAR *par)
       points = read_txt_matrix(temp, 33, 44, key_header, par->chkpt->nch, &nlines);
       free(temp);
 
-      chkpt2 = new_doublematrix(par->chkpt->nrh, par->chkpt->nch);
-      copy_doublematrix(par->chkpt, chkpt2);
-      free_doublematrix(par->chkpt);
+      chkpt2.reset(new Matrix<double>{par->chkpt->nrh, par->chkpt->nch});
+      chkpt2 = par->chkpt;
+      //copy_doublematrix(par->chkpt, chkpt2);
 
-      par->chkpt = new_doublematrix(nlines, chkpt2->nch);
+      par->chkpt.reset(new Matrix<double>{nlines, chkpt2->nch});
 
       for (n=1; n<=nlines; n++)
         {
@@ -2706,7 +2706,6 @@ short read_point_file(char *name, char **key_header, PAR *par)
           free(points[n-1]);
         }
 
-      free_doublematrix(chkpt2);
       free(points);
     }
 

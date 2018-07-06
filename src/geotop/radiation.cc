@@ -761,7 +761,7 @@ short shadows_point(double **hor, long n, double alpha, double azimuth,
 
 /*routine that tells you whether a point is in shadow or not, depending on the solar azimuth, elevation and horizon file at that point
  * Author: Matteo Dall'Amico, May 2011
- Inputs: DOUBLEMATRIX* hor_height: matrix of horizon_height at the point
+ Inputs: Matrix<double>* hor_height: matrix of horizon_height at the point
  double alpha: solar altitude (degree)
  double azimuth: solar azimuth (degree)
  double tol_mount: tolerance over a mountaneaus horizon to have a reliable cloud datum (degree)
@@ -829,7 +829,7 @@ short shadows_point(double **hor, long n, double alpha, double azimuth,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void shadow_haiden(DOUBLEMATRIX *Z, double alpha, double direction,
+void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
                    SHORTMATRIX *SH)
 
 /*  Author: Thomas Haiden, Year: 16 june 2003

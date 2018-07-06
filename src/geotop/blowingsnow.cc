@@ -272,7 +272,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
   *yes = 0;
 
   //initialize Nabla2_Qtrans(snow deposition if >0, snow erosion if <0)
-  initialize_doublematrix(snow->Nabla2_Qtrans, 0.0);
+    (*snow->Nabla2_Qtrans) = 0;
 
   //check if there is snow transport
   for (r=1; r<=Nr; r++)

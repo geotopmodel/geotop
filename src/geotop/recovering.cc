@@ -31,12 +31,12 @@ extern long number_novalue;
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void assign_recovered_map(short old, long n, char *name, DOUBLEMATRIX *assign,
-                          PAR *par, DOUBLEMATRIX *Zdistr)
+void assign_recovered_map(short old, long n, char *name, Matrix<double> *assign,
+                          PAR *par, Matrix<double> *Zdistr)
 {
 
   long r, c;
-  DOUBLEMATRIX *M;
+  std::unique_ptr<Matrix<double>> M;
   char *temp, *temp2;
 
   temp = namefile_i_we2(name, n);
@@ -58,7 +58,6 @@ void assign_recovered_map(short old, long n, char *name, DOUBLEMATRIX *assign,
         }
     }
 
-  free_doublematrix(M);
   free(temp);
 }
 
@@ -68,11 +67,11 @@ void assign_recovered_map(short old, long n, char *name, DOUBLEMATRIX *assign,
 /******************************************************************************************************************************************/
 
 void assign_recovered_map_vector(short old, long n, char *name,
-                                 Vector<double> *assign, LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr)
+                                 Vector<double> *assign, LONGMATRIX *rc, PAR *par, Matrix<double> *Zdistr)
 {
 
   long i, r, c;
-  DOUBLEMATRIX *M;
+  std::unique_ptr<Matrix<double>> M;
   char *temp, *temp2;
 
   temp = namefile_i_we2(name, n);
@@ -93,7 +92,6 @@ void assign_recovered_map_vector(short old, long n, char *name,
       assign->co[i] = M->co[r][c];
     }
 
-  free_doublematrix(M);
   free(temp);
 }
 
@@ -104,11 +102,11 @@ void assign_recovered_map_vector(short old, long n, char *name,
 /******************************************************************************************************************************************/
 
 void assign_recovered_map_long(short old, long n, char *name,
-                               LONGMATRIX *assign, PAR *par, DOUBLEMATRIX *Zdistr)
+                               LONGMATRIX *assign, PAR *par, Matrix<double> *Zdistr)
 {
 
   long r, c;
-  DOUBLEMATRIX *M;
+  std::unique_ptr<Matrix<double>> M;
   char *temp, *temp2;
 
   temp = namefile_i_we2(name, n);
@@ -129,9 +127,7 @@ void assign_recovered_map_long(short old, long n, char *name,
           assign->co[r][c] = (long)M->co[r][c];
         }
     }
-
-  free_doublematrix(M);
-  free(temp);
+    free(temp);
 }
 
 /******************************************************************************************************************************************/
@@ -140,12 +136,12 @@ void assign_recovered_map_long(short old, long n, char *name,
 /******************************************************************************************************************************************/
 
 void assign_recovered_tensor(short old, long n, char *name,
-                             DOUBLETENSOR *assign, PAR *par, DOUBLEMATRIX *Zdistr)
+                             DOUBLETENSOR *assign, PAR *par, Matrix<double> *Zdistr)
 {
 
   long r, c, l;
   //long i;
-  DOUBLEMATRIX *M;
+  std::unique_ptr<Matrix<double>> M;
   char *temp1, *temp2, *temp3;
 
   for (l=assign->ndl; l<=assign->ndh; l++)
@@ -171,9 +167,7 @@ void assign_recovered_tensor(short old, long n, char *name,
               assign->co[l][r][c] = M->co[r][c];
             }
         }
-
-      free_doublematrix(M);
-      free(temp2);
+        free(temp2);
       free(temp1);
 
     }
@@ -185,11 +179,11 @@ void assign_recovered_tensor(short old, long n, char *name,
 /******************************************************************************************************************************************/
 
 void assign_recovered_tensor_vector(short old, long n, char *name, Matrix<double> *assign,
-                                    LONGMATRIX *rc, PAR *par, DOUBLEMATRIX *Zdistr)
+                                    LONGMATRIX *rc, PAR *par, Matrix<double> *Zdistr)
 {
 
   long r, c, i, l;
-  DOUBLEMATRIX *M;
+  std::unique_ptr<Matrix<double>> M;
   char *temp1, *temp2, *temp3;
 
   for (l=assign->nrl; l<=assign->nrh; l++)
@@ -213,9 +207,7 @@ void assign_recovered_tensor_vector(short old, long n, char *name, Matrix<double
           c = rc->co[i][2];
           (*assign)(l,i) = M->co[r][c];
         }
-
-      free_doublematrix(M);
-      free(temp2);
+        free(temp2);
       free(temp1);
 
     }
@@ -227,11 +219,11 @@ void assign_recovered_tensor_vector(short old, long n, char *name, Matrix<double
 /******************************************************************************************************************************************/
 
 void assign_recovered_tensor_channel(short old, long n, char *name,
-                                     Matrix<double> *assign, Vector<long> *r, Vector<long> *c, DOUBLEMATRIX *Zdistr)
+                                     Matrix<double> *assign, Vector<long> *r, Vector<long> *c, Matrix<double> *Zdistr)
 {
 
   long ch, l;
-  DOUBLEMATRIX *M;
+  std::unique_ptr<Matrix<double>> M;
   char *temp1, *temp2, *temp3;
 
   for (l=assign->nrl; l<=assign->nrh; l++)
@@ -255,9 +247,7 @@ void assign_recovered_tensor_channel(short old, long n, char *name,
           if (r->co[ch] > 0)
             (*assign)(l,ch) = M->co[r->co[ch]][c->co[ch]];
         }
-
-      free_doublematrix(M);
-      free(temp2);
+        free(temp2);
       free(temp1);
 
     }
@@ -268,8 +258,8 @@ void assign_recovered_tensor_channel(short old, long n, char *name,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void recover_run_averages(short old, DOUBLEMATRIX *A, char *name,
-                          DOUBLEMATRIX *LC, LONGMATRIX *rc, PAR *par, long n)
+void recover_run_averages(short old, Matrix<double> *A, char *name,
+                          Matrix<double> *LC, LONGMATRIX *rc, PAR *par, long n)
 {
 
   Matrix<double> *M;
@@ -294,7 +284,7 @@ void recover_run_averages(short old, DOUBLEMATRIX *A, char *name,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void print_run_averages_for_recover(DOUBLEMATRIX *A, char *name,
+void print_run_averages_for_recover(Matrix<double> *A, char *name,
                                     long **j_cont, PAR *par, long n, long nr, long nc)
 {
 

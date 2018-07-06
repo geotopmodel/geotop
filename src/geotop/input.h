@@ -22,22 +22,22 @@
 
 struct INIT_TOOLS
 {
-  double swe0;
-  double Tsnow0;
-  double agesnow0;
-  double rhosnow0;
-  double rhoglac0;
-  double Dglac0;
-  double Tglac0;
-  char **met_col_names;
-  char **soil_col_names;
-  char **horizon_col_names;
-  char **point_col_names;
-  char **lapserates_col_names;
-  char **meteostations_col_names;
-    std::unique_ptr<Matrix<double>> *bed;
-  DOUBLETENSOR *pa_bed;
-  std::unique_ptr<Vector<double>> init_water_table_depth;
+    double swe0;
+    double Tsnow0;
+    double agesnow0;
+    double rhosnow0;
+    double rhoglac0;
+    double Dglac0;
+    double Tglac0;
+    char **met_col_names;
+    char **soil_col_names;
+    char **horizon_col_names;
+    char **point_col_names;
+    char **lapserates_col_names;
+    char **meteostations_col_names;
+    std::unique_ptr<Matrix<double>> bed;
+    DOUBLETENSOR *pa_bed;
+    std::unique_ptr<Vector<double>> init_water_table_depth;
 };
 
 

@@ -142,21 +142,9 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
         free_longmatrix(top->horizon_point);
     }
 
-    free_doublematrix(top->sky);
-    free_doublematrix(top->Z0);
-    free_doublematrix(top->East);
-    free_doublematrix(top->North);
+
     free_shortmatrix(top->pixel_type);
-    free_doublematrix(top->aspect);
-    free_doublematrix(top->slope);
-    free_doublematrix(top->dzdE);
-    free_doublematrix(top->dzdN);
-    free_doublematrix(top->curvature1);
-    free_doublematrix(top->curvature2);
-    free_doublematrix(top->curvature3);
-    free_doublematrix(top->curvature4);
     free_longmatrix(top->Jdown);
-    free_doublematrix(top->Qdown);
     if (par->point_sim==0) free_shortmatrix(top->is_on_border);
 
     free_longmatrix(top->lrc_cont);
@@ -185,8 +173,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
     if (par->point_sim==1)
     {
-        free_doublematrix(top->latitude);
-        free_doublematrix(top->longitude);
     }
 
     //  free(top);
@@ -194,11 +180,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
     /* Deallocation of struct LAND "land": */
     geolog << "Deallocating land" << std::endl;
-    free_doublematrix(land->LC);
-    free_doublematrix(land->delay);
     free_shortmatrix(land->shadow);
-    free_doublematrix(land->ty);
-    free_doublematrix(land->root_fraction);
 
     for (i=0; i<par->n_landuses; i++)
     {
@@ -222,8 +204,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
     /* Deallocation of struct WATER "water": */
     geolog << "Deallocating water" << std::endl;
-    free_doublematrix(wat->PrecTot);
-    free_doublematrix(wat->Pnet);
 
     //  free(wat);
 
@@ -236,8 +216,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     }
     free(cnet->ch3);
     free_longmatrix(cnet->lch);
-    free_doublematrix(cnet->th);
-    free_doublematrix(cnet->ET);
     delete cnet->SS;
     //  free(cnet);
 
@@ -304,13 +282,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
         }
     }
 
-
-//   free_doublematrix(egy->Tgskin_surr);
-    // free_doublematrix(egy->SWrefl_surr);
-
-
     //  free(egy);
-
 
     /* Deallocation of struct SNOW "snow": */
     geolog << "Deallocating snow" << std::endl;
@@ -324,19 +296,9 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     if (par->blowing_snow==1)
     {
         deallocate_statevar_1D(snow->S_for_BS);
-        free_doublematrix(snow->Nabla2_Qtrans);
-        free_doublematrix(snow->Qsub);
-        free_doublematrix(snow->Qsub_x);
-        free_doublematrix(snow->Qsub_y);
-        free_doublematrix(snow->Qtrans);
-        free_doublematrix(snow->Qtrans_x);
-        free_doublematrix(snow->Qtrans_y);
-        free_doublematrix(snow->Qsalt);
 
         if (par->output_snow_bin == 1)
         {
-            free_doublematrix(snow->Wtrans_plot);
-            free_doublematrix(snow->Wsubl_plot);
         }
     }
 
@@ -372,13 +334,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     //  free(glac);
 
     geolog << "Deallocating met" << std::endl;
-
-    free_doublematrix(met->Tgrid);
-    free_doublematrix(met->Pgrid);
-    free_doublematrix(met->Vgrid);
-    free_doublematrix(met->Vdir);
-    free_doublematrix(met->RHgrid);
-
 
     if (times->JD_plots->nh > 1)
     {
@@ -466,12 +421,9 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
         free_longmatrix(par->rc);
     }
 
-
-
-    if (par->point_sim == 1) free_doublematrix(par->maxSWE);
-
-
-
+    if (par->point_sim == 1)
+    {
+    }
 
     //  free(par);
 
@@ -512,9 +464,12 @@ void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac, EN
     long i, j;
 
     if(par->state_pixel == 1){
-        if(strcmp(files[fTzav] , string_novalue) != 0 || strcmp(files[fTzavwriteend] , string_novalue) != 0) initialize_doublematrix(sl->Tzavplot,0.);
-        if(strcmp(files[fliqzav] , string_novalue) != 0 || strcmp(files[fliqzavwriteend] , string_novalue) != 0) initialize_doublematrix(sl->thzavplot,0.);
-        if(strcmp(files[ficezav] , string_novalue) != 0 || strcmp(files[ficezavwriteend] , string_novalue) != 0) initialize_doublematrix(sl->thizavplot,0.);
+        if(strcmp(files[fTzav] , string_novalue) != 0 || strcmp(files[fTzavwriteend] , string_novalue) != 0)
+            (*sl->Tzavplot) = 0.;
+        if(strcmp(files[fliqzav] , string_novalue) != 0 || strcmp(files[fliqzavwriteend] , string_novalue) != 0)
+            (*sl->thzavplot) = 0.;
+        if(strcmp(files[ficezav] , string_novalue) != 0 || strcmp(files[ficezavwriteend] , string_novalue) != 0)
+            (*sl->thizavplot) = 0.;
 
         for(i=1;i<=par->rc->nrh;i++){
             for(j=0;j<otot;j++) {
@@ -532,7 +487,7 @@ void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac, EN
     if(par->output_soil_bin == 1){
         if(strcmp(files[fTav] , string_novalue) != 0 || strcmp(files[fTavsup] , string_novalue) != 0)
         (*sl->T_av_tensor) = 0.;
-        //             initialize_doublematrix(sl->T_av_tensor, 0.);
+
         if(strcmp(files[ficeav] , string_novalue) != 0)
             (*sl->thi_av_tensor) = 0.;
         if(strcmp(files[fliqav] , string_novalue) != 0)

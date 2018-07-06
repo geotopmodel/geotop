@@ -29,23 +29,23 @@ STATEVAR_3D::~STATEVAR_3D() {
   free_doubletensor(w_liq);
 }
 
-SOIL_STATE::SOIL_STATE(const long n, const long nl) :
-        T{new_doublematrix(nl, n)},
-        P{new_doublematrix0_(nl, n)}
+//SOIL_STATE::SOIL_STATE(const long n, const long nl) :
+//        T{new_doublematrix(nl, n)},
+//        P{new_doublematrix0_(nl, n)},
 //        thi{new_doublematrix(nl, n)}
-{
-  T = new_doublematrix(nl, n);
-  initialize_doublematrix(T, 0.);
-  P = new_doublematrix0_(nl, n);
-  initialize_doublematrix(P, 0.);
-  thi = new_doublematrix(nl, n);
-  initialize_doublematrix(thi, 0.);
+//{
+//  T = new_doublematrix(nl, n);
+//  initialize_doublematrix(T, 0.);
+//  P = new_doublematrix0_(nl, n);
+//  initialize_doublematrix(P, 0.);
+//  thi = new_doublematrix(nl, n);
+//  initialize_doublematrix(thi, 0.);
+//
+//}
 
-}
-
-SOIL_STATE::~SOIL_STATE() {
-
-  free_doublematrix(T);
-  free_doublematrix(P);
-  free_doublematrix(thi);
-}
+//SOIL_STATE::~SOIL_STATE() {
+//
+//  free_doublematrix(T);
+//  free_doublematrix(P);
+//  free_doublematrix(thi);
+//}
