@@ -769,7 +769,7 @@ void write_tensorseries_vector(short a, long l, long i, char *filename,
   V.reset(new Vector<double>{npoints});
   for (j=1; j<=npoints; j++)
     {
-      V->co[j]=T->co[l][j];
+      V->co[j]=(*T)(l,j);
     }
 
   write_map_vector(name, type, format, V.get(), UV, novalue, J, nr, nc);
