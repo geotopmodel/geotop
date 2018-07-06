@@ -152,7 +152,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*cnet->r)(l);
                 c = (*cnet->c)(l);
-                Vchannel += 1.E-3 * Fmax((*cnet->SS->P)(0,l), 0.) / cos(top->slope->co[r][c]*Pi/180.) *
+                Vchannel += 1.E-3 * Fmax((*cnet->SS->P)(0,l), 0.) / cos((*top->slope)(r,c)*Pi/180.) *
                             UV->U->co[1] * par->w_dx * cnet->length->co[l];
                 Vsub += cnet->Vsub->co[l];
                 Vsup += cnet->Vsup->co[l];
@@ -230,7 +230,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 for (l=1; l<=Nl; l++)
                 {
                     if (strcmp(files[fTzav], string_novalue) != 0 || strcmp(files[fTzavwriteend], string_novalue) != 0)
-                        sl->Tzavplot->co[i][l] += (*sl->SS->T)(l,j)* (par->Dt/par->Dtplot_point->co[i_sim]);
+                        (*sl->Tzavplot)(i,l) += (*sl->SS->T)(l,j)* (par->Dt/par->Dtplot_point->co[i_sim]);
                     if (strcmp(files[fliqzav], string_novalue) != 0|| strcmp(files[fliqzavwriteend], string_novalue) != 0)
                         sl->thzavplot->co[i][l] += (*sl->th)(l,j) * (par->Dt/par->Dtplot_point->co[i_sim]);
                     if (strcmp(files[ficezav], string_novalue) != 0 || strcmp(files[ficezavwriteend], string_novalue) != 0)
@@ -272,7 +272,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
                     if (par->output_vertical_distances == 1)
                     {
-                        cosslope = cos( Fmin(max_slope, top->slope->co[r][c]) * Pi/180. );
+                        cosslope = cos( Fmin(max_slope, (*top->slope)(r,c)) * Pi/180. );
                     }
                     else
                     {
@@ -283,23 +283,22 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     for (l=1; l<=Nl; l++)
                     {
                         if (strcmp(files[fTz], string_novalue) != 0 || strcmp(files[fTzwriteend], string_novalue) != 0)
-                            sl->Tzplot->co[i][l] = (*sl->SS->T)(l,j);
+                            (*sl->Tzplot)(i,l) = (*sl->SS->T)(l,j);
                         if (strcmp(files[fpsiztot], string_novalue) != 0 || strcmp(files[fpsiztotwriteend], string_novalue) != 0)
-                            sl->Ptotzplot->co[i][l] = (*sl->Ptot)(l,j);
+                            (*sl->Ptotzplot)(i,l) = (*sl->Ptot)(l,j);
                         if (strcmp(files[fliqz], string_novalue) != 0 || strcmp(files[fliqzwriteend], string_novalue) != 0)
-                            sl->thzplot->co[i][l] = (*sl->th)(l,j);
+                            (*sl->thzplot)(i,l) = (*sl->th)(l,j);
                         if (strcmp(files[ficez], string_novalue) != 0 || strcmp(files[ficezwriteend], string_novalue) != 0)
-                            sl->thizplot->co[i][l] = (*sl->SS->thi)(l,j);
+                            (*sl->thizplot)(i,l) = (*sl->SS->thi)(l,j);
                         if (strcmp(files[fsatz], string_novalue) != 0)
-                            sl->satratio->co[i][l] = ((*sl->SS->thi)(l,j) + (*sl->th)(l,j) -
+                           (*sl->satratio)(i,l) = ((*sl->SS->thi)(l,j) + (*sl->th)(l,j) -
                                                       sl->pa->co[sy][jres][l]) /(sl->pa->co[sy][jsat][l] -
                                                                                  sl->pa->co[sy][jres][l]);
                     }
                     for (l=0; l<=Nl; l++)
                     {
-                        if (strcmp(files[fpsiz], string_novalue) != 0
-                            || strcmp(files[fpsizwriteend], string_novalue) != 0)
-                            sl->Pzplot->co[i][l] = (*sl->SS->P)(l,j);
+                        if (strcmp(files[fpsiz], string_novalue) != 0 || strcmp(files[fpsizwriteend], string_novalue) != 0)
+                           (*sl->Pzplot)(i,l) = (*sl->SS->P)(l,j);
                     }
 
                     // snow data
@@ -1338,7 +1337,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = top->rc_cont->co[i][1];
                 c = top->rc_cont->co[i][2];
-                V->co[i] = Fmax(0, (*sl->SS->P)(0,i)) / cos(top->slope->co[r][c] * Pi/180.);
+                V->co[i] = Fmax(0, (*sl->SS->P)(0,i)) / cos((*top->slope)(r,c) * Pi/180.);
             }
             temp1 = join_strings(files[fhsupland], s2);
             write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
@@ -1354,7 +1353,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 c = top->rc_cont->co[i][2];
                 if (cnet->ch->co[r][c]!=0)
                 {
-                    V->co[i] = (*cnet->SS->P)(0,cnet->ch->co[r][c]) / cos(top->slope->co[r][c] *Pi/180.);
+                    V->co[i] = (*cnet->SS->P)(0,cnet->ch->co[r][c]) / cos((*top->slope)(r,c) *Pi/180.);
                 }
                 else
                 {
@@ -3094,7 +3093,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 fprintf(f," Sky view factor [-]: %f\n",top->sky->co[r][c]);
                 fprintf(f," The pixel-type is %d \n",top->pixel_type->co[r][c]);
                 fprintf(f," Aspect [deg] [0=Nord, clockwise]: %f \n",top->aspect->co[r][c]);
-                fprintf(f," Mean slope of the pixel [deg]: %f \n",top->slope->co[r][c]);
+                fprintf(f," Mean slope of the pixel [deg]: %f \n",(*top->slope)(r,c));
                 fprintf(f," Land use number is %d \n",(short)land->LC->co[r][c]);
 
                 for (l=1; l<=Nl; l++)
@@ -4120,7 +4119,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     {
         if (strcmp(files[fTzav], string_novalue) != 0
             || strcmp(files[fTzavwriteend],
-                      string_novalue) != 0) sl->Tzavplot->co[i][l] = 0.0;
+                      string_novalue) != 0) (*sl->Tzavplot)(i,l) = 0.0;
         if (strcmp(files[fliqzav], string_novalue) != 0
             || strcmp(files[fliqzavwriteend],
                       string_novalue) != 0) sl->thzavplot->co[i][l] = 0.0;

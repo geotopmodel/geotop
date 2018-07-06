@@ -70,7 +70,8 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     GEOLOG_PREFIX(__func__);
 
     FILE *f; /** failed run file*/
-    std::unique_ptr<Matrix<double>> M;
+    //std::unique_ptr<Matrix<double>> M;
+    Matrix<double> *M;
     std::unique_ptr<INIT_TOOLS> IT;
 
     short a, success, added_JDfrom0=0, added_wind_xy=0, added_wind_dir=0,
@@ -856,7 +857,7 @@ land cover %ld, meteo station %ld\n",
     (*cnet->soil_type) = par->soil_type_chan_default;
 
     if (par->total_channel>1)
-        enumerate_channels(cnet, land->LC, top->pixel_type, top->Z0, top->slope, number_novalue);
+        enumerate_channels(cnet, land->LC.get(), top->pixel_type, top->Z0.get(), top->slope.get(), number_novalue);
 
     cnet->ch3 = (long **)malloc((Nl+1)*sizeof(long *));
     for (l=0; l<=Nl; l++)
@@ -888,7 +889,7 @@ land cover %ld, meteo station %ld\n",
     top->lrc_cont=new_longmatrix( (n+1)*par->total_pixel, 3);
     initialize_longmatrix(top->lrc_cont, 0);
 
-    i_lrc_cont(land->LC, top->i_cont, top->lrc_cont, n, Nr, Nc);
+    i_lrc_cont(land->LC.get(), top->i_cont, top->lrc_cont, n, Nr, Nc);
 
     // 2D
     top->j_cont=(long **)malloc((Nr+1)*sizeof(long *));
@@ -904,7 +905,7 @@ land cover %ld, meteo station %ld\n",
     top->rc_cont=new_longmatrix(par->total_pixel, 2);
     initialize_longmatrix(top->rc_cont, 0);
 
-    j_rc_cont(land->LC, top->j_cont, top->rc_cont, Nr, Nc);
+    j_rc_cont(land->LC.get(), top->j_cont, top->rc_cont, Nr, Nc);
 
     // plotted points
     if (par->state_pixel == 1)
@@ -924,7 +925,7 @@ land cover %ld, meteo station %ld\n",
     }
 
     // BEDROCK (adjusting soil properties)
-    set_bedrock(IT.get(), sl, cnet, par, top, land->LC);
+    set_bedrock(IT.get(), sl, cnet, par, top, land->LC.get());
 
     /**************************************************************************************************/
     /*! Completing of the initialization of SOIL structure                                            */
@@ -1009,7 +1010,7 @@ land cover %ld, meteo station %ld\n",
     else
     {
 
-        M = read_map(2, files[fwt0], land->LC, UV, (double)number_novalue);
+        M = read_map(2, files[fwt0], land->LC.get(), UV, (double)number_novalue);
 
         for (i=1; i<=par->total_pixel; i++)
         {
@@ -1019,7 +1020,7 @@ land cover %ld, meteo station %ld\n",
             sy=(*sl->type)(r,c);
 
             z = 0.;
-            (*sl->SS->P)(0,i) = -M->co[r][c]*cos((*top->slope)(r,c)*Pi/180.);
+            (*sl->SS->P)(0,i) = -(*M)(r,c)*cos((*top->slope)(r,c)*Pi/180.);
             for (l=1; l<=Nl; l++)
             {
                 z += 0.5*sl->pa->co[sy][jdz][l]*cos((*top->slope)(r,c)*Pi/180.);
@@ -1506,7 +1507,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                snow->S->Dzl->co[1][r][c] = M->co[r][c];
+                snow->S->Dzl->co[1][r][c] = (*M)(r,c);
             }
         }
 
@@ -1516,7 +1517,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                snow->S->w_ice->co[1][r][c] = M->co[r][c];
+                snow->S->w_ice->co[1][r][c] = (*M)(r,c);
             }
         }
     }
@@ -1528,7 +1529,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                snow->S->Dzl->co[1][r][c] = M->co[r][c];
+                snow->S->Dzl->co[1][r][c] = (*M)(r,c);
             }
         }
 
@@ -1551,7 +1552,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                snow->S->w_ice->co[1][r][c] = M->co[r][c];
+                snow->S->w_ice->co[1][r][c] = (*M)(r,c);
             }
         }
 
@@ -1899,7 +1900,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                 if ( (long)(*land->LC)(r,c)!=number_novalue)
                 {
 
-                    if (M->co[r][c]<0)
+                    if ((*M)(r,c)<0)
                     {
                         f = fopen(FailedRunFile, "w");
                         fprintf(f, "Error: negative glacier data\n");
@@ -1907,10 +1908,10 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                         t_error("Fatal Error! Geotop is closed. See failing report (10).");
 
                     }
-                    else if (M->co[r][c]>1.E-5)
+                    else if ((*M)(r,c)>1.E-5)
                     {
 
-                        if (IT->rhoglac0 * M->co[r][c] / rho_w < par->max_weq_glac *
+                        if (IT->rhoglac0 * (*M)(r,c) / rho_w < par->max_weq_glac *
                                                                  par->max_glac_layers )
                         {
 
@@ -1921,13 +1922,13 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                             {
                                 n++;
 
-                                if (IT->rhoglac0 * M->co[r][c] / rho_w < par->max_weq_glac * n)
+                                if (IT->rhoglac0 * (*M)(r,c) / rho_w < par->max_weq_glac * n)
                                 {
                                     glac->G->w_ice->co[n][r][c] = par->max_weq_glac;
                                 }
                                 else
                                 {
-                                    glac->G->w_ice->co[n][r][c] = IT->rhoglac0 * M->co[r][c] /
+                                    glac->G->w_ice->co[n][r][c] = IT->rhoglac0 * (*M)(r,c) /
                                                                   1000. - z;
                                 }
 
@@ -1938,7 +1939,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                                 z += glac->G->w_ice->co[n][r][c];
 
                             }
-                            while (fabs(z - IT->rhoglac0 * M->co[r][c] / rho_w) < 1.E-6);
+                            while (fabs(z - IT->rhoglac0 * (*M)(r,c) / rho_w) < 1.E-6);
 
                             glac->G->lnum->co[r][c] = n;
 
@@ -1964,7 +1965,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                                 }
                                 else
                                 {
-                                    glac->G->w_ice->co[n][r][c] = ( IT->rhoglac0 * M->co[r][c] /
+                                    glac->G->w_ice->co[n][r][c] = ( IT->rhoglac0 * (*M)(r,c) /
                                                                     rho_w -
                                                                     par->max_weq_glac *
                                                                     ( par->max_glac_layers -

@@ -122,15 +122,16 @@ short get_temperature(double dE, double dN, Matrix<double> *E, Matrix<double> *N
   }
 
   //Use the barnes oi scheme to interpolate the station data to the grid.
-  ok = interpolate_meteo(1, dE, dN, E, N, met->st->E.get(), met->st->N.get(), met->var,
-                         Tcode, Tair_grid, dn, iobsint);
+    ok = interpolate_meteo(1, dE, dN, E, N, // 5 parameters
+                           met->st->E.get(), met->st->N.get(), met->var, Tcode, Tair_grid, // 5 parameters
+                           dn, iobsint); // 2
   if (ok == 0) return ok;
 
   //Convert these grid values back to the actual gridded elevations [C].
   for (r = 1; r <= topo->nrh; r++) {
     for (c = 1; c <= topo->nch; c++) {
-      if ((long) topo->co[r][c] != number_novalue) {
-        Tair_grid[r][c] = temperature(topo->co[r][c], topo_ref, Tair_grid[r][c],
+      if ((long) (*topo)(r,c) != number_novalue) {
+        Tair_grid[r][c] = temperature((*topo)(r,c), topo_ref, Tair_grid[r][c],
                                       lapse_rate) - tk;
       }
     }
@@ -190,10 +191,10 @@ short get_relative_humidity(double dE, double dN, Matrix<double> *E, Matrix<doub
   //Convert these grid values back to the actual gridded elevations, and convert to RH
   for (r = 1; r <= topo->nrh; r++) {
     for (c = 1; c <= topo->nch; c++) {
-      if ((long) topo->co[r][c] != number_novalue) {
-        RH_grid[r][c] = temperature(topo->co[r][c], topo_ref, RH_grid[r][c],
+      if ((long) (*topo)(r,c) != number_novalue) {
+        RH_grid[r][c] = temperature((*topo)(r,c), topo_ref, RH_grid[r][c],
                                     lapse_rate) - tk;
-        RH_grid[r][c] = RHfromTdew(Tair_grid[r][c], RH_grid[r][c], topo->co[r][c]);
+        RH_grid[r][c] = RHfromTdew(Tair_grid[r][c], RH_grid[r][c], (*topo)(r,c));
         if (RH_grid[r][c] < RH_min / 100.) RH_grid[r][c] = RH_min / 100.;
       }
     }
@@ -217,7 +218,7 @@ short get_relative_humidity(double dE, double dN, Matrix<double> *E, Matrix<doub
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void topo_mod_winds(double **winddir_grid, double **windspd_grid,
+void topo_mod_winds(Matrix<double> *winddir_grid, Matrix<double> *windspd_grid,
                     double slopewtD, double curvewtD, double slopewtI, double curvewtI,
                     Matrix<double> *curvature1, Matrix<double> *curvature2, Matrix<double> *curvature3,
                     Matrix<double> *curvature4,
@@ -237,10 +238,9 @@ void topo_mod_winds(double **winddir_grid, double **windspd_grid,
   for (r = 1; r <= nr; r++) {
     for (c = 1; c <= nc; c++) {
       if ((*topo)(r,c) != undef) {
-        wind_slope->co[r][c] = tan(deg2rad * terrain_slope->co[r][c] * cos(deg2rad *
-                                                                           (winddir_grid[r][c] - slope_az->co[r][c])));
-        if (wind_slope->co[r][c] > 1) wind_slope->co[r][c] = 1.;
-        if (wind_slope->co[r][c] < -1) wind_slope->co[r][c] = -1.;
+        (*wind_slope)(r,c) = tan(deg2rad * (*terrain_slope)(r,c) * cos(deg2rad *(winddir_grid[r][c] - (*slope_az)(r,c))));
+        if ((*wind_slope)(r,c) > 1) (*wind_slope)(r,c) = 1.;
+        if ((*wind_slope)(r,c) < -1) (*wind_slope)(r,c) = -1.;
       }
     }
   }
@@ -250,22 +250,22 @@ void topo_mod_winds(double **winddir_grid, double **windspd_grid,
 
   for (r = 1; r <= nr; r++) {
     for (c = 1; c <= nc; c++) {
-      if (topo->co[r][c] != undef) {
+      if ((*topo)(r,c) != undef) {
         if ((winddir_grid[r][c] > 360. - 22.5 || winddir_grid[r][c] <= 22.5) ||
             (winddir_grid[r][c] > 180. - 22.5 && winddir_grid[r][c] <= 180. + 22.5)) {
-          wind_curv->co[r][c] = -curvature1->co[r][c];
+          (*wind_curv)(r,c) = -(*curvature1)(r,c);
 
         } else if ((winddir_grid[r][c] > 90. - 22.5 && winddir_grid[r][c] <= 90. + 22.5) ||
                    (winddir_grid[r][c] > 270. - 22.5 && winddir_grid[r][c] <= 270. + 22.5)) {
-          wind_curv->co[r][c] = -curvature2->co[r][c];
+          (*wind_curv)(r,c) = -(*curvature2)(r,c);
 
         } else if ((winddir_grid[r][c] > 135. - 22.5 && winddir_grid[r][c] <= 135. + 22.5) ||
                    (winddir_grid[r][c] > 315. - 22.5 && winddir_grid[r][c] <= 315. + 22.5)) {
-          wind_curv->co[r][c] = -curvature3->co[r][c];
+          (*wind_curv)(r,c) = -(*curvature3)(r,c);
 
         } else if ((winddir_grid[r][c] > 45. - 22.5 && winddir_grid[r][c] <= 45. + 22.5) ||
                    (winddir_grid[r][c] > 225. - 22.5 && winddir_grid[r][c] <= 225. + 22.5)) {
-          wind_curv->co[r][c] = -curvature4->co[r][c];
+          (*wind_curv)(r,c) = -(*curvature4)(r,c);
 
         }
       }
@@ -278,29 +278,29 @@ void topo_mod_winds(double **winddir_grid, double **windspd_grid,
 
   for (r = 1; r <= nr; r++) {
     for (c = 1; c <= nc; c++) {
-      if (topo->co[r][c] != undef) {
+      if ((*topo)(r,c) != undef) {
 
         //Generate the terrain-modified wind speed.
         windwt = 1.0;
 
-        if (wind_slope->co[r][c] < 0) {
-          windwt += slopewtD * wind_slope->co[r][c];
+        if ((*wind_slope)(r,c) < 0) {
+          windwt += slopewtD * (*wind_slope)(r,c);
         } else {
-          windwt += slopewtI * wind_slope->co[r][c];
+          windwt += slopewtI * (*wind_slope)(r,c);
         }
 
-        if (wind_curv->co[r][c] < 0) {
-          windwt += curvewtD * wind_curv->co[r][c];
+        if ((*wind_curv)(r,c) < 0) {
+          windwt += curvewtD * (*wind_curv)(r,c);
         } else {
-          windwt += curvewtI * wind_curv->co[r][c];
+          windwt += curvewtI * (*wind_curv)(r,c);
         }
 
         windspd_grid[r][c] *= windwt;
 
         //Modify the wind direction according to Ryan (1977).
-        dirdiff = slope_az->co[r][c] - winddir_grid[r][c];
+        dirdiff = (*slope_az)(r,c) - winddir_grid[r][c];
         winddir_grid[r][c] = winddir_grid[r][c] - 22.5 * Fmin(fabs(
-                wind_slope->co[r][c]), 1.) * sin(deg2rad * (2.0 * dirdiff));
+                (*wind_slope)(r,c)), 1.) * sin(deg2rad * (2.0 * dirdiff));
         if (winddir_grid[r][c] > 360.0) {
           winddir_grid[r][c] = winddir_grid[r][c] - 360.0;
         } else if (winddir_grid[r][c] < 0.0) {
@@ -346,12 +346,12 @@ short get_wind(double dE, double dN, Matrix<double> *E, Matrix<double> *N, METEO
   //U component.
   u_grid.reset(new Matrix<double>{nr, nc});
   oku = interpolate_meteo(0, dE, dN, E, N, met->st->E.get(), met->st->N.get(), met->var,
-                          ucode, u_grid->co, dn, iobsint);
+                          ucode, u_grid.get(), dn, iobsint);
 
   //V component.
   v_grid.reset(new Matrix<double>{nr, nc});
   okv = interpolate_meteo(0, dE, dN, E, N, met->st->E.get(), met->st->N.get(), met->var,
-                          vcode, v_grid->co, dn, iobsint);
+                          vcode, v_grid.get(), dn, iobsint);
 
   if (oku == 0 || okv == 0) {
     //There is not availability of U and V, just consider wind speed as a scalar
@@ -366,10 +366,10 @@ short get_wind(double dE, double dN, Matrix<double> *E, Matrix<double> *N, METEO
     //Convert these u and v components to speed and directions.
     for (r = 1; r <= nr; r++) {
       for (c = 1; c <= nc; c++) {
-        if ((long) topo->co[r][c] != number_novalue) {
-          winddir_grid[r][c] = 270.0 - rad2deg * atan2(v_grid->co[r][c], u_grid->co[r][c]);
+        if ((long) (*topo)(r,c) != number_novalue) {
+          winddir_grid[r][c] = 270.0 - rad2deg * atan2((*v_grid)(r,c), (*u_grid)(r,c));
           if (winddir_grid[r][c] >= 360.0) winddir_grid[r][c] -= 360.0;
-          windspd_grid[r][c] = pow(pow(u_grid->co[r][c], 2.0) + pow(v_grid->co[r][c],
+          windspd_grid[r][c] = pow(pow((*u_grid)(r,c), 2.0) + pow((*v_grid)(r,c),
                                                                     2.0), 0.5);
         }
       }
@@ -387,7 +387,7 @@ short get_wind(double dE, double dN, Matrix<double> *E, Matrix<double> *N, METEO
   //very small).
   for (r = 1; r <= nr; r++) {
     for (c = 1; c <= nc; c++) {
-      if ((long) topo->co[r][c] != number_novalue) {
+      if ((long) (*topo)(r,c) != number_novalue) {
         if (windspd_grid[r][c] < windspd_min) windspd_grid[r][c] = windspd_min;
       }
     }
@@ -449,7 +449,7 @@ short get_precipitation(double dE, double dN, Matrix<double> *E,
 
     topo_ref_grid.reset(new Matrix<double>{nr, nc});
     ok = interpolate_meteo(0, dE, dN, E, N, met->st->E.get(), met->st->N.get(), met->var,
-                           Pcode, topo_ref_grid->co, dn, iobsint);
+                           Pcode, topo_ref_grid.get(), dn, iobsint);
 
     for (n = 1; n <= met->st->Z->nh; n++) {
       if ((long) met->var[n - 1][Pcode] != number_novalue
@@ -474,8 +474,8 @@ short get_precipitation(double dE, double dN, Matrix<double> *E,
     //  Convert the gridded station data to the actual gridded elevations.
     for (c = 1; c <= nc; c++) {
       for (r = 1; r <= nr; r++) {
-        if (topo->co[r][c] != number_novalue) {
-          alfa = 1.E-3 * lapse_rate * (topo->co[r][c] - topo_ref_grid->co[r][c]);
+        if ((*topo)(r,c) != number_novalue) {
+          alfa = 1.E-3 * lapse_rate * ((*topo)(r,c) - (*topo_ref_grid)(r,c));
           if (alfa < -1. + 1.E-6) alfa = -1. + 1.E-6;
           f = (1.0 - alfa) / (1.0 + alfa);
           if (f > max) f = max;
@@ -493,15 +493,15 @@ short get_precipitation(double dE, double dN, Matrix<double> *E,
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void get_pressure(Matrix<double> *topo, double **sfc_pressure, double undef) {
+void get_pressure(Matrix<double> *topo, Matrix<double> *sfc_pressure, double undef) {
 
   long r, c, nc = topo->nch, nr = topo->nrh;
 
   //Compute the average station pressure (in bar).
   for (c = 1; c <= nc; c++) {
     for (r = 1; r <= nr; r++) {
-      if (topo->co[r][c] != undef) {
-        sfc_pressure[r][c] = pressure(topo->co[r][c]);
+      if ((*topo)(r,c) != undef) {
+        sfc_pressure[r][c] = pressure((*topo)(r,c));
       }
     }
   }
@@ -557,10 +557,10 @@ double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate,
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-short interpolate_meteo(short flag, double dX, double dY,
-                        Matrix<double> *Xpoint, Matrix<double> *Ypoint, Vector<double> *Xst,
-                        Vector<double> *Yst, double **value, long metcod, double **grid, double dn0,
-                        short iobsint) {
+short interpolate_meteo(short flag, double dX, double dY, Matrix<double> *Xpoint, Matrix<double> *Ypoint, // 5
+                        Vector<double> *Xst, Vector<double> *Yst, double **value, long metcod,
+                        double **grid, // 5
+                        double dn0, short iobsint) { // 2
 
   long r, c, n, nstn;
   double dn;
@@ -729,8 +729,8 @@ void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
     for (r = 1; r <= nr; r++) //555
     {
 
-      xg = xpoint->co[r][c];
-      yg = ypoint->co[r][c];
+      xg = (*xpoint)(r,c);
+      yg = (*ypoint)(r,c);
 
       // Scan each input data point.
       ftot1 = 0.0;

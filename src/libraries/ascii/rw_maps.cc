@@ -425,15 +425,15 @@ short existing_file_woext(char *name)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref,
-                       T_INIT *UVref, double no_value)
+Matrix<double> * read_map(short a, char *filename, Matrix<double> *Mref,
+                          T_INIT *UVref, double no_value)
 {
 
   //  a=0 non usa Mref, UVref output
   //  a=1 non esegue controllo non values, Mref e UVref input
   //  a=2 esegue controllo novalues, Mref e UVref input
 
-  DOUBLEMATRIX *M=NULL;
+  Matrix<double> *M=NULL;
   long r=0, c=0, nr=0, nc=0;
   double *header=NULL, *m=NULL;
   double Dxmap=0, Dymap=0, X0map=0, Y0map=0;

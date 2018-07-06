@@ -280,8 +280,7 @@ typedef struct {
                               of "punctual_energy" subroutine, rain intensity in mm/s as output of the
                               same subroutine and in "water.balance.c" module*/
 
-    std::unique_ptr<Vector<double>>
-            PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
+    std::unique_ptr<Vector<double>> PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
     std::unique_ptr<Vector<double>> PrSNW_mean;
     std::unique_ptr<Vector<double>> Pt;
     std::unique_ptr<Vector<double>> Ps;

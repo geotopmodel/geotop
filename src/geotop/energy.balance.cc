@@ -2528,13 +2528,13 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0,
   if (fc>0)
     {
 
-      Tcanopy(r, c, Tv0, Tg, *Qg, dQgdT, Tg0, Qg0, Ta, Qa, zmu, zmT, z0v, z0s, d0v,
-              rz0v, hveg, v, LR, P, SWin, SWv, LWin,
-              e, LSAI, decaycoeff0, land, Wcrn, Wcrnmax, Wcsn, Wcsnmax, dWcrn, dWcsn, LWv,
-              &LWg, Hv, &Hg, &dHg_dT, LEv, &Eg,
-              &dEg_dT, Ts, Qs, root, theta, soil_transp_layer, Lobukhov, par, n, &rm, rh,
-              rv, rc, rb, ruc, u_top, Etrans, Tv, Qv,
-              decay, Locc, &LWup, psi, soil, T, soil_evap_layer_veg);
+      Tcanopy(r, c, Tv0, Tg, *Qg, dQgdT, Tg0, Qg0, Ta, Qa, // 10
+              zmu, zmT, z0v, z0s, d0v, rz0v, hveg, v, LR, P, // 10
+              SWin, SWv, LWin, e, LSAI, decaycoeff0, &land, Wcrn, Wcrnmax, Wcsn, // 10
+              Wcsnmax, dWcrn, dWcsn, LWv, &LWg, Hv, &Hg, &dHg_dT, LEv, &Eg, // 10
+              &dEg_dT, Ts, Qs, &root, theta, soil_transp_layer, Lobukhov, par, n, &rm, // 10
+              rh, rv, rc, rb, ruc, u_top, Etrans, Tv, Qv, decay, // 10
+              Locc, &LWup, psi, soil, T, soil_evap_layer_veg); // 6
 
 
       *H+=fc*Hg;

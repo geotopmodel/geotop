@@ -50,7 +50,7 @@ short get_relative_humidity(double dE, double dN, Matrix<double> *E, Matrix<doub
                             Matrix<double> *topo,
                             short iobsint, double lapse_rate);
 
-void topo_mod_winds(double **winddir_grid, double **windspd_grid,
+void topo_mod_winds(Matrix<double> *winddir_grid, Matrix<double> *windspd_grid,
                     double slopewtD, double curvewtD, double slopewtI, double curvewtI,
                     Matrix<double> *curvature1, Matrix<double> *curvature2, Matrix<double> *curvature3,
                     Matrix<double> *curvature4, Matrix<double> *slope_az,
@@ -69,15 +69,15 @@ short get_precipitation(double dE, double dN, Matrix<double> *E,
                         double max, double min, short dew, double Train, double Tsnow,
                         double snow_corr_factor, double rain_corr_factor);
 
-void get_pressure(Matrix<double> *topo, double **sfc_pressure, double undef);
+void get_pressure(Matrix<double> *topo, Matrix<double> *sfc_pressure, double undef);
 
 double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate,
                         double Td_lapse_rate);
 
-short interpolate_meteo(short flag, double dX, double dY,
-                        Matrix<double> *Xpoint, Matrix<double> *Ypoint, Vector<double> *Xst,
-                        Vector<double> *Yst,
-                        double **value, long metcod, double **grid, double dn0, short iobsint);
+short interpolate_meteo(short flag, double dX, double dY, Matrix<double> *Xpoint, Matrix<double> *Ypoint, // 5
+                        Vector<double> *Xst, Vector<double> *Yst, double **value, long metcod,
+                        double **grid, // 5
+                        double dn0, short iobsint); // 2
 
 void get_dn(long nc, long nr, double deltax, double deltay, long nstns,
             double *dn);

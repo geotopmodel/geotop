@@ -59,8 +59,8 @@ char *namefile_i_we2(char *name, long i);
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
 
-DOUBLEMATRIX *read_map(short a, char *filename, DOUBLEMATRIX *Mref,
-                       T_INIT *UVref, double no_value);
+Matrix<double> * read_map(short a, char *filename, Matrix<double> *Mref,
+                          T_INIT *UVref, double no_value);
 
 std::unique_ptr<Vector<double>> read_map_vector(short type, char *namefile, DOUBLEMATRIX *mask,
                                                 T_INIT *grid, double no_value, LONGMATRIX *rc);
