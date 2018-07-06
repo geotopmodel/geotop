@@ -26,7 +26,7 @@
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void initmatrix(double val, DOUBLEMATRIX *destination, DOUBLEMATRIX *origin,
+void initmatrix(double val, Matrix<double> *destination, Matrix<double> *origin,
                 double novalue)
 {
 
@@ -35,7 +35,8 @@ void initmatrix(double val, DOUBLEMATRIX *destination, DOUBLEMATRIX *origin,
     {
       for (c=1; c<=destination->nch; c++)
         {
-          if (origin->co[r][c]!=novalue) destination->co[r][c]=val;
+          if ((*origin)(r,c)!=novalue)
+            (*destination)(r,c)=val;
         }
     }
 }

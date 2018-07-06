@@ -27,11 +27,11 @@
 
 SHORTMATRIX *copyshort_doublematrix(DOUBLEMATRIX *M);
 
-LONGMATRIX *copylong_doublematrix(DOUBLEMATRIX *M);
+Matrix<long> * copylong_doublematrix(Matrix<double> *M);
 
 DOUBLEMATRIX *copydouble_longmatrix(LONGMATRIX *L);
 
-DOUBLEMATRIX *copydoublematrix_const(double c0, DOUBLEMATRIX *Mref, double NOVALUE);
+Matrix<double> *copydoublematrix_const(double c0, Matrix<double> *Mref, double NOVALUE);
 
 DOUBLETENSOR *build_frommatrix(DOUBLEMATRIX *M, long l, long lmax);
 

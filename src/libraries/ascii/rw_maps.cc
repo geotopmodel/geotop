@@ -58,18 +58,18 @@ SHORTMATRIX *copyshort_doublematrix(DOUBLEMATRIX *M)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-LONGMATRIX *copylong_doublematrix(DOUBLEMATRIX *M)
+Matrix<long> *copylong_doublematrix(Matrix<double> *M)
 {
 
-  LONGMATRIX *L;
+  Matrix<long> *L;
   long r, c;
 
-  L=new_longmatrix(M->nrh,M->nch);
+  L= new Matrix<long>{M->nrh,M->nch};
   for (r=1; r<=M->nrh; r++)
     {
       for (c=1; c<=M->nch; c++)
         {
-          L->co[r][c]=(long)M->co[r][c];
+          (*L)(r,c)=(long)(*M)(r,c);
         }
     }
 
@@ -110,25 +110,24 @@ DOUBLEMATRIX *copydouble_longmatrix(LONGMATRIX *L)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-DOUBLEMATRIX *copydoublematrix_const(double c0, DOUBLEMATRIX *Mref,
-                                     double NOVALUE)
+Matrix<double> *copydoublematrix_const(double c0, Matrix<double> *Mref, double NOVALUE)
 {
 
-  DOUBLEMATRIX *M;
+  Matrix<double> *M;
   long r, c;
 
-  M=new_doublematrix(Mref->nrh,Mref->nch);
+  M= new Matrix<double>{Mref->nrh,Mref->nch};
   for (r=1; r<=M->nrh; r++)
     {
       for (c=1; c<=M->nch; c++)
         {
-          if (Mref->co[r][c]==NOVALUE)
+          if ((*Mref)(r,c)==NOVALUE)
             {
-              M->co[r][c]=NOVALUE;
+              (*M)(r,c)=NOVALUE;
             }
           else
             {
-              M->co[r][c]=c0;
+              (*M)(r,c)=c0;
             }
         }
     }

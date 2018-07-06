@@ -104,7 +104,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
         {
           for (c=1; c<=Nc; c++)
             {
-              if ( (long)land->LC->co[r][c]!=number_novalue)
+              if ( (long)(*land->LC)(r,c)!=number_novalue)
                 {
 
 
@@ -117,7 +117,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                     {
 
                       //find canopy_height_over_snow
-                      lu = (short)land->LC->co[r][c];
+                      lu = (short)(*land->LC)(r,c);
                       canopy_height_over_snow = 0.0;
                       //zmeas = Fmax(0.1, met->st->Vheight->co[1]-1.E-3*D);
                       zmeas = met->st->Vheight->co[1];
@@ -130,7 +130,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                             }
                           else
                             {
-                              land->vegpar->co[j] = land->ty->co[lu][j+jHveg-1];
+                              land->vegpar->co[j] = (*land->ty)(lu,j+jHveg-1);
                             }
                         }
 
@@ -173,18 +173,18 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                       rho_snow_surface = (snow->S_for_BS->w_ice->co[ns] +
                                           snow->S_for_BS->w_liq->co[ns]) / (1.E-3*snow->S_for_BS->Dzl->co[ns]);
 
-                        Pbsm(r, c, PBSM_fetch, land->ty->co[lu][jN], 1.E-3 * land->ty->co[lu][jdv],
-                             canopy_height_over_snow, rho_snow_surface, zmeas, met->Vgrid->co[r][c],
-                             met->Tgrid->co[r][c], met->RHgrid->co[r][c], &(snow->Qtrans->co[r][c]),
-                             &(snow->Qsub->co[r][c]), &(snow->Qsalt->co[r][c]), D, top->slope->co[r][c]);
+                        Pbsm(r, c, PBSM_fetch, (*land->ty)(lu,jN), 1.E-3 * (*land->ty)(lu,jdv),
+                             canopy_height_over_snow, rho_snow_surface, zmeas, (*met->Vgrid)(r,c),
+                             (*met->Tgrid)(r,c), (*met->RHgrid)(r,c), &((*snow->Qtrans)(r,c)),
+                             &((*snow->Qsub)(r,c)), &((*snow->Qsalt)(r,c)), D, (*top->slope)(r,c));
 
 
                     }
                   else
                     {
 
-                      snow->Qtrans->co[r][c] = 0.0;
-                      snow->Qsub->co[r][c] = 0.0;
+                      (*snow->Qtrans)(r,c) = 0.0;
+                      (*snow->Qsub)(r,c) = 0.0;
 
                     }
 
@@ -202,11 +202,11 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                 {
                   for (c=1; c<=Nc; c++)
                     {
-                      if ( (long)land->LC->co[r][c]!=number_novalue)
+                      if ( (long)(*land->LC)(r,c)!=number_novalue)
                         {
                           wice = DEPTH(r, c, snow->S->lnum, snow->S->w_ice);
-                          dErdt = sqrt(pow(snow->Qsub_x->co[r][c], 2.)+pow(snow->Qsub_y->co[r][c],
-                                                                           2.)) - snow->Nabla2_Qtrans->co[r][c];
+                          dErdt = sqrt(pow((*snow->Qsub_x)(r,c), 2.) +pow((*snow->Qsub_y)(r,c),2.))
+                                  - (*snow->Nabla2_Qtrans)(r,c);
 
                           if ( snow->S->lnum->co[r][c] > 0 )
                             {
@@ -219,7 +219,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
 
               Dt=Fmin(Dt,Dt0);
               set_windtrans_snow(Dt, t0+t, snow, met, land, par, f);
-              print_windtrans_snow(Dt, snow, par, top, met, land->LC);
+              print_windtrans_snow(Dt, snow, par, top, met, land->LC.get());
             }
 
         }
@@ -230,7 +230,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
             {
               for (c=1; c<=Nc; c++)
                 {
-                  if ( (long)land->LC->co[r][c]!=number_novalue)
+                  if ( (long)(*land->LC)(r,c)!=number_novalue)
                     {
                       wind_packing(snow, par, r, c, Dt);
                     }
@@ -279,9 +279,9 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
     {
       for (c=1; c<=Nc; c++)
         {
-          if ( (long)land->LC->co[r][c]!=number_novalue)
+          if ( (long)(*land->LC)(r,c)!=number_novalue)
             {
-              Qtrans += snow->Qtrans->co[r][c]/(double)par->total_pixel;
+              Qtrans += (*snow->Qtrans)(r,c)/(double)par->total_pixel;
             }
         }
     }
@@ -306,10 +306,8 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
           //find west-east component
           for (c=1; c<=Nc; c++)
             {
-              snow->Qtrans_x->co[r][c]=fabs(snow->Qtrans->co[r][c]*(-sin(
-                                                                      met->Vdir->co[r][c]*Pi/180.)));
-              snow->Qsub_x->co[r][c]=fabs(snow->Qsub->co[r][c]*(-sin(
-                                                                  met->Vdir->co[r][c]*Pi/180.)));
+              (*snow->Qtrans_x)(r,c)=fabs((*snow->Qtrans)(r,c)*(-sin((*met->Vdir)(r,c)*Pi/180.)));
+              (*snow->Qsub_x)(r,c)=fabs((*snow->Qsub)(r,c)*(-sin((*met->Vdir)(r,c)*Pi/180.)));
             }
 
           //find when there is a wind direction inversion

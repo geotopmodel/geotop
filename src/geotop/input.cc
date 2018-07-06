@@ -711,7 +711,6 @@ keyword LinearInterpolation at 1.\n");
     }
     while (l<Nl && z < z_transp);
     land->root_fraction.reset(new Matrix<double>{par->n_landuses, l});
-    initialize_doublematrix(land->root_fraction, 0.0);
 
     // check vegetation variable consistency
     if (jHveg!=jdHveg+jHveg-1)
@@ -984,7 +983,7 @@ land cover %ld, meteo station %ld\n",
             r = top->rc_cont->co[i][1];
             c = top->rc_cont->co[i][2];
 
-            sy=sl->type->co[r][c];
+            sy=(*sl->type)(r,c);
 
             if ((long)IT->init_water_table_depth->co[sy] != number_novalue)
             {
@@ -1017,7 +1016,7 @@ land cover %ld, meteo station %ld\n",
             r = top->rc_cont->co[i][1];
             c = top->rc_cont->co[i][2];
 
-            sy=sl->type->co[r][c];
+            sy=(*sl->type)(r,c);
 
             z = 0.;
             (*sl->SS->P)(0,i) = -M->co[r][c]*cos(top->slope->co[r][c]*Pi/180.);
@@ -1035,7 +1034,7 @@ land cover %ld, meteo station %ld\n",
         r = top->rc_cont->co[i][1];
         c = top->rc_cont->co[i][2];
 
-        sy=sl->type->co[r][c];
+        sy=(*sl->type)(r,c);
 
         for (l=1; l<=Nl; l++)
         {
@@ -1108,7 +1107,7 @@ land cover %ld, meteo station %ld\n",
             r = top->rc_cont->co[i][1];
             c = top->rc_cont->co[i][2];
             j = top->j_cont[r][c];
-            sy = sl->type->co[r][c];
+            sy = (*sl->type)(r,c);
             for (l=1; l<=Nl; l++)
             {
                 if (strcmp(files[fTz], string_novalue) != 0|| strcmp(files[fTzwriteend], string_novalue) != 0)
@@ -1874,7 +1873,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         }
         else
         {
-            M=copydoublematrix_const(IT->Dglac0, land->LC, (double)number_novalue);
+            M=copydoublematrix_const(IT->Dglac0, land->LC.get(), (double)number_novalue);
         }
 
         glac->G = new STATEVAR_3D {(double)number_novalue, par->max_glac_layers, Nr, Nc};
@@ -2012,13 +2011,13 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     (*met->Pgrid) = Pa0;
 
     met->RHgrid.reset(new Matrix<double>{Nr,Nc});
-    initialize_doublematrix(met->RHgrid, par->RH_default);
+    (*met->RHgrid) = par->RH_default;
 
     met->Vgrid.reset(new Matrix<double>{Nr,Nc});
-    initialize_doublematrix(met->Vgrid, par->V_default);
+    (*met->Vgrid) = par->V_default;
 
     met->Vdir.reset(new Matrix<double>{Nr,Nc});
-    initialize_doublematrix(met->Vdir, par->Vdir_default);
+    (*met->Vdir) = par->Vdir_default;
 
     if (par->output_meteo_bin == 1)
     {
@@ -2071,7 +2070,6 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     if (par->Tzrun == 1)
     {
         sl->Tzrun.reset(new Matrix<double>{par->rc->nrh, Nl});
-        initialize_doublematrix(sl->Tzrun, 0.);
 
         if (par->recover>0)
         {
@@ -2104,7 +2102,6 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     if (par->wzrun == 1)
     {
         sl->wzrun.reset(new Matrix<double>{par->rc->nrh, Nl});
-        initialize_doublematrix(sl->wzrun, 0.);
 
         if (par->recover>0)
         {
@@ -2137,7 +2134,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     if (par->Tzmaxrun == 1)
     {
         sl->Tzmaxrun.reset(new Matrix<double>{par->rc->nrh, Nl});
-        initialize_doublematrix(sl->Tzmaxrun, -1.E99);
+        (*sl->Tzmaxrun) = -1.E99; // ????
 
         if (par->recover>0)
         {
@@ -2170,7 +2167,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     if (par->wzmaxrun == 1)
     {
         sl->wzmaxrun.reset(new Matrix<double>{par->rc->nrh, Nl});
-        initialize_doublematrix(sl->wzmaxrun, -1.E99);
+        (*sl->wzmaxrun) = -1.E99;
 
         if (par->recover>0)
         {
@@ -2203,7 +2200,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     if (par->Tzminrun == 1)
     {
         sl->Tzminrun.reset(new Matrix<double>{par->rc->nrh, Nl});
-        initialize_doublematrix(sl->Tzminrun, 1.E99);
+        (*sl->Tzminrun) = 1.E99;
 
         if (par->recover>0)
         {
@@ -2236,7 +2233,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     if (par->wzminrun == 1)
     {
         sl->wzminrun.reset(new Matrix<double>{par->rc->nrh, Nl});
-        initialize_doublematrix(sl->wzminrun, 1.E99);
+        (*sl->wzminrun) = 1.E99;
 
         if (par->recover>0)
         {
@@ -2269,7 +2266,6 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     if (par->dUzrun == 1)
     {
         sl->dUzrun.reset(new Matrix<double>{par->rc->nrh, Nl});
-        initialize_doublematrix(sl->dUzrun, 0.);
 
         if (par->recover>0)
         {
@@ -2463,11 +2459,8 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     wat->df.reset(new Vector<double>{j});
 
     wat->Kbottom.reset(new Matrix<double>{Nr, Nc});
-    initialize_doublematrix(wat->Kbottom, 0.);
 
     wat->Klat.reset(new Matrix<double>{top->BC_DepthFreeSurface->nh, Nl});
-    initialize_doublematrix(wat->Klat, 0.);
-
 }
 
 //***************************************************************************************************
@@ -2651,7 +2644,7 @@ to the land cover type\n");
         top->sky.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
         if (par->sky == 0)
         {
-            initialize_doublematrix(top->sky, 1.);
+            (*top->sky) = 1.;
         }
         else
         {
@@ -2675,7 +2668,6 @@ to the land cover type\n");
     else
     {
         land->delay.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
-        initialize_doublematrix(land->delay, 0);
     }
     if (flag >= 0)
         write_map(files[fdelay], 0, par->format_out, land->delay, UV, number_novalue);
@@ -2693,7 +2685,7 @@ to the land cover type\n");
             {
                 if ((long)land->LC->co[r][c] != number_novalue)
                 {
-                    if (sl->type->co[r][c] < 1 || sl->type->co[r][c] > par->nsoiltypes)
+                    if ((*sl->type)(r,c) < 1 || (*sl->type)(r,c) > par->nsoiltypes)
                     {
                         f = fopen(FailedRunFile, "w");
                         fprintf(f, "Error: It is not possible to assign Value < 1 or > nsoiltypes \
@@ -3524,7 +3516,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
     top->Z0.reset(new Matrix<double>{1,par->chkpt->nrh});
     land->LC.reset(new Matrix<double>{1,par->chkpt->nrh});
     land->delay.reset(new Matrix<double>{1,par->chkpt->nrh});
-    sl->type=new_longmatrix(1,par->chkpt->nrh);
+    sl->type.reset(new Matrix<long>{1,par->chkpt->nrh});
 
     top->slope.reset(new Matrix<double>{1,par->chkpt->nrh});
     top->aspect.reset(new Matrix<double>{1,par->chkpt->nrh});
@@ -3561,9 +3553,9 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
             t_error("Fatal Error! Geotop is closed. See failing report (15).");
         }
 
-        sl->type->co[1][i]=(long)par->chkpt->co[i][ptSY];
+        (*sl->type)(1,i)=(long)par->chkpt->co[i][ptSY];
 
-        if (sl->type->co[1][i] <= 0)
+        if ((*sl->type)(1,i) <= 0)
         {
             f = fopen(FailedRunFile, "w");
             fprintf(f, "Error: Point %ld has soil type <= 0. This is not admitted.\n",i);
@@ -3587,7 +3579,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
         top->dzdN->co[1][i]=0.;
         land->delay->co[1][i]=0.;
 
-        if (sl->type->co[1][i] <= 0)
+        if ((*sl->type)(1,i) <= 0)
         {
             f = fopen(FailedRunFile, "w");
             fprintf(f, "Error: Point %ld has horizon type <= 0. This is not admitted.\n", i);
@@ -3750,9 +3742,9 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
             {
                 r = top->rc_cont->co[i][1];
                 c = top->rc_cont->co[i][2];
-                sy = sl->type->co[r][c];
+                sy = (*sl->type)(r,c);
                 synew = i;
-                sl->type->co[r][c] = synew;
+                (*sl->type)(r,c) = synew;
                 z = 0.;
             }
             else
@@ -3838,7 +3830,7 @@ DOUBLETENSOR *find_Z_of_any_layer(Matrix<double> *Zsurface, Matrix<double> *slop
             if ((long)LC->co[r][c]!=number_novalue)
             {
                 cosine = cos(slope->co[r][c]*Pi/180.);
-                sy=sl->type->co[r][c];
+                sy=(*sl->type)(r,c);
 
                 if (point!=1)
                 {

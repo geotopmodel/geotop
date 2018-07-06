@@ -135,7 +135,7 @@ struct STATE_VEG {
 /*---------------------------------------------------------------------------*/
 
 struct SOIL {
-    LONGMATRIX *type;
+    std::unique_ptr<Matrix<long>> type;
     DOUBLETENSOR *pa;
     std::unique_ptr<Matrix<double>> T_av_tensor;
     std::unique_ptr<Matrix<double>> thw_av_tensor;

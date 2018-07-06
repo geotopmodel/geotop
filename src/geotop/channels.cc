@@ -39,8 +39,8 @@ void enumerate_channels(CHANNEL *cnet, Matrix<double> *LC,
     do
     {
 
-        find_max_constraint( Z->co, LC, pixel_type, cnet->ch, novalue, &r, &c);
-
+        find_max_constraint( Z, LC, pixel_type, cnet->ch, novalue, &r, &c);
+//        find_max_constraint( Z->co, LC, pixel_type, cnet->ch, novalue, &r, &c);
         if (r>0)
         {
 
@@ -51,9 +51,8 @@ void enumerate_channels(CHANNEL *cnet, Matrix<double> *LC,
 
             do
             {
-
-                next_down_channel_pixel( r, c, Z->co, LC, pixel_type, cnet->ch, novalue,
-                                         &rnext, &cnext);
+                next_down_channel_pixel( r, c, Z, LC, pixel_type, cnet->ch, novalue, &rnext, &cnext);
+              //  next_down_channel_pixel( r, c, Z->co, LC, pixel_type, cnet->ch, novalue, &rnext, &cnext);
                 if (rnext>0)
                 {
                     i++;
@@ -103,7 +102,7 @@ void enumerate_channels(CHANNEL *cnet, Matrix<double> *LC,
     {
         r = (*cnet->r)(i);
         c = (*cnet->c)(i);
-        cnet->length->co[i] *= (UV->U->co[1]/cos(slope->co[r][c]*Pi/180.));
+        cnet->length->co[i] *= (UV->U->co[1]/cos((*slope)(r,c)*Pi/180.));
     }
 
 }
@@ -113,8 +112,10 @@ void enumerate_channels(CHANNEL *cnet, Matrix<double> *LC,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void next_down_channel_pixel( long r, long c, double **Z, Matrix<double> *LC,
+void next_down_channel_pixel( long r, long c, Matrix<double> *Z, Matrix<double> *LC,
                               SHORTMATRIX *pixel_type, LONGMATRIX *CH, long novalue, long *R, long *C)
+//void next_down_channel_pixel( long r, long c, double **Z, Matrix<double> *LC,
+//                              SHORTMATRIX *pixel_type, LONGMATRIX *CH, long novalue, long *R, long *C)
 {
 
     *R=0;
@@ -255,7 +256,7 @@ void next_down_channel_pixel( long r, long c, double **Z, Matrix<double> *LC,
 /******************************************************************************************************************************************/
 
 //find highest channel pixel that has not been enumerated yet
-void find_max_constraint( double **Z, Matrix<double> *LC,
+void find_max_constraint( Matrix<double> *Z, Matrix<double> *LC,
                           SHORTMATRIX *pixel_type, LONGMATRIX *CH, long novalue, long *R, long *C)
 {
 
@@ -269,7 +270,7 @@ void find_max_constraint( double **Z, Matrix<double> *LC,
     {
         for (c=1; c<=CH->nch; c++)
         {
-            if ((long)LC->co[r][c]!=novalue)
+            if ((long)(*LC)(r,c)!=novalue)
             {
                 if (pixel_type->co[r][c]>=10 && CH->co[r][c]==0)
                 {
@@ -300,7 +301,7 @@ short neighboring_down_channel_pixel( long r, long c, long ir, long ic,
 
     if (R>=1 && R<=CH->nrh && C>=1 && C<=CH->nch)
     {
-        if ((long)LC->co[R][C]!=novalue)
+        if ((long)(*LC)(R,C)!=novalue)
         {
             //neighboring pixel is a channel
             if (Z[R][C]<=Z[r][c] && pixel_type->co[R][C]>=10) yes=-1;

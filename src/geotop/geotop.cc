@@ -400,7 +400,7 @@ void time_loop(ALLDATA *A)
               {
                 r = A->P->rc->co[j][1];  // r (*A->P->rc)(j,1)
                 c = A->P->rc->co[j][2];
-                sy = A->S->type->co[r][c];
+                sy = (*A->S->type)(r,c);
 
                 th = theta_from_psi((*A->S->SS->P)(l,A->T->j_cont[r][c]),
                                     (*A->S->SS->thi)(l,A->T->j_cont[r][c]), l,

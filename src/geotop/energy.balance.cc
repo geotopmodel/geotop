@@ -130,7 +130,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
       if (A->E->dsun > 2*Pi) A->E->dsun -= 2*Pi;
       A->E->sinhsun = adaptiveSimpsons2(Sinalpha_, A->E->sun, JDb, JDe, 1.E-6,
                                         20) / (JDe - JDb);
-      if (A->P->cast_shadow==1) shadow_haiden(A->T->Z0, A->E->hsun, A->E->dsun, A->L->shadow);
+      if (A->P->cast_shadow==1) shadow_haiden(A->T->Z0.get(), A->E->hsun, A->E->dsun, A->L->shadow);
     }
 
   //INITIALIZE BASIN AVERAGES
@@ -281,7 +281,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
       j = i - A->P->total_channel;
       A->W->Pnet->co[r][c] = 0.0;
       lu = (short)A->L->LC->co[r][c];
-      sy = A->S->type->co[r][c];
+      sy = (*A->S->type)(r,c);
 
       for (l=1; l<=Nl; l++)
         {
@@ -1443,7 +1443,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
     }
   else
     {
-      sy = sl->type->co[r][c];
+      sy = (*sl->type)(r,c);
       psi0 = (*SL->P)(0,j);
       for (l=1; l<=Nl; l++)
         {

@@ -109,7 +109,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
         l=adt->T->lrc_cont->co[j][1];
         r=adt->T->lrc_cont->co[j][2];
         c=adt->T->lrc_cont->co[j][3];
-        sy=adt->S->type->co[r][c];
+        sy=(*adt->S->type)(r,c);
         area=ds*ds/cos(adt->T->slope->co[r][c]*Pi/180.);
         if(l==0){
           m1 += area * 1.E-3*Fmax(0.0, L->P->co[l][adt->T->j_cont[r][c]]) / cos(adt->T->slope->co[r][c]*Pi/180.);
@@ -135,7 +135,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
         l=adt->T->lrc_cont->co[j][1];
         r=adt->T->lrc_cont->co[j][2];
         c=adt->T->lrc_cont->co[j][3];
-        sy=adt->S->type->co[r][c];
+        sy=(*adt->S->type)(r,c);
         area=ds*ds/cos(adt->T->slope->co[r][c]*Pi/180.);
         if(l==0){
           m2 += area * 1.E-3*Fmax(0.0, L->P->co[l][adt->T->j_cont[r][c]]) / cos(adt->T->slope->co[r][c]*Pi/180.);
@@ -488,7 +488,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
           r = adt->T->lrc_cont->co[i][2];
           c = adt->T->lrc_cont->co[i][3];
           j = adt->T->j_cont[r][c];
-          sy = adt->S->type->co[r][c];
+          sy = (*adt->S->type)(r,c);
           ch = adt->C->ch->co[r][c];
           bc = adt->T->BC_counter->co[r][c];
 
@@ -862,7 +862,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
     {
 
       l = i-1;
-      sy = adt->S->type->co[r][c];
+      sy = (*adt->S->type)(r,c);
       bc = adt->T->BC_counter->co[r][c];
 
       (*L->P)(l,c) = adt->W->H1->co[i] - adt->T->Z->co[l][r][c];
@@ -964,7 +964,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
           r=adt->T->lrc_cont->co[i][2];
           c=adt->T->lrc_cont->co[i][3];
           j=adt->T->j_cont[r][c];
-          sy=adt->S->type->co[r][c];
+          sy=(*adt->S->type)(r,c);
 
           ch=adt->C->ch->co[r][c];
           area=ds*ds/cos(adt->T->slope->co[r][c]*Pi/180.);
@@ -1186,7 +1186,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
                 {
 
                   I = adt->T->i_cont[l][R][C];
-                  syn = adt->S->type->co[R][C];
+                  syn = (*adt->S->type)(r,c);
                   J = adt->T->j_cont[R][C];
 
                   dD = find_3Ddistance(ds,
@@ -1257,7 +1257,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
                 {
 
                   I = adt->T->i_cont[l][R][C];
-                  syn = adt->S->type->co[R][C];
+                  syn = (*adt->S->type)(r,c);
                   J = adt->T->j_cont[R][C];
 
                   dD = find_3Ddistance(ds,
@@ -1326,7 +1326,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
                 {
 
                   I = adt->T->i_cont[l][R][C];
-                  syn = adt->S->type->co[R][C];
+                  syn = (*adt->S->type)(r,c);
                   J = adt->T->j_cont[R][C];
 
                   dD = find_3Ddistance(ds,
@@ -1394,7 +1394,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
                 {
 
                   I = adt->T->i_cont[l][R][C];
-                  syn = adt->S->type->co[R][C];
+                  syn = (*adt->S->type)(r,c);
                   J = adt->T->j_cont[R][C];
 
                   dD = find_3Ddistance(ds,
@@ -1513,7 +1513,7 @@ int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *Lx,
 
       //VERTICAL FLUXES
       l = i-1;
-      sy=adt->S->type->co[r][c];
+      sy=(*adt->S->type)(r,c);
       area=ds*ds;
 
       //vertical hydraulic conductivity
@@ -1644,7 +1644,7 @@ int find_dfdH_3D(double Dt, Vector<double> *df, ALLDATA *adt, SOIL_STATE *L,
           r=adt->T->lrc_cont->co[i][2];
           c=adt->T->lrc_cont->co[i][3];
           j=adt->T->j_cont[r][c];
-          sy=adt->S->type->co[r][c];
+          sy=(*adt->S->type)(r,c);
           bc=adt->T->BC_counter->co[r][c];
           ch=adt->C->ch->co[r][c];
           area=ds*ds/cos(adt->T->slope->co[r][c]*Pi/180.);
@@ -1739,7 +1739,7 @@ int find_dfdH_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *df,
       df->co[i] = 0.;
 
       l = i-1;
-      sy=adt->S->type->co[r][c];
+      sy=(*adt->S->type)(r,c);
       bc=adt->T->BC_counter->co[r][c];
       area=ds*ds;
       psi1 = H->co[i] - adt->T->Z->co[l][r][c];
@@ -1807,7 +1807,7 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
           r=adt->T->lrc_cont->co[i][2];
           c=adt->T->lrc_cont->co[i][3];
           j=adt->T->j_cont[r][c];
-          sy=adt->S->type->co[r][c];
+          sy=(*adt->S->type)(r,c);
           bc=adt->T->BC_counter->co[r][c];
           ch=adt->C->ch->co[r][c];
           area=ds*ds/cos(adt->T->slope->co[r][c]*Pi/180.);
@@ -1955,7 +1955,7 @@ int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
     {
 
       l = i-1;
-      sy=adt->S->type->co[r][c];
+      sy=(*adt->S->type)(r,c);
       bc=adt->T->BC_counter->co[r][c];
       area=ds*ds;
       psi0 = (*L->P)(l,c);

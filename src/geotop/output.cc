@@ -237,17 +237,17 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                         sl->thizavplot->co[i][l] += (*sl->SS->thi)(l,j) *(par->Dt/par->Dtplot_point->co[i_sim]);
                 }
 
-                D = find_activelayerdepth_up(j, sl->type->co[r][c], sl);
+                D = find_activelayerdepth_up(j, (*sl->type)(r,c), sl);
                 odpnt[othawedup][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
                 Dthaw = D;
 
-                D = find_activelayerdepth_dw(j, sl->type->co[r][c], sl);
+                D = find_activelayerdepth_dw(j, (*sl->type)(r,c), sl);
                 odpnt[othaweddw][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
 
-                D = find_watertabledepth_up(Dthaw, j, sl->type->co[r][c], sl);
+                D = find_watertabledepth_up(Dthaw, j, (*sl->type)(r,c), sl);
                 odpnt[owtableup][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
 
-                D = find_watertabledepth_dw(Dthaw, j, sl->type->co[r][c], sl); // look here!
+                D = find_watertabledepth_dw(Dthaw, j, (*sl->type)(r,c), sl); // look here!
                 odpnt[owtabledw][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
             }
         }
@@ -268,7 +268,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     r=par->rc->co[i][1];
                     c=par->rc->co[i][2];
                     j=top->j_cont[r][c];
-                    sy = sl->type->co[r][c];
+                    sy = (*sl->type)(r,c);
 
                     if (par->output_vertical_distances == 1)
                     {
@@ -1277,8 +1277,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = top->rc_cont->co[i][1];
                 c = top->rc_cont->co[i][2];
-                V->co[i] = find_watertabledepth_up(find_activelayerdepth_up(i, sl->type->co[r][c], sl),
-                                                   i, sl->type->co[r][c], sl); // normal
+                V->co[i] = find_watertabledepth_up(find_activelayerdepth_up(i, (*sl->type)(r,c), sl),
+                                                   i, (*sl->type)(r,c), sl); // normal
             }
             temp1=join_strings(files[fwtable_up],s2);
             write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,top->j_cont, Nr, Nc);
@@ -1292,8 +1292,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = top->rc_cont->co[i][1];
                 c = top->rc_cont->co[i][2];
-                V->co[i] = find_watertabledepth_dw(find_activelayerdepth_up(i, sl->type->co[r][c], sl),
-                                                   i, sl->type->co[r][c], sl); // normal
+                V->co[i] = find_watertabledepth_dw(find_activelayerdepth_up(i, (*sl->type)(r,c), sl),
+                                                   i, (*sl->type)(r,c), sl); // normal
 
             }
             temp1=join_strings(files[fwtable_dw],s2);
@@ -1309,7 +1309,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = top->rc_cont->co[i][1];
                 c = top->rc_cont->co[i][2];
-                V->co[i] = find_activelayerdepth_up(i, sl->type->co[r][c], sl); // normal
+                V->co[i] = find_activelayerdepth_up(i, (*sl->type)(r,c), sl); // normal
             }
             temp1=join_strings(files[fthawed_up],s2);
             write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
@@ -1323,7 +1323,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = top->rc_cont->co[i][1];
                 c = top->rc_cont->co[i][2];
-                V->co[i] = find_activelayerdepth_dw(i, sl->type->co[r][c], sl); // normal
+                V->co[i] = find_activelayerdepth_dw(i, (*sl->type)(r,c), sl); // normal
             }
             temp1=join_strings(files[fthawed_dw],s2);
             write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
@@ -3026,7 +3026,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             write_suffix(NNNN, (*par->IDpoint)(i), 0);
             r=par->rc->co[i][1];
             c=par->rc->co[i][2];
-            sy=sl->type->co[r][c];
+            sy=(*sl->type)(r,c);
             lu=(short)land->LC->co[r][c];
 
             if (strcmp(files[fpoint], string_novalue) != 0 && par->point_sim != 1)
@@ -4944,7 +4944,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                     }
                     if (par->wzrun == 1 || par->wzmaxrun == 1 || par->wzminrun == 1)
                     {
-                        w = ((*sl->SS->thi)(i,j) + (*sl->th)(i,j)) * sl->pa->co[sl->type->co[r][c]][jdz][i];
+                        w = ((*sl->SS->thi)(i,j) + (*sl->th)(i,j)) * sl->pa->co[(*sl->type)(r,c)][jdz][i];
                         if (par->wzrun == 1)
                             sl->wzrun->co[(*par->jplot)(j)][i] += w * Dt / ((par->end_date->co[i_sim] - par->init_date->co[i_sim])*86400.);
                         if (par->wzmaxrun == 1)
@@ -5142,8 +5142,8 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
                 r = par->rc->co[j][1];
                 c = par->rc->co[j][2];
                 fprintf(f, ",%f",
-                        ((*sl->SS->thi)(l,top->j_cont[r][c]) + (*sl->th)(l,top->j_cont[r][c])) * sl->pa->co[sl->type->co[r][c]][jdz][l] );
-                // ((*sl->SS->thi)(l,top->j_cont[r][c]) + sl->th->co[l][top->j_cont[r][c]]) * sl->pa->co[sl->type->co[r][c]][jdz][l] );
+                        ((*sl->SS->thi)(l,top->j_cont[r][c]) + (*sl->th)(l,top->j_cont[r][c])) * sl->pa->co[(*sl->type)(r,c)][jdz][l] );
+                // ((*sl->SS->thi)(l,top->j_cont[r][c]) + sl->th->co[l][top->j_cont[r][c]]) * sl->pa->co[(*sl->type)(r,c)][jdz][l] );
             }
             fprintf(f, "\n");
         }
@@ -5220,7 +5220,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
                 r = par->rc->co[j][1];
                 c = par->rc->co[j][2];
                 fprintf(f, ",%f",((*sl->SS->thi)(l,top->j_cont[r][c])
-                                  + (*sl->th)(l,top->j_cont[r][c]))*sl->pa->co[sl->type->co[r][c]][jdz][l]);
+                                  + (*sl->th)(l,top->j_cont[r][c]))*sl->pa->co[(*sl->type)(r,c)][jdz][l]);
             }
             fprintf(f, "\n");
         }
@@ -5345,7 +5345,7 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
 
     for (j=1; j<=par->total_pixel; j++)
     {
-        sy = sl->type->co[1][j];
+        sy = (*sl->type)(1,j);
 
         //spinned up soil portion (above) -> == 1 (instanatenous values) == 2 (averaged values)
         if (par->newperiodinit == 2)

@@ -19,5 +19,4 @@
 
  */
 
-void initmatrix(double val, DOUBLEMATRIX *destination, DOUBLEMATRIX *origin,
-                double novalue);
+void initmatrix(double val, Matrix<double> *destination, Matrix<double> *origin, double novalue);
