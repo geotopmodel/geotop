@@ -28,7 +28,7 @@ extern long number_novalue;
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void i_lrc_cont(DOUBLEMATRIX *LC, long ***i, LONGMATRIX *lrc, long nl,
+void i_lrc_cont(Matrix<double> *LC, long ***i, LONGMATRIX *lrc, long nl,
                 long nr, long nc)
 {
 
@@ -59,7 +59,7 @@ void i_lrc_cont(DOUBLEMATRIX *LC, long ***i, LONGMATRIX *lrc, long nl,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void j_rc_cont(DOUBLEMATRIX *LC, long **j, LONGMATRIX *rc, long nr, long nc)
+void j_rc_cont(Matrix<double> *LC, long **j, LONGMATRIX *rc, long nr, long nc)
 {
 
   long cont=0;
@@ -108,7 +108,7 @@ void lch3_cont(long **ch3, LONGMATRIX *lch, long nl, long nch)
 /******************************************************************************************************************************************/
 
 void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet,
-                                 DOUBLEMATRIX *LC, LONGMATRIX *lrc, long ***i, long n, long nch, long nl)
+                                 Matrix<double> *LC, LONGMATRIX *lrc, long ***i, long n, long nch, long nl)
 {
 
   long j, jj, l, r=0, c=0;
@@ -176,7 +176,7 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet,
 /******************************************************************************************************************************************/
 
 void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
-                                 CHANNEL *cnet, DOUBLEMATRIX *LC, LONGMATRIX *lrc, long ***i, long n, long nch,
+                                 CHANNEL *cnet, Matrix<double> *LC, LONGMATRIX *lrc, long ***i, long n, long nch,
                                  long nl)
 {
 

@@ -54,9 +54,9 @@ extern const char *WORKING_DIRECTORY;
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMATRIX *topo, DOUBLEMATRIX *curvature1,
-                DOUBLEMATRIX *curvature2, DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4,
-                DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *slope_az, METEO *met, double slopewtD, double curvewtD,
+void Meteodistr(double dE, double dN, Matrix<double> *E, Matrix<double> *N, Matrix<double> *topo, Matrix<double> *curvature1,
+                Matrix<double> *curvature2, Matrix<double> *curvature3, Matrix<double> *curvature4,
+                Matrix<double> *terrain_slope, Matrix<double> *slope_az, METEO *met, double slopewtD, double curvewtD,
                 double slopewtI, double curvewtI, double windspd_min, double RH_min, double dn, short iobsint,
                 long Tcode, long Tdcode, long Vxcode, long Vycode, long VScode, long Pcode, double **Tair_grid,
                 double **RH_grid, double **windspd_grid, double **winddir_grid, double **sfc_pressure,
@@ -102,8 +102,8 @@ void Meteodistr(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, DOUBLEMA
 //***************************************************************************************************************
 
 
-short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tcode, double **Tair_grid,
-                      double dn, DOUBLEMATRIX *topo, short iobsint, double lapse_rate) {
+short get_temperature(double dE, double dN, Matrix<double> *E, Matrix<double> *N, METEO *met, long Tcode, double **Tair_grid,
+                      double dn, Matrix<double> *topo, short iobsint, double lapse_rate) {
 
   double topo_ref;
   long n, r, c;
@@ -154,8 +154,8 @@ short get_temperature(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, ME
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long Tdcode, double **RH_grid,
-                            double **Tair_grid, double RH_min, double dn, DOUBLEMATRIX *topo, short iobsint,
+short get_relative_humidity(double dE, double dN, Matrix<double> *E, Matrix<double> *N, METEO *met, long Tdcode, double **RH_grid,
+                            double **Tair_grid, double RH_min, double dn, Matrix<double> *topo, short iobsint,
                             double lapse_rate) {
 
   // First convert stn relative humidity to dew-point temperature.  Use
@@ -218,24 +218,24 @@ short get_relative_humidity(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX 
 
 void topo_mod_winds(double **winddir_grid, double **windspd_grid,
                     double slopewtD, double curvewtD, double slopewtI, double curvewtI,
-                    DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2, DOUBLEMATRIX *curvature3,
-                    DOUBLEMATRIX *curvature4,
-                    DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope, DOUBLEMATRIX *topo,
+                    Matrix<double> *curvature1, Matrix<double> *curvature2, Matrix<double> *curvature3,
+                    Matrix<double> *curvature4,
+                    Matrix<double> *slope_az, Matrix<double> *terrain_slope, Matrix<double> *topo,
                     double undef) {
 
   long r, c, nc = topo->nch, nr = topo->nrh;
   double deg2rad = Pi / 180.0, dirdiff, windwt;
 
-  DOUBLEMATRIX *wind_slope, *wind_curv;
+  std::unique_ptr<Matrix<double>> wind_slope, wind_curv;
 
   //Compute the wind modification factor which is a function of topography and wind direction following Liston and Sturm (1998).
 
   //Compute the slope in the direction of the wind.
-  wind_slope = new_doublematrix(topo->nrh, topo->nch);
-  initialize_doublematrix(wind_slope, 0.);
+  wind_slope.reset(new Matrix<double>{topo->nrh, topo->nch});
+
   for (r = 1; r <= nr; r++) {
     for (c = 1; c <= nc; c++) {
-      if (topo->co[r][c] != undef) {
+      if ((*topo)(r,c) != undef) {
         wind_slope->co[r][c] = tan(deg2rad * terrain_slope->co[r][c] * cos(deg2rad *
                                                                            (winddir_grid[r][c] - slope_az->co[r][c])));
         if (wind_slope->co[r][c] > 1) wind_slope->co[r][c] = 1.;
@@ -245,8 +245,8 @@ void topo_mod_winds(double **winddir_grid, double **windspd_grid,
   }
 
   //curvature
-  wind_curv = new_doublematrix(topo->nrh, topo->nch);
-  initialize_doublematrix(wind_curv, 0.);
+  wind_curv.reset(new Matrix<double>{topo->nrh, topo->nch});
+
   for (r = 1; r <= nr; r++) {
     for (c = 1; c <= nc; c++) {
       if (topo->co[r][c] != undef) {
@@ -309,20 +309,17 @@ void topo_mod_winds(double **winddir_grid, double **windspd_grid,
       }
     }
   }
-
-  free_doublematrix(wind_slope);
-  free_doublematrix(wind_curv);
 }
 
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
 //***************************************************************************************************************
-short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *met, long ucode, long vcode, long Vscode,
-               double **windspd_grid, double **winddir_grid, DOUBLEMATRIX *curvature1, DOUBLEMATRIX *curvature2,
-               DOUBLEMATRIX *curvature3, DOUBLEMATRIX *curvature4, DOUBLEMATRIX *slope_az, DOUBLEMATRIX *terrain_slope,
+short get_wind(double dE, double dN, Matrix<double> *E, Matrix<double> *N, METEO *met, long ucode, long vcode, long Vscode,
+               double **windspd_grid, double **winddir_grid, Matrix<double> *curvature1, Matrix<double> *curvature2,
+               Matrix<double> *curvature3, Matrix<double> *curvature4, Matrix<double> *slope_az, Matrix<double> *terrain_slope,
                double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double dn,
-               DOUBLEMATRIX *topo, short iobsint) {
+               Matrix<double> *topo, short iobsint) {
 
   // This program takes the station wind speed and direction, converts
   //   them to u and v components, interpolates u and v to a grid,
@@ -335,7 +332,7 @@ short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *me
   //   between u-v and speed-dir is done because of the problems
   //   with interpolating over the 360/0 direction line.)
 
-  DOUBLEMATRIX *u_grid, *v_grid;
+  std::unique_ptr<Matrix<double>> u_grid, v_grid;
   long r, c, nc = topo->nch, nr = topo->nrh;
   double rad2deg = 180.0 / Pi;
   short oku, okv, ok;
@@ -343,12 +340,12 @@ short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *me
   //Use the barnes oi scheme to interpolate the station data to
   //the grid.
   //U component.
-  u_grid = new_doublematrix(nr, nc);
+  u_grid.reset(new Matrix<double>{nr, nc});
   oku = interpolate_meteo(0, dE, dN, E, N, met->st->E.get(), met->st->N.get(), met->var,
                           ucode, u_grid->co, dn, iobsint);
 
   //V component.
-  v_grid = new_doublematrix(nr, nc);
+  v_grid.reset(new Matrix<double>{nr, nc});
   okv = interpolate_meteo(0, dE, dN, E, N, met->st->E.get(), met->st->N.get(), met->var,
                           vcode, v_grid->co, dn, iobsint);
 
@@ -357,8 +354,6 @@ short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *me
     ok = interpolate_meteo(0, dE, dN, E, N, met->st->E.get(), met->st->N.get(), met->var,
                            Vscode, windspd_grid, dn, iobsint);
     if (ok == 0) {
-      free_doublematrix(u_grid);
-      free_doublematrix(v_grid);
       return ok;
     }
 
@@ -381,10 +376,7 @@ short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *me
                    curvewtI, curvature1, curvature2,
                    curvature3, curvature4, slope_az, terrain_slope, topo, number_novalue);
   }
-
-  free_doublematrix(u_grid);
-  free_doublematrix(v_grid);
-
+  
   //Avoid problems of zero (low) winds (for example, turbulence
   //theory, log wind profile, etc., says that we must have some
   //wind.  Thus, some equations blow up when the wind speed gets
@@ -405,9 +397,9 @@ short get_wind(double dE, double dN, DOUBLEMATRIX *E, DOUBLEMATRIX *N, METEO *me
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-short get_precipitation(double dE, double dN, DOUBLEMATRIX *E,
-                        DOUBLEMATRIX *N, METEO *met, long Pcode, long Tcode,
-                        long Tdcode, double **prec_grid, double dn, DOUBLEMATRIX *topo, short iobsint,
+short get_precipitation(double dE, double dN, Matrix<double> *E,
+                        Matrix<double> *N, METEO *met, long Pcode, long Tcode,
+                        long Tdcode, double **prec_grid, double dn, Matrix<double> *topo, short iobsint,
                         double lapse_rate,
                         double max, double min, short dew, double Train, double Tsnow,
                         double snow_corr_factor, double rain_corr_factor) {
@@ -428,7 +420,7 @@ short get_precipitation(double dE, double dN, DOUBLEMATRIX *E,
 
   long n, r, c, nc = topo->nch, nr = topo->nrh, cnt = 0;
   double alfa, prec, f, rain, snow;
-  DOUBLEMATRIX *topo_ref_grid;
+  std::unique_ptr<Matrix<double>> topo_ref_grid;
   short ok;
 
 
@@ -451,7 +443,7 @@ short get_precipitation(double dE, double dN, DOUBLEMATRIX *E,
 
   } else {
 
-    topo_ref_grid = new_doublematrix(nr, nc);
+    topo_ref_grid.reset(new Matrix<double>{nr, nc});
     ok = interpolate_meteo(0, dE, dN, E, N, met->st->E.get(), met->st->N.get(), met->var,
                            Pcode, topo_ref_grid->co, dn, iobsint);
 
@@ -488,9 +480,6 @@ short get_precipitation(double dE, double dN, DOUBLEMATRIX *E,
         }
       }
     }
-
-    free_doublematrix(topo_ref_grid);
-
     return ok;
   }
 }
@@ -500,7 +489,7 @@ short get_precipitation(double dE, double dN, DOUBLEMATRIX *E,
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void get_pressure(DOUBLEMATRIX *topo, double **sfc_pressure, double undef) {
+void get_pressure(Matrix<double> *topo, double **sfc_pressure, double undef) {
 
   long r, c, nc = topo->nch, nr = topo->nrh;
 
@@ -565,7 +554,7 @@ double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate,
 //***************************************************************************************************************
 
 short interpolate_meteo(short flag, double dX, double dY,
-                        DOUBLEMATRIX *Xpoint, DOUBLEMATRIX *Ypoint, Vector<double> *Xst,
+                        Matrix<double> *Xpoint, Matrix<double> *Ypoint, Vector<double> *Xst,
                         Vector<double> *Yst, double **value, long metcod, double **grid, double dn0,
                         short iobsint) {
 
@@ -644,7 +633,7 @@ void get_dn(long nc, long nr, double deltax, double deltay, long nstns,
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void barnes_oi(short flag, DOUBLEMATRIX *xpoint, DOUBLEMATRIX *ypoint,
+void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
                Vector<double> *xstnall, Vector<double> *ystnall,
                Vector<double> *xstn, Vector<double> *ystn, Vector<double> *var, double dn,
                double undef,

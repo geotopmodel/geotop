@@ -53,7 +53,7 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
                       Matrix<double> *th);
 
 void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
-                         ENERGY *egy, double **pa, SOIL_STATE *S, DOUBLEMATRIX *ET, DOUBLEMATRIX *th);
+                         ENERGY *egy, double **pa, SOIL_STATE *S, Matrix<double> *ET, Matrix<double> *th);
 
 void update_F_energy(long nbeg, long nend, Vector<double> *F, double w,
                      Vector<double> *K, double *T);

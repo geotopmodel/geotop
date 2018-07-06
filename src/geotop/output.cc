@@ -108,7 +108,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
     //other variables
     std::unique_ptr<Vector<double>> V;
-    DOUBLEMATRIX *M;
+    std::unique_ptr<Matrix<double>> M;
     double D, Dthaw, cosslope;
 
 
@@ -1186,7 +1186,6 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         // initialize T_av_tensor
         if (strcmp(files[fTav], string_novalue) != 0 || strcmp(files[fTavsup], string_novalue) != 0)
             (*sl->T_av_tensor) = 0.;
-       // initialize_doublematrix(sl->T_av_tensor, 0.);
 
         // theta_ice tensor
         if (strcmp(files[fice], string_novalue) != 0)
@@ -2160,7 +2159,6 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     M=copydouble_longmatrix(snow->S->lnum);
                     name = join_strings(files[rns], NNNN);
                     write_map(name, 1, par->format_out, M, UV, number_novalue);
-                    free_doublematrix(M);
                     free(name);
                 }
 
@@ -2187,7 +2185,6 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                         M=copydouble_longmatrix(glac->G->lnum);
                         name = join_strings(files[rni], NNNN);
                         write_map(name, 1, par->format_out, M, UV, number_novalue);
-                        free_doublematrix(M);
                         free(name);
                     }
                 }
@@ -2195,8 +2192,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
                 if (strcmp(files[rpsich], string_novalue) != 0)
                 {
-                    M=new_doublematrix0_(Nl, par->total_pixel);
-//                    M=new_doublematrix0_(Nl, par->total_pixel);
+                    M.reset(new Matrix<double>{Nl,0,par->total_pixel,1});
 
                     for (l=0; l<=Nl; l++)
                     {
@@ -2213,13 +2209,12 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                         write_tensorseries_vector(1, l, isavings, files[rpsich], 0, par->format_out,
                                                   M, UV, number_novalue, top->j_cont, Nr, Nc);
                     }
-                    free_doublematrix(M);
                 }
 
                 if (strcmp(files[rTgch], string_novalue) != 0)
                 {
-                    M=new_doublematrix(Nl, par->total_pixel);
-                    initialize_doublematrix(M, 0.0);
+                    M.reset(new Matrix<double>{Nl, par->total_pixel});
+
                     for (l=1; l<=Nl; l++)
                     {
                         for (i=1; i<=par->total_pixel; i++)
@@ -2235,13 +2230,12 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                         write_tensorseries_vector(1, l, isavings, files[rTgch], 0, par->format_out, M,
                                                   UV, number_novalue, top->j_cont, Nr, Nc);
                     }
-                    free_doublematrix(M);
                 }
 
                 if (strcmp(files[ricegch], string_novalue) != 0)
                 {
-                    M=new_doublematrix(Nl, par->total_pixel);
-                    initialize_doublematrix(M, 0.0);
+                    M.reset(new Matrix<double>{Nl, par->total_pixel});
+
                     for (l=1; l<=Nl; l++)
                     {
                         for (i=1; i<=par->total_pixel; i++)
@@ -2257,7 +2251,6 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                         write_tensorseries_vector(1, l, isavings, files[ricegch], 0, par->format_out,
                                                   M, UV, number_novalue, top->j_cont, Nr, Nc);
                     }
-                    free_doublematrix(M);
                 }
             }
         }
@@ -2398,7 +2391,6 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 rename_map(name);
                 M=copydouble_longmatrix(snow->S->lnum);
                 write_map(name, 1, par->format_out, M, UV, number_novalue);
-                free_doublematrix(M);
                 free(name);
             }
 
@@ -2438,14 +2430,13 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     rename_map(name);
                     M=copydouble_longmatrix(glac->G->lnum);
                     write_map(name, 1, par->format_out, M, UV, number_novalue);
-                    free_doublematrix(M);
                     free(name);
                 }
             }
 
             if (strcmp(files[rpsich], string_novalue) != 0)
             {
-                M=new_doublematrix0_(Nl, par->total_pixel);
+                M.reset(new Matrix<double>{Nl,0,par->total_pixel,1});
                 for (l=0; l<=Nl; l++)
                 {
                     rename_tensorseries(1, l, 0, files[rpsich]);
@@ -2462,12 +2453,11 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     write_tensorseries_vector(1, l, 0, files[rpsich], 0, par->format_out, M, UV,
                                               number_novalue, top->j_cont, Nr, Nc);
                 }
-                free_doublematrix(M);
             }
 
             if (strcmp(files[rTgch], string_novalue) != 0)
             {
-                M=new_doublematrix(Nl, par->total_pixel);
+                M.reset(new Matrix<double>{Nl, par->total_pixel});
                 for (l=1; l<=Nl; l++)
                 {
                     rename_tensorseries(1, l, 0, files[rTgch]);
@@ -2484,12 +2474,11 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     write_tensorseries_vector(1, l, 0, files[rTgch], 0, par->format_out, M, UV,
                                               number_novalue, top->j_cont, Nr, Nc);
                 }
-                free_doublematrix(M);
             }
 
             if (strcmp(files[ricegch], string_novalue) != 0)
             {
-                M=new_doublematrix(Nl, par->total_pixel);
+                M.reset(new Matrix<double>{Nl, par->total_pixel});
                 for (l=1; l<=Nl; l++)
                 {
                     rename_tensorseries(1, l, 0, files[ricegch]);
@@ -2506,7 +2495,6 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     write_tensorseries_vector(1, l, 0, files[ricegch], 0, par->format_out, M, UV,
                                               number_novalue, top->j_cont, Nr, Nc);
                 }
-                free_doublematrix(M);
             }
 
             if (par->Tzrun == 1 && strcmp(files[rTrun], string_novalue) != 0)
@@ -4686,8 +4674,7 @@ double interpolate_soil(long lmin, double h, long max, double *Dz, double *Q)
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-double interpolate_soil2(long lmin, double h, long max, double *Dz,
-                         DOUBLEMATRIX *Q, long i)
+double interpolate_soil2(long lmin, double h, long max, double *Dz, Matrix<double> *Q, long i)
 {
 
     double q, z, z0=0.;
@@ -4748,7 +4735,7 @@ double interpolate_soil2(long lmin, double h, long max, double *Dz,
 
 void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
                              short format, Matrix<double> *T, Vector<double> *n, long **J, LONGMATRIX *RC,
-                             double *dz, DOUBLEMATRIX *slope, short vertical)
+                             double *dz, Matrix<double> *slope, short vertical)
 {
 
     char LLLLL[ ]= {"LLLLL"};

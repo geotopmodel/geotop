@@ -35,7 +35,7 @@ struct INIT_TOOLS
   char **point_col_names;
   char **lapserates_col_names;
   char **meteostations_col_names;
-  DOUBLEMATRIX *bed;
+    std::unique_ptr<Matrix<double>> *bed;
   DOUBLETENSOR *pa_bed;
   std::unique_ptr<Vector<double>> init_water_table_depth;
 };
@@ -50,10 +50,10 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT);
 
 void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT);
 
-void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, DOUBLEMATRIX *LC);
+void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, Matrix<double> *LC);
 
-DOUBLETENSOR *find_Z_of_any_layer(DOUBLEMATRIX *Zsurface, DOUBLEMATRIX *slope,
-                                  DOUBLEMATRIX *LC, SOIL *sl, short point);
+DOUBLETENSOR *find_Z_of_any_layer(Matrix<double> *Zsurface, Matrix<double> *slope,
+                                  Matrix<double> *LC, SOIL *sl, short point);
 
 short file_exists(short key);
 

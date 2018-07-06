@@ -55,11 +55,11 @@ void plot(char *name, long i_plot, Vector<double>* V, short format, long **J);
 double interpolate_soil(long lmin, double h, long max, double *Dz, double *Q);
 
 double interpolate_soil2(long lmin, double h, long max, double *Dz,
-                         DOUBLEMATRIX *Q, long i);
+                         Matrix<double> *Q, long i);
 
 void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
                              short format, Matrix<double> *T, Vector<double> *n, long **J,
-                             LONGMATRIX *RC, double *dz, DOUBLEMATRIX *slope, short vertical);
+                             LONGMATRIX *RC, double *dz, Matrix<double> *slope, short vertical);
 
 void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                          GLACIER *glac, WATER *wat, METEO *met, PAR *par, TIMES *time, TOPO *top,

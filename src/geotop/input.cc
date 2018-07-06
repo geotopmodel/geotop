@@ -70,7 +70,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     GEOLOG_PREFIX(__func__);
 
     FILE *f; /** failed run file*/
-    DOUBLEMATRIX *M;
+    std::unique_ptr<Matrix<double>> M;
     std::unique_ptr<INIT_TOOLS> IT;
 
     short a, success, added_JDfrom0=0, added_wind_xy=0, added_wind_dir=0,
@@ -2506,7 +2506,7 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
 {
     GEOLOG_PREFIX(__func__);
     long r, c, i, cont;
-    DOUBLEMATRIX *M;
+    std::unique_ptr<Matrix<double>> M;
     SHORTMATRIX *curv;
     short flag;
     char *temp;
@@ -2967,7 +2967,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
 {
     GEOLOG_PREFIX(__func__);
     long i, r, c, num_lines;
-    DOUBLEMATRIX *Q=NULL, *P=NULL, *R=NULL, *S=NULL, *T=NULL, *Z=NULL, *LU=NULL; // ec 2012 08 22
+    std::unique_ptr<Matrix<double>> Q=NULL, P=NULL, R=NULL, S=NULL, T=NULL, Z=NULL, LU=NULL; // ec 2012 08 22
     SHORTMATRIX *curv;
     short read_dem, read_lu, read_soil, read_sl, read_as, read_sk, read_bed, read_curv, flag, coordinates;
     char *temp;
@@ -3727,7 +3727,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
 //***************************************************************************************************
 //***************************************************************************************************
 
-void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, DOUBLEMATRIX *LC)
+void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, Matrix<double> *LC)
 {
     GEOLOG_PREFIX(__func__);
     DOUBLETENSOR *T;
@@ -3851,8 +3851,8 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, D
 /***************************************************************************************************/
 /***************************************************************************************************/
 
-DOUBLETENSOR *find_Z_of_any_layer(DOUBLEMATRIX *Zsurface, DOUBLEMATRIX *slope,
-                                  DOUBLEMATRIX *LC, SOIL *sl, short point)
+DOUBLETENSOR *find_Z_of_any_layer(Matrix<double> *Zsurface, Matrix<double> *slope,
+                                  Matrix<double> *LC, SOIL *sl, short point)
 {
 
     GEOLOG_PREFIX(__func__);
