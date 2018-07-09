@@ -12,11 +12,8 @@
 #include <sstream>
 
 template <typename T> class Vector {
-private:
-    /** size of the array */
-    std::size_t _size;
 
-public:
+    public:
     /** lower bound */
     std::size_t nl;
     /** upper bound */
@@ -145,6 +142,11 @@ public:
         (*this)[i] += v[i];
       return *this;
     }
+
+private:
+    /** size of the array */
+    std::size_t _size;
+
 };
 
 #endif // GEOTOP_VECTOR_H
