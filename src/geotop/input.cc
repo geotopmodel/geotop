@@ -1112,28 +1112,28 @@ land cover %ld, meteo station %ld\n",
             for (l=1; l<=Nl; l++)
             {
                 if (strcmp(files[fTz], string_novalue) != 0|| strcmp(files[fTzwriteend], string_novalue) != 0)
-                    sl->Tzplot->co[i][l] = (*sl->SS->T)(l,j);
+                    (*sl->Tzplot)(i,l) = (*sl->SS->T)(l,j);
                 if (strcmp(files[fTzav], string_novalue) != 0|| strcmp(files[fTzavwriteend], string_novalue) != 0)
-                    sl->Tzavplot->co[i][l] = (*sl->SS->T)(l,j);
+                    (*sl->Tzavplot)(i,l) = (*sl->SS->T)(l,j);
                 if (strcmp(files[fliqz], string_novalue) != 0|| strcmp(files[fliqzwriteend],string_novalue) != 0)
-                    sl->thzplot->co[i][l] = (*sl->th)(l,j);
+                    (*sl->thzplot)(i,l) = (*sl->th)(l,j);
                 if (strcmp(files[fliqzav], string_novalue) != 0 || strcmp(files[fliqzavwriteend], string_novalue) != 0)
-                    sl->thzavplot->co[i][l] = (*sl->th)(l,j);
+                    (*sl->thzavplot)(i,l) = (*sl->th)(l,j);
                 if (strcmp(files[ficez], string_novalue) != 0 || strcmp(files[ficezwriteend], string_novalue) != 0)
-                    sl->thizplot->co[i][l] = (*sl->SS->thi)(l,j);
+                    (*sl->thizplot)(i,l) = (*sl->SS->thi)(l,j);
                 if (strcmp(files[ficezav], string_novalue) != 0|| strcmp(files[ficezavwriteend], string_novalue) != 0)
-                    sl->thizavplot->co[i][l] = (*sl->SS->thi)(l,j);
+                    (*sl->thizavplot)(i,l) = (*sl->SS->thi)(l,j);
                 if (strcmp(files[fpsiztot], string_novalue) != 0 || strcmp(files[fpsiztotwriteend],string_novalue) != 0)
-                    sl->Ptotzplot->co[i][l] = (*sl->Ptot)(l,j);
+                    (*sl->Ptotzplot)(i,l) = (*sl->Ptot)(l,j);
                 if (strcmp(files[fsatz], string_novalue) != 0)
-                    sl->satratio->co[i][l] = ((*sl->SS->thi)(l,j)
+                    (*sl->satratio)(i,l) = ((*sl->SS->thi)(l,j)
                                               + (*sl->th)(l,j)
                                               - sl->pa->co[sy][jres][l]) / (sl->pa->co[sy][jsat][l]- sl->pa->co[sy][jres][l]);
             }
             for (l=0; l<=Nl; l++)
             {
                 if (strcmp(files[fpsiz], string_novalue) != 0|| strcmp(files[fpsizwriteend], string_novalue) != 0)
-                    sl->Pzplot->co[i][l] = (*sl->SS->P)(l,j);
+                    (*sl->Pzplot)(i,l) = (*sl->SS->P)(l,j);
             }
         }
     }

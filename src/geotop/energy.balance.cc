@@ -2390,25 +2390,23 @@ double calc_C(long l, long nsng, double a, double *wi, double *wl, double *dw,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0,
-                  double Qg0, double Tv0, double zmu, double zmT, double z0s,
-                  double d0s, double rz0s, double z0v, double d0v, double rz0v, double hveg,
-                  double v, double Ta, double Qa,
-                  double P, double LR, double psi, double e, double fc, double LSAI,
-                  double decaycoeff0, double Wcrn,
-                  double Wcrnmax, double Wcsn, double Wcsnmax, double *dWcrn, double *dWcsn,
-                  double *theta, double **soil,
-                  double land, double root, PAR *par, Vector<double> *soil_transp_layer,
-                  double SWin, double LWin, double SWv, double *LW,
-                  double *H, double *dH_dT, double *E, double *dE_dT, double *LWv, double *Hv,
-                  double *LEv, double *Etrans,
-                  double *Tv, double *Qv, double *Ts, double *Qs, double *Hg0, double *Hg1,
-                  double *Eg0, double *Eg1, double *Lobukhov,
-                  double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g,
-                  double *rv_g, double *Qg,
-                  double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T,
-                  Vector<double> *soil_evap_layer_bare,
-                  Vector<double> *soil_evap_layer_veg, double sky)
+void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
+                  double Tg0, double Qg0, double Tv0, double zmu, double zmT, // 5 parameters
+                  double z0s, double d0s, double rz0s, double z0v, double d0v, // 5 parameters
+                  double rz0v, double hveg, double v, double Ta, double Qa, // 5 parameters
+                  double P, double LR, double psi, double e, double fc, // 5 parameters
+                  double LSAI, double decaycoeff0, double Wcrn, double Wcrnmax, double Wcsn, // 5 parameters
+                  double Wcsnmax, double *dWcrn, double *dWcsn, double *theta, double **soil, // 5 parameters
+                  double *land, double *root, PAR *par, Vector<double> *soil_transp_layer, double SWin, // 5 parameters
+                  double LWin, double SWv, double *LW, double *H, double *dH_dT, // 5 parameters
+                  double *E, double *dE_dT, double *LWv, double *Hv, double *LEv, // 5 parameters
+                  double *Etrans, double *Tv, double *Qv, double *Ts, double *Qs, // 5 parameters
+                  double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Lobukhov, // 5 parameters
+                  double *rh, double *rv, double *rc, double *rb, double *ruc, // 5 parameters
+                  double *rh_g, double *rv_g, double *Qg, double *u_top, double *decay, // 5 parameters
+                  double *Locc, double *LWup_above_v, double *T, Vector<double> *soil_evap_layer_bare,
+                  Vector<double> *soil_evap_layer_veg, // 5 parameters
+                  double sky) // 1 parameters
 {
 
 

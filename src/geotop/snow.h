@@ -128,7 +128,7 @@ void WBglacier(long ns, long ng, long r, long c, STATEVAR_3D *glac,
                double *Melt, PAR *par, ENERGY *E, double Evap);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void find_SCA(STATEVAR_3D *snow, PAR *par, double **Z, double t);
+void find_SCA(STATEVAR_3D *snow, PAR *par, Matrix<double> *Z, double t);
 
 /*----------------------------------------------------------------------------------------------------------*/
 double theta_snow(double a, double b, double T);

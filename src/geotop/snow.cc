@@ -1292,7 +1292,7 @@ void WBglacier(long ns, long ng, long r, long c, STATEVAR_3D *glac,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void find_SCA(STATEVAR_3D *snow, PAR *par, double **Z, double t)
+void find_SCA(STATEVAR_3D *snow, PAR *par, Matrix<double> *Z, double t)
 {
 
   long l, r, c, cont=0, conttot=0;

@@ -232,9 +232,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     if (strcmp(files[fTzav], string_novalue) != 0 || strcmp(files[fTzavwriteend], string_novalue) != 0)
                         (*sl->Tzavplot)(i,l) += (*sl->SS->T)(l,j)* (par->Dt/par->Dtplot_point->co[i_sim]);
                     if (strcmp(files[fliqzav], string_novalue) != 0|| strcmp(files[fliqzavwriteend], string_novalue) != 0)
-                        sl->thzavplot->co[i][l] += (*sl->th)(l,j) * (par->Dt/par->Dtplot_point->co[i_sim]);
+                        (*sl->thzavplot)(i,l) += (*sl->th)(l,j) * (par->Dt/par->Dtplot_point->co[i_sim]);
                     if (strcmp(files[ficezav], string_novalue) != 0 || strcmp(files[ficezavwriteend], string_novalue) != 0)
-                        sl->thizavplot->co[i][l] += (*sl->SS->thi)(l,j) *(par->Dt/par->Dtplot_point->co[i_sim]);
+                        (*sl->thizavplot)(i,l) += (*sl->SS->thi)(l,j) *(par->Dt/par->Dtplot_point->co[i_sim]);
                 }
 
                 D = find_activelayerdepth_up(j, (*sl->type)(r,c), sl);
@@ -777,7 +777,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             }
 
             if (strcmp(files[fSCA], string_novalue) != 0)
-                find_SCA(snow->S, par, land->LC->co, times->time + par->Dt);
+                find_SCA(snow->S, par, land->LC.get(), times->time + par->Dt);
 
             percent_done = 100.*cum_time/max_time;
 
@@ -4122,10 +4122,10 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
                       string_novalue) != 0) (*sl->Tzavplot)(i,l) = 0.0;
         if (strcmp(files[fliqzav], string_novalue) != 0
             || strcmp(files[fliqzavwriteend],
-                      string_novalue) != 0) sl->thzavplot->co[i][l] = 0.0;
+                      string_novalue) != 0) (*sl->thzavplot)(i,l) = 0.0;
         if (strcmp(files[ficezav], string_novalue) != 0
             || strcmp(files[ficezavwriteend],
-                      string_novalue) != 0) sl->thizavplot->co[i][l] = 0.0;
+                      string_novalue) != 0) (*sl->thizavplot)(i,l) = 0.0;
     }
 }
 
