@@ -1,11 +1,11 @@
-#include<gtest/gtest.h>
+#include <gtest/gtest.h>
 #include <vector.h>
 
 TEST(Vector, constructors){
-  Vector<int> v(3);
+  Vector<int> v{3};
   EXPECT_EQ(v.size(), std::size_t{3});
   
-  Vector<int> v0(3,0);
+  Vector<int> v0{3,0};
   EXPECT_EQ(std::size_t{4}, v0.size());
 
   Vector<int> vcopied{v0};
@@ -13,7 +13,7 @@ TEST(Vector, constructors){
 }
 
 TEST(Vector, range_for){
-  Vector<double> v(3);
+  Vector<double> v{3};
   double c{1.0};
   v[0] = -9999;
   v[3] = -9999;
@@ -29,7 +29,7 @@ TEST(Vector, range_for){
 }
 
 TEST(Vector, range_for_zero){
-  Vector<double> v(3,0);
+  Vector<double> v{3,0};
   double c{0.0};
   v[0] = -9999;
   v[3] = -9999;
@@ -45,7 +45,7 @@ TEST(Vector, range_for_zero){
 }
 
 TEST(Vector, set_value){
-  Vector<double> v(3,0.);
+  Vector<double> v{3,0};
   double c{0.0};
   
   for (auto &x : v)
@@ -62,7 +62,7 @@ TEST(Vector, set_value){
 
 
 TEST(Vector, copy_semantic){
-  Vector<double> v(3,0);
+  Vector<double> v{3,0};
   double c{0.0};
   v[0] = -9999.;
   v[3] = -9999.;
@@ -98,12 +98,9 @@ TEST(Vector, copy_semantic){
 
 
 TEST(Vector, out_of_range){
-  Vector<double> v(3);
+  Vector<double> v{3};
   double c{1.0};
   
-  for (auto &x : v)
-    x = ++c;
-
   EXPECT_NO_THROW(v.at(1));
   EXPECT_NO_THROW(v.at(2));
   EXPECT_NO_THROW(v.at(3));
@@ -133,11 +130,8 @@ TEST(Vector, out_of_range){
 }
 
 TEST(Vector, out_of_range_zero){
-  Vector<double> v(3,0);
+  Vector<double> v{3,0};
   double c{1.0};
-  
-  for (auto &x : v)
-    x = ++c;
 
   EXPECT_NO_THROW(v.at(0));
   EXPECT_NO_THROW(v.at(1));
@@ -151,9 +145,9 @@ TEST(Vector, out_of_range_zero){
 }
 
 TEST(Vector, summation){
-  Vector<double> v_0(3);
+  Vector<double> v_0{3};
   
-  Vector<double> v_1(3,0);
+  Vector<double> v_1{3,0};
 
   // vector lenght mismatch
 #ifndef NDEBUG
@@ -162,7 +156,7 @@ TEST(Vector, summation){
   EXPECT_NO_THROW(v_1 += v_0);
 #endif
   
-  Vector<double> v_2(3,0.);
+  Vector<double> v_2{3,0};
   double c{0.0};  
   for (auto &x : v_1)
     x = ++c;
