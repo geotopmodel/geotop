@@ -11,6 +11,8 @@
 #include <memory>
 #include <sstream>
 
+template <class T> class MatrixRow;
+
 template <class T> class Matrix {
     //private:
     // ...
@@ -71,7 +73,6 @@ public:
         GEO_ERROR_IN_RANGE(j, ncl, nch);
         return (*this)[(i-nrl)*n_col+(j-ncl)];
 //        return co[(i-nrl)*n_col+(j-ncl)];
-
     }
 
     T& operator[](const std::size_t i) noexcept {
@@ -146,6 +147,29 @@ public:
         co.reset(); // release acquired memory
         *this = Matrix<T>{m}; // use move assignment and copy constructor
         return *this;
+    }
+
+
+    MatrixRow<T> row(const std::size_t i) {
+        GEO_ASSERT_IN_RANGE(i, nrl, nrh);
+        return MatrixRow<T> { &co[(i-nrl)*n_col], nch, ncl };
+    };
+
+};
+// ----------------------------------------------------------------------------------------------------------------
+
+template <class T> class MatrixRow {
+public:
+    T *elem;
+    std::size_t nch;
+    std::size_t ncl;
+
+    T &operator[](const std::size_t j) noexcept {
+        return elem[j - ncl];
+    }
+
+    const T &operator[](const std::size_t j) const noexcept {
+        return elem[j - ncl];
     }
 
 };
