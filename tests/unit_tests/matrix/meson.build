@@ -1,4 +1,4 @@
-_tests = ['matrix_01.cc']
+_tests = ['matrix_01.cc', 'matrix_02.cc']
 
 _src = ['../../../src/geotop/matrix.h']
 foreach _t : _tests
