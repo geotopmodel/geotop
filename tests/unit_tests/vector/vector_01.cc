@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <vector.h>
 
+
 TEST(Vector, constructors){
   Vector<int> v{3};
   EXPECT_EQ(v.size(), std::size_t{3});

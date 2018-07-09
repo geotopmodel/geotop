@@ -13,7 +13,11 @@
 
 template <typename T> class Vector {
 
-    public:
+private:
+    /** size of the array */
+    std::size_t _size;
+
+public:
     /** lower bound */
     std::size_t nl;
     /** upper bound */
@@ -95,13 +99,13 @@ template <typename T> class Vector {
      * you can access elements in the range [l,n] boundaries included
      */
     explicit Vector(const std::size_t ub, const std::size_t lb = 1)
-            : nl{lb}, nh{ub}, co{new T[nh + 1]{}}, _size{nh - nl + 1} {} // initialize all elements to 0
+            : _size{ub - lb + 1}, nl{lb}, nh{ub}, co{new T[nh + 1]{}} {} // initialize all elements to 0
 
     /**
      * Copy constructor
      */
     Vector(const Vector<T> &v)
-            : nl{v.nl}, nh{v.nh}, co{new T[nh + 1]}, _size{v._size} {
+            : _size{v._size}, nl{v.nl}, nh{v.nh}, co{new T[nh + 1]} {
       for (auto i = nl; i <= nh; ++i)
         (*this)[i] = v[i];
     }
@@ -143,9 +147,6 @@ template <typename T> class Vector {
       return *this;
     }
 
-private:
-    /** size of the array */
-    std::size_t _size;
 
 };
 
