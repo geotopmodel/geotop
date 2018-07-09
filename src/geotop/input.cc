@@ -1141,18 +1141,18 @@ land cover %ld, meteo station %ld\n",
     if (recovered > 0)
     {
         assign_recovered_tensor_vector(old, par->recover, files[riceg], sl->SS->thi.get(),
-                                       top->rc_cont, par, land->LC);
+                                       top->rc_cont, par, land->LC.get());
         assign_recovered_tensor_vector(old, par->recover, files[rTg], sl->SS->T.get(),
-                                       top->rc_cont, par, land->LC);
+                                       top->rc_cont, par, land->LC.get());
         assign_recovered_tensor_vector(old, par->recover, files[rpsi], sl->SS->P.get(),
-                                       top->rc_cont, par, land->LC);
+                                       top->rc_cont, par, land->LC.get());
 
         assign_recovered_map_vector(old, par->recover, files[rwcrn], sl->VS->wrain.get(),
-                                    top->rc_cont, par, land->LC);
+                                    top->rc_cont, par, land->LC.get());
         assign_recovered_map_vector(old, par->recover, files[rwcsn], sl->VS->wsnow.get(),
-                                    top->rc_cont, par, land->LC);
+                                    top->rc_cont, par, land->LC.get());
         assign_recovered_map_vector(old, par->recover, files[rTv], sl->VS->Tv.get(),
-                                    top->rc_cont, par, land->LC);
+                                    top->rc_cont, par, land->LC.get());
     }
 
 

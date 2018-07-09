@@ -1493,8 +1493,8 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
       EnergyFluxes(t, Tg, r, c, ns+ng, Tg0, Qg0, Tv0, zmu, zmT, z0s, d0s, rz0s, z0v,
                    d0v, rz0v, hveg, v, Ta, Qa, P, LR, psi0, eps, fc, LSAI,
                    decaycoeff0, *Wcrn, Wcrnmax, *Wcsn, Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0],
-                   sl->pa->co[sy], (*land->ty)(lu,0),
-                   (*land->root_fraction)(lu,0), par, egy->soil_transp_layer.get(), SWin, LWin, SWv, LW,
+                   sl->pa->co[sy], land->ty->row(lu),
+                   land->root_fraction->row(lu), par, egy->soil_transp_layer.get(), SWin, LWin, SWv, LW,
                    H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans,
                    &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, rh, rv, rc, rb, ruc,
                    &rh_g, &rv_g, Qg, u_top, decay, Locc, LWup_ab_v,
@@ -2397,7 +2397,8 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
                   double P, double LR, double psi, double e, double fc, // 5 parameters
                   double LSAI, double decaycoeff0, double Wcrn, double Wcrnmax, double Wcsn, // 5 parameters
                   double Wcsnmax, double *dWcrn, double *dWcsn, double *theta, double **soil, // 5 parameters
-                  double *land, double *root, PAR *par, Vector<double> *soil_transp_layer, double SWin, // 5 parameters
+                  MatrixRow<double> land, MatrixRow<double> root, PAR *par, Vector<double> *soil_transp_layer,
+                  double SWin, // 5 parameters
                   double LWin, double SWv, double *LW, double *H, double *dH_dT, // 5 parameters
                   double *E, double *dE_dT, double *LWv, double *Hv, double *LEv, // 5 parameters
                   double *Etrans, double *Tv, double *Qv, double *Ts, double *Qs, // 5 parameters

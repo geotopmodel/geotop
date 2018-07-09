@@ -71,7 +71,8 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
                   double P, double LR, double psi, double e, double fc, // 5 parameters
                   double LSAI, double decaycoeff0, double Wcrn, double Wcrnmax, double Wcsn, // 5 parameters
                   double Wcsnmax, double *dWcrn, double *dWcsn, double *theta, double **soil, // 5 parameters
-                  double *land, double *root, PAR *par, Vector<double> *soil_transp_layer, double SWin, // 5 parameters
+                  MatrixRow<double> land, MatrixRow<double> root, PAR *par, Vector<double> *soil_transp_layer,
+                  double SWin, // 5 parameters
                   double LWin, double SWv, double *LW, double *H, double *dH_dT, // 5 parameters
                   double *E, double *dE_dT, double *LWv, double *Hv, double *LEv, // 5 parameters
                   double *Etrans, double *Tv, double *Qv, double *Ts, double *Qs, // 5 parameters
