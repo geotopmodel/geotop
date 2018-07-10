@@ -76,15 +76,14 @@ double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate,
 
 short interpolate_meteo(short flag, double dX, double dY, Matrix<double> *Xpoint, Matrix<double> *Ypoint, // 5
                         Vector<double> *Xst, Vector<double> *Yst, double **value, long metcod,
-                        double **grid, // 5
+                        Matrix<double> *grid, // 5
                         double dn0, short iobsint); // 2
 
 void get_dn(long nc, long nr, double deltax, double deltay, long nstns,
             double *dn);
 
-void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
-               Vector<double> *xstnall, Vector<double> *ystnall, Vector<double> *xstn,
-               Vector<double> *ystn,
-               Vector<double> *var, double dn, double undef, double **grid,
-               double **value_station, long metcode);
+void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint, // 3
+               Vector<double> *xstnall, Vector<double> *ystnall, Vector<double> *xstn, // 3
+               Vector<double> *ystn, Vector<double> *var, double dn, // 3
+               double undef, Matrix<double> *grid, double **value_station, long metcode); // 4 => TOT = 13 parameters
 

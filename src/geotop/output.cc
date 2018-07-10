@@ -979,24 +979,24 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                met->Tamean->co[i]+=met->Tgrid->co[top->rc_cont->co[i][1]][top->rc_cont->co[i][2]]/((
-                                                                                                            par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
+                met->Tamean->co[i]+= (*met->Tgrid)(top->rc_cont->co[i][1],top->rc_cont->co[i][2])
+                                                                     /((par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
             }
         }
         if (strcmp(files[fwspd], string_novalue) != 0)
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                met->Vspdmean->co[i]+=met->Vgrid->co[top->rc_cont->co[i][1]][top->rc_cont->co[i][2]]/((
-                                                                                                              par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
+                met->Vspdmean->co[i]+=met->Vgrid->co[top->rc_cont->co[i][1]][top->rc_cont->co[i][2]]
+                                                                      /((par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
             }
         }
         if (strcmp(files[fwdir], string_novalue) != 0)
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                met->Vdirmean->co[i]+=met->Vdir->co[top->rc_cont->co[i][1]][top->rc_cont->co[i][2]]/((
-                                                                                                             par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
+                met->Vdirmean->co[i]+=met->Vdir->co[top->rc_cont->co[i][1]][top->rc_cont->co[i][2]]
+                                                                     /((par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
             }
         }
         if (strcmp(files[frh], string_novalue) != 0)

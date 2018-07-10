@@ -2669,8 +2669,7 @@ short read_point_file(char *name, char **key_header, PAR *par)
       points = read_txt_matrix(temp, 33, 44, key_header, par->chkpt->nch, &nlines);
       free(temp);
 
-      chkpt2.reset(new Matrix<double>{par->chkpt->nrh, par->chkpt->nch});
-      chkpt2 = par->chkpt;
+      chkpt2.reset(new Matrix<double>{*par->chkpt});
       //copy_doublematrix(par->chkpt, chkpt2);
 
       par->chkpt.reset(new Matrix<double>{nlines, chkpt2->nch});

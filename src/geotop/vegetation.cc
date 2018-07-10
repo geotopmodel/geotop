@@ -43,7 +43,7 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
              double Qa, // 10
              double zmu, double zmT, double z0, double z0s, double d0, double z0r, double hveg, double v, double LR,
              double P, // 10
-             double SW, double SWv, double LW, double e, double LSAI, double decaycoeff0, MatrixRow<double> land,
+             double SW, double SWv, double LW, double e, double LSAI, double decaycoeff0, MatrixRow<double> &land,
              double Wcrn0, double Wcrnmax, double Wcsn0, // 10
              double Wcsnmax, double *dWcrn, double *dWcsn, double *LWv, double *LWg, double *Hv, double *Hg,
              double *dHgdT, double *LEv, double *Eg, // 10

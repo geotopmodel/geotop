@@ -325,16 +325,16 @@ short get_wind(double dE, double dN, Matrix<double> *E, Matrix<double> *N, METEO
                double slopewtD, double curvewtD, double slopewtI, double curvewtI, double windspd_min, double dn,
                Matrix<double> *topo, short iobsint) {
 
-  // This program takes the station wind speed and direction, converts
-  //   them to u and v components, interpolates u and v to a grid,
-  //   converts the gridded values to speed and direction, and then
-  //   runs a simple wind model that adjusts those speeds and
-  //   directions according to topographic slope and curvature
-  //   relationships.  The resulting speeds and directions are
-  //   converted to u and v components and passed back to the main
-  //   program to be written to a file.  (All of the conversion
-  //   between u-v and speed-dir is done because of the problems
-  //   with interpolating over the 360/0 direction line.)
+   /** This program takes the station wind speed and direction, converts
+     them to u and v components, interpolates u and v to a grid,
+     converts the gridded values to speed and direction, and then
+     runs a simple wind model that adjusts those speeds and
+     directions according to topographic slope and curvature
+     relationships.  The resulting speeds and directions are
+     converted to u and v components and passed back to the main
+     program to be written to a file.  (All of the conversion
+     between u-v and speed-dir is done because of the problems
+     with interpolating over the 360/0 direction line.)*/
 
   std::unique_ptr<Matrix<double>> u_grid, v_grid;
   long r, c, nc = topo->nch, nr = topo->nrh;
@@ -559,7 +559,7 @@ double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate,
 
 short interpolate_meteo(short flag, double dX, double dY, Matrix<double> *Xpoint, Matrix<double> *Ypoint, // 5
                         Vector<double> *Xst, Vector<double> *Yst, double **value, long metcod,
-                        double **grid, // 5
+                        Matrix<double> *grid, // 5
                         double dn0, short iobsint) { // 2
 
   long r, c, n, nstn;
@@ -641,7 +641,7 @@ void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
                Vector<double> *xstnall, Vector<double> *ystnall,
                Vector<double> *xstn, Vector<double> *ystn, Vector<double> *var, double dn,
                double undef,
-               double **grid, double **value_station, long metcode) {
+               Matrix<double> *grid, double **value_station, long metcode) {
 
   long r, c, mm, nn;
   long nr = xpoint->nrh, nc = xpoint->nch;

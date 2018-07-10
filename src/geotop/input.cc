@@ -1184,19 +1184,19 @@ land cover %ld, meteo station %ld\n",
         {
             (*cnet->SS->T)(l,j)=sl->pa->co[sy][jT][l];
 
-            cnet->th->co[l][j] = teta_psi((*cnet->SS->P)(l,j), 0.0,
+            (*cnet->th)(l,j) = teta_psi((*cnet->SS->P)(l,j), 0.0,
                                           sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
                                           sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l],
                                           1.-1./sl->pa->co[sy][jns][l],
                                           PsiMin, sl->pa->co[sy][jss][l]);
 
             th_oversat = Fmax( (*cnet->SS->P)(l,j), 0.0 ) * sl->pa->co[sy][jss][l];
-            cnet->th->co[l][j] -= th_oversat;
+            (*cnet->th)(l,j) -= th_oversat;
 
             if ((*cnet->SS->T)(l,j) <=Tfreezing)
             {
                 // Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
-                (*cnet->SS->thi)(l,j) = cnet->th->co[l][j] - teta_psi(Psif( (*cnet->SS->T)(l,j)),
+                (*cnet->SS->thi)(l,j) = (*cnet->th)(l,j) - teta_psi(Psif( (*cnet->SS->T)(l,j)),
                                                                         0.0,
                                                                         sl->pa->co[sy][jsat][l],
                                                                         sl->pa->co[sy][jres][l],
@@ -1211,8 +1211,8 @@ land cover %ld, meteo station %ld\n",
                 if ((*cnet->SS->thi)(l,j)<0) (*cnet->SS->thi)(l,j)=0.0;
 
                 // Psi is updated taking into account the freezing
-                cnet->th->co[l][j] -= (*cnet->SS->thi)(l,j);
-                (*cnet->SS->P)(l,j) = psi_teta(cnet->th->co[l][j] + th_oversat,
+                (*cnet->th)(l,j) -= (*cnet->SS->thi)(l,j);
+                (*cnet->SS->P)(l,j) = psi_teta((*cnet->th)(l,j) + th_oversat,
                                                  (*cnet->SS->thi)(l,j),
                                                  sl->pa->co[sy][jsat][l],
                                                  sl->pa->co[sy][jres][l],
@@ -1228,11 +1228,11 @@ land cover %ld, meteo station %ld\n",
     if (recovered > 0 && par->total_channel > 0)
     {
         assign_recovered_tensor_channel(old, par->recover, files[rpsich], cnet->SS->P.get(),
-                                        cnet->r.get(), cnet->c.get(), top->Z0);
+                                        cnet->r.get(), cnet->c.get(), top->Z0.get());
         assign_recovered_tensor_channel(old, par->recover, files[ricegch],
-                                        cnet->SS->thi.get(), cnet->r.get(), cnet->c.get(), top->Z0);
+                                        cnet->SS->thi.get(), cnet->r.get(), cnet->c.get(), top->Z0.get());
         assign_recovered_tensor_channel(old, par->recover, files[rTgch], cnet->SS->T.get(),
-                                        cnet->r.get(), cnet->c.get(), top->Z0);
+                                        cnet->r.get(), cnet->c.get(), top->Z0.get());
 
         for (i=1; i<=par->total_channel; i++)
         {
