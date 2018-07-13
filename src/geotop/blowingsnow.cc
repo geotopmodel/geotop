@@ -673,8 +673,8 @@ void print_windtrans_snow(double Dt, SNOW *snow, PAR *par, TOPO *top,
   for (i=1; i<=par->total_pixel; i++)
     {
 
-      r = top->rc_cont->co[i][1];
-      c = top->rc_cont->co[i][2];
+      r = (*top->rc_cont)(i,1);
+      c = (*top->rc_cont)(i,2);
 
       Qsub = sqrt(pow((*snow->Qsub_x)(r,c), 2.)+pow((*snow->Qsub_y)(r,c), 2.));
 

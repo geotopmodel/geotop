@@ -779,7 +779,7 @@ keyword LinearInterpolation at 1.\n");
 
         // find root fraction
         root(land->root_fraction->nch, (*land->ty)(i,jroot), 0.0,
-             sl->pa->co[1][jdz], land->root_fraction->co[i]);
+             sl->pa->co[1][jdz], land->root_fraction->row(i));
 
         // error messages
         for (l=1; l<=met->st->Z->nh; l++)
@@ -902,10 +902,9 @@ land cover %ld, meteo station %ld\n",
         }
     }
 
-    top->rc_cont=new_longmatrix(par->total_pixel, 2);
-    initialize_longmatrix(top->rc_cont, 0);
+    top->rc_cont.reset(new Matrix<long>{par->total_pixel,2});
 
-    j_rc_cont(land->LC.get(), top->j_cont, top->rc_cont, Nr, Nc);
+    j_rc_cont(land->LC.get(), top->j_cont, top->rc_cont.get(), Nr, Nc);
 
     // plotted points
     if (par->state_pixel == 1)
@@ -915,8 +914,8 @@ land cover %ld, meteo station %ld\n",
         {
             for (j=1; j<=par->rc->nrh; j++)
             {
-                if (top->rc_cont->co[i][1] == par->rc->co[j][1]
-                    && top->rc_cont->co[i][2] == par->rc->co[j][2])
+                if ((*top->rc_cont)(i,1) == par->rc->co[j][1]
+                    && (*top->rc_cont)(i,2) == par->rc->co[j][2])
                 {
                     (*par->jplot)(i) = j;
                 }
@@ -981,8 +980,8 @@ land cover %ld, meteo station %ld\n",
         for (i=1; i<=par->total_pixel; i++)
         {
 
-            r = top->rc_cont->co[i][1];
-            c = top->rc_cont->co[i][2];
+            r = (*top->rc_cont)(i,1);
+            c = (*top->rc_cont)(i,2);
 
             sy=(*sl->type)(r,c);
 
@@ -1014,8 +1013,8 @@ land cover %ld, meteo station %ld\n",
 
         for (i=1; i<=par->total_pixel; i++)
         {
-            r = top->rc_cont->co[i][1];
-            c = top->rc_cont->co[i][2];
+            r = (*top->rc_cont)(i,1);
+            c = (*top->rc_cont)(i,2);
 
             sy=(*sl->type)(r,c);
 
@@ -1032,8 +1031,8 @@ land cover %ld, meteo station %ld\n",
 
     for (i=1; i<=par->total_pixel; i++)
     {
-        r = top->rc_cont->co[i][1];
-        c = top->rc_cont->co[i][2];
+        r = (*top->rc_cont)(i,1);
+        c = (*top->rc_cont)(i,2);
 
         sy=(*sl->type)(r,c);
 
@@ -1105,8 +1104,8 @@ land cover %ld, meteo station %ld\n",
 
         for (i=1; i<=par->rc->nrh; i++)
         {
-            r = top->rc_cont->co[i][1];
-            c = top->rc_cont->co[i][2];
+            r = (*top->rc_cont)(i,1);
+            c = (*top->rc_cont)(i,2);
             j = top->j_cont[r][c];
             sy = (*sl->type)(r,c);
             for (l=1; l<=Nl; l++)
@@ -1141,18 +1140,18 @@ land cover %ld, meteo station %ld\n",
     if (recovered > 0)
     {
         assign_recovered_tensor_vector(old, par->recover, files[riceg], sl->SS->thi.get(),
-                                       top->rc_cont, par, land->LC.get());
+                                       top->rc_cont.get(), par, land->LC.get());
         assign_recovered_tensor_vector(old, par->recover, files[rTg], sl->SS->T.get(),
-                                       top->rc_cont, par, land->LC.get());
+                                       top->rc_cont.get(), par, land->LC.get());
         assign_recovered_tensor_vector(old, par->recover, files[rpsi], sl->SS->P.get(),
-                                       top->rc_cont, par, land->LC.get());
+                                       top->rc_cont.get(), par, land->LC.get());
 
         assign_recovered_map_vector(old, par->recover, files[rwcrn], sl->VS->wrain.get(),
-                                    top->rc_cont, par, land->LC.get());
+                                    top->rc_cont.get(), par, land->LC.get());
         assign_recovered_map_vector(old, par->recover, files[rwcsn], sl->VS->wsnow.get(),
-                                    top->rc_cont, par, land->LC.get());
+                                    top->rc_cont.get(), par, land->LC.get());
         assign_recovered_map_vector(old, par->recover, files[rTv], sl->VS->Tv.get(),
-                                    top->rc_cont, par, land->LC.get());
+                                    top->rc_cont.get(), par, land->LC.get());
     }
 
 
@@ -1239,7 +1238,7 @@ land cover %ld, meteo station %ld\n",
             for (l=1; l<=Nl; l++)
             {
                 sy = (*cnet->soil_type)(i);
-                cnet->th->co[l][i] = teta_psi(Fmin((*cnet->SS->P)(l,i),
+                (*cnet->th)(l,i) = teta_psi(Fmin((*cnet->SS->P)(l,i),
                                                    psi_saturation((*cnet->SS->thi)(l,i),
                                                                   sl->pa->co[sy][jsat][l],
                                                                   sl->pa->co[sy][jres][l],
@@ -1502,7 +1501,7 @@ land cover %ld, meteo station %ld\n",
          && strcmp(files[fswe0], string_novalue) != 0 )
     {
         printf("Initial condition on snow depth from file %s\n",files[fsn0]);
-        M=read_map(2, files[fsn0], land->LC, UV, (double)number_novalue);
+        M=read_map(2, files[fsn0], land->LC.get(), UV, (double)number_novalue);
         for (r=1; r<=Nr; r++)
         {
             for (c=1; c<=Nc; c++)
@@ -1512,7 +1511,7 @@ land cover %ld, meteo station %ld\n",
         }
 
         printf("Initial condition on snow water equivalent from file %s\n", files[fswe0]);
-        M=read_map(2, files[fswe0], land->LC, UV, (double)number_novalue);
+        M=read_map(2, files[fswe0], land->LC.get(), UV, (double)number_novalue);
         for (r=1; r<=Nr; r++)
         {
             for (c=1; c<=Nc; c++)
@@ -1524,7 +1523,7 @@ land cover %ld, meteo station %ld\n",
     else if ( strcmp(files[fsn0], string_novalue) != 0 )
     {
         printf("Initial condition on snow depth from file %s\n",files[fsn0]);
-        M=read_map(2, files[fsn0], land->LC, UV, (double)number_novalue);
+        M=read_map(2, files[fsn0], land->LC.get(), UV, (double)number_novalue);
         for (r=1; r<=Nr; r++)
         {
             for (c=1; c<=Nc; c++)
@@ -1547,7 +1546,7 @@ land cover %ld, meteo station %ld\n",
     else if ( strcmp(files[fswe0], string_novalue) != 0 )
     {
         printf("Initial condition on snow water equivalent from file %s\n", files[fswe0]);
-        M=read_map(2, files[fswe0], land->LC, UV, (double)number_novalue);
+        M=read_map(2, files[fswe0], land->LC.get(), UV, (double)number_novalue);
         for (r=1; r<=Nr; r++)
         {
             for (c=1; c<=Nc; c++)
@@ -1587,8 +1586,8 @@ land cover %ld, meteo station %ld\n",
     if ( strcmp(files[fsnag0], string_novalue) != 0 )
     {
         printf("Snow age initial condition from file %s\n",files[fsnag0]+1);
-        snow->age = read_map_vector(2, files[fsnag0], land->LC, UV,
-                                    (double)number_novalue, top->rc_cont);
+        snow->age = read_map_vector(2, files[fsnag0], land->LC.get(), UV,
+                                    (double)number_novalue, top->rc_cont.get());
     }
     else
     {
@@ -1636,14 +1635,14 @@ land cover %ld, meteo station %ld\n",
                 {
                     if ((long)(*land->LC)(r,c)==number_novalue)
                     {
-                        snow->Wtrans_plot->co[r][c]=(double)number_novalue;
-                        snow->Wsubl_plot->co[r][c]=(double)number_novalue;
+                        (*snow->Wtrans_plot)(r,c)=(double)number_novalue;
+                        (*snow->Wsubl_plot)(r,c)=(double)number_novalue;
 
                     }
                     else
                     {
-                        snow->Wtrans_plot->co[r][c]=0.0;
-                        snow->Wsubl_plot->co[r][c]=0.0;
+                        (*snow->Wtrans_plot)(r,c)=0.0;
+                        (*snow->Wsubl_plot)(r,c)=0.0;
 
                     }
                 }
@@ -1679,11 +1678,11 @@ land cover %ld, meteo station %ld\n",
             {
 
                 // Adjusting snow init depth in case of steep slope (contribution by Stephan Gruber)
-                if (par->snow_curv > 0 && top->(*slope)(r,c) > par->snow_smin)
+                if (par->snow_curv > 0 &&(*top->slope)(r,c) > par->snow_smin)
                 {
-                    if (top->(*slope)(r,c) <= par->snow_smax)
+                    if ((*top->slope)(r,c) <= par->snow_smax)
                     {
-                        k_snowred = ( exp(-pow(top->(*slope)(r,c) - par->snow_smin,
+                        k_snowred = ( exp(-pow((*top->slope)(r,c) - par->snow_smin,
                                                2.)/par->snow_curv) -
                                       exp(-pow(par->snow_smax, 2.)/par->snow_curv) );
                     }
@@ -1798,7 +1797,7 @@ land cover %ld, meteo station %ld\n",
 
                 if (par->point_sim == 1)
                 {
-                    maxSWE = par->maxSWE->co[r][c];
+                    maxSWE = (*par->maxSWE)(r,c);
                 }
                 else
                 {
@@ -2369,7 +2368,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
             if (par->output_vertical_distances == 1)
             {
-                cosslope = cos( Fmin(max_slope, top->(*slope)(r,c)) * Pi/180. );
+                cosslope = cos( Fmin(max_slope,(*top->slope)(r,c)) * Pi/180. );
             }
             else
             {
@@ -2804,7 +2803,7 @@ to the soil type map");
     flag = file_exists(fnet);
     if (flag == 1)
     {
-        M=read_map(2, files[fnet], land->LC, UV, (double)number_novalue);
+        M=read_map(2, files[fnet], land->LC.get(), UV, (double)number_novalue);
         top->pixel_type=copyshort_doublematrix(M);
 
         cont = 0;
@@ -3687,8 +3686,8 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
     }
     for (i=1; i<=par->total_pixel; i++)
     {
-        r = top->rc_cont->co[i][1];
-        c = top->rc_cont->co[i][2];
+        r = (*top->rc_cont)(i,1);
+        c = (*top->rc_cont)(i,2);
         if (IT->bed->co[r][c] < z) yes = 1;
     }
 
@@ -3741,8 +3740,8 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
 
             if (i<=par->total_pixel)
             {
-                r = top->rc_cont->co[i][1];
-                c = top->rc_cont->co[i][2];
+                r = (*top->rc_cont)(i,1);
+                c = (*top->rc_cont)(i,2);
                 sy = (*sl->type)(r,c);
                 synew = i;
                 (*sl->type)(r,c) = synew;

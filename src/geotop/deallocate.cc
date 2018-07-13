@@ -146,7 +146,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     free_longmatrix(top->Jdown);
     if (par->point_sim==0) free_shortmatrix(top->is_on_border);
 
-    free_longmatrix(top->lrc_cont);
 
     n = Fminlong((*par->Nl_spinup)(par->init_date->nh),Nl);
     for (l=0; l<=n; l++)
@@ -159,7 +158,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     }
     free(top->i_cont);
 
-    free_longmatrix(top->rc_cont);
     for (r=1; r<=Nr; r++)
     {
         free(top->j_cont[r]);
@@ -168,7 +166,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
     free_doubletensor(top->Z);
 
-    free_longmatrix(top->BC_counter);
 
     if (par->point_sim==1)
     {

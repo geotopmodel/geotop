@@ -900,7 +900,7 @@ void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
               //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
               rr=Nr-kk;
               cc=ll+1;
-              zray=Z->co[rr][cc];
+              zray=(*Z)(rr,cc);
               SH->co[r][c]=0;
 
               while ( (SH->co[r][c]==0) && (kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1) )
@@ -916,10 +916,10 @@ void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
                       //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
                       rr=Nr-kk;
                       cc=ll+1;
-                      z1=Z->co[rr][cc];
+                      z1=(*Z)(rr,cc);
                       //rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, UV, number_novalue);
                       rr=Nr-(kk+oriy);
-                      z2=Z->co[rr][cc];
+                      z2=(*Z)(rr,cc);
                       ztopo=z1+(z2-z1)*(yp-(GDY*kk+0.5*GDY))/(oriy*GDY);
                     }
                   else
@@ -933,10 +933,10 @@ void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
                       //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
                       rr=Nr-kk;
                       cc=ll+1;
-                      z1=Z->co[rr][cc];
+                      z1=(*Z)(rr,cc);
                       //cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, UV, number_novalue);
                       cc=ll+orix+1;
-                      z2=Z->co[rr][cc];
+                      z2=(*Z)(rr,cc);
                       ztopo=z1+(z2-z1)*(xp-(GDX*ll+0.5*GDX))/(orix*GDX);
                     }
                   zray=zray+q*sz;
@@ -990,7 +990,7 @@ void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
               //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
               rr=Nr-kk;
               cc=ll+1;
-              zray=Z->co[rr][cc];
+              zray=(*Z)(rr,cc);
               SH->co[r][c]=0;
 
               while ( (SH->co[r][c]==0) &&(kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1))
@@ -1006,10 +1006,10 @@ void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
                       //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
                       rr=Nr-kk;
                       cc=ll+1;
-                      z1=Z->co[rr][cc];
+                      z1=(*Z)(rr,cc);
                       //cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, UV, number_novalue);
                       cc=ll+orix+1;
-                      z2=Z->co[rr][cc];
+                      z2=(*Z)(rr,cc);
                       ztopo=z1+(z2-z1)*(xp-(GDX*ll+0.5*GDX))/(orix*GDX);
                     }
                   else
@@ -1023,10 +1023,10 @@ void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
                       //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
                       rr=Nr-kk;
                       cc=ll+1;
-                      z1=Z->co[rr][cc];
+                      z1=(*Z)(rr,cc);
                       //rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, UV, number_novalue);
                       rr=Nr-(kk+oriy);
-                      z2=Z->co[rr][cc];
+                      z2=(*Z)(rr,cc);
                       ztopo=z1+(z2-z1)*(yp-(GDY*kk+0.5*GDY))/(oriy*GDY);
                     }
                   zray=zray+q*sz;

@@ -159,8 +159,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
         }
       else   //LAND
         {
-          r = A->T->rc_cont->co[i - A->P->total_channel][1];
-          c = A->T->rc_cont->co[i - A->P->total_channel][2];
+          r = (*A->T->rc_cont)(i - A->P->total_channel,1);
+          c = (*A->T->rc_cont)(i - A->P->total_channel,2);
         }
 
       if ((*A->L->delay)(r,c) <= A->I->time/secinday)
@@ -206,13 +206,10 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
     {
       for (i=1; i<=A->P->total_pixel; i++)
         {
-          r = A->T->rc_cont->co[i][1];
-          c = A->T->rc_cont->co[i][2];
+          r = (*A->T->rc_cont)(i,1);
+          c = (*A->T->rc_cont)(i,2);
             (*A->E->SWrefl_surr)(r,c) = SWrefl_surr_ave;
-   //         A->E->SWrefl_surr->co[r][c] = SWrefl_surr_ave;
             (*A->E->Tgskin_surr)(r,c) = Tgskin_surr_ave;
-//            A->E->Tgskin_surr->co[r][c] = Tgskin_surr_ave;
-
         }
     }
 
@@ -330,7 +327,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
             {
               A->L->vegpar->co[l] = A->L->vegparv[lu-1][l];
               if (l==jdroot)
-                root(A->L->root_fraction->nch, A->L->vegpar->co[jdroot], 0.0, A->S->pa->co[1][jdz], (*A->L->root_fraction)(lu,0));
+                root(A->L->root_fraction->nch, A->L->vegpar->co[jdroot], 0.0, A->S->pa->co[1][jdz], A->L->root_fraction->row(lu));
             }
           else
             {
@@ -2397,7 +2394,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
                   double P, double LR, double psi, double e, double fc, // 5 parameters
                   double LSAI, double decaycoeff0, double Wcrn, double Wcrnmax, double Wcsn, // 5 parameters
                   double Wcsnmax, double *dWcrn, double *dWcsn, double *theta, double **soil, // 5 parameters
-                  MatrixRow<double> &land, MatrixRow<double> &root, PAR *par, Vector<double> *soil_transp_layer,
+                  MatrixRow<double> &&land, MatrixRow<double> &&root, PAR *par, Vector<double> *soil_transp_layer,
                   double SWin, // 5 parameters
                   double LWin, double SWv, double *LW, double *H, double *dH_dT, // 5 parameters
                   double *E, double *dE_dT, double *LWv, double *Hv, double *LEv, // 5 parameters
@@ -2529,9 +2526,9 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
 
       Tcanopy(r, c, Tv0, Tg, *Qg, dQgdT, Tg0, Qg0, Ta, Qa, // 10
               zmu, zmT, z0v, z0s, d0v, rz0v, hveg, v, LR, P, // 10
-              SWin, SWv, LWin, e, LSAI, decaycoeff0, land, Wcrn, Wcrnmax, Wcsn, // 10
+              SWin, SWv, LWin, e, LSAI, decaycoeff0, std::forward<MatrixRow<double>>(land), Wcrn, Wcrnmax, Wcsn, // 10
               Wcsnmax, dWcrn, dWcsn, LWv, &LWg, Hv, &Hg, &dHg_dT, LEv, &Eg, // 10
-              &dEg_dT, Ts, Qs, root, theta, soil_transp_layer, Lobukhov, par, n, &rm, // 10
+              &dEg_dT, Ts, Qs, std::forward<MatrixRow<double>>(root), theta, soil_transp_layer, Lobukhov, par, n, &rm, // 10
               rh, rv, rc, rb, ruc, u_top, Etrans, Tv, Qv, decay, // 10
               Locc, &LWup, psi, soil, T, soil_evap_layer_veg); // 6
 

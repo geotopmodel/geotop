@@ -22,7 +22,7 @@
 void i_lrc_cont(Matrix<double> *LC, long ***i, LONGMATRIX *lrc, long nl,
                 long nr, long nc);
 
-void j_rc_cont(Matrix<double> *LC, long **j, LONGMATRIX *rc, long nr, long nc);
+void j_rc_cont(Matrix<double> *LC, long **j, Matrix<long> *rc, long nr, long nc);
 
 void lch3_cont(long **ch3, LONGMATRIX *lch, long nl, long nch);
 

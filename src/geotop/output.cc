@@ -291,14 +291,14 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                         if (strcmp(files[ficez], string_novalue) != 0 || strcmp(files[ficezwriteend], string_novalue) != 0)
                             (*sl->thizplot)(i,l) = (*sl->SS->thi)(l,j);
                         if (strcmp(files[fsatz], string_novalue) != 0)
-                           (*sl->satratio)(i,l) = ((*sl->SS->thi)(l,j) + (*sl->th)(l,j) -
-                                                      sl->pa->co[sy][jres][l]) /(sl->pa->co[sy][jsat][l] -
-                                                                                 sl->pa->co[sy][jres][l]);
+                            (*sl->satratio)(i,l) = ((*sl->SS->thi)(l,j) + (*sl->th)(l,j) -
+                                                    sl->pa->co[sy][jres][l]) /(sl->pa->co[sy][jsat][l] -
+                                                                               sl->pa->co[sy][jres][l]);
                     }
                     for (l=0; l<=Nl; l++)
                     {
                         if (strcmp(files[fpsiz], string_novalue) != 0 || strcmp(files[fpsizwriteend], string_novalue) != 0)
-                           (*sl->Pzplot)(i,l) = (*sl->SS->P)(l,j);
+                            (*sl->Pzplot)(i,l) = (*sl->SS->P)(l,j);
                     }
 
                     // snow data
@@ -979,32 +979,32 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                met->Tamean->co[i]+= (*met->Tgrid)(top->rc_cont->co[i][1],top->rc_cont->co[i][2])
-                                                                     /((par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
+                met->Tamean->co[i]+= (*met->Tgrid)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
+                                     /((par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
             }
         }
         if (strcmp(files[fwspd], string_novalue) != 0)
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                met->Vspdmean->co[i]+=met->Vgrid->co[top->rc_cont->co[i][1]][top->rc_cont->co[i][2]]
-                                                                      /((par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
+                met->Vspdmean->co[i]+=(*met->Vgrid)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
+                                      /((par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
             }
         }
         if (strcmp(files[fwdir], string_novalue) != 0)
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                met->Vdirmean->co[i]+=met->Vdir->co[top->rc_cont->co[i][1]][top->rc_cont->co[i][2]]
-                                                                     /((par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
+                met->Vdirmean->co[i]+=(*met->Vdir)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
+                                      /((par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
             }
         }
         if (strcmp(files[frh], string_novalue) != 0)
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                met->RHmean->co[i]+=met->RHgrid->co[top->rc_cont->co[i][1]][top->rc_cont->co[i][2]]/((
-                                                                                                             par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
+                met->RHmean->co[i]+=(*met->RHgrid)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
+                                    /((par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
             }
         }
     }
@@ -1018,7 +1018,6 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 for (l=1; l<=Nl; l++)
                 {
                     (*sl->T_av_tensor)(l,i) += (*sl->SS->T)(l,i)/ ((par->output_soil->co[i_sim]*3600.0)/(par->Dt));
-                    // sl->T_av_tensor->co[l][i] += sl->SS->T->co[l][i]/ ((par->output_soil->co[i_sim]*3600.0)/(par->Dt));
                 }
             }
         }
@@ -1079,7 +1078,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[fliq], 0, par->format_out, sl->th.get(),
                                         par->soil_plot_depths.get(), top->j_cont, top->rc_cont,
-                                        sl->pa->co[1][jdz], top->slope, par->output_vertical_distances);
+                                        sl->pa->co[1][jdz], top->slope.get(), par->output_vertical_distances);
             }
             else
             {
@@ -1108,7 +1107,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[fliqav], 0, par->format_out,
                                         sl->thw_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
-                                        top->rc_cont, sl->pa->co[1][jdz], top->slope,
+                                        top->rc_cont, sl->pa->co[1][jdz], top->slope.get(),
                                         par->output_vertical_distances);
             }
             else
@@ -1129,7 +1128,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[fT], 0, par->format_out, sl->SS->T.get(),
                                         par->soil_plot_depths.get(), top->j_cont, top->rc_cont,
-                                        sl->pa->co[1][jdz], top->slope,
+                                        sl->pa->co[1][jdz], top->slope.get(),
                                         par->output_vertical_distances);
             }
             else
@@ -1159,7 +1158,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[fTav], 0, par->format_out,
                                         sl->T_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
-                                        top->rc_cont, sl->pa->co[1][jdz], top->slope,
+                                        top->rc_cont, sl->pa->co[1][jdz], top->slope.get(),
                                         par->output_vertical_distances);
             }
             else
@@ -1193,7 +1192,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[fice], 0, par->format_out, sl->SS->thi.get(),
                                         par->soil_plot_depths.get(), top->j_cont, top->rc_cont,
-                                        sl->pa->co[1][jdz], top->slope,
+                                        sl->pa->co[1][jdz], top->slope.get(),
                                         par->output_vertical_distances);
             }
             else
@@ -1224,7 +1223,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[ficeav], 0, par->format_out,
                                         sl->thi_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
-                                        top->rc_cont, sl->pa->co[1][jdz], top->slope,
+                                        top->rc_cont, sl->pa->co[1][jdz], top->slope.get(),
                                         par->output_vertical_distances);
             }
             else
@@ -1245,7 +1244,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[fpsitot], 0, par->format_out, sl->Ptot.get(),
                                         par->soil_plot_depths.get(), top->j_cont, top->rc_cont,
-                                        sl->pa->co[1][jdz], top->slope, par->output_vertical_distances);
+                                        sl->pa->co[1][jdz], top->slope.get(), par->output_vertical_distances);
             }
             else
             {
@@ -1260,7 +1259,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[fpsiliq], 0, par->format_out, sl->SS->P.get(),
                                         par->soil_plot_depths.get(), top->j_cont, top->rc_cont,
-                                        sl->pa->co[1][jdz], top->slope, par->output_vertical_distances);
+                                        sl->pa->co[1][jdz], top->slope.get(), par->output_vertical_distances);
             }
             else
             {
@@ -1274,8 +1273,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                r = top->rc_cont->co[i][1];
-                c = top->rc_cont->co[i][2];
+                r = (*top->rc_cont)(i,1);
+                c = (*top->rc_cont)(i,2);
                 V->co[i] = find_watertabledepth_up(find_activelayerdepth_up(i, (*sl->type)(r,c), sl),
                                                    i, (*sl->type)(r,c), sl); // normal
             }
@@ -1289,8 +1288,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
             for (i=1; i<=par->total_pixel; i++)
             {
-                r = top->rc_cont->co[i][1];
-                c = top->rc_cont->co[i][2];
+                r = (*top->rc_cont)(i,1);
+                c = (*top->rc_cont)(i,2);
                 V->co[i] = find_watertabledepth_dw(find_activelayerdepth_up(i, (*sl->type)(r,c), sl),
                                                    i, (*sl->type)(r,c), sl); // normal
 
@@ -1306,8 +1305,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                r = top->rc_cont->co[i][1];
-                c = top->rc_cont->co[i][2];
+                r = (*top->rc_cont)(i,1);
+                c = (*top->rc_cont)(i,2);
                 V->co[i] = find_activelayerdepth_up(i, (*sl->type)(r,c), sl); // normal
             }
             temp1=join_strings(files[fthawed_up],s2);
@@ -1320,8 +1319,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                r = top->rc_cont->co[i][1];
-                c = top->rc_cont->co[i][2];
+                r = (*top->rc_cont)(i,1);
+                c = (*top->rc_cont)(i,2);
                 V->co[i] = find_activelayerdepth_dw(i, (*sl->type)(r,c), sl); // normal
             }
             temp1=join_strings(files[fthawed_dw],s2);
@@ -1335,8 +1334,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                r = top->rc_cont->co[i][1];
-                c = top->rc_cont->co[i][2];
+                r = (*top->rc_cont)(i,1);
+                c = (*top->rc_cont)(i,2);
                 V->co[i] = Fmax(0, (*sl->SS->P)(0,i)) / cos((*top->slope)(r,c) * Pi/180.);
             }
             temp1 = join_strings(files[fhsupland], s2);
@@ -1349,8 +1348,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                r = top->rc_cont->co[i][1];
-                c = top->rc_cont->co[i][2];
+                r = (*top->rc_cont)(i,1);
+                c = (*top->rc_cont)(i,2);
                 if (cnet->ch->co[r][c]!=0)
                 {
                     V->co[i] = (*cnet->SS->P)(0,cnet->ch->co[r][c]) / cos((*top->slope)(r,c) *Pi/180.);
@@ -1415,8 +1414,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                r = top->rc_cont->co[i][1];
-                c = top->rc_cont->co[i][2];
+                r = (*top->rc_cont)(i,1);
+                c = (*top->rc_cont)(i,2);
                 V->co[i] = 0.;
                 for (l=1; l<=snow->S->lnum->co[r][c]; l++)
                 {
@@ -1452,8 +1451,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                r = top->rc_cont->co[i][1];
-                c = top->rc_cont->co[i][2];
+                r = (*top->rc_cont)(i,1);
+                c = (*top->rc_cont)(i,2);
                 V->co[i] = 0.;
                 for (l=1; l<=snow->S->lnum->co[r][c]; l++)
                 {
@@ -1467,8 +1466,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
             for (i=1; i<=par->total_pixel; i++)
             {
-                r = top->rc_cont->co[i][1];
-                c = top->rc_cont->co[i][2];
+                r = (*top->rc_cont)(i,1);
+                c = (*top->rc_cont)(i,2);
                 V->co[i] = 0.;
                 D = 0.;
                 for (l=1; l<=snow->S->lnum->co[r][c]; l++)
@@ -1489,15 +1488,15 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 temp1=join_strings(files[fswe],"WindTrans");
                 temp2=join_strings(temp1, s2);
-                write_map(temp2, 0, par->format_out, snow->Wtrans_plot, UV, number_novalue);
-                initmatrix(0.0, snow->Wtrans_plot, land->LC, number_novalue);
+                write_map(temp2, 0, par->format_out, snow->Wtrans_plot.get(), UV, number_novalue);
+                initmatrix(0.0, snow->Wtrans_plot.get(), land->LC, number_novalue);
                 free(temp2);
                 free(temp1);
 
                 temp1=join_strings(files[fswe],"WindSubl");
                 temp2=join_strings(temp1, s2);
-                write_map(temp2, 0, par->format_out, snow->Wsubl_plot, UV, number_novalue);
-                initmatrix(0.0, snow->Wsubl_plot, land->LC, number_novalue);
+                write_map(temp2, 0, par->format_out, snow->Wsubl_plot.get(), UV, number_novalue);
+                initmatrix(0.0, snow->Wsubl_plot.get(), land->LC.get(), number_novalue);
                 free(temp2);
                 free(temp1);
             }
@@ -1544,8 +1543,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
             for (i=1; i<=par->total_pixel; i++)
             {
-                r = top->rc_cont->co[i][1];
-                c = top->rc_cont->co[i][2];
+                r = (*top->rc_cont)(i,1);
+                c = (*top->rc_cont)(i,2);
                 V->co[i] = 0.;
                 for (l=1; l<=glac->G->lnum->co[r][c]; l++)
                 {
@@ -1580,8 +1579,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                r = top->rc_cont->co[i][1];
-                c = top->rc_cont->co[i][2];
+                r = (*top->rc_cont)(i,1);
+                c = (*top->rc_cont)(i,2);
                 V->co[i] = 0.;
                 for (l=1; l<=glac->G->lnum->co[r][c]; l++)
                 {
@@ -4733,7 +4732,7 @@ double interpolate_soil2(long lmin, double h, long max, double *Dz, Matrix<doubl
 //***************************************************************************************************************
 
 void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
-                             short format, Matrix<double> *T, Vector<double> *n, long **J, LONGMATRIX *RC,
+                             short format, Matrix<double> *T, Vector<double> *n, long **J, Matrix<long> *RC,
                              double *dz, Matrix<double> *slope, short vertical)
 {
 
@@ -4752,14 +4751,12 @@ void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
 
         for (i=1; i<=npoints; i++)
         {
-            if (vertical == 1) cosslope = cos( Fmin(max_slope,
-                                                    slope->co[RC->co[i][1]][RC->co[i][2]]) * Pi/180. );
+            if (vertical == 1) cosslope = cos( Fmin(max_slope, (*slope)((*RC)(i,1),(*RC)(i,2))) * Pi/180. );
             V->co[i] = interpolate_soil2(lmin, n->co[l]*cosslope, Nl, dz, T, i);
         }
 
         temp2 = join_strings(filename, temp1);
-        write_map_vector(temp2, type, format, V.get(), UV, number_novalue, J, slope->nrh,
-                         slope->nch);
+        write_map_vector(temp2, type, format, V.get(), UV, number_novalue, J, slope->nrh, slope->nch);
 
         free(temp1);
         free(temp2);

@@ -200,7 +200,7 @@ typedef struct {
     LONGMATRIX *lrc_cont;
 
     long **j_cont;
-    LONGMATRIX *rc_cont;
+    std::unique_ptr<Matrix<long>> rc_cont;
 
     std::unique_ptr<Vector<long>> Lp;
     std::unique_ptr<Vector<long>> Li;
@@ -216,7 +216,7 @@ typedef struct {
     std::unique_ptr<Matrix<double>> East;
     std::unique_ptr<Matrix<double>> North;
 
-    LONGMATRIX *BC_counter;
+    std::unique_ptr<Matrix<long>> BC_counter;
     std::unique_ptr<Vector<double>> BC_DepthFreeSurface;
 
     std::unique_ptr<Matrix<double>> dzdE;

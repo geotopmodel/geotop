@@ -153,6 +153,7 @@ public:
     MatrixRow<T> row(const std::size_t i) {
         GEO_ASSERT_IN_RANGE(i, nrl, nrh);
         return MatrixRow<T> { &co[(i-nrl)*n_col], nch, ncl };
+        //  return MatrixRow<T> { &co[(i-nrl)*n_col], nch, ncl }; ma se ritorno per valore una MatrixRow perchè metto &co
     };
 
 };

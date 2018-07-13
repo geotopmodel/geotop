@@ -59,7 +59,7 @@ void i_lrc_cont(Matrix<double> *LC, long ***i, LONGMATRIX *lrc, long nl,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void j_rc_cont(Matrix<double> *LC, long **j, LONGMATRIX *rc, long nr, long nc)
+void j_rc_cont(Matrix<double> *LC, long **j, Matrix<long> *rc, long nr, long nc)
 {
 
   long cont=0;
@@ -72,8 +72,8 @@ void j_rc_cont(Matrix<double> *LC, long **j, LONGMATRIX *rc, long nr, long nc)
             {
               cont++;
               j[r][c]=cont;
-              rc->co[cont][1]=r;
-              rc->co[cont][2]=c;
+              (*rc)(cont,1)=r;
+              (*rc)(cont,2)=c;
             }
         }
     }
