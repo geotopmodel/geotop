@@ -25,11 +25,11 @@
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
 
-SHORTMATRIX *copyshort_doublematrix(DOUBLEMATRIX *M);
+Matrix<short> * copyshort_doublematrix(Matrix<double> *M);
 
 Matrix<long> * copylong_doublematrix(Matrix<double> *M);
 
-DOUBLEMATRIX *copydouble_longmatrix(LONGMATRIX *L);
+Matrix<double> * copydouble_longmatrix(Matrix<long> *L);
 
 Matrix<double> *copydoublematrix_const(double c0, Matrix<double> *Mref, double NOVALUE);
 
@@ -62,8 +62,8 @@ char *namefile_i_we2(char *name, long i);
 Matrix<double> * read_map(short a, char *filename, Matrix<double> *Mref,
                           T_INIT *UVref, double no_value);
 
-std::unique_ptr<Vector<double>> read_map_vector(short type, char *namefile, DOUBLEMATRIX *mask,
-                                                T_INIT *grid, double no_value, LONGMATRIX *rc);
+std::unique_ptr<Vector<double>> read_map_vector(short type, char *namefile, Matrix<double> *mask,
+                                                T_INIT *grid, double no_value, Matrix<long> *rc);
 
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
@@ -71,7 +71,7 @@ std::unique_ptr<Vector<double>> read_map_vector(short type, char *namefile, DOUB
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
 
-void write_map(char *filename, short type, short format, DOUBLEMATRIX *M,
+void write_map(char *filename, short type, short format, Matrix<double> *M,
                T_INIT *UV, long novalue);
 
 void write_map_vector(char *filename, short type, short format,

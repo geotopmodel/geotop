@@ -34,18 +34,18 @@
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-SHORTMATRIX *copyshort_doublematrix(DOUBLEMATRIX *M)
+Matrix<short>* copyshort_doublematrix(Matrix<double> *M)
 {
 
-  SHORTMATRIX *S;
+  Matrix<short> *S;
   long r, c;
 
-  S=new_shortmatrix(M->nrh,M->nch);
+  S = new Matrix<short>{M->nrh,M->nch};
   for (r=1; r<=M->nrh; r++)
     {
       for (c=1; c<=M->nch; c++)
         {
-          S->co[r][c]=(short)M->co[r][c];
+          (*S)(r,c)=(short)(*M)(r,c);
         }
     }
 
@@ -86,18 +86,18 @@ Matrix<long> *copylong_doublematrix(Matrix<double> *M)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-DOUBLEMATRIX *copydouble_longmatrix(LONGMATRIX *L)
+Matrix<double>* copydouble_longmatrix(Matrix<long> *L)
 {
 
-  DOUBLEMATRIX *M;
+  Matrix<double> *M;
   long r, c;
 
-  M=new_doublematrix(L->nrh,L->nch);
+  M = new Matrix<double>{L->nrh,L->nch};
   for (r=1; r<=L->nrh; r++)
     {
       for (c=1; c<=L->nch; c++)
         {
-          M->co[r][c]=(double)L->co[r][c];
+          (*M)(r,c)=(double)(*L)(r,c);
         }
     }
 
@@ -157,7 +157,7 @@ Matrix<double> *copydoublematrix_const(double c0, Matrix<double> *Mref, double N
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-DOUBLETENSOR *build_frommatrix(DOUBLEMATRIX *M, long l, long lmax)
+DOUBLETENSOR *build_frommatrix(DOUBLEMATRIX *M, long l, long lmax) // maybe NOT used
 {
 
   long r,c;
@@ -172,7 +172,7 @@ DOUBLETENSOR *build_frommatrix(DOUBLEMATRIX *M, long l, long lmax)
     {
       for (c=1; c<=M->nch; c++)
         {
-          T->co[l][r][c]=M->co[r][c];
+          T->co[l][r][c] = M->co[r][c];
         }
     }
 
@@ -185,7 +185,7 @@ DOUBLETENSOR *build_frommatrix(DOUBLEMATRIX *M, long l, long lmax)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void write_frommatrix(long l, DOUBLEMATRIX *M, DOUBLETENSOR *T)
+void write_frommatrix(long l, DOUBLEMATRIX *M, DOUBLETENSOR *T) // maybe NOT used
 {
 
   long r,c;
@@ -425,7 +425,7 @@ short existing_file_woext(char *name)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-Matrix<double> * read_map(short a, char *filename, Matrix<double> *Mref,
+Matrix<double>* read_map(short a, char *filename, Matrix<double> *Mref,
                           T_INIT *UVref, double no_value)
 {
 
@@ -433,9 +433,9 @@ Matrix<double> * read_map(short a, char *filename, Matrix<double> *Mref,
   //  a=1 non esegue controllo non values, Mref e UVref input
   //  a=2 esegue controllo novalues, Mref e UVref input
 
-  Matrix<double> *M=NULL;
+  Matrix<double> *M=nullptr;
   long r=0, c=0, nr=0, nc=0;
-  double *header=NULL, *m=NULL;
+  double *header=nullptr, *m=nullptr;
   double Dxmap=0, Dymap=0, X0map=0, Y0map=0;
 
   if (a != 0 && a != 1
@@ -545,21 +545,21 @@ Matrix<double> * read_map(short a, char *filename, Matrix<double> *Mref,
         }
 
       //assign values and check novalues
-      M=new_doublematrix(nr,nc);
+      M = new Matrix<double>{nr,nc};
       for (r=1; r<=nr; r++)
         {
           for (c=1; c<=nc; c++)
             {
-              M->co[r][c]=m[(r-1)*nc+c-1];
+              (*M)(r,c)=m[(r-1)*nc+c-1];
               if (a==2)
                 {
-                  if (M->co[r][c]==no_value && Mref->co[r][c]!=no_value)
+                  if ((*M)(r,c)==no_value && (*Mref)(r,c)!=no_value)
                     {
                       printf("ERROR:: Problem reading map %s, it has novalue where the reference maps has value: %ld %ld ref:%f %f\n",
-                             filename,r,c,Mref->co[r][c],M->co[r][c]);
+                             filename,r,c,(*Mref)(r,c),(*M)(r,c));
                       t_error("Fatal Error (9)");
                     }
-                  if (M->co[r][c]!=no_value && Mref->co[r][c]==no_value) M->co[r][c]=no_value;
+                  if ((*M)(r,c)!=no_value && (*Mref)(r,c)==no_value) (*M)(r,c)=no_value;
                 }
             }
         }
@@ -576,11 +576,11 @@ Matrix<double> * read_map(short a, char *filename, Matrix<double> *Mref,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-std::unique_ptr<Vector<double>> read_map_vector(short type, char *namefile, DOUBLEMATRIX *mask,
-                                                T_INIT *grid, double no_value, LONGMATRIX *rc)
+std::unique_ptr<Vector<double>> read_map_vector(short type, char *namefile, Matrix<double> *mask,
+                                                T_INIT *grid, double no_value, Matrix<long> *rc)
 {
 
-  DOUBLEMATRIX *M;
+  Matrix<double> *M;
   long i, n=rc->nrh;
   std::unique_ptr<Vector<double>> V{new Vector<double>{n}};
 
@@ -588,10 +588,10 @@ std::unique_ptr<Vector<double>> read_map_vector(short type, char *namefile, DOUB
 
   for (i=1; i<=n; i++)
     {
-      V->co[i] = M->co[rc->co[i][1]][rc->co[i][2]];
+      V->co[i] = (*M)((*rc)(i,1),(*rc)(i,2));
     }
 
-  free_doublematrix(M);
+  //free_doublematrix(M);
 
   return V;
 
@@ -614,7 +614,7 @@ std::unique_ptr<Vector<double>> read_map_vector(short type, char *namefile, DOUB
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void write_map(char *filename, short type, short format, DOUBLEMATRIX *M,
+void write_map(char *filename, short type, short format, Matrix<double> *M,
                T_INIT *UV, long novalue)
 {
 
@@ -693,7 +693,7 @@ void write_tensorseries(short a, long l, long i, char *filename, short type,
   char SSSS[ ]= {"SSSS"};
   char *name=NULL;
   long r, c;
-  DOUBLEMATRIX *M;
+  Matrix<double> *M;
 
   if (a==0)
     {
@@ -712,18 +712,18 @@ void write_tensorseries(short a, long l, long i, char *filename, short type,
     }
 
 
-  M=new_doublematrix(T->nrh,T->nch);
+  M = new Matrix<double>{T->nrh,T->nch};
   for (r=1; r<=T->nrh; r++)
     {
       for (c=1; c<=T->nch; c++)
         {
-          M->co[r][c]=T->co[l][r][c];
+          (*M)(r,c)=T->co[l][r][c];
         }
     }
 
   write_map(name, type, format, M, UV, novalue);
 
-  free_doublematrix(M);
+ // free_doublematrix(M);
   free(name);
 
 }
@@ -855,31 +855,30 @@ void rename_map(char *filename)
 /******************************************************************************************************************************************/
 
 void write_tensorseries2(char *suf, long l, char *filename, short type,
-                         short format, DOUBLETENSOR *T, T_INIT *UV, long novalue)
+                         short format, DOUBLETENSOR *T, T_INIT *UV, long novalue) // maybe NOT used
 {
 
   char LLLLL[ ]= {"LLLLL"};
   char *temp1, *temp2;
   long r, c;
-  DOUBLEMATRIX *M;
+  Matrix<double> *M;
 
   temp1 = join_strings(LLLLL, suf);
   write_suffix(temp1, l, 1);
 
-  M = new_doublematrix(T->nrh,T->nch);
-
+  M = new Matrix<double>{T->nrh,T->nch};
   for (r=1; r<=T->nrh; r++)
     {
       for (c=1; c<=T->nch; c++)
         {
-          M->co[r][c] = T->co[l][r][c];
+          (*M)(r,c) = T->co[l][r][c];
         }
     }
 
   temp2 = join_strings(filename, temp1);
   write_map(temp2, type, format, M, UV, novalue);
 
-  free_doublematrix(M);
+  //free_doublematrix(M);
   free(temp1);
   free(temp2);
 
@@ -935,8 +934,7 @@ void write_tensorseries3_vector(char *suffix, char *filename, short type,
   long l;
   for (l=T->nrl; l<=T->nrh; l++)
     {
-      write_tensorseries2_vector(suffix, l, filename, type, format, T, UV, novalue,
-                                 J, nr, nc);
+      write_tensorseries2_vector(suffix, l, filename, type, format, T, UV, novalue, J, nr, nc);
     }
 }
 

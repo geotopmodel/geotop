@@ -27,7 +27,7 @@
 //-----------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------
 
-void write_grassascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV,
+void write_grassascii(char *name, short type, Matrix<double> *DTM, T_INIT *UV,
                       long novalue)
 {
 
@@ -52,7 +52,7 @@ void write_grassascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV,
     {
       for (c=1; c<=DTM->nch; c++)
         {
-          if ((long)DTM->co[r][c]==(long)novalue)
+          if ((long)(*DTM)(r,c)==(long)novalue)
             {
               fprintf(f,"*");
             }
@@ -60,11 +60,11 @@ void write_grassascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV,
             {
               if (type==1)
                 {
-                  fprintf(f,"%ld",(long)(DTM->co[r][c]));
+                  fprintf(f,"%ld",(long)((*DTM)(r,c)));
                 }
               else
                 {
-                  fprintf(f,"%f",DTM->co[r][c]);
+                  fprintf(f,"%f",(*DTM)(r,c));
                 }
             }
           if (c<DTM->nch) fprintf(f," ");
@@ -135,7 +135,7 @@ void write_grassascii_vector(char *name, short type, Vector<double> *DTM,
 //-----------------------------------------------------------------------------------------------------------------------
 //-----------------------------------------------------------------------------------------------------------------------
 
-void write_esriascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV,
+void write_esriascii(char *name, short type, Matrix<double> *DTM, T_INIT *UV,
                      long novalue)
 {
 
@@ -167,7 +167,7 @@ void write_esriascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV,
     {
       for (c=1; c<=DTM->nch; c++)
         {
-          if ((long)DTM->co[r][c]==novalue)
+          if ((long)(*DTM)(r,c)==novalue)
             {
               fprintf(f,"%ld.0",novalue);
             }
@@ -175,11 +175,11 @@ void write_esriascii(char *name, short type, DOUBLEMATRIX *DTM, T_INIT *UV,
             {
               if (type==1)
                 {
-                  fprintf(f,"%ld",(long)(DTM->co[r][c]));
+                  fprintf(f,"%ld",(long)((*DTM)(r,c)));
                 }
               else
                 {
-                  fprintf(f,"%f",DTM->co[r][c]);
+                  fprintf(f,"%f",(*DTM)(r,c));
                 }
             }
           if (c<DTM->nch) fprintf(f," ");
