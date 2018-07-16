@@ -825,7 +825,7 @@ land cover %ld, meteo station %ld\n",
     {
         for (c=1; c<=Nc; c++)
         {
-            if (top->pixel_type->co[r][c]>=10) i++;
+            if ((*top->pixel_type)(r,c)>=10) i++;
         }
     }
     geolog << "Channel pixels: " << i << std::endl;
@@ -840,8 +840,7 @@ land cover %ld, meteo station %ld\n",
     cnet->r.reset(new Vector<long>{i});
     cnet->c.reset(new Vector<long>{i});
 
-    cnet->ch=new_longmatrix(Nr,Nc);
-    initialize_longmatrix(cnet->ch, 0);
+    cnet->ch.reset(new Matrix<long>{Nr,Nc});
 
     cnet->ch_down.reset(new Vector<long>{i});
 
@@ -857,7 +856,7 @@ land cover %ld, meteo station %ld\n",
     (*cnet->soil_type) = par->soil_type_chan_default;
 
     if (par->total_channel>1)
-        enumerate_channels(cnet, land->LC.get(), top->pixel_type, top->Z0.get(), top->slope.get(), number_novalue);
+        enumerate_channels(cnet, land->LC.get(), top->pixel_type.get(), top->Z0.get(), top->slope.get(), number_novalue);
 
     cnet->ch3 = (long **)malloc((Nl+1)*sizeof(long *));
     for (l=0; l<=Nl; l++)
@@ -1744,23 +1743,23 @@ land cover %ld, meteo station %ld\n",
                             if (SWE - i * par->max_weq_snow > 0.1 * par->max_weq_snow)
                             {
                                 snow->S->w_ice->co[i+1][r][c] = SWE - i * par->max_weq_snow;
-                                snow->S->lnum->co[r][c] = i+1;
+                                (*snow->S->lnum)(r,c) = i+1;
                             }
                             else
                             {
                                 snow->S->w_ice->co[i][r][c] += (SWE - i * par->max_weq_snow);
-                                snow->S->lnum->co[r][c] = i;
+                                (*snow->S->lnum)(r,c) = i;
                             }
                         }
                         else
                         {
                             snow->S->w_ice->co[1][r][c] = SWE;
-                            snow->S->lnum->co[r][c] = 1;
+                            (*snow->S->lnum)(r,c) = 1;
                         }
                     }
                     else
                     {
-                        snow->S->lnum->co[r][c] = par->max_snow_layers;
+                        (*snow->S->lnum)(r,c) = par->max_snow_layers;
 
                         for (n=1; n<=par->max_snow_layers; n++)
                         {
@@ -1786,7 +1785,7 @@ land cover %ld, meteo station %ld\n",
                         }
                     }
 
-                    for (n=1; n<=snow->S->lnum->co[r][c]; n++)
+                    for (n=1; n<=(*snow->S->lnum)(r,c); n++)
                     {
                         snow->S->Dzl->co[n][r][c] = D * (snow->S->w_ice->co[n][r][c] / SWE);
                         snow->S->T->co[n][r][c] = IT->Tsnow0;
@@ -1817,19 +1816,18 @@ land cover %ld, meteo station %ld\n",
     {
         initialize_shortmatrix(snow->S->type, 2);
 
-        assign_recovered_map_long(old, par->recover, files[rns], snow->S->lnum, par, land->LC);
+        assign_recovered_map_long(old, par->recover, files[rns], snow->S->lnum.get(), par, land->LC.get());
         // initialize_longmatrix(snow->S->lnum, snow->S->Dzl->ndh);
 
-        assign_recovered_map_vector(old, par->recover, files[rsnag], snow->age.get(),
-                                    top->rc_cont, par, land->LC);
-        assign_recovered_tensor(old, par->recover, files[rDzs], snow->S->Dzl, par,
-                                land->LC);
-        assign_recovered_tensor(old, par->recover, files[rwls], snow->S->w_liq, par,
-                                land->LC);
-        assign_recovered_tensor(old, par->recover, files[rwis], snow->S->w_ice, par,
-                                land->LC);
-        assign_recovered_tensor(old, par->recover, files[rTs], snow->S->T, par,
-                                land->LC);
+        assign_recovered_map_vector(old, par->recover, files[rsnag], snow->age.get(), top->rc_cont.get(), par, land->LC.get());
+
+        assign_recovered_tensor(old, par->recover, files[rDzs], snow->S->Dzl, par, land->LC.get());
+
+        assign_recovered_tensor(old, par->recover, files[rwls], snow->S->w_liq, par, land->LC.get());
+
+        assign_recovered_tensor(old, par->recover, files[rwis], snow->S->w_ice, par, land->LC.get());
+
+        assign_recovered_tensor(old, par->recover, files[rTs], snow->S->T, par, land->LC.get());
 
         /* f = fopen(logfile, "a");
        for(r=1;r<=Nr;r++){
@@ -1869,7 +1867,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         if ( par->point_sim!=1 && strcmp(files[fgl0], string_novalue) != 0 )
         {
             geolog << "Glacier initial condition from file " << files[fgl0]+1 << std::endl;
-            M=read_map(2, files[fgl0], land->LC, UV, (double)number_novalue);
+            M=read_map(2, files[fgl0], land->LC.get(), UV, (double)number_novalue);
         }
         else
         {
@@ -1940,13 +1938,13 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                             }
                             while (fabs(z - IT->rhoglac0 * (*M)(r,c) / rho_w) < 1.E-6);
 
-                            glac->G->lnum->co[r][c] = n;
+                            (*glac->G->lnum)(r,c) = n;
 
                         }
                         else
                         {
 
-                            glac->G->lnum->co[r][c] = par->max_glac_layers;
+                            (*glac->G->lnum)(r,c) = par->max_glac_layers;
 
                             for (n=1; n<=par->max_glac_layers; n++)
                             {
@@ -1991,11 +1989,11 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
         if (recovered > 0)
         {
-            assign_recovered_map_long(old, par->recover, files[rni], glac->G->lnum, par, land->LC);
-            assign_recovered_tensor(old, par->recover, files[rDzi], glac->G->Dzl, par, land->LC);
-            assign_recovered_tensor(old, par->recover, files[rwli], glac->G->w_liq, par, land->LC);
-            assign_recovered_tensor(old, par->recover, files[rwii], glac->G->w_ice, par, land->LC);
-            assign_recovered_tensor(old, par->recover, files[rTi], glac->G->T, par, land->LC);
+            assign_recovered_map_long(old, par->recover, files[rni], glac->G->lnum.get(), par, land->LC.get());
+            assign_recovered_tensor(old, par->recover, files[rDzi], glac->G->Dzl, par, land->LC.get());
+            assign_recovered_tensor(old, par->recover, files[rwli], glac->G->w_liq, par, land->LC.get());
+            assign_recovered_tensor(old, par->recover, files[rwii], glac->G->w_ice, par, land->LC.get());
+            assign_recovered_tensor(old, par->recover, files[rTi], glac->G->T, par, land->LC.get());
         }
     }
 
@@ -2300,9 +2298,9 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         sl->SWErun.reset(new Matrix<double>{par->rc->nrh, 3}); //mean,max,min
         for (l=1; l<=par->rc->nrh; l++)
         {
-            sl->SWErun->co[l][1] = 0.;
-            sl->SWErun->co[l][2] = -1.E99;
-            sl->SWErun->co[l][3] = 1.E99;
+            (*sl->SWErun)(l,1) = 0.;
+            (*sl->SWErun)(l,2) = -1.E99;
+            (*sl->SWErun)(l,3) = 1.E99;
         }
 
         if (par->recover>0)
@@ -2331,28 +2329,28 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     if (recovered > 0)
     {
         if (par->Tzrun == 1)
-            recover_run_averages(old, sl->Tzrun, files[rTrun], land->LC, top->rc_cont, par, Nl);
+            recover_run_averages(old, sl->Tzrun.get(), files[rTrun], land->LC.get(), top->rc_cont.get(), par, Nl);
 
         if (par->wzrun == 1)
-            recover_run_averages(old, sl->wzrun, files[rwrun], land->LC, top->rc_cont, par, Nl);
+            recover_run_averages(old, sl->wzrun.get(), files[rwrun], land->LC.get(), top->rc_cont.get(), par, Nl);
 
         if (par->Tzminrun == 1)
-            recover_run_averages(old, sl->Tzminrun, files[rTminrun], land->LC, top->rc_cont, par, Nl);
+            recover_run_averages(old, sl->Tzminrun.get(), files[rTminrun], land->LC.get(), top->rc_cont.get(), par, Nl);
 
         if (par->wzminrun == 1)
-            recover_run_averages(old, sl->wzminrun, files[rwminrun], land->LC, top->rc_cont, par, Nl);
+            recover_run_averages(old, sl->wzminrun.get(), files[rwminrun], land->LC.get(), top->rc_cont.get(), par, Nl);
 
         if (par->Tzmaxrun == 1)
-            recover_run_averages(old, sl->Tzmaxrun, files[rTmaxrun], land->LC, top->rc_cont, par, Nl);
+            recover_run_averages(old, sl->Tzmaxrun.get(), files[rTmaxrun], land->LC.get(), top->rc_cont.get(), par, Nl);
 
         if (par->wzmaxrun == 1)
-            recover_run_averages(old, sl->wzmaxrun, files[rwmaxrun], land->LC, top->rc_cont, par, Nl);
+            recover_run_averages(old, sl->wzmaxrun.get(), files[rwmaxrun], land->LC.get(), top->rc_cont.get(), par, Nl);
 
         if (par->dUzrun == 1)
-            recover_run_averages(old, sl->dUzrun, files[rdUrun], land->LC, top->rc_cont, par, Nl);
+            recover_run_averages(old, sl->dUzrun.get(), files[rdUrun], land->LC.get(), top->rc_cont.get(), par, Nl);
 
         if (par->SWErun == 1)
-            recover_run_averages(old, sl->SWErun, files[rSWErun], land->LC, top->rc_cont, par, 3);
+            recover_run_averages(old, sl->SWErun.get(), files[rSWErun], land->LC.get(), top->rc_cont.get(), par, 3);
     }
 
     // WRITE INITIAL CONDITION
@@ -2428,12 +2426,12 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
     if (par->point_sim != 1)
     {
-        cont_nonzero_values_matrix2(&i, &j, cnet, land->LC, top->lrc_cont,
+        cont_nonzero_values_matrix2(&i, &j, cnet, land->LC.get(), top->lrc_cont,
                                     top->i_cont, par->total_pixel, par->total_channel, n);
         top->Li.reset(new Vector<long>{i});
         top->Lp.reset(new Vector<long>{j});
         wat->Lx.reset(new Vector<double> {i});
-        cont_nonzero_values_matrix3(top->Lp.get(), top->Li.get(), cnet, land->LC, top->lrc_cont,
+        cont_nonzero_values_matrix3(top->Lp.get(), top->Li.get(), cnet, land->LC.get(), top->lrc_cont,
                                     top->i_cont, par->total_pixel, par->total_channel, n);
     }
     else
@@ -2472,8 +2470,8 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
 {
     GEOLOG_PREFIX(__func__);
     long r, c, i, cont;
-    std::unique_ptr<Matrix<double>> M;
-    SHORTMATRIX *curv;
+    Matrix<double> *M;
+    Matrix<short> *curv;
     short flag;
     char *temp;
     double min, max;
@@ -2483,14 +2481,14 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
     flag = file_exists(fdem);
     if (flag == 1)
     {
-        M.reset(new Matrix<double>{1,1});
-        top->Z0=read_map(0, files[fdem], M, UV, (double)number_novalue); // topography
-        write_map(files[fdem], 0, par->format_out, top->Z0, UV, number_novalue);
+        M = new Matrix<double>{1,1};
+        top->Z0.reset(read_map(0, files[fdem], M, UV, (double)number_novalue)); // topography
+        write_map(files[fdem], 0, par->format_out, top->Z0.get(), UV, number_novalue);
 
         // filtering
-        M.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
-        multipass_topofilter(par->lowpass, top->Z0, M, (double)number_novalue, 1);
-        copy_doublematrix(M, top->Z0);
+        M = new Matrix<double>{top->Z0->nrh,top->Z0->nch};
+        multipass_topofilter(par->lowpass, top->Z0.get(), M, (double)number_novalue, 1);
+        copy_doublematrix(M, top->Z0.get());
         // write_map(files[fdem], 0, par->format_out, top->Z0, UV, number_novalue);
 
         // calculate East and North
@@ -2500,8 +2498,8 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
         {
             for (c=1; c<=top->Z0->nch; c++)
             {
-                top->East->co[r][c] = UV->U->co[4] + (c-0.5)*UV->U->co[2];
-                top->North->co[r][c] = UV->U->co[3] + (top->Z0->nrh-(r-0.5))*UV->U->co[1];
+                (*top->East)(r,c) = UV->U->co[4] + (c-0.5)*UV->U->co[2];
+                (*top->North)(r,c) = UV->U->co[3] + (top->Z0->nrh-(r-0.5))*UV->U->co[1];
             }
         }
 
@@ -2520,17 +2518,17 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
     flag = file_exists(flu);
     if (flag == 1)
     {
-        land->LC=read_map(1, files[flu], top->Z0, UV, (double)number_novalue);
+        land->LC.reset(read_map(1, files[flu], top->Z0.get(), UV, (double)number_novalue));
         // Check borders
         for (r=1; r<=land->LC->nrh; r++)
         {
-            land->LC->co[r][1]=(double)number_novalue;
-            land->LC->co[r][land->LC->nch]=(double)number_novalue;
+            (*land->LC)(r,1)=(double)number_novalue;
+            (*land->LC)(r,land->LC->nch)=(double)number_novalue;
         }
         for (c=1; c<=land->LC->nch; c++)
         {
-            land->LC->co[1][c]=(double)number_novalue;
-            land->LC->co[land->LC->nrh][c]=(double)number_novalue;
+            (*land->LC)(1,c)=(double)number_novalue;
+            (*land->LC)(land->LC->nrh,c)=(double)number_novalue;
         }
         for (r=1; r<=land->LC->nrh; r++)
         {
@@ -2558,11 +2556,10 @@ to the land cover type\n");
             {
                 if ((long)(*land->LC)(r,c)!=number_novalue)
                 {
-                    if ((long)top->Z0->co[r][c]==number_novalue)
+                    if ((long)(*top->Z0)(r,c)==number_novalue)
                     {
                         printf("ERROR Land use mask include DTM novalue pixels");
-                        printf("\nr:%ld c:%ld Z:%f landuse:%f\n",r,c,top->Z0->co[r][c],
-                               (*land->LC)(r,c));
+                        printf("\nr:%ld c:%ld Z:%f landuse:%f\n",r,c,(*top->Z0)(r,c), (*land->LC)(r,c));
                         (*land->LC)(r,c)=(double)number_novalue;
                         printf("LANDUSE set at novalue where DTM is not available\n");
                     }
@@ -2575,21 +2572,21 @@ to the land cover type\n");
     {
         // Write land->LC (land cover)
         printf("Land cover type assumed to be always 1\n");
-        land->LC=copydoublematrix_const(1.0, top->Z0, (double)number_novalue);
+        land->LC.reset(copydoublematrix_const(1.0, top->Z0.get(), (double)number_novalue));
 
         for (r=1; r<=land->LC->nrh; r++)
         {
-            land->LC->co[r][1]=(double)number_novalue;
-            land->LC->co[r][land->LC->nch]=(double)number_novalue;
+            (*land->LC)(r,1)=(double)number_novalue;
+            (*land->LC)(r,land->LC->nch)=(double)number_novalue;
         }
         for (c=1; c<=land->LC->nch; c++)
         {
-            land->LC->co[1][c]=(double)number_novalue;
-            land->LC->co[land->LC->nrh][c]=(double)number_novalue;
+            (*land->LC)(1,c)=(double)number_novalue;
+            (*land->LC)(land->LC->nrh,c)=(double)number_novalue;
         }
     }
     if (flag >= 0)
-        write_map(files[flu], 1, par->format_out, land->LC, UV, number_novalue);
+        write_map(files[flu], 1, par->format_out, land->LC.get(), UV, number_novalue);
 
     if (par->state_pixel == 1)
     {
@@ -2611,7 +2608,7 @@ to the land cover type\n");
                 t_error("Fatal Error! Geotop is closed. See failing report.");
             }
 
-            if ((long)land->LC->co[par->rc->co[i][1]][par->rc->co[i][2]]==number_novalue)
+            if ((long)(*land->LC)(par->rc->co[i][1],par->rc->co[i][2])==number_novalue)
             {
                 geolog << "Point #" << i << " corresponds to NOVALUE pixel";
 
@@ -2637,7 +2634,7 @@ to the land cover type\n");
     flag = file_exists(fsky);
     if (flag == 1)
     {
-        top->sky=read_map(2, files[fsky], land->LC, UV, (double)number_novalue);
+        top->sky.reset(read_map(2, files[fsky], land->LC.get(), UV, (double)number_novalue));
     }
     else  /* The sky view factor file "top->sky" must be calculated */
     {
@@ -2648,37 +2645,36 @@ to the land cover type\n");
         }
         else
         {
-            curv = new_shortmatrix(top->Z0->nrh,top->Z0->nch);
-            nablaquadro_mask(top->Z0, curv, UV->U.get(), UV->V.get());
-            sky_view_factor(top->sky, 36, UV, top->Z0, curv, number_novalue);
-            free_shortmatrix(curv);
+            curv = new Matrix<short>{top->Z0->nrh,top->Z0->nch};
+            nablaquadro_mask(top->Z0.get(), curv, UV->U.get(), UV->V.get());
+            sky_view_factor(top->sky.get(), 36, UV, top->Z0.get(), curv, number_novalue);
+            delete curv;
         }
     }
     if (flag >= 0)
-        write_map(files[fsky], 0, par->format_out, top->sky, UV, number_novalue);
+        write_map(files[fsky], 0, par->format_out, top->sky.get(), UV, number_novalue);
 
     /**************************************************************************************************/
     // reading DELAY
     flag = file_exists(fdelay);
     if (flag == 1)
     {
-        land->delay = read_map(2, files[fdelay], land->LC, UV,
-                               (double)number_novalue);
+        land->delay.reset(read_map(2, files[fdelay], land->LC.get(), UV, (double)number_novalue));
     }
     else
     {
         land->delay.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
     }
     if (flag >= 0)
-        write_map(files[fdelay], 0, par->format_out, land->delay, UV, number_novalue);
+        write_map(files[fdelay], 0, par->format_out, land->delay.get(), UV, number_novalue);
 
     /**************************************************************************************************/
     // reading SOIL MAP
     flag = file_exists(fsoil);
     if (flag == 1)
     {
-        M=read_map(2, files[fsoil], land->LC, UV, (double)number_novalue);
-        sl->type=copylong_doublematrix(M);
+        M=read_map(2, files[fsoil], land->LC.get(), UV, (double)number_novalue);
+        sl->type.reset(copylong_doublematrix(M));
         for (r=1; r<=land->LC->nrh; r++)
         {
             for (c=1; c<=land->LC->nch; c++)
@@ -2699,8 +2695,8 @@ to the soil type map");
     }
     else
     {
-        M=copydoublematrix_const(par->soil_type_land_default, land->LC, (double)number_novalue);
-        sl->type=copylong_doublematrix(M);
+        M=copydoublematrix_const(par->soil_type_land_default, land->LC.get(), (double)number_novalue);
+        sl->type.reset(copylong_doublematrix(M));
     }
     if (flag >= 0)
         write_map(files[fsoil], 1, par->format_out, M, UV, number_novalue);
@@ -2709,22 +2705,21 @@ to the soil type map");
     // SLOPE
     top->dzdE.reset(new Matrix<double>{land->LC->nrh, land->LC->nch});
     top->dzdN.reset(new Matrix<double>{land->LC->nrh, land->LC->nch});
-    find_slope(UV->U->co[1], UV->U->co[2], top->Z0, top->dzdE, top->dzdN,
-               (double)number_novalue);
+    find_slope(UV->U->co[1], UV->U->co[2], top->Z0.get(), top->dzdE.get(), top->dzdN.get(), (double)number_novalue);
 
     flag = file_exists(fslp);
     if (flag == 1)
     {
-        top->slope=read_map(2, files[fslp], land->LC, UV, (double)number_novalue); // reads in degrees
+        top->slope.reset(read_map(2, files[fslp], land->LC.get(), UV, (double)number_novalue)); // reads in degrees
     }
     else
     {
-        top->slope=find_max_slope(top->Z0, top->dzdE, top->dzdN, (double)number_novalue);
+        top->slope.reset(find_max_slope(top->Z0.get(), top->dzdE.get(), top->dzdN.get(), (double)number_novalue));
     }
     if (flag >= 0)
-        write_map(files[fslp], 0, par->format_out, top->slope, UV, number_novalue);
+        write_map(files[fslp], 0, par->format_out, top->slope.get(), UV, number_novalue);
 
-    find_min_max(top->slope, (double)number_novalue, &max, &min);
+    find_min_max(top->slope.get(), (double)number_novalue, &max, &min);
     geolog << "Slope Min:" << tan(min*Pi/180.) << "(" << min << "deg)"
            << "Max:" << tan(max*Pi/180.) << "(" << max << "deg)" << std::endl;
 
@@ -2733,14 +2728,14 @@ to the soil type map");
     flag = file_exists(fasp);
     if (flag == 1)
     {
-        top->aspect=read_map(2, files[fasp], land->LC, UV, (double)number_novalue);
+        top->aspect.reset(read_map(2, files[fasp], land->LC.get(), UV, (double)number_novalue));
     }
     else
     {
-        top->aspect=find_aspect(top->Z0, top->dzdE, top->dzdN, (double)number_novalue);
+        top->aspect.reset(find_aspect(top->Z0.get(), top->dzdE.get(), top->dzdN.get(), (double)number_novalue));
     }
     if (flag >= 0)
-        write_map(files[fasp], 0, par->format_out, top->aspect, UV, number_novalue);
+        write_map(files[fasp], 0, par->format_out, top->aspect.get(), UV, number_novalue);
 
     /**************************************************************************************************/
     // curvature
@@ -2750,41 +2745,41 @@ to the soil type map");
     top->curvature4.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
 
     // filtering
-    M.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
-    multipass_topofilter(par->lowpass_curvatures, top->Z0, M, (double)number_novalue, 1);
-    curvature(UV->U->co[1], UV->U->co[2], M, top->curvature1, top->curvature2,
-              top->curvature3, top->curvature4, (double)number_novalue);
+    M = new Matrix<double>{top->Z0->nrh,top->Z0->nch};
+    multipass_topofilter(par->lowpass_curvatures, top->Z0.get(), M, (double)number_novalue, 1);
+    curvature(UV->U->co[1], UV->U->co[2], M, top->curvature1.get(), top->curvature2.get(),
+              top->curvature3.get(), top->curvature4.get(), (double)number_novalue);
 
     if (strcmp(files[fcurv], string_novalue) != 0)
     {
         temp = join_strings(files[fcurv], "N-S");
-        write_map(temp, 0, par->format_out, top->curvature1, UV, number_novalue);
+        write_map(temp, 0, par->format_out, top->curvature1.get(), UV, number_novalue);
         free(temp);
 
         temp = join_strings(files[fcurv], "W-E");
-        write_map(temp, 0, par->format_out, top->curvature2, UV, number_novalue);
+        write_map(temp, 0, par->format_out, top->curvature2.get(), UV, number_novalue);
         free(temp);
 
         temp = join_strings(files[fcurv], "NW-SE");
-        write_map(temp, 0, par->format_out, top->curvature3, UV, number_novalue);
+        write_map(temp, 0, par->format_out, top->curvature3.get(), UV, number_novalue);
         free(temp);
 
         temp = join_strings(files[fcurv], "NE-SW");
-        write_map(temp, 0, par->format_out, top->curvature4, UV, number_novalue);
+        write_map(temp, 0, par->format_out, top->curvature4.get(), UV, number_novalue);
         free(temp);
 
     }
 
-    find_min_max(top->curvature1, (double)number_novalue, &max, &min);
+    find_min_max(top->curvature1.get(), (double)number_novalue, &max, &min);
     geolog << "Curvature N-S Min:" << min << " Max:" << max << std::endl;
 
-    find_min_max(top->curvature2, (double)number_novalue, &max, &min);
+    find_min_max(top->curvature2.get(), (double)number_novalue, &max, &min);
     geolog << "Curvature W-E Min:" << min << " Max:" << max << std::endl;
 
-    find_min_max(top->curvature3, (double)number_novalue, &max, &min);
+    find_min_max(top->curvature3.get(), (double)number_novalue, &max, &min);
     geolog << "Curvature NW-SE Min:" << min << " Max:" << max << std::endl;
 
-    find_min_max(top->curvature4, (double)number_novalue, &max, &min);
+    find_min_max(top->curvature4.get(), (double)number_novalue, &max, &min);
     geolog << "Curvature NW-SE Min:" << min << " Max:" << max << std::endl;
 
     /**************************************************************************************************/
@@ -2804,7 +2799,7 @@ to the soil type map");
     if (flag == 1)
     {
         M=read_map(2, files[fnet], land->LC.get(), UV, (double)number_novalue);
-        top->pixel_type=copyshort_doublematrix(M);
+        top->pixel_type.reset(copyshort_doublematrix(M));
 
         cont = 0;
         for (r=1; r<=top->Z0->nrh; r++)
@@ -2813,10 +2808,10 @@ to the soil type map");
             {
                 if ((long)(*land->LC)(r,c)!=number_novalue)
                 {
-                    if (top->pixel_type->co[r][c]!=0 && top->pixel_type->co[r][c]!=1
-                        && top->pixel_type->co[r][c]!=2 && top->pixel_type->co[r][c]!=10
-                        && top->pixel_type->co[r][c]!=11 && top->pixel_type->co[r][c]!=12
-                        && top->pixel_type->co[r][c]!=-1)
+                    if ((*top->pixel_type)(r,c)!=0 && (*top->pixel_type)(r,c)!=1
+                        && (*top->pixel_type)(r,c)!=2 && (*top->pixel_type)(r,c)!=10
+                        && (*top->pixel_type)(r,c)!=11 && (*top->pixel_type)(r,c)!=12
+                        && (*top->pixel_type)(r,c)!=-1)
                     {
                         f = fopen(FailedRunFile, "w");
                         fprintf(f, "Error: Only the following values are admitted in the network map: \
@@ -2824,7 +2819,7 @@ to the soil type map");
                         fclose(f);
                         t_error("Fatal Error! Geotop is closed. See failing report (14).");
                     }
-                    if (top->pixel_type->co[r][c]==10) cont++;
+                    if ((*top->pixel_type)(r,c)==10) cont++;
                 }
             }
         }
@@ -2835,8 +2830,7 @@ to the soil type map");
     }
     else
     {
-        top->pixel_type=new_shortmatrix(land->LC->nrh, land->LC->nch);
-        initialize_shortmatrix(top->pixel_type, 0);
+        top->pixel_type.reset(new Matrix<short>{land->LC->nrh, land->LC->nch});
     }
 
     /**************************************************************************************************/
@@ -2848,7 +2842,7 @@ to the soil type map");
         {
             if ( (long)(*land->LC)(r,c)!=number_novalue)
             {
-                top->is_on_border->co[r][c] = is_boundary(r, c, land->LC, number_novalue);
+                top->is_on_border->co[r][c] = is_boundary(r, c, land->LC.get(), number_novalue);
             }
             else
             {
@@ -2865,15 +2859,14 @@ to the soil type map");
         {
             if (top->is_on_border->co[r][c]==1)
             {
-                if (top->pixel_type->co[r][c] == -1 || top->pixel_type->co[r][c] == 1
-                    || top->pixel_type->co[r][c] == 2 || top->pixel_type->co[r][c] == 11
-                    || top->pixel_type->co[r][c] == 12) cont ++;
+                if ((*top->pixel_type)(r,c) == -1 || (*top->pixel_type)(r,c) == 1
+                    || (*top->pixel_type)(r,c) == 2 || (*top->pixel_type)(r,c) == 11
+                    || (*top->pixel_type)(r,c) == 12) cont ++;
             }
         }
     }
 
-    top->BC_counter = new_longmatrix(top->Z0->nrh, top->Z0->nch);
-    initialize_longmatrix(top->BC_counter, 0);
+    top->BC_counter.reset(new Matrix<long>{top->Z0->nrh, top->Z0->nch});
 
     if (cont > 0)
     {
@@ -2885,12 +2878,12 @@ to the soil type map");
             {
                 if (top->is_on_border->co[r][c]==1)
                 {
-                    if (top->pixel_type->co[r][c] == -1 || top->pixel_type->co[r][c] == 1
-                        || top->pixel_type->co[r][c] == 2 || top->pixel_type->co[r][c] == 11
-                        || top->pixel_type->co[r][c] == 12)
+                    if ((*top->pixel_type)(r,c) == -1 || (*top->pixel_type)(r,c) == 1
+                        || (*top->pixel_type)(r,c) == 2 || (*top->pixel_type)(r,c) == 11
+                        || (*top->pixel_type)(r,c) == 12)
                     {
                         cont ++;
-                        top->BC_counter->co[r][c] = cont;
+                        (*top->BC_counter)(r,c) = cont;
                         top->BC_DepthFreeSurface->co[cont] = par->DepthFreeSurface; //[mm]
                     }
                 }
@@ -2907,15 +2900,15 @@ to the soil type map");
     flag = file_exists(fbed);
     if (flag == 1)
     {
-        IT->bed=read_map(2, files[fbed], land->LC, UV, (double)number_novalue);
+        IT->bed.reset(read_map(2, files[fbed], land->LC.get(), UV, (double)number_novalue));
     }
     else
     {
         IT->bed.reset(new Matrix<double>{top->Z0->nrh, top->Z0->nch});
-        initialize_doublematrix(IT->bed, 1.E99);
+        (*IT->bed) = 1.E99;
     }
     if (flag>=0)
-        write_map(files[fbed], 0, par->format_out, IT->bed, UV, number_novalue);
+        write_map(files[fbed], 0, par->format_out, IT->bed.get(), UV, number_novalue);
 }
 
 //***************************************************************************************************
@@ -2927,8 +2920,8 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
 {
     GEOLOG_PREFIX(__func__);
     long i, r, c, num_lines;
-    std::unique_ptr<Matrix<double>> Q=NULL, P=NULL, R=NULL, S=NULL, T=NULL, Z=NULL, LU=NULL; // ec 2012 08 22
-    SHORTMATRIX *curv;
+    std::unique_ptr<Matrix<double>> Q=nullptr, P=nullptr, R=nullptr, S=nullptr, T=nullptr, Z=nullptr, LU=nullptr; // ec 2012 08 22
+    Matrix<short> *curv;
     short read_dem, read_lu, read_soil, read_sl, read_as, read_sk, read_bed, read_curv, flag, coordinates;
     char *temp;
     double min, max;
@@ -2948,14 +2941,10 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     // if(par->recover>0) read_dem=1;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
-        if ((long)(*par->chkpt)(i,ptLC)==number_novalue
-            || (long)(*par->chkpt)(i,ptSY)==number_novalue ||
-            (long)(*par->chkpt)(i,ptS)==number_novalue
-            || (long)par->chkpt->co[i][ptA]==number_novalue ||
-            (long)par->chkpt->co[i][ptCNS]==number_novalue
-            || (long)par->chkpt->co[i][ptCWE]==number_novalue ||
-            (long)par->chkpt->co[i][ptCNwSe]==number_novalue
-            || (long)par->chkpt->co[i][ptCNeSw]==number_novalue)
+        if ((long)(*par->chkpt)(i,ptLC)==number_novalue || (long)(*par->chkpt)(i,ptSY)==number_novalue ||
+            (long)(*par->chkpt)(i,ptS)==number_novalue || (long)(*par->chkpt)(i,ptA)==number_novalue ||
+            (long)(*par->chkpt)(i,ptCNS)==number_novalue || (long)(*par->chkpt)(i,ptCWE)==number_novalue ||
+            (long)(*par->chkpt)(i,ptCNwSe)==number_novalue || (long)(*par->chkpt)(i,ptCNeSw)==number_novalue)
         {
             read_dem=1;
         }
@@ -2973,11 +2962,11 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             geolog << "Warning: Dem file " << files[fdem]+1 << "present" << std::endl;
 
             Q.reset(new Matrix<double>{1,1});
-            Z=read_map(0, files[fdem], Q, UV, (double)number_novalue); //topography
+            Z.reset(read_map(0, files[fdem], Q.get(), UV, (double)number_novalue)); //topography
 
             Q.reset(new Matrix<double>{Z->nrh,Z->nch});
-            multipass_topofilter(par->lowpass, Z, Q, (double)number_novalue, 1);
-            copy_doublematrix(Q, Z);
+            multipass_topofilter(par->lowpass, Z.get(), Q.get(), (double)number_novalue, 1);
+            copy_doublematrix(Q.get(), Z.get());
         }
         else
         {
@@ -2996,7 +2985,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             (*par->r_points)(i)=row((*par->chkpt)(i,ptY), Z->nrh, UV, number_novalue);
             (*par->c_points)(i)=col((*par->chkpt)(i,ptX), Z->nch, UV, number_novalue);
             if ((long)(*par->chkpt)(i,ptZ)==number_novalue)
-                (*par->chkpt)(i,ptZ) = Z->co[(*par->r_points)(i)][(*par->c_points)(i)];
+                (*par->chkpt)(i,ptZ) = (*Z)((*par->r_points)(i),(*par->c_points)(i));
             printf("ok");
         }
     }
@@ -3019,11 +3008,11 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             if (read_dem==0)
             {
                 Q.reset(new Matrix<double>{1,1});
-                LU=read_map(0, files[flu], Q, UV, (double)number_novalue);
+                LU.reset(read_map(0, files[flu], Q.get(), UV, (double)number_novalue));
             }
             else
             {
-                LU=read_map(1, files[flu], Z, UV, (double)number_novalue);
+                LU.reset(read_map(1, files[flu], Z.get(), UV, (double)number_novalue));
             }
 
         }
@@ -3032,7 +3021,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             geolog << "Warning: Landuse file not present, uniform cover considered" << std::endl;
             if (read_dem==1)
             {
-                LU=copydoublematrix_const(1.0, Z, (double)number_novalue);
+                LU.reset(copydoublematrix_const(1.0, Z.get(), (double)number_novalue));
             }
             else
             {
@@ -3049,7 +3038,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             {
                 r=row((*par->chkpt)(i,ptY), LU->nrh, UV, number_novalue);
                 c=col((*par->chkpt)(i,ptX), LU->nch, UV, number_novalue);
-                (*par->chkpt)(i,ptLC)=LU->co[r][c];
+                (*par->chkpt)(i,ptLC)=(*LU)(r,c);
             }
         }
     }
@@ -3071,11 +3060,11 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             if (read_dem==0)
             {
                 Q.reset(new Matrix<double>{1,1});
-                P=read_map(0, files[fsoil], Q, UV, (double)number_novalue);
+                P.reset(read_map(0, files[fsoil], Q.get(), UV, (double)number_novalue));
             }
             else
             {
-                P=read_map(1, files[fsoil], Z, UV, (double)number_novalue);
+                P.reset(read_map(1, files[fsoil], Z.get(), UV, (double)number_novalue));
             }
 
         }
@@ -3093,7 +3082,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             {
                 r=row((*par->chkpt)(i,ptY), P->nrh, UV, number_novalue);
                 c=col((*par->chkpt)(i,ptX), P->nch, UV, number_novalue);
-                (*par->chkpt)(i,ptSY)=P->co[r][c];
+                (*par->chkpt)(i,ptSY) = (*P)(r,c);
             }
         }
     }
@@ -3115,11 +3104,11 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             if (read_dem==0)
             {
                 Q.reset(new Matrix<double>{1,1});
-                P=read_map(0, files[fslp], Q, UV, (double)number_novalue);
+                P.reset(read_map(0, files[fslp], Q.get(), UV, (double)number_novalue));
             }
             else
             {
-                P=read_map(1, files[fslp], Z, UV, (double)number_novalue);
+                P.reset(read_map(1, files[fslp], Z.get(), UV, (double)number_novalue));
             }
 
         }
@@ -3134,18 +3123,18 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             {
                 Q.reset(new Matrix<double>{Z->nrh,Z->nch});
                 R.reset(new Matrix<double>{Z->nrh,Z->nch});
-                find_slope(UV->U->co[1], UV->U->co[2], Z, Q, R, (double)number_novalue);
-                P=find_max_slope(Z, Q, R, (double)number_novalue);
+                find_slope(UV->U->co[1], UV->U->co[2], Z.get(), Q.get(), R.get(), (double)number_novalue);
+                P.reset(find_max_slope(Z.get(), Q.get(), R.get(), (double)number_novalue));
 
                 if (flag==0)
-                    write_map(files[fslp], 0, par->format_out, P, UV, number_novalue);
+                    write_map(files[fslp], 0, par->format_out, P.get(), UV, number_novalue);
             }
         }
     }
 
     if (read_sl==1)
     {
-        find_min_max(P, (double)number_novalue, &max, &min);
+        find_min_max(P.get(), (double)number_novalue, &max, &min);
         geolog << "Slope Min:" << tan(min*Pi/180.) << "(" << min << "deg)"
                << "Max:" << tan(max*Pi/180.) << "(" << max << "deg)" << std::endl;
 
@@ -3155,7 +3144,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             {
                 r=row((*par->chkpt)(i,ptY), P->nrh, UV, number_novalue);
                 c=col((*par->chkpt)(i,ptX), P->nch, UV, number_novalue);
-                (*par->chkpt)(i,ptS)=P->co[r][c];
+                (*par->chkpt)(i,ptS)=(*P)(r,c);
             }
         }
     }
@@ -3164,7 +3153,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     read_as=0;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
-        if ((long)par->chkpt->co[i][ptA]==number_novalue)
+        if ((long)(*par->chkpt)(i,ptA)==number_novalue)
             read_as=1;
     }
     if (read_as==1 && coordinates==0)
@@ -3177,11 +3166,11 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             if (read_dem==0)
             {
                 Q.reset(new Matrix<double>{1,1});
-                P=read_map(0, files[fasp], Q, UV, (double)number_novalue);
+                P.reset(read_map(0, files[fasp], Q.get(), UV, (double)number_novalue));
             }
             else
             {
-                P=read_map(1, files[fasp], Z, UV, (double)number_novalue);
+                P.reset(read_map(1, files[fasp], Z.get(), UV, (double)number_novalue));
             }
         }
         else
@@ -3195,11 +3184,11 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             {
                 Q.reset(new Matrix<double>{Z->nrh,Z->nch});
                 R.reset(new Matrix<double>{Z->nrh,Z->nch});
-                find_slope(UV->U->co[1], UV->U->co[2], Z, Q, R, (double)number_novalue);
-                P=find_aspect(Z, Q, R, (double)number_novalue);
+                find_slope(UV->U->co[1], UV->U->co[2], Z.get(), Q.get(), R.get(), (double)number_novalue);
+                P.reset(find_aspect(Z.get(), Q.get(), R.get(), (double)number_novalue));
 
                 if (flag==0)
-                    write_map(files[fasp], 0, par->format_out, P, UV, number_novalue);
+                    write_map(files[fasp], 0, par->format_out, P.get(), UV, number_novalue);
             }
         }
     }
@@ -3208,11 +3197,11 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     {
         for (i=1; i<=par->chkpt->nrh; i++)
         {
-            if ((long)par->chkpt->co[i][ptA]==number_novalue)
+            if ((long)(*par->chkpt)(i,ptA)==number_novalue)
             {
                 r=row((*par->chkpt)(i,ptY), P->nrh, UV, number_novalue);
                 c=col((*par->chkpt)(i,ptX), P->nch, UV, number_novalue);
-                par->chkpt->co[i][ptA]=P->co[r][c];
+                (*par->chkpt)(i,ptA)=(*P)(r,c);
             }
         }
     }
@@ -3221,7 +3210,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     read_sk=0;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
-        if ((long)par->chkpt->co[i][ptSKY]==number_novalue)
+        if ((long)(*par->chkpt)(i,ptSKY)==number_novalue)
             read_sk=1;
     }
     if (read_sk==1 && coordinates==0)
@@ -3234,11 +3223,11 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             if (read_dem==0)
             {
                 Q.reset(new Matrix<double>{1,1});
-                P=read_map(0, files[fsky], Q, UV, (double)number_novalue);
+                P.reset(read_map(0, files[fsky], Q.get(), UV, (double)number_novalue));
             }
             else
             {
-                P=read_map(1, files[fsky], Z, UV, (double)number_novalue);
+                P.reset(read_map(1, files[fsky], Z.get(), UV, (double)number_novalue));
             }
         }
         else
@@ -3265,11 +3254,11 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     {
         for (i=1; i<=par->chkpt->nrh; i++)
         {
-            if ((long)par->chkpt->co[i][ptSKY]==number_novalue)
+            if ((long)(*par->chkpt)(i,ptSKY)==number_novalue)
             {
                 r=row((*par->chkpt)(i,ptY), P->nrh, UV, number_novalue);
                 c=col((*par->chkpt)(i,ptX), P->nch, UV, number_novalue);
-                par->chkpt->co[i][ptSKY]=P->co[r][c];
+                (*par->chkpt)(i,ptSKY)=(*P)(r,c);
             }
         }
     }
@@ -3313,7 +3302,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             {
                 r=row((*par->chkpt)(i,ptY), P->nrh, UV, number_novalue);
                 c=col((*par->chkpt)(i,ptX), P->nch, UV, number_novalue);
-                (*par->chkpt)(i,ptBED)=P->co[r][c];
+                (*par->chkpt)(i,ptBED)=(*P)(r,c);
             }
         }
     }
@@ -3322,10 +3311,10 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     read_curv=0;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
-        if ( (long)par->chkpt->co[i][ptCNS]==number_novalue
-             || (long)par->chkpt->co[i][ptCWE]==number_novalue ||
-             (long)par->chkpt->co[i][ptCNwSe]==number_novalue
-             || (long)par->chkpt->co[i][ptCNeSw]==number_novalue  ) read_curv=1;
+        if ( (long)(*par->chkpt)(i,ptCNS)==number_novalue
+             || (long)(*par->chkpt)(i,ptCWE)==number_novalue ||
+             (long)(*par->chkpt)(i,ptCNwSe)==number_novalue
+             || (long)(*par->chkpt)(i,ptCNeSw)==number_novalue  ) read_curv=1;
     }
     if (read_curv==1 && coordinates==0)
         read_curv=0;
@@ -3384,17 +3373,17 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             r=row((*par->chkpt)(i,ptY), P->nrh, UV, number_novalue);
             c=col((*par->chkpt)(i,ptX), P->nch, UV, number_novalue);
 
-            if ((long)par->chkpt->co[i][ptCNS]==number_novalue)
-                par->chkpt->co[i][ptCNS]= P->co[r][c];
+            if ((long)(*par->chkpt)(i,ptCNS)==number_novalue)
+                (*par->chkpt)(i,ptCNS)= (*P)(r,c);
 
-            if ((long)par->chkpt->co[i][ptCWE]==number_novalue)
-                par->chkpt->co[i][ptCWE]= R->co[r][c];
+            if ((long)(*par->chkpt)(i,ptCWE)==number_novalue)
+                (*par->chkpt)(i,ptCWE)= R->co[r][c];
 
-            if ((long)par->chkpt->co[i][ptCNwSe]==number_novalue)
-                par->chkpt->co[i][ptCNwSe]=S->co[r][c];
+            if ((long)(*par->chkpt)(i,ptCNwSe)==number_novalue)
+                (*par->chkpt)(i,ptCNwSe)=S->co[r][c];
 
-            if ((long)par->chkpt->co[i][ptCNeSw]==number_novalue)
-                par->chkpt->co[i][ptCNeSw]=T->co[r][c];
+            if ((long)(*par->chkpt)(i,ptCNeSw)==number_novalue)
+                (*par->chkpt)(i,ptCNeSw)=T->co[r][c];
         }
     }
 
@@ -3414,23 +3403,23 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
         if ((long)(*par->chkpt)(i,ptS)==number_novalue)
             (*par->chkpt)(i,ptS) = 0.0;
 
-        if ((long)par->chkpt->co[i][ptA]==number_novalue)
-            par->chkpt->co[i][ptA] = 0.0;
+        if ((long)(*par->chkpt)(i,ptA)==number_novalue)
+            (*par->chkpt)(i,ptA) = 0.0;
 
-        if ((long)par->chkpt->co[i][ptSKY]==number_novalue)
-            par->chkpt->co[i][ptSKY] = 1.0;
+        if ((long)(*par->chkpt)(i,ptSKY)==number_novalue)
+            (*par->chkpt)(i,ptSKY) = 1.0;
 
-        if ((long)par->chkpt->co[i][ptCNS]==number_novalue)
-            par->chkpt->co[i][ptCNS] = 0.0;
+        if ((long)(*par->chkpt)(i,ptCNS)==number_novalue)
+            (*par->chkpt)(i,ptCNS) = 0.0;
 
-        if ((long)par->chkpt->co[i][ptCWE]==number_novalue)
-            par->chkpt->co[i][ptCWE] = 0.0;
+        if ((long)(*par->chkpt)(i,ptCWE)==number_novalue)
+            (*par->chkpt)(i,ptCWE) = 0.0;
 
-        if ((long)par->chkpt->co[i][ptCNwSe]==number_novalue)
-            par->chkpt->co[i][ptCNwSe]=0.0;
+        if ((long)(*par->chkpt)(i,ptCNwSe)==number_novalue)
+            (*par->chkpt)(i,ptCNwSe)=0.0;
 
-        if ((long)par->chkpt->co[i][ptCNeSw]==number_novalue)
-            par->chkpt->co[i][ptCNeSw]=0.0;
+        if ((long)(*par->chkpt)(i,ptCNeSw)==number_novalue)
+            (*par->chkpt)(i,ptCNeSw)=0.0;
 
         if ((long)par->chkpt->co[i][ptDrDEPTH]==number_novalue)
             par->chkpt->co[i][ptDrDEPTH]=par->DepthFreeSurface; // [mm]
@@ -3526,7 +3515,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
     top->curvature4.reset(new Matrix<double>{1,par->chkpt->nrh});
     top->sky.reset(new Matrix<double>{1,par->chkpt->nrh});
 
-    top->pixel_type=new_shortmatrix(1,par->chkpt->nrh);
+    top->pixel_type.reset(new Matrix<short>{1,par->chkpt->nrh});
     top->BC_counter=new_longmatrix(1,par->chkpt->nrh);
     top->BC_DepthFreeSurface.reset(new Vector<double>{par->chkpt->nrh});
     par->maxSWE.reset(new Matrix<double>{1,par->chkpt->nrh});
@@ -3571,8 +3560,8 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
         (*top->curvature3)(1,i)=(*par->chkpt)(i,ptCNwSe);
         (*top->curvature4)(1,i)=(*par->chkpt)(i,ptCNeSw);
 
-        top->pixel_type->co[1][i]=1;
-        top->BC_counter->co[1][i]=i;
+        (*top->pixel_type)(1,i)=1;
+        (*top->BC_counter)(1,i)=i;
         top->BC_DepthFreeSurface->co[i] = (*par->chkpt)(i,ptDrDEPTH);
         (top->horizon_point->co[1][i]=(long)(*par->chkpt)(i,ptHOR);
         (*top->dzdE)(1,i)=0.;

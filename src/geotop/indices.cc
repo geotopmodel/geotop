@@ -161,7 +161,7 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet,
               if (i[l][r][c+1]>j) cnt ++;
             }
 
-          if (l>0 && cnet->ch->co[r][c]>0) cnt++;
+          if (l>0 && (*cnet->ch)(r,c)>0) cnt++;
         }
     }
 
@@ -253,10 +253,10 @@ void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
                 }
             }
 
-          if (l>0 && cnet->ch->co[r][c]>0)
+          if (l>0 && (*cnet->ch)(r,c)>0)
             {
               cnt++;
-              Li->co[cnt] = N + cnet->ch3[l][cnet->ch->co[r][c]];
+              Li->co[cnt] = N + cnet->ch3[l][(*cnet->ch)(r,c)];
             }
 
         }

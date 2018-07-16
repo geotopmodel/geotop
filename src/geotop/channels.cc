@@ -31,7 +31,7 @@ extern T_INIT *UV;
 /******************************************************************************************************************************************/
 
 void enumerate_channels(CHANNEL *cnet, Matrix<double> *LC,
-                        SHORTMATRIX *pixel_type, Matrix<double> *Z, Matrix<double> *slope, long novalue)
+                        Matrix<short> *pixel_type, Matrix<double> *Z, Matrix<double> *slope, long novalue)
 {
 
     long r, c, rnext, cnext, i=0;
@@ -39,7 +39,7 @@ void enumerate_channels(CHANNEL *cnet, Matrix<double> *LC,
     do
     {
 
-        find_max_constraint( Z, LC, pixel_type, cnet->ch, novalue, &r, &c);
+        find_max_constraint( Z, LC, pixel_type, cnet->ch.get(), novalue, &r, &c);
 //        find_max_constraint( Z->co, LC, pixel_type, cnet->ch, novalue, &r, &c);
         if (r>0)
         {
@@ -47,11 +47,11 @@ void enumerate_channels(CHANNEL *cnet, Matrix<double> *LC,
             i++;
             (*cnet->r)(i)=r;
             (*cnet->c)(i)=c;
-            cnet->ch->co[r][c]=i;
+            (*cnet->ch)(r,c)=i;
 
             do
             {
-                next_down_channel_pixel( r, c, Z, LC, pixel_type, cnet->ch, novalue, &rnext, &cnext);
+                next_down_channel_pixel( r, c, Z, LC, pixel_type, cnet->ch.get(), novalue, &rnext, &cnext);
               //  next_down_channel_pixel( r, c, Z->co, LC, pixel_type, cnet->ch, novalue, &rnext, &cnext);
                 if (rnext>0)
                 {
@@ -69,7 +69,7 @@ void enumerate_channels(CHANNEL *cnet, Matrix<double> *LC,
 
                     (*cnet->r)(i)=rnext;
                     (*cnet->c)(i)=cnext;
-                    cnet->ch->co[rnext][cnext]=i;
+                    (*cnet->ch)(rnext,cnext)=i;
                     r=rnext;
                     c=cnext;
 
@@ -112,8 +112,8 @@ void enumerate_channels(CHANNEL *cnet, Matrix<double> *LC,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void next_down_channel_pixel( long r, long c, Matrix<double> *Z, Matrix<double> *LC,
-                              SHORTMATRIX *pixel_type, LONGMATRIX *CH, long novalue, long *R, long *C)
+void next_down_channel_pixel(long r, long c, Matrix<double> *Z, Matrix<double> *LC,
+                             Matrix<short> *pixel_type, Matrix<long> *CH, long novalue, long *R, long *C)
 //void next_down_channel_pixel( long r, long c, double **Z, Matrix<double> *LC,
 //                              SHORTMATRIX *pixel_type, LONGMATRIX *CH, long novalue, long *R, long *C)
 {
@@ -121,8 +121,7 @@ void next_down_channel_pixel( long r, long c, Matrix<double> *Z, Matrix<double> 
     *R=0;
     *C=0;
 
-    if (neighboring_down_channel_pixel(r, c, 1, 1, Z, LC, pixel_type, CH,
-                                       novalue) == -1)
+    if (neighboring_down_channel_pixel(r, c, 1, 1, Z, LC, pixel_type, CH, novalue) == -1)
     {
         *R=r+1;
         *C=c+1;
@@ -130,8 +129,7 @@ void next_down_channel_pixel( long r, long c, Matrix<double> *Z, Matrix<double> 
         *C=(*C)*(-1.);
     }
 
-    if (neighboring_down_channel_pixel(r, c, 1, -1, Z, LC, pixel_type, CH,
-                                       novalue) == -1)
+    if (neighboring_down_channel_pixel(r, c, 1, -1, Z, LC, pixel_type, CH, novalue) == -1)
     {
         *R=r+1;
         *C=c-1;
@@ -139,8 +137,7 @@ void next_down_channel_pixel( long r, long c, Matrix<double> *Z, Matrix<double> 
         *C=(*C)*(-1.);
     }
 
-    if (neighboring_down_channel_pixel(r, c, -1, 1, Z, LC, pixel_type, CH,
-                                       novalue) == -1)
+    if (neighboring_down_channel_pixel(r, c, -1, 1, Z, LC, pixel_type, CH, novalue) == -1)
     {
         *R=r-1;
         *C=c+1;
@@ -148,8 +145,7 @@ void next_down_channel_pixel( long r, long c, Matrix<double> *Z, Matrix<double> 
         *C=(*C)*(-1.);
     }
 
-    if (neighboring_down_channel_pixel(r, c, -1, -1, Z, LC, pixel_type, CH,
-                                       novalue) == -1)
+    if (neighboring_down_channel_pixel(r, c, -1, -1, Z, LC, pixel_type, CH, novalue) == -1)
     {
         *R=r-1;
         *C=c-1;
@@ -157,8 +153,7 @@ void next_down_channel_pixel( long r, long c, Matrix<double> *Z, Matrix<double> 
         *C=(*C)*(-1.);
     }
 
-    if (neighboring_down_channel_pixel(r, c, 1, 0, Z, LC, pixel_type, CH,
-                                       novalue) == -1)
+    if (neighboring_down_channel_pixel(r, c, 1, 0, Z, LC, pixel_type, CH, novalue) == -1)
     {
         *R=r+1;
         *C=c;
@@ -166,8 +161,7 @@ void next_down_channel_pixel( long r, long c, Matrix<double> *Z, Matrix<double> 
         *C=(*C)*(-1.);
     }
 
-    if (neighboring_down_channel_pixel(r, c, 0, 1, Z, LC, pixel_type, CH,
-                                       novalue) == -1)
+    if (neighboring_down_channel_pixel(r, c, 0, 1, Z, LC, pixel_type, CH, novalue) == -1)
     {
         *R=r;
         *C=c+1;
@@ -175,8 +169,7 @@ void next_down_channel_pixel( long r, long c, Matrix<double> *Z, Matrix<double> 
         *C=(*C)*(-1.);
     }
 
-    if (neighboring_down_channel_pixel(r, c, -1, 0, Z, LC, pixel_type, CH,
-                                       novalue) == -1)
+    if (neighboring_down_channel_pixel(r, c, -1, 0, Z, LC, pixel_type, CH, novalue) == -1)
     {
         *R=r-1;
         *C=c;
@@ -184,8 +177,7 @@ void next_down_channel_pixel( long r, long c, Matrix<double> *Z, Matrix<double> 
         *C=(*C)*(-1.);
     }
 
-    if (neighboring_down_channel_pixel(r, c, 0, -1, Z, LC, pixel_type, CH,
-                                       novalue) == -1)
+    if (neighboring_down_channel_pixel(r, c, 0, -1, Z, LC, pixel_type, CH, novalue) == -1)
     {
         *R=r;
         *C=c-1;
@@ -193,57 +185,49 @@ void next_down_channel_pixel( long r, long c, Matrix<double> *Z, Matrix<double> 
         *C=(*C)*(-1.);
     }
 
-    if (neighboring_down_channel_pixel(r, c, 1, 0, Z, LC, pixel_type, CH,
-                                       novalue) == 1)
+    if (neighboring_down_channel_pixel(r, c, 1, 0, Z, LC, pixel_type, CH, novalue) == 1)
     {
         *R=r+1;
         *C=c;
     }
 
-    if (neighboring_down_channel_pixel(r, c, 0, 1, Z, LC, pixel_type, CH,
-                                       novalue) == 1)
+    if (neighboring_down_channel_pixel(r, c, 0, 1, Z, LC, pixel_type, CH, novalue) == 1)
     {
         *R=r;
         *C=c+1;
     }
 
-    if (neighboring_down_channel_pixel(r, c, -1, 0, Z, LC, pixel_type, CH,
-                                       novalue) == 1)
+    if (neighboring_down_channel_pixel(r, c, -1, 0, Z, LC, pixel_type, CH, novalue) == 1)
     {
         *R=r-1;
         *C=c;
     }
 
-    if (neighboring_down_channel_pixel(r, c, 0, -1, Z, LC, pixel_type, CH,
-                                       novalue) == 1)
+    if (neighboring_down_channel_pixel(r, c, 0, -1, Z, LC, pixel_type, CH, novalue) == 1)
     {
         *R=r;
         *C=c-1;
     }
 
-    if (neighboring_down_channel_pixel(r, c, 1, 1, Z, LC, pixel_type, CH,
-                                       novalue) == 1)
+    if (neighboring_down_channel_pixel(r, c, 1, 1, Z, LC, pixel_type, CH, novalue) == 1)
     {
         *R=r+1;
         *C=c+1;
     }
 
-    if (neighboring_down_channel_pixel(r, c, 1, -1, Z, LC, pixel_type, CH,
-                                       novalue) == 1)
+    if (neighboring_down_channel_pixel(r, c, 1, -1, Z, LC, pixel_type, CH, novalue) == 1)
     {
         *R=r+1;
         *C=c-1;
     }
 
-    if (neighboring_down_channel_pixel(r, c, -1, 1, Z, LC, pixel_type, CH,
-                                       novalue) == 1)
+    if (neighboring_down_channel_pixel(r, c, -1, 1, Z, LC, pixel_type, CH, novalue) == 1)
     {
         *R=r-1;
         *C=c+1;
     }
 
-    if (neighboring_down_channel_pixel(r, c, -1, -1, Z, LC, pixel_type, CH,
-                                       novalue) == 1)
+    if (neighboring_down_channel_pixel(r, c, -1, -1, Z, LC, pixel_type, CH, novalue) == 1)
     {
         *R=r-1;
         *C=c-1;
@@ -256,8 +240,8 @@ void next_down_channel_pixel( long r, long c, Matrix<double> *Z, Matrix<double> 
 /******************************************************************************************************************************************/
 
 //find highest channel pixel that has not been enumerated yet
-void find_max_constraint( Matrix<double> *Z, Matrix<double> *LC,
-                          SHORTMATRIX *pixel_type, LONGMATRIX *CH, long novalue, long *R, long *C)
+void find_max_constraint(Matrix<double> *Z, Matrix<double> *LC,
+                         Matrix<short> *pixel_type, Matrix<long> *CH, long novalue, long *R, long *C)
 {
 
     long r, c;
@@ -272,7 +256,7 @@ void find_max_constraint( Matrix<double> *Z, Matrix<double> *LC,
         {
             if ((long)(*LC)(r,c)!=novalue)
             {
-                if (pixel_type->co[r][c]>=10 && CH->co[r][c]==0)
+                if ((*pixel_type)(r,c)>=10 && (*CH)(r,c)==0)
                 {
                     if (Z[r][c]>z)
                     {
@@ -292,7 +276,7 @@ void find_max_constraint( Matrix<double> *Z, Matrix<double> *LC,
 /******************************************************************************************************************************************/
 
 short neighboring_down_channel_pixel(long r, long c, long ir, long ic, Matrix<double> *Z, Matrix<double> *LC,
-                                     SHORTMATRIX *pixel_type, LONGMATRIX *CH, long novalue)
+                                     Matrix<short> *pixel_type, Matrix<long> *CH, long novalue)
 {
     short yes=0;
     long R=r+ir, C=c+ic;
@@ -302,9 +286,9 @@ short neighboring_down_channel_pixel(long r, long c, long ir, long ic, Matrix<do
         if ((long)(*LC)(R,C)!=novalue)
         {
             //neighboring pixel is a channel
-            if (Z[R][C]<=Z[r][c] && pixel_type->co[R][C]>=10) yes=-1;
+            if (Z[R][C]<=Z[r][c] && (*pixel_type)(R,C)>=10) yes=-1;
             //neighboring pixel is a channels that has not been enumerated yet
-            if (Z[R][C]<=Z[r][c] && pixel_type->co[R][C]>=10 && CH->co[R][C]==0) yes=1;
+            if (Z[R][C]<=Z[r][c] && (*pixel_type)(R,C)>=10 && (*CH)(R,C)==0) yes=1;
         }
     }
 

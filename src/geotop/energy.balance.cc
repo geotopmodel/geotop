@@ -314,8 +314,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
       || (long)Tdirichlet_bottom == number_absent) Tdirichlet_bottom=A->P->Tbottom;
 
   //SNOW
-  snowD=DEPTH(r, c, S->lnum, S->Dzl);
-  ns=S->lnum->co[r][c];
+  snowD=DEPTH(r, c, S->lnum.get(), S->Dzl);
+  ns=(*S->lnum)(r,c);
 
   //vegetation parameters
   if (i>A->P->total_channel)
@@ -357,7 +357,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
       //glacier
       if (A->P->max_glac_layers>0)
         {
-          ng=G->lnum->co[r][c];
+          ng=(*G->lnum)(r,c);
           if (ng>0)
             {
               A->L->vegpar->co[jdLSAI]=0.0;
@@ -853,7 +853,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
           if ( A->L->vegpar->co[jdLSAI]>=LSAIthres && ng==0 )
             {
 
-              snowD = DEPTH(r, c, S->lnum, S->Dzl);
+              snowD = DEPTH(r, c, S->lnum.get(), S->Dzl);
 
               fc0=fc;
 

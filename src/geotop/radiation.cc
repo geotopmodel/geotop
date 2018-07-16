@@ -588,12 +588,12 @@ void rad_snow_absorption(long r, long c, Vector<double> *frac, double R,
   *frac=0.;
 
   //in case of snow
-  if ( snow->lnum->co[r][c] > 1)
+  if ( (*snow->lnum)(r,c) > 1)
     {
 
-      for (l=snow->lnum->co[r][c]; l>=1; l--)
+      for (l=(*snow->lnum)(r,c); l>=1; l--)
         {
-          m=snow->lnum->co[r][c]-l+1;
+          m=(*snow->lnum)(r,c)-l+1;
           z+=0.001*snow->Dzl->co[l][r][c];
           rho=(snow->w_ice->co[l][r][c]+snow->w_liq->co[l][r][c])/
               (0.001*snow->Dzl->co[l][r][c]);
@@ -602,7 +602,7 @@ void rad_snow_absorption(long r, long c, Vector<double> *frac, double R,
           res=R*exp(-k*z);
         }
 
-      frac->co[snow->lnum->co[r][c]+1]=res;
+      frac->co[(*snow->lnum)(r,c)+1]=res;
 
     }
   else

@@ -115,7 +115,6 @@ typedef struct {
 struct SOIL_STATE {
     SOIL_STATE(const long n, const long nl);
 
-    virtual ~SOIL_STATE();
 
     std::unique_ptr<Matrix<double>> P;
     std::unique_ptr<Matrix<double>> thi;
@@ -177,7 +176,7 @@ typedef struct {
     DOUBLETENSOR *Z;
 
     std::unique_ptr<Matrix<double>> sky;        //view factor (of the sky) for each pixel
-    SHORTMATRIX *pixel_type;
+    std::unique_ptr<Matrix<short>> pixel_type;
 
     //SHORTMATRIX *DD;      //Drainage Directions for each pixel; ex matr_ev->slope*/
     //LONGMATRIX *DDup;
@@ -253,7 +252,7 @@ typedef struct {
                       R=number of rows of the basin,C=number of columns in the basin*/
     std::unique_ptr<Vector<long>> r;          /*array of rows of the channel-pixels; dimension=nch*/
     std::unique_ptr<Vector<long>> c;          /*array of columns of the channel-pixels; dimension=nch*/
-    LONGMATRIX *ch;
+    std::unique_ptr<Matrix<long>> ch;
     std::unique_ptr<Vector<long>> ch_down;
     std::unique_ptr<Vector<double>> Vsup;
     std::unique_ptr<Vector<double>> Vsub;
@@ -642,7 +641,7 @@ struct STATEVAR_3D {
     ~STATEVAR_3D();
 
     SHORTMATRIX *type;
-    LONGMATRIX *lnum;
+    std::unique_ptr<Matrix<long>> lnum;
     DOUBLETENSOR *Dzl;
     DOUBLETENSOR *w_liq;
     DOUBLETENSOR *w_ice;

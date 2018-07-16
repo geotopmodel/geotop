@@ -142,7 +142,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     }
 
 
-    free_shortmatrix(top->pixel_type);
     free_longmatrix(top->Jdown);
     if (par->point_sim==0) free_shortmatrix(top->is_on_border);
 
@@ -205,7 +204,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
     /* Deallocation of struct CHANNEL "channel": */
     geolog << "Deallocating channel network" << std::endl;
-    free_longmatrix(cnet->ch);
+
     for (l=0; l<=Nl; l++)
     {
         free(cnet->ch3[l]);

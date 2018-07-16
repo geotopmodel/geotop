@@ -55,29 +55,31 @@ int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
 
 double find_3Ddistance(double horizontal_distance, double vertical_distance);
 
-void find_dt_max(short DD, double Courant, double *h, LAND *land, TOPO *top,
+void find_dt_max(short DD, double Courant, MatrixRow<double> &h, LAND *land, TOPO *top,
                  CHANNEL *cnet, PAR *par, METEO *met, double t, double *dt);
 
-void find_dt_max_chla(double Courant, double *h, double *hch, TOPO *top,
+void find_dt_max_chla(double Courant, MatrixRow<double> &h, MatrixRow<double> &hch, TOPO *top,
                       CHANNEL *cnet, PAR *par, double t, double *dt);
 
 void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&h, double *dV, MatrixRow<double> &&hch,
              double *dhch, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, METEO *met,
              Vector<double> *Vsup, double *Voutnet, double *Voutland, double *mm1, double *mm2, double *mmo);
 
-void supflow_chla(double Dt, double t, double *h, double *hch, TOPO *top, WATER *wat, CHANNEL *cnet, PAR *par,
+void supflow_chla(double Dt, double t, MatrixRow<double> &h, MatrixRow<double> &hch, TOPO *top, WATER *wat,
+                  CHANNEL *cnet, PAR *par,
                   Vector<double> *Vsup, long *cnt);
 
-void channel_flow(double Dt, double t, short DDcomplex, double *h, double *dV, TOPO *top, CHANNEL *cnet, PAR *par,
+void channel_flow(double Dt, double t, short DDcomplex, MatrixRow<double> &h, double *dV, TOPO *top, CHANNEL *cnet,
+                  PAR *par,
                   LAND *land, double *Vout, long *cnt);
 
-void find_dt_max_channel(short DDcomplex, double Courant, double *h,
+void find_dt_max_channel(short DDcomplex, double Courant, MatrixRow<double> &h,
                          TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double t, double *dt);
 
 void draining_land(double alpha, long i, TOPO *T, LAND *L, PAR *P,
-                   CHANNEL *cnet, double *h, long *I, double *Q);
+                   CHANNEL *cnet, MatrixRow<double> &h, long *I, MatrixRow<double> &&Q);
 
-void draining_channel(double alpha, long ch, Matrix<double> *Z, double *h,
+void draining_channel(double alpha, long ch, Matrix<double> *Z, MatrixRow<double> &h,
                       CHANNEL *cnet, long *CH);
 
 
