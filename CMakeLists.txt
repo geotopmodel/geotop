@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 2.8)
 SET( CMAKE_BUILD_TYPE RELEASE CACHE STRING "A variable which controls the type of build" )
 SET( CMAKE_CXX_FLAGS " -std=c++11 " CACHE STRING "")
-SET( CMAKE_CXX_FLAGS_DEBUG " -Wextra -Wall -g -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -O0 " CACHE STRING "" )
+SET( CMAKE_CXX_FLAGS_DEBUG " -Wno-write-strings -Wno-narrowing -O0 " CACHE STRING "" )
+#SET( CMAKE_CXX_FLAGS_DEBUG " -Wextra -Wall -g -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -O0 " CACHE STRING "" )
 SET( CMAKE_CXX_FLAGS_RELEASE " -Wextra -Wall -O2 -funroll-loops -fstrict-aliasing -Wno-narrowing -Wno-writable-strings -Wno-c++11-narrowing " CACHE STRING "" )
 SET( CMAKE_CXX_FLAGS_MINSIZEREL " -Wextra -Wall -O2 " CACHE STRING "" )
 
