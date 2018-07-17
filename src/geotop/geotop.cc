@@ -155,13 +155,17 @@ FOR A PARTICULAR PURPOSE.\n" << std::endl;
   get_all_input(argc, argv, adt->T.get(), adt->S.get(), adt->L.get(), adt->M.get(), adt->W.get(),
                 adt->C.get(), adt->P.get(), adt->E.get(), adt->N.get(), adt->G.get(), adt->I.get());
 
+  std::cout << "MAIN AFTER GET_ALL_INPUT" << std::endl;
+
   /*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
   time_loop(adt.get());
+  std::cout << "MAIN AFTER TIME_LOOP" << std::endl;
 
   /*--------------------   5.Completion of the output files and deallocaions  --------------------*/
   dealloc_all(adt->T.get(), adt->S.get(), adt->L.get(), adt->W.get(), adt->C.get(), adt->P.get(),
               adt->E.get(), adt->N.get(), adt->G.get(), adt->M.get(), adt->I.get());
 
+  std::cout << "MAIN AFTER DEALLOC_ALL" << std::endl;
 
   geolog << "End of simulation!" << std::endl;
 
@@ -176,6 +180,8 @@ FOR A PARTICULAR PURPOSE.\n" << std::endl;
 /*----------------   6. The most important subroutine of the main: "time_loop"   ---------------*/
 void time_loop(ALLDATA *A)
 {
+  std::cout << "START TIME_LOOP" << std::endl;
+
   GEOLOG_PREFIX(__func__);
   clock_t tstart, tend;
   short en=0, wt=0, out;
@@ -192,13 +198,11 @@ void time_loop(ALLDATA *A)
   std::unique_ptr<Vector<double>> a, Vsup_ch, Vsub_ch;
 
 
-  S.reset(new STATEVAR_3D{(double)number_novalue,
-                          A->P->max_snow_layers, Nr, Nc});
+  S.reset(new STATEVAR_3D{(double)number_novalue, A->P->max_snow_layers, Nr, Nc});
 
   if (A->P->max_glac_layers>0)
   {
-    G.reset(new STATEVAR_3D{(double)number_novalue,
-                            A->P->max_glac_layers, Nr, Nc});
+    G.reset(new STATEVAR_3D{(double)number_novalue, A->P->max_glac_layers, Nr, Nc});
   }
   L.reset(new SOIL_STATE{A->P->total_pixel, Nl});
   C.reset(new SOIL_STATE {A->C->r->nh, Nl});
@@ -221,8 +225,7 @@ void time_loop(ALLDATA *A)
 
     do
     {
-      if ( A->I->time > (A->P->end_date->co[i_sim] - A->P->init_date->co[i_sim])
-                        *86400. - 1.E-5)
+      if ( A->I->time > (A->P->end_date->co[i_sim] - A->P->init_date->co[i_sim]) *86400. - 1.E-5)
       {
         // printf("Number of times the simulation #%ld has been run: %ld\n",i_sim,i_run);
         // f=fopen(logfile, "a");
@@ -301,16 +304,21 @@ void time_loop(ALLDATA *A)
 
             // meteo
             tstart=clock();
+            std::cout << "METEO_DISTR IS CALLED" << std::endl;
             meteo_distr(A->M->line_interp_WEB, A->M->line_interp_WEB_LR, A->M.get(),
                         A->W.get(), A->T.get(), A->P.get(), JD0, JDb, JDe);
+            std::cout << "METEO_DISTR IS COMPLETED" << std::endl;
             tend=clock();
             t_meteo+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 
             if (A->P->en_balance == 1)
             {
               tstart=clock();
+              std::cout << "ENERGYBALANCE IS CALLED" << std::endl;
               en = EnergyBalance(Dt, JD0, JDb, JDe, L.get(), C.get(), S.get(), G.get(),
                                  V.get(), a.get(), A, &W);
+              std::cout << "ENERGYBALANCE IS COMPLETED" << std::endl;
+
               tend=clock();
               t_energy+=(tend-tstart)/(double)CLOCKS_PER_SEC;
             }
@@ -318,8 +326,10 @@ void time_loop(ALLDATA *A)
             if (A->P->wat_balance == 1 && en == 0)
             {
               tstart=clock();
+              std::cout << "WATER_BALANCE IS CALLED" << std::endl;
               wt = water_balance(Dt, JD0, JDb, JDe, L.get(), C.get(), A, Vsub_ch.get(),
                                  Vsup_ch.get(), &Vout, &Voutsub, &Voutsup, &Vbottom);
+              std::cout << "WATER_BALANCE IS CALLED" << std::endl;
               tend=clock();
               t_water+=(tend-tstart)/(double)CLOCKS_PER_SEC;
             }

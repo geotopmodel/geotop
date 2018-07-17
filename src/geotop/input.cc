@@ -68,9 +68,8 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
 {
     GEOLOG_PREFIX(__func__);
-
+    std::cout << "START get_all_input" << std::endl;
     FILE *f; /** failed run file*/
-    //std::unique_ptr<Matrix<double>> M;
     Matrix<double> *M;
     std::unique_ptr<INIT_TOOLS> IT;
 
@@ -151,6 +150,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     }
 
     // soil parameters
+    std::cout << "SOIL PARAMETERS" << std::endl;
     success = read_soil_parameters(files[fspar], IT.get(), sl, par->soil_type_bedr_default);
     Nl=sl->pa->nch;
 
@@ -166,6 +166,8 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     }
 
     // recovering
+    std::cout << "RECOVERING" << std::endl;
+
     par->delay_day_recover = 0.0;
     par->n_ContRecovery = 0;
 
@@ -271,6 +273,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     /**************************************************************************************************/
     /*! Reading of the Input files:                                                                   */
     /**************************************************************************************************/
+    std::cout << "READING THE INPUT FILES" << std::endl;
 
     if (par->point_sim!=1)  //distributed simulation
     {
@@ -304,6 +307,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
             }
         }
     }
+    std::cout << "find_Z_of_any_layer" << std::endl;
 
     top->Z = find_Z_of_any_layer(top->Z0.get(), top->slope.get(), land->LC.get(), sl, par->point_sim);
 
@@ -327,6 +331,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     /**************************************************************************************************/
     // Reading  RAIN data file, METEO data file and CLOUD data file
 
+    std::cout << " Reading  RAIN data file, METEO data file and CLOUD data file" << std::endl;
     num_cols = (long)nmet;
 
     // meteo data
@@ -699,6 +704,7 @@ keyword LinearInterpolation at 1.\n");
     // Completing of "land" (of the type LAND):
 
     // Initialize matrix of shadow
+    std::cout << "INITIALIZE MATRIX OF SHADOW" << std::endl;
     land->shadow.reset(new Matrix<short>{Nr,Nc}); /* initialized as if it was always NOT in shadow */
 
     // Check that there aren't cell with an undefined land use value
@@ -710,6 +716,9 @@ keyword LinearInterpolation at 1.\n");
         z += sl->pa->co[1][jdz][l];
     }
     while (l<Nl && z < z_transp);
+
+    std::cout << "INITIALIZE MATRIX OF ROOT FRACTION" << std::endl;
+
     land->root_fraction.reset(new Matrix<double>{par->n_landuses, l});
 
     // check vegetation variable consistency
@@ -743,6 +752,8 @@ keyword LinearInterpolation at 1.\n");
     par->vegflag.reset(new Vector<short>{par->n_landuses});
 
     // time dependent vegetation parameters
+    std::cout << "TIME DEP VEG PARAMETERS" << std::endl;
+
     for (i=1; i<=par->n_landuses; i++)
     {
         if (strcmp(files[fvegpar], string_novalue) != 0) // s stands for string
@@ -783,8 +794,7 @@ keyword LinearInterpolation at 1.\n");
         // error messages
         for (l=1; l<=met->st->Z->nh; l++)
         {
-            if (0.001*(*land->ty)(i,jHveg)>met->st->Vheight->co[l]
-                || 0.001*(*land->ty)(i,jHveg)>met->st->Theight->co[l])
+            if (0.001*(*land->ty)(i,jHveg)>met->st->Vheight->co[l] || 0.001*(*land->ty)(i,jHveg)>met->st->Theight->co[l])
             {
                 f = fopen(FailedRunFile, "w");
                 fprintf(f, "hc:%f m, zmu:%f m, zmt:%f m - hc must be lower than measurement height - \
@@ -831,8 +841,7 @@ land cover %ld, meteo station %ld\n",
     par->total_channel = i;
 
     // allocate channel vectors/matrixes
-    if (i==0)
-        i=1;
+    if (i==0) i=1;
 
     cnet->Vout = 0.;
 
@@ -842,16 +851,12 @@ land cover %ld, meteo station %ld\n",
     cnet->ch.reset(new Matrix<long>{Nr,Nc});
 
     cnet->ch_down.reset(new Vector<long>{i});
-
     cnet->length.reset(new Vector<double>{i});
-
     cnet->Vsup.reset(new Vector<double>{i});
-
     cnet->Vsub.reset(new Vector<double>{i});
-
     cnet->h_sup.reset(new Vector<double>{i});
-
     cnet->soil_type.reset(new Vector<long>{i});
+
     (*cnet->soil_type) = par->soil_type_chan_default;
 
     if (par->total_channel>1)
@@ -985,7 +990,7 @@ land cover %ld, meteo station %ld\n",
             {
                 z = 0.;
                 (*sl->SS->P)(0,i) = -IT->init_water_table_depth->co[sy] *
-                                      cos((*top->slope)(r,c)*Pi/180.);
+                                    cos((*top->slope)(r,c)*Pi/180.);
                 for (l=1; l<=Nl; l++)
                 {
                     z += 0.5*sl->pa->co[sy][jdz][l]*cos((*top->slope)(r,c)*Pi/180.);
@@ -1050,14 +1055,14 @@ land cover %ld, meteo station %ld\n",
 
                 // Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
                 (*sl->SS->thi)(l,i) = (*sl->th)(l,i) - teta_psi(Psif((*sl->SS->T)(l,i)),
-                                                                  0.0,
-                                                                  sl->pa->co[sy][jsat][l],
-                                                                  sl->pa->co[sy][jres][l],
-                                                                  sl->pa->co[sy][ja][l],
-                                                                  sl->pa->co[sy][jns][l],
-                                                                  1.-1./sl->pa->co[sy][jns][l],
-                                                                  PsiMin,
-                                                                  sl->pa->co[sy][jss][l]);
+                                                                0.0,
+                                                                sl->pa->co[sy][jsat][l],
+                                                                sl->pa->co[sy][jres][l],
+                                                                sl->pa->co[sy][ja][l],
+                                                                sl->pa->co[sy][jns][l],
+                                                                1.-1./sl->pa->co[sy][jns][l],
+                                                                PsiMin,
+                                                                sl->pa->co[sy][jss][l]);
 
                 // if Theta(without freezing) < Theta_unfrozen(in equilibrium with T):
                 // Theta_ice is set at 0
@@ -1068,10 +1073,10 @@ land cover %ld, meteo station %ld\n",
                 (*sl->th)(l,i) -= (*sl->SS->thi)(l,i);
 
                 (*sl->SS->P)(l,i) = psi_teta((*sl->th)(l,i) + th_oversat,
-                                               (*sl->SS->thi)(l,i), sl->pa->co[sy][jsat][l],
-                                               sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-                                               sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l],
-                                               PsiMin, sl->pa->co[sy][jss][l]);
+                                             (*sl->SS->thi)(l,i), sl->pa->co[sy][jsat][l],
+                                             sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
+                                             sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l],
+                                             PsiMin, sl->pa->co[sy][jss][l]);
             }
         }
     }
@@ -1122,8 +1127,8 @@ land cover %ld, meteo station %ld\n",
                     (*sl->Ptotzplot)(i,l) = (*sl->Ptot)(l,j);
                 if (strcmp(files[fsatz], string_novalue) != 0)
                     (*sl->satratio)(i,l) = ((*sl->SS->thi)(l,j)
-                                              + (*sl->th)(l,j)
-                                              - sl->pa->co[sy][jres][l]) / (sl->pa->co[sy][jsat][l]- sl->pa->co[sy][jres][l]);
+                                            + (*sl->th)(l,j)
+                                            - sl->pa->co[sy][jres][l]) / (sl->pa->co[sy][jsat][l]- sl->pa->co[sy][jres][l]);
             }
             for (l=0; l<=Nl; l++)
             {
@@ -1167,12 +1172,12 @@ land cover %ld, meteo station %ld\n",
         c=(*cnet->c)(j);
 
         (*cnet->SS->P)(0,j) = (*sl->SS->P)(0,top->j_cont[r][c]) +
-                                par->depr_channel;
+                              par->depr_channel;
 
         for (l=1; l<=Nl; l++)
         {
             (*cnet->SS->P)(l,j) = (*sl->Ptot)(l,top->j_cont[r][c]) +
-                                    par->depr_channel;
+                                  par->depr_channel;
         }
 
         for (l=1; l<=Nl; l++)
@@ -1180,10 +1185,10 @@ land cover %ld, meteo station %ld\n",
             (*cnet->SS->T)(l,j)=sl->pa->co[sy][jT][l];
 
             (*cnet->th)(l,j) = teta_psi((*cnet->SS->P)(l,j), 0.0,
-                                          sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
-                                          sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l],
-                                          1.-1./sl->pa->co[sy][jns][l],
-                                          PsiMin, sl->pa->co[sy][jss][l]);
+                                        sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
+                                        sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l],
+                                        1.-1./sl->pa->co[sy][jns][l],
+                                        PsiMin, sl->pa->co[sy][jss][l]);
 
             th_oversat = Fmax( (*cnet->SS->P)(l,j), 0.0 ) * sl->pa->co[sy][jss][l];
             (*cnet->th)(l,j) -= th_oversat;
@@ -1192,14 +1197,14 @@ land cover %ld, meteo station %ld\n",
             {
                 // Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
                 (*cnet->SS->thi)(l,j) = (*cnet->th)(l,j) - teta_psi(Psif( (*cnet->SS->T)(l,j)),
-                                                                        0.0,
-                                                                        sl->pa->co[sy][jsat][l],
-                                                                        sl->pa->co[sy][jres][l],
-                                                                        sl->pa->co[sy][ja][l],
-                                                                        sl->pa->co[sy][jns][l],
-                                                                        1.-1./sl->pa->co[sy][jns][l],
-                                                                        PsiMin,
-                                                                        sl->pa->co[sy][jss][l]);
+                                                                    0.0,
+                                                                    sl->pa->co[sy][jsat][l],
+                                                                    sl->pa->co[sy][jres][l],
+                                                                    sl->pa->co[sy][ja][l],
+                                                                    sl->pa->co[sy][jns][l],
+                                                                    1.-1./sl->pa->co[sy][jns][l],
+                                                                    PsiMin,
+                                                                    sl->pa->co[sy][jss][l]);
 
                 // if Theta(without freezing)< Theta_unfrozen(in equilibrium with T)
                 // Theta_ice is set at 0
@@ -1208,14 +1213,14 @@ land cover %ld, meteo station %ld\n",
                 // Psi is updated taking into account the freezing
                 (*cnet->th)(l,j) -= (*cnet->SS->thi)(l,j);
                 (*cnet->SS->P)(l,j) = psi_teta((*cnet->th)(l,j) + th_oversat,
-                                                 (*cnet->SS->thi)(l,j),
-                                                 sl->pa->co[sy][jsat][l],
-                                                 sl->pa->co[sy][jres][l],
-                                                 sl->pa->co[sy][ja][l],
-                                                 sl->pa->co[sy][jns][l],
-                                                 1.-1./sl->pa->co[sy][jns][l],
-                                                 PsiMin,
-                                                 sl->pa->co[sy][jss][l]);
+                                               (*cnet->SS->thi)(l,j),
+                                               sl->pa->co[sy][jsat][l],
+                                               sl->pa->co[sy][jres][l],
+                                               sl->pa->co[sy][ja][l],
+                                               sl->pa->co[sy][jns][l],
+                                               1.-1./sl->pa->co[sy][jns][l],
+                                               PsiMin,
+                                               sl->pa->co[sy][jss][l]);
             }
         }
     }
@@ -1235,20 +1240,20 @@ land cover %ld, meteo station %ld\n",
             {
                 sy = (*cnet->soil_type)(i);
                 (*cnet->th)(l,i) = teta_psi(Fmin((*cnet->SS->P)(l,i),
-                                                   psi_saturation((*cnet->SS->thi)(l,i),
-                                                                  sl->pa->co[sy][jsat][l],
-                                                                  sl->pa->co[sy][jres][l],
-                                                                  sl->pa->co[sy][ja][l],
-                                                                  sl->pa->co[sy][jns][l],
-                                                                  1.-1./sl->pa->co[sy][jns][l])),
-                                              (*cnet->SS->thi)(l,i),
-                                              sl->pa->co[sy][jsat][l],
-                                              sl->pa->co[sy][jres][l],
-                                              sl->pa->co[sy][ja][l],
-                                              sl->pa->co[sy][jns][l],
-                                              1.-1./sl->pa->co[sy][jns][l],
-                                              PsiMin,
-                                              sl->pa->co[sy][jss][l]);
+                                                 psi_saturation((*cnet->SS->thi)(l,i),
+                                                                sl->pa->co[sy][jsat][l],
+                                                                sl->pa->co[sy][jres][l],
+                                                                sl->pa->co[sy][ja][l],
+                                                                sl->pa->co[sy][jns][l],
+                                                                1.-1./sl->pa->co[sy][jns][l])),
+                                            (*cnet->SS->thi)(l,i),
+                                            sl->pa->co[sy][jsat][l],
+                                            sl->pa->co[sy][jres][l],
+                                            sl->pa->co[sy][ja][l],
+                                            sl->pa->co[sy][jns][l],
+                                            1.-1./sl->pa->co[sy][jns][l],
+                                            PsiMin,
+                                            sl->pa->co[sy][jss][l]);
             }
         }
     }
@@ -1464,18 +1469,23 @@ land cover %ld, meteo station %ld\n",
     /**************************************************************************************************/
     /*! Completing of the struct "water" (of the type WATER) */
 
+    std::cout << " Completing of the struct water " << std::endl;
     wat->Voutlandsub = 0.;
     wat->Voutlandsup = 0.;
     wat->Voutbottom = 0.;
 
+
     /* Initialization of wat->Pnet (liquid precipitation that reaches the sl surface in mm): */
+    std::cout << "Initialization of wat->Pnet" << std::endl;
     wat->Pnet.reset(new Matrix<double>{Nr,Nc});
 
     /* Initialization of wat->PrecTot (total precipitation (rain+snow) precipitation): */
+    std::cout << "Initialization of wat->PrecTot" << std::endl;
     wat->PrecTot.reset(new Matrix<double>{Nr,Nc});
     (*wat->PrecTot) = par->IPrec_default;
 
     /* Initialization of the matrices with the output of total precipitation and interception: */
+    std::cout << "Initialization of the matrices with the output of total precipitation and interception" << std::endl;
     if (par->output_meteo_bin == 1 && strcmp(files[fprec], string_novalue) != 0)
     {
         wat->PrTOT_mean.reset(new Vector<double>{par->total_pixel});
@@ -1489,6 +1499,7 @@ land cover %ld, meteo station %ld\n",
     /**************************************************************************************************/
     /*! Initialization of the struct "snow" (of the type SNOW): */
     /*************************************************************************************************/
+    std::cout << "Initialization of the struct snow" << std::endl;
     snow->S=(STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
     snow->S = new STATEVAR_3D{(double)number_novalue, par->max_snow_layers, Nr, Nc};
 
@@ -1533,8 +1544,8 @@ land cover %ld, meteo station %ld\n",
             for (c=1; c<=Nc; c++)
             {
                 if ((long)(*land->LC)(r,c) != number_novalue) snow->S->w_ice->co[1][r][c] =
-                                                                        snow->S->Dzl->co[1][r][c] *
-                                                                        IT->rhosnow0/rho_w;
+                                                                      snow->S->Dzl->co[1][r][c] *
+                                                                      IT->rhosnow0/rho_w;
             }
         }
 
@@ -1556,8 +1567,8 @@ land cover %ld, meteo station %ld\n",
             for (c=1; c<=Nc; c++)
             {
                 if ((long)(*land->LC)(r,c) != number_novalue) snow->S->Dzl->co[1][r][c] =
-                                                                        snow->S->w_ice->co[1][r][c] *
-                                                                        rho_w/IT->rhosnow0;
+                                                                      snow->S->w_ice->co[1][r][c] *
+                                                                      rho_w/IT->rhosnow0;
             }
         }
     }
@@ -1811,7 +1822,7 @@ land cover %ld, meteo station %ld\n",
 
     if (recovered > 0)
     {
-        (*snow->S->type) = 2;
+        *snow->S->type = 2;
 
         assign_recovered_map_long(old, par->recover, files[rns], snow->S->lnum.get(), par, land->LC.get());
         // initialize_longmatrix(snow->S->lnum, snow->S->Dzl->ndh);
@@ -1843,6 +1854,7 @@ land cover %ld, meteo station %ld\n",
     /**************************************************************************************************/
     /*! Initialization of the struct "glac" (of the type GLACIER):*/
     /**************************************************************************************************/
+    std::cout << "Initialization of the struct glac" << std::endl;
     /*! Optional reading of glacier depth in the whole basin ("GLACIER0"):    */
     if ( par->point_sim!=1 && strcmp(files[fgl0], string_novalue) != 0
          && par->max_glac_layers==0)
@@ -1906,7 +1918,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                     {
 
                         if (IT->rhoglac0 * (*M)(r,c) / rho_w < par->max_weq_glac *
-                                                                 par->max_glac_layers )
+                                                               par->max_glac_layers )
                         {
 
                             n = 0;
@@ -1999,6 +2011,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     //*************************************************************************************************
     // Filling up of the struct "met" (of the type METEO):
 
+    std::cout << "Filling up of the struct met" << std::endl;
     met->Tgrid.reset(new Matrix<double>{Nr,Nc});
     (*met->Tgrid) = par->Tair_default;
 
@@ -2381,6 +2394,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
     /**************************************************************************************************/
     // Free the struct allocated in this subroutine:
+    std::cout << "Free the struct allocated in this subroutine" << std::endl;
     free_doubletensor(IT->pa_bed);
 
     for (i=0; i<nmet; i++)
@@ -2456,6 +2470,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     wat->Kbottom.reset(new Matrix<double>{Nr, Nc});
 
     wat->Klat.reset(new Matrix<double>{top->BC_DepthFreeSurface->nh, Nl});
+    std::cout << "END get_all_input" << std::endl;
 }
 
 //***************************************************************************************************
@@ -2466,6 +2481,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
 {
     GEOLOG_PREFIX(__func__);
+    std::cout << "start function read_inputmaps" << std::endl;
     long r, c, i, cont;
     Matrix<double> *M;
     Matrix<short> *curv;
@@ -2832,6 +2848,7 @@ to the soil type map");
 
     /**************************************************************************************************/
     // border
+    std::cout << "border" << std::endl;
     top->is_on_border.reset(new Matrix<short>{land->LC->nrh, land->LC->nch});
     for (r=1; r<=land->LC->nrh; r++)
     {
@@ -2849,6 +2866,7 @@ to the soil type map");
     }
 
     // count the pixels having pixel_type = 1, 2 or -1
+    std::cout << "count the pixels having pixel_type = 1, 2 or -1" << std::endl;
     cont = 0;
     for (r=1; r<=top->Z0->nrh; r++)
     {
@@ -2906,6 +2924,8 @@ to the soil type map");
     }
     if (flag>=0)
         write_map(files[fbed], 0, par->format_out, IT->bed.get(), UV, number_novalue);
+    std::cout << "end function read_inputmaps" << std::endl;
+
 }
 
 //***************************************************************************************************
@@ -2916,6 +2936,7 @@ to the soil type map");
 void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT)
 {
     GEOLOG_PREFIX(__func__);
+    std::cout << "we're in read_optionsfile_point" << std::endl;
     long i, r, c, num_lines;
     std::unique_ptr<Matrix<double>> Q=nullptr, P=nullptr, R=nullptr, S=nullptr, T=nullptr, Z=nullptr, LU=nullptr; // ec 2012 08 22
     Matrix<short> *curv;
@@ -2934,6 +2955,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     }
 
     // ---------------------- (a) Read dem ----------------------
+    std::cout << "read dem" << std::endl;
     read_dem=0;
     // if(par->recover>0) read_dem=1;
     for (i=1; i<=par->chkpt->nrh; i++)
@@ -2988,6 +3010,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     }
 
     // ---------------------- (b) Read land use ----------------------
+    std::cout << "read land use" << std::endl;
     read_lu=0;
     // if(par->recover>0) read_lu=1;
     for (i=1; i<=par->chkpt->nrh; i++)

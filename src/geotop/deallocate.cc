@@ -114,11 +114,8 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
     free_doubletensor(sl->pa);
     free_doubletensor(sl->ET);
-    delete sl->SS;
 
-    if (par->state_pixel == 1)
-    {
-    }
+    delete sl->SS;
 
     //  free(sl);
 
@@ -192,7 +189,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
     /* Deallocation of struct WATER "water": */
     geolog << "Deallocating water" << std::endl;
-
     //  free(wat);
 
     /* Deallocation of struct CHANNEL "channel": */

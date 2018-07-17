@@ -433,9 +433,9 @@ Matrix<double>* read_map(short a, char *filename, Matrix<double> *Mref,
   //  a=1 non esegue controllo non values, Mref e UVref input
   //  a=2 esegue controllo novalues, Mref e UVref input
 
-  Matrix<double> *M=nullptr;
+  Matrix<double> *M=NULL;
   long r=0, c=0, nr=0, nc=0;
-  double *header=nullptr, *m=nullptr;
+  double *header=NULL, *m=NULL;
   double Dxmap=0, Dymap=0, X0map=0, Y0map=0;
 
   if (a != 0 && a != 1

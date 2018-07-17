@@ -424,7 +424,7 @@ void multipass_topofilter(long ntimes, Matrix<double> *Zin, Matrix<double> *Zout
 
     }
 
-    delete[] M;
+    delete M;
 }
 
 /******************************************************************************************************************************************/

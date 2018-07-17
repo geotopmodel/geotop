@@ -179,7 +179,8 @@ short readline_par(FILE *f, long comment_char, long sepfield_char,
               else if (i == maxcharstring)
                 {
                   keyword = find_string(key, *keylength);
-                  geolog << "Warning: Keyword " << keyword  << " has argument string longer than " << maxcharstring  << " characters, only the first " << maxcharstring  << " characters are read" << std::endl;
+                  geolog << "Warning: Keyword " << keyword  << " has argument string longer than " << maxcharstring
+                         << " characters, only the first " << maxcharstring  << " characters are read" << std::endl;
                   free(keyword);
                   i++;
                 }
@@ -241,7 +242,8 @@ short readline_par(FILE *f, long comment_char, long sepfield_char,
           if (h == maxnumvect)
             {
               keyword = find_string(key, *keylength);
-              geolog <<"Warning: Keyword " << keyword  << " has number of vector components higher than " <<  maxnumvect << ", only the first " << maxnumvect << " components are read" << std::endl; 
+              geolog <<"Warning: Keyword " << keyword  << " has number of vector components higher than " <<  maxnumvect
+                     << ", only the first " << maxnumvect << " components are read" << std::endl;
               free(keyword);
             }
 

@@ -1894,7 +1894,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                                                  z0s, d0s, rz0s, z0v, d0v, rz0v, hveg, v, Ta, Qa, // 10 parameters
                                                  P, LR, (*SL->P)(0,j), eps, fc, LSAI, decaycoeff0, *Wcrn, Wcrnmax, *Wcsn,  // 10 parameters
                                                  Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0], sl->pa->co[sy], // 5 parameters
-                                                 (*land->ty)(lu,0), (*land->root_fraction)(lu,0), par, egy->soil_transp_layer.get(), SWin, // 5 parameters
+                                                 land->ty->row(lu), land->root_fraction->row(lu), par, egy->soil_transp_layer.get(), SWin, // 5 parameters
                                                  LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, // 10 parameters
                                                  Etrans, &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, // 10 parameters
                                                  rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, // 10 parameters
@@ -2282,10 +2282,8 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
                               pa[ja][l], pa[jns][l], 1.-1./pa[jns][l]);
       th_oversat = Fmax( (*S->P)(l,ch) - psisat, 0.0 ) * pa[jss][l];
 
-      (*th)(l,ch) = Fmax(0.,
-                           egy->liq->co[l+n]+egy->deltaw->co[l+n])/(rho_w*egy->Dlayer->co[l+n]);
-      (*S->thi)(l,ch) = Fmax(0.,
-                               egy->ice->co[l+n]-egy->deltaw->co[l+n])/(rho_w*egy->Dlayer->co[l+n]);
+      (*th)(l,ch) = Fmax(0., egy->liq->co[l+n]+egy->deltaw->co[l+n])/(rho_w*egy->Dlayer->co[l+n]);
+      (*S->thi)(l,ch) = Fmax(0., egy->ice->co[l+n]-egy->deltaw->co[l+n])/(rho_w*egy->Dlayer->co[l+n]);
 
       (*S->P)(l,ch) = psi_teta((*th)(l,ch)+th_oversat, (*S->thi)(l,ch),
                                  pa[jsat][l], pa[jres][l], pa[ja][l], pa[jns][l], 1.-1./pa[jns][l], PsiMin,
@@ -2317,8 +2315,7 @@ void update_F_energy(long nbeg, long nend, Vector<double> *F, double w,
         }
       else if (l<nend)
         {
-          F->co[l] += w*(K->co[l-1]*T[l-1] - (K->co[l]+K->co[l-1])*T[l] + K->co[l]*T[l
-                         +1]);
+          F->co[l] += w*(K->co[l-1]*T[l-1] - (K->co[l]+K->co[l-1])*T[l] + K->co[l]*T[l+1]);
         }
       else
         {
@@ -2595,7 +2592,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
                                     double decaycoeff0, double Wcrn,
                                     double Wcrnmax, double Wcsn, double Wcsnmax, double *dWcrn, double *dWcsn,
                                     double *theta, double **soil,
-                                    double land, double root, PAR *par,
+                                    MatrixRow<double> &&land, MatrixRow<double> &&root, PAR *par,
                                     Vector<double> *soil_transp_layer,
                                     double SWin, double LWin, double SWv, double *LW,
                                     double *H, double *dH_dT, double *E, double *dE_dT, double *LWv, double *Hv,

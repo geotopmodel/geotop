@@ -83,6 +83,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 {
     GEOLOG_PREFIX(__func__);
     /* internal auxiliary variables: */
+    std::cout << "START write_output" << std::endl;
     long i,j,r=0,c=0,l,m,sy; /*counters*/
     long n_file;      /*number of file of the type "TETAxySSSlZZ"(i.e. number of the basin-time-step)*/
     char NNNNN[ ]= {"NNNNN"};
@@ -135,6 +136,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     //DISCHARGE
     //**************************************************************************************************
     //**************************************************************************************************
+    std::cout << "DISCHARGE" << std::endl;
 
     if (par->state_discharge == 1 && par->Dtplot_discharge->co[i_sim] > 1.E-5
         && strcmp(files[fQ], string_novalue) != 0)
@@ -212,6 +214,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     //**************************************************************************************************
 
     // DATA POINT
+    std::cout << "DATA POINT" << std::endl;
+
     if (par->Dtplot_point->co[i_sim] > 1.E-5)
     {
 
@@ -353,6 +357,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     }
 
                     // Point data
+                    std::cout << "POINT DATA" << std::endl;
 
                     if (strcmp(files[fpoint], string_novalue) != 0)
                     {
@@ -489,6 +494,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     }
 
                     // Glacier
+                    std::cout << "GLACIER" << std::endl;
+
                     if (par->max_glac_layers>0)
                     {
                         if (strcmp(files[fglz], string_novalue) != 0)
@@ -760,12 +767,16 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     }
 
                     // sl output
+                    std::cout << "WRITE_SOIL_OUTPUT" << std::endl;
+
                     write_soil_output(i, (*par->IDpoint)(i), par->init_date->co[i_sim],
                                       par->end_date->co[i_sim], JDfrom0, JD,
                                       day, month, year, hour, minute,
                                       par->soil_plot_depths.get(), sl, par, (double)PsiMin, cosslope);
 
                     // snow output
+                    std::cout << "WRITE_SNOW_OUTPUT" << std::endl;
+
                     write_snow_output(i, (*par->IDpoint)(i), r, c, par->init_date->co[i_sim],
                                       par->end_date->co[i_sim], JDfrom0, JD,
                                       day, month, year, hour, minute,
@@ -817,6 +828,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     //BASIN DATA
     //*************************************************************************************************
     //*************************************************************************************************
+    std::cout << "BASIN DATA" << std::endl;
+
     if (par->Dtplot_basin->co[i_sim] > 1.E-5 && par->state_basin == 1)
     {
         t_basin += par->Dt;
@@ -970,6 +983,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     }
 
     //DISTRIBUTED OUTPUTS
+    std::cout << "DISTRIBUTED OUTPUTS" << std::endl;
+
     //**************************************************************************************************
     //**************************************************************************************************
     // averaging properties
@@ -1048,8 +1063,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     *V = double(number_novalue);
 
     // soil properties
-    if (par->output_soil->co[i_sim]>0
-        && fmod(times->time+par->Dt,par->output_soil->co[i_sim]*3600.0)<1.E-5)
+    std::cout << "SOIL PROPERTIES" << std::endl;
+
+    if (par->output_soil->co[i_sim]>0 && fmod(times->time+par->Dt,par->output_soil->co[i_sim]*3600.0)<1.E-5)
     {
         n_file=(long)((times->time+par->Dt)/(par->output_soil->co[i_sim]*3600.0));
         write_suffix(NNNNN, n_file, 1);
@@ -1072,6 +1088,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         free(s1);
 
         // theta liq tensor
+        std::cout << "THETA LIQ TENSOR" << std::endl;
+
         if (strcmp(files[fliq], string_novalue) != 0)
         {
             if ((long)par->soil_plot_depths->co[1] != number_novalue)
@@ -1088,6 +1106,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         }
 
         // theta liq surface
+        std::cout << "THETA LIQ SURFACE" << std::endl;
+
         if (strcmp(files[fliqsup], string_novalue) != 0)
         {
             for (i=1; i<=par->total_pixel; i++)
