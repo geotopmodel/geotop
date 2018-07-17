@@ -138,7 +138,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
         free(top->horizon_height);
         free(top->horizon_numlines);
 
-        free_longmatrix(top->horizon_point);
     }
 
 

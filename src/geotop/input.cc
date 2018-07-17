@@ -3240,12 +3240,11 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             else
             {
                 P.reset(new Matrix<double>{Z->nrh,Z->nch});
-                curv=new_shortmatrix(Z->nrh,Z->nch);
-                nablaquadro_mask(Z, curv, UV->U.get(), UV->V.get());
-                sky_view_factor(P, 36, UV, Z, curv, number_novalue);
-                free_shortmatrix(curv);
-                if (flag==0) write_map(files[fsky], 0, par->format_out, P, UV,
-                                       number_novalue);
+                curv = new Matrix<short>{Z->nrh,Z->nch};
+                nablaquadro_mask(Z.get(), curv, UV->U.get(), UV->V.get());
+                sky_view_factor(P.get(), 36, UV, Z.get(), curv, number_novalue);
+                delete curv;
+                if (flag==0) write_map(files[fsky], 0, par->format_out, P.get(), UV, number_novalue);
             }
         }
     }
@@ -3280,11 +3279,11 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             if (read_dem==0)
             {
                 Q.reset(new Matrix<double>{1,1});
-                P=read_map(0, files[fbed], Q, UV, (double)number_novalue);
+                P.reset(read_map(0, files[fbed], Q.get(), UV, (double)number_novalue));
             }
             else
             {
-                P=read_map(1, files[fbed], Z, UV, (double)number_novalue);
+                P.reset(read_map(1, files[fbed], Z.get(), UV, (double)number_novalue));
             }
         }
         else
@@ -3333,36 +3332,36 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             S.reset(new Matrix<double>{Z->nrh,Z->nch});
             T.reset(new Matrix<double>{Z->nrh,Z->nch});
 
-            multipass_topofilter(par->lowpass_curvatures, Z, Q, (double)number_novalue, 1);
-            curvature(UV->U->co[1], UV->U->co[2], Q, P, R, S, T, (double)number_novalue);
+            multipass_topofilter(par->lowpass_curvatures, Z.get(), Q.get(), (double)number_novalue, 1);
+            curvature(UV->U->co[1], UV->U->co[2], Q.get(), P.get(), R.get(), S.get(), T.get(), (double)number_novalue);
 
             if (strcmp(files[fcurv],string_novalue) != 0)
             {
                 temp = join_strings(files[fcurv], "N-S");
-                write_map(temp, 0, par->format_out, P, UV, number_novalue);
+                write_map(temp, 0, par->format_out, P.get(), UV, number_novalue);
                 free(temp);
                 temp = join_strings(files[fcurv], "W-E");
-                write_map(temp, 0, par->format_out, R, UV, number_novalue);
+                write_map(temp, 0, par->format_out, R.get(), UV, number_novalue);
                 free(temp);
                 temp = join_strings(files[fcurv], "NW-SE");
-                write_map(temp, 0, par->format_out, S, UV, number_novalue);
+                write_map(temp, 0, par->format_out, S.get(), UV, number_novalue);
                 free(temp);
                 temp = join_strings(files[fcurv], "NE-SW");
-                write_map(temp, 0, par->format_out, T, UV, number_novalue);
+                write_map(temp, 0, par->format_out, T.get(), UV, number_novalue);
                 free(temp);
             }
 
-            find_min_max(P, (double)number_novalue, &max, &min);
+            find_min_max(P.get(), (double)number_novalue, &max, &min);
             geolog << "Curvature N-S Min:" << min << " Max:" << max << std::endl;
 
 
-            find_min_max(R, (double)number_novalue, &max, &min);
+            find_min_max(R.get(), (double)number_novalue, &max, &min);
             geolog << "Curvature W-E Min:" << min << " Max:" << max << std::endl;
 
-            find_min_max(S, (double)number_novalue, &max, &min);
+            find_min_max(S.get(), (double)number_novalue, &max, &min);
             geolog << "Curvature NW-SE Min:" << min << " Max:" << max << std::endl;
 
-            find_min_max(T, (double)number_novalue, &max, &min);
+            find_min_max(T.get(), (double)number_novalue, &max, &min);
             geolog << "Curvature NE-SW Min:" << min << " Max:" << max << std::endl;
         }
     }
@@ -3377,13 +3376,13 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
                 (*par->chkpt)(i,ptCNS)= (*P)(r,c);
 
             if ((long)(*par->chkpt)(i,ptCWE)==number_novalue)
-                (*par->chkpt)(i,ptCWE)= R->co[r][c];
+                (*par->chkpt)(i,ptCWE)= (*R)(r,c);
 
             if ((long)(*par->chkpt)(i,ptCNwSe)==number_novalue)
-                (*par->chkpt)(i,ptCNwSe)=S->co[r][c];
+                (*par->chkpt)(i,ptCNwSe)=(*S)(r,c);
 
             if ((long)(*par->chkpt)(i,ptCNeSw)==number_novalue)
-                (*par->chkpt)(i,ptCNeSw)=T->co[r][c];
+                (*par->chkpt)(i,ptCNeSw)=(*T)(r,c);
         }
     }
 
@@ -3421,8 +3420,8 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
         if ((long)(*par->chkpt)(i,ptCNeSw)==number_novalue)
             (*par->chkpt)(i,ptCNeSw)=0.0;
 
-        if ((long)par->chkpt->co[i][ptDrDEPTH]==number_novalue)
-            par->chkpt->co[i][ptDrDEPTH]=par->DepthFreeSurface; // [mm]
+        if ((long)(*par->chkpt)(i,ptDrDEPTH)==number_novalue)
+            (*par->chkpt)(i,ptDrDEPTH)=par->DepthFreeSurface; // [mm]
 
         if ((long)(*par->chkpt)(i,ptMAXSWE)==number_novalue)
             (*par->chkpt)(i,ptMAXSWE)=1.E10; // [mm]
@@ -3436,8 +3435,8 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
         if ((long)(*par->chkpt)(i,ptID)==number_novalue)
             (*par->chkpt)(i,ptID) = (double)i;
 
-        if ((long)par->chkpt->co[i][ptHOR]==number_novalue)
-            par->chkpt->co[i][ptHOR] = (*par->chkpt)(i,ptID);
+        if ((long)(*par->chkpt)(i,ptHOR)==number_novalue)
+            (*par->chkpt)(i,ptHOR) = (*par->chkpt)(i,ptID);
     }
 
     // ---------------------- (i) Show results ----------------------
@@ -3450,7 +3449,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
     {
         for (c=1; c<=ptTOT; c++)
         {
-            geolog << par->chkpt->co[r][c];
+            geolog << (*par->chkpt)(r,c);
             if (c<ptTOT) geolog << ",";
         }
         geolog << std::endl;
@@ -3516,10 +3515,10 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
     top->sky.reset(new Matrix<double>{1,par->chkpt->nrh});
 
     top->pixel_type.reset(new Matrix<short>{1,par->chkpt->nrh});
-    top->BC_counter=new_longmatrix(1,par->chkpt->nrh);
+    top->BC_counter.reset(new Matrix<long>{1,par->chkpt->nrh});
     top->BC_DepthFreeSurface.reset(new Vector<double>{par->chkpt->nrh});
     par->maxSWE.reset(new Matrix<double>{1,par->chkpt->nrh});
-    top->horizon_point=new_longmatrix(1,par->chkpt->nrh);
+    top->horizon_point.reset(new Matrix<long>{1,par->chkpt->nrh});
     top->dzdE.reset(new Matrix<double>{1,par->chkpt->nrh});
     top->dzdN.reset(new Matrix<double>{1,par->chkpt->nrh});
     top->latitude.reset(new Matrix<double>{1,par->chkpt->nrh});
@@ -3563,7 +3562,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
         (*top->pixel_type)(1,i)=1;
         (*top->BC_counter)(1,i)=i;
         top->BC_DepthFreeSurface->co[i] = (*par->chkpt)(i,ptDrDEPTH);
-        (top->horizon_point->co[1][i]=(long)(*par->chkpt)(i,ptHOR);
+        (*top->horizon_point)(1,i)=(long)(*par->chkpt)(i,ptHOR);
         (*top->dzdE)(1,i)=0.;
         (*top->dzdN)(1,i)=0.;
         (*land->delay)(1,i)=0.;
@@ -3610,8 +3609,8 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
     {
         for (c=1; c<=top->horizon_point->nch; c++)
         {
-            if (top->horizon_point->co[r][c] > top->num_horizon_point)
-                top->num_horizon_point = top->horizon_point->co[r][c];
+            if ((*top->horizon_point)(r,c) > top->num_horizon_point)
+                top->num_horizon_point = (*top->horizon_point)(r,c);
         }
     }
     top->horizon_height=(double ***)malloc(top->num_horizon_point*sizeof(double **));
@@ -3624,12 +3623,12 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
             flag = 0;
             if (c < par->chkpt->nrh)
             {
-                if (top->horizon_point->co[1][c+1] != i)
+                if ((*top->horizon_point)(1,c+1) != i)
                     c++;
             }
             if (c < par->chkpt->nrh)
             {
-                if (top->horizon_point->co[1][c+1] != i)
+                if ((*top->horizon_point)(1,c+1) != i)
                     flag=1;
             }
 
@@ -3677,7 +3676,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
     {
         r = (*top->rc_cont)(i,1);
         c = (*top->rc_cont)(i,2);
-        if (IT->bed->co[r][c] < z) yes = 1;
+        if ((*IT->bed)(r,c) < z) yes = 1;
     }
 
     if (yes == 1)
@@ -3748,7 +3747,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
 
             IT->init_water_table_depth->co[synew] = WT->co[sy];
 
-            zlim = IT->bed->co[r][c];
+            zlim = (*IT->bed)(r,c);
 
             for (l=1; l<=Nl; l++)
             {

@@ -501,8 +501,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
       A->E->sinhsun = adaptiveSimpsons2(Sinalpha_, A->E->sun, JDb, JDe, 1.E-6,
                                         20) / (JDe - JDb);
       if (A->P->cast_shadow==1) A->L->shadow->co[r][c]=shadows_point(
-                                                           A->T->horizon_height[A->T->horizon_point->co[r][c]-1],
-                                                           A->T->horizon_numlines[A->T->horizon_point->co[r][c]-1], A->E->hsun*180./Pi,
+                                                           A->T->horizon_height[(*A->T->horizon_point)(r,c)-1],
+                                                           A->T->horizon_numlines[(*A->T->horizon_point)(r,c)-1], A->E->hsun*180./Pi,
                                                            A->E->dsun*180/Pi, 0., 0.);
     }
 

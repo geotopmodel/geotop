@@ -890,7 +890,7 @@ void write_tensorseries2(char *suf, long l, char *filename, short type,
 /******************************************************************************************************************************************/
 
 void write_tensorseries2_vector(char *suf, long l, char *filename, short type,
-                                short format, DOUBLEMATRIX *T, T_INIT *UV, long novalue, long **J, long nr,
+                                short format, Matrix<double> *T, T_INIT *UV, long novalue, long **J, long nr,
                                 long nc)
 {
 
@@ -906,7 +906,7 @@ void write_tensorseries2_vector(char *suf, long l, char *filename, short type,
 
   for (i=1; i<=npoints; i++)
     {
-      V->co[i] = T->co[l][i];
+      V->co[i] = (*T)(l,i);
     }
 
   temp2 = join_strings(filename, temp1);

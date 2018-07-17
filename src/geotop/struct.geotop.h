@@ -192,7 +192,7 @@ typedef struct {
 
     double ***horizon_height;
     long *horizon_numlines;
-    LONGMATRIX *horizon_point;
+    std::unique_ptr<Matrix<long>> horizon_point;
     long num_horizon_point;
 
     long ***i_cont;

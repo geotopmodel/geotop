@@ -2387,7 +2387,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 name = join_strings(files[rns], NNNN);
                 rename_map(name);
-                M = copydouble_longmatrix(snow->S->lnum);
+                M=copydouble_longmatrix(snow->S->lnum.get());
                 write_map(name, 1, par->format_out, M, UV, number_novalue);
                 free(name);
             }
@@ -2426,7 +2426,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 {
                     name = join_strings(files[rni], NNNN);
                     rename_map(name);
-                    M=copydouble_longmatrix(glac->G->lnum);
+                    M=copydouble_longmatrix(glac->G->lnum.get());
                     write_map(name, 1, par->format_out, M, UV, number_novalue);
                     free(name);
                 }
@@ -2434,7 +2434,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
             if (strcmp(files[rpsich], string_novalue) != 0)
             {
-                M.reset(new Matrix<double>{Nl,0,par->total_pixel,1});
+                M = new Matrix<double>{Nl,0,par->total_pixel,1};
                 for (l=0; l<=Nl; l++)
                 {
                     rename_tensorseries(1, l, 0, files[rpsich]);
@@ -2455,7 +2455,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
             if (strcmp(files[rTgch], string_novalue) != 0)
             {
-                M.reset(new Matrix<double>{Nl, par->total_pixel});
+                M = new Matrix<double>{Nl, par->total_pixel};
                 for (l=1; l<=Nl; l++)
                 {
                     rename_tensorseries(1, l, 0, files[rTgch]);
@@ -2476,7 +2476,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
             if (strcmp(files[ricegch], string_novalue) != 0)
             {
-                M.reset(new Matrix<double>{Nl, par->total_pixel});
+                M = new Matrix<double>{Nl, par->total_pixel};
                 for (l=1; l<=Nl; l++)
                 {
                     rename_tensorseries(1, l, 0, files[ricegch]);
@@ -2496,21 +2496,28 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             }
 
             if (par->Tzrun == 1 && strcmp(files[rTrun], string_novalue) != 0)
-                print_run_averages_for_recover(sl->Tzrun, files[rTrun], top->j_cont, par, Nl, Nr, Nc);
+                print_run_averages_for_recover(sl->Tzrun.get(), files[rTrun], top->j_cont, par, Nl, Nr, Nc);
+            
             if (par->wzrun == 1 && strcmp(files[rTrun], string_novalue) != 0)
-                print_run_averages_for_recover( sl->wzrun, files[rwrun], top->j_cont, par, Nl, Nr, Nc);
+                print_run_averages_for_recover( sl->wzrun.get(), files[rwrun], top->j_cont, par, Nl, Nr, Nc);
+            
             if (par->Tzmaxrun == 1 && strcmp(files[rTmaxrun], string_novalue) != 0)
-                print_run_averages_for_recover(sl->Tzmaxrun,files[rTmaxrun], top->j_cont, par, Nl, Nr, Nc);
+                print_run_averages_for_recover(sl->Tzmaxrun.get(),files[rTmaxrun], top->j_cont, par, Nl, Nr, Nc);
+            
             if (par->wzmaxrun == 1 && strcmp(files[rwmaxrun], string_novalue) != 0)
-                print_run_averages_for_recover(sl->wzmaxrun,files[rwmaxrun], top->j_cont, par, Nl, Nr, Nc);
+                print_run_averages_for_recover(sl->wzmaxrun.get(),files[rwmaxrun], top->j_cont, par, Nl, Nr, Nc);
+            
             if (par->Tzminrun == 1 && strcmp(files[rTminrun], string_novalue) != 0)
-                print_run_averages_for_recover(sl->Tzminrun,files[rTminrun], top->j_cont, par, Nl, Nr, Nc);
+                print_run_averages_for_recover(sl->Tzminrun.get(),files[rTminrun], top->j_cont, par, Nl, Nr, Nc);
+            
             if (par->wzminrun == 1 && strcmp(files[rwminrun], string_novalue) != 0)
-                print_run_averages_for_recover(sl->wzminrun,files[rwminrun], top->j_cont, par, Nl, Nr, Nc);
+                print_run_averages_for_recover(sl->wzminrun.get(),files[rwminrun], top->j_cont, par, Nl, Nr, Nc);
+            
             if (par->dUzrun == 1 && strcmp(files[rdUrun], string_novalue) != 0)
-                print_run_averages_for_recover(sl->dUzrun, files[rdUrun], top->j_cont, par, Nl, Nr, Nc);
+                print_run_averages_for_recover(sl->dUzrun.get(), files[rdUrun], top->j_cont, par, Nl, Nr, Nc);
+            
             if (par->SWErun == 1 && strcmp(files[rSWErun], string_novalue) != 0)
-                print_run_averages_for_recover(sl->SWErun, files[rSWErun], top->j_cont, par, 3, Nr, Nc);
+                print_run_averages_for_recover(sl->SWErun.get(), files[rSWErun], top->j_cont, par, 3, Nr, Nc);
 
             if (strcmp(files[rsux], string_novalue) != 0)
             {
@@ -3826,7 +3833,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Tzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Tzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -3835,7 +3842,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[fTzwriteend], string_novalue) != 0)
     {
         write_soil_file(1, iname, ffT, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Tzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Tzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
     }
 
     if (strcmp(files[fTzav], string_novalue) != 0)
@@ -3861,7 +3868,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Tzavplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Tzavplot->row(i), n, sl->pa->co[1][jdz], cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -3870,7 +3877,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[fTzavwriteend], string_novalue) != 0)
     {
         write_soil_file(1, iname, ffTav, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Tzavplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Tzavplot->row(i), n, sl->pa->co[1][jdz], cosslope);
     }
 
     if (strcmp(files[fpsiztot], string_novalue) != 0)
@@ -3896,7 +3903,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Ptotzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Ptotzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -3905,7 +3912,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[fpsiztotwriteend], string_novalue) != 0)
     {
         write_soil_file(1, iname, ffpsitot, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Ptotzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Ptotzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
     }
 
     if (strcmp(files[fpsiz], string_novalue) != 0)
@@ -3931,7 +3938,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(0, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Pzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Pzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -3940,7 +3947,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[fpsizwriteend], string_novalue) != 0)
     {
         write_soil_file(0, iname, ffpsi, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Pzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Pzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
     }
 
     if (strcmp(files[fliqz], string_novalue) != 0)
@@ -3966,7 +3973,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -3975,7 +3982,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[fliqzwriteend], string_novalue) != 0)
     {
         write_soil_file(1, iname, ffliq, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thzplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
     }
 
     if (strcmp(files[fliqzav], string_novalue) != 0)
@@ -4001,7 +4008,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thzavplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thzavplot->row(i), n, sl->pa->co[1][jdz], cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -4010,7 +4017,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[fliqzavwriteend], string_novalue) != 0)
     {
         write_soil_file(1, iname, ffliqav, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thzavplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thzavplot->row(i), n, sl->pa->co[1][jdz], cosslope);
     }
 
     if (strcmp(files[ficez], string_novalue) != 0)
@@ -4036,7 +4043,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thizplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thizplot->row(i), n, sl->pa->co[1][jdz], cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -4045,7 +4052,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[ficezwriteend], string_novalue) != 0)
     {
         write_soil_file(1, iname, ffice, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thizplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thizplot->row(i), n, sl->pa->co[1][jdz], cosslope);
     }
 
     if (strcmp(files[ficezav], string_novalue) != 0)
@@ -4071,7 +4078,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thizavplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thizavplot->row(i), n, sl->pa->co[1][jdz], cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -4080,7 +4087,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[ficezavwriteend], string_novalue) != 0)
     {
         write_soil_file(1, iname, fficeav, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thizavplot->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thizavplot->row(i), n, sl->pa->co[1][jdz], cosslope);
     }
 
     if (strcmp(files[fsatz], string_novalue) != 0)
@@ -4106,7 +4113,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->satratio->co[i], n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->satratio->row(i), n, sl->pa->co[1][jdz], cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -4306,7 +4313,7 @@ void write_snow_output(long i, long iname, long r, long c, double init_date,
 
 void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
                      long h, long mi, double JDfrom0, double JDfrom0init,
-                     double JDfrom0end, double *var, Vector<double>* n, double *dz, double cosslope)
+                     double JDfrom0end, MatrixRow<double> &&var, Vector<double> *n, double *dz, double cosslope)
 {
 
     short first_column=1;
@@ -4611,7 +4618,7 @@ void plot(char *name, long i_plot, Vector<double>* V, short format, long **J)
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-double interpolate_soil(long lmin, double h, long max, double *Dz, double *Q)
+double interpolate_soil(long lmin, double h, long max, double *Dz, MatrixRow<double> &Q)
 {
 
     double q, z, z0=0.;
@@ -4701,15 +4708,15 @@ double interpolate_soil2(long lmin, double h, long max, double *Dz, Matrix<doubl
         {
             if (l == lmin)
             {
-                q = Q->co[l][i];
+                q = (*Q)(l,i);
             }
             else if (l <= max)
             {
-                q = ( Q->co[l-1][i] * (z-h) + Q->co[l][i] * (h-z0) ) / (z - z0);
+                q = ( (*Q)(l-1,i) * (z-h) + (*Q)(l,i) * (h-z0) ) / (z - z0);
             }
             else
             {
-                q = Q->co[max][i];
+                q = (*Q)(max,i);
             }
         }
 
@@ -4781,8 +4788,8 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
         {
             r = (*top->rc_cont)(j,1);
             c = (*top->rc_cont)(j,2);
-            if (strcmp(files[fpnet],
-                       string_novalue) != 0) sl->Pnetcum->co[j] += wat->Pnet->co[r][c];
+            if (strcmp(files[fpnet], string_novalue) != 0) 
+                sl->Pnetcum->co[j] += (*wat->Pnet)(r,c);
             if (strcmp(files[fevap], string_novalue) != 0)
             {
                 for (i=1; i<=Nl; i++)
@@ -4794,10 +4801,10 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
 
         if (par->output_snow->co[i_sim]>0)
         {
-            if (strcmp(files[fsnowmelt],
-                       string_novalue) != 0) snow->MELTED->co[j] += snow->melted->co[j];
-            if (strcmp(files[fsnowsubl],
-                       string_novalue) != 0) snow->SUBL->co[j] += snow->subl->co[j];
+            if (strcmp(files[fsnowmelt], string_novalue) != 0)
+                snow->MELTED->co[j] += snow->melted->co[j];
+            if (strcmp(files[fsnowsubl], string_novalue) != 0)
+                snow->SUBL->co[j] += snow->subl->co[j];
             if (strcmp(files[fsndur], string_novalue) != 0)
             {
                 if ((*snow->yes)(j) == 1) snow->t_snow->co[j] += Dt/secinday;
@@ -4806,10 +4813,10 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
 
         if (par->max_glac_layers>0 && par->output_glac->co[i_sim]>0)
         {
-            if (strcmp(files[fglacmelt],
-                       string_novalue) != 0) glac->MELTED->co[j] += glac->melted->co[j];
-            if (strcmp(files[fglacsubl],
-                       string_novalue) != 0) glac->SUBL->co[j] += glac->subl->co[j];
+            if (strcmp(files[fglacmelt], string_novalue) != 0)
+                glac->MELTED->co[j] += glac->melted->co[j];
+            if (strcmp(files[fglacsubl], string_novalue) != 0)
+                glac->SUBL->co[j] += glac->subl->co[j];
         }
 
         if (par->output_surfenergy->co[i_sim]>0)
@@ -4903,21 +4910,21 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                 egy->Tgplot->co[j] += egy->Tgp->co[j];
             
             if (strcmp(files[pD], string_novalue) != 0) 
-                snow->Dplot->co[j] += W * DEPTH((*top->rc_cont)(j,1), (*top->rc_cont)(j,2), snow->S->lnum, snow->S->Dzl);
+                snow->Dplot->co[j] += W * DEPTH((*top->rc_cont)(j,1), (*top->rc_cont)(j,2), snow->S->lnum.get(), snow->S->Dzl);
             
             if (strcmp(files[pTa], string_novalue) != 0) 
-                met->Taplot->co[j] += W * met->Tgrid->co[(*top->rc_cont)(j,1)][(*top->rc_cont)(j,2)];
+                met->Taplot->co[j] += W * (*met->Tgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2));
             
             if (strcmp(files[pRH], string_novalue) != 0) 
-                met->RHplot->co[j] += W * met->RHgrid->co[(*top->rc_cont)(j,1)][(*top->rc_cont)(j,2)];
+                met->RHplot->co[j] += W * (*met->RHgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2));
             
             if (strcmp(files[pVspd], string_novalue) != 0
                 || strcmp(files[pVdir], string_novalue) != 0)
             {
-                met->Vxplot->co[j] -= W * met->Vgrid->co[(*top->rc_cont)(j,1)][(*top->rc_cont)(j,2)] 
-                                      * sin( met->Vdir->co[(*top->rc_cont)(j,1)][(*top->rc_cont)(j,2)]*Pi/180.);
-                met->Vyplot->co[j] -= W * met->Vgrid->co[(*top->rc_cont)(j,1)][(*top->rc_cont)(j,2)] 
-                                      * cos(met->Vdir->co[(*top->rc_cont)(j,1)][(*top->rc_cont)(j,2)]*Pi/180.);
+                met->Vxplot->co[j] -= W * (*met->Vgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2)) 
+                                      * sin( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*Pi/180. );
+                met->Vyplot->co[j] -= W * (*met->Vgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2)) 
+                                      * cos( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*Pi/180. );
             }
 
         }
@@ -5035,7 +5042,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
             fprintf(f, "%ld,%ld,%ld",i_sim,i_run,(*par->IDpoint)(j));
             for (l=1; l<=n; l++)
             {
-                fprintf(f, ",%f",sl->Tzrun->co[j][l]);
+                fprintf(f, ",%f", (*sl->Tzrun)(j,l));
             }
             for (l=n+1; l<=Nl; l++)
             {
@@ -5104,7 +5111,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
             fprintf(f, "%ld,%ld,%ld",i_sim,i_run,(*par->IDpoint)(j));
             for (l=1; l<=n; l++)
             {
-                fprintf(f, ",%f",sl->Tzmaxrun->co[j][l]);
+                fprintf(f, ",%f",(*sl->Tzmaxrun)(j,l));
             }
             for (l=n+1; l<=Nl; l++)
             {
@@ -5142,7 +5149,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
             fprintf(f, "%ld,%ld,%ld",i_sim,i_run,(*par->IDpoint)(j));
             for (l=1; l<=n; l++)
             {
-                fprintf(f, ",%f",sl->wzmaxrun->co[j][l]);
+                fprintf(f, ",%f",(*sl->wzmaxrun)(j,l));
             }
             for (l=n+1; l<=Nl; l++)
             {
@@ -5182,7 +5189,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
             fprintf(f, "%ld,%ld,%ld",i_sim,i_run,(*par->IDpoint)(j));
             for (l=1; l<=n; l++)
             {
-                fprintf(f, ",%f",sl->Tzminrun->co[j][l]);
+                fprintf(f, ",%f",(*sl->Tzminrun)(j,l));
             }
             for (l=n+1; l<=Nl; l++)
             {
@@ -5220,7 +5227,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
             fprintf(f, "%ld,%ld,%ld",i_sim,i_run,(*par->IDpoint)(j));
             for (l=1; l<=n; l++)
             {
-                fprintf(f, ",%f",sl->wzminrun->co[j][l]);
+                fprintf(f, ",%f",(*sl->wzminrun)(j,l));
             }
             for (l=n+1; l<=Nl; l++)
             {
@@ -5259,7 +5266,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
             fprintf(f, "%ld,%ld,%ld",i_sim,i_run,(*par->IDpoint)(j));
             for (l=1; l<=Nl; l++)
             {
-                fprintf(f, ",%f",sl->dUzrun->co[j][l]);
+                fprintf(f, ",%f",(*sl->dUzrun)(j,l));
             }
             fprintf(f, "\n");
         }
@@ -5291,7 +5298,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
             fprintf(f, "%ld,%ld,%ld",i_sim,i_run,(*par->IDpoint)(j));
             for (l=1; l<=3; l++)
             {
-                fprintf(f, ",%f",sl->SWErun->co[j][l]);
+                fprintf(f, ",%f",(*sl->SWErun)(j,l));
             }
             fprintf(f, "\n");
         }
@@ -5317,19 +5324,19 @@ void init_run(SOIL *sl, PAR *par)
         {
             for (l=1; l<=Nl; l++)
             {
-                if (par->Tzrun == 1) sl->Tzrun->co[j][l] = 0.;
-                if (par->wzrun == 1) sl->wzrun->co[j][l] = 0.;
-                if (par->dUzrun == 1) sl->dUzrun->co[j][l] = 0.;
-                if (par->Tzmaxrun == 1) sl->Tzmaxrun->co[j][l] = -1.E99;
-                if (par->Tzminrun == 1) sl->Tzminrun->co[j][l] = 1.E99;
-                if (par->wzmaxrun == 1) sl->wzmaxrun->co[j][l] = -1.E99;
-                if (par->wzminrun == 1) sl->wzminrun->co[j][l] = 1.E99;
+                if (par->Tzrun == 1) (*sl->Tzrun)(j,l) = 0.;
+                if (par->wzrun == 1) (*sl->wzrun)(j,l) = 0.;
+                if (par->dUzrun == 1) (*sl->dUzrun)(j,l) = 0.;
+                if (par->Tzmaxrun == 1) (*sl->Tzmaxrun)(j,l) = -1.E99;
+                if (par->Tzminrun == 1) (*sl->Tzminrun)(j,l) = 1.E99;
+                if (par->wzmaxrun == 1) (*sl->wzmaxrun)(j,l) = -1.E99;
+                if (par->wzminrun == 1) (*sl->wzminrun)(j,l) = 1.E99;
             }
             if (par->SWErun == 1)
             {
-                sl->SWErun->co[j][1] = 0.;
-                sl->SWErun->co[j][2] = -1.E99;
-                sl->SWErun->co[j][3] = 1.E99;
+                (*sl->SWErun)(j,1) = 0.;
+                (*sl->SWErun)(j,2) = -1.E99;
+                (*sl->SWErun)(j,3) = 1.E99;
             }
         }
     }
@@ -5359,12 +5366,11 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
         {
             for (l=1; l<=n; l++)
             {
-                (*sl->SS->T)(l,j) = sl->Tzrun->co[j][l];
-                (*sl->Ptot)(l,j) = psi_from_theta(
-                        sl->wzrun->co[j][l]/sl->pa->co[sy][jdz][l], 0., l, sl->pa->co[sy], PsiMin);
-                (*sl->SS->P)(l,j) = Fmin(Psif(sl->Tzrun->co[j][l]),(*sl->Ptot)(l,j));
+                (*sl->SS->T)(l,j) = (*sl->Tzrun)(j,l);
+                (*sl->Ptot)(l,j) = psi_from_theta( (*sl->wzrun)(j,l)/sl->pa->co[sy][jdz][l], 0., l, sl->pa->co[sy], PsiMin );
+                (*sl->SS->P)(l,j) = Fmin(Psif((*sl->Tzrun)(j,l)),(*sl->Ptot)(l,j));
                 (*sl->th)(l,j) = theta_from_psi((*sl->SS->P)(l,j), 0., l, sl->pa->co[sy], PsiMin);
-                (*sl->SS->thi)(l,j) = sl->wzrun->co[j][l]/sl->pa->co[sy][jdz][l] - (*sl->th)(l,j);
+                (*sl->SS->thi)(l,j) = (*sl->wzrun)(j,l)/sl->pa->co[sy][jdz][l] - (*sl->th)(l,j);
             }
             Tlow = (*sl->SS->T)(n,j);
             Ptlow = (*sl->Ptot)(n,j);
@@ -5373,12 +5379,10 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
         }
         else if (par->newperiodinit == 1)
         {
-            Tlow = sl->Tzrun->co[j][n];
-            Ptlow = psi_from_theta(sl->wzrun->co[j][n]/sl->pa->co[sy][jdz][n], 0., n,
-                                   sl->pa->co[sy], PsiMin);
-            thwlow = theta_from_psi(Fmin(Psif(Tlow),Ptlow), 0., n, sl->pa->co[sy],
-                                    PsiMin);
-            thilow = sl->wzrun->co[j][n]/sl->pa->co[sy][jdz][n] - thwlow;
+            Tlow = (*sl->Tzrun)(j,n);
+            Ptlow = psi_from_theta((*sl->wzrun)(j,n)/sl->pa->co[sy][jdz][n], 0., n, sl->pa->co[sy], PsiMin);
+            thwlow = theta_from_psi(Fmin(Psif(Tlow),Ptlow), 0., n, sl->pa->co[sy],PsiMin);
+            thilow = (*sl->wzrun)(j,n)/sl->pa->co[sy][jdz][n] - thwlow;
         }
 
         z = 0.;

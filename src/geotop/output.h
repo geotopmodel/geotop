@@ -38,7 +38,7 @@ void write_snow_output(long i, long iname, long r, long c, double init_date,
 
 void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
                      long h, long mi, double JDfrom0, double JDfrom0init,
-                     double JDfrom0end, double *var, Vector<double>* n, double *dz, double cosslope);
+                     double JDfrom0end, MatrixRow<double> &&var, Vector<double> *n, double *dz, double cosslope);
 
 void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
                      long d, long m, long y, long h, long mi, double JDfrom0,
@@ -52,7 +52,7 @@ void write_snow_header(short a, long r, long c, FILE *f, Vector<double>* n,
 
 void plot(char *name, long i_plot, Vector<double>* V, short format, long **J);
 
-double interpolate_soil(long lmin, double h, long max, double *Dz, double *Q);
+double interpolate_soil(long lmin, double h, long max, double *Dz, MatrixRow<double> &Q);
 
 double interpolate_soil2(long lmin, double h, long max, double *Dz,
                          Matrix<double> *Q, long i);
