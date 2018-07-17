@@ -307,13 +307,13 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
     top->Z = find_Z_of_any_layer(top->Z0.get(), top->slope.get(), land->LC.get(), sl, par->point_sim);
 
-    top->Jdown = new_longmatrix(par->total_pixel, 4);
+    top->Jdown.reset(new Matrix<long>{par->total_pixel, 4});
     top->Qdown.reset(new Matrix<double>{par->total_pixel, 4});
     for (i=1; i<=par->total_pixel; i++)
     {
         for (j=1; j<=4; j++)
         {
-            top->Jdown->co[i][j] = i;
+            (*top->Jdown)(i,j)= i;
             (*top->Qdown)(i,j) = 0.;
         }
     }
@@ -699,8 +699,7 @@ keyword LinearInterpolation at 1.\n");
     // Completing of "land" (of the type LAND):
 
     // Initialize matrix of shadow
-    land->shadow=new_shortmatrix(Nr,Nc);
-    initialize_shortmatrix(land->shadow, 0); /* initialized as if it was always NOT in shadow */
+    land->shadow.reset(new Matrix<short>{Nr,Nc}); /* initialized as if it was always NOT in shadow */
 
     // Check that there aren't cell with an undefined land use value
     z = 0.;
@@ -864,10 +863,9 @@ land cover %ld, meteo station %ld\n",
         cnet->ch3[l] = (long *)malloc((i+1)*sizeof(long));
     }
 
-    cnet->lch = new_longmatrix( (Nl+1)*i, 2);
-    initialize_longmatrix(cnet->lch, 0);
+    cnet->lch.reset(new Matrix<long>{(Nl+1)*i, 2});
 
-    lch3_cont(cnet->ch3, cnet->lch, Nl, par->total_channel);
+    lch3_cont(cnet->ch3, cnet->lch.get(), Nl, par->total_channel);
 
 
     /**************************************************************************************************/
@@ -885,10 +883,9 @@ land cover %ld, meteo station %ld\n",
         }
     }
 
-    top->lrc_cont=new_longmatrix( (n+1)*par->total_pixel, 3);
-    initialize_longmatrix(top->lrc_cont, 0);
+    top->lrc_cont.reset(new Matrix<long>{(n+1)*par->total_pixel, 3});
 
-    i_lrc_cont(land->LC.get(), top->i_cont, top->lrc_cont, n, Nr, Nc);
+    i_lrc_cont(land->LC.get(), top->i_cont, top->lrc_cont.get(), n, Nr, Nc);
 
     // 2D
     top->j_cont=(long **)malloc((Nr+1)*sizeof(long *));
@@ -913,8 +910,8 @@ land cover %ld, meteo station %ld\n",
         {
             for (j=1; j<=par->rc->nrh; j++)
             {
-                if ((*top->rc_cont)(i,1) == par->rc->co[j][1]
-                    && (*top->rc_cont)(i,2) == par->rc->co[j][2])
+                if ((*top->rc_cont)(i,1) == (*par->rc)(j,1)
+                    && (*top->rc_cont)(i,2) == (*par->rc)(j,2))
                 {
                     (*par->jplot)(i) = j;
                 }
@@ -1814,7 +1811,7 @@ land cover %ld, meteo station %ld\n",
 
     if (recovered > 0)
     {
-        initialize_shortmatrix(snow->S->type, 2);
+        (*snow->S->type) = 2;
 
         assign_recovered_map_long(old, par->recover, files[rns], snow->S->lnum.get(), par, land->LC.get());
         // initialize_longmatrix(snow->S->lnum, snow->S->Dzl->ndh);
@@ -2361,8 +2358,8 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         for (j=1; j<=par->rc->nrh; j++)
         {
 
-            r = par->rc->co[j][1];
-            c = par->rc->co[j][2];
+            r = (*par->rc)(j,1);
+            c = (*par->rc)(j,2);
 
             if (par->output_vertical_distances == 1)
             {
@@ -2426,12 +2423,12 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
     if (par->point_sim != 1)
     {
-        cont_nonzero_values_matrix2(&i, &j, cnet, land->LC.get(), top->lrc_cont,
+        cont_nonzero_values_matrix2(&i, &j, cnet, land->LC.get(), top->lrc_cont.get(),
                                     top->i_cont, par->total_pixel, par->total_channel, n);
         top->Li.reset(new Vector<long>{i});
         top->Lp.reset(new Vector<long>{j});
         wat->Lx.reset(new Vector<double> {i});
-        cont_nonzero_values_matrix3(top->Lp.get(), top->Li.get(), cnet, land->LC.get(), top->lrc_cont,
+        cont_nonzero_values_matrix3(top->Lp.get(), top->Li.get(), cnet, land->LC.get(), top->lrc_cont.get(),
                                     top->i_cont, par->total_pixel, par->total_channel, n);
     }
     else
@@ -2590,15 +2587,15 @@ to the land cover type\n");
 
     if (par->state_pixel == 1)
     {
-        par->rc=new_longmatrix(par->chkpt->nrh,2);
+        par->rc.reset(new Matrix<long>{par->chkpt->nrh,2});
         par->IDpoint.reset(new Vector<long>{par->chkpt->nrh});
         for (i=1; i<=par->chkpt->nrh; i++)
         {
-            par->rc->co[i][1]=row((*par->chkpt)(i,ptY), top->Z0->nrh, UV, number_novalue);
-            par->rc->co[i][2]=col((*par->chkpt)(i,ptX), top->Z0->nch, UV, number_novalue);
+            (*par->rc)(i,1)=row((*par->chkpt)(i,ptY), top->Z0->nrh, UV, number_novalue);
+            (*par->rc)(i,2)=col((*par->chkpt)(i,ptX), top->Z0->nch, UV, number_novalue);
 
-            if (par->rc->co[i][1] == number_novalue
-                || par->rc->co[i][2] == number_novalue)
+            if ((*par->rc)(i,1) == number_novalue
+                || (*par->rc)(i,2) == number_novalue)
             {
                 geolog << "Point #" << i << " is out of the domain";
 
@@ -2608,7 +2605,7 @@ to the land cover type\n");
                 t_error("Fatal Error! Geotop is closed. See failing report.");
             }
 
-            if ((long)(*land->LC)(par->rc->co[i][1],par->rc->co[i][2])==number_novalue)
+            if ((long)(*land->LC)((*par->rc)(i,1),(*par->rc)(i,2))==number_novalue)
             {
                 geolog << "Point #" << i << " corresponds to NOVALUE pixel";
 
@@ -2835,18 +2832,18 @@ to the soil type map");
 
     /**************************************************************************************************/
     // border
-    top->is_on_border=new_shortmatrix(land->LC->nrh, land->LC->nch);
+    top->is_on_border.reset(new Matrix<short>{land->LC->nrh, land->LC->nch});
     for (r=1; r<=land->LC->nrh; r++)
     {
         for (c=1; c<=land->LC->nch; c++)
         {
             if ( (long)(*land->LC)(r,c)!=number_novalue)
             {
-                top->is_on_border->co[r][c] = is_boundary(r, c, land->LC.get(), number_novalue);
+                (*top->is_on_border)(r,c) = is_boundary(r, c, land->LC.get(), number_novalue);
             }
             else
             {
-                top->is_on_border->co[r][c] = -1;
+                (*top->is_on_border)(r,c) = -1;
             }
         }
     }
@@ -2857,7 +2854,7 @@ to the soil type map");
     {
         for (c=1; c<=top->Z0->nch; c++)
         {
-            if (top->is_on_border->co[r][c]==1)
+            if ((*top->is_on_border)(r,c)==1)
             {
                 if ((*top->pixel_type)(r,c) == -1 || (*top->pixel_type)(r,c) == 1
                     || (*top->pixel_type)(r,c) == 2 || (*top->pixel_type)(r,c) == 11
@@ -2876,7 +2873,7 @@ to the soil type map");
         {
             for (c=1; c<=top->Z0->nch; c++)
             {
-                if (top->is_on_border->co[r][c]==1)
+                if ((*top->is_on_border)(r,c)==1)
                 {
                     if ((*top->pixel_type)(r,c) == -1 || (*top->pixel_type)(r,c) == 1
                         || (*top->pixel_type)(r,c) == 2 || (*top->pixel_type)(r,c) == 11
@@ -3490,11 +3487,11 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
     // 5. SET CHECKPOINT
     if (par->state_pixel == 1)
     {
-        par->rc=new_longmatrix(par->chkpt->nrh,2);
+        par->rc.reset(new Matrix<long>{par->chkpt->nrh,2});
         for (i=1; i<=par->chkpt->nrh; i++)
         {
-            par->rc->co[i][1]=1;
-            par->rc->co[i][2]=i;
+            (*par->rc)(i,1)=1;
+            (*par->rc)(i,2)=i;
         }
     }
 

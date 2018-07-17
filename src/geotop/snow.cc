@@ -178,7 +178,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
   if (SWE < no_snow*SWEmax_layer)
     {
       (*snow->lnum)(r,c)=0;
-      snow->type->co[r][c]=0;
+      (*snow->type)(r,c)=0;
       for (l=1; l<=max; l++)
         {
           snow->Dzl->co[l][r][c]=0.0;
@@ -193,7 +193,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
   else if ((*snow->lnum)(r,c) > 0 && SWE < simpl_snow*SWEmax_layer)
     {
 
-      snow->type->co[r][c]=1;
+      (*snow->type)(r,c)=1;
       if ((*snow->lnum)(r,c)>1)
         {
           for (l=(*snow->lnum)(r,c); l>1; l--)
@@ -215,7 +215,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
   else if ((*snow->lnum)(r,c) > 0 && SWE >= simpl_snow*SWEmax_layer)
     {
 
-      snow->type->co[r][c]=2;
+      (*snow->type)(r,c)=2;
 
       //4. if there is not yet a snow layer and D<Dsnow_simpl, simplified case
     }
@@ -223,7 +223,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
     {
 
       (*snow->lnum)(r,c)=1;
-      snow->type->co[r][c]=1;
+      (*snow->type)(r,c)=1;
       snow->T->co[1][r][c]=Fmin(Ta,-0.1);
 
 
@@ -233,13 +233,13 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
     {
 
       (*snow->lnum)(r,c)=1;
-      snow->type->co[r][c]=2;
+      (*snow->type)(r,c)=2;
       snow->T->co[1][r][c]=Fmin(Ta,-0.1);
 
     }
 
   // SIMMETRICAL PARAMETERIZATION SCHEME (new)
-  if (snow->type->co[r][c]==2)
+  if ((*snow->type)(r,c)==2)
     {
 
       //remove layers < 0.01 mm
@@ -1006,7 +1006,7 @@ void glac2snow(double a, long r, long c, STATEVAR_3D *snow, STATEVAR_3D *glac)
   glac->w_ice->co[1][r][c]=0.0;
   glac->T->co[1][r][c]=0.0;
   (*glac->lnum)(r,c)=0;
-  glac->type->co[r][c]=0;
+  (*glac->type)(r,c)=0;
 }
 
 /******************************************************************************************************************************************/
@@ -1036,7 +1036,7 @@ void snow2glac(double a, long r, long c, STATEVAR_3D *snow, STATEVAR_3D *glac)
   snow->w_ice->co[1][r][c]=0.0;
   snow->T->co[1][r][c]=0.0;
   (*snow->lnum)(r,c)=0;
-  snow->type->co[r][c]=0;
+  (*snow->type)(r,c)=0;
 }
 
 /******************************************************************************************************************************************/
@@ -1163,7 +1163,7 @@ void new_snow(double a, long r, long c, STATEVAR_3D *snow, double P,
   double h;
 
 
-  if (snow->type->co[r][c]==0)
+  if ((*snow->type)(r,c)==0)
     {
 
       snow->Dzl->co[1][r][c]+=Dz;
@@ -1475,7 +1475,7 @@ short copy_statevar_from3D_to1D(long r, long c, STATEVAR_3D *origin,
 
   if (nl != destination->Dzl->nh) return 0;
 
-  destination->type = origin->type->co[r][c];
+  destination->type = (*origin->type)(r,c);
   destination->lnum = (*origin->lnum)(r,c);
   for (l=1; l<=nl; l++)
     {
@@ -1613,7 +1613,7 @@ void copy_snowvar3D(STATEVAR_3D *from, STATEVAR_3D *to)
     {
       for (c=1; c<=nc; c++)
         {
-          to->type->co[r][c] = from->type->co[r][c];
+          (*to->type)(r,c) = (*from->type)(r,c);
           (*to->lnum)(r,c) = (*from->lnum)(r,c);
           for (l=1; l<=nl; l++)
             {

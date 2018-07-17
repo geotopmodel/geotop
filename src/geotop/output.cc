@@ -223,8 +223,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             for (i=1; i<=par->rc->nrh; i++)
             {
 
-                r=par->rc->co[i][1];
-                c=par->rc->co[i][2];
+                r=(*par->rc)(i,1);
+                c=(*par->rc)(i,2);
                 j=top->j_cont[r][c];
 
                 for (l=1; l<=Nl; l++)
@@ -265,8 +265,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 for (i=1; i<=par->rc->nrh; i++)
                 {
                     write_suffix(NNNN, (*par->IDpoint)(i), 0);
-                    r=par->rc->co[i][1];
-                    c=par->rc->co[i][2];
+                    r=(*par->rc)(i,1);
+                    c=(*par->rc)(i,2);
                     j=top->j_cont[r][c];
                     sy = (*sl->type)(r,c);
 
@@ -3029,8 +3029,8 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
         for (i=1; i<=par->rc->nrh; i++)
         {
             write_suffix(NNNN, (*par->IDpoint)(i), 0);
-            r=par->rc->co[i][1];
-            c=par->rc->co[i][2];
+            r=(*par->rc)(i,1);
+            c=(*par->rc)(i,2);
             sy=(*sl->type)(r,c);
             lu=(short)(*land->LC)(r,c);
 
@@ -5046,8 +5046,8 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
             }
             for (l=n+1; l<=Nl; l++)
             {
-                r = par->rc->co[j][1];
-                c = par->rc->co[j][2];
+                r = (*par->rc)(j,1);
+                c = (*par->rc)(j,2);
                 fprintf(f, ",%f", (*sl->SS->T)(l,top->j_cont[r][c]));
             }
             fprintf(f, "\n");
@@ -5079,8 +5079,8 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
         {
             for (l=n+1; l<=Nl; l++)
             {
-                r = par->rc->co[j][1];
-                c = par->rc->co[j][2];
+                r = (*par->rc)(j,1);
+                c = (*par->rc)(j,2);
             }
         }
         fclose(f);
@@ -5115,8 +5115,8 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
             }
             for (l=n+1; l<=Nl; l++)
             {
-                r = par->rc->co[j][1];
-                c = par->rc->co[j][2];
+                r = (*par->rc)(j,1);
+                c = (*par->rc)(j,2);
                 fprintf(f, ",%f", (*sl->SS->T)(l,top->j_cont[r][c]));
             }
             fprintf(f, "\n");
@@ -5153,8 +5153,8 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
             }
             for (l=n+1; l<=Nl; l++)
             {
-                r = par->rc->co[j][1];
-                c = par->rc->co[j][2];
+                r = (*par->rc)(j,1);
+                c = (*par->rc)(j,2);
                 fprintf(f, ",%f",
                         ((*sl->SS->thi)(l,top->j_cont[r][c]) + (*sl->th)(l,top->j_cont[r][c])) * sl->pa->co[(*sl->type)(r,c)][jdz][l] );
                 // ((*sl->SS->thi)(l,top->j_cont[r][c]) + sl->th->co[l][top->j_cont[r][c]]) * sl->pa->co[(*sl->type)(r,c)][jdz][l] );
@@ -5193,8 +5193,8 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
             }
             for (l=n+1; l<=Nl; l++)
             {
-                r = par->rc->co[j][1];
-                c = par->rc->co[j][2];
+                r = (*par->rc)(j,1);
+                c = (*par->rc)(j,2);
                 fprintf(f, ",%f", (*sl->SS->T)(l,top->j_cont[r][c]));
             }
             fprintf(f, "\n");
@@ -5231,8 +5231,8 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
             }
             for (l=n+1; l<=Nl; l++)
             {
-                r = par->rc->co[j][1];
-                c = par->rc->co[j][2];
+                r = (*par->rc)(j,1);
+                c = (*par->rc)(j,2);
                 fprintf(f, ",%f",((*sl->SS->thi)(l,top->j_cont[r][c])
                                   + (*sl->th)(l,top->j_cont[r][c]))*sl->pa->co[(*sl->type)(r,c)][jdz][l]);
             }
@@ -5504,19 +5504,18 @@ void change_grid(long previous_sim, long next_sim, PAR *par, TOPO *top,
                 top->i_cont[l][r]=(long *)malloc((Nc+1)*sizeof(long));
             }
         }
-        top->lrc_cont=new_longmatrix( (n_next+1)*par->total_pixel, 3);
-        initialize_longmatrix(top->lrc_cont, 0);
+        top->lrc_cont.reset(new Matrix<long>{ (n_next+1)*par->total_pixel, 3});
 
-        i_lrc_cont(land->LC.get(), top->i_cont, top->lrc_cont, n_next, Nr, Nc);
+        i_lrc_cont(land->LC.get(), top->i_cont, top->lrc_cont.get(), n_next, Nr, Nc);
 
         if (par->point_sim != 1)
         {
-            cont_nonzero_values_matrix2(&i, &j, cnet, land->LC.get(), top->lrc_cont,
+            cont_nonzero_values_matrix2(&i, &j, cnet, land->LC.get(), top->lrc_cont.get(),
                                         top->i_cont, par->total_pixel, par->total_channel, n_next);
             top->Li.reset(new Vector<long>{i});
             top->Lp.reset(new Vector<long>{j});
             wat->Lx.reset(new Vector<double>{i});
-            cont_nonzero_values_matrix3(top->Lp.get(), top->Li.get(), cnet, land->LC.get(), top->lrc_cont,
+            cont_nonzero_values_matrix3(top->Lp.get(), top->Li.get(), cnet, land->LC.get(), top->lrc_cont.get(),
                                         top->i_cont, par->total_pixel, par->total_channel, n_next);
         }
         else

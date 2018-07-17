@@ -130,7 +130,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
       if (A->E->dsun > 2*Pi) A->E->dsun -= 2*Pi;
       A->E->sinhsun = adaptiveSimpsons2(Sinalpha_, A->E->sun, JDb, JDe, 1.E-6,
                                         20) / (JDe - JDb);
-      if (A->P->cast_shadow==1) shadow_haiden(A->T->Z0.get(), A->E->hsun, A->E->dsun, A->L->shadow);
+      if (A->P->cast_shadow==1) 
+          shadow_haiden(A->T->Z0.get(), A->E->hsun, A->E->dsun, A->L->shadow.get());
     }
 
   //INITIALIZE BASIN AVERAGES
@@ -500,7 +501,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
       if (A->E->dsun > 2*Pi) A->E->dsun -= 2*Pi;
       A->E->sinhsun = adaptiveSimpsons2(Sinalpha_, A->E->sun, JDb, JDe, 1.E-6,
                                         20) / (JDe - JDb);
-      if (A->P->cast_shadow==1) A->L->shadow->co[r][c]=shadows_point(
+      if (A->P->cast_shadow==1) (*A->L->shadow)(r,c)=shadows_point(
                                                            A->T->horizon_height[(*A->T->horizon_point)(r,c)-1],
                                                            A->T->horizon_numlines[(*A->T->horizon_point)(r,c)-1], A->E->hsun*180./Pi,
                                                            A->E->dsun*180/Pi, 0., 0.);
@@ -516,7 +517,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
 
   shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0,
                       (*A->T->sky)(r,c), (*A->E->SWrefl_surr)(r,c),
-                      A->M->tau_cloud, A->L->shadow->co[r][c], &SWbeam, &SWdiff, &cosinc,
+                      A->M->tau_cloud, (*A->L->shadow)(r,c), &SWbeam, &SWdiff, &cosinc,
                       &tauatm_sinhsun, &SWb_yes);
 
   SWbeam=flux(A->M->nstsrad, iSWb, A->M->var, 1.0, 0.0, SWbeam);

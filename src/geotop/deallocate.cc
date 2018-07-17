@@ -140,11 +140,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
     }
 
-
-    free_longmatrix(top->Jdown);
-    if (par->point_sim==0) free_shortmatrix(top->is_on_border);
-
-
     n = Fminlong((*par->Nl_spinup)(par->init_date->nh),Nl);
     for (l=0; l<=n; l++)
     {
@@ -174,7 +169,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
     /* Deallocation of struct LAND "land": */
     geolog << "Deallocating land" << std::endl;
-    free_shortmatrix(land->shadow);
 
     for (i=0; i<par->n_landuses; i++)
     {
@@ -209,7 +203,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
         free(cnet->ch3[l]);
     }
     free(cnet->ch3);
-    free_longmatrix(cnet->lch);
     delete cnet->SS;
     //  free(cnet);
 
@@ -412,7 +405,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     geolog << "Deallocating par" << std::endl;
     if (par->state_pixel == 1)
     {
-        free_longmatrix(par->rc);
     }
 
     if (par->point_sim == 1)

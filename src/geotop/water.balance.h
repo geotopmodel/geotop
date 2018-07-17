@@ -77,7 +77,7 @@ void find_dt_max_channel(short DDcomplex, double Courant, MatrixRow<double> &h,
                          TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double t, double *dt);
 
 void draining_land(double alpha, long i, TOPO *T, LAND *L, PAR *P,
-                   CHANNEL *cnet, MatrixRow<double> &h, long *I, MatrixRow<double> &&Q);
+                   CHANNEL *cnet, MatrixRow<double> &h, MatrixRow<long> &&I, MatrixRow<double> &&Q);
 
 void draining_channel(double alpha, long ch, Matrix<double> *Z, MatrixRow<double> &h,
                       CHANNEL *cnet, long *CH);

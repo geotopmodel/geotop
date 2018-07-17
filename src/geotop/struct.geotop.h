@@ -196,7 +196,7 @@ typedef struct {
     long num_horizon_point;
 
     long ***i_cont;
-    LONGMATRIX *lrc_cont;
+    std::unique_ptr<Matrix<long>> lrc_cont;
 
     long **j_cont;
     std::unique_ptr<Matrix<long>> rc_cont;
@@ -207,10 +207,10 @@ typedef struct {
     std::unique_ptr<Vector<long>> Up;
     std::unique_ptr<Vector<long>> Ui;
 
-    LONGMATRIX *Jdown;
+    std::unique_ptr<Matrix<long>> Jdown;
     std::unique_ptr<Matrix<double>> Qdown;
 
-    SHORTMATRIX *is_on_border;
+    std::unique_ptr<Matrix<short>> is_on_border;
 
     std::unique_ptr<Matrix<double>> East;
     std::unique_ptr<Matrix<double>> North;
@@ -231,7 +231,7 @@ typedef struct {
 typedef struct {
     std::unique_ptr<Matrix<double>> LC;            //land cover for each pixel
     std::unique_ptr<Matrix<double>> delay;
-    SHORTMATRIX *shadow;      //=1 if shadow, =0 if not
+    std::unique_ptr<Matrix<short>> shadow;      //=1 if shadow, =0 if not
     std::unique_ptr<Matrix<double>> ty;
 
     double ***vegpars;
@@ -260,7 +260,7 @@ typedef struct {
     std::unique_ptr<Vector<double>> length;
     double Vout;
     long **ch3;
-    LONGMATRIX *lch;
+    std::unique_ptr<Matrix<long>> lch;
     std::unique_ptr<Vector<long>> soil_type;
     std::unique_ptr<Matrix<double>> th;
     std::unique_ptr<Matrix<double>> ET;
@@ -370,7 +370,7 @@ typedef struct {
     short output_meteo_bin;
 
     std::unique_ptr<Matrix<double>> chkpt;
-    LONGMATRIX *rc;
+    std::unique_ptr<Matrix<long>> rc;
     std::unique_ptr<Vector<long>> jplot;
 
     short recover;
@@ -640,7 +640,7 @@ struct STATEVAR_3D {
 
     ~STATEVAR_3D();
 
-    SHORTMATRIX *type;
+    std::unique_ptr<Matrix<short>> type;
     std::unique_ptr<Matrix<long>> lnum;
     DOUBLETENSOR *Dzl;
     DOUBLETENSOR *w_liq;

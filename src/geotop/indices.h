@@ -19,17 +19,17 @@
 
  */
 
-void i_lrc_cont(Matrix<double> *LC, long ***i, LONGMATRIX *lrc, long nl,
+void i_lrc_cont(Matrix<double> *LC, long ***i, Matrix<long> *lrc, long nl,
                 long nr, long nc);
 
 void j_rc_cont(Matrix<double> *LC, long **j, Matrix<long> *rc, long nr, long nc);
 
-void lch3_cont(long **ch3, LONGMATRIX *lch, long nl, long nch);
+void lch3_cont(long **ch3, Matrix<long> *lch, long nl, long nch);
 
 void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet,
-                                 Matrix<double> *LC, LONGMATRIX *lrc, long ***i, long n, long nch, long nl);
+                                 Matrix<double> *LC, Matrix<long> *lrc, long ***i, long n, long nch, long nl);
 
 void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
-                                 CHANNEL *cnet, Matrix<double> *LC, LONGMATRIX *lrc, long ***i, long n, long nch,
+                                 CHANNEL *cnet, Matrix<double> *LC, Matrix<long> *lrc, long ***i, long n, long nch,
                                  long nl);
 

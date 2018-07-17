@@ -89,8 +89,7 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met,
 short shadows_point(double **hor_height, long hor_lines, double alpha,
                     double azimuth, double tol_mount, double tol_flat);
 
-void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
-                   SHORTMATRIX *SH);
+void shadow_haiden(Matrix<double> *Z, double alpha, double direction, Matrix<short> *SH);
 
 double find_albedo(double dry_albedo, double sat_albedo, double wat_content,
                    double residual_wc, double saturated_wc);

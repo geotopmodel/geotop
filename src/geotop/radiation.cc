@@ -830,7 +830,7 @@ short shadows_point(double **hor, long n, double alpha, double azimuth,
 /******************************************************************************************************************************************/
 
 void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
-                   SHORTMATRIX *SH)
+                   Matrix<short> *SH)
 
 /*  Author: Thomas Haiden, Year: 16 june 2003
  *  Function that calculates if each pixel (matrix of shadows) is in shadow or at sun given
@@ -901,9 +901,9 @@ void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
               rr=Nr-kk;
               cc=ll+1;
               zray=(*Z)(rr,cc);
-              SH->co[r][c]=0;
+              (*SH)(r,c)=0;
 
-              while ( (SH->co[r][c]==0) && (kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1) )
+              while ( ((*SH)(r,c)==0) && (kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1) )
                 {
                   q=((ll+orix)*GDX+0.5*GDX-xp)/sx;
                   y=yp+q*sy;
@@ -940,7 +940,7 @@ void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
                       ztopo=z1+(z2-z1)*(xp-(GDX*ll+0.5*GDX))/(orix*GDX);
                     }
                   zray=zray+q*sz;
-                  if (ztopo>zray) SH->co[r][c]=1;
+                  if (ztopo>zray) (*SH)(r,c)=1;
                 }
             }
         }
@@ -991,9 +991,9 @@ void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
               rr=Nr-kk;
               cc=ll+1;
               zray=(*Z)(rr,cc);
-              SH->co[r][c]=0;
+              (*SH)(r,c)=0;
 
-              while ( (SH->co[r][c]==0) &&(kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1))
+              while ( ((*SH)(r,c)==0) &&(kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1))
                 {
                   q=((kk+oriy)*GDY+0.5*GDY-yp)/sy;
                   x=xp+q*sx;
@@ -1030,7 +1030,7 @@ void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
                       ztopo=z1+(z2-z1)*(yp-(GDY*kk+0.5*GDY))/(oriy*GDY);
                     }
                   zray=zray+q*sz;
-                  if (ztopo>zray) SH->co[r][c]=1;
+                  if (ztopo>zray) (*SH)(r,c)=1;
                 }
             }
         }

@@ -28,7 +28,7 @@ extern long number_novalue;
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void i_lrc_cont(Matrix<double> *LC, long ***i, LONGMATRIX *lrc, long nl,
+void i_lrc_cont(Matrix<double> *LC, long ***i, Matrix<long> *lrc, long nl,
                 long nr, long nc)
 {
 
@@ -45,9 +45,9 @@ void i_lrc_cont(Matrix<double> *LC, long ***i, LONGMATRIX *lrc, long nl,
                 {
                   cont++;
                   i[l][r][c]=cont;
-                  lrc->co[cont][1]=l;
-                  lrc->co[cont][2]=r;
-                  lrc->co[cont][3]=c;
+                  (*lrc)(cont,1)=l;
+                  (*lrc)(cont,2)=r;
+                  (*lrc)(cont,3)=c;
                 }
             }
         }
@@ -84,7 +84,7 @@ void j_rc_cont(Matrix<double> *LC, long **j, Matrix<long> *rc, long nr, long nc)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void lch3_cont(long **ch3, LONGMATRIX *lch, long nl, long nch)
+void lch3_cont(long **ch3, Matrix<long> *lch, long nl, long nch)
 {
 
   long cont=0;
@@ -96,8 +96,8 @@ void lch3_cont(long **ch3, LONGMATRIX *lch, long nl, long nch)
         {
           cont++;
           ch3[l][ch]=cont;
-          lch->co[cont][1]=l;
-          lch->co[cont][2]=ch;
+          (*lch)(cont,1)=l;
+          (*lch)(cont,2)=ch;
         }
     }
 }
@@ -108,7 +108,7 @@ void lch3_cont(long **ch3, LONGMATRIX *lch, long nl, long nch)
 /******************************************************************************************************************************************/
 
 void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet,
-                                 Matrix<double> *LC, LONGMATRIX *lrc, long ***i, long n, long nch, long nl)
+                                 Matrix<double> *LC, Matrix<long> *lrc, long ***i, long n, long nch, long nl)
 {
 
   long j, jj, l, r=0, c=0;
@@ -123,14 +123,14 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet,
 
       if (j<=N)
         {
-          l=lrc->co[j][1];
-          r=lrc->co[j][2];
-          c=lrc->co[j][3];
+          l=(*lrc)(j,1);
+          r=(*lrc)(j,2);
+          c=(*lrc)(j,3);
         }
       else
         {
           jj=j-N;
-          l=cnet->lch->co[jj][1];
+          l=(*cnet->lch)(jj,1);
         }
 
       //the cell itself
@@ -176,7 +176,7 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet,
 /******************************************************************************************************************************************/
 
 void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
-                                 CHANNEL *cnet, Matrix<double> *LC, LONGMATRIX *lrc, long ***i, long n, long nch,
+                                 CHANNEL *cnet, Matrix<double> *LC, Matrix<long> *lrc, long ***i, long n, long nch,
                                  long nl)
 {
 
@@ -194,14 +194,14 @@ void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
 
       if (j<=N)
         {
-          l=lrc->co[j][1];
-          r=lrc->co[j][2];
-          c=lrc->co[j][3];
+          l=(*lrc)(j,1);
+          r=(*lrc)(j,2);
+          c=(*lrc)(j,3);
         }
       else
         {
           jj=j-N;
-          l=cnet->lch->co[jj][1];
+          l=(*cnet->lch)(jj,1);
         }
 
       //the cell itself

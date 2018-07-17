@@ -5,14 +5,14 @@
 #include "t_datamanipulation.h"
 
 STATEVAR_3D::STATEVAR_3D(double nan, long nl, long nr, long nc) :
-        type{new_shortmatrix(nr, nc)},
+        type{new Matrix<short>{nr, nc}},
         lnum{new Matrix<long>{nr, nc}},
         Dzl{new_doubletensor(nl, nr, nc)},
         w_liq{new_doubletensor(nl, nr, nc)},
         w_ice{new_doubletensor(nl, nr, nc)},
         T{new_doubletensor(nl, nr, nc)}
 {
-  initialize_shortmatrix(type, 2);
+  *type = 2;
   *lnum = 0;
   initialize_doubletensor(Dzl, 0.);
   initialize_doubletensor(T, nan);
@@ -21,7 +21,7 @@ STATEVAR_3D::STATEVAR_3D(double nan, long nl, long nr, long nc) :
 }
 
 STATEVAR_3D::~STATEVAR_3D() {
-  free_shortmatrix(type);
+  //free_shortmatrix(type);
  //free_longmatrix(lnum);
   free_doubletensor(Dzl);
   free_doubletensor(T);
