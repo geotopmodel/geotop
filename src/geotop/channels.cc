@@ -258,9 +258,9 @@ void find_max_constraint(Matrix<double> *Z, Matrix<double> *LC,
             {
                 if ((*pixel_type)(r,c)>=10 && (*CH)(r,c)==0)
                 {
-                    if (Z[r][c]>z)
+                    if ((*Z)(r,c)>z)
                     {
-                        z=Z[r][c];
+                        z=(*Z)(r,c);
                         *R=r;
                         *C=c;
                     }
@@ -286,9 +286,9 @@ short neighboring_down_channel_pixel(long r, long c, long ir, long ic, Matrix<do
         if ((long)(*LC)(R,C)!=novalue)
         {
             //neighboring pixel is a channel
-            if (Z[R][C]<=Z[r][c] && (*pixel_type)(R,C)>=10) yes=-1;
+            if ((*Z)(R,C)<=(*Z)(r,c) && (*pixel_type)(R,C)>=10) yes=-1;
             //neighboring pixel is a channels that has not been enumerated yet
-            if (Z[R][C]<=Z[r][c] && (*pixel_type)(R,C)>=10 && (*CH)(R,C)==0) yes=1;
+            if ((*Z)(R,C)<=(*Z)(r,c) && (*pixel_type)(R,C)>=10 && (*CH)(R,C)==0) yes=1;
         }
     }
 

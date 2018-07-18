@@ -1313,7 +1313,7 @@ void find_SCA(STATEVAR_3D *snow, PAR *par, Matrix<double> *Z, double t)
     {
       for (c=1; c<=Nc; c++)
         {
-          if ((long)Z[r][c]!=number_novalue)
+          if ((long)(*Z)(r,c)!=number_novalue)
             {
               D=0.0;
               T=0.0;
