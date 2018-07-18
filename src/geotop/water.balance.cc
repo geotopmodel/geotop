@@ -1282,7 +1282,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
 
       R = r;
       C = c-1;
-      dn = ds/cos(0.5*atan((*adt->T->dzdN)(r,c))+0.5*atan((*adt->T->dzdE)(r,c)));
+      dn = ds/cos(0.5*atan((*adt->T->dzdN)(r,c))+0.5*atan((*adt->T->dzdE)(R,C)));
 
       //3.
       if (R>=1 && R<=Nr && C>=1 && C<=Nc)
@@ -1343,7 +1343,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
 
       R = r;
       C = c+1;
-      dn = ds/cos(0.5*atan((*adt->T->dzdN)(r,c))+0.5*atan((*adt->T->dzdE)(r,c)));
+      dn = ds/cos(0.5*atan((*adt->T->dzdN)(r,c))+0.5*atan((*adt->T->dzdE)(R,C)));
 
       //4.
       if (R>=1 && R<=Nr && C>=1 && C<=Nc)
