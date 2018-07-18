@@ -788,8 +788,7 @@ double **read_datamatrix(FILE *f, char *filename, long comment_char,
   cont = 0;
   do
     {
-      line = readline_of_numbers(f, comment_char, sep_char, &components, &endoffile,
-                                 &success);
+      line = readline_of_numbers(f, comment_char, sep_char, &components, &endoffile, &success);
 
       if (success == 1)
         {
@@ -909,8 +908,7 @@ double **read_txt_matrix_2(char *filename, long comment_char, long sep_char,
     }
 
   Header = ReadHeader(f, filename, &ncols);
-  Dataout = read_datamatrix(f, filename, comment_char, sep_char, *nlines,
-                            ncolsCol_Descr);
+  Dataout = read_datamatrix(f, filename, comment_char, sep_char, *nlines, ncolsCol_Descr);
   fclose(f);
 
   for (j=0; j<ncols; j++)

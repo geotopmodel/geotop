@@ -150,7 +150,7 @@ double norm_2(Vector<double> *V, long nbeg, long nend)
 
   for (l=nbeg; l<=nend; l++)
     {
-      N+=(V->co[l])*(V->co[l]);
+      N+= (V->co[l])*(V->co[l]);
     }
   N=sqrt(N);
 
