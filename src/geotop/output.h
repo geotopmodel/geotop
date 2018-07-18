@@ -52,7 +52,7 @@ void write_snow_header(short a, long r, long c, FILE *f, Vector<double>* n,
 
 void plot(char *name, long i_plot, Vector<double>* V, short format, long **J);
 
-double interpolate_soil(long lmin, double h, long max, double *Dz, MatrixRow<double> &Q);
+double interpolate_soil(long lmin, double h, long max, double *Dz, MatrixRow<double> &&Q);
 
 double interpolate_soil2(long lmin, double h, long max, double *Dz,
                          Matrix<double> *Q, long i);

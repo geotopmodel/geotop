@@ -4387,7 +4387,7 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
     {
         for (l=1; l<=n->nh; l++)
         {
-            fprintf(f, ",%f",interpolate_soil(lmin, n->co[l]*cosslope, Nl, dz, var));
+            fprintf(f, ",%f",interpolate_soil(lmin, n->co[l]*cosslope, Nl, dz, std::forward<MatrixRow<double>>(var)));
         }
     }
     else
@@ -4638,7 +4638,7 @@ void plot(char *name, long i_plot, Vector<double>* V, short format, long **J)
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-double interpolate_soil(long lmin, double h, long max, double *Dz, MatrixRow<double> &Q)
+double interpolate_soil(long lmin, double h, long max, double *Dz, MatrixRow<double> &&Q)
 {
 
     double q, z, z0=0.;

@@ -1985,7 +1985,7 @@ double find_3Ddistance(double horizontal_distance, double vertical_distance)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void find_dt_max(short DD, double Courant, MatrixRow<double> &h, LAND *land, TOPO *top,
+void find_dt_max(short DD, double Courant, MatrixRow<double> &&h, LAND *land, TOPO *top,
                  CHANNEL *cnet, PAR *par, METEO *met, double t, double *dt)
 {
 
@@ -2007,11 +2007,11 @@ void find_dt_max(short DD, double Courant, MatrixRow<double> &h, LAND *land, TOP
 
       if (DD==1)
       {
-        draining_land(1., j, top, land, par, cnet, h, top->Jdown->row(j), top->Qdown->row(j));
+        draining_land(1., j, top, land, par, cnet, std::forward<MatrixRow<double>>(h), top->Jdown->row(j), top->Qdown->row(j));
       }
       else
       {
-        draining_land(0., j, top, land, par, cnet, h, top->Jdown->row(j), top->Qdown->row(j));
+        draining_land(0., j, top, land, par, cnet, std::forward<MatrixRow<double>>(h), top->Jdown->row(j), top->Qdown->row(j));
       }
 
       area = ds*ds;
@@ -2075,7 +2075,7 @@ void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&
     tb=te;
     dt=Dt;
 
-    find_dt_max(DDland, par->max_courant_land, h, land, top, cnet, par, met, t, &dt);
+    find_dt_max(DDland, par->max_courant_land, std::forward<MatrixRow<double>>(h), land, top, cnet, par, met, t, &dt);
     cnt++;
 
     te=tb+dt;
@@ -2198,8 +2198,8 @@ void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&
     }
 
 
-    supflow_chla(dt, t, h, hch, top, wat, cnet, par, Vsup, &cnt2);
-    channel_flow(dt, t, DDch, hch, dhch, top, cnet, par, land, Voutnet, &cnt3);
+    supflow_chla(dt, t, std::forward<MatrixRow<double>>(h), std::forward<MatrixRow<double>>(hch), top, wat, cnet, par, Vsup, &cnt2);
+    channel_flow(dt, t, DDch, std::forward<MatrixRow<double>>(hch), dhch, top, cnet, par, land, Voutnet, &cnt3);
 
   }
   while (te<Dt);
@@ -2228,7 +2228,7 @@ void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void find_dt_max_chla(double Courant, MatrixRow<double> &h, MatrixRow<double> &hch, TOPO *top,
+void find_dt_max_chla(double Courant, MatrixRow<double> &&h, MatrixRow<double> &&hch, TOPO *top,
                       CHANNEL *cnet, PAR *par, double t, double *dt)
 {
 
@@ -2307,7 +2307,7 @@ void find_dt_max_chla(double Courant, MatrixRow<double> &h, MatrixRow<double> &h
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void supflow_chla(double Dt, double t, MatrixRow<double> &h, MatrixRow<double> &hch, TOPO *top, WATER *wat,
+void supflow_chla(double Dt, double t, MatrixRow<double> &&h, MatrixRow<double> &&hch, TOPO *top, WATER *wat,
                   CHANNEL *cnet, PAR *par,
                   Vector<double> *Vsup, long *cnt)
 {
@@ -2322,7 +2322,7 @@ void supflow_chla(double Dt, double t, MatrixRow<double> &h, MatrixRow<double> &
     tb=te;
     dt=Dt;
 
-    find_dt_max_chla(par->max_courant_land_channel, h, hch, top, cnet, par, t, &dt);
+    find_dt_max_chla(par->max_courant_land_channel, std::forward<MatrixRow<double>>(h), std::forward<MatrixRow<double>>(hch), top, cnet, par, t, &dt);
     *cnt = *cnt + 1;
 
     te=tb+dt;
@@ -2438,7 +2438,7 @@ void supflow_chla(double Dt, double t, MatrixRow<double> &h, MatrixRow<double> &
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void find_dt_max_channel(short DDcomplex, double Courant, MatrixRow<double> &h,
+void find_dt_max_channel(short DDcomplex, double Courant, MatrixRow<double> &&h,
                          TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double t, double *dt)
 {
 
@@ -2462,11 +2462,11 @@ void find_dt_max_channel(short DDcomplex, double Courant, MatrixRow<double> &h,
 
       if (DDcomplex==1)
       {
-        draining_channel(1., ch, top->Z0.get(), h, cnet, &(cnet->ch_down->co[ch]));
+        draining_channel(1., ch, top->Z0.get(), std::forward<MatrixRow<double>>(h), cnet, &(cnet->ch_down->co[ch]));
       }
       else
       {
-        draining_channel(0., ch, top->Z0.get(), h, cnet, &(cnet->ch_down->co[ch]));
+        draining_channel(0., ch, top->Z0.get(), std::forward<MatrixRow<double>>(h), cnet, &(cnet->ch_down->co[ch]));
       }
 
       Vmax = 1.E-3*H*dn*cnet->length->co[ch]; //m3
@@ -2524,7 +2524,7 @@ void find_dt_max_channel(short DDcomplex, double Courant, MatrixRow<double> &h,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void channel_flow(double Dt, double t, short DDcomplex, MatrixRow<double> &h, double *dV, TOPO *top, CHANNEL *cnet,
+void channel_flow(double Dt, double t, short DDcomplex, MatrixRow<double> &&h, double *dV, TOPO *top, CHANNEL *cnet,
                   PAR *par,
                   LAND *land, double *Vout, long *cnt)
 
@@ -2552,7 +2552,7 @@ void channel_flow(double Dt, double t, short DDcomplex, MatrixRow<double> &h, do
       tb=te;
       dt=Dt;
 
-      find_dt_max_channel(DDcomplex, par->max_courant_channel, h, top, cnet, par, land, t, &dt);
+      find_dt_max_channel(DDcomplex, par->max_courant_channel, std::forward<MatrixRow<double>>(h), top, cnet, par, land, t, &dt);
       *cnt = *cnt + 1;
 
       te=tb+dt;
@@ -2657,7 +2657,7 @@ void channel_flow(double Dt, double t, short DDcomplex, MatrixRow<double> &h, do
 /******************************************************************************************************************************************/
 
 void draining_land(double alpha, long i, TOPO *T, LAND *L, PAR *P,
-                   CHANNEL *cnet, MatrixRow<double> &h, MatrixRow<long> &&I, MatrixRow<double> &&Q)
+                   CHANNEL *cnet, MatrixRow<double> &&h, MatrixRow<long> &&I, MatrixRow<double> &&Q)
 {
 
   double H, p, pn, dD, dn, Ks;
@@ -2762,7 +2762,7 @@ void draining_land(double alpha, long i, TOPO *T, LAND *L, PAR *P,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void draining_channel(double alpha, long ch, Matrix<double> *Z, MatrixRow<double> &h,
+void draining_channel(double alpha, long ch, Matrix<double> *Z, MatrixRow<double> &&h,
                       CHANNEL *cnet, long *CH)
 {
 
