@@ -768,13 +768,12 @@ keyword LinearInterpolation at 1.\n");
                 land->vegpars[i-1] = read_txt_matrix_2(temp, 33, 44, num_cols, &num_lines);
                 free(temp);
                 land->NumlinesVegTimeDepData[i-1] = num_lines;
-                par->vegflag->co[i]=1;
+                (*par->vegflag)(i)=1;
             }
             else
             {
                 free(temp);
-                printf("There is NOT a specific vegetation parameter file for land cover type = %ld\n",
-                       i);
+                printf("There is NOT a specific vegetation parameter file for land cover type = %ld\n", i);
             }
         }
 

@@ -89,7 +89,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
       //vegetation
       for (lux=1; lux<=par->n_landuses; lux++)
         {
-          if (par->vegflag->co[lux]==1)
+          if ((*par->vegflag)(lux)==1)
             {
               time_interp_linear(par->init_date->co[i_sim]+t0/secinday,
                                  par->init_date->co[i_sim]+(t0+t)/secinday,

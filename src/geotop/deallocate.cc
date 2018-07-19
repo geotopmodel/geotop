@@ -171,7 +171,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     {
         free(land->vegparv[i]);
 
-        if (par->vegflag->co[i+1]==1)
+        if ((*par->vegflag)(i+1)==1)
         {
             for (j=0; j<land->NumlinesVegTimeDepData[i]; j++)
             {

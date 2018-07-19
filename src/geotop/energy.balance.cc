@@ -103,7 +103,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
   if (A->I->time==0) line_interp=0;
   for (i=1; i<=A->P->n_landuses; i++)
     {
-      if (A->P->vegflag->co[i]==1)
+      if ((*A->P->vegflag)(i)==1)
         {
           time_interp_linear(JD0, JDb, JDe, A->L->vegparv[i-1], A->L->vegpars[i-1],
                              A->L->NumlinesVegTimeDepData[i-1], jdvegprop+1, 0, 0, &line_interp);
