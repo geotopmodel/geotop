@@ -59,18 +59,12 @@ endforeach
 _comp = find_program('compare.sh', required: false)
 _nd = find_program('numdiff', required: false)
 
-
-# we need to wait that all the previous tests are finished before we
-# can check the output. So we declare the first test_runner with
-# `is_parallel: false` and all the others with `is_parallel: true`
-_p = false
 if(_nd.found())
     foreach _t : _tests
         _test_prefix = _prefix+'/'+_t
         test(_t+'.test_runner', _comp,
-             workdir: _test_prefix, is_parallel: _p, suite: _t.split('/'),
-             timeout: 90)
-        _p = true
+             workdir: _test_prefix, is_parallel: false, suite: _t.split('/'),
+             timeout: 900)
     endforeach
 else
     warning('In order to properly check the output of the tests, please install numdiff')
