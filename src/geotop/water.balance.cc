@@ -2486,16 +2486,16 @@ void find_dt_max_channel(short DDcomplex, double Courant, MatrixRow<double> &&h,
 
         if ( (R-r==1 || R-r==-1) && (C-c==1 || C-c==-1) )
         {
-          dD = find_3Ddistance(ds*sqrt(2.), (*top->Z0)(r,c) - (*top->Z0)(r,c));
+          dD = find_3Ddistance(ds*sqrt(2.), (*top->Z0)(r,c) - (*top->Z0)(R,C));
         }
         else
         {
-          dD = find_3Ddistance(ds, (*top->Z0)(r,c) - (*top->Z0)(r,c));
+          dD = find_3Ddistance(ds, (*top->Z0)(r,c) - (*top->Z0)(R,C));
         }
 
         Ks = cm_h(par->Ks_channel, H, 1., par->thres_hchannel);
 
-        i = ( ((*top->Z0)(r,c) - (*top->Z0)(r,c) ) + 1.E-3*(Fmax(0.0,
+        i = ( ((*top->Z0)(r,c) - (*top->Z0)(R,C) ) + 1.E-3*(Fmax(0.0,
                                                                  h[ch]) - Fmax(0.0, h[(*cnet->ch_down)(ch)])) ) / dD;
 
         if (i<0) i=0.;
@@ -2590,7 +2590,7 @@ void channel_flow(double Dt, double t, short DDcomplex, MatrixRow<double> &&h, d
 
             if ( (R-r==1 || R-r==-1) && (C-c==1 || C-c==-1) )
             {
-              dD = find_3Ddistance(ds*sqrt(2.), (*top->Z0)(r,c) - (*top->Z0)(r,c));
+              dD = find_3Ddistance(ds*sqrt(2.), (*top->Z0)(r,c) - (*top->Z0)(R,C));
             }
             else
             {
@@ -2599,7 +2599,7 @@ void channel_flow(double Dt, double t, short DDcomplex, MatrixRow<double> &&h, d
 
             Ks = cm_h(par->Ks_channel, H, 1., par->thres_hchannel);
 
-            i= ( ((*top->Z0)(r,c) - (*top->Z0)(r,c) ) + 1.E-3*(Fmax(0.0,
+            i= ( ((*top->Z0)(r,c) - (*top->Z0)(R,C) ) + 1.E-3*(Fmax(0.0,
                                                                     h[ch]) - Fmax(0.0, h[(*cnet->ch_down)(ch)])) ) / dD;
 
             if (i<0) i=0.;
