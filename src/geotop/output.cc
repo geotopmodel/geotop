@@ -2227,6 +2227,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                         write_tensorseries_vector(1, l, isavings, files[rpsich], 0, par->format_out,
                                                   M, UV, number_novalue, top->j_cont, Nr, Nc);
                     }
+                    delete M;
                 }
 
                 if (strcmp(files[rTgch], string_novalue) != 0)
