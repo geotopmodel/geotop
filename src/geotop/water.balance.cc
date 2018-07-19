@@ -2594,7 +2594,7 @@ void channel_flow(double Dt, double t, short DDcomplex, MatrixRow<double> &&h, d
             }
             else
             {
-              dD = find_3Ddistance(ds, (*top->Z0)(r,c) - (*top->Z0)(r,c));
+              dD = find_3Ddistance(ds, (*top->Z0)(r,c) - (*top->Z0)(R,C));
             }
 
             Ks = cm_h(par->Ks_channel, H, 1., par->thres_hchannel);
