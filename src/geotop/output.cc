@@ -3125,6 +3125,8 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
                 for (l=1; l<=Nl; l++)
                 {
+                    std::cout << Nl << std::endl;
+                    std::cout << "(lu,l) = " << lu << " " << l << std::endl;
                     fprintf(f," The root fraction [-] of layer %ld: %f\n",l, (*land->root_fraction)(lu,l));
                 }
 
