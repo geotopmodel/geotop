@@ -678,7 +678,7 @@ void print_windtrans_snow(double Dt, SNOW *snow, PAR *par, TOPO *top,
 
       Qsub = sqrt(pow((*snow->Qsub_x)(r,c), 2.)+pow((*snow->Qsub_y)(r,c), 2.));
 
-      if (par->output_snow->co[i_sim]>0)
+      if ((*par->output_snow)(i_sim)>0)
         {
           (*snow->Wtrans_plot)(r,c) += Dt*(*snow->Nabla2_Qtrans)(r,c);
           (*snow->Wsubl_plot)(r,c) += Dt*Qsub;

@@ -1490,51 +1490,51 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   par->output_meteo.reset(new Vector<double>{par->init_date->nh});
 
   cod = 157;
-  par->output_soil->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->output_soil)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->output_soil->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                   par->output_soil->co[i - 1], 0);
+      (*par->output_soil)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                   (*par->output_soil)(i-1), 0);
     }
 
   cod = 158;
-  par->output_snow->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->output_snow)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->output_snow->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                   par->output_snow->co[i - 1], 0);
+      (*par->output_snow)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                   (*par->output_snow)(i-1), 0);
     }
 
   cod = 159;
-  par->output_glac->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->output_glac)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->output_glac->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                   par->output_glac->co[i - 1], 0);
+      (*par->output_glac)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                   (*par->output_glac)(i-1), 0);
     }
 
   cod = 160;
-  par->output_surfenergy->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->output_surfenergy)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->output_surfenergy->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                         par->output_surfenergy->co[i - 1], 0);
+      (*par->output_surfenergy)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                         (*par->output_surfenergy)(i-1), 0);
     }
 
   cod = 161;
-  par->output_vegetation->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->output_vegetation)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->output_vegetation->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                         par->output_vegetation->co[i - 1], 0);
+      (*par->output_vegetation)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                         (*par->output_vegetation)(i-1), 0);
     }
 
   cod = 162;
-  par->output_meteo->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->output_meteo)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->output_meteo->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                    par->output_meteo->co[i - 1], 0);
+      (*par->output_meteo)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                    (*par->output_meteo)(i-1), 0);
     }
 
   par->output_soil_bin = 0;
@@ -1545,11 +1545,11 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 
   for (i=1; i<=par->init_date->nh; i++)
     {
-      if (par->output_soil->co[i] > 0) par->output_soil_bin = 1;
-      if (par->output_snow->co[i] > 0) par->output_snow_bin = 1;
-      if (par->output_glac->co[i] > 0) par->output_glac_bin = 1;
-      if (par->output_surfenergy->co[i] > 0) par->output_surfenergy_bin = 1;
-      if (par->output_meteo->co[i] > 0) par->output_meteo_bin = 1;
+      if ((*par->output_soil)(i) > 0) par->output_soil_bin = 1;
+      if ((*par->output_snow)(i) > 0) par->output_snow_bin = 1;
+      if ((*par->output_glac)(i) > 0) par->output_glac_bin = 1;
+      if ((*par->output_surfenergy)(i) > 0) par->output_surfenergy_bin = 1;
+      if ((*par->output_meteo)(i) > 0) par->output_meteo_bin = 1;
     }
 
   cod = 163;
@@ -1561,15 +1561,14 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
       t_error("Fatal Error! Geotop is closed. See failing report.");
     }
 
-  times->JD_plots.reset(new Vector<double> {num_param_components[cod] +
-                                     num_param_components[codn]});
+  times->JD_plots.reset(new Vector<double> {num_param_components[cod] + num_param_components[codn]});
   for (i=1; i<=(long)(times->JD_plots->nh/2.); i++)
     {
-      times->JD_plots->co[2*i-1] = assignation_number(cod, i - 1, keyword, num_param, num_param_components, 0., 0);
-      times->JD_plots->co[2*i  ] = assignation_number(codn, i - 1, keyword, num_param, num_param_components, 0., 0);
+      (*times->JD_plots)(2*i-1) = assignation_number(cod, i - 1, keyword, num_param, num_param_components, 0., 0);
+      (*times->JD_plots)(2*i) = assignation_number(codn, i - 1, keyword, num_param, num_param_components, 0., 0);
     }
-  if (times->JD_plots->nh == 2 && times->JD_plots->co[1] < 1.E-5
-      && times->JD_plots->co[2] < 1.E-5)
+  if (times->JD_plots->nh == 2 && (*times->JD_plots)(1) < 1.E-5
+      && (*times->JD_plots)(2) < 1.E-5)
     {
       times->JD_plots.reset(new Vector<double>{1});
     }
@@ -1577,7 +1576,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
     {
       for (i=1; i<=times->JD_plots->nh; i++)
         {
-          times->JD_plots->co[i] = convert_dateeur12_JDfrom0(times->JD_plots->co[i]);
+          (*times->JD_plots)(i) = convert_dateeur12_JDfrom0((*times->JD_plots)(i));
         }
     }
 

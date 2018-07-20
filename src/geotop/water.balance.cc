@@ -279,12 +279,12 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
       //solution guess
       if ((*adt->W->Pnet)(r,c) > 0 && l == 0)
       {
-        adt->W->H1->co[i] = Fmax(0., (*L->P)(l,j)) + ((*adt->W->Pnet)(r,c)/cos((*adt->T->slope)(r,c)*Pi/180.))
+        (*adt->W->H1)(i) = Fmax(0., (*L->P)(l,j)) + ((*adt->W->Pnet)(r,c)/cos((*adt->T->slope)(r,c)*Pi/180.))
                             + adt->T->Z->co[l][r][c];
       }
       else
       {
-        adt->W->H1->co[i] = (*L->P)(l,j) + adt->T->Z->co[l][r][c];
+        (*adt->W->H1)(i) = (*L->P)(l,j) + adt->T->Z->co[l][r][c];
       }
 
     }
@@ -299,14 +299,14 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
       //solution guess
       if ((*adt->W->Pnet)(r,c) > 0 && l == 0)
       {
-        adt->W->H1->co[i] = Fmax(0.,
+        (*adt->W->H1)(i) = Fmax(0.,
                                  (*C->P)(l,ch)) + ((*adt->W->Pnet)(r,c)/cos(
                 (*adt->T->slope)(r,c)*Pi/180.)) + ( adt->T->Z->co[l][r][c] -
                                                     adt->P->depr_channel );
       }
       else
       {
-        adt->W->H1->co[i] = (*C->P)(l,ch) + ( adt->T->Z->co[l][r][c] -
+        (*adt->W->H1)(i) = (*C->P)(l,ch) + ( adt->T->Z->co[l][r][c] -
                                               adt->P->depr_channel );
       }
 
@@ -344,8 +344,8 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
 
     for (i=1; i<=N; i++)
     {
-      adt->W->H0->co[i] = adt->W->H1->co[i];
-      adt->W->dH->co[i] = 0.;
+      (*adt->W->H0)(i) = (*adt->W->H1)(i);
+      (*adt->W->dH)(i) = 0.;
     }
 
     //mu is the forcing term of Newton Raphson, defined such that ||F( x + d )|| < mu * ||F(x)|| see references
@@ -419,8 +419,8 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
 
       for (i=1; i<=N; i++)
       {
-        adt->W->H1->co[i] = adt->W->H0->co[i] + lambda[0] * adt->W->dH->co[i];
-        if (adt->W->H1->co[i] != adt->W->H1->co[i]) return 1;
+        (*adt->W->H1)(i) = (*adt->W->H0)(i) + lambda[0] * (*adt->W->dH)(i);
+        if ((*adt->W->H1)(i) != (*adt->W->H1)(i)) return 1;
       }
 
       if (updateK == 1
@@ -488,7 +488,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
       ch = (*adt->C->ch)(r,c);
       bc = (*adt->T->BC_counter)(r,c);
 
-      (*L->P)(l,j) = adt->W->H1->co[i] - adt->T->Z->co[l][r][c];
+      (*L->P)(l,j) = (*adt->W->H1)(i) - adt->T->Z->co[l][r][c];
 
       //update variables
       if (l>0)
@@ -505,7 +505,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
       if (l==Nl)
       {
         area = ds*ds/cos((*adt->T->slope)(r,c)*Pi/180.);
-        if (ch>0) area -= adt->C->length->co[ch] * adt->P->w_dx *
+        if (ch>0) area -= (*adt->C->length)(ch) * adt->P->w_dx *
                           ds; //area of the pixel[m2]
         *Vbottom = *Vbottom + area * (*adt->W->Kbottom)(r,c) * 1.E-3 * Dt;
       }
@@ -522,7 +522,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
             //The depth of the free surface is multiplied by cosine since Z's are the layer depths in vertical direction
             if ( adt->T->Z->co[0][r][c] - adt->T->Z->co[l][r][c] <=
                     (adt->T->BC_DepthFreeSurface->co[bc])*cos((*adt->T->slope)(r,c)*Pi/180.)
-                 && adt->W->H1->co[i] - adt->T->Z->co[l][r][c] > 0 )
+                 && (*adt->W->H1)(i) - adt->T->Z->co[l][r][c] > 0 )
             {
 
               dz = adt->S->pa->co[sy][jdz][l];//[mm]
@@ -541,7 +541,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
 
               *Vlatsub = *Vlatsub + Dt * (dn*dz*1.E-3) *
                                     1.E-3*((*adt->W->Klat)(bc,l))*adt->P->free_drainage_lateral*
-                                    (adt->W->H1->co[i] - adt->T->Z->co[l][r][c]) / dD;
+                                    ((*adt->W->H1)(i) - adt->T->Z->co[l][r][c]) / dD;
 
             }
 
@@ -592,7 +592,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
       }
 
       //depr channel is defined vertical
-      (*C->P)(l,ch) = adt->W->H1->co[i] - ( adt->T->Z->co[l][r][c] -
+      (*C->P)(l,ch) = (*adt->W->H1)(i) - ( adt->T->Z->co[l][r][c] -
                                             adt->P->depr_channel );
 
       if (l>0)
@@ -607,14 +607,14 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
       {
         //hold and hnew are normal
         hnew = Fmax(0., (*C->P)(l,ch)) / cos((*adt->T->slope)(r,c) * Pi/180.);
-        Vsub->co[ch] += 1.E-3 * ( hnew - hold ) * adt->C->length->co[ch] *
+        Vsub->co[ch] += 1.E-3 * ( hnew - hold ) * (*adt->C->length)(ch) *
                         adt->P->w_dx * ds;
       }
 
       if (l==Nl)
       {
-        area = adt->C->length->co[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
-        *Vbottom = *Vbottom + area * adt->C->Kbottom->co[ch] * 1.E-3 * Dt;
+        area = (*adt->C->length)(ch) * adt->P->w_dx * ds; //area of the pixel[m2]
+        *Vbottom = *Vbottom + area * (*adt->C->Kbottom)(ch) * 1.E-3 * Dt;
       }
 
     }
@@ -638,7 +638,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
   double ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, dz, dn, dD;
 
   long i, l, r=1, m, bc, sy, cont, cont2, iter;
-  long N=adt->W->H0->nh;
+  long N = adt->W->H0->nh;
   long cont_lambda_min=0;
   short out, out2;
   int sux;
@@ -667,13 +667,12 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
     //solution guess
     if ((*adt->W->Pnet)(r,c) > 0 && l == 0)
     {
-      adt->W->H1->co[i] = Fmax(0.,
-                               (*L->P)(l,c)) + ((*adt->W->Pnet)(r,c)/cos(Fmin(max_slope,
-                                                                              (*adt->T->slope)(r,c))*Pi/180.)) + adt->T->Z->co[l][r][c];
+      (*adt->W->H1)(i) = Fmax(0., (*L->P)(l,c)) + ((*adt->W->Pnet)(r,c)/cos(Fmin(max_slope,(*adt->T->slope)(r,c))*Pi/180.)) 
+                          + adt->T->Z->co[l][r][c];
     }
     else
     {
-      adt->W->H1->co[i] = (*L->P)(l,c) + adt->T->Z->co[l][r][c];
+      (*adt->W->H1)(i) = (*L->P)(l,c) + adt->T->Z->co[l][r][c];
     }
 
   }
@@ -706,8 +705,8 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
 
     for (i=1; i<=N; i++)
     {
-      adt->W->H0->co[i] = adt->W->H1->co[i];
-      adt->W->dH->co[i] = 0.;
+      (*adt->W->H0)(i) = (*adt->W->H1)(i);
+      (*adt->W->dH)(i) = 0.;
     }
 
     //mu is the forcing term of Newton Raphson, defined such that ||F( x + d )|| < mu * ||F(x)|| see references
@@ -785,9 +784,9 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
       for (i=1; i<=N; i++)
       {
 
-        adt->W->H1->co[i] = adt->W->H0->co[i] + lambda[0] * adt->W->dH->co[i];
+        (*adt->W->H1)(i) = (*adt->W->H0)(i) + lambda[0] * (*adt->W->dH)(i);
 
-        if (adt->W->H1->co[i] != adt->W->H1->co[i])
+        if ((*adt->W->H1)(i) != (*adt->W->H1)(i))
         {
           f = fopen(FailedRunFile, "w");
           fprintf(f, "Simulation Period:%ld\n",i_sim);
@@ -859,7 +858,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
     sy = (*adt->S->type)(r,c);
     bc = (*adt->T->BC_counter)(r,c);
 
-    (*L->P)(l,c) = adt->W->H1->co[i] - adt->T->Z->co[l][r][c];
+    (*L->P)(l,c) = (*adt->W->H1)(i) - adt->T->Z->co[l][r][c];
 
     //update variables
     if (l>0)
@@ -886,14 +885,14 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
       {
         if ( adt->T->Z->co[0][r][c] - adt->T->Z->co[l][r][c] <=
                 (adt->T->BC_DepthFreeSurface->co[bc])*cos((*adt->T->slope)(r,c)*Pi/180.)
-             && adt->W->H1->co[i] - adt->T->Z->co[l][r][c] > 0 )
+             && (*adt->W->H1)(i) - adt->T->Z->co[l][r][c] > 0 )
         {
           dz = adt->S->pa->co[sy][jdz][l];//[mm]
           dn = ds;
           dD = 0.5 * 1.E3*ds;
           *Vlat = *Vlat + Dt * (dn*dz*1.E-3) *
                           1.E-3*(*adt->W->Klat)(bc,l)*adt->P->free_drainage_lateral*
-                          (adt->W->H1->co[i] - adt->T->Z->co[l][r][c]) / dD;
+                          ((*adt->W->H1)(i) - adt->T->Z->co[l][r][c]) / dD;
         }
       }
     }
@@ -962,7 +961,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
 
       ch=(*adt->C->ch)(r,c);
       area=ds*ds/cos((*adt->T->slope)(r,c)*Pi/180.);
-      if (ch>0) area-=adt->C->length->co[ch] * adt->P->w_dx *
+      if (ch>0) area-=(*adt->C->length)(ch) * adt->P->w_dx *
                       ds; //area of the pixel[m2]
 
       //vertical hydraulic conductivity
@@ -1053,7 +1052,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
       c=(*adt->C->c)(ch);
       sy=(*adt->C->soil_type)(ch);
 
-      area=adt->C->length->co[ch] * adt->P->w_dx * ds;
+      area=(*adt->C->length)(ch) * adt->P->w_dx * ds;
 
       //vertical hydraulic conductivity
       if (l>0)
@@ -1433,7 +1432,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
                              1.E-3*adt->P->depr_channel) * 1.E3;//[mm]
 
         cnt++;
-        Lx->co[cnt] = -(2.*adt->C->length->co[(*adt->C->ch)(r,c)]*1.E-3*dz)*kn/dD;
+        Lx->co[cnt] = -(2. * (*adt->C->length)((*adt->C->ch)(r,c)) * 1.E-3*dz)*kn/dD;
 
       }
     }
@@ -1597,7 +1596,7 @@ int find_dfdH_3D(double Dt, Vector<double> *df, ALLDATA *adt, SOIL_STATE *L,
       ch = (*adt->C->ch)(r,c);
       area = ds*ds/cos((*adt->T->slope)(r,c)*Pi/180.);
       if (ch>0)
-        area-=adt->C->length->co[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
+        area-= (*adt->C->length)(ch) * adt->P->w_dx * ds; //area of the pixel[m2]
       psi1 = H->co[i] - adt->T->Z->co[l][r][c];
       if (l>0) ice = (*L->thi)(l,j);
 
@@ -1610,7 +1609,7 @@ int find_dfdH_3D(double Dt, Vector<double> *df, ALLDATA *adt, SOIL_STATE *L,
       c = (*adt->C->c)(ch);
       sy = (*adt->C->soil_type)(ch);
       bc=0;
-      area=adt->C->length->co[ch] * adt->P->w_dx * ds;
+      area=(*adt->C->length)(ch) * adt->P->w_dx * ds;
       psi1 = H->co[i] - (adt->T->Z->co[l][r][c] - adt->P->depr_channel);
       if (l>0) ice = (*C->thi)(l,ch);
     }
@@ -1758,7 +1757,7 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
       bc=(*adt->T->BC_counter)(r,c);
       ch=(*adt->C->ch)(r,c);
       area=ds*ds/cos((*adt->T->slope)(r,c)*Pi/180.);
-      if (ch>0) area-=adt->C->length->co[ch] * adt->P->w_dx * ds; //area of the pixel[m2]
+      if (ch>0) area-=(*adt->C->length)(ch) * adt->P->w_dx * ds; //area of the pixel[m2]
       psi0 = (*L->P)(l,j);
       psi1 = H->co[i] - adt->T->Z->co[l][r][c];
       if (l>0) ice = (*L->thi)(l,j);
@@ -1772,7 +1771,7 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
       c=(*adt->C->c)(ch);
       sy=(*adt->C->soil_type)(ch);
       bc=0;
-      area=adt->C->length->co[ch] * adt->P->w_dx * ds;
+      area=(*adt->C->length)(ch) * adt->P->w_dx * ds;
       psi0 = (*C->P)(l,ch);
       psi1 = H->co[i] - (adt->T->Z->co[l][r][c] - adt->P->depr_channel);
       if (l>0) ice = (*C->thi)(l,ch);
@@ -2017,7 +2016,7 @@ void find_dt_max(short DD, double Courant, MatrixRow<double> &&h, LAND *land, TO
       area = ds*ds;
       area /= cos((*top->slope)(r,c)*Pi/180.);
       ch = (*cnet->ch)(r,c);
-      if (ch>0) area -= cnet->length->co[ch] * par->w_dx *
+      if (ch>0) area -= (*cnet->length)(ch) * par->w_dx *
                         ds; //area of the pixel[m2]
 
       Vmax = area * 1.E-3 * H;
@@ -2100,7 +2099,7 @@ void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&
         area = ds*ds;
         area /= cos((*top->slope)(r,c)*Pi/180.);
         ch = (*cnet->ch)(r,c);
-        if (ch>0) area -= cnet->length->co[ch] * par->w_dx *
+        if (ch>0) area -= (*cnet->length)(ch) * par->w_dx *
                           ds; //area of the pixel[m2]
 
         Vmax = area * 1.E-3 * H;
@@ -2149,7 +2148,7 @@ void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&
       area = ds*ds;
       area /= cos((*top->slope)(r,c)*Pi/180.);
       ch = (*cnet->ch)(r,c);
-      if (ch>0) area -= cnet->length->co[ch] * par->w_dx *
+      if (ch>0) area -= (*cnet->length)(ch) * par->w_dx *
                         ds; //area of the pixel[m2]
 
       h[j] -= (1.E3*dV[j]/area) * cos((*top->slope)(r,c)*Pi/180.);
@@ -2178,7 +2177,7 @@ void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&
           area = ds*ds;
           area /= cos((*top->slope)(R,C)*Pi/180.);
           ch = (*cnet->ch)(R,C);
-          if (ch>0) area -= cnet->length->co[ch] * par->w_dx *
+          if (ch>0) area -= (*cnet->length)(ch) * par->w_dx *
                             ds; //area of the pixel[m2]
 
           if (h[(*top->Jdown)(j,d)]>0)
@@ -2243,12 +2242,12 @@ void find_dt_max_chla(double Courant, MatrixRow<double> &&h, MatrixRow<double> &
 
     H = Fmax(0.0, h[ch]) / cos(
             (*top->slope)(r,c)*Pi/180.); //h[i] is the pressure at the surface, H is the depth of water normal to the surface
-    area = ds*ds/cos((*top->slope)(r,c)*Pi/180.) - cnet->length->co[ch] *
+    area = ds*ds/cos((*top->slope)(r,c)*Pi/180.) - (*cnet->length)(ch) *
                                                    par->w_dx * ds;
 
     Hch = Fmax(0., hch[ch] ) / cos((*top->slope)(r,c)*Pi/180.) -
           par->depr_channel * cos((*top->slope)(r,c)*Pi/180.);
-    areach = cnet->length->co[ch] * par->w_dx * ds;
+    areach = (*cnet->length)(ch) * par->w_dx * ds;
 
     if (H > par->min_hsup_land)
     {
@@ -2257,7 +2256,7 @@ void find_dt_max_chla(double Courant, MatrixRow<double> &&h, MatrixRow<double> &
       {
 
         DH = H;
-        q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*H;//m3/s
+        q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*(*cnet->length)(ch))*1.E-3*H;//m3/s
         Vmax = Fmin( areach*1.E-3*(-Hch), area*1.E-3*H );
 
         Vmax = Fmax(Vmax, 1.E-10);
@@ -2271,7 +2270,7 @@ void find_dt_max_chla(double Courant, MatrixRow<double> &&h, MatrixRow<double> &
       {
 
         DH = H - Hch;
-        q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*H;//m3/s
+        q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*(*cnet->length)(ch))*1.E-3*H;//m3/s
         Vmax = 1.E-3*DH / (1./area + 1./areach);
 
         Vmax = Fmax(Vmax, 1.E-10);
@@ -2286,7 +2285,7 @@ void find_dt_max_chla(double Courant, MatrixRow<double> &&h, MatrixRow<double> &
     {
 
       DH = Hch - H;
-      q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*Hch;//m3/s
+      q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*(*cnet->length)(ch))*1.E-3*Hch;//m3/s
 
       Vmax = 1.E-3*DH / (1./area + 1./areach);
 
@@ -2343,9 +2342,9 @@ void supflow_chla(double Dt, double t, MatrixRow<double> &&h, MatrixRow<double> 
       Hch = Fmax(0., hch[ch] ) / cos((*top->slope)(r,c)*Pi/180.) -
             par->depr_channel * cos((*top->slope)(r,c)*Pi/180.);
 
-      area = ds*ds/cos((*top->slope)(r,c)*Pi/180.) - cnet->length->co[ch] *
+      area = ds*ds/cos((*top->slope)(r,c)*Pi/180.) - (*cnet->length)(ch) *
                                                      par->w_dx * ds;
-      areach = cnet->length->co[ch] * par->w_dx * ds;
+      areach = (*cnet->length)(ch) * par->w_dx * ds;
 
       if (H > par->min_hsup_land)
       {
@@ -2354,7 +2353,7 @@ void supflow_chla(double Dt, double t, MatrixRow<double> &&h, MatrixRow<double> 
         {
 
           DH = H;
-          q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*H;//m3/s
+          q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*(*cnet->length)(ch))*1.E-3*H;//m3/s
 
           Vmax = Fmin( areach*1.E-3*(-Hch), area*1.E-3*H );
           if (q*dt > Vmax) q = Vmax/dt;
@@ -2380,7 +2379,7 @@ void supflow_chla(double Dt, double t, MatrixRow<double> &&h, MatrixRow<double> 
         {
 
           DH = H - Hch;
-          q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*H;//m3/s
+          q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*(*cnet->length)(ch))*1.E-3*H;//m3/s
 
           Vmax = 1.E-3*DH / (1./area + 1./areach);
           if (q*dt > Vmax) q = Vmax/dt;
@@ -2406,7 +2405,7 @@ void supflow_chla(double Dt, double t, MatrixRow<double> &&h, MatrixRow<double> 
       {
 
         DH = Hch - H;
-        q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*cnet->length->co[ch])*1.E-3*Hch;//m3/s
+        q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*(*cnet->length)(ch))*1.E-3*Hch;//m3/s
 
         Vmax = 1.E-3*DH / (1./area + 1./areach);
         if (q*dt > Vmax) q = Vmax/dt;
@@ -2469,7 +2468,7 @@ void find_dt_max_channel(short DDcomplex, double Courant, MatrixRow<double> &&h,
         draining_channel(0., ch, top->Z0.get(), std::forward<MatrixRow<double>>(h), cnet, &(cnet->ch_down->co[ch]));
       }
 
-      Vmax = 1.E-3*H*dn*cnet->length->co[ch]; //m3
+      Vmax = 1.E-3*H*dn*(*cnet->length)(ch); //m3
 
       if ((*top->is_on_border)(r,c) == 1
           && (*cnet->ch_down)(ch)==ch) //outlet section
@@ -2608,7 +2607,7 @@ void channel_flow(double Dt, double t, short DDcomplex, MatrixRow<double> &&h, d
 
           }
 
-          dV[ch] = Fmin( q*dt, 1.E-3*H*dn*cnet->length->co[ch] );   //m3
+          dV[ch] = Fmin( q*dt, 1.E-3*H*dn*(*cnet->length)(ch) );   //m3
 
         }
       }
@@ -2619,7 +2618,7 @@ void channel_flow(double Dt, double t, short DDcomplex, MatrixRow<double> &&h, d
         r = (*cnet->r)(ch);
         c = (*cnet->c)(ch);
 
-        h[ch] -= (1.E3*dV[ch]/(dn*cnet->length->co[ch])) * cos(
+        h[ch] -= (1.E3*dV[ch]/(dn*(*cnet->length)(ch))) * cos(
                 (*top->slope)(r,c)*Pi/180.);
 
         if ((*top->is_on_border)(r,c) == 1
@@ -2634,7 +2633,7 @@ void channel_flow(double Dt, double t, short DDcomplex, MatrixRow<double> &&h, d
           if (h[(*cnet->ch_down)(ch)]>0)
           {
             h[(*cnet->ch_down)(ch)] += (1.E3*dV[ch]/
-                                        (dn*cnet->length->co[(*cnet->ch_down)(ch)])) * cos(
+                                        (dn*(*cnet->length)((*cnet->ch_down)(ch)))) * cos(
                     (*top->slope)(R,C)*Pi/180.); //mm;
           }
           else

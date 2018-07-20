@@ -58,13 +58,13 @@ void enumerate_channels(CHANNEL *cnet, Matrix<double> *LC,
                     i++;
                     if (fabs(rnext-r)==1 && fabs(cnext-c)==1)
                     {
-                        cnet->length->co[i-1]+=0.5*sqrt(2.);
-                        cnet->length->co[i]+=0.5*sqrt(2.);
+                        (*cnet->length)(i-1)+=0.5*sqrt(2.);
+                        (*cnet->length)(i)+=0.5*sqrt(2.);
                     }
                     else
                     {
-                        cnet->length->co[i-1]+=0.5;
-                        cnet->length->co[i]+=0.5;
+                        (*cnet->length)(i-1)+=0.5;
+                        (*cnet->length)(i)+=0.5;
                     }
 
                     (*cnet->r)(i)=rnext;
@@ -82,16 +82,16 @@ void enumerate_channels(CHANNEL *cnet, Matrix<double> *LC,
             {
                 if (fabs(-rnext-r)==1 && fabs(-cnext-c)==1)
                 {
-                    cnet->length->co[i]+=0.5*sqrt(2.);
+                    (*cnet->length)(i)+=0.5*sqrt(2.);
                 }
                 else
                 {
-                    cnet->length->co[i]+=0.5;
+                    (*cnet->length)(i)+=0.5;
                 }
             }
             else
             {
-                cnet->length->co[i]+=0.5;
+                (*cnet->length)(i)+=0.5;
             }
         }
 
@@ -102,7 +102,7 @@ void enumerate_channels(CHANNEL *cnet, Matrix<double> *LC,
     {
         r = (*cnet->r)(i);
         c = (*cnet->c)(i);
-        cnet->length->co[i] *= (UV->U->co[1]/cos((*slope)(r,c)*Pi/180.));
+        (*cnet->length)(i) *= (UV->U->co[1]/cos((*slope)(r,c)*Pi/180.));
     }
 
 }

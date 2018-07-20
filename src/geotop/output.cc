@@ -155,9 +155,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 r = (*cnet->r)(l);
                 c = (*cnet->c)(l);
                 Vchannel += 1.E-3 * Fmax((*cnet->SS->P)(0,l), 0.) / cos((*top->slope)(r,c)*Pi/180.) *
-                            UV->U->co[1] * par->w_dx * cnet->length->co[l];
-                Vsub += cnet->Vsub->co[l];
-                Vsup += cnet->Vsup->co[l];
+                            UV->U->co[1] * par->w_dx * (*cnet->length)(l);
+                Vsub += (*cnet->Vsub)(l);
+                Vsup += (*cnet->Vsup)(l);
             }
 
             if (par->recover > 0)
@@ -988,14 +988,14 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     //**************************************************************************************************
     //**************************************************************************************************
     // averaging properties
-    if (par->output_meteo->co[i_sim]>0)
+    if ((*par->output_meteo)(i_sim)>0)
     {
         if (strcmp(files[fTa], string_novalue) != 0)
         {
             for (i=1; i<=par->total_pixel; i++)
             {
                 met->Tamean->co[i]+= (*met->Tgrid)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
-                                     /((par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
+                                     /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
             }
         }
         if (strcmp(files[fwspd], string_novalue) != 0)
@@ -1003,7 +1003,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             for (i=1; i<=par->total_pixel; i++)
             {
                 met->Vspdmean->co[i]+=(*met->Vgrid)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
-                                      /((par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
+                                      /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
             }
         }
         if (strcmp(files[fwdir], string_novalue) != 0)
@@ -1011,7 +1011,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             for (i=1; i<=par->total_pixel; i++)
             {
                 met->Vdirmean->co[i]+=(*met->Vdir)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
-                                      /((par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
+                                      /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
             }
         }
         if (strcmp(files[frh], string_novalue) != 0)
@@ -1019,12 +1019,12 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             for (i=1; i<=par->total_pixel; i++)
             {
                 met->RHmean->co[i]+=(*met->RHgrid)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
-                                    /((par->output_meteo->co[i_sim]*3600.0)/(par->Dt));
+                                    /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
             }
         }
     }
 
-    if (par->output_soil->co[i_sim]>0)
+    if ((*par->output_soil)(i_sim)>0)
     {
         if (strcmp(files[fTav], string_novalue) != 0 || strcmp(files[fTavsup], string_novalue) != 0)
         {
@@ -1032,7 +1032,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (l=1; l<=Nl; l++)
                 {
-                    (*sl->T_av_tensor)(l,i) += (*sl->SS->T)(l,i)/ ((par->output_soil->co[i_sim]*3600.0)/(par->Dt));
+                    (*sl->T_av_tensor)(l,i) += (*sl->SS->T)(l,i)/ (((*par->output_soil)(i_sim)*3600.0)/(par->Dt));
                 }
             }
         }
@@ -1042,7 +1042,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (l=1; l<=Nl; l++)
                 {
-                    (*sl->thw_av_tensor)(l,i) += (*sl->th)(l,i)/ ((par->output_soil->co[i_sim]*3600.0)/(par->Dt));
+                    (*sl->thw_av_tensor)(l,i) += (*sl->th)(l,i)/ (((*par->output_soil)(i_sim)*3600.0)/(par->Dt));
                 }
             }
         }
@@ -1052,7 +1052,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (l=1; l<=Nl; l++)
                 {
-                    (*sl->thi_av_tensor)(l,i) += (*sl->SS->thi)(l,i)/ ((par->output_soil->co[i_sim]*3600.0)/(par->Dt));
+                    (*sl->thi_av_tensor)(l,i) += (*sl->SS->thi)(l,i)/ (((*par->output_soil)(i_sim)*3600.0)/(par->Dt));
                 }
             }
         }
@@ -1065,9 +1065,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     // soil properties
     std::cout << "SOIL PROPERTIES" << std::endl;
 
-    if (par->output_soil->co[i_sim]>0 && fmod(times->time+par->Dt,par->output_soil->co[i_sim]*3600.0)<1.E-5)
+    if ((*par->output_soil)(i_sim)>0 && fmod(times->time+par->Dt,(*par->output_soil)(i_sim)*3600.0)<1.E-5)
     {
-        n_file=(long)((times->time+par->Dt)/(par->output_soil->co[i_sim]*3600.0));
+        n_file=(long)((times->time+par->Dt)/((*par->output_soil)(i_sim)*3600.0));
         write_suffix(NNNNN, n_file, 1);
         if ((*par->run_times)(i_sim) == 1)
         {
@@ -1407,10 +1407,10 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     }
 
     // snow properties
-    if (par->output_snow->co[i_sim]>0
-        && fmod(times->time+par->Dt,par->output_snow->co[i_sim]*3600.0)<1.E-5)
+    if ((*par->output_snow)(i_sim)>0
+        && fmod(times->time+par->Dt,(*par->output_snow)(i_sim)*3600.0)<1.E-5)
     {
-        n_file=(long)((times->time+par->Dt)/(par->output_snow->co[i_sim]*3600.0));
+        n_file=(long)((times->time+par->Dt)/((*par->output_snow)(i_sim)*3600.0));
         write_suffix(NNNNN, n_file, 1);
         if ((*par->run_times)(i_sim) == 1)
         {
@@ -1535,10 +1535,10 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     }
 
     // glacier properties
-    if (par->max_glac_layers>0 && par->output_glac->co[i_sim]>0
-        && fmod(times->time+par->Dt,par->output_glac->co[i_sim]*3600.0)<1.E-5)
+    if (par->max_glac_layers>0 && (*par->output_glac)(i_sim)>0
+        && fmod(times->time+par->Dt,(*par->output_glac)(i_sim)*3600.0)<1.E-5)
     {
-        n_file=(long)((times->time+par->Dt)/(par->output_glac->co[i_sim]*3600.0));
+        n_file=(long)((times->time+par->Dt)/((*par->output_glac)(i_sim)*3600.0));
         write_suffix(NNNNN, n_file, 1);
         if ((*par->run_times)(i_sim) == 1)
         {
@@ -1764,11 +1764,10 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     }
 
     // vegetation variables
-    if (par->output_vegetation->co[i_sim]>0
-        && fmod(times->time+par->Dt,par->output_vegetation->co[i_sim]*3600.0)<1.E-5)
+    if ((*par->output_vegetation)(i_sim)>0
+        && fmod(times->time+par->Dt,(*par->output_vegetation)(i_sim)*3600.0)<1.E-5)
     {
-        n_file=(long)((times->time+par->Dt)/
-                      (par->output_vegetation->co[i_sim]*3600.0));
+        n_file = (long)((times->time+par->Dt)/ ((*par->output_vegetation)(i_sim)*3600.0));
         write_suffix(NNNNN, n_file, 1);
         if ((*par->run_times)(i_sim) == 1)
         {
@@ -1809,10 +1808,10 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     }
 
     // METEO
-    if (par->output_meteo->co[i_sim]>0
-        && fmod(times->time+par->Dt,par->output_meteo->co[i_sim]*3600.0)<1.E-5)
+    if ((*par->output_meteo)(i_sim)>0
+        && fmod(times->time+par->Dt,(*par->output_meteo)(i_sim)*3600.0)<1.E-5)
     {
-        n_file=(long)((times->time+par->Dt)/(par->output_meteo->co[i_sim]*3600.0));
+        n_file=(long)((times->time+par->Dt)/((*par->output_meteo)(i_sim)*3600.0));
 
         write_suffix(NNNNN, n_file, 1);
         if ((*par->run_times)(i_sim) == 1)
@@ -1905,8 +1904,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     {
         i=times->iplot;
         j=2*i-1;
-        if ( fabs(par->init_date->co[i_sim]+(times->time+par->Dt)/86400. -
-                  times->JD_plots->co[j+1]) < 1.E-5 )
+        if ( fabs(par->init_date->co[i_sim]+(times->time+par->Dt)/86400. - (*times->JD_plots)(j+1)) < 1.E-5 )
         {
             geolog << "Printing plot number "<<i << std::endl;
 
@@ -4807,7 +4805,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
     for (j=1; j<=par->total_pixel; j++)
     {
 
-        if (par->output_soil->co[i_sim]>0)
+        if ((*par->output_soil)(i_sim)>0)
         {
             r = (*top->rc_cont)(j,1);
             c = (*top->rc_cont)(j,2);
@@ -4822,7 +4820,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
             }
         }
 
-        if (par->output_snow->co[i_sim]>0)
+        if ((*par->output_snow)(i_sim)>0)
         {
             if (strcmp(files[fsnowmelt], string_novalue) != 0)
                 snow->MELTED->co[j] += snow->melted->co[j];
@@ -4834,7 +4832,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
             }
         }
 
-        if (par->max_glac_layers>0 && par->output_glac->co[i_sim]>0)
+        if (par->max_glac_layers>0 && (*par->output_glac)(i_sim)>0)
         {
             if (strcmp(files[fglacmelt], string_novalue) != 0)
                 glac->MELTED->co[j] += glac->melted->co[j];
@@ -4877,12 +4875,12 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                 if ((*egy->shad)(j) == 0) (*egy->nDt_shadow)(j) ++;
             }
         }
-        if (par->output_meteo->co[i_sim]>0)
+        if ((*par->output_meteo)(i_sim)>0)
         {
             if (strcmp(files[fprec], string_novalue) != 0)
             {
-                wat->PrTOT_mean->co[j] = wat->Pt->co[j];
-                wat->PrSNW_mean->co[j] = wat->Ps->co[j];
+                (*wat->PrTOT_mean)(j) = (*wat->Pt)(j);
+                (*wat->PrSNW_mean)(j) = (*wat->Ps)(j);
             }
         }
 

@@ -86,11 +86,11 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
     {
       i=2*A->I->iplot-1;
       if ( A->P->init_date->co[i_sim]+A->I->time/secinday+1.E-5 >=
-           A->I->JD_plots->co[i] &&
+           (*A->I->JD_plots)(i) &&
            A->P->init_date->co[i_sim]+(A->I->time+Dt)/secinday-1.E-5 <=
-           A->I->JD_plots->co[i+1] )
+           (*A->I->JD_plots)(i+1) )
         {
-          Dtplot=(A->I->JD_plots->co[i+1]-A->I->JD_plots->co[i])*secinday;
+          Dtplot=((*A->I->JD_plots)(i+1)-(*A->I->JD_plots)(i))*secinday;
           *W = Dt / Dtplot;
           f = fopen(logfile, "a");
           fprintf(f,"Saving plot number %ld Weight:%f \n",A->I->iplot,*W);
@@ -897,7 +897,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
             }
 
           //write output
-          if (A->P->output_snow->co[i_sim]>0)
+          if ((*A->P->output_snow)(i_sim)>0)
             {
               if (strcmp(files[fsnowmelt],
                          string_novalue) != 0) A->N->melted->co[j] = Melt_snow;
@@ -916,7 +916,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                 }
             }
 
-          if (A->P->max_glac_layers>0 && A->P->output_glac->co[i_sim]>0)
+          if (A->P->max_glac_layers>0 && (*A->P->output_glac)(i_sim)>0)
             {
               if (strcmp(files[fglacmelt],
                          string_novalue) != 0) A->G->melted->co[j] = Melt_glac;
@@ -931,8 +931,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
               if (strcmp(files[fradLW], string_novalue) != 0) A->E->LW->co[j] = LW;
               if (strcmp(files[fradSW], string_novalue) != 0)  A->E->SW->co[j] = SW;
               if (strcmp(files[fradSWin], string_novalue) != 0) A->E->SWin->co[j] = SWin;
-              if (strcmp(files[fradSWinbeam],
-                         string_novalue) != 0) A->E->SWinb->co[j] = SWbeam;
+              if (strcmp(files[fradSWinbeam], string_novalue) != 0) A->E->SWinb->co[j] = SWbeam;
               if (strcmp(files[fshadow], string_novalue) != 0) (*A->E->shad)(j) = SWb_yes;
               if (strcmp(files[fG], string_novalue) != 0) A->E->G->co[j] = surfEB;
               if (strcmp(files[fH], string_novalue) != 0)  A->E->H->co[j] = H;
@@ -940,12 +939,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
               if (strcmp(files[fTs], string_novalue) != 0) A->E->Ts->co[j] = (*Tgskin);
             }
 
-          if (A->P->output_meteo->co[i_sim]>0)
+          if ((*A->P->output_meteo)(i_sim)>0)
             {
               if (strcmp(files[fprec], string_novalue) != 0)
                 {
-                  A->W->Pt->co[j] = Precpoint;
-                  A->W->Ps->co[j] = Psnow_over;
+                 (*A->W->Pt)(j) = Precpoint;
+                 (*A->W->Ps)(j) = Psnow_over;
                 }
             }
 

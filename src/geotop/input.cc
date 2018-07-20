@@ -3607,12 +3607,12 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
     // 7. SET PAR
     for (i=1; i<=par->init_date->nh; i++)
     {
-        par->output_soil->co[i]=0.;
-        par->output_snow->co[i]=0.;
-        par->output_glac->co[i]=0.;
-        par->output_surfenergy->co[i]=0.;
-        par->output_vegetation->co[i]=0.;
-        par->output_meteo->co[i]=0.;
+        (*par->output_soil)(i)=0.;
+        (*par->output_snow)(i)=0.;
+        (*par->output_glac)(i)=0.;
+        (*par->output_surfenergy)(i)=0.;
+        (*par->output_vegetation)(i)=0.;
+        (*par->output_meteo)(i)=0.;
     }
 
     par->output_soil_bin = 0;
