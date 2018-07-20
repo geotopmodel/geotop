@@ -157,7 +157,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                       ns = (*snow->S->lnum)(r,c);
                       sux = copy_statevar_from3D_to1D(r, c, snow->S, snow->S_for_BS);
 
-                      if ( snow->S_for_BS->w_ice->co[ns] < par->Wice_PBSM )
+                      if ( (*snow->S_for_BS->w_ice)(ns) < par->Wice_PBSM )
                         {
                           l=ns;
                           do
@@ -166,12 +166,12 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                               sux = set_snowice_min(par->alpha_snow, r, c, snow->S_for_BS, ns, l,
                                                     par->Wice_PBSM);
                             }
-                          while ( l > 1 && snow->S_for_BS->w_ice->co[ns] < par->Wice_PBSM );
+                          while ( l > 1 && (*snow->S_for_BS->w_ice)(ns) < par->Wice_PBSM );
                         }
 
                       //find equilibrium snow trasport
-                      rho_snow_surface = (snow->S_for_BS->w_ice->co[ns] +
-                                          snow->S_for_BS->w_liq->co[ns]) / (1.E-3*(*snow->S_for_BS->Dzl)(ns));
+                      rho_snow_surface = ((*snow->S_for_BS->w_ice)(ns) +
+                                          (*snow->S_for_BS->w_liq)(ns)) / (1.E-3*(*snow->S_for_BS->Dzl)(ns));
 
                         Pbsm(r, c, PBSM_fetch, (*land->ty)(lu,jN), 1.E-3 * (*land->ty)(lu,jdv),
                              canopy_height_over_snow, rho_snow_surface, zmeas, (*met->Vgrid)(r,c),

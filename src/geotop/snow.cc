@@ -674,21 +674,21 @@ short set_snowice_min(double a, long r, long c, STATEVAR_1D *snow, long l1,
   //double h;
   double f, dwl, dwi, dd;
 
-  if (snow->w_ice->co[l1] < wicemin
-      && snow->w_ice->co[l2] > 1.E-6) //l1 too shallow and takes mass from l2
+  if ((*snow->w_ice)(l1) < wicemin
+      && (*snow->w_ice)(l2)> 1.E-6) //l1 too shallow and takes mass from l2
     {
-      f = Fmin(wicemin - snow->w_ice->co[l1],
-               snow->w_ice->co[l2])/snow->w_ice->co[l2];
-      //h = internal_energy(snow->w_ice->co[l1], snow->w_liq->co[l1], snow->T->co[l1]);
-      dd = f*snow->Dzl->co[l2];
-      snow->Dzl->co[l1] += dd;
-      snow->Dzl->co[l2] -= dd;
-      dwl = f*snow->w_liq->co[l2];
-      snow->w_liq->co[l1] += dwl;
-      snow->w_liq->co[l2] -= dwl;
-      dwi = f*snow->w_ice->co[l2];
-      snow->w_ice->co[l1] += dwi;
-      snow->w_ice->co[l2] -= dwi;
+      f = Fmin(wicemin - (*snow->w_ice)(l1),
+               (*snow->w_ice)(l2))/(*snow->w_ice)(l2);
+      //h = internal_energy((*snow->w_ice)(l1), snow->w_liq->co[l1], snow->T->co[l1]);
+      dd = f * (*snow->Dzl)(l2);
+        (*snow->Dzl)(l1) += dd;
+        (*snow->Dzl)(l2) -= dd;
+      dwl = f * (*snow->w_liq)(l2);
+      (*snow->w_liq)(l1) += dwl;
+      (*snow->w_liq)(l2) -= dwl;
+      dwi = f*(*snow->w_ice)(l2);
+      (*snow->w_ice)(l1) += dwi;
+      (*snow->w_ice)(l2)-= dwi;
       //h += internal_energy(dwi, dwl, snow->T->co[l2]);
       //from_internal_energy(a, r+1000, c+1000, h, &(snow->w_ice->co[l1]), &(snow->w_liq->co[l1]), &(snow->T->co[l1]));
       return 1;
@@ -1479,10 +1479,10 @@ short copy_statevar_from3D_to1D(long r, long c, STATEVAR_3D *origin,
   destination->lnum = (*origin->lnum)(r,c);
   for (l=1; l<=nl; l++)
     {
-      destination->Dzl->co[l] = origin->Dzl->co[l][r][c];
-      destination->T->co[l] = origin->T->co[l][r][c];
-      destination->w_ice->co[l] = origin->w_ice->co[l][r][c];
-      destination->w_liq->co[l] = origin->w_liq->co[l][r][c];
+      (*destination->Dzl)(l) = origin->Dzl->co[l][r][c];
+      (*destination->T)(l) = origin->T->co[l][r][c];
+      (*destination->w_ice)(l) = origin->w_ice->co[l][r][c];
+      (*destination->w_liq)(l) = origin->w_liq->co[l][r][c];
     }
 
   return 1;
