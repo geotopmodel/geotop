@@ -81,9 +81,9 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
 
       //meteo distribution
       meteo_distr(met->line_interp_Bsnow, met->line_interp_Bsnow_LR, met, wat, top,
-                  par, par->init_date->co[i_sim]+t0/secinday,
-                  par->init_date->co[i_sim]+(t0+t)/secinday,
-                  par->init_date->co[i_sim]+(t0+t+Dt)/secinday);
+                  par, (*par->init_date)(i_sim) + t0/secinday,
+                  (*par->init_date)(i_sim) + (t0+t)/secinday,
+                  (*par->init_date)(i_sim) + (t0+t+Dt)/secinday);
 
 
       //vegetation
@@ -91,9 +91,9 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
         {
           if ((*par->vegflag)(lux)==1)
             {
-              time_interp_linear(par->init_date->co[i_sim]+t0/secinday,
-                                 par->init_date->co[i_sim]+(t0+t)/secinday,
-                                 par->init_date->co[i_sim]+(t0+t+Dt)/secinday,
+              time_interp_linear((*par->init_date)(i_sim)+t0/secinday,
+                                 (*par->init_date)(i_sim)+(t0+t)/secinday,
+                                 (*par->init_date)(i_sim)+(t0+t+Dt)/secinday,
                                  land->vegparv[lux-1], land->vegpars[lux-1],
                                  land->NumlinesVegTimeDepData[lux-1], jdvegprop+1, 0, 0, &line_interp);
             }

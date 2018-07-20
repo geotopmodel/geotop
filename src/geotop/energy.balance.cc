@@ -85,12 +85,12 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
   if (A->I->JD_plots->nh > 1 && A->I->iplot<=A->I->JD_plots->nh)
     {
       i=2*A->I->iplot-1;
-      if ( A->P->init_date->co[i_sim]+A->I->time/secinday+1.E-5 >=
+      if ( (*A->P->init_date)(i_sim) + A->I->time/secinday+1.E-5 >=
            (*A->I->JD_plots)(i) &&
-           A->P->init_date->co[i_sim]+(A->I->time+Dt)/secinday-1.E-5 <=
+           (*A->P->init_date)(i_sim) + (A->I->time+Dt)/secinday-1.E-5 <=
            (*A->I->JD_plots)(i+1) )
         {
-          Dtplot=((*A->I->JD_plots)(i+1)-(*A->I->JD_plots)(i))*secinday;
+          Dtplot=((*A->I->JD_plots)(i+1) - (*A->I->JD_plots)(i))*secinday;
           *W = Dt / Dtplot;
           f = fopen(logfile, "a");
           fprintf(f,"Saving plot number %ld Weight:%f \n",A->I->iplot,*W);
@@ -735,7 +735,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
 
       //ENERGY BALANCE
       sux=SolvePointEnergyBalance(surface, Tdirichlet, Tdirichlet_bottom, A->P->EB,
-                                  A->P->Cair, A->P->micro, JDb-A->P->init_date->co[i_sim], Dt, i, j, r, c, L, C,
+                                  A->P->Cair, A->P->micro, JDb-(*A->P->init_date)(i_sim), Dt, i, j, r, c, L, C,
                                   V, A->E.get(), A->L.get(),
                                   A->S.get(), A->C.get(), A->T.get(), A->P.get(), ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg,
                                   1.0, hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa],

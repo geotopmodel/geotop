@@ -86,7 +86,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 
     //surface flow: 1st half of time step
     start=clock();
-    supflow(adt->P->DDland, adt->P->DDchannel, Dt / 2., adt->I->time, L->P->row(0), &adt->W->h_sup->co[0], C->P->row(0),
+    supflow(adt->P->DDland, adt->P->DDchannel, Dt / 2., adt->I->time, L->P->row(0), (*adt->W->h_sup.get()), C->P->row(0),
             &adt->C->h_sup->co[0], adt->T.get(), adt->L.get(), adt->W.get(), adt->C.get(), adt->P.get(), adt->M.get(),
             Vsup, Voutnet, Voutlandsup, &mm1, &mm2, &mmo);
     end=clock();
@@ -152,7 +152,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
 
     //surface flow: 2nd half of time step
     start=clock();
-    supflow(adt->P->DDland, adt->P->DDchannel, Dt / 2., adt->I->time, L->P->row(0), &adt->W->h_sup->co[0], C->P->row(0),
+    supflow(adt->P->DDland, adt->P->DDchannel, Dt / 2., adt->I->time, L->P->row(0), (*adt->W->h_sup.get()), C->P->row(0),
             &adt->C->h_sup->co[0], adt->T.get(), adt->L.get(), adt->W.get(), adt->C.get(), adt->P.get(), adt->M.get(),
             Vsup, Voutnet, Voutlandsup, &mm1, &mm2, &mmo);
     end=clock();
@@ -2044,7 +2044,8 @@ void find_dt_max(short DD, double Courant, MatrixRow<double> &&h, LAND *land, TO
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&h, double *dV, MatrixRow<double> &&hch,
+void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&h, Vector<double> &dV,
+             MatrixRow<double> &&hch,
              double *dhch, TOPO *top,
              LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, METEO *met, Vector<double> *Vsup, double *Voutnet,
              double *Voutland, double *mm1, double *mm2, double *mmo)
@@ -2151,7 +2152,7 @@ void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&
       if (ch>0) area -= (*cnet->length)(ch) * par->w_dx *
                         ds; //area of the pixel[m2]
 
-      h[j] -= (1.E3*dV[j]/area) * cos((*top->slope)(r,c)*Pi/180.);
+      h[j] -= (1.E3 * dV[j]/area) * cos((*top->slope)(r,c)*Pi/180.);
 
       if ((*top->BC_counter)(r,c) > 0 && (*top->pixel_type)(r,c) == -1)
       {
@@ -2182,13 +2183,13 @@ void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&
 
           if (h[(*top->Jdown)(j,d)]>0)
           {
-            h[(*top->Jdown)(j,d)] += (1.E3*dV[j]*(*top->Qdown)(j,d)/area) * cos(
+            h[(*top->Jdown)(j,d)] += (1.E3 * dV[j]*(*top->Qdown)(j,d)/area) * cos(
                     (*top->slope)(R,C)*Pi/180.);
           }
           else
           {
             if ( dV[j]*(*top->Qdown)(j,d) > 0) h[(*top->Jdown)(j,d)] =
-                                                       (1.E3*dV[j]*(*top->Qdown)(j,d)/area) * cos((*top->slope)(R,C)*Pi/180.);
+                                                       (1.E3 * dV[j]*(*top->Qdown)(j,d)/area) * cos((*top->slope)(R,C)*Pi/180.);
           }
 
         }

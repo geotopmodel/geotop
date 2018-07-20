@@ -1114,8 +1114,8 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   par->init_date.reset(new Vector<double>{num_param_components[cod]});
   for (i=1; i<=par->init_date->nh; i++)
     {
-      par->init_date->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components, 010119000000., 0);
-      par->init_date->co[i] = convert_dateeur12_JDfrom0(par->init_date->co[i]);
+      (*par->init_date)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components, 010119000000., 0);
+      (*par->init_date)(i) = convert_dateeur12_JDfrom0((*par->init_date)(i));
     }
 
   //simulation time
@@ -1138,7 +1138,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
                                                 (double) number_novalue, 0);
       if ((long)par->end_date->co[i] == number_novalue)
         {
-          par->end_date->co[i] = par->init_date->co[i] + par->simulation_hours/24.;
+          par->end_date->co[i] = (*par->init_date)(i) + par->simulation_hours/24.;
         }
       else
         {

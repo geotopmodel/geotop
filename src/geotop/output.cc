@@ -128,7 +128,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
     // Time indices
     JDfrom0 = convert_tfromstart_JDfrom0(times->time+par->Dt,
-                                         par->init_date->co[i_sim]);
+                                         (*par->init_date)(i_sim));
     convert_JDfrom0_JDandYear(JDfrom0, &JD, &year);
     convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
     cum_time += par->Dt;
@@ -187,7 +187,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             fprintf(f,"%02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)day,(float)month,
                     (float)year,(float)hour,(float)minute);
             fprintf(f,",%f,%f,%f",(times->time+par->Dt)/secinday+(i_run-1)*
-                                                                 (par->end_date->co[i_sim]-par->init_date->co[i_sim]),JDfrom0,JD);
+                                                                 (par->end_date->co[i_sim]-(*par->init_date)(i_sim)),JDfrom0,JD);
             fprintf(f,",%e,%e,%e,%e,%e,%e,%e\n",
                     cnet->Vout/(double)(*par->Dtplot_discharge)(i_sim),
                     Vsup/(double)(*par->Dtplot_discharge)(i_sim),
@@ -408,8 +408,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                 }
                                 else if (opnt[j] == odaysfromstart)
                                 {
-                                    fprintf(f, "%f",(JDfrom0-par->init_date->co[i_sim])+(i_run-1)*
-                                                                                        (par->end_date->co[i_sim]-par->init_date->co[i_sim]));
+                                    fprintf(f, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
+                                                                                        (par->end_date->co[i_sim]-(*par->init_date)(i_sim)));
                                 }
                                 else if (opnt[j] == operiod)
                                 {
@@ -465,8 +465,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                 }
                                 else if (opnt[j] == odaysfromstart)
                                 {
-                                    fprintf(ffpoint, "%f",(JDfrom0-par->init_date->co[i_sim])+(i_run-1)*
-                                                                                              (par->end_date->co[i_sim]-par->init_date->co[i_sim]));
+                                    fprintf(ffpoint, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
+                                                                                              (par->end_date->co[i_sim]-(*par->init_date)(i_sim)));
                                 }
                                 else if (opnt[j] == operiod)
                                 {
@@ -556,8 +556,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                     }
                                     else if (oglc[j] == 2)
                                     {
-                                        fprintf(f, "%f",(JDfrom0-par->init_date->co[i_sim])+(i_run-1)*
-                                                                                            (par->end_date->co[i_sim]-par->init_date->co[i_sim]));
+                                        fprintf(f, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
+                                                                                            (par->end_date->co[i_sim]-(*par->init_date)(i_sim)));
                                     }
                                     else if (oglc[j] == 3)
                                     {
@@ -679,8 +679,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                     }
                                     else if (oglc[j] == 2)
                                     {
-                                        fprintf(f, "%f",(JDfrom0-par->init_date->co[i_sim])+(i_run-1)*
-                                                                                            (par->end_date->co[i_sim]-par->init_date->co[i_sim]));
+                                        fprintf(f, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
+                                                                                            (par->end_date->co[i_sim]-(*par->init_date)(i_sim)));
                                     }
                                     else if (oglc[j] == 3)
                                     {
@@ -769,7 +769,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     // sl output
                     std::cout << "WRITE_SOIL_OUTPUT" << std::endl;
 
-                    write_soil_output(i, (*par->IDpoint)(i), par->init_date->co[i_sim],
+                    write_soil_output(i, (*par->IDpoint)(i), (*par->init_date)(i_sim),
                                       par->end_date->co[i_sim], JDfrom0, JD,
                                       day, month, year, hour, minute,
                                       par->soil_plot_depths.get(), sl, par, (double)PsiMin, cosslope);
@@ -777,7 +777,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     // snow output
                     std::cout << "WRITE_SNOW_OUTPUT" << std::endl;
 
-                    write_snow_output(i, (*par->IDpoint)(i), r, c, par->init_date->co[i_sim],
+                    write_snow_output(i, (*par->IDpoint)(i), r, c, (*par->init_date)(i_sim),
                                       par->end_date->co[i_sim], JDfrom0, JD,
                                       day, month, year, hour, minute,
                                       par->snow_plot_depths.get(), snow->S, par, cosslope);
@@ -886,8 +886,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                         }
                         else if (obsn[j] == oodaysfromstart)
                         {
-                            fprintf(f, "%f",(JDfrom0-par->init_date->co[i_sim])+(i_run-1)*
-                                                                                (par->end_date->co[i_sim]-par->init_date->co[i_sim]));
+                            fprintf(f, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
+                                                                                (par->end_date->co[i_sim]-(*par->init_date)(i_sim)));
                         }
                         else
                         {
@@ -930,8 +930,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                         }
                         else if (obsn[j] == oodaysfromstart)
                         {
-                            fprintf(f, "%f",(JDfrom0-par->init_date->co[i_sim])+(i_run-1)*
-                                                                                (par->end_date->co[i_sim]-par->init_date->co[i_sim]));
+                            fprintf(f, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
+                                                                                (par->end_date->co[i_sim]-(*par->init_date)(i_sim)));
                         }
                         else
                         {
@@ -1904,7 +1904,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     {
         i=times->iplot;
         j=2*i-1;
-        if ( fabs(par->init_date->co[i_sim]+(times->time+par->Dt)/86400. - (*times->JD_plots)(j+1)) < 1.E-5 )
+        if ( fabs((*par->init_date)(i_sim)+(times->time+par->Dt)/86400. - (*times->JD_plots)(j+1)) < 1.E-5 )
         {
             geolog << "Printing plot number "<<i << std::endl;
 
@@ -2299,7 +2299,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                         "Time[s],Time[d],n,i_run,i_sim,cum_time[s],elapsed_time[s],last_recover\n");
                 fprintf(f,"%f,%f,%ld,%ld,%ld,%f,%f,%ld",times->time+par->Dt,
                         (times->time+par->Dt)/secinday+(i_run-1)*(par->end_date->co[i_sim] -
-                                                                  par->init_date->co[i_sim]),
+                                                                  (*par->init_date)(i_sim)),
                         (long)(((times->time+par->Dt)/secinday)/par->ContRecovery),i_run,i_sim,
                         cum_time,elapsed_time,par->n_ContRecovery);
                 fclose(f);
@@ -4966,7 +4966,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                     c = (*top->rc_cont)(j,2);
                     if (par->Tzrun == 1)
                         (*sl->Tzrun)((*par->jplot)(j),i) += (*sl->SS->T)(i,j)
-                                                              * Dt / ((par->end_date->co[i_sim] - par->init_date->co[i_sim])*86400.);
+                                                              * Dt / ((par->end_date->co[i_sim] - (*par->init_date)(i_sim))*86400.);
                     if (par->Tzmaxrun == 1)
                     {
                         if ((*sl->Tzmaxrun)((*par->jplot)(j),i) < (*sl->SS->T)(i,j))
@@ -4981,7 +4981,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                     {
                         w = ((*sl->SS->thi)(i,j) + (*sl->th)(i,j)) * sl->pa->co[(*sl->type)(r,c)][jdz][i];
                         if (par->wzrun == 1)
-                            (*sl->wzrun)((*par->jplot)(j),i) += w * Dt / ((par->end_date->co[i_sim] - par->init_date->co[i_sim])*86400.);
+                            (*sl->wzrun)((*par->jplot)(j),i) += w * Dt / ((par->end_date->co[i_sim] - (*par->init_date)(i_sim))*86400.);
                         if (par->wzmaxrun == 1)
                         {
                             if ((*sl->wzmaxrun)((*par->jplot)(j),i) < w)
@@ -4997,7 +4997,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                 {
                     w = get_SWE(r, c, snow->S->lnum.get(), snow->S->w_ice, snow->S->w_liq);
                     (*sl->SWErun)((*par->jplot)(j),1) += w * Dt / ((par->end_date->co[i_sim] -
-                                                                      par->init_date->co[i_sim])*86400.);
+                                                                      (*par->init_date)(i_sim))*86400.);
                     if ((*sl->SWErun)((*par->jplot)(j),2)<w)
                         (*sl->SWErun)((*par->jplot)(j),2)=w;
                     if ((*sl->SWErun)((*par->jplot)(j),3)>w)

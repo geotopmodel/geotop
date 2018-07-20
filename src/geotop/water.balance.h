@@ -61,7 +61,8 @@ void find_dt_max(short DD, double Courant, MatrixRow<double> &&h, LAND *land, TO
 void find_dt_max_chla(double Courant, MatrixRow<double> &&h, MatrixRow<double> &&hch, TOPO *top,
                       CHANNEL *cnet, PAR *par, double t, double *dt);
 
-void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&h, double *dV, MatrixRow<double> &&hch,
+void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&h, Vector<double> &dV,
+             MatrixRow<double> &&hch,
              double *dhch, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, METEO *met,
              Vector<double> *Vsup, double *Voutnet, double *Voutland, double *mm1, double *mm2, double *mmo);
 

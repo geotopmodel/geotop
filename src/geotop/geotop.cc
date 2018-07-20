@@ -225,7 +225,7 @@ void time_loop(ALLDATA *A)
 
     do
     {
-      if ( A->I->time > (A->P->end_date->co[i_sim] - A->P->init_date->co[i_sim]) *86400. - 1.E-5)
+      if ( A->I->time > (A->P->end_date->co[i_sim] - (*A->P->init_date)(i_sim)) *86400. - 1.E-5)
       {
         // printf("Number of times the simulation #%ld has been run: %ld\n",i_sim,i_run);
         // f=fopen(logfile, "a");
@@ -259,7 +259,7 @@ void time_loop(ALLDATA *A)
         set_time_step(A->P.get(), A->I.get());
 
         // time at the beginning of the time step
-        JD0 = A->P->init_date->co[i_sim]+A->I->time/secinday;
+        JD0 = (*A->P->init_date)(i_sim)+A->I->time/secinday;
 
         // time step variables
         t = 0.;
@@ -268,7 +268,7 @@ void time_loop(ALLDATA *A)
         // time step subdivisions
         do
         {
-          JDb = A->P->init_date->co[i_sim]+(A->I->time+t)/secinday;
+          JDb = (*A->P->init_date)(i_sim)+(A->I->time+t)/secinday;
 
           if (t + Dt > A->P->Dt)
             Dt = A->P->Dt - t;
@@ -276,7 +276,7 @@ void time_loop(ALLDATA *A)
           // iterations
           do
           {
-            JDe = A->P->init_date->co[i_sim]+(A->I->time+t+Dt)/secinday;
+            JDe = (*A->P->init_date)(i_sim)+(A->I->time+t+Dt)/secinday;
 
             // copy state variables on
             copy_snowvar3D(A->N->S, S.get());

@@ -162,7 +162,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     for (i=1; i<=par->init_date->nh; i++)
     {
         max_time += (*par->run_times)(i)*(par->end_date->co[i] -
-                                          par->init_date->co[i])*86400.;//seconds
+                                          (*par->init_date)(i))*86400.;//seconds
     }
 
     // recovering
@@ -265,7 +265,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     }
 
     // time indices
-    convert_JDfrom0_JDandYear(par->init_date->co[i_sim0], &JD, &year);
+    convert_JDfrom0_JDandYear((*par->init_date)(i_sim0), &JD, &year);
     convert_JDandYear_daymonthhourmin(JD, year, &day, &month, &hour, &minute);
 
     i_run = i_run0;//Run index
@@ -2382,11 +2382,11 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                 cosslope = 1.;
             }
 
-            write_soil_output(j, (*par->IDpoint)(j), par->init_date->co[1],
-                              par->end_date->co[1], par->init_date->co[1], JD, day, month, year, hour,
+            write_soil_output(j, (*par->IDpoint)(j), (*par->init_date)(1),
+                              par->end_date->co[1], (*par->init_date)(1), JD, day, month, year, hour,
                               minute, par->soil_plot_depths.get(), sl, par, (double)PsiMin, cosslope);
-            write_snow_output(j, (*par->IDpoint)(j), r, c, par->init_date->co[1],
-                              par->end_date->co[1], par->init_date->co[1], JD, day, month, year, hour,
+            write_snow_output(j, (*par->IDpoint)(j), r, c, (*par->init_date)(1),
+                              par->end_date->co[1], (*par->init_date)(1), JD, day, month, year, hour,
                               minute, par->snow_plot_depths.get(), snow->S, par, cosslope);
         }
     }
