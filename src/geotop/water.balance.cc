@@ -87,7 +87,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
     //surface flow: 1st half of time step
     start=clock();
     supflow(adt->P->DDland, adt->P->DDchannel, Dt / 2., adt->I->time, L->P->row(0), (*adt->W->h_sup.get()), C->P->row(0),
-            &adt->C->h_sup->co[0], adt->T.get(), adt->L.get(), adt->W.get(), adt->C.get(), adt->P.get(), adt->M.get(),
+            (*adt->C->h_sup.get()), adt->T.get(), adt->L.get(), adt->W.get(), adt->C.get(), adt->P.get(), adt->M.get(),
             Vsup, Voutnet, Voutlandsup, &mm1, &mm2, &mmo);
     end=clock();
 
@@ -153,7 +153,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
     //surface flow: 2nd half of time step
     start=clock();
     supflow(adt->P->DDland, adt->P->DDchannel, Dt / 2., adt->I->time, L->P->row(0), (*adt->W->h_sup.get()), C->P->row(0),
-            &adt->C->h_sup->co[0], adt->T.get(), adt->L.get(), adt->W.get(), adt->C.get(), adt->P.get(), adt->M.get(),
+            (*adt->C->h_sup.get()), adt->T.get(), adt->L.get(), adt->W.get(), adt->C.get(), adt->P.get(), adt->M.get(),
             Vsup, Voutnet, Voutlandsup, &mm1, &mm2, &mmo);
     end=clock();
 
@@ -2046,9 +2046,14 @@ void find_dt_max(short DD, double Courant, MatrixRow<double> &&h, LAND *land, TO
 
 void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&h, Vector<double> &dV,
              MatrixRow<double> &&hch,
-             double *dhch, TOPO *top,
+             Vector<double> &dhch, TOPO *top,
              LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, METEO *met, Vector<double> *Vsup, double *Voutnet,
              double *Voutland, double *mm1, double *mm2, double *mmo)
+//void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&h, Vector<double> &dV,
+//             MatrixRow<double> &&hch,
+//             Vector<double> &dhch, TOPO *top,
+//             LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, METEO *met, Vector<double> *Vsup, double *Voutnet,
+//             double *Voutland, double *mm1, double *mm2, double *mmo)
 {
 
 
@@ -2524,7 +2529,8 @@ void find_dt_max_channel(short DDcomplex, double Courant, MatrixRow<double> &&h,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void channel_flow(double Dt, double t, short DDcomplex, MatrixRow<double> &&h, double *dV, TOPO *top, CHANNEL *cnet,
+void channel_flow(double Dt, double t, short DDcomplex, MatrixRow<double> &&h, Vector<double> &dV, TOPO *top,
+                  CHANNEL *cnet,
                   PAR *par,
                   LAND *land, double *Vout, long *cnt)
 

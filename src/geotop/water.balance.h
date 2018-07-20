@@ -63,14 +63,18 @@ void find_dt_max_chla(double Courant, MatrixRow<double> &&h, MatrixRow<double> &
 
 void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&h, Vector<double> &dV,
              MatrixRow<double> &&hch,
-             double *dhch, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, METEO *met,
+             Vector<double> &dhch, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, METEO *met,
              Vector<double> *Vsup, double *Voutnet, double *Voutland, double *mm1, double *mm2, double *mmo);
-
+//void supflow(short DDland, short DDch, double Dt, double t, MatrixRow<double> &&h, Vector<double> &dV,
+//             MatrixRow<double> &&hch,
+//             Vector<double> &dhch, TOPO *top, LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, METEO *met,
+//             Vector<double> *Vsup, double *Voutnet, double *Voutland, double *mm1, double *mm2, double *mmo);
 void supflow_chla(double Dt, double t, MatrixRow<double> &&h, MatrixRow<double> &&hch, TOPO *top, WATER *wat,
                   CHANNEL *cnet, PAR *par,
                   Vector<double> *Vsup, long *cnt);
 
-void channel_flow(double Dt, double t, short DDcomplex, MatrixRow<double> &&h, double *dV, TOPO *top, CHANNEL *cnet,
+void channel_flow(double Dt, double t, short DDcomplex, MatrixRow<double> &&h, Vector<double> &dV, TOPO *top,
+                  CHANNEL *cnet,
                   PAR *par,
                   LAND *land, double *Vout, long *cnt);
 

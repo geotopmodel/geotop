@@ -1134,15 +1134,15 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 
   for (i=1; i<=par->end_date->nh; i++)
     {
-      par->end_date->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+      (*par->end_date)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
                                                 (double) number_novalue, 0);
-      if ((long)par->end_date->co[i] == number_novalue)
+      if ((long)(*par->end_date)(i) == number_novalue)
         {
-          par->end_date->co[i] = (*par->init_date)(i) + par->simulation_hours/24.;
+          (*par->end_date)(i) = (*par->init_date)(i) + par->simulation_hours/24.;
         }
       else
         {
-          par->end_date->co[i] = convert_dateeur12_JDfrom0(par->end_date->co[i]);
+          (*par->end_date)(i) = convert_dateeur12_JDfrom0((*par->end_date)(i));
         }
     }
 
@@ -1967,7 +1967,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   par->soil_plot_depths.reset(new Vector<double>{n});
   for (n=1; n<=par->soil_plot_depths->nh; n++)
     {
-      par->soil_plot_depths->co[n] = assignation_number(cod, n - 1, keyword, num_param, num_param_components,
+      (*par->soil_plot_depths)(n) = assignation_number(cod, n - 1, keyword, num_param, num_param_components,
                                                         (double) number_novalue, 0);
     }
 
@@ -1983,7 +1983,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   par->snow_plot_depths.reset(new Vector<double>{n});
   for (n=1; n<=par->snow_plot_depths->nh; n++)
     {
-      par->snow_plot_depths->co[n] = assignation_number(cod, n - 1, keyword, num_param, num_param_components,
+      (*par->snow_plot_depths)(n) = assignation_number(cod, n - 1, keyword, num_param, num_param_components,
                                                         (double) number_novalue, 0);
     }
 
@@ -1999,12 +1999,12 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   par->glac_plot_depths.reset(new Vector<double>{n});
   for (n=1; n<=par->glac_plot_depths->nh; n++)
     {
-      par->glac_plot_depths->co[n] = assignation_number(cod, n - 1, keyword, num_param, num_param_components,
+      (*par->glac_plot_depths)(n) = assignation_number(cod, n - 1, keyword, num_param, num_param_components,
                                                         (double) number_novalue, 0);
     }
 
   //output snow column
-  if ((long)par->snow_plot_depths->co[1] != number_novalue)
+  if ((long)(*par->snow_plot_depths)(1) != number_novalue)
     {
       m = par->snow_plot_depths->nh;
     }
@@ -2052,7 +2052,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 
 
   //output glacier column
-  if ((long)par->glac_plot_depths->co[1] != number_novalue)
+  if ((long)(*par->glac_plot_depths)(1) != number_novalue)
     {
       m = par->glac_plot_depths->nh;
     }

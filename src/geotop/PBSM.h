@@ -12,9 +12,9 @@
  Journal of Hydrology, 144 (1993) 165-192
  */
 
-void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double rho_sn, double zmeas, double V, double Ta,
-          double RH, double *Trans, double *Subl, double *Salt, double Dsnow, double slope);
-
+void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double rho_sn, double zmeas, double V,
+          double Ta, double RH, double &Trans, double &Subl, double &Salt, double Dsnow,
+          double slope);
 double suspension(double Z);
 
 double sublimation(double Z);

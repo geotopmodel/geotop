@@ -34,8 +34,9 @@ float CC1, CC2, CC3, CC4, CC5;
 
 //Prarie Blowing Snow Model - Pomeroy et al. (1993)
 
-void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double rho_sn, double zmeas, double V, double Ta,
-          double RH, double *Trans, double *Subl, double *Salt, double Dsnow, double slope)
+void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double rho_sn, double zmeas, double V,
+          double Ta, double RH, double &Trans, double &Subl, double &Salt, double Dsnow,
+          double slope)
 {
 
   //     Modified Calculations for Mean Particle Mass in this version
@@ -233,9 +234,9 @@ void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double r
         }
     }
 
-  *Trans = TQsum + TQsalt;    //{kg/m-width/s}
-  *Subl = (SBsum + SBsalt)*(-1);  //{kg/m2/s}
-  *Salt = TQsalt;         //{kg/m-width/s}
+  Trans = TQsum + TQsalt;    //{kg/m-width/s}
+  Subl = (SBsum + SBsalt)*(-1);  //{kg/m2/s}
+  Salt = TQsalt;         //{kg/m-width/s}
 
 
 

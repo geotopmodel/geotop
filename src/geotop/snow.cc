@@ -1376,7 +1376,7 @@ void find_SCA(STATEVAR_3D *snow, PAR *par, Matrix<double> *Z, double t)
   f=fopen(name,"a");
   fprintf(f,"%ld/%ld/%ld %ld:%02.0f",day,month,year,hour,(float)minute);
   fprintf(f,",%f,%f,%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
-          (par->end_date->co[i_sim]-(*par->init_date)(i_sim)),JDfrom0,JD);
+          ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)),JDfrom0,JD);
   fprintf(f,",%f,%f,%f,%f,%f,%f\n",Dmean,SWEmean,Tmean,Tsmean,(1.0-SCA)*100.0,
           SCA*100.0);
   fclose(f);

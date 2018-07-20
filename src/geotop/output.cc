@@ -186,8 +186,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
             fprintf(f,"%02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)day,(float)month,
                     (float)year,(float)hour,(float)minute);
-            fprintf(f,",%f,%f,%f",(times->time+par->Dt)/secinday+(i_run-1)*
-                                                                 (par->end_date->co[i_sim]-(*par->init_date)(i_sim)),JDfrom0,JD);
+            fprintf(f,",%f,%f,%f",(times->time+par->Dt)/secinday 
+                                  + (i_run-1) * ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)),JDfrom0,JD);
             fprintf(f,",%e,%e,%e,%e,%e,%e,%e\n",
                     cnet->Vout/(double)(*par->Dtplot_discharge)(i_sim),
                     Vsup/(double)(*par->Dtplot_discharge)(i_sim),
@@ -409,7 +409,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                 else if (opnt[j] == odaysfromstart)
                                 {
                                     fprintf(f, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
-                                                                                        (par->end_date->co[i_sim]-(*par->init_date)(i_sim)));
+                                                                                        ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
                                 }
                                 else if (opnt[j] == operiod)
                                 {
@@ -466,7 +466,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                 else if (opnt[j] == odaysfromstart)
                                 {
                                     fprintf(ffpoint, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
-                                                                                              (par->end_date->co[i_sim]-(*par->init_date)(i_sim)));
+                                                                                              ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
                                 }
                                 else if (opnt[j] == operiod)
                                 {
@@ -522,7 +522,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                             free(temp1);
                             f=fopen(name,"a");
 
-                            if ((long)par->glac_plot_depths->co[1] != number_novalue)
+                            if ((long)(*par->glac_plot_depths)(1) != number_novalue)
                             {
                                 m = par->glac_plot_depths->nh;
                             }
@@ -557,7 +557,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                     else if (oglc[j] == 2)
                                     {
                                         fprintf(f, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
-                                                                                            (par->end_date->co[i_sim]-(*par->init_date)(i_sim)));
+                                                                                            ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
                                     }
                                     else if (oglc[j] == 3)
                                     {
@@ -574,11 +574,11 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                     else if (oglc[j] <= 5 + 1*m)
                                     {
                                         l = oglc[j] - 5 - 0*m;
-                                        if ((long)par->glac_plot_depths->co[1] != number_novalue)
+                                        if ((long)(*par->glac_plot_depths)(1) != number_novalue)
                                         {
                                             fprintf(f, "%f",
                                                     interpolate_snow(r, c,
-                                                                     par->glac_plot_depths->co[l]*
+                                                                     (*par->glac_plot_depths)(l)*
                                                                      cosslope,
                                                                      (*glac->G->lnum)(r,c),
                                                                      glac->G->Dzl,
@@ -593,11 +593,11 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                     else if (oglc[j] <= 5 + 2*m)
                                     {
                                         l = oglc[j] - 5 - 1*m;
-                                        if ((long)par->glac_plot_depths->co[1] != number_novalue)
+                                        if ((long)(*par->glac_plot_depths)(1) != number_novalue)
                                         {
                                             fprintf(f, "%f",
                                                     interpolate_snow(r, c,
-                                                                     par->glac_plot_depths->co[l]*
+                                                                     (*par->glac_plot_depths)(l)*
                                                                      cosslope,
                                                                      (*glac->G->lnum)(r,c),
                                                                      glac->G->Dzl,
@@ -612,11 +612,11 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                     else if (oglc[j] <= 5 + 3*m)
                                     {
                                         l = oglc[j] - 5 - 2*m;
-                                        if ((long)par->glac_plot_depths->co[1] != number_novalue)
+                                        if ((long)(*par->glac_plot_depths)(1) != number_novalue)
                                         {
                                             fprintf(f, "%f",
                                                     interpolate_snow(r, c,
-                                                                     par->glac_plot_depths->co[l]*
+                                                                     (*par->glac_plot_depths)(l)*
                                                                      cosslope,
                                                                      (*glac->G->lnum)(r,c),
                                                                      glac->G->Dzl,
@@ -646,7 +646,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
                         if (strcmp(files[fglzwriteend], string_novalue) != 0)
                         {
-                            if ((long)par->glac_plot_depths->co[1] != number_novalue)
+                            if ((long)(*par->glac_plot_depths)(1) != number_novalue)
                             {
                                 m = par->glac_plot_depths->nh;
                             }
@@ -680,7 +680,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                     else if (oglc[j] == 2)
                                     {
                                         fprintf(f, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
-                                                                                            (par->end_date->co[i_sim]-(*par->init_date)(i_sim)));
+                                                                                            ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
                                     }
                                     else if (oglc[j] == 3)
                                     {
@@ -697,11 +697,11 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                     else if (oglc[j] <= 5 + 1*m)
                                     {
                                         l = oglc[j] - 5 - 0*m;
-                                        if ((long)par->glac_plot_depths->co[1] != number_novalue)
+                                        if ((long)(*par->glac_plot_depths)(1) != number_novalue)
                                         {
                                             fprintf(ffglac, "%f",
                                                     interpolate_snow(r, c,
-                                                                     par->glac_plot_depths->co[l]*
+                                                                     (*par->glac_plot_depths)(l)*
                                                                      cosslope, (*glac->G->lnum)(r,c),
                                                                      glac->G->Dzl,
                                                                      glac->G->T,
@@ -715,11 +715,11 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                     else if (oglc[j] <= 5 + 2*m)
                                     {
                                         l = oglc[j] - 5 - 1*m;
-                                        if ((long)par->glac_plot_depths->co[1] != number_novalue)
+                                        if ((long)(*par->glac_plot_depths)(1) != number_novalue)
                                         {
                                             fprintf(ffglac, "%f",
                                                     interpolate_snow(r, c,
-                                                                     par->glac_plot_depths->co[l]*
+                                                                     (*par->glac_plot_depths)(l)*
                                                                      cosslope,
                                                                      (*glac->G->lnum)(r,c),
                                                                      glac->G->Dzl,
@@ -734,11 +734,11 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                     else if (oglc[j] <= 5 + 3*m)
                                     {
                                         l = oglc[j] - 5 - 2*m;
-                                        if ((long)par->glac_plot_depths->co[1] != number_novalue)
+                                        if ((long)(*par->glac_plot_depths)(1) != number_novalue)
                                         {
                                             fprintf(ffglac, "%f",
                                                     interpolate_snow(r, c,
-                                                                     par->glac_plot_depths->co[l]*
+                                                                     (*par->glac_plot_depths)(l)*
                                                                      cosslope,
                                                                      (*glac->G->lnum)(r,c),
                                                                      glac->G->Dzl,
@@ -770,7 +770,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     std::cout << "WRITE_SOIL_OUTPUT" << std::endl;
 
                     write_soil_output(i, (*par->IDpoint)(i), (*par->init_date)(i_sim),
-                                      par->end_date->co[i_sim], JDfrom0, JD,
+                                      (*par->end_date)(i_sim), JDfrom0, JD,
                                       day, month, year, hour, minute,
                                       par->soil_plot_depths.get(), sl, par, (double)PsiMin, cosslope);
 
@@ -778,7 +778,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     std::cout << "WRITE_SNOW_OUTPUT" << std::endl;
 
                     write_snow_output(i, (*par->IDpoint)(i), r, c, (*par->init_date)(i_sim),
-                                      par->end_date->co[i_sim], JDfrom0, JD,
+                                      (*par->end_date)(i_sim), JDfrom0, JD,
                                       day, month, year, hour, minute,
                                       par->snow_plot_depths.get(), snow->S, par, cosslope);
 
@@ -887,7 +887,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                         else if (obsn[j] == oodaysfromstart)
                         {
                             fprintf(f, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
-                                                                                (par->end_date->co[i_sim]-(*par->init_date)(i_sim)));
+                                                                                ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
                         }
                         else
                         {
@@ -931,7 +931,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                         else if (obsn[j] == oodaysfromstart)
                         {
                             fprintf(f, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
-                                                                                (par->end_date->co[i_sim]-(*par->init_date)(i_sim)));
+                                                                                ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
                         }
                         else
                         {
@@ -1092,7 +1092,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
         if (strcmp(files[fliq], string_novalue) != 0)
         {
-            if ((long)par->soil_plot_depths->co[1] != number_novalue)
+            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
             {
                 write_tensorseries_soil(1, s2, files[fliq], 0, par->format_out, sl->th.get(),
                                         par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
@@ -1123,7 +1123,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         // write thw_av tensor
         if (strcmp(files[fliqav], string_novalue) != 0)
         {
-            if ((long)par->soil_plot_depths->co[1] != number_novalue)
+            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
             {
                 write_tensorseries_soil(1, s2, files[fliqav], 0, par->format_out,
                                         sl->thw_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
@@ -1144,7 +1144,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         // write T tensor
         if (strcmp(files[fT], string_novalue) != 0)
         {
-            if ((long)par->soil_plot_depths->co[1] != number_novalue)
+            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
             {
                 write_tensorseries_soil(1, s2, files[fT], 0, par->format_out, sl->SS->T.get(),
                                         par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
@@ -1174,7 +1174,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         // write Tav tensor
         if (strcmp(files[fTav], string_novalue) != 0)
         {
-            if ((long)par->soil_plot_depths->co[1] != number_novalue)
+            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
             {
                 write_tensorseries_soil(1, s2, files[fTav], 0, par->format_out,
                                         sl->T_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
@@ -1208,7 +1208,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         // theta_ice tensor
         if (strcmp(files[fice], string_novalue) != 0)
         {
-            if ((long)par->soil_plot_depths->co[1] != number_novalue)
+            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
             {
                 write_tensorseries_soil(1, s2, files[fice], 0, par->format_out, sl->SS->thi.get(),
                                         par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
@@ -1239,7 +1239,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         // write thi_av tensor
         if (strcmp(files[ficeav], string_novalue) != 0)
         {
-            if ((long)par->soil_plot_depths->co[1] != number_novalue)
+            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
             {
                 write_tensorseries_soil(1, s2, files[ficeav], 0, par->format_out,
                                         sl->thi_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
@@ -1260,7 +1260,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         // write psi tensors
         if (strcmp(files[fpsitot], string_novalue) != 0)
         {
-            if ((long)par->soil_plot_depths->co[1] != number_novalue)
+            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
             {
                 write_tensorseries_soil(1, s2, files[fpsitot], 0, par->format_out, sl->Ptot.get(),
                                         par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
@@ -1275,7 +1275,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
         if (strcmp(files[fpsiliq], string_novalue) != 0)
         {
-            if ((long)par->soil_plot_depths->co[1] != number_novalue)
+            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
             {
                 write_tensorseries_soil(1, s2, files[fpsiliq], 0, par->format_out, sl->SS->P.get(),
                                         par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
@@ -2298,7 +2298,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 fprintf(f,
                         "Time[s],Time[d],n,i_run,i_sim,cum_time[s],elapsed_time[s],last_recover\n");
                 fprintf(f,"%f,%f,%ld,%ld,%ld,%f,%f,%ld",times->time+par->Dt,
-                        (times->time+par->Dt)/secinday+(i_run-1)*(par->end_date->co[i_sim] -
+                        (times->time+par->Dt)/secinday+(i_run-1)*((*par->end_date)(i_sim) -
                                                                   (*par->init_date)(i_sim)),
                         (long)(((times->time+par->Dt)/secinday)/par->ContRecovery),i_run,i_sim,
                         cum_time,elapsed_time,par->n_ContRecovery);
@@ -2690,7 +2690,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
                 ffglac=t_fopen(name,"w");
 
-                if ((long)par->glac_plot_depths->co[1] != number_novalue)
+                if ((long)(*par->glac_plot_depths)(1) != number_novalue)
                 {
                     m = par->glac_plot_depths->nh;
                 }
@@ -2717,9 +2717,9 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                     {
                         l = (long)fmod( (double)oglc[j]-6., (double)m ) + 1;
                         n = floor( ( (double)oglc[j]-6.) / (double)m ) + 6;
-                        if ((long)par->glac_plot_depths->co[1] != number_novalue)
+                        if ((long)(*par->glac_plot_depths)(1) != number_novalue)
                         {
-                            fprintf(ffglac, "%s(%f)",hglc[n],par->glac_plot_depths->co[l]);
+                            fprintf(ffglac, "%s(%f)",hglc[n],(*par->glac_plot_depths)(l));
                         }
                         else
                         {
@@ -3217,7 +3217,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
                     free(temp);
 
-                    if ((long)par->glac_plot_depths->co[1] != number_novalue)
+                    if ((long)(*par->glac_plot_depths)(1) != number_novalue)
                     {
                         m = par->glac_plot_depths->nh;
                     }
@@ -3246,9 +3246,9 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                         {
                             l = (long)fmod( (double)oglc[j]-6., (double)m ) + 1;
                             n = floor( ( (double)oglc[j]-6.) / (double)m ) + 6;
-                            if ((long)par->glac_plot_depths->co[1] != number_novalue)
+                            if ((long)(*par->glac_plot_depths)(1) != number_novalue)
                             {
-                                fprintf(f, "%s(%f)",hglc[n],par->glac_plot_depths->co[l]);
+                                fprintf(f, "%s(%f)",hglc[n],(*par->glac_plot_depths)(l));
                             }
                             else
                             {
@@ -4966,7 +4966,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                     c = (*top->rc_cont)(j,2);
                     if (par->Tzrun == 1)
                         (*sl->Tzrun)((*par->jplot)(j),i) += (*sl->SS->T)(i,j)
-                                                              * Dt / ((par->end_date->co[i_sim] - (*par->init_date)(i_sim))*86400.);
+                                                              * Dt / (((*par->end_date)(i_sim) - (*par->init_date)(i_sim))*86400.);
                     if (par->Tzmaxrun == 1)
                     {
                         if ((*sl->Tzmaxrun)((*par->jplot)(j),i) < (*sl->SS->T)(i,j))
@@ -4981,7 +4981,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                     {
                         w = ((*sl->SS->thi)(i,j) + (*sl->th)(i,j)) * sl->pa->co[(*sl->type)(r,c)][jdz][i];
                         if (par->wzrun == 1)
-                            (*sl->wzrun)((*par->jplot)(j),i) += w * Dt / ((par->end_date->co[i_sim] - (*par->init_date)(i_sim))*86400.);
+                            (*sl->wzrun)((*par->jplot)(j),i) += w * Dt / (((*par->end_date)(i_sim) - (*par->init_date)(i_sim))*86400.);
                         if (par->wzmaxrun == 1)
                         {
                             if ((*sl->wzmaxrun)((*par->jplot)(j),i) < w)
@@ -4996,7 +4996,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                 if (par->SWErun == 1)
                 {
                     w = get_SWE(r, c, snow->S->lnum.get(), snow->S->w_ice, snow->S->w_liq);
-                    (*sl->SWErun)((*par->jplot)(j),1) += w * Dt / ((par->end_date->co[i_sim] -
+                    (*sl->SWErun)((*par->jplot)(j),1) += w * Dt / (((*par->end_date)(i_sim) -
                                                                       (*par->init_date)(i_sim))*86400.);
                     if ((*sl->SWErun)((*par->jplot)(j),2)<w)
                         (*sl->SWErun)((*par->jplot)(j),2)=w;

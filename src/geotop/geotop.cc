@@ -225,7 +225,7 @@ void time_loop(ALLDATA *A)
 
     do
     {
-      if ( A->I->time > (A->P->end_date->co[i_sim] - (*A->P->init_date)(i_sim)) *86400. - 1.E-5)
+      if ( A->I->time > ((*A->P->end_date)(i_sim)- (*A->P->init_date)(i_sim)) *86400. - 1.E-5)
       {
         // printf("Number of times the simulation #%ld has been run: %ld\n",i_sim,i_run);
         // f=fopen(logfile, "a");

@@ -171,14 +171,12 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
 
                       //find equilibrium snow trasport
                       rho_snow_surface = (snow->S_for_BS->w_ice->co[ns] +
-                                          snow->S_for_BS->w_liq->co[ns]) / (1.E-3*snow->S_for_BS->Dzl->co[ns]);
+                                          snow->S_for_BS->w_liq->co[ns]) / (1.E-3*(*snow->S_for_BS->Dzl)(ns));
 
                         Pbsm(r, c, PBSM_fetch, (*land->ty)(lu,jN), 1.E-3 * (*land->ty)(lu,jdv),
                              canopy_height_over_snow, rho_snow_surface, zmeas, (*met->Vgrid)(r,c),
-                             (*met->Tgrid)(r,c), (*met->RHgrid)(r,c), &((*snow->Qtrans)(r,c)),
-                             &((*snow->Qsub)(r,c)), &((*snow->Qsalt)(r,c)), D, (*top->slope)(r,c));
-
-
+                             (*met->Tgrid)(r,c), (*met->RHgrid)(r,c), (*snow->Qtrans)(r,c),
+                             (*snow->Qsub)(r,c), (*snow->Qsalt)(r,c), D, (*top->slope)(r,c));
                     }
                   else
                     {
