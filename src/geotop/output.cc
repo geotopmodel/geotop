@@ -138,13 +138,13 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     //**************************************************************************************************
     std::cout << "DISCHARGE" << std::endl;
 
-    if (par->state_discharge == 1 && par->Dtplot_discharge->co[i_sim] > 1.E-5
+    if (par->state_discharge == 1 && (*par->Dtplot_discharge)(i_sim) > 1.E-5
         && strcmp(files[fQ], string_novalue) != 0)
     {
 
         t_discharge += par->Dt;
 
-        if (fabs(t_discharge - par->Dtplot_discharge->co[i_sim]) < 1.E-5)
+        if (fabs(t_discharge - (*par->Dtplot_discharge)(i_sim)) < 1.E-5)
         {
 
             Vchannel = 0.;
@@ -189,12 +189,12 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             fprintf(f,",%f,%f,%f",(times->time+par->Dt)/secinday+(i_run-1)*
                                                                  (par->end_date->co[i_sim]-par->init_date->co[i_sim]),JDfrom0,JD);
             fprintf(f,",%e,%e,%e,%e,%e,%e,%e\n",
-                    cnet->Vout/(double)par->Dtplot_discharge->co[i_sim],
-                    Vsup/(double)par->Dtplot_discharge->co[i_sim],
-                    Vsub/(double)par->Dtplot_discharge->co[i_sim],Vchannel,
-                    wat->Voutlandsup/(double)par->Dtplot_discharge->co[i_sim],
-                    wat->Voutlandsub/(double)par->Dtplot_discharge->co[i_sim],
-                    wat->Voutbottom/(double)par->Dtplot_discharge->co[i_sim]);
+                    cnet->Vout/(double)(*par->Dtplot_discharge)(i_sim),
+                    Vsup/(double)(*par->Dtplot_discharge)(i_sim),
+                    Vsub/(double)(*par->Dtplot_discharge)(i_sim),Vchannel,
+                    wat->Voutlandsup/(double)(*par->Dtplot_discharge)(i_sim),
+                    wat->Voutlandsub/(double)(*par->Dtplot_discharge)(i_sim),
+                    wat->Voutbottom/(double)(*par->Dtplot_discharge)(i_sim));
             fclose(f);
             free(name);
 
@@ -216,7 +216,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     // DATA POINT
     std::cout << "DATA POINT" << std::endl;
 
-    if (par->Dtplot_point->co[i_sim] > 1.E-5)
+    if ((*par->Dtplot_point)(i_sim) > 1.E-5)
     {
 
         t_point += par->Dt;
@@ -234,30 +234,30 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 for (l=1; l<=Nl; l++)
                 {
                     if (strcmp(files[fTzav], string_novalue) != 0 || strcmp(files[fTzavwriteend], string_novalue) != 0)
-                        (*sl->Tzavplot)(i,l) += (*sl->SS->T)(l,j)* (par->Dt/par->Dtplot_point->co[i_sim]);
+                        (*sl->Tzavplot)(i,l) += (*sl->SS->T)(l,j)* (par->Dt/(*par->Dtplot_point)(i_sim));
                     if (strcmp(files[fliqzav], string_novalue) != 0|| strcmp(files[fliqzavwriteend], string_novalue) != 0)
-                        (*sl->thzavplot)(i,l) += (*sl->th)(l,j) * (par->Dt/par->Dtplot_point->co[i_sim]);
+                        (*sl->thzavplot)(i,l) += (*sl->th)(l,j) * (par->Dt/(*par->Dtplot_point)(i_sim));
                     if (strcmp(files[ficezav], string_novalue) != 0 || strcmp(files[ficezavwriteend], string_novalue) != 0)
-                        (*sl->thizavplot)(i,l) += (*sl->SS->thi)(l,j) *(par->Dt/par->Dtplot_point->co[i_sim]);
+                        (*sl->thizavplot)(i,l) += (*sl->SS->thi)(l,j) *(par->Dt/(*par->Dtplot_point)(i_sim));
                 }
 
                 D = find_activelayerdepth_up(j, (*sl->type)(r,c), sl);
-                odpnt[othawedup][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
+                odpnt[othawedup][i-1] += D * (par->Dt/(*par->Dtplot_point)(i_sim));
                 Dthaw = D;
 
                 D = find_activelayerdepth_dw(j, (*sl->type)(r,c), sl);
-                odpnt[othaweddw][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
+                odpnt[othaweddw][i-1] += D * (par->Dt/(*par->Dtplot_point)(i_sim));
 
                 D = find_watertabledepth_up(Dthaw, j, (*sl->type)(r,c), sl);
-                odpnt[owtableup][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
+                odpnt[owtableup][i-1] += D * (par->Dt/(*par->Dtplot_point)(i_sim));
 
                 D = find_watertabledepth_dw(Dthaw, j, (*sl->type)(r,c), sl); // look here!
-                odpnt[owtabledw][i-1] += D * (par->Dt/par->Dtplot_point->co[i_sim]);
+                odpnt[owtabledw][i-1] += D * (par->Dt/(*par->Dtplot_point)(i_sim));
             }
         }
 
         // Print of pixel-output every times->n_pixel time step
-        if (fabs(t_point - par->Dtplot_point->co[i_sim])<1.E-5)
+        if (fabs(t_point - (*par->Dtplot_point)(i_sim))<1.E-5)
         {
             if (par->state_pixel == 1)
             {
@@ -2085,13 +2085,13 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
     if (isavings < par->saving_points->nh)
     {
-        if (par->saving_points->nh==1 && par->saving_points->co[1]==0.0)
+        if (par->saving_points->nh==1 && (*par->saving_points)(1)==0.0)
         {
             isavings=1;
         }
         else
         {
-            if (times->time+par->Dt >= par->saving_points->co[isavings+1]*86400.)
+            if (times->time+par->Dt >= (*par->saving_points)(isavings+1) *86400.)
             {
                 isavings+=1;
 
@@ -4951,7 +4951,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
         }
         if (par->state_pixel==1)
         {
-            if ((*par->jplot)(j) > 0 && par->Dtplot_point->co[i_sim]>0)
+            if ((*par->jplot)(j) > 0 && (*par->Dtplot_point)(i_sim)>0)
             {
                 for (i=0; i<otot; i++)
                 {

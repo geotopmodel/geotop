@@ -1160,19 +1160,19 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 
   cod = 5;
   par->Dtplot_discharge.reset(new Vector<double> {par->init_date->nh});
-  par->Dtplot_discharge->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->Dtplot_discharge)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->Dtplot_discharge->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                        par->Dtplot_discharge->co[i - 1], 0);
+      (*par->Dtplot_discharge)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                        (*par->Dtplot_discharge)(i-1), 0);
     }
   par->plot_discharge_with_Dt_integration.reset(new Vector<short>{par->init_date->nh});
   par->state_discharge = 0;
   for (i=1; i<=par->init_date->nh; i++)
     {
-      par->Dtplot_discharge->co[i] *= 3600.;
-      if (par->Dtplot_discharge->co[i] > 1.E-5
-          && par->Dtplot_discharge->co[i] <= minDt)
+      (*par->Dtplot_discharge)(i) *= 3600.;
+      if ((*par->Dtplot_discharge)(i) > 1.E-5
+          && (*par->Dtplot_discharge)(i) <= minDt)
         {
           (*par->plot_discharge_with_Dt_integration)(i)=1;
         }
@@ -1180,23 +1180,23 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
         {
           (*par->plot_discharge_with_Dt_integration)(i)=0;
         }
-      if (par->Dtplot_discharge->co[i] > 1.E-5) par->state_discharge = 1;
+      if ((*par->Dtplot_discharge)(i) > 1.E-5) par->state_discharge = 1;
     }
 
   cod = 6;
   par->Dtplot_point.reset(new Vector<double>{par->init_date->nh});
-  par->Dtplot_point->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+ (*par->Dtplot_point)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->Dtplot_point->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                    par->Dtplot_point->co[i - 1], 0);
+     (*par->Dtplot_point)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                    (*par->Dtplot_point)(i-1), 0);
     }
   par->plot_point_with_Dt_integration.reset(new Vector<short>{par->init_date->nh});
   par->state_pixel = 0;
   for (i=1; i<=par->init_date->nh; i++)
     {
-      par->Dtplot_point->co[i] *= 3600.;
-      if (par->Dtplot_point->co[i] > 1.E-5 && par->Dtplot_point->co[i] <= minDt)
+     (*par->Dtplot_point)(i) *= 3600.;
+      if ((*par->Dtplot_point)(i) > 1.E-5 &&(*par->Dtplot_point)(i) <= minDt)
         {
           (*par->plot_point_with_Dt_integration)(i)=1;
         }
@@ -1204,23 +1204,23 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
         {
           (*par->plot_point_with_Dt_integration)(i)=0;
         }
-      if (par->Dtplot_point->co[i] > 1.E-5) par->state_pixel = 1;
+      if ((*par->Dtplot_point)(i) > 1.E-5) par->state_pixel = 1;
     }
 
   cod = 7;
   par->Dtplot_basin.reset(new Vector<double>{par->init_date->nh});
-  par->Dtplot_basin->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->Dtplot_basin)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->Dtplot_basin->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                    par->Dtplot_basin->co[i - 1], 0);
+      (*par->Dtplot_basin)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                    (*par->Dtplot_basin)(i-1), 0);
     }
   par->plot_basin_with_Dt_integration.reset(new Vector<short>{par->init_date->nh});
   par->state_basin = 0;
   for (i=1; i<=par->init_date->nh; i++)
     {
-      par->Dtplot_basin->co[i] *= 3600.;
-      if (par->Dtplot_basin->co[i] > 1.E-5 && par->Dtplot_basin->co[i] <= minDt)
+      (*par->Dtplot_basin)(i) *= 3600.;
+      if ((*par->Dtplot_basin)(i) > 1.E-5 && (*par->Dtplot_basin)(i) <= minDt)
         {
           (*par->plot_basin_with_Dt_integration)(i)=1;
         }
@@ -1228,7 +1228,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
         {
           (*par->plot_basin_with_Dt_integration)(i)=0;
         }
-      if (par->Dtplot_basin->co[i] > 1.E-5) par->state_basin = 1;
+      if ((*par->Dtplot_basin)(i) > 1.E-5) par->state_basin = 1;
     }
 
 
@@ -1479,7 +1479,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   par->saving_points.reset(new Vector<double>{num_param_components[cod]});
   for (i=1; i<=par->saving_points->nh; i++)
     {
-      par->saving_points->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components, 0., 0);
+      (*par->saving_points)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components, 0., 0);
     }
 
   par->output_soil.reset(new Vector<double>{par->init_date->nh});

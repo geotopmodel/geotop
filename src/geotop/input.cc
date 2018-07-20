@@ -181,7 +181,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
             fclose(f);
             t_error("Fatal Error! Geotop is closed. See failing report (1).");
         }
-        par->delay_day_recover = par->saving_points->co[par->recover];
+        par->delay_day_recover = (*par->saving_points)(par->recover);
         recovered = 1;
     }
 

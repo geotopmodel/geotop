@@ -459,7 +459,7 @@ void time_loop(ALLDATA *A)
           // printf("%f\n",A->I->time);
 
           // record time step
-          odb[ootimestep] = Dt * (Dt/A->P->Dtplot_basin->co[i_sim]);
+          odb[ootimestep] = Dt * (Dt/(*A->P->Dtplot_basin)(i_sim));
 
           // write output variables
           fill_output_vectors(Dt, W, A->E.get(), A->N.get(), A->G.get(), A->W.get(),

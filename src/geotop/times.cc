@@ -71,11 +71,11 @@ void set_time_step(PAR *par, TIMES *times)
   posix++;
 
   if ((*par->plot_discharge_with_Dt_integration)(i_sim)==1)
-    par->Dtplot_discharge->co[i_sim]=par->Dt;
+    (*par->Dtplot_discharge)(i_sim)=par->Dt;
   if ((*par->plot_point_with_Dt_integration)(i_sim)==1)
-    par->Dtplot_point->co[i_sim]=par->Dt;
+    (*par->Dtplot_point)(i_sim)=par->Dt;
   if ((*par->plot_basin_with_Dt_integration)(i_sim)==1)
-    par->Dtplot_basin->co[i_sim]=par->Dt;
+    (*par->Dtplot_basin)(i_sim)=par->Dt;
 
 }
 

@@ -684,7 +684,7 @@ void print_windtrans_snow(double Dt, SNOW *snow, PAR *par, TOPO *top,
           (*snow->Wsubl_plot)(r,c) += Dt*Qsub;
         }
 
-      if (par->Dtplot_point->co[i_sim] > 1.E-5 && par->state_pixel == 1
+      if ((*par->Dtplot_point)(i_sim) > 1.E-5 && par->state_pixel == 1
           && (*par->jplot)(i) > 0)
         {
           odp[oblowingsnowtrans][(*par->jplot)(i)-1] -=
