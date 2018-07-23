@@ -1,0 +1,200 @@
+!==================================
+!    INPUT FOR GEOTOP V2.0
+!    Run for Rott_Catchment
+!==================================
+TimeStepEnergyAndWater			=	3600
+InitDateDDMMYYYYhhmm 			= 	15/04/2013 00:00
+EndDateDDMMYYYYhhmm 			=  	16/04/2013 23:00
+!EndDateDDMMYYYYhhmm 			=  	31/07/2013 23:00
+! Catchment centroid (for Sun position)
+Latitude				=	47.88
+Longitude				=	11.06
+StandardTimeSimulation			=	1
+WaterBalance				=	1
+EnergyBalance				=	1
+PointSim 				=	0
+! point simulation(=1), distributed simulation(=0)
+
+!SubfolderRecoveryFiles			=	"rec"
+!ContinuousRecovery			=	1
+! = 1 —> save the last 1-day sim and before that
+! = 0.5 —> save the last 12-h sim and before that
+
+
+
+MeteoFile				=	"meteo/_meteo"
+DemFile					=	"input_maps/_dem"
+RiverNetwork				=	"input_maps/_network"
+LandCoverMapFile			=	"input_maps/_landcover"
+SoilMapFile				=	"input_maps/_soiltype"
+SkyViewFactorMapFile			=	"input_maps/_sky"
+SlopeMapfile				=	"input_maps/_slope"
+AspectMapFile				=	"input_maps/_aspect"
+HorizonMeteoStationFile			=	"hor_meteo/_horizon"
+HeaderHorizonAngle			=	"azimuth"
+HeaderHorizonHeight			=	"horizon_ele"
+
+
+NumberOfMeteoStations			=	4
+MeteoStationCoordinateX			=	654239,650064,661336,650577
+MeteoStationCoordinateY			=	5299573,5313879,5305550,5296126
+MeteoStationElevation			=	598,658,550,977,860,770
+MeteoStationWindVelocitySensorHeight	=	10,10,10,10
+MeteoStationTemperatureSensorHeight	=	10,10,10,10
+
+!names of the stations
+!1 Fendt (EC site
+!2 Diessen (DWD)
+!3 Wielenbach (DWD)
+!4 HohenPeissenberg (DWD)
+
+HeaderDateDDMMYYYYhhmmMeteo		=	"Date"
+HeaderJulianDayfrom0Meteo		=	"JDfrom0"
+HeaderPrec				=	"Prec"
+HeaderWindVelocity			=	"WindS"
+HeaderWindDirection			=	"WindDir"
+HeaderRH				=	"RelHum"
+HeaderAirTemp				=	"AirT"
+HeaderSWglobal				=	"SWglobal"
+HeaderLWin				=	"LWin"
+HeaderSWnet				=	"SWnet"
+
+
+! Landuse types
+!1=pasture, 2=mixed forest, 3=coniferous forest, 4=water body, 5=peatland, 6=march, 7=settlement
+NumLandCoverTypes 			=	7
+SoilRoughness				=	10,10,10,10,10,10,10
+ThresSnowSoilRough			=	100,100,100,100,100,100,100
+ThresSnowVegUp				=	0.1,0.1,0.1,0.1,0.1,0.1,0.1
+ThresSnowVegDown			=	0.1,0.1,0.1,0.1,0.1,0.1,0.1
+LSAI					=	0.1,0.8,0.9,0,0.2,0.3,0.01
+VegSnowBurying				=	1,1,1,0,1,1,1
+VegHeight				=	350,1500,1800,0,470,350,100
+CanopyFraction				=	0.45,0.70,0.67,0,0.25,0.35,0.10
+RootDepth				=	550,1300,1400,0,450,600,50
+CanDensSurface				=	0.2,0.7,0.6,0,0.2,0.3,0.1
+DecayCoeffCanopy			=	0.01,0.01,0.01,0,0.01,0.01,0.01
+MinStomatalRes				=	20,50,60,0,40,30,29
+LeafAngles				=	-1,0,0,0,-1,-1,-1
+VegReflectVis				=	0.15,0.15,0.15,0.15,0.15,0.15,0.15
+VegReflNIR				=	0.18,0.18,0.18,0.18,0.18,0.18,0.18
+VegTransVis				=	0.07,0.07,0.07,0.07,0.07,0.07,0.07
+VegTransNIR				=	0.15,0.15,0.15,0.15,0.15,0.15,0.15
+SoilAlbVisDry				=	0.10,0.10,0.10,0.10,0.10,0.10,0.10
+SoilAlbVisWet				=	0.15,0.15,0.15,0.15,0.15,0.15,0.15
+SoilAlbNIRDry				=	0.10,0.10,0.10,0.10,0.10,0.10,0.10
+SoilAlbNIRWet				=	0.15,0.15,0.15,0.15,0.15,0.15,0.15
+SoilEmissiv				=	0.96,0.99,0.98,0.97,0.95,0.95,0.90
+
+
+SoilLayerTypes                          =       4
+SoilParFile                             =       "soil"
+SoilLayerNumber 			=	13
+SoilLayerThicknesses                    =       100,100,100,100,200,200,300,500,1000,2000,3000,4000,5000
+! header
+HeaderSoilDz                            =       "Dz"
+HeaderLateralHydrConductivity           =       "Kh"
+HeaderNormalHydrConductivity            =       "Kv"
+HeaderThetaRes                          =       "res"
+HeaderFieldCapacity                     =       "fc"
+HeaderThetaSat                          =       "sat"
+HeaderAlpha                             =       "a"
+HeaderN                                 =       "n"
+HeaderSpecificStorativity               =       "SS"
+
+
+! Discharge at the outlet 
+SurFlowResLand				=	2.0
+SurFlowResExp				=	0.24
+ThresWaterDepthLandDown			=	0
+ThresWaterDepthLandUp			=	50
+SurFlowResChannel			=	20
+ThresWaterDepthChannelUp		=	50
+RatioChannelWidthPixelWidth		=	0.5
+ChannelDepression			=	700
+MinSupWaterDepthLand			=	1
+MinSupWaterDepthChannel			=	1
+MinTimeStepSupFlow			=	0.01
+
+
+ThermalConductivitySoilSolids 		=	0.01
+ThermalCapacitySoilSolids		=	1.00E+07
+HeatEqMaxIter				=	1000
+HeatEqTol				=	1.001E-01
+RichardMaxIter				=	500
+RechardInitForc				=	0.01
+InitWaterTableHeightOverTopoSurface	=	-5000
+InitWaterTableDepth 			=	1000
+InitSoilTemp				=	7
+BusingerMaxIter				=	10
+LWinParameterization			=	9
+MoninObukhov				=	1
+
+
+
+CoordinatePointX			=	654452
+CoordinatePointY			=	530010
+! Fendt EC
+
+
+
+!==================================
+!    Output
+!==================================
+!grass ascii=2 esri ascii=3
+FormatOutputMap				=	3
+DtPlotDischarge				=	1
+DtPlotPoint				=	1
+DtPlotBasin				=	1
+!DtPlotBasin				=	24
+
+OutputSoilMaps				=	720
+OutputSurfEBALMaps			=	720
+OutputMeteoMaps				=	720
+OutputSnowMaps				=	720
+OutputGlacierMaps			=	720
+
+! Tabs
+PointAll				=	1
+BasinAll 				=	1
+SoilAll					=	1
+DischargeFile				=	"output_tabs/discharge"
+PointOutputFile				=	"output_tabs/pointall"
+BasinOutputFile				=	"output_tabs/basin"
+SoilAveragedTempProfileFile 		= 	"output_tabs/soilTave"
+SoilTempProfileFile			=	"output_tabs/soiltemp"
+SoilLiqContentProfileFile		=	"output_tabs/thetaliq" 
+SoilAveragedLiqContentProfileFile 	= 	"output_tabs/avesoilwater"
+
+! Maps
+! soil moisture & temperature
+FirstSoilLayerAveragedTempMapFile	=	"output_maps/MMGST"
+SoilLiqContentTensorFile 		= 	"output_maps/thetaliq"
+SoilLiqWaterPressTensorFile 		= 	"output_maps/psiliq"
+WaterTableDepthMapFile 			= 	"output_maps/watertable"
+
+! Surface fluxes
+EvapotranspirationFromSoilMapFile	= 	"output_maps/ET"
+SurfaceHeatFluxMapFile			= 	"output_maps/G"
+SurfaceSensibleHeatFluxMapFile		= 	"output_maps/H"
+SurfaceLatentHeatFluxMapFile		= 	"output_maps/LE"
+LandSurfaceWaterDepthMapFile		= 	"output_maps/watertable"
+
+! Radiation
+NetShortwaveRadiationMapFile 		= 	"output_maps/Rn"
+RadiationMapFile			= 	"output_maps/Rad"
+InShortwaveRadiationMapFile		= 	"output_maps/SWin"
+InLongwaveRadiationMapFile		= 	"output_maps/LWin"
+NetRadiationMapFile			= 	"output_maps/RadNet"
+NetLongwaveRadiationMapFile		=	"output_maps/NLWR"                       
+NetShortwaveRadiationMapFile		=	"output_maps/NSWR"
+DirectInShortwaveRadiationMapFile	=	"output_maps/DISWR" 
+
+! Meteo
+PrecipitationMapFile 			= 	"output_maps/Prec"
+NetPrecipitationFile 			= 	"output_maps/Pnet"
+RelHumMapFile				= 	"output_maps/RH"
+AirTempMapFile 				= 	"output_maps/AirTemp"
+WindDirMapFile				=	"output_maps/WindDir"
+WindSpeedMapFil				= 	"output_maps/WindSp"
+SurfaceTempMapFile			=	"output_maps/SurfaceTemp"
