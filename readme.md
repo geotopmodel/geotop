@@ -4,7 +4,7 @@ Build tools are programs that automate the creation of executable applications
 from source code.
 Building incorporates compiling, linking and packaging the code into
 a usable or executable form.
-You can choose between [CMake](https://cmake.org/)
+You can choose between [CMake](https://cmake.org/). Please note that you need cmake version 3 at least ! 
 and [meson](http://mesonbuild.com/).
 
 ## CMake
