@@ -38,6 +38,7 @@ HeaderHorizonHeight			=	"horizon_ele"
 NumberOfMeteoStations			=	4
 MeteoStationCoordinateX			=	654239,650064,661336,650577
 MeteoStationCoordinateY			=	5299573,5313879,5305550,5296126
+
 MeteoStationElevation			=	598,658,550,977,860,770
 MeteoStationWindVelocitySensorHeight	=	10,10,10,10
 MeteoStationTemperatureSensorHeight	=	10,10,10,10
