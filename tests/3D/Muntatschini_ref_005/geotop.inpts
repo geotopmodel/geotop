@@ -14,7 +14,7 @@ TimeStepEnergyAndWater = 3600
 MinTimeStep = 10
 InitDateDDMMYYYYhhmm = 02/10/2009 00:00
 EndDateDDMMYYYYhhmm =  02/10/2009 23:00
-#EndDateDDMMYYYYhhmm =  31/12/2015 23:00
+!EndDateDDMMYYYYhhmm =  31/12/2015 23:00
 
 ! Catchment centroid (for Sun position) 
 Latitude  = 46.684
