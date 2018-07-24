@@ -1,10 +1,10 @@
 !*******************************
 !******* CONFIGURATION FOR GEOTOP V.2.0 UZH *********
 !*******************************
-TimeStepEnergyAndWater = 120
+TimeStepEnergyAndWater = 20
 !Integrations time step [s] for energy and water balance equation 
 InitDateDDMMYYYYhhmm = 01/06/2000 12:00
-EndDateDDMMYYYYhhmm =  02/06/2000 12:00
+EndDateDDMMYYYYhhmm =  01/06/2000 12:10
 EnergyBalance = 0
 !Activate energy balance (Yes=1,No=0)
 WaterBalance=1
@@ -290,6 +290,6 @@ NetPrecipitationFile = "output-maps/Pnet"
 !  RECOVERY FILE NAMES
 !=============================================================================
 
-SubfolderRecoveryFiles="rec"
-ContinuousRecovery = 0.0625
+!SubfolderRecoveryFiles="rec"
+!ContinuousRecovery = 0.0625
 !RecoverTime = 0.05
