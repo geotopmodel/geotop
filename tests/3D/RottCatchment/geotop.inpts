@@ -34,7 +34,7 @@ HorizonMeteoStationFile			=	"hor_meteo/_horizon"
 HeaderHorizonAngle			=	"azimuth"
 HeaderHorizonHeight			=	"horizon_ele"
 
-
+! Input points
 NumberOfMeteoStations			=	4
 MeteoStationCoordinateX			=	654239,650064,661336,650577
 MeteoStationCoordinateY			=	5299573,5313879,5305550,5296126
@@ -132,9 +132,9 @@ LWinParameterization			=	9
 MoninObukhov				=	1
 
 
-
+! Ouput point
 CoordinatePointX			=	654452
-CoordinatePointY			=	530010
+CoordinatePointY			=	5300100
 ! Fendt EC
 
 
