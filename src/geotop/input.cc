@@ -707,7 +707,14 @@ keyword LinearInterpolation at 1.\n");
     }
     while (l<Nl && z < z_transp);
 
+    // if z tot soil > z transp error pleae increase z transp more than
+//    if (z > z_transp)
+//        z_transp = z;
+
     land->root_fraction.reset(new Matrix<double>{par->n_landuses, l});
+    std::cout << "z_transp = " << z_transp << std::endl;
+    std::cout << "Nl = " << Nl << std::endl;
+    std::cout << "(par->n_landuses, l) = " << par->n_landuses << " " << l << std::endl;
 
     // check vegetation variable consistency
     if (jHveg!=jdHveg+jHveg-1)
@@ -773,8 +780,7 @@ keyword LinearInterpolation at 1.\n");
         (*land->ty)(i,jz0)*=0.001;
 
         // find root fraction
-        root(land->root_fraction->nch, (*land->ty)(i,jroot), 0.0,
-             sl->pa->co[1][jdz], land->root_fraction->row(i));
+        root(land->root_fraction->nch, (*land->ty)(i,jroot), 0.0, sl->pa->co[1][jdz], land->root_fraction->row(i));
 
         // error messages
         for (l=1; l<=met->st->Z->nh; l++)

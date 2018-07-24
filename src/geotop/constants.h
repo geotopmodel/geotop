@@ -43,7 +43,7 @@
 #define KNe 0.0   //Euler method parameter for heat equation (0.5 = Crank Nicholson, 0 = Backward Euler)
 #define LSAIthres 0.1 //Minimum LSAI 
 #define z_evap 100. //soil depth responsable for soil evaporation [mm]
-#define z_transp 10000. //soil depth responsable for canopy transpiration [mm]
+#define z_transp 25000. //soil depth responsable for canopy transpiration [mm]
 #define min_tau_cloud 0.1
 #define RelativeErrorRichards 1.E-10
 #define max_cols_time_steps_file 100
