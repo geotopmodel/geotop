@@ -15,7 +15,8 @@ set(_tests
   3D/example 
   3D/hillslope01 
   3D/hillslope02_superslab 
-  3D/Mazia 
+  3D/Mazia
+  3D/Muntatschini_ref_005
   3D/no_reflection 
   3D/onepoint_hydrostatic 
   3D/panola 
@@ -24,11 +25,13 @@ set(_tests
   3D/panola_25pixel_nobed_hydrostatic 
   3D/prealpiC 
   3D/PSQL_test 
-  3D/rendena 
+  3D/rendena
+  3D/RottCatchmentx
   3D/small_example 
   3D/small_example-channel 
   3D/small_example-onlyEnergy 
-  3D/snow_dstr_SENSITIVITY 
+  3D/snow_dstr_SENSITIVITY
+  3D/UpperAmmerCatchment
   3D/Vshape 
   3D/WG1_2.0_001)
 
