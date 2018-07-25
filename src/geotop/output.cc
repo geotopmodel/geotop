@@ -3100,14 +3100,14 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
                 for (l=1; l<=Nl; l++)
                 {
-                    std::cout << "(lu,l) = " << lu << " " << l << std::endl;
-                    std::cout << "n° of rows = " << land->root_fraction->nrh - land->root_fraction->nrl + 1 << std::endl;
-                    std::cout << "n° of cols = " << land->root_fraction->nch-land->root_fraction->ncl+1 << std::endl;
+//                    std::cout << "Nl = " << Nl << std::endl;
+//                    std::cout << "(lu,l) = " << lu << " " << l << std::endl;
+//                    std::cout << "n° of rows = " << land->root_fraction->nrh - land->root_fraction->nrl + 1 << std::endl;
+//                    std::cout << "n° of cols = " << land->root_fraction->nch-land->root_fraction->ncl+1 << std::endl;
                     fprintf(f," The root fraction [-] of layer %ld: %f\n",l, (*land->root_fraction)(lu,l));
                 }
 
-                fprintf(f," Surface fraction of land covered by vegetation [-]: %f \n",
-                        (*land->ty)(lu,jcf));
+                fprintf(f," Surface fraction of land covered by vegetation [-]: %f \n",(*land->ty)(lu,jcf));
                 fprintf(f," Leaf and Stem Area Index [-]: %f \n",(*land->ty)(lu,jLSAI));
                 fprintf(f," Momentum roughness length z0soil [m]: %f \n", (*land->ty)(lu,jz0));
                 fprintf(f," Vegetation height [m]: %f \n",(*land->ty)(lu,jHveg));

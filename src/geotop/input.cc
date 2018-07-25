@@ -44,6 +44,8 @@
 #include "logger.h"
 #include <iostream>
 
+int z_transp = 10000; //soil depth responsable for canopy transpiration [mm]
+
 extern long number_novalue, number_absent;
 extern char *string_novalue;
 
@@ -159,8 +161,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     max_time = 0.;
     for (i=1; i<=par->init_date->nh; i++)
     {
-        max_time += (*par->run_times)(i)*((*par->end_date)(i) -
-                                          (*par->init_date)(i))*86400.;//seconds
+        max_time += (*par->run_times)(i)*((*par->end_date)(i) - (*par->init_date)(i))*86400.;//seconds
     }
 
     // recovering
@@ -700,6 +701,7 @@ keyword LinearInterpolation at 1.\n");
     // Check that there aren't cell with an undefined land use value
     z = 0.;
     l = 0;
+
     do
     {
         l++;
@@ -707,14 +709,17 @@ keyword LinearInterpolation at 1.\n");
     }
     while (l<Nl && z < z_transp);
 
-    // if z tot soil > z transp error pleae increase z transp more than
-//    if (z > z_transp)
-//        z_transp = z;
+    // We increase l and z_transp to avoid segmentation fault when accessing (*land->root_fraction)(lu,Nl)
+    if (z > z_transp){
+        l = Nl;
+        z_transp = z;
+    }
 
     land->root_fraction.reset(new Matrix<double>{par->n_landuses, l});
-    std::cout << "z_transp = " << z_transp << std::endl;
-    std::cout << "Nl = " << Nl << std::endl;
-    std::cout << "(par->n_landuses, l) = " << par->n_landuses << " " << l << std::endl;
+//    std::cout << "z_transp = " << z_transp << std::endl;
+//    std::cout << "Nl = " << Nl << std::endl;
+//    std::cout << "(par->n_landuses, l) = " << par->n_landuses << " " << l << std::endl;
+//    std::cout << "z = " << z << std::endl;
 
     // check vegetation variable consistency
     if (jHveg!=jdHveg+jHveg-1)
