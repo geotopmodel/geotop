@@ -23,14 +23,14 @@ PointSim 				=	0
 
 
 MeteoFile				=	"meteo/_meteo"
-DemFile					=	"input_maps/_dem"
-RiverNetwork				=	"input_maps/_network"
-LandCoverMapFile			=	"input_maps/_landcover"
-SoilMapFile				=	"input_maps/_soiltype"
-SkyViewFactorMapFile			=	"input_maps/_sky"
-SlopeMapfile				=	"input_maps/_slope"
-AspectMapFile				=	"input_maps/_aspect"
-HorizonMeteoStationFile			=	"hor_meteo/_horizon"
+DemFile					=	"input-maps/dem"
+RiverNetwork				=	"input-maps/network"
+LandCoverMapFile			=	"input-maps/landcover"
+SoilMapFile				=	"input-maps/soiltype"
+SkyViewFactorMapFile			=	"input-maps/sky"
+SlopeMapfile				=	"input-maps/slope"
+AspectMapFile				=	"input-maps/aspect"
+HorizonMeteoStationFile			=	"hor_meteo/horizon"
 HeaderHorizonAngle			=	"azimuth"
 HeaderHorizonHeight			=	"horizon_ele"
 
