@@ -1,0 +1,157 @@
+ The main properties of the pixel E=     654452.000 N=    5300100.000, row= 124 col=  59 are:
+ Elevation above sea level:    591.000 m
+ Gauckler-Strickler [m^1/3/s]: 2.000000
+ Residual water content[-] of the layer 1: 0.010000
+ Residual water content[-] of the layer 2: 0.010000
+ Residual water content[-] of the layer 3: 0.020000
+ Residual water content[-] of the layer 4: 0.020000
+ Residual water content[-] of the layer 5: 0.011000
+ Residual water content[-] of the layer 6: 0.011000
+ Residual water content[-] of the layer 7: 0.025000
+ Residual water content[-] of the layer 8: 0.025000
+ Residual water content[-] of the layer 9: 0.015000
+ Residual water content[-] of the layer 10: 0.015000
+ Residual water content[-] of the layer 11: 0.012000
+ Residual water content[-] of the layer 12: 0.012000
+ Residual water content[-] of the layer 13: 0.012000
+ Saturated water content[-] of the layer 1: 0.780000
+ Saturated water content[-] of the layer 2: 0.820000
+ Saturated water content[-] of the layer 3: 0.830000
+ Saturated water content[-] of the layer 4: 0.830000
+ Saturated water content[-] of the layer 5: 0.820000
+ Saturated water content[-] of the layer 6: 0.800000
+ Saturated water content[-] of the layer 7: 0.790000
+ Saturated water content[-] of the layer 8: 0.790000
+ Saturated water content[-] of the layer 9: 0.800000
+ Saturated water content[-] of the layer 10: 0.800000
+ Saturated water content[-] of the layer 11: 0.810000
+ Saturated water content[-] of the layer 12: 0.810000
+ Saturated water content[-] of the layer 13: 0.810000
+ Alpha of van Genuchten[mm^-1] of the layer 1: 0.000955
+ Alpha of van Genuchten[mm^-1] of the layer 2: 0.000250
+ Alpha of van Genuchten[mm^-1] of the layer 3: 0.000240
+ Alpha of van Genuchten[mm^-1] of the layer 4: 0.000141
+ Alpha of van Genuchten[mm^-1] of the layer 5: 0.000121
+ Alpha of van Genuchten[mm^-1] of the layer 6: 0.000121
+ Alpha of van Genuchten[mm^-1] of the layer 7: 0.000157
+ Alpha of van Genuchten[mm^-1] of the layer 8: 0.000157
+ Alpha of van Genuchten[mm^-1] of the layer 9: 0.000127
+ Alpha of van Genuchten[mm^-1] of the layer 10: 0.000127
+ Alpha of van Genuchten[mm^-1] of the layer 11: 0.000127
+ Alpha of van Genuchten[mm^-1] of the layer 12: 0.000147
+ Alpha of van Genuchten[mm^-1] of the layer 13: 0.000130
+ n of van Genuchten[-] of the layer 1: 1.900000
+ n of van Genuchten[-] of the layer 2: 1.900000
+ n of van Genuchten[-] of the layer 3: 1.910000
+ n of van Genuchten[-] of the layer 4: 1.910000
+ n of van Genuchten[-] of the layer 5: 1.930000
+ n of van Genuchten[-] of the layer 6: 1.730000
+ n of van Genuchten[-] of the layer 7: 1.790000
+ n of van Genuchten[-] of the layer 8: 1.790000
+ n of van Genuchten[-] of the layer 9: 1.890000
+ n of van Genuchten[-] of the layer 10: 1.890000
+ n of van Genuchten[-] of the layer 11: 1.890000
+ n of van Genuchten[-] of the layer 12: 1.590000
+ n of van Genuchten[-] of the layer 13: 1.590000
+ m of van Genuchten[-] of the layer 1: 0.473684
+ m of van Genuchten[-] of the layer 2: 0.473684
+ m of van Genuchten[-] of the layer 3: 0.476440
+ m of van Genuchten[-] of the layer 4: 0.476440
+ m of van Genuchten[-] of the layer 5: 0.481865
+ m of van Genuchten[-] of the layer 6: 0.421965
+ m of van Genuchten[-] of the layer 7: 0.441341
+ m of van Genuchten[-] of the layer 8: 0.441341
+ m of van Genuchten[-] of the layer 9: 0.470899
+ m of van Genuchten[-] of the layer 10: 0.470899
+ m of van Genuchten[-] of the layer 11: 0.470899
+ m of van Genuchten[-] of the layer 12: 0.371069
+ m of van Genuchten[-] of the layer 13: 0.371069
+ v of van Genuchten[-] of the layer 1: 0.500000
+ v of van Genuchten[-] of the layer 2: 0.500000
+ v of van Genuchten[-] of the layer 3: 0.500000
+ v of van Genuchten[-] of the layer 4: 0.500000
+ v of van Genuchten[-] of the layer 5: 0.500000
+ v of van Genuchten[-] of the layer 6: 0.500000
+ v of van Genuchten[-] of the layer 7: 0.500000
+ v of van Genuchten[-] of the layer 8: 0.500000
+ v of van Genuchten[-] of the layer 9: 0.500000
+ v of van Genuchten[-] of the layer 10: 0.500000
+ v of van Genuchten[-] of the layer 11: 0.500000
+ v of van Genuchten[-] of the layer 12: 0.500000
+ v of van Genuchten[-] of the layer 13: 0.500000
+ Water content of wilting point [-] of the layer 1: 0.115651
+ Water content of wilting point [-] of the layer 2: 0.115651
+ Water content of wilting point [-] of the layer 3: 0.115651
+ Water content of wilting point [-] of the layer 4: 0.115651
+ Water content of wilting point [-] of the layer 5: 0.115651
+ Water content of wilting point [-] of the layer 6: 0.115651
+ Water content of wilting point [-] of the layer 7: 0.115651
+ Water content of wilting point [-] of the layer 8: 0.115651
+ Water content of wilting point [-] of the layer 9: 0.115651
+ Water content of wilting point [-] of the layer 10: 0.115651
+ Water content of wilting point [-] of the layer 11: 0.115651
+ Water content of wilting point [-] of the layer 12: 0.115651
+ Water content of wilting point [-] of the layer 13: 0.115651
+ Water content of field capacity [-] of the layer 1: 0.300000
+ Water content of field capacity [-] of the layer 2: 0.300000
+ Water content of field capacity [-] of the layer 3: 0.400000
+ Water content of field capacity [-] of the layer 4: 0.400000
+ Water content of field capacity [-] of the layer 5: 0.200000
+ Water content of field capacity [-] of the layer 6: 0.200000
+ Water content of field capacity [-] of the layer 7: 0.250000
+ Water content of field capacity [-] of the layer 8: 0.250000
+ Water content of field capacity [-] of the layer 9: 0.350000
+ Water content of field capacity [-] of the layer 10: 0.350000
+ Water content of field capacity [-] of the layer 11: 0.300000
+ Water content of field capacity [-] of the layer 12: 0.300000
+ Water content of field capacity [-] of the layer 13: 0.300000
+ Kv_sat of layer 1 [mm/s]: 1.000000
+ Kv_sat of layer 2 [mm/s]: 0.141000
+ Kv_sat of layer 3 [mm/s]: 0.142000
+ Kv_sat of layer 4 [mm/s]: 0.142000
+ Kv_sat of layer 5 [mm/s]: 0.210000
+ Kv_sat of layer 6 [mm/s]: 0.210000
+ Kv_sat of layer 7 [mm/s]: 0.125000
+ Kv_sat of layer 8 [mm/s]: 0.125000
+ Kv_sat of layer 9 [mm/s]: 0.147000
+ Kv_sat of layer 10 [mm/s]: 0.224000
+ Kv_sat of layer 11 [mm/s]: 0.224000
+ Kv_sat of layer 12 [mm/s]: 0.132000
+ Kv_sat of layer 13 [mm/s]: 0.120000
+ Kh_sat of layer 1 [mm/s]: 1.000000
+ Kh_sat of layer 2 [mm/s]: 0.033000
+ Kh_sat of layer 3 [mm/s]: 0.003890
+ Kh_sat of layer 4 [mm/s]: 0.000389
+ Kh_sat of layer 5 [mm/s]: 0.000415
+ Kh_sat of layer 6 [mm/s]: 0.000415
+ Kh_sat of layer 7 [mm/s]: 0.000324
+ Kh_sat of layer 8 [mm/s]: 0.000324
+ Kh_sat of layer 9 [mm/s]: 0.000233
+ Kh_sat of layer 10 [mm/s]: 0.000233
+ Kh_sat of layer 11 [mm/s]: 0.000325
+ Kh_sat of layer 12 [mm/s]: 0.000125
+ Kh_sat of layer 13 [mm/s]: 0.000125
+ Terrain elevation [m]: 591.000000
+ Sky view factor [-]: 1.000000
+ The pixel-type is 0 
+ Aspect [deg] [0=Nord, clockwise]: 27.000000 
+ Mean slope of the pixel [deg]: 0.000000 
+ Land use number is 1 
+ The root fraction [-] of layer 1: 0.181818
+ The root fraction [-] of layer 2: 0.181818
+ The root fraction [-] of layer 3: 0.181818
+ The root fraction [-] of layer 4: 0.181818
+ The root fraction [-] of layer 5: 0.272727
+ The root fraction [-] of layer 6: 0.000000
+ The root fraction [-] of layer 7: 0.000000
+ The root fraction [-] of layer 8: 0.000000
+ The root fraction [-] of layer 9: 0.000000
+ The root fraction [-] of layer 10: 0.000000
+ The root fraction [-] of layer 11: 0.000000
+ The root fraction [-] of layer 12: 0.000000
+ The root fraction [-] of layer 13: 0.076923
+ Surface fraction of land covered by vegetation [-]: 0.450000 
+ Leaf and Stem Area Index [-]: 0.100000 
+ Momentum roughness length z0soil [m]: 0.010000 
+ Vegetation height [m]: 350.000000 
+ 
