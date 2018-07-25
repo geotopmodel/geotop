@@ -96,7 +96,7 @@ Different solutions are possible:
 1. increase the ```z_transp``` parameter in constants.h file
 ```
 + quick solution
-- problems if we insert a test cases having again z > z_transp)
+- problems if we insert a test cases having again z > z_transp
 ```
 2. insert a check like the following:
 ```
