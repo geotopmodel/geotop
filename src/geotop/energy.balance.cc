@@ -283,8 +283,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
 
       for (l=1; l<=Nl; l++)
         {
-          A->S->ET->co[l][r][c] = 0.0;
-
+ //           (*A->S->ET)(l,r,c) = 0.0;
+            A->S->ET->co[l][r][c] = 0.0;
           (*A->S->th)(l,j) = theta_from_psi((*L->P)(l,j), (*L->thi)(l,j), l,
                                               A->S->pa->co[sy], PsiMin);
           (*A->S->th)(l,j) = Fmin( (*A->S->th)(l,j),

@@ -113,7 +113,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     geolog << "Deallocating soil" << std::endl;
 
     free_doubletensor(sl->pa);
-    free_doubletensor(sl->ET);
+    //free_doubletensor(sl->ET);
 
     delete sl->SS;
 
