@@ -2072,7 +2072,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 isavings+=1;
 
-                geolog <<"Writing recovering files, saving point number " << isavings <<std::endl;
+                geolog << "Writing recovering files, saving point number " << isavings <<std::endl;
 
 
 
@@ -3098,7 +3098,9 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 fprintf(f," Mean slope of the pixel [deg]: %f \n",(*top->slope)(r,c));
                 fprintf(f," Land use number is %d \n",(short)(*land->LC)(r,c));
 
-                for (l=1; l<=Nl; l++)
+                int lmax = land->root_fraction->n_col;
+
+                for (l=1; l<=lmax; l++)
                 {
 //                    std::cout << "Nl = " << Nl << std::endl;
 //                    std::cout << "(lu,l) = " << lu << " " << l << std::endl;

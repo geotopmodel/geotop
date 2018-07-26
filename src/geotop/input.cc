@@ -44,7 +44,7 @@
 #include "logger.h"
 #include <iostream>
 
-int z_transp = 10000; //soil depth responsable for canopy transpiration [mm]
+//int z_transp = 10000; //soil depth responsable for canopy transpiration [mm]
 
 extern long number_novalue, number_absent;
 extern char *string_novalue;
@@ -69,7 +69,10 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
                    PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times)
 
 {
+#ifndef NDEBUG
     GEOLOG_PREFIX(__func__);
+#endif
+
     FILE *f; /** failed run file*/
     Matrix<double> *M;
     std::unique_ptr<INIT_TOOLS> IT;
@@ -710,10 +713,10 @@ keyword LinearInterpolation at 1.\n");
     while (l<Nl && z < z_transp);
 
     // We increase l and z_transp to avoid segmentation fault when accessing (*land->root_fraction)(lu,Nl)
-    if (z > z_transp){
-        l = Nl;
-        z_transp = z;
-    }
+//    if (z > z_transp){
+//        l = Nl;
+//        z_transp = z;
+//    }
 
     land->root_fraction.reset(new Matrix<double>{par->n_landuses, l});
 //    std::cout << "z_transp = " << z_transp << std::endl;
