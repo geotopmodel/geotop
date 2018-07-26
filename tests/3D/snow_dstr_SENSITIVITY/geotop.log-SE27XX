@@ -6,7 +6,7 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: ./
+WORKING DIRECTORY: 3D/snow_dstr_SENSITIVITY/
 
 TimeStepEnergyAndWater[1] = 8.640000e+04 
 InitDateDDMMYYYYhhmm[1] = 5.102009e+10 
@@ -1251,8 +1251,8 @@ HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00),
 HeaderCthSoilSolids: 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06), 1800000.000000(1.80e+06)
 HeaderSpecificStorativity: 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07), 0.000000(1.00e-07)
 
-Attempting to read 'DemFile' in the file './input-maps/dem100': EXISTING in format 3
-Attempting to read 'LandCoverMapFile' in the file './input-maps/landcover100adpt': EXISTING in format 3
+Attempting to read 'DemFile' in the file '3D/snow_dstr_SENSITIVITY/input-maps/dem100': EXISTING in format 3
+Attempting to read 'LandCoverMapFile' in the file '3D/snow_dstr_SENSITIVITY/input-maps/landcover100adpt': EXISTING in format 3
 Attempting to read 'SkyViewFactorMapFile' in the file 'none': not present in file list
 Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
 Attempting to read 'SoilMapFile' in the file 'none': not present in file list
@@ -1263,7 +1263,7 @@ Curvature N-S Min:-0.017800  Max:0.016100
 Curvature W-E Min:-0.022200  Max:0.014900 
 Curvature NW-SE Min:-0.024000  Max:0.024800 
 Curvature NE-SW Min:-0.028000  Max:0.019900 
-Attempting to read 'RiverNetwork' in the file './input-maps/net100adpt': EXISTING in format 3
+Attempting to read 'RiverNetwork' in the file '3D/snow_dstr_SENSITIVITY/input-maps/net100adpt': EXISTING in format 3
 Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
 Valid pixels: 6188
 Number of nodes: 80444
@@ -1271,92 +1271,92 @@ Novalue pixels: 3952
 Basin area: 61.880000 km2
 
 Horizon file FOUND for meteo station #1
-Column 1 in file ./input-meteo/horizongis0001.txt assigned to AngleFromNorthClockwise
-Column 2 in file ./input-meteo/horizongis0001.txt assigned to HorizonHeight
-Column 1 in file ./input-meteo/meteo0001.txt assigned to Date
-Column 2 in file ./input-meteo/meteo0001.txt assigned to JDfrom0
-Column 3 in file ./input-meteo/meteo0001.txt assigned to Iprec
-Column 5 in file ./input-meteo/meteo0001.txt assigned to WindSp
-Column 4 in file ./input-meteo/meteo0001.txt assigned to WindDir
-Column 6 in file ./input-meteo/meteo0001.txt assigned to RelHum
-Column 7 in file ./input-meteo/meteo0001.txt assigned to AirT
-Column 8 in file ./input-meteo/meteo0001.txt assigned to Swglobal
+Column 1 in file 3D/snow_dstr_SENSITIVITY/input-meteo/horizongis0001.txt assigned to AngleFromNorthClockwise
+Column 2 in file 3D/snow_dstr_SENSITIVITY/input-meteo/horizongis0001.txt assigned to HorizonHeight
+Column 1 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0001.txt assigned to Date
+Column 2 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0001.txt assigned to JDfrom0
+Column 3 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0001.txt assigned to Iprec
+Column 5 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0001.txt assigned to WindSp
+Column 4 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0001.txt assigned to WindDir
+Column 6 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0001.txt assigned to RelHum
+Column 7 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0001.txt assigned to AirT
+Column 8 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0001.txt assigned to Swglobal
 
 Horizon file FOUND for meteo station #2
-Column 1 in file ./input-meteo/horizongis0002.txt assigned to AngleFromNorthClockwise
-Column 2 in file ./input-meteo/horizongis0002.txt assigned to HorizonHeight
-Column 1 in file ./input-meteo/meteo0002.txt assigned to Date
-Column 2 in file ./input-meteo/meteo0002.txt assigned to JDfrom0
-Column 3 in file ./input-meteo/meteo0002.txt assigned to Iprec
-Column 4 in file ./input-meteo/meteo0002.txt assigned to WindSp
-Column 5 in file ./input-meteo/meteo0002.txt assigned to WindDir
-Column 6 in file ./input-meteo/meteo0002.txt assigned to RelHum
-Column 7 in file ./input-meteo/meteo0002.txt assigned to AirT
-Column 8 in file ./input-meteo/meteo0002.txt assigned to Swglobal
+Column 1 in file 3D/snow_dstr_SENSITIVITY/input-meteo/horizongis0002.txt assigned to AngleFromNorthClockwise
+Column 2 in file 3D/snow_dstr_SENSITIVITY/input-meteo/horizongis0002.txt assigned to HorizonHeight
+Column 1 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0002.txt assigned to Date
+Column 2 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0002.txt assigned to JDfrom0
+Column 3 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0002.txt assigned to Iprec
+Column 4 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0002.txt assigned to WindSp
+Column 5 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0002.txt assigned to WindDir
+Column 6 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0002.txt assigned to RelHum
+Column 7 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0002.txt assigned to AirT
+Column 8 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0002.txt assigned to Swglobal
 
 Horizon file FOUND for meteo station #3
-Column 1 in file ./input-meteo/horizongis0003.txt assigned to AngleFromNorthClockwise
-Column 2 in file ./input-meteo/horizongis0003.txt assigned to HorizonHeight
-Column 1 in file ./input-meteo/meteo0003.txt assigned to Date
-Column 2 in file ./input-meteo/meteo0003.txt assigned to JDfrom0
-Column 3 in file ./input-meteo/meteo0003.txt assigned to Iprec
-Column 4 in file ./input-meteo/meteo0003.txt assigned to WindSp
-Column 5 in file ./input-meteo/meteo0003.txt assigned to WindDir
-Column 6 in file ./input-meteo/meteo0003.txt assigned to RelHum
-Column 7 in file ./input-meteo/meteo0003.txt assigned to AirT
-Column 8 in file ./input-meteo/meteo0003.txt assigned to Swglobal
+Column 1 in file 3D/snow_dstr_SENSITIVITY/input-meteo/horizongis0003.txt assigned to AngleFromNorthClockwise
+Column 2 in file 3D/snow_dstr_SENSITIVITY/input-meteo/horizongis0003.txt assigned to HorizonHeight
+Column 1 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0003.txt assigned to Date
+Column 2 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0003.txt assigned to JDfrom0
+Column 3 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0003.txt assigned to Iprec
+Column 4 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0003.txt assigned to WindSp
+Column 5 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0003.txt assigned to WindDir
+Column 6 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0003.txt assigned to RelHum
+Column 7 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0003.txt assigned to AirT
+Column 8 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0003.txt assigned to Swglobal
 
 Horizon file FOUND for meteo station #4
-Column 1 in file ./input-meteo/horizongis0004.txt assigned to AngleFromNorthClockwise
-Column 2 in file ./input-meteo/horizongis0004.txt assigned to HorizonHeight
-Column 1 in file ./input-meteo/meteo0004.txt assigned to Date
-Column 2 in file ./input-meteo/meteo0004.txt assigned to JDfrom0
-Column 3 in file ./input-meteo/meteo0004.txt assigned to Iprec
-Column 4 in file ./input-meteo/meteo0004.txt assigned to WindSp
-Column 5 in file ./input-meteo/meteo0004.txt assigned to WindDir
-Column 6 in file ./input-meteo/meteo0004.txt assigned to RelHum
-Column 7 in file ./input-meteo/meteo0004.txt assigned to AirT
-Column 8 in file ./input-meteo/meteo0004.txt assigned to Swglobal
+Column 1 in file 3D/snow_dstr_SENSITIVITY/input-meteo/horizongis0004.txt assigned to AngleFromNorthClockwise
+Column 2 in file 3D/snow_dstr_SENSITIVITY/input-meteo/horizongis0004.txt assigned to HorizonHeight
+Column 1 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0004.txt assigned to Date
+Column 2 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0004.txt assigned to JDfrom0
+Column 3 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0004.txt assigned to Iprec
+Column 4 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0004.txt assigned to WindSp
+Column 5 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0004.txt assigned to WindDir
+Column 6 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0004.txt assigned to RelHum
+Column 7 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0004.txt assigned to AirT
+Column 8 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0004.txt assigned to Swglobal
 
 Horizon file FOUND for meteo station #5
-Column 1 in file ./input-meteo/horizongis0005.txt assigned to AngleFromNorthClockwise
-Column 2 in file ./input-meteo/horizongis0005.txt assigned to HorizonHeight
-Column 1 in file ./input-meteo/meteo0005.txt assigned to Date
-Column 2 in file ./input-meteo/meteo0005.txt assigned to JDfrom0
-Column 3 in file ./input-meteo/meteo0005.txt assigned to Iprec
-Column 4 in file ./input-meteo/meteo0005.txt assigned to WindSp
-Column 5 in file ./input-meteo/meteo0005.txt assigned to WindDir
-Column 6 in file ./input-meteo/meteo0005.txt assigned to RelHum
-Column 7 in file ./input-meteo/meteo0005.txt assigned to AirT
-Column 8 in file ./input-meteo/meteo0005.txt assigned to Swglobal
+Column 1 in file 3D/snow_dstr_SENSITIVITY/input-meteo/horizongis0005.txt assigned to AngleFromNorthClockwise
+Column 2 in file 3D/snow_dstr_SENSITIVITY/input-meteo/horizongis0005.txt assigned to HorizonHeight
+Column 1 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0005.txt assigned to Date
+Column 2 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0005.txt assigned to JDfrom0
+Column 3 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0005.txt assigned to Iprec
+Column 4 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0005.txt assigned to WindSp
+Column 5 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0005.txt assigned to WindDir
+Column 6 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0005.txt assigned to RelHum
+Column 7 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0005.txt assigned to AirT
+Column 8 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0005.txt assigned to Swglobal
 
 Horizon file FOUND for meteo station #6
-Column 1 in file ./input-meteo/horizongis0006.txt assigned to AngleFromNorthClockwise
-Column 2 in file ./input-meteo/horizongis0006.txt assigned to HorizonHeight
-Column 1 in file ./input-meteo/meteo0006.txt assigned to Date
-Column 2 in file ./input-meteo/meteo0006.txt assigned to JDfrom0
-Column 3 in file ./input-meteo/meteo0006.txt assigned to Iprec
-Column 4 in file ./input-meteo/meteo0006.txt assigned to WindSp
-Column 5 in file ./input-meteo/meteo0006.txt assigned to WindDir
-Column 6 in file ./input-meteo/meteo0006.txt assigned to RelHum
-Column 7 in file ./input-meteo/meteo0006.txt assigned to AirT
-Column 8 in file ./input-meteo/meteo0006.txt assigned to Swglobal
+Column 1 in file 3D/snow_dstr_SENSITIVITY/input-meteo/horizongis0006.txt assigned to AngleFromNorthClockwise
+Column 2 in file 3D/snow_dstr_SENSITIVITY/input-meteo/horizongis0006.txt assigned to HorizonHeight
+Column 1 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0006.txt assigned to Date
+Column 2 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0006.txt assigned to JDfrom0
+Column 3 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0006.txt assigned to Iprec
+Column 4 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0006.txt assigned to WindSp
+Column 5 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0006.txt assigned to WindDir
+Column 6 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0006.txt assigned to RelHum
+Column 7 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0006.txt assigned to AirT
+Column 8 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0006.txt assigned to Swglobal
 
 Horizon file FOUND for meteo station #7
-Column 1 in file ./input-meteo/horizongis0007.txt assigned to AngleFromNorthClockwise
-Column 2 in file ./input-meteo/horizongis0007.txt assigned to HorizonHeight
-Column 1 in file ./input-meteo/meteo0007.txt assigned to Date
-Column 2 in file ./input-meteo/meteo0007.txt assigned to JDfrom0
-Column 3 in file ./input-meteo/meteo0007.txt assigned to Iprec
-Column 4 in file ./input-meteo/meteo0007.txt assigned to WindSp
-Column 5 in file ./input-meteo/meteo0007.txt assigned to WindDir
-Column 6 in file ./input-meteo/meteo0007.txt assigned to RelHum
-Column 7 in file ./input-meteo/meteo0007.txt assigned to AirT
-Column 8 in file ./input-meteo/meteo0007.txt assigned to Swglobal
-Column 1 in file ./input-meteo/lapserate_20091001_20131125.txt assigned to Date
-Column 3 in file ./input-meteo/lapserate_20091001_20131125.txt assigned to LapseRateTemp
-Column 4 in file ./input-meteo/lapserate_20091001_20131125.txt assigned to LapseRateDewTemp
-Column 5 in file ./input-meteo/lapserate_20091001_20131125.txt assigned to LapseRatePrec
+Column 1 in file 3D/snow_dstr_SENSITIVITY/input-meteo/horizongis0007.txt assigned to AngleFromNorthClockwise
+Column 2 in file 3D/snow_dstr_SENSITIVITY/input-meteo/horizongis0007.txt assigned to HorizonHeight
+Column 1 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0007.txt assigned to Date
+Column 2 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0007.txt assigned to JDfrom0
+Column 3 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0007.txt assigned to Iprec
+Column 4 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0007.txt assigned to WindSp
+Column 5 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0007.txt assigned to WindDir
+Column 6 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0007.txt assigned to RelHum
+Column 7 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0007.txt assigned to AirT
+Column 8 in file 3D/snow_dstr_SENSITIVITY/input-meteo/meteo0007.txt assigned to Swglobal
+Column 1 in file 3D/snow_dstr_SENSITIVITY/input-meteo/lapserate_20091001_20131125.txt assigned to Date
+Column 3 in file 3D/snow_dstr_SENSITIVITY/input-meteo/lapserate_20091001_20131125.txt assigned to LapseRateTemp
+Column 4 in file 3D/snow_dstr_SENSITIVITY/input-meteo/lapserate_20091001_20131125.txt assigned to LapseRateDewTemp
+Column 5 in file 3D/snow_dstr_SENSITIVITY/input-meteo/lapserate_20091001_20131125.txt assigned to LapseRatePrec
 Shortwave radiation measurements from station 1
 WARNING: NO cloudiness measurements available
 WARNING: NO longwave radiation measurements available
@@ -1368,16 +1368,16 @@ Soil water transpires from the first 12 layers
 6/10/2009 0:00 96.00% - Time elapsed (h:m:s)  0:01:34 Time remaining (h:m)  0:00  
 
 6/10/2009 0:00 JD:278.000000 (1^ simulation day) 96.00% completed! 
- t_meteo:  0.01 s, t_energy:  4.59 s, t_blowingsnow:  0.00 s, t_water: 90.06 s, t_sub:  1.68 s, t_sup: 88.38 s, t_out:  0.00 s
+ t_meteo:  0.01 s, t_energy:  4.54 s, t_blowingsnow:  0.00 s, t_water: 89.62 s, t_sub:  1.65 s, t_sup: 87.97 s, t_out:  0.00 s
  SW= 51.03 W/m2  LW:-40.73 W/m2  H=  1.43 W/m2  LE=  0.40 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=5.851988e-10 mm/h 
  Tot Error Richards=1.404477e-08 mm Mean Time Step=86400.000000 s
 
-7/10/2009 0:00 192.00% - Time elapsed (h:m:s)  0:04:00 Time remaining (h:m) -1:58  
+7/10/2009 0:00 192.00% - Time elapsed (h:m:s)  0:04:01 Time remaining (h:m) -1:58  
 
 7/10/2009 0:00 JD:279.000000 (2^ simulation day) 192.00% completed! 
- t_meteo:  0.01 s, t_energy:  9.13 s, t_blowingsnow:  0.00 s, t_water:229.05 s, t_sub:  5.31 s, t_sup:223.73 s, t_out:  0.01 s
+ t_meteo:  0.01 s, t_energy:  9.13 s, t_blowingsnow:  0.00 s, t_water:231.22 s, t_sub:  5.29 s, t_sup:225.93 s, t_out:  0.01 s
  SW= 55.73 W/m2  LW:-36.47 W/m2  H=  4.68 W/m2  LE=  3.04 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.079297e-09 mm/h 

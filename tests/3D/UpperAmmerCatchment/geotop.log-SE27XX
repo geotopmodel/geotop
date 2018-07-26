@@ -6,7 +6,7 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: ./
+WORKING DIRECTORY: 3D/UpperAmmerCatchment/
 
 TimeStepEnergyAndWater[1] = 3.600000e+03 
 InitDateDDMMYYYYhhmm[1] = 1.504201e+11 
@@ -1016,19 +1016,19 @@ SoilParFile = soil
 MeteoFile = meteo/_meteo
 MeteoStationsListFile = none
 LapseRateFile = none
-HorizonMeteoStationFile = hor_meteo/_horizon
+HorizonMeteoStationFile = hor_meteo/horizon
 PointFile = none
 HorizonPointFile = none
 TimeDependentVegetationParameterFile = none
 TimeDependentIncomingDischargeFile = none
-DemFile = input_maps/_dem
-LandCoverMapFile = input_maps/_landcover
-SoilMapFile = input_maps/_soiltype
+DemFile = input-maps/dem
+LandCoverMapFile = input-maps/landcover
+SoilMapFile = input-maps/soiltype
 DaysDelayMapFile = none
-SkyViewFactorMapFile = input_maps/_sky
-SlopeMapFile = input_maps/_slope
-RiverNetwork = input_maps/_network
-AspectMapFile = input_maps/_aspect
+SkyViewFactorMapFile = input-maps/sky
+SlopeMapFile = input-maps/slope
+RiverNetwork = input-maps/network
+AspectMapFile = input-maps/aspect
 CurvaturesMapFile = none
 BedrockDepthMapFile = none
 InitWaterTableDepthMapFile = none
@@ -1341,60 +1341,60 @@ HeaderMeteoStationStandardTime = none
 SuccessfulRunFile = none
 FailedRunFile = none
 SubfolderRecoveryFiles = none
-Column 1 in file ./soil0001.txt assigned to Dz
-Column 3 in file ./soil0001.txt assigned to Kv
-Column 2 in file ./soil0001.txt assigned to Kh
-Column 4 in file ./soil0001.txt assigned to res
-Column 5 in file ./soil0001.txt assigned to fc
-Column 6 in file ./soil0001.txt assigned to sat
-Column 7 in file ./soil0001.txt assigned to a
-Column 8 in file ./soil0001.txt assigned to n
-Column 9 in file ./soil0001.txt assigned to SS
-Column 1 in file ./soil0002.txt assigned to Dz
-Column 3 in file ./soil0002.txt assigned to Kv
-Column 2 in file ./soil0002.txt assigned to Kh
-Column 4 in file ./soil0002.txt assigned to res
-Column 5 in file ./soil0002.txt assigned to fc
-Column 6 in file ./soil0002.txt assigned to sat
-Column 7 in file ./soil0002.txt assigned to a
-Column 8 in file ./soil0002.txt assigned to n
-Column 9 in file ./soil0002.txt assigned to SS
-Column 1 in file ./soil0003.txt assigned to Dz
-Column 3 in file ./soil0003.txt assigned to Kv
-Column 2 in file ./soil0003.txt assigned to Kh
-Column 4 in file ./soil0003.txt assigned to res
-Column 5 in file ./soil0003.txt assigned to fc
-Column 6 in file ./soil0003.txt assigned to sat
-Column 7 in file ./soil0003.txt assigned to a
-Column 8 in file ./soil0003.txt assigned to n
-Column 9 in file ./soil0003.txt assigned to SS
-Column 1 in file ./soil0004.txt assigned to Dz
-Column 3 in file ./soil0004.txt assigned to Kv
-Column 2 in file ./soil0004.txt assigned to Kh
-Column 4 in file ./soil0004.txt assigned to res
-Column 5 in file ./soil0004.txt assigned to fc
-Column 6 in file ./soil0004.txt assigned to sat
-Column 7 in file ./soil0004.txt assigned to a
-Column 8 in file ./soil0004.txt assigned to n
-Column 9 in file ./soil0004.txt assigned to SS
-Column 1 in file ./soil0005.txt assigned to Dz
-Column 3 in file ./soil0005.txt assigned to Kv
-Column 2 in file ./soil0005.txt assigned to Kh
-Column 4 in file ./soil0005.txt assigned to res
-Column 5 in file ./soil0005.txt assigned to fc
-Column 6 in file ./soil0005.txt assigned to sat
-Column 7 in file ./soil0005.txt assigned to a
-Column 8 in file ./soil0005.txt assigned to n
-Column 9 in file ./soil0005.txt assigned to SS
-Column 1 in file ./soil0006.txt assigned to Dz
-Column 3 in file ./soil0006.txt assigned to Kv
-Column 2 in file ./soil0006.txt assigned to Kh
-Column 4 in file ./soil0006.txt assigned to res
-Column 5 in file ./soil0006.txt assigned to fc
-Column 6 in file ./soil0006.txt assigned to sat
-Column 7 in file ./soil0006.txt assigned to a
-Column 8 in file ./soil0006.txt assigned to n
-Column 9 in file ./soil0006.txt assigned to SS
+Column 1 in file 3D/UpperAmmerCatchment/soil0001.txt assigned to Dz
+Column 3 in file 3D/UpperAmmerCatchment/soil0001.txt assigned to Kv
+Column 2 in file 3D/UpperAmmerCatchment/soil0001.txt assigned to Kh
+Column 4 in file 3D/UpperAmmerCatchment/soil0001.txt assigned to res
+Column 5 in file 3D/UpperAmmerCatchment/soil0001.txt assigned to fc
+Column 6 in file 3D/UpperAmmerCatchment/soil0001.txt assigned to sat
+Column 7 in file 3D/UpperAmmerCatchment/soil0001.txt assigned to a
+Column 8 in file 3D/UpperAmmerCatchment/soil0001.txt assigned to n
+Column 9 in file 3D/UpperAmmerCatchment/soil0001.txt assigned to SS
+Column 1 in file 3D/UpperAmmerCatchment/soil0002.txt assigned to Dz
+Column 3 in file 3D/UpperAmmerCatchment/soil0002.txt assigned to Kv
+Column 2 in file 3D/UpperAmmerCatchment/soil0002.txt assigned to Kh
+Column 4 in file 3D/UpperAmmerCatchment/soil0002.txt assigned to res
+Column 5 in file 3D/UpperAmmerCatchment/soil0002.txt assigned to fc
+Column 6 in file 3D/UpperAmmerCatchment/soil0002.txt assigned to sat
+Column 7 in file 3D/UpperAmmerCatchment/soil0002.txt assigned to a
+Column 8 in file 3D/UpperAmmerCatchment/soil0002.txt assigned to n
+Column 9 in file 3D/UpperAmmerCatchment/soil0002.txt assigned to SS
+Column 1 in file 3D/UpperAmmerCatchment/soil0003.txt assigned to Dz
+Column 3 in file 3D/UpperAmmerCatchment/soil0003.txt assigned to Kv
+Column 2 in file 3D/UpperAmmerCatchment/soil0003.txt assigned to Kh
+Column 4 in file 3D/UpperAmmerCatchment/soil0003.txt assigned to res
+Column 5 in file 3D/UpperAmmerCatchment/soil0003.txt assigned to fc
+Column 6 in file 3D/UpperAmmerCatchment/soil0003.txt assigned to sat
+Column 7 in file 3D/UpperAmmerCatchment/soil0003.txt assigned to a
+Column 8 in file 3D/UpperAmmerCatchment/soil0003.txt assigned to n
+Column 9 in file 3D/UpperAmmerCatchment/soil0003.txt assigned to SS
+Column 1 in file 3D/UpperAmmerCatchment/soil0004.txt assigned to Dz
+Column 3 in file 3D/UpperAmmerCatchment/soil0004.txt assigned to Kv
+Column 2 in file 3D/UpperAmmerCatchment/soil0004.txt assigned to Kh
+Column 4 in file 3D/UpperAmmerCatchment/soil0004.txt assigned to res
+Column 5 in file 3D/UpperAmmerCatchment/soil0004.txt assigned to fc
+Column 6 in file 3D/UpperAmmerCatchment/soil0004.txt assigned to sat
+Column 7 in file 3D/UpperAmmerCatchment/soil0004.txt assigned to a
+Column 8 in file 3D/UpperAmmerCatchment/soil0004.txt assigned to n
+Column 9 in file 3D/UpperAmmerCatchment/soil0004.txt assigned to SS
+Column 1 in file 3D/UpperAmmerCatchment/soil0005.txt assigned to Dz
+Column 3 in file 3D/UpperAmmerCatchment/soil0005.txt assigned to Kv
+Column 2 in file 3D/UpperAmmerCatchment/soil0005.txt assigned to Kh
+Column 4 in file 3D/UpperAmmerCatchment/soil0005.txt assigned to res
+Column 5 in file 3D/UpperAmmerCatchment/soil0005.txt assigned to fc
+Column 6 in file 3D/UpperAmmerCatchment/soil0005.txt assigned to sat
+Column 7 in file 3D/UpperAmmerCatchment/soil0005.txt assigned to a
+Column 8 in file 3D/UpperAmmerCatchment/soil0005.txt assigned to n
+Column 9 in file 3D/UpperAmmerCatchment/soil0005.txt assigned to SS
+Column 1 in file 3D/UpperAmmerCatchment/soil0006.txt assigned to Dz
+Column 3 in file 3D/UpperAmmerCatchment/soil0006.txt assigned to Kv
+Column 2 in file 3D/UpperAmmerCatchment/soil0006.txt assigned to Kh
+Column 4 in file 3D/UpperAmmerCatchment/soil0006.txt assigned to res
+Column 5 in file 3D/UpperAmmerCatchment/soil0006.txt assigned to fc
+Column 6 in file 3D/UpperAmmerCatchment/soil0006.txt assigned to sat
+Column 7 in file 3D/UpperAmmerCatchment/soil0006.txt assigned to a
+Column 8 in file 3D/UpperAmmerCatchment/soil0006.txt assigned to n
+Column 9 in file 3D/UpperAmmerCatchment/soil0006.txt assigned to SS
 
 Soil Layers: 13
 -> Soil Type: 1
@@ -1592,19 +1592,19 @@ HeaderKthSoilSolids: 0.010000(1.00e-02), 0.010000(1.00e-02), 0.010000(1.00e-02),
 HeaderCthSoilSolids: 10000000.000000(1.00e+07), 10000000.000000(1.00e+07), 10000000.000000(1.00e+07), 10000000.000000(1.00e+07), 10000000.000000(1.00e+07), 10000000.000000(1.00e+07), 10000000.000000(1.00e+07), 10000000.000000(1.00e+07), 10000000.000000(1.00e+07), 10000000.000000(1.00e+07), 10000000.000000(1.00e+07), 10000000.000000(1.00e+07), 10000000.000000(1.00e+07)
 HeaderSpecificStorativity: 0.000000(2.50e-07), 0.000002(2.50e-06), 0.000005(5.50e-06), 0.000005(5.50e-06), 0.000001(8.50e-07), 0.000001(8.50e-07), 0.000001(8.50e-07), 0.000001(8.50e-07), 0.000000(4.00e-08), 0.000000(4.00e-08), 0.000000(4.00e-08), 0.000000(1.50e-08), 0.000000(1.50e-08)
 
-Attempting to read 'DemFile' in the file './input_maps/_dem': EXISTING in format 3
-Attempting to read 'LandCoverMapFile' in the file './input_maps/_landcover': EXISTING in format 3
-Attempting to read 'SkyViewFactorMapFile' in the file './input_maps/_sky': EXISTING in format 3
+Attempting to read 'DemFile' in the file '3D/UpperAmmerCatchment/input-maps/dem': EXISTING in format 3
+Attempting to read 'LandCoverMapFile' in the file '3D/UpperAmmerCatchment/input-maps/landcover': EXISTING in format 3
+Attempting to read 'SkyViewFactorMapFile' in the file '3D/UpperAmmerCatchment/input-maps/sky': EXISTING in format 3
 Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
-Attempting to read 'SoilMapFile' in the file './input_maps/_soiltype': EXISTING in format 3
-Attempting to read 'SlopeMapFile' in the file './input_maps/_slope': EXISTING in format 3
+Attempting to read 'SoilMapFile' in the file '3D/UpperAmmerCatchment/input-maps/soiltype': EXISTING in format 3
+Attempting to read 'SlopeMapFile' in the file '3D/UpperAmmerCatchment/input-maps/slope': EXISTING in format 3
 Slope Min:0.000000 (0.000000 deg) Max:1.714863 (59.751960 deg) 
-Attempting to read 'AspectMapFile' in the file './input_maps/_aspect': EXISTING in format 3
+Attempting to read 'AspectMapFile' in the file '3D/UpperAmmerCatchment/input-maps/aspect': EXISTING in format 3
 Curvature N-S Min:-0.015900  Max:0.018800 
 Curvature W-E Min:-0.017500  Max:0.016600 
 Curvature NW-SE Min:-0.025600  Max:0.023700 
 Curvature NE-SW Min:-0.022000  Max:0.027400 
-Attempting to read 'RiverNetwork' in the file './input_maps/_network': EXISTING in format 3
+Attempting to read 'RiverNetwork' in the file '3D/UpperAmmerCatchment/input-maps/network': EXISTING in format 3
 Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
 Valid pixels: 28716
 Number of nodes: 402024
@@ -1612,73 +1612,73 @@ Novalue pixels: 37750
 Basin area: 287.160000 km2
 
 Horizon file FOUND for meteo station #1
-Column 1 in file ./hor_meteo/_horizon0001.txt assigned to azimuth
-Column 2 in file ./hor_meteo/_horizon0001.txt assigned to horizon_ele
-Column 1 in file ./meteo/_meteo0001.txt assigned to Date
-Column 2 in file ./meteo/_meteo0001.txt assigned to JDfrom0
-Column 3 in file ./meteo/_meteo0001.txt assigned to Prec
-Column 4 in file ./meteo/_meteo0001.txt assigned to WindS
-Column 5 in file ./meteo/_meteo0001.txt assigned to WindDir
-Column 6 in file ./meteo/_meteo0001.txt assigned to RelHum
-Column 7 in file ./meteo/_meteo0001.txt assigned to AirT
-Column 8 in file ./meteo/_meteo0001.txt assigned to SWglobal
-Column 9 in file ./meteo/_meteo0001.txt assigned to LWin
-Column 10 in file ./meteo/_meteo0001.txt assigned to SWnet
+Column 1 in file 3D/UpperAmmerCatchment/hor_meteo/horizon0001.txt assigned to azimuth
+Column 2 in file 3D/UpperAmmerCatchment/hor_meteo/horizon0001.txt assigned to horizon_ele
+Column 1 in file 3D/UpperAmmerCatchment/meteo/_meteo0001.txt assigned to Date
+Column 2 in file 3D/UpperAmmerCatchment/meteo/_meteo0001.txt assigned to JDfrom0
+Column 3 in file 3D/UpperAmmerCatchment/meteo/_meteo0001.txt assigned to Prec
+Column 4 in file 3D/UpperAmmerCatchment/meteo/_meteo0001.txt assigned to WindS
+Column 5 in file 3D/UpperAmmerCatchment/meteo/_meteo0001.txt assigned to WindDir
+Column 6 in file 3D/UpperAmmerCatchment/meteo/_meteo0001.txt assigned to RelHum
+Column 7 in file 3D/UpperAmmerCatchment/meteo/_meteo0001.txt assigned to AirT
+Column 8 in file 3D/UpperAmmerCatchment/meteo/_meteo0001.txt assigned to SWglobal
+Column 9 in file 3D/UpperAmmerCatchment/meteo/_meteo0001.txt assigned to LWin
+Column 10 in file 3D/UpperAmmerCatchment/meteo/_meteo0001.txt assigned to SWnet
 
 Horizon file FOUND for meteo station #2
-Column 1 in file ./hor_meteo/_horizon0002.txt assigned to azimuth
-Column 2 in file ./hor_meteo/_horizon0002.txt assigned to horizon_ele
-Column 1 in file ./meteo/_meteo0002.txt assigned to Date
-Column 2 in file ./meteo/_meteo0002.txt assigned to JDfrom0
-Column 3 in file ./meteo/_meteo0002.txt assigned to Prec
-Column 4 in file ./meteo/_meteo0002.txt assigned to WindS
-Column 5 in file ./meteo/_meteo0002.txt assigned to WindDir
-Column 6 in file ./meteo/_meteo0002.txt assigned to RelHum
-Column 7 in file ./meteo/_meteo0002.txt assigned to AirT
+Column 1 in file 3D/UpperAmmerCatchment/hor_meteo/horizon0002.txt assigned to azimuth
+Column 2 in file 3D/UpperAmmerCatchment/hor_meteo/horizon0002.txt assigned to horizon_ele
+Column 1 in file 3D/UpperAmmerCatchment/meteo/_meteo0002.txt assigned to Date
+Column 2 in file 3D/UpperAmmerCatchment/meteo/_meteo0002.txt assigned to JDfrom0
+Column 3 in file 3D/UpperAmmerCatchment/meteo/_meteo0002.txt assigned to Prec
+Column 4 in file 3D/UpperAmmerCatchment/meteo/_meteo0002.txt assigned to WindS
+Column 5 in file 3D/UpperAmmerCatchment/meteo/_meteo0002.txt assigned to WindDir
+Column 6 in file 3D/UpperAmmerCatchment/meteo/_meteo0002.txt assigned to RelHum
+Column 7 in file 3D/UpperAmmerCatchment/meteo/_meteo0002.txt assigned to AirT
 
 Horizon file FOUND for meteo station #3
-Column 1 in file ./hor_meteo/_horizon0003.txt assigned to azimuth
-Column 2 in file ./hor_meteo/_horizon0003.txt assigned to horizon_ele
-Column 1 in file ./meteo/_meteo0003.txt assigned to Date
-Column 2 in file ./meteo/_meteo0003.txt assigned to JDfrom0
-Column 3 in file ./meteo/_meteo0003.txt assigned to Prec
-Column 4 in file ./meteo/_meteo0003.txt assigned to RelHum
-Column 5 in file ./meteo/_meteo0003.txt assigned to AirT
+Column 1 in file 3D/UpperAmmerCatchment/hor_meteo/horizon0003.txt assigned to azimuth
+Column 2 in file 3D/UpperAmmerCatchment/hor_meteo/horizon0003.txt assigned to horizon_ele
+Column 1 in file 3D/UpperAmmerCatchment/meteo/_meteo0003.txt assigned to Date
+Column 2 in file 3D/UpperAmmerCatchment/meteo/_meteo0003.txt assigned to JDfrom0
+Column 3 in file 3D/UpperAmmerCatchment/meteo/_meteo0003.txt assigned to Prec
+Column 4 in file 3D/UpperAmmerCatchment/meteo/_meteo0003.txt assigned to RelHum
+Column 5 in file 3D/UpperAmmerCatchment/meteo/_meteo0003.txt assigned to AirT
 
 Horizon file FOUND for meteo station #4
-Column 1 in file ./hor_meteo/_horizon0004.txt assigned to azimuth
-Column 2 in file ./hor_meteo/_horizon0004.txt assigned to horizon_ele
-Column 1 in file ./meteo/_meteo0004.txt assigned to Date
-Column 2 in file ./meteo/_meteo0004.txt assigned to JDfrom0
-Column 3 in file ./meteo/_meteo0004.txt assigned to Prec
+Column 1 in file 3D/UpperAmmerCatchment/hor_meteo/horizon0004.txt assigned to azimuth
+Column 2 in file 3D/UpperAmmerCatchment/hor_meteo/horizon0004.txt assigned to horizon_ele
+Column 1 in file 3D/UpperAmmerCatchment/meteo/_meteo0004.txt assigned to Date
+Column 2 in file 3D/UpperAmmerCatchment/meteo/_meteo0004.txt assigned to JDfrom0
+Column 3 in file 3D/UpperAmmerCatchment/meteo/_meteo0004.txt assigned to Prec
 
 Horizon file FOUND for meteo station #5
-Column 1 in file ./hor_meteo/_horizon0005.txt assigned to azimuth
-Column 2 in file ./hor_meteo/_horizon0005.txt assigned to horizon_ele
-Column 1 in file ./meteo/_meteo0005.txt assigned to Date
-Column 2 in file ./meteo/_meteo0005.txt assigned to JDfrom0
-Column 3 in file ./meteo/_meteo0005.txt assigned to Prec
-Column 4 in file ./meteo/_meteo0005.txt assigned to WindS
-Column 5 in file ./meteo/_meteo0005.txt assigned to WindDir
-Column 6 in file ./meteo/_meteo0005.txt assigned to RelHum
-Column 7 in file ./meteo/_meteo0005.txt assigned to AirT
-Column 8 in file ./meteo/_meteo0005.txt assigned to SWglobal
-Column 9 in file ./meteo/_meteo0005.txt assigned to LWin
-Column 10 in file ./meteo/_meteo0005.txt assigned to SWnet
+Column 1 in file 3D/UpperAmmerCatchment/hor_meteo/horizon0005.txt assigned to azimuth
+Column 2 in file 3D/UpperAmmerCatchment/hor_meteo/horizon0005.txt assigned to horizon_ele
+Column 1 in file 3D/UpperAmmerCatchment/meteo/_meteo0005.txt assigned to Date
+Column 2 in file 3D/UpperAmmerCatchment/meteo/_meteo0005.txt assigned to JDfrom0
+Column 3 in file 3D/UpperAmmerCatchment/meteo/_meteo0005.txt assigned to Prec
+Column 4 in file 3D/UpperAmmerCatchment/meteo/_meteo0005.txt assigned to WindS
+Column 5 in file 3D/UpperAmmerCatchment/meteo/_meteo0005.txt assigned to WindDir
+Column 6 in file 3D/UpperAmmerCatchment/meteo/_meteo0005.txt assigned to RelHum
+Column 7 in file 3D/UpperAmmerCatchment/meteo/_meteo0005.txt assigned to AirT
+Column 8 in file 3D/UpperAmmerCatchment/meteo/_meteo0005.txt assigned to SWglobal
+Column 9 in file 3D/UpperAmmerCatchment/meteo/_meteo0005.txt assigned to LWin
+Column 10 in file 3D/UpperAmmerCatchment/meteo/_meteo0005.txt assigned to SWnet
 
 Horizon file FOUND for meteo station #6
-Column 1 in file ./hor_meteo/_horizon0006.txt assigned to azimuth
-Column 2 in file ./hor_meteo/_horizon0006.txt assigned to horizon_ele
-Column 1 in file ./meteo/_meteo0006.txt assigned to Date
-Column 2 in file ./meteo/_meteo0006.txt assigned to JDfrom0
-Column 3 in file ./meteo/_meteo0006.txt assigned to Prec
-Column 4 in file ./meteo/_meteo0006.txt assigned to WindS
-Column 5 in file ./meteo/_meteo0006.txt assigned to WindDir
-Column 6 in file ./meteo/_meteo0006.txt assigned to RelHum
-Column 7 in file ./meteo/_meteo0006.txt assigned to AirT
-Column 8 in file ./meteo/_meteo0006.txt assigned to SWglobal
-Column 9 in file ./meteo/_meteo0006.txt assigned to LWin
-Column 10 in file ./meteo/_meteo0006.txt assigned to SWnet
+Column 1 in file 3D/UpperAmmerCatchment/hor_meteo/horizon0006.txt assigned to azimuth
+Column 2 in file 3D/UpperAmmerCatchment/hor_meteo/horizon0006.txt assigned to horizon_ele
+Column 1 in file 3D/UpperAmmerCatchment/meteo/_meteo0006.txt assigned to Date
+Column 2 in file 3D/UpperAmmerCatchment/meteo/_meteo0006.txt assigned to JDfrom0
+Column 3 in file 3D/UpperAmmerCatchment/meteo/_meteo0006.txt assigned to Prec
+Column 4 in file 3D/UpperAmmerCatchment/meteo/_meteo0006.txt assigned to WindS
+Column 5 in file 3D/UpperAmmerCatchment/meteo/_meteo0006.txt assigned to WindDir
+Column 6 in file 3D/UpperAmmerCatchment/meteo/_meteo0006.txt assigned to RelHum
+Column 7 in file 3D/UpperAmmerCatchment/meteo/_meteo0006.txt assigned to AirT
+Column 8 in file 3D/UpperAmmerCatchment/meteo/_meteo0006.txt assigned to SWglobal
+Column 9 in file 3D/UpperAmmerCatchment/meteo/_meteo0006.txt assigned to LWin
+Column 10 in file 3D/UpperAmmerCatchment/meteo/_meteo0006.txt assigned to SWnet
 Shortwave radiation measurements from station 1
 WARNING: NO cloudiness measurements available
 Longwave radiation measurements from station 1
@@ -1687,298 +1687,298 @@ WARNING: NO Bottom temperature measurements available
 Channel pixels: 1597
 Soil water evaporates from the first 1 layers
 Soil water transpires from the first 12 layers
-15/4/2013 1:00 2.13% - Time elapsed (h:m:s)  0:00:08 Time remaining (h:m)  0:06  
+15/4/2013 1:00 2.13% - Time elapsed (h:m:s)  0:00:07 Time remaining (h:m)  0:05  
 
 15/4/2013 1:00 JD:104.041667 (1^ simulation day)  2.13% completed! 
- t_meteo:  0.04 s, t_energy:  4.76 s, t_blowingsnow:  0.00 s, t_water:  2.75 s, t_sub:  2.73 s, t_sup:  0.02 s, t_out:  0.00 s
+ t_meteo:  0.04 s, t_energy:  4.39 s, t_blowingsnow:  0.00 s, t_water:  2.58 s, t_sub:  2.57 s, t_sup:  0.01 s, t_out:  0.00 s
  SW= -3.62 W/m2  LW:-28.31 W/m2  H=-14.99 W/m2  LE= -0.32 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=6.801058e-10 mm/h 
  Tot Error Richards=6.801058e-10 mm Mean Time Step=3600.000000 s
 
-15/4/2013 2:00 4.26% - Time elapsed (h:m:s)  0:00:24 Time remaining (h:m)  0:09  
+15/4/2013 2:00 4.26% - Time elapsed (h:m:s)  0:00:23 Time remaining (h:m)  0:08  
 
 15/4/2013 2:00 JD:104.083333 (1^ simulation day)  4.26% completed! 
- t_meteo:  0.08 s, t_energy:  9.14 s, t_blowingsnow:  0.00 s, t_water: 14.68 s, t_sub: 14.65 s, t_sup:  0.03 s, t_out:  0.00 s
+ t_meteo:  0.08 s, t_energy:  8.49 s, t_blowingsnow:  0.00 s, t_water: 13.88 s, t_sub: 13.85 s, t_sup:  0.03 s, t_out:  0.00 s
  SW= -3.70 W/m2  LW:-28.55 W/m2  H=-14.94 W/m2  LE= -0.25 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.087310e-10 mm/h 
  Tot Error Richards=1.388837e-09 mm Mean Time Step=3600.000000 s
 
-15/4/2013 3:00 6.38% - Time elapsed (h:m:s)  0:00:32 Time remaining (h:m)  0:07  
+15/4/2013 3:00 6.38% - Time elapsed (h:m:s)  0:00:28 Time remaining (h:m)  0:06  
 
 15/4/2013 3:00 JD:104.125000 (1^ simulation day)  6.38% completed! 
- t_meteo:  0.10 s, t_energy: 13.21 s, t_blowingsnow:  0.00 s, t_water: 18.02 s, t_sub: 17.85 s, t_sup:  0.17 s, t_out:  0.01 s
+ t_meteo:  0.10 s, t_energy: 11.33 s, t_blowingsnow:  0.00 s, t_water: 16.57 s, t_sub: 16.42 s, t_sup:  0.15 s, t_out:  0.01 s
  SW=  0.56 W/m2  LW:-29.90 W/m2  H=-12.38 W/m2  LE=  0.10 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.314365e-10 mm/h 
  Tot Error Richards=2.120273e-09 mm Mean Time Step=3600.000000 s
 
-15/4/2013 4:00 8.51% - Time elapsed (h:m:s)  0:00:38 Time remaining (h:m)  0:06  
+15/4/2013 4:00 8.51% - Time elapsed (h:m:s)  0:00:34 Time remaining (h:m)  0:06  
 
 15/4/2013 4:00 JD:104.166667 (1^ simulation day)  8.51% completed! 
- t_meteo:  0.12 s, t_energy: 15.98 s, t_blowingsnow:  0.00 s, t_water: 21.58 s, t_sub: 21.26 s, t_sup:  0.33 s, t_out:  0.01 s
+ t_meteo:  0.12 s, t_energy: 13.93 s, t_blowingsnow:  0.00 s, t_water: 19.81 s, t_sub: 19.53 s, t_sup:  0.28 s, t_out:  0.01 s
  SW= 83.29 W/m2  LW:-54.64 W/m2  H= 18.76 W/m2  LE= 12.40 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.151131e-10 mm/h 
  Tot Error Richards=2.835386e-09 mm Mean Time Step=3600.000000 s
 
-15/4/2013 5:00 10.64% - Time elapsed (h:m:s)  0:00:46 Time remaining (h:m)  0:06  
+15/4/2013 5:00 10.64% - Time elapsed (h:m:s)  0:00:42 Time remaining (h:m)  0:05  
 
 15/4/2013 5:00 JD:104.208333 (1^ simulation day) 10.64% completed! 
- t_meteo:  0.15 s, t_energy: 20.72 s, t_blowingsnow:  0.00 s, t_water: 25.09 s, t_sub: 24.43 s, t_sup:  0.65 s, t_out:  0.01 s
+ t_meteo:  0.14 s, t_energy: 18.30 s, t_blowingsnow:  0.00 s, t_water: 23.25 s, t_sub: 22.64 s, t_sup:  0.60 s, t_out:  0.01 s
  SW=229.57 W/m2  LW:-143.37 W/m2  H= 27.71 W/m2  LE= 15.89 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=6.959789e-10 mm/h 
  Tot Error Richards=3.531365e-09 mm Mean Time Step=3600.000000 s
 
-15/4/2013 6:00 12.77% - Time elapsed (h:m:s)  0:00:51 Time remaining (h:m)  0:05  
+15/4/2013 6:00 12.77% - Time elapsed (h:m:s)  0:00:48 Time remaining (h:m)  0:05  
 
 15/4/2013 6:00 JD:104.250000 (1^ simulation day) 12.77% completed! 
- t_meteo:  0.17 s, t_energy: 22.90 s, t_blowingsnow:  0.00 s, t_water: 28.56 s, t_sub: 27.44 s, t_sup:  1.12 s, t_out:  0.01 s
+ t_meteo:  0.16 s, t_energy: 20.43 s, t_blowingsnow:  0.00 s, t_water: 26.85 s, t_sub: 25.77 s, t_sup:  1.08 s, t_out:  0.01 s
  SW=347.17 W/m2  LW:-244.31 W/m2  H= 14.34 W/m2  LE=  1.65 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.361904e-10 mm/h 
  Tot Error Richards=4.267556e-09 mm Mean Time Step=3600.000000 s
 
-15/4/2013 7:00 14.89% - Time elapsed (h:m:s)  0:00:59 Time remaining (h:m)  0:05  
+15/4/2013 7:00 14.89% - Time elapsed (h:m:s)  0:00:55 Time remaining (h:m)  0:05  
 
 15/4/2013 7:00 JD:104.291667 (1^ simulation day) 14.89% completed! 
- t_meteo:  0.19 s, t_energy: 24.98 s, t_blowingsnow:  0.00 s, t_water: 33.06 s, t_sub: 31.36 s, t_sup:  1.70 s, t_out:  0.01 s
+ t_meteo:  0.18 s, t_energy: 22.56 s, t_blowingsnow:  0.00 s, t_water: 31.48 s, t_sub: 29.80 s, t_sup:  1.67 s, t_out:  0.01 s
  SW=502.78 W/m2  LW:-343.42 W/m2  H= 22.56 W/m2  LE= 14.76 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.018267e-10 mm/h 
  Tot Error Richards=4.969383e-09 mm Mean Time Step=3600.000000 s
 
-15/4/2013 8:00 17.02% - Time elapsed (h:m:s)  0:01:04 Time remaining (h:m)  0:05  
+15/4/2013 8:00 17.02% - Time elapsed (h:m:s)  0:01:01 Time remaining (h:m)  0:04  
 
 15/4/2013 8:00 JD:104.333333 (1^ simulation day) 17.02% completed! 
- t_meteo:  0.22 s, t_energy: 27.17 s, t_blowingsnow:  0.00 s, t_water: 36.97 s, t_sub: 34.58 s, t_sup:  2.39 s, t_out:  0.01 s
+ t_meteo:  0.20 s, t_energy: 24.79 s, t_blowingsnow:  0.00 s, t_water: 35.32 s, t_sub: 33.02 s, t_sup:  2.31 s, t_out:  0.01 s
  SW=593.73 W/m2  LW:-372.52 W/m2  H= 30.85 W/m2  LE= 59.83 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.470906e-10 mm/h 
  Tot Error Richards=5.716473e-09 mm Mean Time Step=3600.000000 s
 
-15/4/2013 9:00 19.15% - Time elapsed (h:m:s)  0:01:11 Time remaining (h:m)  0:04  
+15/4/2013 9:00 19.15% - Time elapsed (h:m:s)  0:01:06 Time remaining (h:m)  0:04  
 
 15/4/2013 9:00 JD:104.375000 (1^ simulation day) 19.15% completed! 
- t_meteo:  0.24 s, t_energy: 29.44 s, t_blowingsnow:  0.00 s, t_water: 41.17 s, t_sub: 38.06 s, t_sup:  3.11 s, t_out:  0.02 s
+ t_meteo:  0.22 s, t_energy: 27.04 s, t_blowingsnow:  0.00 s, t_water: 39.45 s, t_sub: 36.41 s, t_sup:  3.04 s, t_out:  0.01 s
  SW=651.63 W/m2  LW:-413.24 W/m2  H= 29.58 W/m2  LE= 66.82 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.080912e-10 mm/h 
  Tot Error Richards=6.424564e-09 mm Mean Time Step=3600.000000 s
 
-15/4/2013 10:00 21.28% - Time elapsed (h:m:s)  0:01:18 Time remaining (h:m)  0:04  
+15/4/2013 10:00 21.28% - Time elapsed (h:m:s)  0:01:14 Time remaining (h:m)  0:04  
 
 15/4/2013 10:00 JD:104.416667 (1^ simulation day) 21.28% completed! 
- t_meteo:  0.26 s, t_energy: 31.72 s, t_blowingsnow:  0.00 s, t_water: 45.76 s, t_sub: 41.71 s, t_sup:  4.04 s, t_out:  0.02 s
+ t_meteo:  0.24 s, t_energy: 29.35 s, t_blowingsnow:  0.00 s, t_water: 44.03 s, t_sub: 40.08 s, t_sup:  3.95 s, t_out:  0.02 s
  SW=667.38 W/m2  LW:-386.86 W/m2  H= 43.37 W/m2  LE=105.78 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.156552e-10 mm/h 
  Tot Error Richards=7.140220e-09 mm Mean Time Step=3600.000000 s
 
-15/4/2013 11:00 23.40% - Time elapsed (h:m:s)  0:01:24 Time remaining (h:m)  0:04  
+15/4/2013 11:00 23.40% - Time elapsed (h:m:s)  0:01:20 Time remaining (h:m)  0:04  
 
 15/4/2013 11:00 JD:104.458333 (1^ simulation day) 23.40% completed! 
- t_meteo:  0.28 s, t_energy: 33.96 s, t_blowingsnow:  0.00 s, t_water: 50.51 s, t_sub: 45.39 s, t_sup:  5.12 s, t_out:  0.02 s
+ t_meteo:  0.26 s, t_energy: 31.63 s, t_blowingsnow:  0.00 s, t_water: 48.81 s, t_sub: 43.80 s, t_sup:  5.02 s, t_out:  0.02 s
  SW=636.08 W/m2  LW:-395.04 W/m2  H= 32.62 W/m2  LE= 73.60 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.392804e-10 mm/h 
  Tot Error Richards=7.879500e-09 mm Mean Time Step=3600.000000 s
 
-15/4/2013 12:00 25.53% - Time elapsed (h:m:s)  0:01:33 Time remaining (h:m)  0:04  
+15/4/2013 12:00 25.53% - Time elapsed (h:m:s)  0:01:29 Time remaining (h:m)  0:04  
 
 15/4/2013 12:00 JD:104.500000 (1^ simulation day) 25.53% completed! 
- t_meteo:  0.31 s, t_energy: 36.10 s, t_blowingsnow:  0.00 s, t_water: 55.89 s, t_sub: 49.61 s, t_sup:  6.28 s, t_out:  0.02 s
+ t_meteo:  0.28 s, t_energy: 33.88 s, t_blowingsnow:  0.00 s, t_water: 54.20 s, t_sub: 47.97 s, t_sup:  6.23 s, t_out:  0.02 s
  SW=561.22 W/m2  LW:-367.40 W/m2  H= 24.34 W/m2  LE= 42.21 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.483845e-10 mm/h 
  Tot Error Richards=8.627884e-09 mm Mean Time Step=3600.000000 s
 
-15/4/2013 13:00 27.66% - Time elapsed (h:m:s)  0:01:41 Time remaining (h:m)  0:04  
+15/4/2013 13:00 27.66% - Time elapsed (h:m:s)  0:01:37 Time remaining (h:m)  0:04  
 
 15/4/2013 13:00 JD:104.541667 (1^ simulation day) 27.66% completed! 
- t_meteo:  0.33 s, t_energy: 38.19 s, t_blowingsnow:  0.00 s, t_water: 61.37 s, t_sub: 53.81 s, t_sup:  7.56 s, t_out:  0.02 s
+ t_meteo:  0.31 s, t_energy: 35.95 s, t_blowingsnow:  0.00 s, t_water: 59.78 s, t_sub: 52.25 s, t_sup:  7.53 s, t_out:  0.02 s
  SW=453.23 W/m2  LW:-310.59 W/m2  H= 16.95 W/m2  LE= 16.07 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.564198e-10 mm/h 
  Tot Error Richards=9.384304e-09 mm Mean Time Step=3600.000000 s
 
-15/4/2013 14:00 29.79% - Time elapsed (h:m:s)  0:01:49 Time remaining (h:m)  0:04  
+15/4/2013 14:00 29.79% - Time elapsed (h:m:s)  0:01:45 Time remaining (h:m)  0:04  
 
 15/4/2013 14:00 JD:104.583333 (1^ simulation day) 29.79% completed! 
- t_meteo:  0.35 s, t_energy: 40.27 s, t_blowingsnow:  0.00 s, t_water: 67.30 s, t_sub: 58.33 s, t_sup:  8.97 s, t_out:  0.02 s
+ t_meteo:  0.33 s, t_energy: 38.33 s, t_blowingsnow:  0.00 s, t_water: 65.89 s, t_sub: 56.90 s, t_sup:  8.99 s, t_out:  0.02 s
  SW=303.65 W/m2  LW:-185.81 W/m2  H= 21.69 W/m2  LE= 31.31 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.709391e-10 mm/h 
  Tot Error Richards=1.015524e-08 mm Mean Time Step=3600.000000 s
 
-15/4/2013 15:00 31.91% - Time elapsed (h:m:s)  0:01:56 Time remaining (h:m)  0:04  
+15/4/2013 15:00 31.91% - Time elapsed (h:m:s)  0:01:53 Time remaining (h:m)  0:04  
 
 15/4/2013 15:00 JD:104.625000 (1^ simulation day) 31.91% completed! 
- t_meteo:  0.38 s, t_energy: 42.27 s, t_blowingsnow:  0.00 s, t_water: 72.68 s, t_sub: 61.89 s, t_sup: 10.79 s, t_out:  0.03 s
+ t_meteo:  0.35 s, t_energy: 40.36 s, t_blowingsnow:  0.00 s, t_water: 71.44 s, t_sub: 60.54 s, t_sup: 10.91 s, t_out:  0.02 s
  SW=146.37 W/m2  LW:-93.09 W/m2  H=  9.69 W/m2  LE= 15.73 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.874829e-10 mm/h 
  Tot Error Richards=1.094273e-08 mm Mean Time Step=3600.000000 s
 
-15/4/2013 16:00 34.04% - Time elapsed (h:m:s)  0:02:02 Time remaining (h:m)  0:03  
+15/4/2013 16:00 34.04% - Time elapsed (h:m:s)  0:02:00 Time remaining (h:m)  0:03  
 
 15/4/2013 16:00 JD:104.666667 (1^ simulation day) 34.04% completed! 
- t_meteo:  0.40 s, t_energy: 44.21 s, t_blowingsnow:  0.00 s, t_water: 77.63 s, t_sub: 64.82 s, t_sup: 12.81 s, t_out:  0.03 s
+ t_meteo:  0.37 s, t_energy: 42.33 s, t_blowingsnow:  0.00 s, t_water: 76.50 s, t_sub: 63.54 s, t_sup: 12.96 s, t_out:  0.03 s
  SW= 50.29 W/m2  LW:-45.59 W/m2  H=  0.02 W/m2  LE=  3.27 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.995241e-10 mm/h 
  Tot Error Richards=1.174225e-08 mm Mean Time Step=3600.000000 s
 
-15/4/2013 17:00 36.17% - Time elapsed (h:m:s)  0:02:10 Time remaining (h:m)  0:03  
+15/4/2013 17:00 36.17% - Time elapsed (h:m:s)  0:02:07 Time remaining (h:m)  0:03  
 
 15/4/2013 17:00 JD:104.708333 (1^ simulation day) 36.17% completed! 
- t_meteo:  0.42 s, t_energy: 46.61 s, t_blowingsnow:  0.00 s, t_water: 82.98 s, t_sub: 67.88 s, t_sup: 15.10 s, t_out:  0.03 s
+ t_meteo:  0.39 s, t_energy: 44.78 s, t_blowingsnow:  0.00 s, t_water: 81.82 s, t_sub: 66.68 s, t_sup: 15.14 s, t_out:  0.03 s
  SW= -2.18 W/m2  LW:-19.75 W/m2  H= -7.30 W/m2  LE=  2.64 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.816767e-10 mm/h 
  Tot Error Richards=1.262393e-08 mm Mean Time Step=3600.000000 s
 
-15/4/2013 18:00 38.30% - Time elapsed (h:m:s)  0:02:21 Time remaining (h:m)  0:03  
+15/4/2013 18:00 38.30% - Time elapsed (h:m:s)  0:02:17 Time remaining (h:m)  0:03  
 
 15/4/2013 18:00 JD:104.750000 (1^ simulation day) 38.30% completed! 
- t_meteo:  0.44 s, t_energy: 51.74 s, t_blowingsnow:  0.00 s, t_water: 88.28 s, t_sub: 70.86 s, t_sup: 17.42 s, t_out:  0.03 s
+ t_meteo:  0.41 s, t_energy: 50.00 s, t_blowingsnow:  0.00 s, t_water: 87.12 s, t_sub: 69.71 s, t_sup: 17.41 s, t_out:  0.03 s
  SW= -4.04 W/m2  LW:-24.51 W/m2  H=-18.66 W/m2  LE=  6.60 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.366202e-10 mm/h 
  Tot Error Richards=1.346055e-08 mm Mean Time Step=3600.000000 s
 
-15/4/2013 19:00 40.43% - Time elapsed (h:m:s)  0:02:30 Time remaining (h:m)  0:03  
+15/4/2013 19:00 40.43% - Time elapsed (h:m:s)  0:02:27 Time remaining (h:m)  0:03  
 
 15/4/2013 19:00 JD:104.791667 (1^ simulation day) 40.43% completed! 
- t_meteo:  0.46 s, t_energy: 54.57 s, t_blowingsnow:  0.00 s, t_water: 94.20 s, t_sub: 74.33 s, t_sup: 19.87 s, t_out:  0.03 s
+ t_meteo:  0.43 s, t_energy: 52.78 s, t_blowingsnow:  0.00 s, t_water: 93.02 s, t_sub: 73.17 s, t_sup: 19.85 s, t_out:  0.03 s
  SW= -3.66 W/m2  LW:-25.64 W/m2  H=-21.93 W/m2  LE=  9.63 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.448573e-10 mm/h 
  Tot Error Richards=1.430540e-08 mm Mean Time Step=3600.000000 s
 
-15/4/2013 20:00 42.55% - Time elapsed (h:m:s)  0:02:38 Time remaining (h:m)  0:03  
+15/4/2013 20:00 42.55% - Time elapsed (h:m:s)  0:02:36 Time remaining (h:m)  0:03  
 
 15/4/2013 20:00 JD:104.833333 (1^ simulation day) 42.55% completed! 
- t_meteo:  0.49 s, t_energy: 57.44 s, t_blowingsnow:  0.00 s, t_water:100.03 s, t_sub: 77.53 s, t_sup: 22.50 s, t_out:  0.03 s
+ t_meteo:  0.45 s, t_energy: 55.68 s, t_blowingsnow:  0.00 s, t_water: 98.70 s, t_sub: 76.35 s, t_sup: 22.34 s, t_out:  0.03 s
  SW= -3.50 W/m2  LW:-27.83 W/m2  H=-23.87 W/m2  LE=  9.68 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.384051e-09 mm/h 
  Tot Error Richards=1.568946e-08 mm Mean Time Step=3600.000000 s
 
-15/4/2013 21:00 44.68% - Time elapsed (h:m:s)  0:02:48 Time remaining (h:m)  0:03  
+15/4/2013 21:00 44.68% - Time elapsed (h:m:s)  0:02:45 Time remaining (h:m)  0:03  
 
 15/4/2013 21:00 JD:104.875000 (1^ simulation day) 44.68% completed! 
- t_meteo:  0.51 s, t_energy: 60.44 s, t_blowingsnow:  0.00 s, t_water:106.07 s, t_sub: 80.93 s, t_sup: 25.14 s, t_out:  0.04 s
+ t_meteo:  0.47 s, t_energy: 58.69 s, t_blowingsnow:  0.00 s, t_water:104.77 s, t_sub: 79.77 s, t_sup: 25.00 s, t_out:  0.03 s
  SW= -4.10 W/m2  LW:-28.61 W/m2  H=-23.59 W/m2  LE=  8.82 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.669567e-10 mm/h 
  Tot Error Richards=1.655641e-08 mm Mean Time Step=3600.000000 s
 
-15/4/2013 22:00 46.81% - Time elapsed (h:m:s)  0:02:56 Time remaining (h:m)  0:03  
+15/4/2013 22:00 46.81% - Time elapsed (h:m:s)  0:02:53 Time remaining (h:m)  0:03  
 
 15/4/2013 22:00 JD:104.916667 (1^ simulation day) 46.81% completed! 
- t_meteo:  0.53 s, t_energy: 63.44 s, t_blowingsnow:  0.00 s, t_water:111.77 s, t_sub: 83.89 s, t_sup: 27.88 s, t_out:  0.04 s
+ t_meteo:  0.49 s, t_energy: 61.66 s, t_blowingsnow:  0.00 s, t_water:110.50 s, t_sub: 82.74 s, t_sup: 27.76 s, t_out:  0.03 s
  SW= -3.91 W/m2  LW:-30.91 W/m2  H=-24.12 W/m2  LE=  8.07 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.888896e-10 mm/h 
  Tot Error Richards=1.744530e-08 mm Mean Time Step=3600.000000 s
 
-15/4/2013 23:00 48.94% - Time elapsed (h:m:s)  0:03:06 Time remaining (h:m)  0:03  
+15/4/2013 23:00 48.94% - Time elapsed (h:m:s)  0:03:03 Time remaining (h:m)  0:03  
 
 15/4/2013 23:00 JD:104.958333 (1^ simulation day) 48.94% completed! 
- t_meteo:  0.55 s, t_energy: 66.36 s, t_blowingsnow:  0.00 s, t_water:117.93 s, t_sub: 87.15 s, t_sup: 30.79 s, t_out:  0.04 s
+ t_meteo:  0.51 s, t_energy: 64.59 s, t_blowingsnow:  0.00 s, t_water:116.69 s, t_sub: 86.03 s, t_sup: 30.66 s, t_out:  0.04 s
  SW= -3.60 W/m2  LW:-30.73 W/m2  H=-22.92 W/m2  LE=  8.07 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.862463e-10 mm/h 
  Tot Error Richards=1.833155e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 0:00 51.06% - Time elapsed (h:m:s)  0:03:15 Time remaining (h:m)  0:03  
+16/4/2013 0:00 51.06% - Time elapsed (h:m:s)  0:03:12 Time remaining (h:m)  0:03  
 
 16/4/2013 0:00 JD:105.000000 (1^ simulation day) 51.06% completed! 
- t_meteo:  0.57 s, t_energy: 69.12 s, t_blowingsnow:  0.00 s, t_water:123.91 s, t_sub: 90.16 s, t_sup: 33.75 s, t_out:  0.04 s
+ t_meteo:  0.53 s, t_energy: 67.36 s, t_blowingsnow:  0.00 s, t_water:122.78 s, t_sub: 89.09 s, t_sup: 33.69 s, t_out:  0.04 s
  SW= -3.11 W/m2  LW:-18.38 W/m2  H=-15.54 W/m2  LE= 11.94 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.953793e-10 mm/h 
  Tot Error Richards=1.922693e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 1:00 53.19% - Time elapsed (h:m:s)  0:03:23 Time remaining (h:m)  0:02  
+16/4/2013 1:00 53.19% - Time elapsed (h:m:s)  0:03:21 Time remaining (h:m)  0:02  
 
 16/4/2013 1:00 JD:105.041667 (2^ simulation day) 53.19% completed! 
- t_meteo:  0.60 s, t_energy: 72.08 s, t_blowingsnow:  0.00 s, t_water:130.11 s, t_sub: 93.29 s, t_sup: 36.82 s, t_out:  0.04 s
+ t_meteo:  0.55 s, t_energy: 70.35 s, t_blowingsnow:  0.00 s, t_water:129.06 s, t_sub: 92.26 s, t_sup: 36.80 s, t_out:  0.04 s
  SW= -1.64 W/m2  LW: -4.59 W/m2  H= -8.86 W/m2  LE= 17.85 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.955468e-10 mm/h 
  Tot Error Richards=2.012247e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 2:00 55.32% - Time elapsed (h:m:s)  0:03:32 Time remaining (h:m)  0:02  
+16/4/2013 2:00 55.32% - Time elapsed (h:m:s)  0:03:30 Time remaining (h:m)  0:02  
 
 16/4/2013 2:00 JD:105.083333 (2^ simulation day) 55.32% completed! 
- t_meteo:  0.62 s, t_energy: 74.93 s, t_blowingsnow:  0.00 s, t_water:136.45 s, t_sub: 96.52 s, t_sup: 39.93 s, t_out:  0.04 s
+ t_meteo:  0.57 s, t_energy: 73.32 s, t_blowingsnow:  0.00 s, t_water:135.57 s, t_sub: 95.57 s, t_sup: 39.99 s, t_out:  0.04 s
  SW= -1.55 W/m2  LW: -5.79 W/m2  H= -8.55 W/m2  LE= 16.28 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.087083e-10 mm/h 
  Tot Error Richards=2.103118e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 3:00 57.45% - Time elapsed (h:m:s)  0:03:43 Time remaining (h:m)  0:02  
+16/4/2013 3:00 57.45% - Time elapsed (h:m:s)  0:03:39 Time remaining (h:m)  0:02  
 
 16/4/2013 3:00 JD:105.125000 (2^ simulation day) 57.45% completed! 
- t_meteo:  0.64 s, t_energy: 77.79 s, t_blowingsnow:  0.00 s, t_water:142.98 s, t_sub: 99.82 s, t_sup: 43.16 s, t_out:  0.04 s
+ t_meteo:  0.60 s, t_energy: 76.27 s, t_blowingsnow:  0.00 s, t_water:142.10 s, t_sub: 98.87 s, t_sup: 43.23 s, t_out:  0.04 s
  SW=  2.88 W/m2  LW: -2.28 W/m2  H= -4.82 W/m2  LE= 17.83 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.144957e-10 mm/h 
  Tot Error Richards=2.194568e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 4:00 59.57% - Time elapsed (h:m:s)  0:03:52 Time remaining (h:m)  0:02  
+16/4/2013 4:00 59.57% - Time elapsed (h:m:s)  0:03:48 Time remaining (h:m)  0:02  
 
 16/4/2013 4:00 JD:105.166667 (2^ simulation day) 59.57% completed! 
- t_meteo:  0.67 s, t_energy: 80.37 s, t_blowingsnow:  0.00 s, t_water:149.51 s, t_sub:103.14 s, t_sup: 46.37 s, t_out:  0.05 s
+ t_meteo:  0.62 s, t_energy: 78.87 s, t_blowingsnow:  0.00 s, t_water:148.79 s, t_sub:102.20 s, t_sup: 46.59 s, t_out:  0.04 s
  SW= 38.57 W/m2  LW:-13.64 W/m2  H=  0.07 W/m2  LE= 33.70 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.245022e-10 mm/h 
  Tot Error Richards=2.287018e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 5:00 61.70% - Time elapsed (h:m:s)  0:04:03 Time remaining (h:m)  0:02  
+16/4/2013 5:00 61.70% - Time elapsed (h:m:s)  0:04:00 Time remaining (h:m)  0:02  
 
 16/4/2013 5:00 JD:105.208333 (2^ simulation day) 61.70% completed! 
- t_meteo:  0.69 s, t_energy: 85.15 s, t_blowingsnow:  0.00 s, t_water:155.97 s, t_sub:106.36 s, t_sup: 49.61 s, t_out:  0.05 s
+ t_meteo:  0.64 s, t_energy: 83.79 s, t_blowingsnow:  0.00 s, t_water:155.41 s, t_sub:105.53 s, t_sup: 49.88 s, t_out:  0.04 s
  SW= 96.72 W/m2  LW:-17.39 W/m2  H= 27.96 W/m2  LE= 51.28 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.311865e-10 mm/h 
  Tot Error Richards=2.380137e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 6:00 63.83% - Time elapsed (h:m:s)  0:04:13 Time remaining (h:m)  0:02  
+16/4/2013 6:00 63.83% - Time elapsed (h:m:s)  0:04:10 Time remaining (h:m)  0:02  
 
 16/4/2013 6:00 JD:105.250000 (2^ simulation day) 63.83% completed! 
- t_meteo:  0.71 s, t_energy: 87.97 s, t_blowingsnow:  0.00 s, t_water:162.56 s, t_sub:109.61 s, t_sup: 52.95 s, t_out:  0.05 s
+ t_meteo:  0.66 s, t_energy: 86.69 s, t_blowingsnow:  0.00 s, t_water:162.07 s, t_sub:108.81 s, t_sup: 53.26 s, t_out:  0.05 s
  SW= 48.15 W/m2  LW:-11.03 W/m2  H=  5.41 W/m2  LE= 30.02 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.454871e-10 mm/h 
  Tot Error Richards=2.474685e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 7:00 65.96% - Time elapsed (h:m:s)  0:04:21 Time remaining (h:m)  0:02  
+16/4/2013 7:00 65.96% - Time elapsed (h:m:s)  0:04:19 Time remaining (h:m)  0:02  
 
 16/4/2013 7:00 JD:105.291667 (2^ simulation day) 65.96% completed! 
- t_meteo:  0.73 s, t_energy: 90.89 s, t_blowingsnow:  0.00 s, t_water:169.00 s, t_sub:112.64 s, t_sup: 56.36 s, t_out:  0.05 s
+ t_meteo:  0.68 s, t_energy: 89.57 s, t_blowingsnow:  0.00 s, t_water:168.82 s, t_sub:111.88 s, t_sup: 56.94 s, t_out:  0.05 s
  SW=130.43 W/m2  LW:-27.92 W/m2  H= 35.74 W/m2  LE= 54.95 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.782137e-10 mm/h 
  Tot Error Richards=2.572507e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 8:00 68.09% - Time elapsed (h:m:s)  0:04:31 Time remaining (h:m)  0:02  
+16/4/2013 8:00 68.09% - Time elapsed (h:m:s)  0:04:30 Time remaining (h:m)  0:02  
 
 16/4/2013 8:00 JD:105.333333 (2^ simulation day) 68.09% completed! 
- t_meteo:  0.75 s, t_energy: 93.95 s, t_blowingsnow:  0.00 s, t_water:175.52 s, t_sub:115.82 s, t_sup: 59.70 s, t_out:  0.05 s
+ t_meteo:  0.71 s, t_energy: 92.88 s, t_blowingsnow:  0.00 s, t_water:175.68 s, t_sub:115.23 s, t_sup: 60.45 s, t_out:  0.05 s
  SW=174.87 W/m2  LW:-44.47 W/m2  H= 46.80 W/m2  LE= 62.02 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=2.686706e-09 mm/h 
  Tot Error Richards=2.841177e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 9:00 70.21% - Time elapsed (h:m:s)  0:04:42 Time remaining (h:m)  0:01  
+16/4/2013 9:00 70.21% - Time elapsed (h:m:s)  0:04:41 Time remaining (h:m)  0:01  
 
 16/4/2013 9:00 JD:105.375000 (2^ simulation day) 70.21% completed! 
- t_meteo:  0.78 s, t_energy: 97.29 s, t_blowingsnow:  0.00 s, t_water:182.10 s, t_sub:119.01 s, t_sup: 63.09 s, t_out:  0.05 s
+ t_meteo:  0.73 s, t_energy: 96.34 s, t_blowingsnow:  0.00 s, t_water:182.53 s, t_sub:118.56 s, t_sup: 63.97 s, t_out:  0.05 s
  SW=191.62 W/m2  LW:-54.13 W/m2  H= 46.56 W/m2  LE= 65.38 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=2.692360e-09 mm/h 
@@ -1987,7 +1987,7 @@ Soil water transpires from the first 12 layers
 16/4/2013 10:00 72.34% - Time elapsed (h:m:s)  0:04:50 Time remaining (h:m)  0:01  
 
 16/4/2013 10:00 JD:105.416667 (2^ simulation day) 72.34% completed! 
- t_meteo:  0.80 s, t_energy:100.28 s, t_blowingsnow:  0.00 s, t_water:188.53 s, t_sub:122.14 s, t_sup: 66.39 s, t_out:  0.06 s
+ t_meteo:  0.76 s, t_energy: 99.43 s, t_blowingsnow:  0.00 s, t_water:189.19 s, t_sub:121.77 s, t_sup: 67.43 s, t_out:  0.05 s
  SW=454.47 W/m2  LW:-122.59 W/m2  H=104.22 W/m2  LE=177.64 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.641222e-10 mm/h 
@@ -1996,7 +1996,7 @@ Soil water transpires from the first 12 layers
 16/4/2013 11:00 74.47% - Time elapsed (h:m:s)  0:05:00 Time remaining (h:m)  0:01  
 
 16/4/2013 11:00 JD:105.458333 (2^ simulation day) 74.47% completed! 
- t_meteo:  0.82 s, t_energy:103.60 s, t_blowingsnow:  0.00 s, t_water:194.83 s, t_sub:125.25 s, t_sup: 69.58 s, t_out:  0.06 s
+ t_meteo:  0.78 s, t_energy:102.83 s, t_blowingsnow:  0.00 s, t_water:195.83 s, t_sub:125.04 s, t_sup: 70.79 s, t_out:  0.05 s
  SW=478.55 W/m2  LW:-140.75 W/m2  H= 99.81 W/m2  LE=182.87 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.956474e-10 mm/h 
@@ -2005,7 +2005,7 @@ Soil water transpires from the first 12 layers
 16/4/2013 12:00 76.60% - Time elapsed (h:m:s)  0:05:11 Time remaining (h:m)  0:01  
 
 16/4/2013 12:00 JD:105.500000 (2^ simulation day) 76.60% completed! 
- t_meteo:  0.84 s, t_energy:106.65 s, t_blowingsnow:  0.00 s, t_water:201.55 s, t_sub:128.77 s, t_sup: 72.78 s, t_out:  0.06 s
+ t_meteo:  0.80 s, t_energy:105.90 s, t_blowingsnow:  0.00 s, t_water:202.77 s, t_sub:128.67 s, t_sup: 74.10 s, t_out:  0.06 s
  SW=359.50 W/m2  LW:-122.17 W/m2  H= 68.56 W/m2  LE=121.83 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.912897e-10 mm/h 
@@ -2014,7 +2014,7 @@ Soil water transpires from the first 12 layers
 16/4/2013 13:00 78.72% - Time elapsed (h:m:s)  0:05:20 Time remaining (h:m)  0:01  
 
 16/4/2013 13:00 JD:105.541667 (2^ simulation day) 78.72% completed! 
- t_meteo:  0.86 s, t_energy:108.97 s, t_blowingsnow:  0.00 s, t_water:207.97 s, t_sub:131.92 s, t_sup: 76.05 s, t_out:  0.06 s
+ t_meteo:  0.82 s, t_energy:108.37 s, t_blowingsnow:  0.00 s, t_water:209.27 s, t_sub:131.88 s, t_sup: 77.39 s, t_out:  0.06 s
  SW=292.75 W/m2  LW:-105.30 W/m2  H= 54.99 W/m2  LE= 90.29 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.951498e-10 mm/h 
@@ -2023,88 +2023,88 @@ Soil water transpires from the first 12 layers
 16/4/2013 14:00 80.85% - Time elapsed (h:m:s)  0:05:29 Time remaining (h:m)  0:01  
 
 16/4/2013 14:00 JD:105.583333 (2^ simulation day) 80.85% completed! 
- t_meteo:  0.89 s, t_energy:111.55 s, t_blowingsnow:  0.00 s, t_water:214.60 s, t_sub:135.16 s, t_sup: 79.44 s, t_out:  0.06 s
+ t_meteo:  0.84 s, t_energy:111.00 s, t_blowingsnow:  0.00 s, t_water:216.30 s, t_sub:135.28 s, t_sup: 81.02 s, t_out:  0.06 s
  SW=309.83 W/m2  LW:-177.89 W/m2  H= 28.32 W/m2  LE= 42.69 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.857780e-10 mm/h 
  Tot Error Richards=3.603612e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 15:00 82.98% - Time elapsed (h:m:s)  0:05:37 Time remaining (h:m)  0:01  
+16/4/2013 15:00 82.98% - Time elapsed (h:m:s)  0:05:38 Time remaining (h:m)  0:01  
 
 16/4/2013 15:00 JD:105.625000 (2^ simulation day) 82.98% completed! 
- t_meteo:  0.91 s, t_energy:113.77 s, t_blowingsnow:  0.00 s, t_water:221.19 s, t_sub:138.27 s, t_sup: 82.92 s, t_out:  0.06 s
+ t_meteo:  0.87 s, t_energy:113.29 s, t_blowingsnow:  0.00 s, t_water:223.40 s, t_sub:138.72 s, t_sup: 84.67 s, t_out:  0.06 s
  SW=105.13 W/m2  LW:-58.63 W/m2  H= 11.66 W/m2  LE= 22.42 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.727481e-10 mm/h 
  Tot Error Richards=3.700887e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 16:00 85.11% - Time elapsed (h:m:s)  0:05:46 Time remaining (h:m)  0:01  
+16/4/2013 16:00 85.11% - Time elapsed (h:m:s)  0:05:48 Time remaining (h:m)  0:01  
 
 16/4/2013 16:00 JD:105.666667 (2^ simulation day) 85.11% completed! 
- t_meteo:  0.93 s, t_energy:116.08 s, t_blowingsnow:  0.00 s, t_water:227.94 s, t_sub:141.49 s, t_sup: 86.45 s, t_out:  0.07 s
+ t_meteo:  0.89 s, t_energy:115.75 s, t_blowingsnow:  0.00 s, t_water:230.94 s, t_sub:142.14 s, t_sup: 88.80 s, t_out:  0.06 s
  SW= 34.86 W/m2  LW:-24.78 W/m2  H=  0.64 W/m2  LE=  7.65 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.492111e-10 mm/h 
  Tot Error Richards=3.795808e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 17:00 87.23% - Time elapsed (h:m:s)  0:05:57 Time remaining (h:m)  0:00  
+16/4/2013 17:00 87.23% - Time elapsed (h:m:s)  0:05:59 Time remaining (h:m)  0:00  
 
 16/4/2013 17:00 JD:105.708333 (2^ simulation day) 87.23% completed! 
- t_meteo:  0.95 s, t_energy:119.01 s, t_blowingsnow:  0.00 s, t_water:234.69 s, t_sub:144.62 s, t_sup: 90.07 s, t_out:  0.07 s
+ t_meteo:  0.91 s, t_energy:118.83 s, t_blowingsnow:  0.00 s, t_water:237.88 s, t_sub:145.32 s, t_sup: 92.55 s, t_out:  0.07 s
  SW= -1.19 W/m2  LW: -0.23 W/m2  H= -6.53 W/m2  LE= 12.13 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.482411e-10 mm/h 
  Tot Error Richards=3.890632e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 18:00 89.36% - Time elapsed (h:m:s)  0:06:08 Time remaining (h:m)  0:00  
+16/4/2013 18:00 89.36% - Time elapsed (h:m:s)  0:06:09 Time remaining (h:m)  0:00  
 
 16/4/2013 18:00 JD:105.750000 (2^ simulation day) 89.36% completed! 
- t_meteo:  0.98 s, t_energy:122.89 s, t_blowingsnow:  0.00 s, t_water:241.62 s, t_sub:147.87 s, t_sup: 93.75 s, t_out:  0.07 s
+ t_meteo:  0.94 s, t_energy:122.88 s, t_blowingsnow:  0.00 s, t_water:245.28 s, t_sub:148.85 s, t_sup: 96.42 s, t_out:  0.07 s
  SW= -2.33 W/m2  LW: -3.87 W/m2  H= -7.49 W/m2  LE= 11.24 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.457005e-10 mm/h 
  Tot Error Richards=3.985202e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 19:00 91.49% - Time elapsed (h:m:s)  0:06:17 Time remaining (h:m)  0:00  
+16/4/2013 19:00 91.49% - Time elapsed (h:m:s)  0:06:22 Time remaining (h:m)  0:00  
 
 16/4/2013 19:00 JD:105.791667 (2^ simulation day) 91.49% completed! 
- t_meteo:  1.00 s, t_energy:126.75 s, t_blowingsnow:  0.00 s, t_water:248.35 s, t_sub:150.94 s, t_sup: 97.42 s, t_out:  0.07 s
+ t_meteo:  0.97 s, t_energy:126.89 s, t_blowingsnow:  0.00 s, t_water:252.41 s, t_sub:152.16 s, t_sup:100.24 s, t_out:  0.07 s
  SW= -1.29 W/m2  LW: -0.82 W/m2  H= -6.33 W/m2  LE= 15.34 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=2.726670e-09 mm/h 
  Tot Error Richards=4.257869e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 20:00 93.62% - Time elapsed (h:m:s)  0:06:28 Time remaining (h:m)  0:00  
+16/4/2013 20:00 93.62% - Time elapsed (h:m:s)  0:06:31 Time remaining (h:m)  0:00  
 
 16/4/2013 20:00 JD:105.833333 (2^ simulation day) 93.62% completed! 
- t_meteo:  1.02 s, t_energy:129.62 s, t_blowingsnow:  0.00 s, t_water:255.33 s, t_sub:154.14 s, t_sup:101.19 s, t_out:  0.07 s
+ t_meteo:  1.00 s, t_energy:129.88 s, t_blowingsnow:  0.00 s, t_water:259.55 s, t_sub:155.40 s, t_sup:104.15 s, t_out:  0.07 s
  SW= -2.66 W/m2  LW:  4.11 W/m2  H= -4.38 W/m2  LE= 16.52 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=2.713093e-09 mm/h 
  Tot Error Richards=4.529178e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 21:00 95.74% - Time elapsed (h:m:s)  0:06:38 Time remaining (h:m)  0:00  
+16/4/2013 21:00 95.74% - Time elapsed (h:m:s)  0:06:43 Time remaining (h:m)  0:00  
 
 16/4/2013 21:00 JD:105.875000 (2^ simulation day) 95.74% completed! 
- t_meteo:  1.04 s, t_energy:132.66 s, t_blowingsnow:  0.00 s, t_water:262.32 s, t_sub:157.37 s, t_sup:104.95 s, t_out:  0.07 s
+ t_meteo:  1.02 s, t_energy:133.09 s, t_blowingsnow:  0.00 s, t_water:267.00 s, t_sub:158.71 s, t_sup:108.29 s, t_out:  0.07 s
  SW= -2.78 W/m2  LW:-13.01 W/m2  H=-10.82 W/m2  LE=  8.44 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.025563e-09 mm/h 
  Tot Error Richards=4.631735e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 22:00 97.87% - Time elapsed (h:m:s)  0:06:48 Time remaining (h:m)  0:00  
+16/4/2013 22:00 97.87% - Time elapsed (h:m:s)  0:06:53 Time remaining (h:m)  0:00  
 
 16/4/2013 22:00 JD:105.916667 (2^ simulation day) 97.87% completed! 
- t_meteo:  1.07 s, t_energy:135.44 s, t_blowingsnow:  0.00 s, t_water:269.65 s, t_sub:160.83 s, t_sup:108.81 s, t_out:  0.08 s
+ t_meteo:  1.04 s, t_energy:135.87 s, t_blowingsnow:  0.00 s, t_water:274.65 s, t_sub:162.37 s, t_sup:112.28 s, t_out:  0.07 s
  SW= -1.86 W/m2  LW: -4.42 W/m2  H= -3.32 W/m2  LE=  8.98 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.028513e-09 mm/h 
  Tot Error Richards=4.734586e-08 mm Mean Time Step=3600.000000 s
 
-16/4/2013 23:00 100.00% - Time elapsed (h:m:s)  0:06:59 Time remaining (h:m)  0:00  
+16/4/2013 23:00 100.00% - Time elapsed (h:m:s)  0:07:02 Time remaining (h:m)  0:00  
 
 16/4/2013 23:00 JD:105.958333 (2^ simulation day) 100.00% completed! 
- t_meteo:  1.09 s, t_energy:138.50 s, t_blowingsnow:  0.00 s, t_water:276.52 s, t_sub:163.89 s, t_sup:112.63 s, t_out:  0.08 s
+ t_meteo:  1.07 s, t_energy:138.98 s, t_blowingsnow:  0.00 s, t_water:281.91 s, t_sub:165.59 s, t_sup:116.32 s, t_out:  0.08 s
  SW= -1.48 W/m2  LW:  5.63 W/m2  H=  1.94 W/m2  LE= 12.59 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=2.711071e-09 mm/h 
