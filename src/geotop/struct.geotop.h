@@ -25,6 +25,7 @@
 #include "tensor3D.h"
 #include <memory>
 
+#include <tensor.h>
 /*---------------------------------------------------------------------------*/
 typedef struct {
 
@@ -141,7 +142,10 @@ struct SOIL {
     std::unique_ptr<Matrix<double>> thi_av_tensor;
     std::unique_ptr<Matrix<double>> Ptot;
     std::unique_ptr<Matrix<double>> th;
+
     DOUBLETENSOR *ET;
+    //std::unique_ptr<Tensor<double>> ET;
+
     std::unique_ptr<Matrix<double>> Tzplot;
     std::unique_ptr<Matrix<double>> Tzavplot;
     std::unique_ptr<Matrix<double>> Ptotzplot;
