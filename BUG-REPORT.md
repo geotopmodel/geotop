@@ -93,12 +93,22 @@ we got an exception since the matrix ```land->root_fraction``` had only 7 column
 
 ## Solution
 Different solutions are possible:
-1. increase the ```z_transp``` parameter in constants.h file
+1. change the end index of the for loop from ```Nl``` to a ```lmax = land->root_fraction->n_col```
+
+```
+                int lmax = land->root_fraction->n_col;
+                for (l=1; l<=land->root_fraction->n_col; l++)
+                {
+                    fprintf(f," The root fraction [-] of layer %ld: %f\n",l, (*land->root_fraction)(lu,l));
+                }
+```
+
+2. increase the ```z_transp``` parameter in constants.h file
 ```
 + quick solution
 - problems if we insert a test cases having again z > z_transp
 ```
-2. insert a check like the following:
+3. insert a check like the following:
 ```
  if (z > z_transp){
         l = Nl;
@@ -110,7 +120,7 @@ Different solutions are possible:
 - a bit dirty way
 ```
 
-3. modify the function root defined in __vegetation.cc__
+4. modify the function root defined in __vegetation.cc__
 ```
 + general solution
 - need time to discuss
