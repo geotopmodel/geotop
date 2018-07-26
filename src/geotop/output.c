@@ -2270,7 +2270,9 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par, TOPO *top,
 				fprintf(f," Mean slope of the pixel [deg]: %f \n",top->slope->co[r][c]);
 				fprintf(f," Land use number is %d \n",(short)land->LC->co[r][c]);
 
-				for(l=1;l<=Nl;l++){
+				int lmax = land->root_fraction->nch - land->root_fraction->ncl + 1;
+
+				for(l=1;l<=lmax;l++){
 					fprintf(f," The root fraction [-] of layer %ld: %f\n",l,land->root_fraction->co[lu][l]);
 				}
 		
