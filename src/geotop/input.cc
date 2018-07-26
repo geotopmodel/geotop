@@ -69,9 +69,9 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
                    PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times)
 
 {
-#ifndef NDEBUG
+//#ifndef NDEBUG
     GEOLOG_PREFIX(__func__);
-#endif
+//#endif
 
     FILE *f; /** failed run file*/
     Matrix<double> *M;
