@@ -4314,7 +4314,7 @@ void write_snow_output(long i, long iname, long r, long c, double init_date,
 
 void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
                      long h, long mi, double JDfrom0, double JDfrom0init,
-                     double JDfrom0end, MatrixRow<double> &&var, Vector<double> *n, double *dz, double cosslope)
+                     double JDfrom0end, RowView<double> &&var, Vector<double> *n, double *dz, double cosslope)
 {
 
     short first_column=1;
@@ -4368,7 +4368,7 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
     {
         for (l=1; l<=n->nh; l++)
         {
-            fprintf(f, ",%f",interpolate_soil(lmin, n->co[l]*cosslope, Nl, dz, std::forward<MatrixRow<double>>(var)));
+            fprintf(f, ",%f",interpolate_soil(lmin, n->co[l]*cosslope, Nl, dz, std::forward<RowView<double>>(var)));
         }
     }
     else
@@ -4619,7 +4619,7 @@ void plot(char *name, long i_plot, Vector<double>* V, short format, long **J)
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-double interpolate_soil(long lmin, double h, long max, double *Dz, MatrixRow<double> &&Q)
+double interpolate_soil(long lmin, double h, long max, double *Dz, RowView<double> &&Q)
 {
 
     double q, z, z0=0.;

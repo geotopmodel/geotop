@@ -2390,7 +2390,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
                   double P, double LR, double psi, double e, double fc, // 5 parameters
                   double LSAI, double decaycoeff0, double Wcrn, double Wcrnmax, double Wcsn, // 5 parameters
                   double Wcsnmax, double *dWcrn, double *dWcsn, double *theta, double **soil, // 5 parameters
-                  MatrixRow<double> &&land, MatrixRow<double> &&root, PAR *par, Vector<double> *soil_transp_layer,
+                  RowView<double> &&land, RowView<double> &&root, PAR *par, Vector<double> *soil_transp_layer,
                   double SWin, // 5 parameters
                   double LWin, double SWv, double *LW, double *H, double *dH_dT, // 5 parameters
                   double *E, double *dE_dT, double *LWv, double *Hv, double *LEv, // 5 parameters
@@ -2522,9 +2522,9 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
 
       Tcanopy(r, c, Tv0, Tg, *Qg, dQgdT, Tg0, Qg0, Ta, Qa, // 10
               zmu, zmT, z0v, z0s, d0v, rz0v, hveg, v, LR, P, // 10
-              SWin, SWv, LWin, e, LSAI, decaycoeff0, std::forward<MatrixRow<double>>(land), Wcrn, Wcrnmax, Wcsn, // 10
+              SWin, SWv, LWin, e, LSAI, decaycoeff0, std::forward<RowView<double>>(land), Wcrn, Wcrnmax, Wcsn, // 10
               Wcsnmax, dWcrn, dWcsn, LWv, &LWg, Hv, &Hg, &dHg_dT, LEv, &Eg, // 10
-              &dEg_dT, Ts, Qs, std::forward<MatrixRow<double>>(root), theta, soil_transp_layer, Lobukhov, par, n, &rm, // 10
+              &dEg_dT, Ts, Qs, std::forward<RowView<double>>(root), theta, soil_transp_layer, Lobukhov, par, n, &rm, // 10
               rh, rv, rc, rb, ruc, u_top, Etrans, Tv, Qv, decay, // 10
               Locc, &LWup, psi, soil, T, soil_evap_layer_veg); // 6
 
@@ -2590,7 +2590,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
                                     double decaycoeff0, double Wcrn,
                                     double Wcrnmax, double Wcsn, double Wcsnmax, double *dWcrn, double *dWcsn,
                                     double *theta, double **soil,
-                                    MatrixRow<double> &&land, MatrixRow<double> &&root, PAR *par,
+                                    RowView<double> &&land, RowView<double> &&root, PAR *par,
                                     Vector<double> *soil_transp_layer,
                                     double SWin, double LWin, double SWv, double *LW,
                                     double *H, double *dH_dT, double *E, double *dE_dT, double *LWv, double *Hv,

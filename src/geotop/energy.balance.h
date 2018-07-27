@@ -71,7 +71,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
                   double P, double LR, double psi, double e, double fc, // 5 parameters
                   double LSAI, double decaycoeff0, double Wcrn, double Wcrnmax, double Wcsn, // 5 parameters
                   double Wcsnmax, double *dWcrn, double *dWcsn, double *theta, double **soil, // 5 parameters
-                  MatrixRow<double> &&land, MatrixRow<double> &&root, PAR *par, Vector<double> *soil_transp_layer,
+                  RowView<double> &&land, RowView<double> &&root, PAR *par, Vector<double> *soil_transp_layer,
                   double SWin, // 5 parameters
                   double LWin, double SWv, double *LW, double *H, double *dH_dT, // 5 parameters
                   double *E, double *dE_dT, double *LWv, double *Hv, double *LEv, // 5 parameters
@@ -90,7 +90,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
                                     double P, double LR, double psi, double e, double fc, double LSAI,
                                     double decaycoeff0, double Wcrn, double Wcrnmax, double Wcsn, // 10
                                     double Wcsnmax, double *dWcrn, double *dWcsn, double *theta, double **soil, // 5
-                                    MatrixRow<double> &&land, MatrixRow<double> &&root, PAR *par,
+                                    RowView<double> &&land, RowView<double> &&root, PAR *par,
                                     Vector<double> *soil_transp_layer,
                                     double SWin, // 5
                                     double LWin, double SWv, double *LW, double *H, double *dH_dT, double *E,
