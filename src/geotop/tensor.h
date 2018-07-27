@@ -10,7 +10,10 @@
 #include <exception>
 #include <memory>
 #include <sstream>
+#include "matrix.h"
 
+template <class T> class RowView;
+template <class T> class MatrixView;
 
 template <class T> class Tensor {
     //private:
@@ -40,6 +43,7 @@ public:
 
     /** const pointer to the one-past the last element */
     const T *end() const noexcept { return &co[(ndh-ndl+1)*(nrh-nrl+1)*(nch-ncl+1)]; }
+
 
     /** destructor. default is fine */
     ~Tensor() = default;
@@ -148,6 +152,19 @@ public:
         *this = Tensor<T>{t}; // use move assignment and copy constructor
         return *this;
     }
-};
 
+    /** Given a layer (k) and a row (i), it gives all the elements corrisponding to different columns */
+    RowView<T> row(const std::size_t k, const std::size_t i) {
+        GEO_ASSERT_IN_RANGE(k, ndl, ndh);
+        GEO_ASSERT_IN_RANGE(i, nrl, nrh);
+        return RowView<T> { &co[(i-nrl)*n_col + (k-ndl)*(n_row*n_col)], nch, ncl}; // intialization
+    };
+
+    MatrixView<T> matrix(const std::size_t k) {
+        GEO_ASSERT_IN_RANGE(k, ndl, ndh);
+        return MatrixView<T> { &co[(k-ndl)*(n_row*n_col)], nrh, nrl, nch, ncl}; // intialization
+    };
+
+};
+// ----------------------------------------------------------------------------------------------------------------
 #endif // GEOTOP_Tensor_H
