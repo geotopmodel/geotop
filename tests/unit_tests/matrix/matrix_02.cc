@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 #include <matrix.h>
-#include <vector>
+#include <rowview.h>
 
-TEST(Matrix, MatrixRow){
+TEST(Matrix, RowView){
   Matrix<int> m{2,2}; // 2x2 matrix
   int c{0};
    
@@ -16,7 +16,7 @@ TEST(Matrix, MatrixRow){
  
 }
 
-TEST(Matrix, MatrixRow_CheckIndex){
+TEST(Matrix, RowView_CheckIndex){
   Matrix<int> m{2,2}; // 2x2 matrix
 
   EXPECT_NO_THROW( m.row(1) );
