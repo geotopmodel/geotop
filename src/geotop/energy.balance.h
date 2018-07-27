@@ -49,7 +49,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                               double *dUsl);
 
 void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
-                      double Dt, ENERGY *egy, double **pa, SOIL_STATE *S, Tensor<double> *ET,
+                      double Dt, ENERGY *egy, double **pa, SOIL_STATE *S, DOUBLETENSOR *ET,
                       Matrix<double> *th);
 
 void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,

@@ -281,8 +281,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
 
       for (l=1; l<=Nl; l++)
         {
-           (*A->S->ET)(l,r,c) = 0.0;
-  //          A->S->ET->co[l][r][c] = 0.0;
+          A->S->ET->co[l][r][c] = 0.0;
           (*A->S->th)(l,j) = theta_from_psi((*L->P)(l,j), (*L->thi)(l,j), l,
                                               A->S->pa->co[sy], PsiMin);
           (*A->S->th)(l,j) = Fmin( (*A->S->th)(l,j),
@@ -813,7 +812,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
 
           //soil
           update_soil_land(A->P->nsurface, ns+ng, j, r, c, fc, Dt, A->E.get(),
-                           A->S->pa->co[sy], L, A->S->ET.get(), A->S->th.get());
+                           A->S->pa->co[sy], L, A->S->ET, A->S->th.get());
 
           //glacier
           if (A->P->max_glac_layers>0)
@@ -2204,7 +2203,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 /******************************************************************************************************************************************/
 
 void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
-                      double Dt, ENERGY *egy, double **pa, SOIL_STATE *S, Tensor<double> *ET,
+                      double Dt, ENERGY *egy, double **pa, SOIL_STATE *S, DOUBLETENSOR *ET,
                       Matrix<double> *th)
 {
 
@@ -2216,14 +2215,14 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
     {
 
       //canopy transpiration
-      if (l <= egy->soil_transp_layer->nh) (*ET)(l,r,c) +=
-          fc*egy->soil_transp_layer->co[l]*Dt;
+      if (l <= egy->soil_transp_layer->nh)
+        ET->co[l][r][c] +=  fc*egy->soil_transp_layer->co[l]*Dt;
 
       //soil evaporation
       if (l <= egy->soil_evap_layer_bare->nh)
         {
-            (*ET)(l,r,c) += (1.-fc)*egy->soil_evap_layer_bare->co[l]*Dt;
-            (*ET)(l,r,c) += fc*egy->soil_evap_layer_veg->co[l]*Dt;
+          ET->co[l][r][c] += (1.-fc)*egy->soil_evap_layer_bare->co[l]*Dt;
+          ET->co[l][r][c] += fc*egy->soil_evap_layer_veg->co[l]*Dt;
         }
 
       //water pressure and contents

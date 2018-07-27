@@ -1865,8 +1865,7 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
     {
       if (i<=n)
       {
-        f->co[i] += area * (*adt->S->ET)(l,r,c)/Dt;
-        //        f->co[i] += area*adt->S->ET->co[l][r][c]/Dt;
+        f->co[i] += area*adt->S->ET->co[l][r][c]/Dt;
       }
       else
       {
@@ -1956,8 +1955,7 @@ int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
     //evaporation
     if (l>0)
     {
-      f->co[i] += area * (*adt->S->ET)(l,r,c)/Dt;
-      //       f->co[i] += area*adt->S->ET->co[l][r][c]/Dt;
+       f->co[i] += area*adt->S->ET->co[l][r][c]/Dt;
     }
     else
     {
