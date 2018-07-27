@@ -125,9 +125,9 @@ Different solutions are possible:
 + general solution
 - need time to discuss
 ```
-The method 2 will be implemented.
+The __method 1__ will be implemented.
 
-### Implementation of solution 2
+### Optional: implementation of solution 2
 The parameters z_transp was changed from a macro-defined to a global variable defined in input.cc
 to be able to modify its value.
 No more segmentation fault occured BUT of course the comparison with the 2.0 version failed.
