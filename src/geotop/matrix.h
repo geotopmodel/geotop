@@ -11,7 +11,7 @@
 #include <memory>
 #include <sstream>
 
-template <class T> class MatrixRow;
+#include "rowview.h"
 
 template <class T> class Matrix {
     //private:
@@ -150,28 +150,12 @@ public:
     }
 
 
-    MatrixRow<T> row(const std::size_t i) {
+    RowView<T> row(const std::size_t i) {
         GEO_ASSERT_IN_RANGE(i, nrl, nrh);
-        return MatrixRow<T> { &co[(i-nrl)*n_col], nch, ncl };
-        //  return MatrixRow<T> { &co[(i-nrl)*n_col], nch, ncl }; ma se ritorno per valore una MatrixRow perchè metto &co
+        return RowView<T> { &co[(i-nrl)*n_col], nch, ncl }; // PERCHÈ RITORNIAMO nch E ncl??
+        //  return RowView<T> { &co[(i-nrl)*n_col], nch, ncl }; ma se ritorno per valore una RowView perchè metto &co
     };
 
 };
 // ----------------------------------------------------------------------------------------------------------------
-
-template <class T> class MatrixRow {
-public:
-    T *elem;
-    std::size_t nch;
-    std::size_t ncl;
-
-    T &operator[](const std::size_t j) noexcept {
-        return elem[j - ncl];
-    }
-
-    const T &operator[](const std::size_t j) const noexcept {
-        return elem[j - ncl];
-    }
-
-};
 #endif // GEOTOP_MATRIX_H
