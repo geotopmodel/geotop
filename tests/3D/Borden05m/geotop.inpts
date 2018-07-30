@@ -291,5 +291,5 @@ NetPrecipitationFile = "output-maps/Pnet"
 !=============================================================================
 
 !SubfolderRecoveryFiles="rec"
-!ContinuousRecovery = 0.01
+!ContinuousRecovery = 0.0625
 !RecoverTime = 0.05

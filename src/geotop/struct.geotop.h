@@ -35,8 +35,7 @@ typedef struct {
     std::unique_ptr<Vector<double>> ET_mean;
     std::unique_ptr<Vector<double>> H_mean;
     std::unique_ptr<Vector<double>> SEB_mean;
-    std::unique_ptr<Vector<double>>
-            Ts_mean;  /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
+    std::unique_ptr<Vector<double>> Ts_mean;  /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
     std::unique_ptr<Vector<double>> Rswdown_mean;
     std::unique_ptr<Vector<double>> Rswbeam_mean;
     std::unique_ptr<Vector<long>> nDt_shadow;
@@ -106,8 +105,8 @@ typedef struct {
     std::unique_ptr<Vector<double>> soil_evap_layer_bare;
     std::unique_ptr<Vector<double>> soil_evap_layer_veg;
 
-    DOUBLEMATRIX *Tgskin_surr;
-    DOUBLEMATRIX *SWrefl_surr;
+    std::unique_ptr<Matrix<double>> Tgskin_surr;
+    std::unique_ptr<Matrix<double>> SWrefl_surr;
 
 } ENERGY;
 
@@ -116,11 +115,10 @@ typedef struct {
 struct SOIL_STATE {
     SOIL_STATE(const long n, const long nl);
 
-    virtual ~SOIL_STATE();
 
-    DOUBLEMATRIX *P;
-    DOUBLEMATRIX *thi;
-    DOUBLEMATRIX *T;
+    std::unique_ptr<Matrix<double>> P;
+    std::unique_ptr<Matrix<double>> thi;
+    std::unique_ptr<Matrix<double>> T;
 };
 
 /*---------------------------------------------------------------------------*/
@@ -136,35 +134,37 @@ struct STATE_VEG {
 /*---------------------------------------------------------------------------*/
 
 struct SOIL {
-    LONGMATRIX *type;
+    std::unique_ptr<Matrix<long>> type;
     DOUBLETENSOR *pa;
-    DOUBLEMATRIX *T_av_tensor;
-    DOUBLEMATRIX *thw_av_tensor;
-    DOUBLEMATRIX *thi_av_tensor;
-    DOUBLEMATRIX *Ptot;
-    DOUBLEMATRIX *th;
+    std::unique_ptr<Matrix<double>> T_av_tensor;
+    std::unique_ptr<Matrix<double>> thw_av_tensor;
+    std::unique_ptr<Matrix<double>> thi_av_tensor;
+    std::unique_ptr<Matrix<double>> Ptot;
+    std::unique_ptr<Matrix<double>> th;
+
     DOUBLETENSOR *ET;
-    DOUBLEMATRIX *Tzplot;
-    DOUBLEMATRIX *Tzavplot;
-    DOUBLEMATRIX *Ptotzplot;
-    DOUBLEMATRIX *Pzplot;
-    DOUBLEMATRIX *thzplot;
-    DOUBLEMATRIX *thzavplot;
-    DOUBLEMATRIX *thizplot;
-    DOUBLEMATRIX *thizavplot;
-    DOUBLEMATRIX *satratio;
-    SOIL_STATE *SS;
+
+    std::unique_ptr<Matrix<double>> Tzplot;
+    std::unique_ptr<Matrix<double>> Tzavplot;
+    std::unique_ptr<Matrix<double>> Ptotzplot;
+    std::unique_ptr<Matrix<double>> Pzplot;
+    std::unique_ptr<Matrix<double>> thzplot;
+    std::unique_ptr<Matrix<double>> thzavplot;
+    std::unique_ptr<Matrix<double>> thizplot;
+    std::unique_ptr<Matrix<double>> thizavplot;
+    std::unique_ptr<Matrix<double>> satratio;
+    std::unique_ptr<SOIL_STATE> SS;
     std::unique_ptr<STATE_VEG> VS;
 
-    DOUBLEMATRIX *Tzrun;
-    DOUBLEMATRIX *wzrun;
-    DOUBLEMATRIX *dUzrun;
-    DOUBLEMATRIX *SWErun;
+    std::unique_ptr<Matrix<double>> Tzrun;
+    std::unique_ptr<Matrix<double>> wzrun;
+    std::unique_ptr<Matrix<double>> dUzrun;
+    std::unique_ptr<Matrix<double>> SWErun;
 
-    DOUBLEMATRIX *Tzmaxrun;
-    DOUBLEMATRIX *wzmaxrun;
-    DOUBLEMATRIX *Tzminrun;
-    DOUBLEMATRIX *wzminrun;
+    std::unique_ptr<Matrix<double>> Tzmaxrun;
+    std::unique_ptr<Matrix<double>> wzmaxrun;
+    std::unique_ptr<Matrix<double>> Tzminrun;
+    std::unique_ptr<Matrix<double>> wzminrun;
 
     std::unique_ptr<Vector<double>> Pnetcum;
     std::unique_ptr<Vector<double>> ETcum;
@@ -174,34 +174,34 @@ struct SOIL {
 
 /*---------------------------------------------------------------------------*/
 typedef struct {
-    DOUBLEMATRIX *Z0;         //elevation of each pixel (DEM)
+    std::unique_ptr<Matrix<double>> Z0;         //elevation of each pixel (DEM)
     DOUBLETENSOR *Z;
 
-    DOUBLEMATRIX *sky;        //view factor (of the sky) for each pixel
-    SHORTMATRIX *pixel_type;
+    std::unique_ptr<Matrix<double>> sky;        //view factor (of the sky) for each pixel
+    std::unique_ptr<Matrix<short>> pixel_type;
 
     //SHORTMATRIX *DD;      //Drainage Directions for each pixel; ex matr_ev->slope*/
     //LONGMATRIX *DDup;
-    //DOUBLEMATRIX *i_DD;       /*slope along Drainage Direction for each pixel*/
+    //std::unique_ptr<Matrix<double>> i_DD;       /*slope along Drainage Direction for each pixel*/
 
-    DOUBLEMATRIX *aspect;     /*aspect; ex: matr_ev->azimuth*/
-    DOUBLEMATRIX *slope;     /*slope of the pixels; ex: matr_ev->slope*/
+    std::unique_ptr<Matrix<double>> aspect;     /*aspect; ex: matr_ev->azimuth*/
+    std::unique_ptr<Matrix<double>> slope;     /*slope of the pixels; ex: matr_ev->slope*/
 
-    DOUBLEMATRIX *curvature1;
-    DOUBLEMATRIX *curvature2;
-    DOUBLEMATRIX *curvature3;
-    DOUBLEMATRIX *curvature4;
+    std::unique_ptr<Matrix<double>> curvature1;
+    std::unique_ptr<Matrix<double>> curvature2;
+    std::unique_ptr<Matrix<double>> curvature3;
+    std::unique_ptr<Matrix<double>> curvature4;
 
     double ***horizon_height;
     long *horizon_numlines;
-    LONGMATRIX *horizon_point;
+    std::unique_ptr<Matrix<long>> horizon_point;
     long num_horizon_point;
 
     long ***i_cont;
-    LONGMATRIX *lrc_cont;
+    std::unique_ptr<Matrix<long>> lrc_cont;
 
     long **j_cont;
-    LONGMATRIX *rc_cont;
+    std::unique_ptr<Matrix<long>> rc_cont;
 
     std::unique_ptr<Vector<long>> Lp;
     std::unique_ptr<Vector<long>> Li;
@@ -209,39 +209,39 @@ typedef struct {
     std::unique_ptr<Vector<long>> Up;
     std::unique_ptr<Vector<long>> Ui;
 
-    LONGMATRIX *Jdown;
-    DOUBLEMATRIX *Qdown;
+    std::unique_ptr<Matrix<long>> Jdown;
+    std::unique_ptr<Matrix<double>> Qdown;
 
-    SHORTMATRIX *is_on_border;
+    std::unique_ptr<Matrix<short>> is_on_border;
 
-    DOUBLEMATRIX *East;
-    DOUBLEMATRIX *North;
+    std::unique_ptr<Matrix<double>> East;
+    std::unique_ptr<Matrix<double>> North;
 
-    LONGMATRIX *BC_counter;
+    std::unique_ptr<Matrix<long>> BC_counter;
     std::unique_ptr<Vector<double>> BC_DepthFreeSurface;
 
-    DOUBLEMATRIX *dzdE;
-    DOUBLEMATRIX *dzdN;
+    std::unique_ptr<Matrix<double>> dzdE;
+    std::unique_ptr<Matrix<double>> dzdN;
 
-    DOUBLEMATRIX *latitude;
-    DOUBLEMATRIX *longitude;
+    std::unique_ptr<Matrix<double>> latitude;
+    std::unique_ptr<Matrix<double>> longitude;
 
 } TOPO;
 
 
 /*---------------------------------------------------------------------------*/
 typedef struct {
-    DOUBLEMATRIX *LC;            //land cover for each pixel
-    DOUBLEMATRIX *delay;
-    SHORTMATRIX *shadow;      //=1 if shadow, =0 if not
-    DOUBLEMATRIX *ty;
+    std::unique_ptr<Matrix<double>> LC;            //land cover for each pixel
+    std::unique_ptr<Matrix<double>> delay;
+    std::unique_ptr<Matrix<short>> shadow;      //=1 if shadow, =0 if not
+    std::unique_ptr<Matrix<double>> ty;
 
     double ***vegpars;
     double **vegparv;
     std::unique_ptr<Vector<double>> vegpar;
     long *NumlinesVegTimeDepData;
 
-    DOUBLEMATRIX *root_fraction;
+    std::unique_ptr<Matrix<double>> root_fraction;
 
 } LAND;/*all this data are calculated on the basis of land use data and some other par*/
 
@@ -254,7 +254,7 @@ typedef struct {
                       R=number of rows of the basin,C=number of columns in the basin*/
     std::unique_ptr<Vector<long>> r;          /*array of rows of the channel-pixels; dimension=nch*/
     std::unique_ptr<Vector<long>> c;          /*array of columns of the channel-pixels; dimension=nch*/
-    LONGMATRIX *ch;
+    std::unique_ptr<Matrix<long>> ch;
     std::unique_ptr<Vector<long>> ch_down;
     std::unique_ptr<Vector<double>> Vsup;
     std::unique_ptr<Vector<double>> Vsub;
@@ -262,10 +262,10 @@ typedef struct {
     std::unique_ptr<Vector<double>> length;
     double Vout;
     long **ch3;
-    LONGMATRIX *lch;
+    std::unique_ptr<Matrix<long>> lch;
     std::unique_ptr<Vector<long>> soil_type;
-    DOUBLEMATRIX *th;
-    DOUBLEMATRIX *ET;
+    std::unique_ptr<Matrix<double>> th;
+    std::unique_ptr<Matrix<double>> ET;
     std::unique_ptr<Vector<double>> Kbottom;
     SOIL_STATE *SS;
 } CHANNEL;
@@ -276,21 +276,19 @@ typedef struct {
 typedef struct {
     /*nstations=number of all the rain-stations,number_of_pixels=number of all the pixels of the basin R*C,
                        R=number of rows,C=number of columns,nt=number of time-step of the whole similation*/
-    DOUBLEMATRIX *PrecTot;    /*total(snow+rain) precipitation in mm (in a Dt)*/
-    DOUBLEMATRIX
-            *Pnet;       /*liquid precipitation which reaches the sl surface in mm in a Dt as input
+    std::unique_ptr<Matrix<double>> PrecTot;    /*total(snow+rain) precipitation in mm (in a Dt)*/
+    std::unique_ptr<Matrix<double>> Pnet;       /*liquid precipitation which reaches the sl surface in mm in a Dt as input
                               of "punctual_energy" subroutine, rain intensity in mm/s as output of the
                               same subroutine and in "water.balance.c" module*/
 
-    std::unique_ptr<Vector<double>>
-            PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
+    std::unique_ptr<Vector<double>> PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
     std::unique_ptr<Vector<double>> PrSNW_mean;
     std::unique_ptr<Vector<double>> Pt;
     std::unique_ptr<Vector<double>> Ps;
 
     std::unique_ptr<Vector<double>> h_sup;
 
-    DOUBLEMATRIX *error;
+    std::unique_ptr<Matrix<double>> error;
 
     std::unique_ptr<Vector<double>> Lx;
     std::unique_ptr<Vector<double>> Ux;
@@ -301,8 +299,8 @@ typedef struct {
     std::unique_ptr<Vector<double>> B;
     std::unique_ptr<Vector<double>> f;
     std::unique_ptr<Vector<double>> df;
-    DOUBLEMATRIX *Klat;
-    DOUBLEMATRIX *Kbottom;
+    std::unique_ptr<Matrix<double>> Klat;
+    std::unique_ptr<Matrix<double>> Kbottom;
 
     double Voutlandsub;
     double Voutlandsup;
@@ -373,8 +371,8 @@ typedef struct {
     short output_surfenergy_bin;
     short output_meteo_bin;
 
-    DOUBLEMATRIX *chkpt;
-    LONGMATRIX *rc;
+    std::unique_ptr<Matrix<double>> chkpt;
+    std::unique_ptr<Matrix<long>> rc;
     std::unique_ptr<Vector<long>> jplot;
 
     short recover;
@@ -513,7 +511,7 @@ typedef struct {
 
     double Wice_PBSM;
 
-    DOUBLEMATRIX *maxSWE;
+    std::unique_ptr<Matrix<double>> maxSWE;
 
     long soil_type_land_default;
     long soil_type_chan_default;
@@ -644,8 +642,8 @@ struct STATEVAR_3D {
 
     ~STATEVAR_3D();
 
-    SHORTMATRIX *type;
-    LONGMATRIX *lnum;
+    std::unique_ptr<Matrix<short>> type;
+    std::unique_ptr<Matrix<long>> lnum;
     DOUBLETENSOR *Dzl;
     DOUBLETENSOR *w_liq;
     DOUBLETENSOR *w_ice;
@@ -672,16 +670,16 @@ typedef struct {
     std::unique_ptr<Vector<double>> subl;
     std::unique_ptr<Vector<double>> t_snow;
     std::unique_ptr<Vector<short>> yes;
-    DOUBLEMATRIX *Qsub;
-    DOUBLEMATRIX *Qsub_x;
-    DOUBLEMATRIX *Qsub_y;
-    DOUBLEMATRIX *Nabla2_Qtrans;
-    DOUBLEMATRIX *Qtrans;
-    DOUBLEMATRIX *Qsalt;
-    DOUBLEMATRIX *Qtrans_x;
-    DOUBLEMATRIX *Qtrans_y;
-    DOUBLEMATRIX *Wsubl_plot;
-    DOUBLEMATRIX *Wtrans_plot;
+    std::unique_ptr<Matrix<double>> Qsub;
+    std::unique_ptr<Matrix<double>> Qsub_x;
+    std::unique_ptr<Matrix<double>> Qsub_y;
+    std::unique_ptr<Matrix<double>> Nabla2_Qtrans;
+    std::unique_ptr<Matrix<double>> Qtrans;
+    std::unique_ptr<Matrix<double>> Qsalt;
+    std::unique_ptr<Matrix<double>> Qtrans_x;
+    std::unique_ptr<Matrix<double>> Qtrans_y;
+    std::unique_ptr<Matrix<double>> Wsubl_plot;
+    std::unique_ptr<Matrix<double>> Wtrans_plot;
     std::unique_ptr<Vector<double>> Dplot;
     std::unique_ptr<Vector<long>> change_dir_wind;
 } SNOW;
@@ -711,6 +709,7 @@ struct METEO {
     std::unique_ptr<METEO_STATIONS> st;
 
     double ***data;
+
     long *numlines;
     double ***horizon;
     long *horizonlines;
@@ -737,11 +736,11 @@ struct METEO {
     short tau_cloud_yes;
     short tau_cloud_av_yes;
 
-    DOUBLEMATRIX *Tgrid;
-    DOUBLEMATRIX *Pgrid;
-    DOUBLEMATRIX *Vgrid;
-    DOUBLEMATRIX *Vdir;
-    DOUBLEMATRIX *RHgrid;
+    std::unique_ptr<Matrix<double>> Tgrid;
+    std::unique_ptr<Matrix<double>> Pgrid;
+    std::unique_ptr<Matrix<double>> Vgrid;
+    std::unique_ptr<Matrix<double>> Vdir;
+    std::unique_ptr<Matrix<double>> RHgrid;
 
     std::unique_ptr<Vector<double>> Tamean;
     std::unique_ptr<Vector<double>> Vspdmean;
@@ -755,8 +754,8 @@ struct METEO {
 
     double V;
 
-    DOUBLEMATRIX *Tday;
-    DOUBLEMATRIX *Tvar;
+    std::unique_ptr<Matrix<double>> Tday;
+    std::unique_ptr<Matrix<double>> Tvar;
 
     long nstsrad;
     long nstlrad;

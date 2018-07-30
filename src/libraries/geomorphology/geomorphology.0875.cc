@@ -19,12 +19,12 @@
    Subroutine created by Davide Tamanini (June 2003) on the basis of the
    program sky of Pegoretti
                                                  */
-void sky_view_factor(DOUBLEMATRIX *sky, long N, T_INIT *UV,
-                     DOUBLEMATRIX *input, SHORTMATRIX *convess, long novalue)
+void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *input, Matrix<short> *convess,
+                     long novalue)
 {
   long i,j,t,m,n,p,q,h,k,r,s; //counter
   double deltateta; //amplitude of the angles in which the horizon is divided
-  DOUBLEMATRIX *alfa; //matrices with the angles of the direction
+  std::unique_ptr<Matrix<double>> alfa; //matrices with the angles of the direction
   std::unique_ptr<Vector<double>>
   vv; //vector with the view factor of the current pixel for one of the N parts
   std::unique_ptr<Vector<double>>
@@ -37,30 +37,30 @@ void sky_view_factor(DOUBLEMATRIX *sky, long N, T_INIT *UV,
     t_error("Sky view factor fatal error, number of cols not consistent");
 
   // Computation of the matrix with the angles of the direction
-  alfa=new_doublematrix(2*input->nrh-1,2*input->nch-1);
-  initialize_doublematrix(alfa,(double)novalue); //initialisation with novalue
+  alfa.reset(new Matrix<double>{2*input->nrh-1,2*input->nch-1});
+  *alfa = (double)novalue; //initialisation with novalue
   for (i=1; i<=2*input->nrh-1; i++)
     {
       for (j=1; j<=2*input->nch-1; j++)
         {
           if (i<=input->nrh && j<input->nch)
             {
-              alfa->co[i][j]=3.0/2.0*Pi+atan(((input->nrh-i)*UV->U->co[1])/
+              (*alfa)(i,j)=3.0/2.0*Pi+atan(((input->nrh-i)*UV->U->co[1])/
                                              ((input->nch-j)*UV->U->co[1]));
             }
           if (i>input->nrh && j<=input->nch)
             {
-              alfa->co[i][j]=Pi+atan(((input->nch-j)*UV->U->co[1])/
+              (*alfa)(i,j)=Pi+atan(((input->nch-j)*UV->U->co[1])/
                                      ((i-input->nrh)*UV->U->co[1]));
             }
           if (i>=input->nrh && j>input->nch)
             {
-              alfa->co[i][j]=Pi/2.0+atan(((i-input->nrh)*UV->U->co[1])/
+              (*alfa)(i,j)=Pi/2.0+atan(((i-input->nrh)*UV->U->co[1])/
                                          ((j-input->nch)*UV->U->co[1]));
             }
           if (i<input->nrh && j>=input->nch)
             {
-              alfa->co[i][j]=atan(((j-input->nch)*UV->U->co[1])/
+              (*alfa)(i,j)=atan(((j-input->nch)*UV->U->co[1])/
                                   ((input->nrh-i)*UV->U->co[1]));
             }
         }
@@ -71,7 +71,7 @@ void sky_view_factor(DOUBLEMATRIX *sky, long N, T_INIT *UV,
     {
       for (j=1; j<=sky->nch; j++)
         {
-          sky->co[i][j]=(double)novalue;
+          (*sky)(i,j)=(double)novalue;
         }
     }
 
@@ -83,7 +83,7 @@ void sky_view_factor(DOUBLEMATRIX *sky, long N, T_INIT *UV,
     {
       for (j=1; j<=input->nch; j++)
         {
-          if ((long)input->co[i][j]!=novalue)  //computation only of novalue pixels
+          if ((long)(*input)(i,j)!=novalue)  //computation only of novalue pixels
             {
               for (t=1; t<=N; t++)
                 {
@@ -99,13 +99,13 @@ void sky_view_factor(DOUBLEMATRIX *sky, long N, T_INIT *UV,
                     {
                       for (t=1; t<=N; t++)
                         {
-                          if (alfa->co[h][k]>=(t-1)*deltateta && alfa->co[h][k]<t*deltateta)
+                          if ((*alfa)(h,k)>=(t-1)*deltateta && (*alfa)(h,k)<t*deltateta)
                             {
                               r=h-m+1;
                               s=k-n+1;
-                              if (convess->co[r][s]==1 && sqrt(pow((r-i),2)+pow((s-j),2))!=0)
+                              if ((*convess)(r,s)==1 && sqrt(pow((r-i),2)+pow((s-j),2))!=0)
                                 {
-                                  vv->co[t]=1-sin(atan((input->co[r][s]-input->co[i][j])
+                                  vv->co[t]=1-sin(atan(((*input)(r,s)-(*input)(i,j))
                                                        /(sqrt(pow((r-i),2)+pow((s-j),2))*UV->U->co[1])));
                                   if (vv->co[t]<v->co[t])
                                     {
@@ -122,34 +122,20 @@ void sky_view_factor(DOUBLEMATRIX *sky, long N, T_INIT *UV,
                 {
                   vvv=vvv+v->co[t];
                 }
-              sky->co[i][j]=(1.0/N*vvv);
+              (*sky)(i,j)=(1.0/N*vvv);
             }
         }
       printf("Percentage of the calculation of the sky view factor matrix: %5.2f%%\n",
              100.0*(double)i/(double)sky->nrh);
     }
-
-  free_doublematrix(alfa);
-
 }
 
 //***************************************************************************
 
-
 //***************************************************************************
 
-
-
-
-
-
-
-
-
 //Presa da geomorphology099 e modificato der_min
-void nablaquadro_mask(DOUBLEMATRIX *Z0,SHORTMATRIX *curv,Vector<double>* U,
-                      Vector<double>* V)
-
+void nablaquadro_mask(Matrix<double> *Z0, Matrix<short> *curv, Vector<double> *U, Vector<double> *V)
 {
 
   short y;
@@ -184,13 +170,13 @@ void nablaquadro_mask(DOUBLEMATRIX *Z0,SHORTMATRIX *curv,Vector<double>* U,
     {
       for (j=2; j<=cols-1; j++)
         {
-          z[0]=Z0->co[i][j];
+          z[0]=(*Z0)(i,j);
           if (z[0]!=V->co[2])
             {
               y=1;
               for (h=1; h<=8; h++)
                 {
-                  z[h]=Z0->co[i+v[h][0]][j+v[h][1]];
+                  z[h]=(*Z0)(i+v[h][0],j+v[h][1]);
                   if (z[h]==V->co[2])
                     {
                       y=0;
@@ -199,7 +185,7 @@ void nablaquadro_mask(DOUBLEMATRIX *Z0,SHORTMATRIX *curv,Vector<double>* U,
                 }
               if (y==0)
                 {
-                  curv->co[i][j]=1;
+                  (*curv)(i,j)=1;
                 }
               else
                 {
@@ -209,141 +195,36 @@ void nablaquadro_mask(DOUBLEMATRIX *Z0,SHORTMATRIX *curv,Vector<double>* U,
 
                   if (fabs(derivate2)<=der_min || derivate2>der_min)  //plane or concave
                     {
-                      curv->co[i][j]=0;
+                      (*curv)(i,j)=0;
                     }
                   else
                     {
-                      curv->co[i][j]=1; //convex
+                      (*curv)(i,j)=1; //convex
                     }
                 }
             }
         }
     }
 }
-
-
-
-
-
-
-
-
-
+//***************************************************************************
 
 //***************************************************************************
 
-
-
-
-
-
-
-
-
-
-
-
+//***************************************************************************
 
 //***************************************************************************
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//***************************************************************************
 
 //***************************************************************************
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//***************************************************************************
 
 //***************************************************************************
 
-
-
-
 //***************************************************************************
 
-
-
-
-
-
-
-
-
-
-
-
-
 //***************************************************************************
-
-
-
-
-
-
-
-
-
-//***************************************************************************
-
-
-
-
-
-
-
-//***************************************************************************
-
-
-
-
-
-//***************************************************************************
-
-
-
-
-//***************************************************************************
-
 
 //***************************************************************************
 

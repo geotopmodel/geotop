@@ -51,17 +51,17 @@ void set_time_step(PAR *par, TIMES *times)
       if (times->time==0)
         {
           line_interp=0;
-          JDnew=par->init_date->co[i_sim]-1.0;
+          JDnew = (*par->init_date)(i_sim)-1.0;
         }
 
       JDold=JDnew;
-      JDnew=convert_tfromstart_JDfrom0(times->time, par->init_date->co[i_sim]);
+      JDnew=convert_tfromstart_JDfrom0(times->time, (*par->init_date)(i_sim));
 
       if (floor(JDold)!=floor(JDnew))
         {
           time_no_interp(0, &line_interp, times->Dt_vector, times->Dt_matrix,
                          times->numlinesDt_matrix, max_cols_time_steps_file+1, 0,
-                         par->init_date->co[i_sim]+times->time/86400.);
+                         (*par->init_date)(i_sim)+times->time/86400.);
           posix=0;
         }
     }
@@ -71,11 +71,11 @@ void set_time_step(PAR *par, TIMES *times)
   posix++;
 
   if ((*par->plot_discharge_with_Dt_integration)(i_sim)==1)
-    par->Dtplot_discharge->co[i_sim]=par->Dt;
+    (*par->Dtplot_discharge)(i_sim)=par->Dt;
   if ((*par->plot_point_with_Dt_integration)(i_sim)==1)
-    par->Dtplot_point->co[i_sim]=par->Dt;
+    (*par->Dtplot_point)(i_sim)=par->Dt;
   if ((*par->plot_basin_with_Dt_integration)(i_sim)==1)
-    par->Dtplot_basin->co[i_sim]=par->Dt;
+    (*par->Dtplot_basin)(i_sim)=par->Dt;
 
 }
 

@@ -3,11 +3,9 @@
 #define MAX_NAME 256
 
 /*--------------------------------------------------------------------------*/
-
 /* Translating a buffer of longs into a list */
 
 LONGPAIR *buffer2list(long  *s,LONGPAIR *nxt)
-
 
 {
   LONGPAIR *head;
@@ -29,7 +27,6 @@ LONGPAIR *buffer2list(long  *s,LONGPAIR *nxt)
 
 REALPAIR *realbuffer2list(double  *s,REALPAIR *nxt)
 
-
 {
 
   REALPAIR *head;
@@ -44,24 +41,6 @@ REALPAIR *realbuffer2list(double  *s,REALPAIR *nxt)
       head->next = realbuffer2list(s+2,nxt);
       return head;
     }
-}
-
-/*--------------------------------------------------------------------------*/
-
-LONGPAIR *new_longpair()
-{
-
-  LONGPAIR *head;
-
-  head=(LONGPAIR * )malloc(sizeof(LONGPAIR));
-  if (!head) t_error("I cannot allocate further memory");
-  head->next = NULL;
-  head->i=0;
-  head->j=0;
-
-  return head;
-
-
 }
 
 
@@ -143,11 +122,10 @@ long count_phrase_elements(PHRASE *head)
     return (1+count_phrase_elements(head->next));
 }
 
-
-
 /*--------------------------------------------------------------------------*/
 /* Pointing to the antecedent to a numbered element of the list.
 If NULL the first is being pointed. */
+
 LONGPAIR *point2longpair(LONGPAIR *head,long point)
 
 {
@@ -174,7 +152,6 @@ LONGPAIR *point2longpair(LONGPAIR *head,long point)
   return NULL;
 
 }
-
 
 /*--------------------------------------------------------------------------*/
 LONGPOKER *point2longpoker(LONGPOKER *head,long point)
@@ -300,10 +277,6 @@ XYZ *point2measure(XYZ *head,long point)
 }
 
 /*--------------------------------------------------------------------------*/
-
-
-
-
 /* Recursive deletion of a list */
 /*--------------------------------------------------------------------------*/
 
@@ -385,27 +358,11 @@ void delete_phrase(PHRASE *head)
     }
 }
 
-/*--------------------------------------------------------------------------*/
-
-LONGPAIR *appendto(LONGPAIR *head, LONGPAIR *element)
-{
-
-  LONGPAIR *tmp=head;
-
-  if (head==NULL) return element;
-  else
-    {
-      while (tmp->next!=NULL) tmp=tmp->next;
-      tmp->next=element;
-      return head;
-    }
-}
-
 
 /*--------------------------------------------------------------------------
 This rotate the list n times
 ---------------------------------------------------------------------------*/
-LONGPAIR   *rotate(LONGPAIR *head,int n)
+LONGPAIR *rotate(LONGPAIR *head,int n)
 {
 
   LONGPAIR *tmp=head,*back=NULL;

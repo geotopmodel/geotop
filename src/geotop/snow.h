@@ -33,16 +33,14 @@ void snow_compactation(double Dt, long r, long c, long l, STATEVAR_3D *snow,
                        double slope, PAR *par);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow,
-                            double Ta, Vector<long> *inf, double SWEmax_layer, double SWEmax_tot,
-                            FILE *flog);
+void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double Ta, Vector<long> *inf,
+                            double SWEmax_layer, double SWEmax_tot);
 
 /*----------------------------------------------------------------------------------------------------------*/
-double DEPTH(long r, long c, LONGMATRIX *n, DOUBLETENSOR *Dz);
+double DEPTH(long r, long c, Matrix<long> *n, DOUBLETENSOR *Dz);
 
 /*----------------------------------------------------------------------------------------------------------*/
-double get_SWE(long r, long c, LONGMATRIX *n, DOUBLETENSOR *w1,
-               DOUBLETENSOR *w2);
+double get_SWE(long r, long c, Matrix<long> *n, DOUBLETENSOR *w1, DOUBLETENSOR *w2);
 
 /*----------------------------------------------------------------------------------------------------------*/
 void snowlayer_merging(double a, long r, long c, STATEVAR_3D *snow, long l1,
@@ -130,7 +128,7 @@ void WBglacier(long ns, long ng, long r, long c, STATEVAR_3D *glac,
                double *Melt, PAR *par, ENERGY *E, double Evap);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void find_SCA(STATEVAR_3D *snow, PAR *par, double **Z, double t);
+void find_SCA(STATEVAR_3D *snow, PAR *par, Matrix<double> *Z, double t);
 
 /*----------------------------------------------------------------------------------------------------------*/
 double theta_snow(double a, double b, double T);

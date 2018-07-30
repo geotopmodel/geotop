@@ -179,7 +179,8 @@ short readline_par(FILE *f, long comment_char, long sepfield_char,
               else if (i == maxcharstring)
                 {
                   keyword = find_string(key, *keylength);
-                  geolog << "Warning: Keyword " << keyword  << " has argument string longer than " << maxcharstring  << " characters, only the first " << maxcharstring  << " characters are read" << std::endl;
+                  geolog << "Warning: Keyword " << keyword  << " has argument string longer than " << maxcharstring
+                         << " characters, only the first " << maxcharstring  << " characters are read" << std::endl;
                   free(keyword);
                   i++;
                 }
@@ -241,7 +242,8 @@ short readline_par(FILE *f, long comment_char, long sepfield_char,
           if (h == maxnumvect)
             {
               keyword = find_string(key, *keylength);
-              geolog <<"Warning: Keyword " << keyword  << " has number of vector components higher than " <<  maxnumvect << ", only the first " << maxnumvect << " components are read" << std::endl; 
+              geolog <<"Warning: Keyword " << keyword  << " has number of vector components higher than " <<  maxnumvect
+                     << ", only the first " << maxnumvect << " components are read" << std::endl;
               free(keyword);
             }
 
@@ -786,8 +788,7 @@ double **read_datamatrix(FILE *f, char *filename, long comment_char,
   cont = 0;
   do
     {
-      line = readline_of_numbers(f, comment_char, sep_char, &components, &endoffile,
-                                 &success);
+      line = readline_of_numbers(f, comment_char, sep_char, &components, &endoffile, &success);
 
       if (success == 1)
         {
@@ -907,8 +908,7 @@ double **read_txt_matrix_2(char *filename, long comment_char, long sep_char,
     }
 
   Header = ReadHeader(f, filename, &ncols);
-  Dataout = read_datamatrix(f, filename, comment_char, sep_char, *nlines,
-                            ncolsCol_Descr);
+  Dataout = read_datamatrix(f, filename, comment_char, sep_char, *nlines, ncolsCol_Descr);
   fclose(f);
 
   for (j=0; j<ncols; j++)
