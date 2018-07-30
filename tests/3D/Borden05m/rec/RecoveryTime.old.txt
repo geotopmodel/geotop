@@ -1,2 +1,0 @@
-Time[s],Time[d],n,i_run,i_sim,cum_time[s],elapsed_time[s],last_recover
-81000.000000,0.937500,15,1,1,81000.000000,483.000000,0
