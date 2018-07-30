@@ -194,10 +194,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
           else
             {
                 (*A->E->SWrefl_surr)(r,c) = SWup;
-//                A->E->SWrefl_surr->co[r][c] = SWup;
                 (*A->E->Tgskin_surr)(r,c) = Tgskin;
-//                A->E->Tgskin_surr->co[r][c] = Tgskin;
-
             }
         }
 
@@ -1068,15 +1065,11 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] = ( (*A->T->sky)(r,c) * epsa_min * SB(Tpoint) + (1.-(*A->T->sky)(r,c)) * eps * SB((*A->E->Tgskin_surr)(r,c)) )
                                                                         * Dt/(*A->P->Dtplot_point)(i_sim);
-//                                    odp[opnt[l]][(*A->P->jplot)(j)-1] = ( (*A->T->sky)(r,c) * epsa_min * SB(Tpoint) + (1.-(*A->T->sky)(r,c)) * eps * SB(A->E->Tgskin_surr->co[r][c]) )
-//                                                                        * Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == omaxLWin)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] = ((*A->T->sky)(r,c)*epsa_max*SB(Tpoint) + (1.-(*A->T->sky)(r,c)) * eps * SB((*A->E->Tgskin_surr)(r,c)) )
                                                                       * Dt/(*A->P->Dtplot_point)(i_sim);
-//                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = ((*A->T->sky)(r,c)*epsa_max*SB(Tpoint) + (1.-(*A->T->sky)(r,c))*eps*SB(A->E->Tgskin_surr->co[r][c]))
-//                                                                      * Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oSW)
                                 {

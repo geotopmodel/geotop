@@ -153,7 +153,7 @@ struct SOIL {
     std::unique_ptr<Matrix<double>> thizplot;
     std::unique_ptr<Matrix<double>> thizavplot;
     std::unique_ptr<Matrix<double>> satratio;
-    SOIL_STATE *SS;
+    std::unique_ptr<SOIL_STATE> SS;
     std::unique_ptr<STATE_VEG> VS;
 
     std::unique_ptr<Matrix<double>> Tzrun;

@@ -24,7 +24,7 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
 {
   long i,j,t,m,n,p,q,h,k,r,s; //counter
   double deltateta; //amplitude of the angles in which the horizon is divided
-  Matrix<double> *alfa; //matrices with the angles of the direction
+  std::unique_ptr<Matrix<double>> alfa; //matrices with the angles of the direction
   std::unique_ptr<Vector<double>>
   vv; //vector with the view factor of the current pixel for one of the N parts
   std::unique_ptr<Vector<double>>
@@ -37,7 +37,7 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
     t_error("Sky view factor fatal error, number of cols not consistent");
 
   // Computation of the matrix with the angles of the direction
-  alfa = new Matrix<double>{2*input->nrh-1,2*input->nch-1};
+  alfa.reset(new Matrix<double>{2*input->nrh-1,2*input->nch-1});
   *alfa = (double)novalue; //initialisation with novalue
   for (i=1; i<=2*input->nrh-1; i++)
     {
@@ -128,21 +128,11 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
       printf("Percentage of the calculation of the sky view factor matrix: %5.2f%%\n",
              100.0*(double)i/(double)sky->nrh);
     }
-    delete alfa;
 }
 
 //***************************************************************************
 
-
 //***************************************************************************
-
-
-
-
-
-
-
-
 
 //Presa da geomorphology099 e modificato der_min
 void nablaquadro_mask(Matrix<double> *Z0, Matrix<short> *curv, Vector<double> *U, Vector<double> *V)
@@ -216,130 +206,25 @@ void nablaquadro_mask(Matrix<double> *Z0, Matrix<short> *curv, Vector<double> *U
         }
     }
 }
-
-
-
-
-
-
-
-
-
+//***************************************************************************
 
 //***************************************************************************
 
-
-
-
-
-
-
-
-
-
-
-
+//***************************************************************************
 
 //***************************************************************************
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//***************************************************************************
 
 //***************************************************************************
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//***************************************************************************
 
 //***************************************************************************
 
-
-
-
 //***************************************************************************
 
-
-
-
-
-
-
-
-
-
-
-
-
 //***************************************************************************
-
-
-
-
-
-
-
-
-
-//***************************************************************************
-
-
-
-
-
-
-
-//***************************************************************************
-
-
-
-
-
-//***************************************************************************
-
-
-
-
-//***************************************************************************
-
 
 //***************************************************************************
 

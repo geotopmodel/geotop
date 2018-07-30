@@ -34,7 +34,7 @@
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-Matrix<short>* copyshort_doublematrix(Matrix<double> *M)
+Matrix<short> * copyshort_doublematrix(Matrix<double> *M)
 {
 
   Matrix<short> *S;
@@ -42,12 +42,12 @@ Matrix<short>* copyshort_doublematrix(Matrix<double> *M)
 
   S = new Matrix<short>{M->nrh,M->nch};
   for (r=1; r<=M->nrh; r++)
+  {
+    for (c=1; c<=M->nch; c++)
     {
-      for (c=1; c<=M->nch; c++)
-        {
-          (*S)(r,c)=(short)(*M)(r,c);
-        }
+      (*S)(r,c)=(short)(*M)(r,c);
     }
+  }
 
   return (S);
 
@@ -66,12 +66,12 @@ Matrix<long> *copylong_doublematrix(Matrix<double> *M)
 
   L= new Matrix<long>{M->nrh,M->nch};
   for (r=1; r<=M->nrh; r++)
+  {
+    for (c=1; c<=M->nch; c++)
     {
-      for (c=1; c<=M->nch; c++)
-        {
-          (*L)(r,c)=(long)(*M)(r,c);
-        }
+      (*L)(r,c)=(long)(*M)(r,c);
     }
+  }
 
   return (L);
 
@@ -94,12 +94,12 @@ Matrix<double>* copydouble_longmatrix(Matrix<long> *L)
 
   M = new Matrix<double>{L->nrh,L->nch};
   for (r=1; r<=L->nrh; r++)
+  {
+    for (c=1; c<=L->nch; c++)
     {
-      for (c=1; c<=L->nch; c++)
-        {
-          (*M)(r,c)=(double)(*L)(r,c);
-        }
+      (*M)(r,c)=(double)(*L)(r,c);
     }
+  }
 
   return (M);
 
@@ -118,19 +118,19 @@ Matrix<double> *copydoublematrix_const(double c0, Matrix<double> *Mref, double N
 
   M= new Matrix<double>{Mref->nrh,Mref->nch};
   for (r=1; r<=M->nrh; r++)
+  {
+    for (c=1; c<=M->nch; c++)
     {
-      for (c=1; c<=M->nch; c++)
-        {
-          if ((*Mref)(r,c)==NOVALUE)
-            {
-              (*M)(r,c)=NOVALUE;
-            }
-          else
-            {
-              (*M)(r,c)=c0;
-            }
-        }
+      if ((*Mref)(r,c)==NOVALUE)
+      {
+        (*M)(r,c)=NOVALUE;
+      }
+      else
+      {
+        (*M)(r,c)=c0;
+      }
     }
+  }
 
   return (M);
 
@@ -169,12 +169,12 @@ DOUBLETENSOR *build_frommatrix(DOUBLEMATRIX *M, long l, long lmax) // maybe NOT 
   T=new_doubletensor(lmax, M->nrh, M->nch);
   initialize_doubletensor(T, 0.0);
   for (r=1; r<=M->nrh; r++)
+  {
+    for (c=1; c<=M->nch; c++)
     {
-      for (c=1; c<=M->nch; c++)
-        {
-          T->co[l][r][c] = M->co[r][c];
-        }
+      T->co[l][r][c] = M->co[r][c];
     }
+  }
 
   return (T);
 
@@ -195,12 +195,12 @@ void write_frommatrix(long l, DOUBLEMATRIX *M, DOUBLETENSOR *T) // maybe NOT use
   if (M->nch!=T->nch) t_error("cannot write a tensor from a matrix");
 
   for (r=1; r<=M->nrh; r++)
+  {
+    for (c=1; c<=M->nch; c++)
     {
-      for (c=1; c<=M->nch; c++)
-        {
-          T->co[l][r][c]=M->co[r][c];
-        }
+      T->co[l][r][c]=M->co[r][c];
     }
+  }
 
 }
 
@@ -223,37 +223,37 @@ void write_suffix(char *suffix, long i, short start)
   short m=0, c=0, d=0, u=0;
 
   if (i>=0 && i<=9)
-    {
-      m=0;
-      c=0;
-      d=0;
-      u=i;
-    }
+  {
+    m=0;
+    c=0;
+    d=0;
+    u=i;
+  }
   else if (i<=99)
-    {
-      m=0;
-      c=0;
-      d=(short)(i/10.0);
-      u=i-10.0*d;
-    }
+  {
+    m=0;
+    c=0;
+    d=(short)(i/10.0);
+    u=i-10.0*d;
+  }
   else if (i<=999)
-    {
-      m=0;
-      c=(short)(i/100.0);
-      d=(short)((i-100.0*c)/10.0);
-      u=i-100.0*c-10*d;
-    }
+  {
+    m=0;
+    c=(short)(i/100.0);
+    d=(short)((i-100.0*c)/10.0);
+    u=i-100.0*c-10*d;
+  }
   else if (i<=9999)
-    {
-      m=(short)(i/1000.0);
-      c=(short)((i-1000.0*m)/100.0);
-      d=(short)((i-1000.0*m-100.0*c)/10.0);
-      u=i-1000*m-100.0*c-10*d;
-    }
+  {
+    m=(short)(i/1000.0);
+    c=(short)((i-1000.0*m)/100.0);
+    d=(short)((i-1000.0*m-100.0*c)/10.0);
+    u=i-1000*m-100.0*c-10*d;
+  }
   else
-    {
-      t_error("Number too high");
-    }
+  {
+    t_error("Number too high");
+  }
 
   m+=48;
   c+=48;
@@ -351,15 +351,15 @@ short existing_file(char *name)
   //  fclose(f);
   //}else
   if ( (f=fopen(grass,"r"))!=NULL )
-    {
-      a=2;
-      fclose(f);
-    }
+  {
+    a=2;
+    fclose(f);
+  }
   else if ( (f=fopen(esri,"r"))!=NULL )
-    {
-      a=3;
-      fclose(f);
-    }
+  {
+    a=3;
+    fclose(f);
+  }
 
   //free(ft);
   free(esri);
@@ -386,10 +386,10 @@ short existing_file_wext(char *name, char *extension)
   temp=join_strings(name,extension);
 
   if ( (f=fopen(temp,"r"))!=NULL )
-    {
-      a=1;
-      fclose(f);
-    }
+  {
+    a=1;
+    fclose(f);
+  }
 
   free(temp);
 
@@ -411,10 +411,10 @@ short existing_file_woext(char *name)
   FILE *f;
 
   if ( (f=fopen(name,"r"))!=NULL )
-    {
-      a=1;
-      fclose(f);
-    }
+  {
+    a=1;
+    fclose(f);
+  }
 
   return (a);
 
@@ -426,7 +426,7 @@ short existing_file_woext(char *name)
 /******************************************************************************************************************************************/
 
 Matrix<double>* read_map(short a, char *filename, Matrix<double> *Mref,
-                          T_INIT *UVref, double no_value)
+                         T_INIT *UVref, double no_value)
 {
 
   //  a=0 non usa Mref, UVref output
@@ -443,129 +443,129 @@ Matrix<double>* read_map(short a, char *filename, Matrix<double> *Mref,
     t_error("Value of flag not supported in the subroutine in read_map");
 
   if (existing_file(filename)==1)
-    {
+  {
 
-      t_error("Fluidturtle map format not supported any more");
+    t_error("Fluidturtle map format not supported any more");
 
-    }
+  }
   else
+  {
+
+    header = (double *) malloc(6*sizeof(double));
+
+    if (existing_file(filename)==2) //grass ascii
+    {
+      m=read_grassascii(header, no_value, filename);
+      nr=(long)header[4];
+      nc=(long)header[5];
+      Dxmap=(header[2]-header[3])/((long)header[5]);
+      Dymap=(header[0]-header[1])/((long)header[4]);
+      X0map=header[3];
+      Y0map=header[1];
+
+    }
+    else if (existing_file(filename)==3)  //esri ascii
+    {
+      m=read_esriascii(header, no_value, filename);
+      printf("%s\n",filename);
+      nr=(long)header[1];
+      nc=(long)header[0];
+      Dxmap=header[4];
+      Dymap=header[4];
+      X0map=header[2];
+      Y0map=header[3];
+
+    }
+    else
     {
 
-      header = (double *) malloc(6*sizeof(double));
+      printf("The file %s doesn't exist\n",filename);
+      t_error("Fatal error");
 
-      if (existing_file(filename)==2) //grass ascii
-        {
-          m=read_grassascii(header, no_value, filename);
-          nr=(long)header[4];
-          nc=(long)header[5];
-          Dxmap=(header[2]-header[3])/((long)header[5]);
-          Dymap=(header[0]-header[1])/((long)header[4]);
-          X0map=header[3];
-          Y0map=header[1];
-
-        }
-      else if (existing_file(filename)==3)  //esri ascii
-        {
-          m=read_esriascii(header, no_value, filename);
-          printf("%s\n",filename);
-          nr=(long)header[1];
-          nc=(long)header[0];
-          Dxmap=header[4];
-          Dymap=header[4];
-          X0map=header[2];
-          Y0map=header[3];
-
-        }
-      else
-        {
-
-          printf("The file %s doesn't exist\n",filename);
-          t_error("Fatal error");
-
-        }
-
-      free(header);
-      if (a==1 || a==2)
-        {
-          //Check header
-          if (Dxmap!=UVref->U->co[2])
-            {
-              printf("Dx in %s file is different from Dx in DTM file! \n",filename);
-              t_error("Inconsistent map");
-            }
-          if (Dymap!=UVref->U->co[1])
-            {
-              printf("Dy:%f in %s file is different from Dy:%f in DTM file! \n",Dymap,
-                     filename,UVref->U->co[1]);
-              t_error("Inconsistent map");
-            }
-          if (X0map!=UVref->U->co[4])
-            {
-              printf("X0 in %s file is different from X0 in DTM file! \n",filename);
-              t_error("Inconsistent map");
-            }
-          if (Y0map!=UVref->U->co[3])
-            {
-              printf("Y0 in %s file is different from Y0 in DTM file! \n",filename);
-              t_error("Inconsistent map");
-            }
-          if (nr!=Mref->nrh)
-            {
-              printf("Number of rows in %s file (%ld) is not consistent with DTM file (%ld)! \n",
-                     filename,nr,Mref->nrh);
-              t_error("Inconsistent map");
-            }
-          if (nc!=Mref->nch)
-            {
-              printf("Number of columns in %s file is not consistent with DTM file! \n",
-                     filename);
-              t_error("Inconsistent map");
-            }
-
-        }
-      else if (a==0)
-        {
-
-          UVref->U.reset(new Vector<double>{4});
-          UVref->V.reset(new Vector<double>{2});
-          UVref->U->co[2]=Dxmap;
-          UVref->U->co[1]=Dymap;
-          UVref->U->co[4]=X0map;
-          UVref->U->co[3]=Y0map;
-
-          UVref->V->co[2]=no_value;
-          if (no_value<0)
-            {
-              UVref->V->co[1]=-1;
-            }
-          else
-            {
-              UVref->V->co[1]=1;
-            }
-        }
-
-      //assign values and check novalues
-      M = new Matrix<double>{nr,nc};
-      for (r=1; r<=nr; r++)
-        {
-          for (c=1; c<=nc; c++)
-            {
-              (*M)(r,c)=m[(r-1)*nc+c-1];
-              if (a==2)
-                {
-                  if ((*M)(r,c)==no_value && (*Mref)(r,c)!=no_value)
-                    {
-                      printf("ERROR:: Problem reading map %s, it has novalue where the reference maps has value: %ld %ld ref:%f %f\n",
-                             filename,r,c,(*Mref)(r,c),(*M)(r,c));
-                      t_error("Fatal Error (9)");
-                    }
-                  if ((*M)(r,c)!=no_value && (*Mref)(r,c)==no_value) (*M)(r,c)=no_value;
-                }
-            }
-        }
-
-      free(m);
     }
+
+    free(header);
+    if (a==1 || a==2)
+    {
+      //Check header
+      if (Dxmap!=UVref->U->co[2])
+      {
+        printf("Dx in %s file is different from Dx in DTM file! \n",filename);
+        t_error("Inconsistent map");
+      }
+      if (Dymap!=UVref->U->co[1])
+      {
+        printf("Dy:%f in %s file is different from Dy:%f in DTM file! \n",Dymap,
+               filename,UVref->U->co[1]);
+        t_error("Inconsistent map");
+      }
+      if (X0map!=UVref->U->co[4])
+      {
+        printf("X0 in %s file is different from X0 in DTM file! \n",filename);
+        t_error("Inconsistent map");
+      }
+      if (Y0map!=UVref->U->co[3])
+      {
+        printf("Y0 in %s file is different from Y0 in DTM file! \n",filename);
+        t_error("Inconsistent map");
+      }
+      if (nr!=Mref->nrh)
+      {
+        printf("Number of rows in %s file (%ld) is not consistent with DTM file (%ld)! \n",
+               filename,nr,Mref->nrh);
+        t_error("Inconsistent map");
+      }
+      if (nc!=Mref->nch)
+      {
+        printf("Number of columns in %s file is not consistent with DTM file! \n",
+               filename);
+        t_error("Inconsistent map");
+      }
+
+    }
+    else if (a==0)
+    {
+
+      UVref->U.reset(new Vector<double>{4});
+      UVref->V.reset(new Vector<double>{2});
+      UVref->U->co[2]=Dxmap;
+      UVref->U->co[1]=Dymap;
+      UVref->U->co[4]=X0map;
+      UVref->U->co[3]=Y0map;
+
+      UVref->V->co[2]=no_value;
+      if (no_value<0)
+      {
+        UVref->V->co[1]=-1;
+      }
+      else
+      {
+        UVref->V->co[1]=1;
+      }
+    }
+
+    //assign values and check novalues
+    M = new Matrix<double>{nr,nc};
+    for (r=1; r<=nr; r++)
+    {
+      for (c=1; c<=nc; c++)
+      {
+        (*M)(r,c)=m[(r-1)*nc+c-1];
+        if (a==2)
+        {
+          if ((*M)(r,c)==no_value && (*Mref)(r,c)!=no_value)
+          {
+            printf("ERROR:: Problem reading map %s, it has novalue where the reference maps has value: %ld %ld ref:%f %f\n",
+                   filename,r,c,(*Mref)(r,c),(*M)(r,c));
+            t_error("Fatal Error (9)");
+          }
+          if ((*M)(r,c)!=no_value && (*Mref)(r,c)==no_value) (*M)(r,c)=no_value;
+        }
+      }
+    }
+
+    free(m);
+  }
 
   return (M);
 
@@ -580,18 +580,16 @@ std::unique_ptr<Vector<double>> read_map_vector(short type, char *namefile, Matr
                                                 T_INIT *grid, double no_value, Matrix<long> *rc)
 {
 
-  Matrix<double> *M;
+  std::unique_ptr<Matrix<double>> M;
   long i, n=rc->nrh;
   std::unique_ptr<Vector<double>> V{new Vector<double>{n}};
 
-  M = read_map(type, namefile, mask, grid, no_value);
+  M.reset(read_map(type, namefile, mask, grid, no_value));
 
   for (i=1; i<=n; i++)
-    {
-      V->co[i] = (*M)((*rc)(i,1),(*rc)(i,2));
-    }
-
-  //free_doublematrix(M);
+  {
+    V->co[i] = (*M)((*rc)(i,1),(*rc)(i,2));
+  }
 
   return V;
 
@@ -626,17 +624,17 @@ void write_map(char *filename, short type, short format, Matrix<double> *M,
   //  format=3 esriascii
 
   if (format==1)
-    {
-      t_error("The fluidturtle format is not support any more");
-    }
+  {
+    t_error("The fluidturtle format is not support any more");
+  }
   else if (format==2)
-    {
-      write_grassascii(filename, type, M, UV, novalue);
-    }
+  {
+    write_grassascii(filename, type, M, UV, novalue);
+  }
   else if (format==3)
-    {
-      write_esriascii(filename, type, M, UV, novalue);
-    }
+  {
+    write_esriascii(filename, type, M, UV, novalue);
+  }
 
 }
 
@@ -657,17 +655,17 @@ void write_map_vector(char *filename, short type, short format,
   //  format=3 esriascii
 
   if (format==1)
-    {
-      t_error("The fluidturtle format is not support any more");
-    }
+  {
+    t_error("The fluidturtle format is not support any more");
+  }
   else if (format==2)
-    {
-      write_grassascii_vector(filename, type, V, j, nr, nc, UV, novalue);
-    }
+  {
+    write_grassascii_vector(filename, type, V, j, nr, nc, UV, novalue);
+  }
   else if (format==3)
-    {
-      write_esriascii_vector(filename, type, V, j, nr, nc, UV, novalue);
-    }
+  {
+    write_esriascii_vector(filename, type, V, j, nr, nc, UV, novalue);
+  }
 
 }
 
@@ -693,37 +691,36 @@ void write_tensorseries(short a, long l, long i, char *filename, short type,
   char SSSS[ ]= {"SSSS"};
   char *name=NULL;
   long r, c;
-  Matrix<double> *M;
+  std::unique_ptr<Matrix<double>> M;
 
   if (a==0)
-    {
-      write_suffix(SSSS, i, 0);
-      name=join_strings(filename,SSSS);
-    }
+  {
+    write_suffix(SSSS, i, 0);
+    name=join_strings(filename,SSSS);
+  }
   else if (a==1)
-    {
-      write_suffix(SSSSLLLLL, i, 0);
-      write_suffix(SSSSLLLLL, l, 5);
-      name=join_strings(filename,SSSSLLLLL);
-    }
+  {
+    write_suffix(SSSSLLLLL, i, 0);
+    write_suffix(SSSSLLLLL, l, 5);
+    name=join_strings(filename,SSSSLLLLL);
+  }
   else
-    {
-      t_error("Value not admitted");
-    }
+  {
+    t_error("Value not admitted");
+  }
 
 
-  M = new Matrix<double>{T->nrh,T->nch};
+  M.reset(new Matrix<double>{T->nrh,T->nch});
   for (r=1; r<=T->nrh; r++)
+  {
+    for (c=1; c<=T->nch; c++)
     {
-      for (c=1; c<=T->nch; c++)
-        {
-          (*M)(r,c)=T->co[l][r][c];
-        }
+      (*M)(r,c)=T->co[l][r][c];
     }
+  }
 
-  write_map(name, type, format, M, UV, novalue);
+  write_map(name, type, format, M.get(), UV, novalue);
 
- // free_doublematrix(M);
   free(name);
 
 }
@@ -750,26 +747,26 @@ void write_tensorseries_vector(short a, long l, long i, char *filename,
   std::unique_ptr<Vector<double>> V;
 
   if (a==0)
-    {
-      write_suffix(SSSS, i, 0);
-      name=join_strings(filename,SSSS);
-    }
+  {
+    write_suffix(SSSS, i, 0);
+    name=join_strings(filename,SSSS);
+  }
   else if (a==1)
-    {
-      write_suffix(SSSSLLLLL, i, 0);
-      write_suffix(SSSSLLLLL, l, 5);
-      name=join_strings(filename,SSSSLLLLL);
-    }
+  {
+    write_suffix(SSSSLLLLL, i, 0);
+    write_suffix(SSSSLLLLL, l, 5);
+    name=join_strings(filename,SSSSLLLLL);
+  }
   else
-    {
-      t_error("Value not admitted");
-    }
+  {
+    t_error("Value not admitted");
+  }
 
   V.reset(new Vector<double>{npoints});
   for (j=1; j<=npoints; j++)
-    {
-      V->co[j]=(*T)(l,j);
-    }
+  {
+    V->co[j]=(*T)(l,j);
+  }
 
   write_map_vector(name, type, format, V.get(), UV, novalue, J, nr, nc);
 
@@ -795,20 +792,20 @@ void rename_tensorseries(short a, long l, long i, char *filename)
   char *name=NULL;
 
   if (a==0)
-    {
-      write_suffix(SSSS, i, 0);
-      name=join_strings(filename,SSSS);
-    }
+  {
+    write_suffix(SSSS, i, 0);
+    name=join_strings(filename,SSSS);
+  }
   else if (a==1)
-    {
-      write_suffix(SSSSLLLLL, i, 0);
-      write_suffix(SSSSLLLLL, l, 5);
-      name=join_strings(filename,SSSSLLLLL);
-    }
+  {
+    write_suffix(SSSSLLLLL, i, 0);
+    write_suffix(SSSSLLLLL, l, 5);
+    name=join_strings(filename,SSSSLLLLL);
+  }
   else
-    {
-      t_error("Value not admitted");
-    }
+  {
+    t_error("Value not admitted");
+  }
 
   rename_map(name);
 
@@ -827,25 +824,25 @@ void rename_map(char *filename)
   char *name, *namenw, *temp;
 
   if (existing_file(filename) == 2)
-    {
-      name = join_strings(filename, ascii_grass);
-      temp = join_strings(filename, ".old");
-      namenw = join_strings(temp, ascii_grass);
-      rename(name, namenw);
-      free(namenw);
-      free(name);
-      free(temp);
-    }
+  {
+    name = join_strings(filename, ascii_grass);
+    temp = join_strings(filename, ".old");
+    namenw = join_strings(temp, ascii_grass);
+    rename(name, namenw);
+    free(namenw);
+    free(name);
+    free(temp);
+  }
   else if (existing_file(filename) == 3)
-    {
-      name = join_strings(filename, ascii_esri);
-      temp = join_strings(filename, ".old");
-      namenw = join_strings(temp, ascii_esri);
-      rename(name, namenw);
-      free(namenw);
-      free(name);
-      free(temp);
-    }
+  {
+    name = join_strings(filename, ascii_esri);
+    temp = join_strings(filename, ".old");
+    namenw = join_strings(temp, ascii_esri);
+    rename(name, namenw);
+    free(namenw);
+    free(name);
+    free(temp);
+  }
 
 }
 
@@ -861,24 +858,23 @@ void write_tensorseries2(char *suf, long l, char *filename, short type,
   char LLLLL[ ]= {"LLLLL"};
   char *temp1, *temp2;
   long r, c;
-  Matrix<double> *M;
+  std::unique_ptr<Matrix<double>> M;
 
   temp1 = join_strings(LLLLL, suf);
   write_suffix(temp1, l, 1);
 
-  M = new Matrix<double>{T->nrh,T->nch};
+  M.reset(new Matrix<double>{T->nrh,T->nch});
   for (r=1; r<=T->nrh; r++)
+  {
+    for (c=1; c<=T->nch; c++)
     {
-      for (c=1; c<=T->nch; c++)
-        {
-          (*M)(r,c) = T->co[l][r][c];
-        }
+      (*M)(r,c) = T->co[l][r][c];
     }
+  }
 
   temp2 = join_strings(filename, temp1);
-  write_map(temp2, type, format, M, UV, novalue);
+  write_map(temp2, type, format, M.get(), UV, novalue);
 
-  //free_doublematrix(M);
   free(temp1);
   free(temp2);
 
@@ -905,9 +901,9 @@ void write_tensorseries2_vector(char *suf, long l, char *filename, short type,
   V.reset(new Vector<double>{npoints});
 
   for (i=1; i<=npoints; i++)
-    {
-      V->co[i] = (*T)(l,i);
-    }
+  {
+    V->co[i] = (*T)(l,i);
+  }
 
   temp2 = join_strings(filename, temp1);
   write_map_vector(temp2, type, format, V.get(), UV, novalue, J, nr, nc);
@@ -933,9 +929,9 @@ void write_tensorseries3_vector(char *suffix, char *filename, short type,
 
   long l;
   for (l=T->nrl; l<=T->nrh; l++)
-    {
-      write_tensorseries2_vector(suffix, l, filename, type, format, T, UV, novalue, J, nr, nc);
-    }
+  {
+    write_tensorseries2_vector(suffix, l, filename, type, format, T, UV, novalue, J, nr, nc);
+  }
 }
 
 /******************************************************************************************************************************************/

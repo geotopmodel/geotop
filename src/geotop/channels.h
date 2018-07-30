@@ -25,15 +25,10 @@ void enumerate_channels(CHANNEL *cnet, Matrix<double> *LC, Matrix<short> *pixel_
 
 void next_down_channel_pixel(long r, long c, Matrix<double> *Z, Matrix<double> *LC, Matrix<short> *pixel_type,
                              Matrix<long> *CH, long novalue, long *R, long *C);
-//void next_down_channel_pixel( long r, long c, double **Z, Matrix<double> *LC, SHORTMATRIX *pixel_type,
-//                              LONGMATRIX *CH, long novalue, long *R, long *C);
 
 void find_max_constraint(Matrix<double> *Z, Matrix<double> *LC, Matrix<short> *pixel_type, Matrix<long> *CH,
                          long novalue, long *R, long *C);
-//void find_max_constraint( double **Z, Matrix<double> *LC, SHORTMATRIX *pixel_type, LONGMATRIX *CH,
-//                          long novalue, long *R, long *C);
+
 short neighboring_down_channel_pixel(long r, long c, long ir, long ic, Matrix<double> *Z, Matrix<double> *LC,
                                      Matrix<short> *pixel_type, Matrix<long> *CH, long novalue);
-//short neighboring_down_channel_pixel( long r, long c, long ir, long ic, double **Z, Matrix<double> *LC,
-//                                      SHORTMATRIX *pixel_type, LONGMATRIX *CH, long novalue);
 
