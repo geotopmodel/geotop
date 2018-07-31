@@ -1728,7 +1728,7 @@ land cover %ld, meteo station %ld\n",
                 else if (D>1.E-5 || SWE>1.E-5)
                 {
 
-                    snow->age->co[top->j_cont[r][c]]*=86400.0;  // now in [s]
+                    (*snow->age)(top->j_cont[r][c])*=86400.0;  // now in [s]
 
                     if (SWE <= par->max_weq_snow * par->max_snow_layers )
                     {
@@ -1794,7 +1794,7 @@ land cover %ld, meteo station %ld\n",
                     }
                 }
 
-                non_dimensionalize_snowage(&(snow->age->co[top->j_cont[r][c]]), IT->Tsnow0);
+                non_dimensionalize_snowage(&((*snow->age)(top->j_cont[r][c])), IT->Tsnow0);
 
                 if (par->point_sim == 1)
                 {

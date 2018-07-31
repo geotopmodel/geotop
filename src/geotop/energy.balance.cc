@@ -899,9 +899,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
           if ((*A->P->output_snow)(i_sim)>0)
             {
               if (strcmp(files[fsnowmelt],
-                         string_novalue) != 0) A->N->melted->co[j] = Melt_snow;
+                         string_novalue) != 0) (*A->N->melted)(j) = Melt_snow;
               if (strcmp(files[fsnowsubl],
-                         string_novalue) != 0) A->N->subl->co[j] = Evap_snow;
+                         string_novalue) != 0) (*A->N->subl)(j) = Evap_snow;
               if (strcmp(files[fsndur], string_novalue) != 0)
                 {
                   if (snowD>0)

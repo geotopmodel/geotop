@@ -672,6 +672,7 @@ typedef struct {
     std::unique_ptr<Vector<double>> subl;
     std::unique_ptr<Vector<double>> t_snow;
     std::unique_ptr<Vector<short>> yes;
+
     std::unique_ptr<Matrix<double>> Qsub;
     std::unique_ptr<Matrix<double>> Qsub_x;
     std::unique_ptr<Matrix<double>> Qsub_y;
@@ -682,6 +683,7 @@ typedef struct {
     std::unique_ptr<Matrix<double>> Qtrans_y;
     std::unique_ptr<Matrix<double>> Wsubl_plot;
     std::unique_ptr<Matrix<double>> Wtrans_plot;
+
     std::unique_ptr<Vector<double>> Dplot;
     std::unique_ptr<Vector<long>> change_dir_wind;
 } SNOW;

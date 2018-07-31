@@ -4804,12 +4804,12 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
         if ((*par->output_snow)(i_sim)>0)
         {
             if (strcmp(files[fsnowmelt], string_novalue) != 0)
-                snow->MELTED->co[j] += snow->melted->co[j];
+                (*snow->MELTED)(j) += (*snow->melted)(j);
             if (strcmp(files[fsnowsubl], string_novalue) != 0)
-                snow->SUBL->co[j] += snow->subl->co[j];
+                (*snow->SUBL)(j) += (*snow->subl)(j);
             if (strcmp(files[fsndur], string_novalue) != 0)
             {
-                if ((*snow->yes)(j) == 1) snow->t_snow->co[j] += Dt/secinday;
+                if ((*snow->yes)(j) == 1) (*snow->t_snow)(j) += Dt/secinday;
             }
         }
 
@@ -4912,7 +4912,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                 egy->Tgplot->co[j] += egy->Tgp->co[j];
             
             if (strcmp(files[pD], string_novalue) != 0) 
-                snow->Dplot->co[j] += W * DEPTH((*top->rc_cont)(j,1), (*top->rc_cont)(j,2), snow->S->lnum.get(), snow->S->Dzl);
+                (*snow->Dplot)(j) += W * DEPTH((*top->rc_cont)(j,1), (*top->rc_cont)(j,2), snow->S->lnum.get(), snow->S->Dzl);
             
             if (strcmp(files[pTa], string_novalue) != 0) 
                 met->Taplot->co[j] += W * (*met->Tgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2));
