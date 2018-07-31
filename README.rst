@@ -66,6 +66,8 @@ During the years, several scripts and external softwares have been developed for
 
 There are **R scripts** (https://github.com/ecor/geotopbricks) for I/O and GEOtop results visualization. They work for versions 2.0 and 2.1. Mainly developed by Emanuele Cordano. There is also a stable version published on CRAN as **R package** (https://cran.r-project.org/web/packages/geotopbricks/).
 
+There is also the plugin **R package geotopOtim2** (https://github.com/EURAC-Ecohydro/geotopOptim2) for the automatic calibration and sensitivity analysis of the GEOtop 2.x hydrological model, based on the "Particle Swarm Optimisation" approach and the LHOAT "Latin-Hypercube One-factor-At-a-Time" approach. It has been mainly developed by Emanuele Cordano, Samuel Senoner, Giacomo Bertoldi.
+
 There are **Matlab scripts** (https://github.com/EURAC-Ecohydro/GEOmatlab) for I/O and GEOtop results visualization. They work for version 1.25, most of them also for version 2.0. Mainly developed by Giacomo Bertoldi and collaborators.
 
 GEOtop can be embedded in the **GEOframe modelling system** (https://github.com/GEOframeOMSProjects). Mainly developed by Riccardo Rigon, Giuseppe Formetta and collaborators.
