@@ -55,9 +55,20 @@ Please use the github issues facility.
 
 We have the following mailing lists:
 
-   GEOtopDev for developers and advanced users: https://groups.google.com/forum/#!forum/geotopdev
+   **GEOtopDev** for developers and advanced users: https://groups.google.com/forum/#!forum/geotopdev
    
-   GEOtopUsers for regular users: https://groups.google.com/forum/#!forum/geotopusers
+   **GEOtopUsers** for regular users: https://groups.google.com/forum/#!forum/geotopusers
+   
+
+External utilities and scripts
+----------
+During the years, several scripts and external softwares have been developed for preprocess GEOtop inputs, postprocess and visualize results. Some utilites can be found here:
+
+There are **R scripts** (https://github.com/ecor/geotopbricks) for I/O and GEOtop results visualization. They work for versions 2.0 and 2.1. Mainly developed by Emanuele Cordano. There is also a stable version published on CRAN as **R package** (https://cran.r-project.org/web/packages/geotopbricks/).
+
+There are **Matlab scripts** (https://github.com/EURAC-Ecohydro/GEOmatlab) for I/O and GEOtop results visualization. They work for version 1.25, most of them also for version 2.0. Mainly developed by Giacomo Bertoldi and collaborators.
+
+GEOtop can be embedded in the **GEOframe modelling system** (https://github.com/GEOframeOMSProjects). Mainly developed by Riccardo Rigon, Giuseppe Formetta and collaborators.
 
 
 References
