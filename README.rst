@@ -39,13 +39,21 @@ packages:
 Usage
 -------
 
-in the doc directory there is some documentation. An old version of the manual (currently under revision) can be found there as well.
+in the doc directory there is some documentation. 
+An old version of the manual (currently under revision) can be found here: [GEOtop version 1.0 users manual](http://geotopmodel.github.io/geotop/materials/geotop_manuale.pdf) (updated July 2011)
+
+Installation instruction are [here](https://github.com/geotopmodel/geotop/blob/master/README.rst).
 
 
 Report bugs/suggestion/issues
 -------------------------------
+Please use the github issues facility.
 
-Please use the github issues facility 
+We have the following mailing lists:
+
+[GEOtopDev](https://groups.google.com/forum/#!forum/geotopdev) for developers and advanced users;
+[GEOtopUsers](https://groups.google.com/forum/#!forum/geotopusers) for regular users.
+
 
 References
 ----------
