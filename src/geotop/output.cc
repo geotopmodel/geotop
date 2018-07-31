@@ -977,7 +977,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                met->Tamean->co[i]+= (*met->Tgrid)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
+                (*met->Tamean)(i)+= (*met->Tgrid)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
                                      /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
             }
         }
@@ -985,7 +985,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                met->Vspdmean->co[i]+=(*met->Vgrid)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
+                (*met->Vspdmean)(i)+=(*met->Vgrid)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
                                       /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
             }
         }
@@ -993,7 +993,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                met->Vdirmean->co[i]+=(*met->Vdir)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
+                (*met->Vdirmean)(i)+=(*met->Vdir)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
                                       /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
             }
         }
@@ -1001,7 +1001,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                met->RHmean->co[i]+=(*met->RHgrid)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
+                (*met->RHmean)(i)+=(*met->RHgrid)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
                                     /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
             }
         }
@@ -1938,7 +1938,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (i=1; i<=par->total_pixel; i++)
                 {
-                    V->co[i] = sqrt(pow(met->Vxplot->co[i], 2.0) + pow(met->Vyplot->co[i], 2.0));
+                    V->co[i] = sqrt(pow((*met->Vxplot)(i), 2.0) + pow((*met->Vyplot)(i), 2.0));
                 }
                 plot(files[pVspd], i, V.get(), par->format_out, top->j_cont);
             }
@@ -1947,7 +1947,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (i=1; i<=par->total_pixel; i++)
                 {
-                    V->co[i] = 270.0 - (180./Pi)*atan2(met->Vyplot->co[i],met->Vxplot->co[i]);
+                    V->co[i] = 270.0 - (180./Pi)*atan2((*met->Vyplot)(i),(*met->Vxplot)(i));
                     if (V->co[i] >= 360.0) V->co[i] -= 360.0;
                 }
                 plot(files[pVdir], i, V.get(), par->format_out, top->j_cont);
@@ -4915,17 +4915,17 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                 (*snow->Dplot)(j) += W * DEPTH((*top->rc_cont)(j,1), (*top->rc_cont)(j,2), snow->S->lnum.get(), snow->S->Dzl);
             
             if (strcmp(files[pTa], string_novalue) != 0) 
-                met->Taplot->co[j] += W * (*met->Tgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2));
+                (*met->Taplot)(j) += W * (*met->Tgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2));
             
             if (strcmp(files[pRH], string_novalue) != 0) 
-                met->RHplot->co[j] += W * (*met->RHgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2));
+               (*met->RHplot)(j) += W * (*met->RHgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2));
             
             if (strcmp(files[pVspd], string_novalue) != 0
                 || strcmp(files[pVdir], string_novalue) != 0)
             {
-                met->Vxplot->co[j] -= W * (*met->Vgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2)) 
+                (*met->Vxplot)(j) -= W * (*met->Vgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2)) 
                                       * sin( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*Pi/180. );
-                met->Vyplot->co[j] -= W * (*met->Vgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2)) 
+               (*met->Vyplot)(j) -= W * (*met->Vgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2)) 
                                       * cos( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*Pi/180. );
             }
 
