@@ -55,8 +55,9 @@ Please use the github issues facility.
 
 We have the following mailing lists:
 
-[GEOtopDev](https://groups.google.com/forum/#!forum/geotopdev) for developers and advanced users;
-[GEOtopUsers](https://groups.google.com/forum/#!forum/geotopusers) for regular users.
+   GEOtopDev for developers and advanced users: https://groups.google.com/forum/#!forum/geotopdev
+   
+   GEOtopUsers for regular users: https://groups.google.com/forum/#!forum/geotopusers
 
 
 References
