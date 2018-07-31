@@ -4816,9 +4816,9 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
         if (par->max_glac_layers>0 && (*par->output_glac)(i_sim)>0)
         {
             if (strcmp(files[fglacmelt], string_novalue) != 0)
-                glac->MELTED->co[j] += glac->melted->co[j];
+                (*glac->MELTED)(j) += (*glac->melted)(j);
             if (strcmp(files[fglacsubl], string_novalue) != 0)
-                glac->SUBL->co[j] += glac->subl->co[j];
+                (*glac->SUBL)(j) += (*glac->subl)(j);
         }
 
         if (par->output_surfenergy->co[i_sim]>0)

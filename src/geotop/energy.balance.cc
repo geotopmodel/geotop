@@ -918,9 +918,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
           if (A->P->max_glac_layers>0 && (*A->P->output_glac)(i_sim)>0)
             {
               if (strcmp(files[fglacmelt],
-                         string_novalue) != 0) A->G->melted->co[j] = Melt_glac;
+                         string_novalue) != 0) (*A->G->melted)(j) = Melt_glac;
               if (strcmp(files[fglacsubl],
-                         string_novalue) != 0) A->G->subl->co[j] = Evap_glac;
+                         string_novalue) != 0) (*A->G->subl)(j) = Evap_glac;
             }
 
           if (A->P->output_surfenergy->co[i_sim]>0)
