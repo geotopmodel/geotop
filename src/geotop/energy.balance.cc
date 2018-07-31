@@ -77,7 +77,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
   static long line_interp;
   double Dtplot=0., Delta, E0, Et, SWup, Tgskin, SWrefl_surr_ave=0.,
          Tgskin_surr_ave=0.;
-  FILE *f=NULL;
+  FILE *f=nullptr;
 
   //calculation to be done before plotting maps
   *W = 0.;

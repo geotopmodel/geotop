@@ -91,7 +91,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     char NNNN[ ]= {"NNNN"};
     char rec[ ]= {"_recNNNN"},crec[ ]= {"_crecNNNN"};
     char *name, *temp1, *temp2, *s1, *s2;
-    FILE *f=NULL;
+    FILE *f=nullptr;
 
     // time variables
     time_t stop_time;
