@@ -119,8 +119,8 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                       //find canopy_height_over_snow
                       lu = (short)(*land->LC)(r,c);
                       canopy_height_over_snow = 0.0;
-                      //zmeas = Fmax(0.1, met->st->Vheight->co[1]-1.E-3*D);
-                      zmeas = met->st->Vheight->co[1];
+                      //zmeas = Fmax(0.1, (*met->st->Vheight)(1)-1.E-3*D);
+                      zmeas = (*met->st->Vheight)(1);
 
                       for (j=1; j<=jdvegprop; j++)
                         {

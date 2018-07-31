@@ -391,7 +391,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
             /* fixing dates: converting times in the same standard time set for the simulation and fill
            JDfrom0 */
-            added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, met->st->ST->co[i],
+            added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, (*met->st->ST)(i),
                                          met->numlines[i-1], iDate12, iJDfrom0);
 
             check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
@@ -405,11 +405,11 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
                                                                   met->numlines[i-1],
                                                                   met->horizon[i-1],
                                                                   met->horizonlines[i-1],
-                                                                  met->st->lat->co[i],
-                                                                  met->st->lon->co[i],
+                                                                  (*met->st->lat)(i),
+                                                                  (*met->st->lon)(i),
                                                                   par->ST,
-                                                                  met->st->Z->co[i],
-                                                                  met->st->sky->co[i],
+                                                                  (*met->st->Z)(i),
+                                                                  (*met->st->sky)(i),
                                                                   0.0, par->ndivdaycloud,
                                                                   par->dem_rotation,
                                                                   par->Lozone,
@@ -793,13 +793,13 @@ keyword LinearInterpolation at 1.\n");
         // error messages
         for (l=1; l<=met->st->Z->nh; l++)
         {
-            if (0.001*(*land->ty)(i,jHveg)>met->st->Vheight->co[l] || 0.001*(*land->ty)(i,jHveg)>met->st->Theight->co[l])
+            if (0.001*(*land->ty)(i,jHveg) > (*met->st->Vheight)(l) || 0.001*(*land->ty)(i,jHveg) > (*met->st->Theight)(l))
             {
                 f = fopen(FailedRunFile, "w");
                 fprintf(f, "hc:%f m, zmu:%f m, zmt:%f m - hc must be lower than measurement height - \
 land cover %ld, meteo station %ld\n",
-                        0.001*(*land->ty)(i,jHveg), met->st->Vheight->co[l],
-                        met->st->Theight->co[l], i, l);
+                        0.001*(*land->ty)(i,jHveg), (*met->st->Vheight)(l),
+                        (*met->st->Theight)(l), i, l);
                 fclose(f);
                 t_error("Fatal Error! Geotop is closed. See failing report (5).");
             }

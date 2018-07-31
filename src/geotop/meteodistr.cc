@@ -116,7 +116,7 @@ short get_temperature(double dE, double dN, Matrix<double> *E, Matrix<double> *N
     for (n = 1; n <= met->st->Z->nh; n++) {
         if ((long) met->var[n - 1][Tcode] != number_absent
             && (long) met->var[n - 1][Tcode] != number_novalue) {
-            met->var[n - 1][Tcode] = temperature(topo_ref, met->st->Z->co[n],
+            met->var[n - 1][Tcode] = temperature(topo_ref, (*met->st->Z)(n),
                                                  met->var[n - 1][Tcode], lapse_rate) + tk;
         }
     }
@@ -140,7 +140,7 @@ short get_temperature(double dE, double dN, Matrix<double> *E, Matrix<double> *N
     for (n = 1; n <= met->st->Z->nh; n++) {
         if ((long) met->var[n - 1][Tcode] != number_absent
             && (long) met->var[n - 1][Tcode] != number_novalue) {
-            met->var[n - 1][Tcode] = temperature(met->st->Z->co[n], topo_ref, met->var[n - 1][Tcode], lapse_rate) - tk;
+            met->var[n - 1][Tcode] = temperature((*met->st->Z)(n), topo_ref, met->var[n - 1][Tcode], lapse_rate) - tk;
         }
     }
 
@@ -176,7 +176,7 @@ short get_relative_humidity(double dE, double dN, Matrix<double> *E, Matrix<doub
     for (n = 1; n <= met->st->Z->nh; n++) {
         if ((long) met->var[n - 1][Tdcode] != number_absent
             && (long) met->var[n - 1][Tdcode] != number_novalue) {
-            met->var[n - 1][Tdcode] = temperature(topo_ref, met->st->Z->co[n],
+            met->var[n - 1][Tdcode] = temperature(topo_ref, (*met->st->Z)(n),
                                                   met->var[n - 1][Tdcode], lapse_rate) + tk;
         }
     }
@@ -202,7 +202,7 @@ short get_relative_humidity(double dE, double dN, Matrix<double> *E, Matrix<doub
     for (n = 1; n <= met->st->Z->nh; n++) {
         if ((long) met->var[n - 1][Tdcode] != number_absent
             && (long) met->var[n - 1][Tdcode] != number_novalue) {
-            met->var[n - 1][Tdcode] = temperature(met->st->Z->co[n], topo_ref,
+            met->var[n - 1][Tdcode] = temperature((*met->st->Z)(n), topo_ref,
                                                   met->var[n - 1][Tdcode], lapse_rate) - tk;
         }
     }
@@ -432,8 +432,8 @@ short get_precipitation(double dE, double dN, Matrix<double> *E,
         if ((long) met->var[n - 1][Pcode] != number_novalue
             && (long) met->var[n - 1][Pcode] != number_absent) {
             prec = met->var[n - 1][Pcode];
-            met->var[n - 1][Pcode] = met->st->Z->co[n];
-            met->st->Z->co[n] = prec;
+            met->var[n - 1][Pcode] = (*met->st->Z)(n);
+            (*met->st->Z)(n) = prec;
             cnt++;
         }
     }
@@ -451,8 +451,8 @@ short get_precipitation(double dE, double dN, Matrix<double> *E,
         for (n = 1; n <= met->st->Z->nh; n++) {
             if ((long) met->var[n - 1][Pcode] != number_novalue
                 && (long) met->var[n - 1][Pcode] != number_absent) {
-                prec = met->st->Z->co[n];
-                met->st->Z->co[n] = met->var[n - 1][Pcode];
+                prec = (*met->st->Z)(n);
+                (*met->st->Z)(n) = met->var[n - 1][Pcode];
                 if (dew == 1) {
                     part_snow(prec, &rain, &snow, met->var[n - 1][Tdcode], Train, Tsnow);
                 } else {

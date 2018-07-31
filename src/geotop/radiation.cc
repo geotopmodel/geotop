@@ -715,7 +715,7 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met,
   double P, RH, T, c;
 
   //pressure [mbar]
-  P=pressure(met->st->Z->co[i]);
+  P=pressure((*met->st->Z)(i));
 
   //relative humidity
   if ((long)met->var[i-1][iRh] != number_novalue
@@ -730,7 +730,7 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met,
            && (long)met->var[i-1][iTdew] != number_absent
            && (long)met->var[i-1][iTdew] != number_novalue)
         {
-          RH=RHfromTdew(met->var[i-1][iT], met->var[i-1][iTdew], met->st->Z->co[i]);
+          RH=RHfromTdew(met->var[i-1][iT], met->var[i-1][iTdew], (*met->st->Z)(i));
         }
       else
         {
@@ -742,10 +742,10 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met,
   T=met->var[i-1][iT];
   if ((long)T == number_novalue || (long)T == number_absent) T=0.0;
 
-  c = cloud_transmittance(JDbeg, JDend, met->st->lat->co[i]*Pi/180., Delta,
-                          (met->st->lon->co[i]*Pi/180. - ST*Pi/12. + Et)/omega, RH,
+  c = cloud_transmittance(JDbeg, JDend, (*met->st->lat)(i)*Pi/180., Delta,
+                          ((*met->st->lon)(i)*Pi/180. - ST*Pi/12. + Et)/omega, RH,
                           T, P, met->var[i-1][iSWd], met->var[i-1][iSWb], met->var[i-1][iSW], E0,
-                          met->st->sky->co[i], SWrefl_surr,
+                          (*met->st->sky)(i), SWrefl_surr,
                           Lozone, alpha, beta, albedo);
 
   return c;

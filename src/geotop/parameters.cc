@@ -1802,44 +1802,44 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   met->st->Theight.reset(new Vector<double>{nmeteo_stations});
 
   i=1;
-  met->st->E->co[i] = assignation_number(201, i - 1, keyword, num_param, num_param_components, (double) number_novalue,
+  (*met->st->E)(i) = assignation_number(201, i - 1, keyword, num_param, num_param_components, (double) number_novalue,
                                          0);
-  met->st->N->co[i] = assignation_number(202, i - 1, keyword, num_param, num_param_components, (double) number_novalue,
+  (*met->st->N)(i) = assignation_number(202, i - 1, keyword, num_param, num_param_components, (double) number_novalue,
                                          0);
-  met->st->lat->co[i] = assignation_number(203, i - 1, keyword, num_param, num_param_components, par->latitude, 0);
-  met->st->lon->co[i] = assignation_number(204, i - 1, keyword, num_param, num_param_components, par->longitude, 0);
-  met->st->Z->co[i] = assignation_number(205, i - 1, keyword, num_param, num_param_components, 0., 0);
-  met->st->sky->co[i] = assignation_number(206, i - 1, keyword, num_param, num_param_components, 1., 0);
-  met->st->ST->co[i] = assignation_number(207, i - 1, keyword, num_param, num_param_components, par->ST, 0);
+  (*met->st->lat)(i) = assignation_number(203, i - 1, keyword, num_param, num_param_components, par->latitude, 0);
+ (*met->st->lon)(i) = assignation_number(204, i - 1, keyword, num_param, num_param_components, par->longitude, 0);
+ (*met->st->Z)(i) = assignation_number(205, i - 1, keyword, num_param, num_param_components, 0., 0);
+ (*met->st->sky)(i) = assignation_number(206, i - 1, keyword, num_param, num_param_components, 1., 0);
+  (*met->st->ST)(i) = assignation_number(207, i - 1, keyword, num_param, num_param_components, par->ST, 0);
 
   for (i=2; i<=nmeteo_stations; i++)
     {
-      met->st->E->co[i] = assignation_number(201, i - 1, keyword, num_param, num_param_components,
-                                             met->st->E->co[i - 1], 0);
-      met->st->N->co[i] = assignation_number(202, i - 1, keyword, num_param, num_param_components,
-                                             met->st->N->co[i - 1], 0);
-      met->st->lat->co[i] = assignation_number(203, i - 1, keyword, num_param, num_param_components,
-                                               met->st->lat->co[i - 1], 0);
-      met->st->lon->co[i] = assignation_number(204, i - 1, keyword, num_param, num_param_components,
-                                               met->st->lon->co[i - 1], 0);
-      met->st->Z->co[i] = assignation_number(205, i - 1, keyword, num_param, num_param_components,
-                                             met->st->Z->co[i - 1], 0);
-      met->st->sky->co[i] = assignation_number(206, i - 1, keyword, num_param, num_param_components,
-                                               met->st->sky->co[i - 1], 0);
-      met->st->ST->co[i] = assignation_number(207, i - 1, keyword, num_param, num_param_components,
-                                              met->st->ST->co[i - 1], 0);
+      (*met->st->E)(i) = assignation_number(201, i - 1, keyword, num_param, num_param_components,
+                                             (*met->st->E)(i-1), 0);
+      (*met->st->N)(i) = assignation_number(202, i - 1, keyword, num_param, num_param_components,
+                                             (*met->st->N)(i-1), 0);
+      (*met->st->lat)(i) = assignation_number(203, i - 1, keyword, num_param, num_param_components,
+                                               (*met->st->lat)(i-1), 0);
+     (*met->st->lon)(i) = assignation_number(204, i - 1, keyword, num_param, num_param_components,
+                                               (*met->st->lon)(i-1), 0);
+     (*met->st->Z)(i) = assignation_number(205, i - 1, keyword, num_param, num_param_components,
+                                            (*met->st->Z)(i-1), 0);
+     (*met->st->sky)(i) = assignation_number(206, i - 1, keyword, num_param, num_param_components,
+                                               (*met->st->sky)(i-1), 0);
+      (*met->st->ST)(i) = assignation_number(207, i - 1, keyword, num_param, num_param_components,
+                                              (*met->st->ST)(i-1), 0);
     }
 
   a = assignation_number(208, 0, keyword, num_param, num_param_components, 10., 0);
   for (i=1; i<=nmeteo_stations; i++)
     {
-      met->st->Vheight->co[i] = a;
+      (*met->st->Vheight)(i) = a;
     }
 
   a = assignation_number(209, 0, keyword, num_param, num_param_components, 2., 0);
   for (i=1; i<=nmeteo_stations; i++)
     {
-      met->st->Theight->co[i] = a;
+      (*met->st->Theight)(i) = a;
     }
 
   //lapse rates (cyclic)
@@ -2754,31 +2754,31 @@ short read_meteostations_file(Vector<long> *i, METEO_STATIONS *S, char *name, ch
                         {
                           if (k==1)
                             {
-                              S->E->co[j] = M[n-1][k];
+                              (*S->E)(j) = M[n-1][k];
                             }
                           else if (k==2)
                             {
-                              S->N->co[j] = M[n-1][k];
+                              (*S->N)(j) = M[n-1][k];
                             }
                           else if (k==3)
                             {
-                              S->lat->co[j] = M[n-1][k];
+                              (*S->lat)(j) = M[n-1][k];
                             }
                           else if (k==4)
                             {
-                              S->lon->co[j] = M[n-1][k];
+                             (*S->lon)(j) = M[n-1][k];
                             }
                           else if (k==5)
                             {
-                              S->Z->co[j] = M[n-1][k];
+                             (*S->Z)(j) = M[n-1][k];
                             }
                           else if (k==6)
                             {
-                              S->sky->co[j] = M[n-1][k];
+                              (*S->sky)(j) = M[n-1][k];
                             }
                           else if (k==7)
                             {
-                              S->ST->co[j] = M[n-1][k];
+                              (*S->ST)(j) = M[n-1][k];
                             }
                         }
                     }

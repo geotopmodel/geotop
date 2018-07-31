@@ -376,8 +376,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
   //METEOROLOGICAL COMPUTATIONS
 
   //temperature and wind velocity measurement heights
-  zmeas_u=A->M->st->Vheight->co[1];
-  zmeas_T=A->M->st->Theight->co[1];
+  zmeas_u = (*A->M->st->Vheight)(1);
+  zmeas_T = (*A->M->st->Theight)(1);
 
   //RAIN AND SNOW PRECIPITATION [mm]
   //convert total precipitation to [mm]
