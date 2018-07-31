@@ -13,4 +13,8 @@ Geosci. Model Dev. 7, 2831–2857. https://doi.org/10.5194/gmd-7-2831-2014
 Rigon, R., Bertoldi, G., Over, T.M., 2006. GEOtop: A Distributed Hydrological Model with Coupled Water and Energy Budgets. 
 J. Hydrometeorol. 7, 371–388. https://doi.org/10.1175/JHM497.1
 
+If you want to use the model, please present yourself at the [GEOtopUsers](https://groups.google.com/forum/#!forum/geotopusers) mailing list. We will be happy to support you. 
+
+If you want to contribute to the model developmeent, please present yourself at the [GEOtopDev](https://groups.google.com/forum/#!forum/geotopdev) mailing list. You can build your own branch. Please consider that any new code version should pass a series of [tests](https://github.com/geotopmodel/geotop/tree/master/tests).
+
 
