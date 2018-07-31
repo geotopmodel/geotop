@@ -40,11 +40,11 @@ while(r==9 || r==0 || r==11 ||
 
       crossQ(x,y,x+now->i,y+now->j,m) ){
 
-       if(work->next==NULL) {
+       if(work->next==nullptr) {
 
             work=prependto(home,work);
 
-          home=NULL;
+          home=nullptr;
 
           printf("\nWarning::pit in position {%d,%d}\n",x,y);
 
@@ -56,7 +56,7 @@ while(r==9 || r==0 || r==11 ||
 
           work=work->next;
 
-          now->next=NULL;
+          now->next=nullptr;
 
           home=prependto(home,now);
 
@@ -79,7 +79,7 @@ work=rotateleft(work);
 
 work=appendto(work,home);
 
-home=NULL;
+home=nullptr;
 
 
 

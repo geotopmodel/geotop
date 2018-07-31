@@ -49,7 +49,7 @@ FILE *t_fopen(const char *name, const char *mode) {
   int ret = 0;
 
   /*if(strcmp(mode,"w")==0 || strcmp(mode,"wb")==0){
-    if((fp=fopen(name,"r"))!=NULL ){
+    if((fp=fopen(name,"r"))!=nullptr ){
       // The file already exist
       //printf("\nWarning::Overwriting the file %s \n",name);
       strcpy(newname,name);
@@ -71,11 +71,11 @@ FILE *t_fopen(const char *name, const char *mode) {
 
 
   fp = fopen(name, mode);
-  if (fp == NULL) {
+  if (fp == nullptr) {
     printf("%s\n", name);
     t_error(" The specified file could not be opened ");
 
-    return NULL;
+    return nullptr;
 
   } else {
 
@@ -92,13 +92,13 @@ FILE *t_fclose(FILE *stream)
 {
 
 
-  if (stream == NULL) {
+  if (stream == nullptr) {
     printf(" An attemp was made to close an already closed file ");
   } else {
     fclose(stream);
   }
 
-  return NULL;
+  return nullptr;
 
 }
 
@@ -113,9 +113,9 @@ long write_shortmatrix_elements(FILE *output, SHORTMATRIX *m, long maxcols)
   //long count=0;
 
 
-  if (output == NULL) {
+  if (output == nullptr) {
     t_error("The input file was not opened properly");
-  } else if (m == NULL || m->co == NULL || m->isdynamic != 1) {
+  } else if (m == nullptr || m->co == nullptr || m->isdynamic != 1) {
     t_error("The matrix was not allocated properly");
   } else if (m->nrl > m->nrh || m->ncl > m->nch) {
     t_error("The matrix has no proper dimensions");
@@ -150,9 +150,9 @@ long write_intmatrix_elements(FILE *output, INTMATRIX *m, long maxcols)
   long tmp = 0, i, j;
   //long count=0;
 
-  if (output == NULL) {
+  if (output == nullptr) {
     t_error("The input file was not opened properly");
-  } else if (m == NULL || m->co == NULL || m->isdynamic != 1) {
+  } else if (m == nullptr || m->co == nullptr || m->isdynamic != 1) {
     t_error("The matrix was not allocated properly");
   } else if (m->nrl > m->nrh || m->ncl > m->nch) {
     t_error("The matrix has no proper dimensions");
@@ -187,9 +187,9 @@ long write_longmatrix_elements(FILE *output, LONGMATRIX *m, long maxcols)
   //long count=0;
 
 
-  if (output == NULL) {
+  if (output == nullptr) {
     t_error("The input file was not opened properly");
-  } else if (m == NULL || m->co == NULL || m->isdynamic != 1) {
+  } else if (m == nullptr || m->co == nullptr || m->isdynamic != 1) {
     t_error("The matrix was not allocated properly");
   } else if (m->nrl > m->nrh || m->ncl > m->nch) {
     t_error("The matrix has no proper dimensions");
@@ -223,9 +223,9 @@ long write_floatmatrix_elements(FILE *output, FLOATMATRIX *m, long maxcols)
   long tmp = 0, i, j;
   //long count=0;
 
-  if (output == NULL) {
+  if (output == nullptr) {
     t_error("The input file was not opened properly");
-  } else if (m == NULL || m->co == NULL || m->isdynamic != 1) {
+  } else if (m == nullptr || m->co == nullptr || m->isdynamic != 1) {
     t_error("The matrix was not allocated properly");
   } else if (m->nrl > m->nrh || m->ncl > m->nch) {
     t_error("The matrix has no proper dimensions");
@@ -262,9 +262,9 @@ long write_doublematrix_elements(FILE *output, DOUBLEMATRIX *m, long maxcols)
 
 
 
-  if (output == NULL) {
+  if (output == nullptr) {
     t_error("The input file was not opened properly");
-  } else if (m == NULL || m->co == NULL || m->isdynamic != 1) {
+  } else if (m == nullptr || m->co == nullptr || m->isdynamic != 1) {
     t_error("The matrix was not allocated properly");
   } else if (m->nrl > m->nrh || m->ncl > m->nch) {
     t_error("The matrix has no proper dimensions");

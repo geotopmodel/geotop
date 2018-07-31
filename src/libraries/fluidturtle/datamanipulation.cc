@@ -7,7 +7,7 @@ void initialize_shortmatrix(SHORTMATRIX *L, short sign) {
 
   long i, j;
 
-  if (L != NULL) {
+  if (L != nullptr) {
     if (L->isdynamic == 1) {
       for (i = 1; i <= L->nrh; i++) {
         for (j = 1; j <= L->nch; j++) {
@@ -27,7 +27,7 @@ void initialize_longmatrix(LONGMATRIX *L, long sign) {
 
   long i, j;
 
-  if (L != NULL) {
+  if (L != nullptr) {
     if (L->isdynamic == 1) {
       for (i = 1; i <= L->nrh; i++) {
         for (j = 1; j <= L->nch; j++) {
@@ -47,7 +47,7 @@ void initialize_doublematrix(DOUBLEMATRIX *L, double sign) {
 
   long i, j;
 
-  if (L != NULL) {
+  if (L != nullptr) {
     if (L->isdynamic == 1) {
       for (i = L->nrl; i <= L->nrh; i++) {
         for (j = L->ncl; j <= L->nch; j++) {
@@ -68,8 +68,8 @@ void copy_doublematrix(Matrix<double> *origin, Matrix<double> *destination) {
 
   long i, j;
 
-//  if (origin == NULL || destination == NULL || origin->co == NULL
-//      || destination->co == NULL) {
+//  if (origin == nullptr || destination == nullptr || origin->co == nullptr
+//      || destination->co == nullptr) {
 //
 //    t_error("A matrix was not allocated");
 //

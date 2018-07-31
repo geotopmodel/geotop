@@ -106,7 +106,7 @@ void free_doubletensor( DOUBLETENSOR *m)
 
 {
 
-  if (m==NULL || m->co==NULL)
+  if (m==nullptr || m->co==nullptr)
     {
       t_error("This matrix was never allocated");
     }
@@ -133,7 +133,7 @@ void initialize_doubletensor(DOUBLETENSOR *L, double sign)
 
   long i,j,k;
 
-  if (L!=NULL)
+  if (L!=nullptr)
     {
       if (L->isdynamic==1)
         {
