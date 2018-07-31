@@ -40,9 +40,9 @@ Usage
 -------
 
 in the doc directory there is some documentation. 
-An old version of the manual (currently under revision) can be found here: [GEOtop version 1.0 users manual](http://geotopmodel.github.io/geotop/materials/geotop_manuale.pdf) (updated July 2011)
+An old version of the manual (currently under revision) can be found here: manual]http://geotopmodel.github.io/geotop/materials/geotop_manuale.pdf (updated July 2011)
 
-Installation instruction are [here](https://github.com/geotopmodel/geotop/blob/master/README.rst).
+Installation instruction are https://github.com/geotopmodel/geotop/blob/master/README.rst.
 
 
 Report bugs/suggestion/issues
