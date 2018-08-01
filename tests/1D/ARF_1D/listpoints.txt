@@ -1,0 +1,2 @@
+ID,xcoord,ycoord,zcoord,landcover,soiltype,slope,aspect,sky,bedrock
+1,609501,7648992,760.0,1,1,0,0,1,1000000

@@ -1,0 +1,223 @@
+!*******************************
+!******* CONFIGURATION *********
+!*******************************
+TimeStepEnergyAndWater = 3600
+!TimeStepEnergyAndWater = 7200
+!TimeStepEnergyAndWater = 10800
+!TimeStepEnergyAndWater = 14400
+!InitDateDDMMYYYYhhmm   = 31/12/2002 23:00
+!EndDateDDMMYYYYhhmm    = 31/12/2012 23:00
+InitDateDDMMYYYYhhmm = 01/01/2000 23:00
+EndDateDDMMYYYYhhmm  = 03/01/2000 23:00
+! The end date for the test was modified by Elisa Bortoli 
+! EndDateDDMMYYYYhhmm=31/12/2015 23:00
+EnergyBalance = 1
+WaterBalance  = 1
+PointSim      = 1
+
+!*******************************
+!********* GEOGRAPHY ***********
+!*******************************
+Latitude= 68.93
+Longitude= -150.27
+StandardTimeSimulation=-9
+
+!*******************************
+!******** METEO DATA ***********
+!*******************************
+NumberOfMeteoStation=    1
+MeteoStationCoordinateX=609501
+MeteoStationCoordinateY=7648992
+MeteoStationLatitude=68.93
+MeteoStationLongitude=-150.27
+MeteoStationElevation=760.0
+MeteoStationStandardTime=-9
+MeteoStationWindVelocitySensorHeight=10
+MeteoStationTemperatureSensorHeight=2
+
+!MeteoFile = "meteo/meteoNARRdailyWithSpinUp"
+!MeteoFile = "meteo/meteoNARRhourlyDynamicWithSpinUp"
+MeteoFile = "meteo/meteoNARRhourlyDynamicRepeatedWithSpinUp"
+
+HeaderDateDDMMYYYYhhmmMeteo = "POSIX"
+HeaderJulianDayfrom0Meteo   = "JD"
+HeaderIPrec                 = "Iprec"
+HeaderAirTemp               = "AirT"
+HeaderWindVelocity          = "WindSp"
+HeaderRH                    = "RH"
+HeaderSWglobal              = "Swglob"
+HeaderCloudSWTransmissivity = "CloudTrans"
+
+!********************************************
+!***************** PRECIP *******************
+!********************************************
+
+! Best performance was with SnowDepthCalibration0690
+! (RMSE	=73.3 mm), which had the following values:
+ThresTempRain = 3.386
+ThresTempSnow = -1.357
+SnowCorrFactor = 0.613
+!
+! However, having such a high ThresTempRain was 
+! leading to occasional small snowfall events during
+! the summer which led to extreme negative values of
+! soil heat flux due to snow falling on a warm soil
+! surface. With longer model timesteps (>2 hrs), it 
+! is recommended to use the values from
+! SnowDepthCalibration0749, which had a comparable 
+! RMSE (78.97 mm) but ThresTempRain and ThresTempSnow
+! much closer to 0.0.
+!ThresTempRain = 0.209
+!ThresTempSnow = -0.986
+!SnowCorrFactor = 0.600
+!
+! For hourly SnowDepthCalibration, the best performance 
+! number 663, which had the following values:
+ThresTempRain = 3.66
+ThresTempSnow = -0.06
+SnowCorrFactor = 0.54
+
+RainCorrFactor=1.0
+
+IrriducibleWatSatSnow = 0.04
+
+MaxSnowLayerNumber = 10
+
+!********************************************
+!****** INIT AND BOUNDARY CONDITIONS ********
+!********************************************
+!! Initial conditions are based on the final state of a 20-year simulation (31/12/1982 - 31/12/2002)
+! Temperature initial conditions
+!InitSoilTemp=-19.253304,-19.181532,-19.107303,-19.032162,-18.957624,-18.882842,-18.807353,-18.730600,-18.652077,-18.571821,-18.489954,-18.407797,-18.327978,-18.246034,-18.106473,-17.627446,-16.505138,-15.382103,-14.151063,-13.502565,-12.549153,-11.310518,-10.408542,-9.884173,-9.423330,-8.950399,-8.477176,-8.012701,-7.563850,-7.136649,-6.737410,-6.372972,-6.049980,-5.773790,-5.547701,-5.372845,-5.248559,-5.172773,-5.142074,-5.151479,-5.194227,-5.261919,-5.345075,-5.433968,-5.519458,-5.593627,-5.650094,-5.684045,-5.692025,-5.671644
+InitSoilTemp=-4.8
+InitSoilTempBedrock         = -4.8
+ZeroTempAmplitDepth         = 20000
+ZeroTempAmplitTemp          = -4.8
+
+! Hydrological initial conditions
+!InitSoilPressure=-1109.910141,-1314.347552,-1578.555578,-1573.484479,-1629.796230,-1709.745059,-1805.632460,-1943.653314,-2094.153037,-2213.241865,-2333.899304,-2242.737850,-1971.802322,-2545.692010,-33637.679035,-2252705.345832,-2252694.026744,-2252682.766716,-2252645.302801,-2252574.354450,-2252473.858749,-2252349.815186,-1093.604209,-2.346796,115.248288,64.798163,40.247839,26.596409,18.283042,12.913472,9.294152,6.777016,4.989839,3.699880,2.760860,2.071533,1.563893,1.188172,0.908062,0.697267,0.536492,0.412631,0.315555,0.237832,0.175680,0.124476,0.082551,0.049796,0.024185,-0.058265
+InitSoilPressure=0.0
+FreeDrainageAtLateralBorder = 0
+FreeDrainageAtBottom        = 1
+
+! Snow initial conditions
+InitSWE=23.78
+InitSnowDensity=208.72
+InitSnowTemp=-21.47
+
+!************************************
+!******* POINTS OF INTEREST *********
+!************************************
+PointFile               = "listpoints"
+HeaderPointID           = "ID"
+HeaderCoordinatePointX  = "xcoord"
+HeaderCoordinatePointY  = "ycoord"
+HeaderPointElevation    = "zcoord"
+HeaderPointLandCoverType= "landcover"
+HeaderPointSoilType     = "soiltype"
+HeaderPointSlope        = "slope"
+HeaderPointAspect       = "aspect"
+HeaderPointSkyViewFactor= "sky"
+HeaderPointBedrockDepth = "bedrock"
+
+!*******************************
+!******** LAND COVER  **********
+!*******************************
+NumLandCoverTypes=1
+PointLandCoverType=1
+SoilRoughness=100.0
+ThresSnowSoilRough=100.0
+LeafAngles=-1
+SurFlowResLand=0.25
+SurFlowResExp=0.667
+
+TimeDependentVegetationParameterFile="veg/VegParams"
+
+!*******************************
+!***** ALBEDO & EMISSIVITY *****
+!*******************************
+! Soil values from Campbell & Norman Table 11.2
+! Soil emissivity from Rocha & Shaver, 2011, GCB, Table 1
+SoilAlbVisDry = 0.13
+SoilAlbNIRDry = 0.13
+SoilAlbVisWet = 0.08
+SoilAlbNIRWet = 0.08
+SoilEmissiv = 0.97
+
+! Veg values from different sources
+!   Reflectivity from ARFlux_2008-2014_BurnSpectra.csv file
+!     VegReflVis is average of all measurements from 380-699 nm for unburned site
+!     VegRelfNIR is average of all measurements from 700-1050 nm for unburned site
+!   Transmissivity is from Bewley et al. (2007) for tundra shrubs
+VegReflVis = 0.06
+VegReflNIR = 0.313
+VegTransVis = 0.45
+VegTransNIR = 0.45
+
+! Snow values from ~mean winter albedo measured at flux towers
+FreshSnowReflVis = 0.90
+FreshSnowReflNIR = 0.90
+
+!*******************************
+!*******  SOIL TYPE ************
+!*******************************
+SoilParFile = "soil/SoilARF"
+
+SoilLayerNumber = 50
+SoilLayerTypes = 1
+PointSoilType = 1
+
+HeaderSoilDz = "Dz"
+HeaderLateralHydrConductivity = "Kh"
+HeaderNormalHydrConductivity = "Kv"
+HeaderThetaRes = "vwc_r"
+HeaderFieldCapacity = "vwc_fc"
+HeaderThetaSat = "vwc_s"
+HeaderAlpha = "VG_alpha"
+HeaderN = "VG_n"
+HeaderSpecificStorativity = "SS"
+HeaderKthSoilSolids = "thermcond"
+HeaderCthSoilSolids = "thermcap"
+
+!*******************************
+!******* NUMERICS **********
+!*******************************
+HeatEqTol = 1.0E-05
+!RichardMaxIter = 1500
+!RichardInitForc = 0.01
+RichardTol = 1.0E-09
+MinTimeStep = 60
+MinRatioKactualToKSat = 1.0E-5
+
+! canopy numerics
+CanopyMaxIter=50
+LocMaxIter=50
+TsMaxIter=50
+BusingerMaxIter=50
+CanopyStabCorrection=1
+
+! canopy stability (copied from geotop_examples/Mazia_1D)
+MoninObukhov=2
+
+!*************************************
+!******* OUTPUT TIME SERIES **********
+!*************************************
+! point file
+DtPlotPoint = 24
+PointOutputFile="output-tabs/point"
+PointAll=1
+!DatePoint=1
+
+! profiles
+SoilAll=1
+!SoilPlotDepths=20,25,40,45,50,55,60,70,80,90,100
+
+SoilAveragedTempProfileFile="output-tabs/soiltemp"
+SoilAveragedIceContentProfileFile="output-tabs/thetaice"
+SoilAveragedLiqContentProfileFile="output-tabs/thetaliq"
+!SoilLiqWaterPressProfileFile="output-tabs/psiliq"
+!SoilTotWaterPressProfileFile="output-tabs/psitot"
+
+! discharge
+DtPlotDischarge=24
+DischargeFile="output-tabs/discharge"
