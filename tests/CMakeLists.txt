@@ -1,5 +1,6 @@
 
 set(_tests
+  1D/ARF_1D
   1D/B2_BeG_017
   1D/Bro 1D/Calabria
   1D/ColdelaPorte 

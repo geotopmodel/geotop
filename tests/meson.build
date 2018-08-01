@@ -14,7 +14,8 @@ _prefix = meson.current_source_dir()
 #     meson test --suite geotop:folder
 #     meson test --suite geotop:test_name
 
-_tests = ['1D/B2_BeG_017',
+_tests = ['1D/ARF_1D',
+          '1D/B2_BeG_017',
           '1D/Bro',
           '1D/Calabria',
           '1D/ColdelaPorte',
