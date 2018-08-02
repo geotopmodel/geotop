@@ -14,6 +14,7 @@ matrix:
     - os: linux
       compiler: gcc
     - os: osx
+      osx_image: xcode9.4
       compiler: clang
       
 before_install:
