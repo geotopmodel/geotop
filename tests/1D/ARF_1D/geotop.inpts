@@ -8,7 +8,7 @@ TimeStepEnergyAndWater = 3600
 !InitDateDDMMYYYYhhmm   = 31/12/2002 23:00
 !EndDateDDMMYYYYhhmm    = 31/12/2012 23:00
 InitDateDDMMYYYYhhmm = 01/01/2000 23:00
-EndDateDDMMYYYYhhmm  = 03/01/2000 23:00
+EndDateDDMMYYYYhhmm  = 11/01/2000 23:00
 ! The end date for the test was modified by Elisa Bortoli 
 ! EndDateDDMMYYYYhhmm=31/12/2015 23:00
 EnergyBalance = 1
