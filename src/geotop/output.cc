@@ -4860,8 +4860,8 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
         {
             if (strcmp(files[fprec], string_novalue) != 0)
             {
-                (*wat->PrTOT_mean)(j) = (*wat->Pt)(j);
-                (*wat->PrSNW_mean)(j) = (*wat->Ps)(j);
+                (*wat->PrTOT_mean)(j) = (*wat->Pt)(j); // in 2.1: wat->PrTOT_mean[j] += wat->Pt[j]; TO CHECK!!!!!
+                (*wat->PrSNW_mean)(j) = (*wat->Ps)(j); // in 2.1: wat->PrSNW_mean[j] += wat->Ps[j]; TO CHECK!!!!!
             }
         }
 
