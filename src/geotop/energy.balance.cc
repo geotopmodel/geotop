@@ -1018,7 +1018,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                               else if (opnt[l] == oPa)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] =
-                                    Precpoint*Dt/(*A->P->Dtplot_point)(i_sim);
+                                    Ppoint*Dt/(*A->P->Dtplot_point)(i_sim);
+//                                  Precpoint*Dt/(*A->P->Dtplot_point)(i_sim);
+
                                 }
                               else if (opnt[l] == oTa)
                                 {
