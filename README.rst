@@ -3,7 +3,7 @@ GEOtop
 
 |Build Status| |License (GPL version 3)|
 
-:date:  last revision July 2018
+:date:  last revision August 2018
 
 
 
@@ -38,15 +38,37 @@ packages:
 
 Usage
 -------
+Installation instruction are here:
 
-in the doc directory there is some documentation. 
+    https://github.com/geotopmodel/geotop/blob/master/README.rst.
+    
+
 An old version of the manual (currently under revision) can be found here:    
 
     http://geotopmodel.github.io/geotop/materials/geotop_manuale.pdf (updated July 2011)
 
-Installation instruction are here:
+in the `doc directory <https://github.com/geotopmodel/geotop/tree/master/doc>`_ there is further documentation. 
+    
+Documentation on former versions of the code can be found here:
 
-    https://github.com/geotopmodel/geotop/blob/master/README.rst.
+    http://eprints.biblio.unitn.it/551/
+    
+    http://www.ing.unitn.it/dica/tools/download/Quaderni/tutorial_input_geotop.pdf
+    
+Useful material on GEOtop and his hystorical development can be found also on the R.Rigon blog:
+
+   http://abouthydrology.blogspot.com/
+   
+GEOtop development branches
+-------
+Currently (Agust 2018) there are several development branches in this repostory. Most used branches are the followings:
+
+The main `**master** <https://github.com/geotopmodel/geotop>`_ branch contains the 2.1 version. It is written in c++ and it has the possibility to use the the `**MeteoIO** library <https://models.slf.ch/p/meteoio/>`_ to spatialize input meteorological variables.
+
+This version is successfully used for operational snow mapping in the `**MySnowMaps** <http://www.mysnowmaps.com/en/>`_ app. 
+However, this branch is not fully stable when the model is used with full 3D water and energy budget settings.
+
+The `**se27xx** <https://github.com/geotopmodel/geotop/tree/se27xx>`_ branch contains the code version which has been used for the publication  `Endrizzi et al. (2014) <https://doi.org/10.5194/gmd-7-2831-2014>`_, with some minor bug fixing. It is the most stable GEOtop version and the current benchmark for the development versions.
 
 
 Report bugs/suggestion/issues
@@ -83,7 +105,6 @@ Please cite and refer to the following papers describing the GEOtop model:
 * Rigon, R., Bertoldi, G., Over, T.M., 2006. GEOtop: A Distributed Hydrological Model with Coupled Water and Energy Budgets.  J. Hydrometeorol. 7, 371–388. https://doi.org/10.1175/JHM497.1
 
 Here is the full list of peer-reviewed publications using the GEOtop model (updated July 2018):
-
 
 * Soltani, M., Laux, P., Mauder, M., Kunstmann, H., 2018. Spatiotemporal variability and empirical Copula-based dependence structure of modeled and observed coupled water and energy fluxes. Hydrol. Res. nh2018163. https://doi.org/10.2166/nh.2018.163
 
