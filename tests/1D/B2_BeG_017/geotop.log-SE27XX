@@ -6,7 +6,7 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: 1D/B2_BeG_017/
+WORKING DIRECTORY: ./
 
 TimeStepEnergyAndWater[1] = 9.000000e+02 
 InitDateDDMMYYYYhhmm[1] = 9.042014e+10 
@@ -896,15 +896,15 @@ HeaderMeteoStationStandardTime = none
 SuccessfulRunFile = _SUCCESSFUL_RUN
 FailedRunFile = _FAILED_RUN
 SubfolderRecoveryFiles = none
-Column 1 in file 1D/B2_BeG_017/soil/soil0001.txt assigned to Dz
-Column 3 in file 1D/B2_BeG_017/soil/soil0001.txt assigned to Kv
-Column 2 in file 1D/B2_BeG_017/soil/soil0001.txt assigned to Kh
-Column 4 in file 1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_r
-Column 5 in file 1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_w
-Column 6 in file 1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_fc
-Column 7 in file 1D/B2_BeG_017/soil/soil0001.txt assigned to vwc_s
-Column 8 in file 1D/B2_BeG_017/soil/soil0001.txt assigned to alpha
-Column 9 in file 1D/B2_BeG_017/soil/soil0001.txt assigned to n
+Column 1 in file ./soil/soil0001.txt assigned to Dz
+Column 3 in file ./soil/soil0001.txt assigned to Kv
+Column 2 in file ./soil/soil0001.txt assigned to Kh
+Column 4 in file ./soil/soil0001.txt assigned to vwc_r
+Column 5 in file ./soil/soil0001.txt assigned to vwc_w
+Column 6 in file ./soil/soil0001.txt assigned to vwc_fc
+Column 7 in file ./soil/soil0001.txt assigned to vwc_s
+Column 8 in file ./soil/soil0001.txt assigned to alpha
+Column 9 in file ./soil/soil0001.txt assigned to n
 
 Soil Layers: 9
 -> Soil Type: 1
@@ -963,15 +963,15 @@ Novalue pixels: 0
 Basin area: 0.000001 km2
 
 Horizon file FOUND for meteo station #1
-Column 1 in file 1D/B2_BeG_017/./input/horizon0001.txt assigned to AngleFromNorthClockwise
-Column 2 in file 1D/B2_BeG_017/./input/horizon0001.txt assigned to HorizonHeight
-Column 1 in file 1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to Date
-Column 2 in file 1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to Iprec
-Column 3 in file 1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to WindSp
-Column 4 in file 1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to WindDir
-Column 5 in file 1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to RelHum
-Column 6 in file 1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to AirT
-Column 7 in file 1D/B2_BeG_017/input-meteo/meteoB2_irr_dev_0001.txt assigned to Swglobal
+Column 1 in file ././input/horizon0001.txt assigned to AngleFromNorthClockwise
+Column 2 in file ././input/horizon0001.txt assigned to HorizonHeight
+Column 1 in file ./input-meteo/meteoB2_irr_dev_0001.txt assigned to Date
+Column 2 in file ./input-meteo/meteoB2_irr_dev_0001.txt assigned to Iprec
+Column 3 in file ./input-meteo/meteoB2_irr_dev_0001.txt assigned to WindSp
+Column 4 in file ./input-meteo/meteoB2_irr_dev_0001.txt assigned to WindDir
+Column 5 in file ./input-meteo/meteoB2_irr_dev_0001.txt assigned to RelHum
+Column 6 in file ./input-meteo/meteoB2_irr_dev_0001.txt assigned to AirT
+Column 7 in file ./input-meteo/meteoB2_irr_dev_0001.txt assigned to Swglobal
 Shortwave radiation measurements from station 1
 WARNING: NO cloudiness measurements available
 WARNING: NO longwave radiation measurements available
@@ -1199,7 +1199,7 @@ Soil water transpires from the first 7 layers
 10/4/2014 19:00 19.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 10/4/2014 19:00 JD:99.791667 (2^ simulation day) 19.84% completed! 
- t_meteo:  0.00 s, t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.00 s
  SW=  0.15 W/m2  LW: -5.01 W/m2  H=  2.10 W/m2  LE= 18.07 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.078367e-08 mm/h 
@@ -1370,7 +1370,7 @@ Soil water transpires from the first 7 layers
 11/4/2014 14:00 34.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 11/4/2014 14:00 JD:100.583333 (2^ simulation day) 34.92% completed! 
- t_meteo:  0.00 s, t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
  SW= 15.60 W/m2  LW:  8.59 W/m2  H=-15.14 W/m2  LE= 27.00 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=2.370105e-08 mm/h 
@@ -1577,7 +1577,7 @@ Soil water transpires from the first 7 layers
 12/4/2014 13:00 53.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 12/4/2014 13:00 JD:101.541667 (3^ simulation day) 53.17% completed! 
- t_meteo:  0.00 s, t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
+ t_meteo:  0.00 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
  SW= 25.93 W/m2  LW: 19.68 W/m2  H=-29.49 W/m2  LE= 11.06 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.134189e-08 mm/h 
@@ -1658,7 +1658,7 @@ Soil water transpires from the first 7 layers
 12/4/2014 22:00 60.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 12/4/2014 22:00 JD:101.916667 (4^ simulation day) 60.32% completed! 
- t_meteo:  0.00 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
+ t_meteo:  0.00 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
  SW=  0.00 W/m2  LW: -3.13 W/m2  H=  1.52 W/m2  LE= 10.89 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.638549e-11 mm/h 
@@ -1703,7 +1703,7 @@ Soil water transpires from the first 7 layers
 13/4/2014 3:00 64.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 13/4/2014 3:00 JD:102.125000 (4^ simulation day) 64.29% completed! 
- t_meteo:  0.00 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
+ t_meteo:  0.00 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
  SW=  0.00 W/m2  LW: -2.81 W/m2  H=  0.27 W/m2  LE=  7.00 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.088420e-10 mm/h 
@@ -2027,7 +2027,7 @@ Soil water transpires from the first 7 layers
 14/4/2014 15:00 92.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 14/4/2014 15:00 JD:103.625000 (5^ simulation day) 92.86% completed! 
- t_meteo:  0.00 s, t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
+ t_meteo:  0.00 s, t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
  SW= 58.02 W/m2  LW: 15.35 W/m2  H= -9.23 W/m2  LE= 37.70 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.995455e-07 mm/h 
