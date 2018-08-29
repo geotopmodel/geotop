@@ -302,8 +302,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
   //define prec as normal (not vertical)
   Precpoint*=cos((*A->T->slope)(r,c)*Pi/180.);
   //another cosine correction applied for point simulations (due to area proejection)
-  if (A->P->point_sim==1
-      && A->P->flag1D==0) Precpoint*=cos((*A->T->slope)(r,c)*Pi/180.);
+  if (A->P->point_sim==1 && A->P->flag1D==0)
+      Precpoint*=cos((*A->T->slope)(r,c)*Pi/180.);
 
   Tdirichlet=A->M->var[A->M->nstTs-1][iTs];
   if ((long)Tdirichlet == number_novalue
@@ -1019,8 +1019,6 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] =
                                     Ppoint*Dt/(*A->P->Dtplot_point)(i_sim);
-//                                  Precpoint*Dt/(*A->P->Dtplot_point)(i_sim);
-
                                 }
                               else if (opnt[l] == oTa)
                                 {
