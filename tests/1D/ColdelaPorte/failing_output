@@ -1,0 +1,95 @@
+Comparing output-tabs/surface0001.txt and output-tabs-SE27XX/surface0001.txt
+----------------
+##2       #:17  <== 866.997343
+##2       #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##3       #:17  <== 866.997343
+##3       #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##4       #:17  <== 866.997343
+##4       #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##5       #:17  <== 866.997343
+##5       #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##6       #:17  <== 866.997343
+##6       #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##7       #:17  <== 866.997343
+##7       #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##8       #:17  <== 866.997343
+##8       #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##9       #:17  <== 866.997343
+##9       #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##10      #:17  <== 866.997343
+##10      #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##11      #:17  <== 866.997343
+##11      #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##12      #:17  <== 866.997343
+##12      #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##13      #:17  <== 866.997343
+##13      #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##14      #:17  <== 866.997343
+##14      #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##15      #:17  <== 866.997343
+##15      #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##16      #:17  <== 866.997343
+##16      #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##17      #:17  <== 866.997343
+##17      #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##18      #:17  <== 866.997343
+##18      #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##19      #:17  <== 866.997343
+##19      #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##20      #:17  <== 866.997343
+##20      #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##21      #:17  <== 866.997343
+##21      #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##22      #:17  <== 866.997343
+##22      #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##23      #:17  <== 866.997343
+##23      #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+----------------
+##24      #:17  <== 866.997343
+##24      #:17  ==> 0.000000
+@ Absolute error = 8.6699734300e+2, Relative error = Inf
+
++++  File "output-tabs/surface0001.txt" differs from file "output-tabs-SE27XX/surface0001.txt"
