@@ -7,7 +7,7 @@ GEOtop
 
 
 
-GEOtop is a distributed model of the mass and energy balance of the
+GEOp is a distributed model of the mass and energy balance of the
 hydrological cycle, which is applicable to simulations in continuum in
 small catchments. GEOtop deals with the effects of topography on the
 interaction between energy balance and hydrological cycle with peculiar
@@ -26,7 +26,7 @@ websites have been collected.
 Installation
 --------------
 
-If you want to build GEOtop from sources in your own machine:
+If you want to build GEOtop  (master branch v 2.1) from sources in your own machine:
 
     see here: https://github.com/geotopmodel/geotop/blob/master/doc/Install.rst 
 
@@ -36,13 +36,9 @@ packages:
     see here: https://hub.docker.com/r/omslab/geotop
 
 
-Usage
+Documentation
 -------
-Installation instruction are here:
-
-    https://github.com/geotopmodel/geotop/blob/master/README.rst.
     
-
 An old version of the manual (currently under revision) can be found here:    
 
     http://geotopmodel.github.io/geotop/materials/geotop_manuale.pdf (updated July 2011)
@@ -69,6 +65,7 @@ This version is successfully used for operational snow mapping in the `**MySnowM
 However, this branch is not fully stable when the model is used with full 3D water and energy budget settings.
 
 The `**se27xx** <https://github.com/geotopmodel/geotop/tree/se27xx>`_ branch contains the code version which has been used for the publication  `Endrizzi et al. (2014) <https://doi.org/10.5194/gmd-7-2831-2014>`_, with some minor bug fixing. It is the most stable GEOtop version and the current benchmark for the development versions.
+To install this version see https://github.com/geotopmodel/geotop/blob/se27xx/README
 
 
 Report bugs/suggestion/issues
