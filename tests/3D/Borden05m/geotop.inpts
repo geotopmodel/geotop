@@ -245,7 +245,7 @@ GlacAll = 1
 !=============================================================================
 
 ! Output maps Dt in hours 
-OutputSoilMaps=0.1 	  
+OutputSoilMaps=0.1	  
 OutputSurfEBALMaps=0.1	  
 OutputMeteoMaps = 0.1
 
