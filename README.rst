@@ -51,7 +51,7 @@ Documentation on former versions of the code can be found here:
     
     http://www.ing.unitn.it/dica/tools/download/Quaderni/tutorial_input_geotop.pdf
     
-Useful material on GEOtop and his hystorical development can be found also on the R.Rigon blog:
+Useful material on **GEOtop** and his hystorical development can be found also on the R.Rigon blog:
 
    http://abouthydrology.blogspot.com/
    
@@ -65,7 +65,7 @@ This version is successfully used for operational snow mapping in the `**MySnowM
 However, this branch is not fully stable when the model is used with full 3D water and energy budget settings.
 
 The `**se27xx** <https://github.com/geotopmodel/geotop/tree/se27xx>`_ branch contains the code 2.0 version which has been used for the publication  `Endrizzi et al. (2014) <https://doi.org/10.5194/gmd-7-2831-2014>`_, with some minor bug fixing. It is the most stable GEOtop version and the current benchmark for the development versions.
-To install this version see https://github.com/geotopmodel/geotop/blob/se27xx/README
+To install this version see https://github.com/geotopmodel/geotop/blob/se27xx/README.rst
 
 
 Report bugs/suggestion/issues
@@ -81,21 +81,21 @@ We have the following mailing lists:
 
 External utilities and scripts
 ----------
-During the years, several scripts and external softwares have been developed for preprocess GEOtop inputs, postprocess and visualize results. Some utilites can be found here:
+During the years, several scripts and external softwares have been developed for preprocess **GEOtop** inputs, postprocess and visualize results. Some utilites can be found here:
 
-There are **R scripts** (https://github.com/ecor/geotopbricks) for I/O and GEOtop results visualization. They work for versions 2.0 and 2.1. Mainly developed by Emanuele Cordano. There is also a stable version published on CRAN as **R package** (https://cran.r-project.org/web/packages/geotopbricks/).
+There are **R scripts** (https://github.com/ecor/geotopbricks) for I/O and **GEOtop** results visualization. They work for versions 2.0 and 2.1. Mainly developed by Emanuele Cordano. There is also a stable version published on CRAN as **R package** (https://cran.r-project.org/web/packages/geotopbricks/).
 
-There is also the plugin **R package geotopOtim2** (https://github.com/EURAC-Ecohydro/geotopOptim2) for the automatic calibration and sensitivity analysis of the GEOtop 2.x hydrological model, based on the "Particle Swarm Optimisation" approach and the LHOAT "Latin-Hypercube One-factor-At-a-Time" approach. It has been mainly developed by Emanuele Cordano, Samuel Senoner, Giacomo Bertoldi.
+There is also the plugin **R package geotopOtim2** (https://github.com/EURAC-Ecohydro/geotopOptim2) for the automatic calibration and sensitivity analysis of the **GEOtop** 2.x hydrological model, based on the "Particle Swarm Optimisation" approach and the LHOAT "Latin-Hypercube One-factor-At-a-Time" approach. It has been mainly developed by Emanuele Cordano, Samuel Senoner, Giacomo Bertoldi.
 
-There are **Matlab scripts** (https://github.com/EURAC-Ecohydro/GEOmatlab) for I/O and GEOtop results visualization. They work for version 1.25, most of them also for version 2.0. Mainly developed by Giacomo Bertoldi and collaborators.
+There are **Matlab scripts** (https://github.com/EURAC-Ecohydro/GEOmatlab) for I/O and **GEOtop** results visualization. They work for version 1.25, most of them also for version 2.0. Mainly developed by Giacomo Bertoldi and collaborators.
 
-GEOtop can be embedded in the **GEOframe modelling system** (https://github.com/GEOframeOMSProjects). Mainly developed by Riccardo Rigon, Giuseppe Formetta and collaborators.
+**GEOtop** can be embedded in the **GEOframe modelling system** (https://github.com/GEOframeOMSProjects). Mainly developed by Riccardo Rigon, Giuseppe Formetta and collaborators.
 
 
 References
 ----------
 
-Please cite and refer to the following papers describing the GEOtop model:
+When using the model, please cite and refer to the following papers describing the **GEOtop** model:
 
 * Endrizzi, S., Gruber, S., Dall’Amico, M., Rigon, R., 2014. GEOtop 2.0: simulating the combined energy and water balance at and below the land surface accounting for soil freezing, snow cover and terrain effects. Geosci. Model Dev. 7, 2831–2857. https://doi.org/10.5194/gmd-7-2831-2014
 
