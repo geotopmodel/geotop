@@ -6,7 +6,7 @@
 #define GEOTOP_VECTOR_H
 
 #include "geotop_asserts.h"
-#include <memory>
+#include <memory> // to use std::unique_ptr
 
 template <typename T> class Vector {
 

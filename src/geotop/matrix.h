@@ -6,7 +6,7 @@
 #define GEOTOP_MATRIX_H
 
 #include "geotop_asserts.h"
-#include <memory>
+#include <memory> // to use std::unique_ptr
 #include "rowview.h"
 
 template <class T> class Matrix {
