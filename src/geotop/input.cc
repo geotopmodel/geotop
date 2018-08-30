@@ -2456,7 +2456,7 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
     GEOLOG_PREFIX(__func__);
     long r, c, i, cont;
     std::unique_ptr<Matrix<double>> M;
-    Matrix<short> *curv;
+    std::unique_ptr<Matrix<short>> curv;
     short flag;
     char *temp;
     double min, max;
@@ -2630,10 +2630,9 @@ to the land cover type\n");
         }
         else
         {
-            curv = new Matrix<short>{top->Z0->nrh,top->Z0->nch};
-            nablaquadro_mask(top->Z0.get(), curv, UV->U.get(), UV->V.get());
-            sky_view_factor(top->sky.get(), 36, UV, top->Z0.get(), curv, number_novalue);
-            delete curv;
+            curv.reset(new Matrix<short>{top->Z0->nrh,top->Z0->nch});
+            nablaquadro_mask(top->Z0.get(), curv.get(), UV->U.get(), UV->V.get());
+            sky_view_factor(top->sky.get(), 36, UV, top->Z0.get(), curv.get(), number_novalue);
         }
     }
     if (flag >= 0)
@@ -2906,7 +2905,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     GEOLOG_PREFIX(__func__);
     long i, r, c, num_lines;
     std::unique_ptr<Matrix<double>> Q=nullptr, P=nullptr, R=nullptr, S=nullptr, T=nullptr, Z=nullptr, LU=nullptr; // ec 2012 08 22
-    std::unique_ptr<Matrix<short>> curv;
+   std::unique_ptr<Matrix<short>> curv;
     short read_dem, read_lu, read_soil, read_sl, read_as, read_sk, read_bed, read_curv, flag, coordinates;
     char *temp;
     double min, max;
