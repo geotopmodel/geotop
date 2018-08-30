@@ -21,8 +21,6 @@ STATEVAR_3D::STATEVAR_3D(double nan, long nl, long nr, long nc) :
 }
 
 STATEVAR_3D::~STATEVAR_3D() {
-  //free_shortmatrix(type);
- //free_longmatrix(lnum);
   free_doubletensor(Dzl);
   free_doubletensor(T);
   free_doubletensor(w_ice);
