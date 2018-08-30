@@ -78,7 +78,7 @@ public:
     }
 
     /**
-    * access operator. When the code is compiled in debug mode, it performes
+    * access operator. When the code is compiled in debug mode, it performs
     * a range check. No check is done when the code is compiled in release mode.
     */
     T& operator()(const std::size_t i, const std::size_t j)
@@ -95,7 +95,7 @@ public:
     }
 
     /**
-        * access operator. When the code is compiled in debug mode, it performes
+        * access operator. When the code is compiled in debug mode, it performs
         * a range check. No check is done when the code is compiled in release mode.
         */
     const T& operator()(const std::size_t i, const std::size_t j) const
