@@ -22,7 +22,7 @@ public:
     std::size_t n_col;
 
     /** the actual data */
-    std::unique_ptr<T[]> co; // it has to be written after the lower and upper limits (otherwise: sigfault)
+    std::unique_ptr<T[]> co;
 
     /** pointer to the first accessible element (needed by an iterator) */
     T *begin() noexcept { return &co[0]; }
@@ -60,7 +60,6 @@ public:
         GEO_ERROR_IN_RANGE(i, nrl, nrh);
         GEO_ERROR_IN_RANGE(j, ncl, nch);
         return (*this)[(i-nrl)*n_col+(j-ncl)];
-        //       return co[(i-nrl)*n_col+(j-ncl)];
     }
 
     /** range-checked access operator */
@@ -68,7 +67,6 @@ public:
         GEO_ERROR_IN_RANGE(i, nrl, nrh);
         GEO_ERROR_IN_RANGE(j, ncl, nch);
         return (*this)[(i-nrl)*n_col+(j-ncl)];
-//        return co[(i-nrl)*n_col+(j-ncl)];
     }
 
     T& operator[](const std::size_t i) noexcept {
@@ -127,9 +125,6 @@ public:
             : nrl{m.nrl}, nrh{m.nrh}, ncl{m.ncl}, nch{m.nch}, n_col{nch-ncl+1}, co{new T[(nrh-nrl+1)*(nch-ncl+1)]} {
         for (std::size_t i=0; i<(nrh-nrl+1)*(nch-ncl+1); ++i)
             (*this)[i] = m[i];
-//        for (auto i = nrl; i <= nrh; ++i)
-//            for (auto j = ncl; j <= nch; j++)
-//                co[(i-nrl)*n_col+(j-ncl)] = m(i,j);
     }
 
     /** Move constructor */
@@ -148,8 +143,7 @@ public:
 
     RowView<T> row(const std::size_t i) {
         GEO_ASSERT_IN_RANGE(i, nrl, nrh);
-        return RowView<T> { &co[(i-nrl)*n_col], nch, ncl }; // PERCHÈ RITORNIAMO nch E ncl??
-        //  return RowView<T> { &co[(i-nrl)*n_col], nch, ncl }; ma se ritorno per valore una RowView perchè metto &co
+        return RowView<T> { &co[(i-nrl)*n_col], nch, ncl }; // RowView<T> is constructed with the passed nch and ncl
     };
 
 };
