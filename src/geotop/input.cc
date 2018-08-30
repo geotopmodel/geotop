@@ -2906,7 +2906,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
     GEOLOG_PREFIX(__func__);
     long i, r, c, num_lines;
     std::unique_ptr<Matrix<double>> Q=nullptr, P=nullptr, R=nullptr, S=nullptr, T=nullptr, Z=nullptr, LU=nullptr; // ec 2012 08 22
-    Matrix<short> *curv;
+    std::unique_ptr<Matrix<short>> curv;
     short read_dem, read_lu, read_soil, read_sl, read_as, read_sk, read_bed, read_curv, flag, coordinates;
     char *temp;
     double min, max;
@@ -3225,10 +3225,9 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             else
             {
                 P.reset(new Matrix<double>{Z->nrh,Z->nch});
-                curv = new Matrix<short>{Z->nrh,Z->nch};
-                nablaquadro_mask(Z.get(), curv, UV->U.get(), UV->V.get());
-                sky_view_factor(P.get(), 36, UV, Z.get(), curv, number_novalue);
-                delete curv;
+                curv.reset(new Matrix<short>{Z->nrh,Z->nch});
+                nablaquadro_mask(Z.get(), curv.get(), UV->U.get(), UV->V.get());
+                sky_view_factor(P.get(), 36, UV, Z.get(), curv.get(), number_novalue);
                 if (flag==0) write_map(files[fsky], 0, par->format_out, P.get(), UV, number_novalue);
             }
         }
