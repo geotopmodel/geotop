@@ -5154,7 +5154,6 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
                 c = (*par->rc)(j,2);
                 fprintf(f, ",%f",
                         ((*sl->SS->thi)(l,top->j_cont[r][c]) + (*sl->th)(l,top->j_cont[r][c])) * sl->pa->co[(*sl->type)(r,c)][jdz][l] );
-                // ((*sl->SS->thi)(l,top->j_cont[r][c]) + sl->th->co[l][top->j_cont[r][c]]) * sl->pa->co[(*sl->type)(r,c)][jdz][l] );
             }
             fprintf(f, "\n");
         }
@@ -5454,12 +5453,6 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
             (*sl->SS->thi)(l,j) = thin;
 
         }
-
-        //print
-        /*for (l=1; l<=Nl; l++) {
-		printf("j:%ld l:%ld Pt:%f T:%f\n",j,l,(*sl->Ptot)(l,j),sl->SS->T->co[l][j]);
-	  }*/
-
     }
 }
 
