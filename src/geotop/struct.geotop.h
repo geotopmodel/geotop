@@ -115,7 +115,6 @@ typedef struct {
 struct SOIL_STATE {
     SOIL_STATE(const long n, const long nl);
 
-
     std::unique_ptr<Matrix<double>> P;
     std::unique_ptr<Matrix<double>> thi;
     std::unique_ptr<Matrix<double>> T;
