@@ -284,7 +284,7 @@ void time_loop(ALLDATA *A)
    l=A->T->lrc_cont->co[j][1];
    r=A->T->lrc_cont->co[j][2];
    c=A->T->lrc_cont->co[j][3];
-   printf("START %ld %ld %ld %e\n",l,r,c,(*A->S->SS->P)(l,A->T->j_cont[r][c]));
+   geolog << "START " << l << " " << r << " " << c << " " << (*A->S->SS->P)(l,A->T->j_cont[r][c]) << std::endl;
    } */
 
             // init
