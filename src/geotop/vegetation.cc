@@ -671,7 +671,6 @@ void root(long n, double d, double slope, double *D, RowView<double> &&root_frac
       if ( d_corr > z )
         {
           root_fraction[l] = D[l]/d_corr;
-          // root_fraction(l) = D[l]/d_corr;
         }
       else
         {
