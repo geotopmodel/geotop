@@ -81,12 +81,15 @@ public:
     * access operator. When the code is compiled in debug mode, it performes
     * a range check. No check is done when the code is compiled in release mode.
     */
-    T& operator()(const std::size_t i, const std::size_t j) {
+    T& operator()(const std::size_t i, const std::size_t j)
+#ifdef NDEBUG
+    noexcept
+#endif
+    {
 #ifndef NDEBUG
         return at(i,j);
 #else
         return (*this)[(i-nrl)*n_col+(j-ncl)];
-//                return co[(i-nrl)*n_col+(j-ncl)];
 
 #endif
     }
@@ -104,7 +107,6 @@ public:
         return at(i,j);
 #else
         return (*this)[(i-nrl)*n_col+(j-ncl)];
-//                return co[(i-nrl)*n_col+(j-ncl)];
 #endif
     }
 
