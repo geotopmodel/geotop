@@ -6,10 +6,7 @@
 #define GEOTOP_VECTOR_H
 
 #include "geotop_asserts.h"
-#include <cassert>
-#include <exception>
 #include <memory>
-#include <sstream>
 
 template <typename T> class Vector {
 
