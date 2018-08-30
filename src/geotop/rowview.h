@@ -6,10 +6,6 @@
 #define GEOTOP_ROWVIEW_H
 
 #include "geotop_asserts.h"
-#include <cassert>
-#include <exception>
-#include <memory>
-#include <sstream>
 
 template <class T> class RowView {
 public:
