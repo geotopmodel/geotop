@@ -36,8 +36,7 @@ void assign_recovered_map(short old, long n, char *name, Matrix<double> *assign,
 {
 
   long r, c;
-  Matrix<double> *M;
-  //  std::unique_ptr<Matrix<double>> M;
+  std::unique_ptr<Matrix<double>> M;
   char *temp, *temp2;
 
   temp = namefile_i_we2(name, n);
@@ -50,7 +49,7 @@ void assign_recovered_map(short old, long n, char *name, Matrix<double> *assign,
       free(temp2);
     }
 
-  M = read_map(1, temp, Zdistr, UV, (double)number_novalue);
+  M.reset(read_map(1, temp, Zdistr, UV, (double)number_novalue));
   for (r=1; r<=M->nrh; r++)
     {
       for (c=1; c<=M->nch; c++)
@@ -72,8 +71,7 @@ void assign_recovered_map_vector(short old, long n, char *name,
 {
 
   long i, r, c;
-  Matrix<double> *M;
-  //  std::unique_ptr<Matrix<double>> M;
+  std::unique_ptr<Matrix<double>> M;
   char *temp, *temp2;
 
   temp = namefile_i_we2(name, n);
@@ -86,7 +84,7 @@ void assign_recovered_map_vector(short old, long n, char *name,
       free(temp2);
     }
 
-  M = read_map(1, temp, Zdistr, UV, (double)number_novalue);
+  M.reset(read_map(1, temp, Zdistr, UV, (double)number_novalue));
   for (i=1; i<=rc->nrh; i++)
     {
       r = (*rc)(i,1);
@@ -108,8 +106,7 @@ void assign_recovered_map_long(short old, long n, char *name,
 {
 
   long r, c;
-  Matrix<double> *M;
-  // std::unique_ptr<Matrix<double>> M;
+  std::unique_ptr<Matrix<double>> M;
   char *temp, *temp2;
 
   temp = namefile_i_we2(name, n);
@@ -122,7 +119,7 @@ void assign_recovered_map_long(short old, long n, char *name,
       free(temp2);
     }
 
-  M = read_map(1, temp, Zdistr, UV, (double)number_novalue);
+  M.reset(read_map(1, temp, Zdistr, UV, (double)number_novalue));
   for (r=1; r<=M->nrh; r++)
     {
       for (c=1; c<=M->nch; c++)
@@ -144,8 +141,7 @@ void assign_recovered_tensor(short old, long n, char *name,
 
   long r, c, l;
   //long i;
-  Matrix<double> *M;
-  //   std::unique_ptr<Matrix<double>> M;
+  std::unique_ptr<Matrix<double>> M;
   char *temp1, *temp2, *temp3;
 
   for (l=assign->ndl; l<=assign->ndh; l++)
@@ -162,7 +158,7 @@ void assign_recovered_tensor(short old, long n, char *name,
           free(temp3);
         }
 
-      M = read_map(1, temp2, Zdistr, UV, (double)number_novalue);
+      M.reset(read_map(1, temp2, Zdistr, UV, (double)number_novalue));
 
       for (r=1; r<=M->nrh; r++)
         {
@@ -187,8 +183,7 @@ void assign_recovered_tensor_vector(short old, long n, char *name, Matrix<double
 {
 
   long r, c, i, l;
-  Matrix<double> *M;
-  //  std::unique_ptr<Matrix<double>> M;
+  std::unique_ptr<Matrix<double>> M;
   char *temp1, *temp2, *temp3;
 
   for (l=assign->nrl; l<=assign->nrh; l++)
@@ -205,7 +200,7 @@ void assign_recovered_tensor_vector(short old, long n, char *name, Matrix<double
           free(temp3);
         }
 
-      M = read_map(1, temp2, Zdistr, UV, (double)number_novalue);
+      M.reset(read_map(1, temp2, Zdistr, UV, (double)number_novalue));
       for (i=1; i<=rc->nrh; i++)
         {
           r = (*rc)(i,1);
@@ -228,8 +223,7 @@ void assign_recovered_tensor_channel(short old, long n, char *name,
 {
 
   long ch, l;
-  Matrix<double> *M;
-  //  std::unique_ptr<Matrix<double>> M;
+  std::unique_ptr<Matrix<double>> M;
   char *temp1, *temp2, *temp3;
 
   for (l=assign->nrl; l<=assign->nrh; l++)
@@ -246,7 +240,7 @@ void assign_recovered_tensor_channel(short old, long n, char *name,
           free(temp3);
         }
 
-      M = read_map(1, temp2, Zdistr, UV, (double)number_novalue);
+      M.reset(read_map(1, temp2, Zdistr, UV, (double)number_novalue));
 
       for (ch=1; ch<=r->nh; ch++)
         {
@@ -268,11 +262,11 @@ void recover_run_averages(short old, Matrix<double> *A, char *name,
                           Matrix<double> *LC, Matrix<long> *rc, PAR *par, long n)
 {
 
-  Matrix<double> *M;
+  std::unique_ptr<Matrix<double>> M;
   long j, l;
 
-  M = new Matrix<double>{n, par->total_pixel};
-  assign_recovered_tensor_vector(old, par->recover, name, M, rc, par, LC);
+  M.reset(new Matrix<double>{n, par->total_pixel});
+  assign_recovered_tensor_vector(old, par->recover, name, M.get(), rc, par, LC);
   for (j=1; j<=par->total_pixel; j++)
     {
       if ((*par->jplot)(j) > 0)
@@ -294,10 +288,10 @@ void print_run_averages_for_recover(Matrix<double> *A, char *name,
                                     long **j_cont, PAR *par, long n, long nr, long nc)
 {
 
-  Matrix<double> *M;
+  std::unique_ptr<Matrix<double>> M;
   long j, l;
 
-  M = new Matrix<double>{n, par->total_pixel};
+  M.reset(new Matrix<double>{n, par->total_pixel});
   *M = (double)number_novalue;
   for (j=1; j<=par->total_pixel; j++)
     {
@@ -312,7 +306,7 @@ void print_run_averages_for_recover(Matrix<double> *A, char *name,
   for (l=1; l<=n; l++)
     {
       rename_tensorseries(1, l, 0, name);
-      write_tensorseries_vector(1, l, 0, name, 0, par->format_out, M, UV,
+      write_tensorseries_vector(1, l, 0, name, 0, par->format_out, M.get(), UV,
                                 number_novalue, j_cont, nr, nc);
     }
 }
