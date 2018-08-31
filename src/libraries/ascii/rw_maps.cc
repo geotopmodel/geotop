@@ -346,16 +346,16 @@ short existing_file(char *name)
   esri=join_strings(name,ascii_esri);
   grass=join_strings(name,ascii_grass);
 
-  //if( (f=fopen(ft,"r"))!=NULL ){
+  //if( (f=fopen(ft,"r"))!=nullptr ){
   //  a=1;
   //  fclose(f);
   //}else
-  if ( (f=fopen(grass,"r"))!=NULL )
+  if ( (f=fopen(grass,"r"))!=nullptr )
   {
     a=2;
     fclose(f);
   }
-  else if ( (f=fopen(esri,"r"))!=NULL )
+  else if ( (f=fopen(esri,"r"))!=nullptr )
   {
     a=3;
     fclose(f);
@@ -385,7 +385,7 @@ short existing_file_wext(char *name, char *extension)
 
   temp=join_strings(name,extension);
 
-  if ( (f=fopen(temp,"r"))!=NULL )
+  if ( (f=fopen(temp,"r"))!=nullptr )
   {
     a=1;
     fclose(f);
@@ -410,7 +410,7 @@ short existing_file_woext(char *name)
   short a=0;
   FILE *f;
 
-  if ( (f=fopen(name,"r"))!=NULL )
+  if ( (f=fopen(name,"r"))!=nullptr )
   {
     a=1;
     fclose(f);
@@ -433,9 +433,9 @@ Matrix<double>* read_map(short a, char *filename, Matrix<double> *Mref,
   //  a=1 non esegue controllo non values, Mref e UVref input
   //  a=2 esegue controllo novalues, Mref e UVref input
 
-  Matrix<double> *M=NULL;
+  Matrix<double> *M=nullptr;
   long r=0, c=0, nr=0, nc=0;
-  double *header=NULL, *m=NULL;
+  double *header=nullptr, *m=nullptr;
   double Dxmap=0, Dymap=0, X0map=0, Y0map=0;
 
   if (a != 0 && a != 1
@@ -689,7 +689,7 @@ void write_tensorseries(short a, long l, long i, char *filename, short type,
 
   char SSSSLLLLL[ ]= {"SSSSLLLLL"};
   char SSSS[ ]= {"SSSS"};
-  char *name=NULL;
+  char *name=nullptr;
   long r, c;
   std::unique_ptr<Matrix<double>> M;
 
@@ -742,7 +742,7 @@ void write_tensorseries_vector(short a, long l, long i, char *filename,
 
   char SSSSLLLLL[ ]= {"SSSSLLLLL"};
   char SSSS[ ]= {"SSSS"};
-  char *name=NULL;
+  char *name=nullptr;
   long j, npoints=T->nch;
   std::unique_ptr<Vector<double>> V;
 
@@ -789,7 +789,7 @@ void rename_tensorseries(short a, long l, long i, char *filename)
 
   char SSSSLLLLL[ ]= {"SSSSLLLLL"};
   char SSSS[ ]= {"SSSS"};
-  char *name=NULL;
+  char *name=nullptr;
 
   if (a==0)
   {

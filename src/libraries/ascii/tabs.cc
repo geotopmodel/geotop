@@ -542,7 +542,7 @@ char **readline_of_strings(FILE *f, long comment_char, long sep_char,
 
   long i, n;
   long **string, *string_length;
-  char **line_of_strings=NULL;
+  char **line_of_strings=nullptr;
 
   n = (long)max_components;
   string_length = (long *)malloc(n*sizeof(long));
@@ -592,7 +592,7 @@ double *readline_of_numbers(FILE *f, long comment_char, long sep_char,
 
   long i, n;
   long **string, *string_length;
-  double *line_of_numbers=NULL;
+  double *line_of_numbers=nullptr;
 
   n = (long)max_components;
   string_length = (long *)malloc(n*sizeof(long));
@@ -723,7 +723,7 @@ long count_lines(char *meteo_file_name, long comment_char, long sep_char)
   long  i, components, cont;
 
   f = fopen(meteo_file_name, "r");
-  if (f==NULL)
+  if (f==nullptr)
     {
       geolog << "File " << meteo_file_name  << " not existing" << std::endl;
       t_error("Fatal Error (10)");
@@ -841,7 +841,7 @@ double **read_txt_matrix(char *filename, long comment_char, long sep_char, char 
   *nlines = count_lines(filename, comment_char, sep_char);
 
   f = fopen(filename, "r");
-  if (f==NULL)
+  if (f==nullptr)
     {
       geolog << "File " << filename  << " not existing" << std::endl;
       t_error("Fatale Error (11)");
@@ -901,7 +901,7 @@ double **read_txt_matrix_2(char *filename, long comment_char, long sep_char,
   *nlines = count_lines(filename, comment_char, sep_char);
 
   f = fopen(filename, "r");
-  if (f==NULL)
+  if (f==nullptr)
     {
       geolog << "File " << filename  << " not existing" << std::endl;
       t_error("Fatale Error (13)");

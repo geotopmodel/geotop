@@ -370,7 +370,7 @@ void free_dmatrix(double **m, long nrl, long ncl) {
 
 void free_shortmatrix(SHORTMATRIX *m) {
 
-  if (m == NULL || m->co == NULL) {
+  if (m == nullptr || m->co == nullptr) {
 
     t_error("This matrix was never allocated");
 
@@ -396,7 +396,7 @@ void free_shortmatrix(SHORTMATRIX *m) {
 
 void free_longmatrix(LONGMATRIX *m) {
 
-  if (m == NULL || m->co == NULL) {
+  if (m == nullptr || m->co == nullptr) {
 
     t_error("This matrix was never allocated");
 
@@ -422,7 +422,7 @@ void free_longmatrix(LONGMATRIX *m) {
 
 void free_doublematrix(DOUBLEMATRIX *m) {
 
-  if (m == NULL || m->co == NULL) {
+  if (m == nullptr || m->co == nullptr) {
 
     t_error("This matrix was never allocated");
 
