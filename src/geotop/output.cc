@@ -4654,7 +4654,7 @@ double interpolate_soil(long lmin, double h, long max, double *Dz, RowView<doubl
             }
             else
             {
-                q = Q(max+100);
+                q = Q(max);
             }
         }
 
