@@ -488,7 +488,7 @@ double **read_horizon(short a, long i, char *name, char **ColDescr, long *num_li
     {
         temp=namefile_i(name,i);
         f=fopen(temp,"r");
-        if (f==NULL)
+        if (f==nullptr)
         {
             fileyes=0;
         }
@@ -974,7 +974,7 @@ void rewrite_meteo_files(double **meteo, long meteolines, char **header,
 
     newname = join_strings(name, ".old");
     f=fopen(newname,"r");
-    if (f == NULL)
+    if (f == nullptr)
     {
         write = 1;
     }

@@ -20,32 +20,29 @@
  */
 
 
-void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT,
-             double Tg0, double Qg0, double Ta, double Qa,
-             double zmu, double zmT, double z0, double z0s, double d0, double z0r,
-             double hveg, double v, double LR, double P,
-             double SW, double SWv, double LW, double e, double LSAI, double decaycoeff0,
-             double *land, double Wcrn0, double Wcrnmax,
-             double Wcsn0, double Wcsnmax, double *dWcrn, double *dWcsn, double *LWv,
-             double *LWg, double *Hv, double *Hg,
-             double *dHgdT, double *LEv, double *Eg, double *dEgdT, double *Ts, double *Qs,
-             double *froot, double *theta,
-             Vector<double> *soil_transp_layer, double *Lobukhov, PAR *par, long n,
-             double *rm, double *rh, double *rv, double *rc,
-             double *rb, double *ruc, double *u_top, double *Etrans, double *Tv,
-             double *Qv, double *decay, double *Locc,
-             double *LWup_above_v, double psi, double **soil, double *T,
-             Vector<double> *soil_evap_layer);
+void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, double Tg0, double Qg0, double Ta,
+             double Qa, // 10
+             double zmu, double zmT, double z0, double z0s, double d0, double z0r, double hveg, double v, double LR,
+             double P, // 10
+             double SW, double SWv, double LW, double e, double LSAI, double decaycoeff0, RowView<double> &&land,
+             double Wcrn0, double Wcrnmax, double Wcsn0, // 10
+             double Wcsnmax, double *dWcrn, double *dWcsn, double *LWv, double *LWg, double *Hv, double *Hg,
+             double *dHgdT, double *LEv, double *Eg, // 10
+             double *dEgdT, double *Ts, double *Qs, RowView<double> &&froot, double *theta, Vector<double> *soil_transp_layer,
+             double *Lobukhov, PAR *par, long n, double *rm, // 10
+             double *rh, double *rv, double *rc, double *rb, double *ruc, double *u_top, double *Etrans, double *Tv,
+             double *Qv, double *decay, // 10
+             double *Locc, double *LWup_above_v, double psi, double **soil, double *T, Vector<double> *soil_evap_layer); // 6 => TOT = 66 parameters
 
 void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
                    double Qgsat, double Qa, double zmu, double zmT, double z0,
                    double z0s, double d0, double z0r, double hveg, double v, double LR, double P,
                    double SW, double LW, double e, double LSAI,
-                   double decaycoeff0, double *land, double Wcrn, double Wcrnmax, double Wcsn,
+                   double decaycoeff0, RowView<double> &&land, double Wcrn, double Wcrnmax, double Wcsn,
                    double Wcsnmax, double *Esubl, double *Etrans,
                    double *LWv, double *LWg, double *H, double *LE, double *h, double *dhdT,
                    double *Ts, double *Qs, double *Qv, double *ruc,
-                   double *froot, double *theta, Vector<double> *soil_transp_layer, long chgsgn,
+                   RowView<double> &&froot, double *theta, Vector<double> *soil_transp_layer, long chgsgn,
                    double *Lobukhov, PAR *par, long n, double *rm,
                    double *rh, double *rv, double *rc, double *rb, double *u_top, double *decay,
                    double *Locc, double *LWup_above_v, double psi,
@@ -70,11 +67,11 @@ void canopy_snow_interception(double snow_max_loading, double LSAI,
 void update_roughness_veg(double hc, double snowD, double zmu, double zmt,
                           double *z0_ris, double *d0_ris, double *hc_ris);
 
-void root(long n, double d, double slope, double *D, double *root_fraction);
+void root(long n, double d, double slope, double *D, RowView<double> &&root_fraction);
 
 void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa,
-                               double SWin, double *theta, double *land, double **soil, double *root,
-                               double *f, Vector<double> *fl);
+                               double SWin, double *theta, RowView<double> &&land, double **soil,
+                               RowView<double> &&root, double *f, Vector<double> *fl);
 
 void veg_transmittance(short stabcorr_incanopy, double v, double u_star,
                        double u_top, double Hveg, double z0soil, double z0veg, double d0veg,

@@ -19,32 +19,32 @@
 
  */
 
-double psi_teta(double w, double i, double s, double r, double a, double n,
-                double m, double pmin, double st);
-double teta_psi(double psi, double i, double s, double r, double a, double n,
-                double m, double pmin, double st);
-double dteta_dpsi(double psi, double i, double s, double r, double a,
-                  double n, double m, double pmin, double st);
+double psi_teta(double w, double i, double s, double r, double a, double n, double m, double pmin, double st);
+
+double teta_psi(double psi, double i, double s, double r, double a, double n,  double m, double pmin, double st);
+
+double dteta_dpsi(double psi, double i, double s, double r, double a, double n, double m, double pmin, double st);
 
 double k_hydr_soil(double psi, double ksat, double imp, double i, double s,
                    double r, double a, double n, double m, double v, double T, double ratio);
 
-double psi_saturation(double i, double s, double r, double a, double n,
-                      double m);
+double psi_saturation(double i, double s, double r, double a, double n, double m);
 
 double Harmonic_Mean(double D1, double D2, double K1, double K2);
+
 double Arithmetic_Mean(double D1, double D2, double K1, double K2);
+
 double Mean(short a, double D1, double D2, double K1, double K2);
 
 double Psif(double T);
 
-double theta_from_psi(double psi, double ice, long l, double **pa,
-                      double pmin);
-double psi_from_theta(double th, double ice, long l, double **pa,
-                      double pmin);
-double dtheta_dpsi_from_psi(double psi, double ice, long l, double **pa,
-                            double pmin);
-double k_from_psi(long jK, double psi, double ice, double T, long l,
-                  double **pa, double imp, double ratio);
+double theta_from_psi(double psi, double ice, long l, double **pa, double pmin);
+
+double psi_from_theta(double th, double ice, long l, double **pa, double pmin);
+
+double dtheta_dpsi_from_psi(double psi, double ice, long l, double **pa, double pmin);
+
+double k_from_psi(long jK, double psi, double ice, double T, long l, double **pa, double imp, double ratio);
+
 double psisat_from(double ice, long l, double **pa);
 

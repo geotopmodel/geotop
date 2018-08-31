@@ -31,6 +31,7 @@ _tests = ['1D/B2_BeG_017',
           '3D/hillslope01',
           '3D/hillslope02_superslab',
           '3D/Mazia',
+          '3D/Muntatschini_ref_005',
           '3D/no_reflection',
           '3D/onepoint_hydrostatic',
           '3D/panola',
@@ -40,17 +41,19 @@ _tests = ['1D/B2_BeG_017',
           '3D/prealpiC',
           '3D/PSQL_test',
           '3D/rendena',
+          '3D/RottCatchment',
           '3D/small_example',
           '3D/small_example-channel',
           '3D/small_example-onlyEnergy',
           '3D/snow_dstr_SENSITIVITY',
+          '3D/UpperAmmerCatchment',
           '3D/Vshape',
           '3D/WG1_2.0_001']
 
 foreach _t : _tests
     _test_prefix = _prefix+'/'+_t
    test(_t, geotop, args:[_test_prefix], suite: _t.split('/'),
-        timeout: 1800)
+        timeout: 7200) # using 1800 snow_dstr_SENSITIVITY fails ...
 endforeach
 
 # setup the test_runner tests. They have an additional suite entry,

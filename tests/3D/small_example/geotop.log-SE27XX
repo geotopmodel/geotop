@@ -6,7 +6,7 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: ./
+WORKING DIRECTORY: 3D/small_example/
 
 TimeStepEnergyAndWater[1] = 3.600000e+03 
 InitDateDDMMYYYYhhmm[1] = 2.001201e+11 
@@ -1052,15 +1052,15 @@ HeaderMeteoStationStandardTime = none
 SuccessfulRunFile = none
 FailedRunFile = none
 SubfolderRecoveryFiles = none
-Column 1 in file ./soil/soil0001.txt assigned to Dz
-Column 3 in file ./soil/soil0001.txt assigned to Kv
-Column 2 in file ./soil/soil0001.txt assigned to Kh
-Column 4 in file ./soil/soil0001.txt assigned to res
-Column 5 in file ./soil/soil0001.txt assigned to fc
-Column 6 in file ./soil/soil0001.txt assigned to sat
-Column 7 in file ./soil/soil0001.txt assigned to a
-Column 8 in file ./soil/soil0001.txt assigned to n
-Column 9 in file ./soil/soil0001.txt assigned to SS
+Column 1 in file 3D/small_example/soil/soil0001.txt assigned to Dz
+Column 3 in file 3D/small_example/soil/soil0001.txt assigned to Kv
+Column 2 in file 3D/small_example/soil/soil0001.txt assigned to Kh
+Column 4 in file 3D/small_example/soil/soil0001.txt assigned to res
+Column 5 in file 3D/small_example/soil/soil0001.txt assigned to fc
+Column 6 in file 3D/small_example/soil/soil0001.txt assigned to sat
+Column 7 in file 3D/small_example/soil/soil0001.txt assigned to a
+Column 8 in file 3D/small_example/soil/soil0001.txt assigned to n
+Column 9 in file 3D/small_example/soil/soil0001.txt assigned to SS
 
 Soil Layers: 3
 -> Soil Type: 1
@@ -1098,17 +1098,17 @@ HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
 HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
 HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
 
-Column 1 in file ./ListPoints.txt assigned to ID
-Column 2 in file ./ListPoints.txt assigned to Xwgs
-Column 3 in file ./ListPoints.txt assigned to Ywgs
-Attempting to read 'DemFile' in the file './input_maps/pit': EXISTING in format 3
-Attempting to read 'LandCoverMapFile' in the file './input_maps/landcover': EXISTING in format 3
-Attempting to read 'SkyViewFactorMapFile' in the file './input_maps/sky': EXISTING in format 3
+Column 1 in file 3D/small_example/ListPoints.txt assigned to ID
+Column 2 in file 3D/small_example/ListPoints.txt assigned to Xwgs
+Column 3 in file 3D/small_example/ListPoints.txt assigned to Ywgs
+Attempting to read 'DemFile' in the file '3D/small_example/input_maps/pit': EXISTING in format 3
+Attempting to read 'LandCoverMapFile' in the file '3D/small_example/input_maps/landcover': EXISTING in format 3
+Attempting to read 'SkyViewFactorMapFile' in the file '3D/small_example/input_maps/sky': EXISTING in format 3
 Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
-Attempting to read 'SoilMapFile' in the file './input_maps/soiltype': EXISTING in format 3
-Attempting to read 'SlopeMapFile' in the file './input_maps/slope': EXISTING in format 3
+Attempting to read 'SoilMapFile' in the file '3D/small_example/input_maps/soiltype': EXISTING in format 3
+Attempting to read 'SlopeMapFile' in the file '3D/small_example/input_maps/slope': EXISTING in format 3
 Slope Min:0.049958 (2.860000 deg) Max:0.222061 (12.520000 deg) 
-Attempting to read 'AspectMapFile' in the file './input_maps/aspect': EXISTING in format 3
+Attempting to read 'AspectMapFile' in the file '3D/small_example/input_maps/aspect': EXISTING in format 3
 Curvature N-S Min:-0.000320  Max:0.000440 
 Curvature W-E Min:-0.000320  Max:0.000400 
 Curvature NW-SE Min:-0.000520  Max:0.000560 
@@ -1121,40 +1121,40 @@ Novalue pixels: 51
 Basin area: 9.250000 km2
 
 Horizon file FOUND for meteo station #1
-Column 1 in file ./hor_meteo/horizon0001.txt assigned to azimuth
-Column 2 in file ./hor_meteo/horizon0001.txt assigned to horizon_ele
-Column 1 in file ./meteo/meteo0001.txt assigned to Date
-Column 2 in file ./meteo/meteo0001.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0001.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0001.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0001.txt assigned to RH
-Column 6 in file ./meteo/meteo0001.txt assigned to AirT
-Column 7 in file ./meteo/meteo0001.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0001.txt assigned to CloudTrans
+Column 1 in file 3D/small_example/hor_meteo/horizon0001.txt assigned to azimuth
+Column 2 in file 3D/small_example/hor_meteo/horizon0001.txt assigned to horizon_ele
+Column 1 in file 3D/small_example/meteo/meteo0001.txt assigned to Date
+Column 2 in file 3D/small_example/meteo/meteo0001.txt assigned to Iprec
+Column 3 in file 3D/small_example/meteo/meteo0001.txt assigned to WindSp
+Column 4 in file 3D/small_example/meteo/meteo0001.txt assigned to WindDir
+Column 5 in file 3D/small_example/meteo/meteo0001.txt assigned to RH
+Column 6 in file 3D/small_example/meteo/meteo0001.txt assigned to AirT
+Column 7 in file 3D/small_example/meteo/meteo0001.txt assigned to Swglob
+Column 8 in file 3D/small_example/meteo/meteo0001.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #2
-Column 1 in file ./hor_meteo/horizon0002.txt assigned to azimuth
-Column 2 in file ./hor_meteo/horizon0002.txt assigned to horizon_ele
-Column 1 in file ./meteo/meteo0002.txt assigned to Date
-Column 2 in file ./meteo/meteo0002.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0002.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0002.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0002.txt assigned to RH
-Column 6 in file ./meteo/meteo0002.txt assigned to AirT
-Column 7 in file ./meteo/meteo0002.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0002.txt assigned to CloudTrans
+Column 1 in file 3D/small_example/hor_meteo/horizon0002.txt assigned to azimuth
+Column 2 in file 3D/small_example/hor_meteo/horizon0002.txt assigned to horizon_ele
+Column 1 in file 3D/small_example/meteo/meteo0002.txt assigned to Date
+Column 2 in file 3D/small_example/meteo/meteo0002.txt assigned to Iprec
+Column 3 in file 3D/small_example/meteo/meteo0002.txt assigned to WindSp
+Column 4 in file 3D/small_example/meteo/meteo0002.txt assigned to WindDir
+Column 5 in file 3D/small_example/meteo/meteo0002.txt assigned to RH
+Column 6 in file 3D/small_example/meteo/meteo0002.txt assigned to AirT
+Column 7 in file 3D/small_example/meteo/meteo0002.txt assigned to Swglob
+Column 8 in file 3D/small_example/meteo/meteo0002.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #3
-Column 1 in file ./hor_meteo/horizon0003.txt assigned to azimuth
-Column 2 in file ./hor_meteo/horizon0003.txt assigned to horizon_ele
-Column 1 in file ./meteo/meteo0003.txt assigned to Date
-Column 2 in file ./meteo/meteo0003.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0003.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0003.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0003.txt assigned to RH
-Column 6 in file ./meteo/meteo0003.txt assigned to AirT
-Column 7 in file ./meteo/meteo0003.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0003.txt assigned to CloudTrans
+Column 1 in file 3D/small_example/hor_meteo/horizon0003.txt assigned to azimuth
+Column 2 in file 3D/small_example/hor_meteo/horizon0003.txt assigned to horizon_ele
+Column 1 in file 3D/small_example/meteo/meteo0003.txt assigned to Date
+Column 2 in file 3D/small_example/meteo/meteo0003.txt assigned to Iprec
+Column 3 in file 3D/small_example/meteo/meteo0003.txt assigned to WindSp
+Column 4 in file 3D/small_example/meteo/meteo0003.txt assigned to WindDir
+Column 5 in file 3D/small_example/meteo/meteo0003.txt assigned to RH
+Column 6 in file 3D/small_example/meteo/meteo0003.txt assigned to AirT
+Column 7 in file 3D/small_example/meteo/meteo0003.txt assigned to Swglob
+Column 8 in file 3D/small_example/meteo/meteo0003.txt assigned to CloudTrans
 Shortwave radiation measurements from station 1
 Cloudiness measurements from station 1
 WARNING: NO longwave radiation measurements available

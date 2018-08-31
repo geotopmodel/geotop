@@ -6,7 +6,7 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: ./
+WORKING DIRECTORY: 3D/prealpiC/
 
 TimeStepEnergyAndWater[1] = 3.600000e+03 
 InitDateDDMMYYYYhhmm[1] = 1.610201e+11 
@@ -1329,15 +1329,15 @@ HeaderMeteoStationStandardTime = none
 SuccessfulRunFile = none
 FailedRunFile = none
 SubfolderRecoveryFiles = rec
-Column 1 in file ./soil/soil0001.txt assigned to Dz
-Column 3 in file ./soil/soil0001.txt assigned to Kv
-Column 2 in file ./soil/soil0001.txt assigned to Kh
-Column 4 in file ./soil/soil0001.txt assigned to res
-Column 5 in file ./soil/soil0001.txt assigned to fc
-Column 6 in file ./soil/soil0001.txt assigned to sat
-Column 7 in file ./soil/soil0001.txt assigned to a
-Column 8 in file ./soil/soil0001.txt assigned to n
-Column 9 in file ./soil/soil0001.txt assigned to SS
+Column 1 in file 3D/prealpiC/soil/soil0001.txt assigned to Dz
+Column 3 in file 3D/prealpiC/soil/soil0001.txt assigned to Kv
+Column 2 in file 3D/prealpiC/soil/soil0001.txt assigned to Kh
+Column 4 in file 3D/prealpiC/soil/soil0001.txt assigned to res
+Column 5 in file 3D/prealpiC/soil/soil0001.txt assigned to fc
+Column 6 in file 3D/prealpiC/soil/soil0001.txt assigned to sat
+Column 7 in file 3D/prealpiC/soil/soil0001.txt assigned to a
+Column 8 in file 3D/prealpiC/soil/soil0001.txt assigned to n
+Column 9 in file 3D/prealpiC/soil/soil0001.txt assigned to SS
 
 Soil Layers: 3
 -> Soil Type: 1
@@ -1375,17 +1375,17 @@ HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
 HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
 HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
 
-Column 1 in file ./ListPoints.txt assigned to ID
-Column 4 in file ./ListPoints.txt assigned to X
-Column 5 in file ./ListPoints.txt assigned to Y
-Attempting to read 'DemFile' in the file './input_maps/dem': EXISTING in format 3
-Attempting to read 'LandCoverMapFile' in the file './input_maps/lc': EXISTING in format 3
-Attempting to read 'SkyViewFactorMapFile' in the file './input_maps/sky': EXISTING in format 3
+Column 1 in file 3D/prealpiC/ListPoints.txt assigned to ID
+Column 4 in file 3D/prealpiC/ListPoints.txt assigned to X
+Column 5 in file 3D/prealpiC/ListPoints.txt assigned to Y
+Attempting to read 'DemFile' in the file '3D/prealpiC/input_maps/dem': EXISTING in format 3
+Attempting to read 'LandCoverMapFile' in the file '3D/prealpiC/input_maps/lc': EXISTING in format 3
+Attempting to read 'SkyViewFactorMapFile' in the file '3D/prealpiC/input_maps/sky': EXISTING in format 3
 Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
-Attempting to read 'SoilMapFile' in the file './input_maps/st': EXISTING in format 3
-Attempting to read 'SlopeMapFile' in the file './input_maps/slp': EXISTING in format 3
+Attempting to read 'SoilMapFile' in the file '3D/prealpiC/input_maps/st': EXISTING in format 3
+Attempting to read 'SlopeMapFile' in the file '3D/prealpiC/input_maps/slp': EXISTING in format 3
 Slope Min:0.000000 (0.000000 deg) Max:0.034571 (1.980000 deg) 
-Attempting to read 'AspectMapFile' in the file './input_maps/asp': EXISTING in format 3
+Attempting to read 'AspectMapFile' in the file '3D/prealpiC/input_maps/asp': EXISTING in format 3
 Curvature N-S Min:-0.017766  Max:0.011595 
 Curvature W-E Min:-0.016874  Max:0.015296 
 Curvature NW-SE Min:-0.017909  Max:0.018845 
@@ -1398,350 +1398,350 @@ Novalue pixels: 299485
 Basin area: 4266.187500 km2
 
 Horizon file FOUND for meteo station #1
-Column 1 in file ./horizon_meteo/horizon0001.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0001.txt assigned to el
-Column 1 in file ./meteo/meteo0001.txt assigned to Date
-Column 2 in file ./meteo/meteo0001.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0001.txt assigned to AirT
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0001.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0001.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0001.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0001.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0001.txt assigned to AirT
 
 Horizon file FOUND for meteo station #2
-Column 1 in file ./horizon_meteo/horizon0002.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0002.txt assigned to el
-Column 1 in file ./meteo/meteo0002.txt assigned to Date
-Column 2 in file ./meteo/meteo0002.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0002.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0002.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0002.txt assigned to RH
-Column 6 in file ./meteo/meteo0002.txt assigned to AirT
-Column 7 in file ./meteo/meteo0002.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0002.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0002.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0002.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0002.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0002.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0002.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0002.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0002.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0002.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0002.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0002.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #3
-Column 1 in file ./horizon_meteo/horizon0003.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0003.txt assigned to el
-Column 1 in file ./meteo/meteo0003.txt assigned to Date
-Column 2 in file ./meteo/meteo0003.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0003.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0003.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0003.txt assigned to RH
-Column 6 in file ./meteo/meteo0003.txt assigned to AirT
-Column 7 in file ./meteo/meteo0003.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0003.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0003.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0003.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0003.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0003.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0003.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0003.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0003.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0003.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0003.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0003.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #4
-Column 1 in file ./horizon_meteo/horizon0004.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0004.txt assigned to el
-Column 1 in file ./meteo/meteo0004.txt assigned to Date
-Column 2 in file ./meteo/meteo0004.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0004.txt assigned to AirT
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0004.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0004.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0004.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0004.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0004.txt assigned to AirT
 
 Horizon file FOUND for meteo station #5
-Column 1 in file ./horizon_meteo/horizon0005.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0005.txt assigned to el
-Column 1 in file ./meteo/meteo0005.txt assigned to Date
-Column 2 in file ./meteo/meteo0005.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0005.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0005.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0005.txt assigned to AirT
-Column 6 in file ./meteo/meteo0005.txt assigned to Swglob
-Column 7 in file ./meteo/meteo0005.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0005.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0005.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0005.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0005.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0005.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0005.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0005.txt assigned to AirT
+Column 6 in file 3D/prealpiC/meteo/meteo0005.txt assigned to Swglob
+Column 7 in file 3D/prealpiC/meteo/meteo0005.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #6
-Column 1 in file ./horizon_meteo/horizon0006.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0006.txt assigned to el
-Column 1 in file ./meteo/meteo0006.txt assigned to Date
-Column 2 in file ./meteo/meteo0006.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0006.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0006.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0006.txt assigned to RH
-Column 6 in file ./meteo/meteo0006.txt assigned to AirT
-Column 7 in file ./meteo/meteo0006.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0006.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0006.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0006.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0006.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0006.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0006.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0006.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0006.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0006.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0006.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0006.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #7
-Column 1 in file ./horizon_meteo/horizon0007.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0007.txt assigned to el
-Column 1 in file ./meteo/meteo0007.txt assigned to Date
-Column 2 in file ./meteo/meteo0007.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0007.txt assigned to AirT
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0007.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0007.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0007.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0007.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0007.txt assigned to AirT
 
 Horizon file FOUND for meteo station #8
-Column 1 in file ./horizon_meteo/horizon0008.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0008.txt assigned to el
-Column 1 in file ./meteo/meteo0008.txt assigned to Date
-Column 2 in file ./meteo/meteo0008.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0008.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0008.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0008.txt assigned to RH
-Column 6 in file ./meteo/meteo0008.txt assigned to AirT
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0008.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0008.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0008.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0008.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0008.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0008.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0008.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0008.txt assigned to AirT
 
 Horizon file FOUND for meteo station #9
-Column 1 in file ./horizon_meteo/horizon0009.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0009.txt assigned to el
-Column 1 in file ./meteo/meteo0009.txt assigned to Date
-Column 2 in file ./meteo/meteo0009.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0009.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0009.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0009.txt assigned to RH
-Column 6 in file ./meteo/meteo0009.txt assigned to AirT
-Column 7 in file ./meteo/meteo0009.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0009.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0009.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0009.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0009.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0009.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0009.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0009.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0009.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0009.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0009.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0009.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #10
-Column 1 in file ./horizon_meteo/horizon0010.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0010.txt assigned to el
-Column 1 in file ./meteo/meteo0010.txt assigned to Date
-Column 2 in file ./meteo/meteo0010.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0010.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0010.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0010.txt assigned to RH
-Column 6 in file ./meteo/meteo0010.txt assigned to AirT
-Column 7 in file ./meteo/meteo0010.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0010.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0010.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0010.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0010.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0010.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0010.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0010.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0010.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0010.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0010.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0010.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #11
-Column 1 in file ./horizon_meteo/horizon0011.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0011.txt assigned to el
-Column 1 in file ./meteo/meteo0011.txt assigned to Date
-Column 2 in file ./meteo/meteo0011.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0011.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0011.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0011.txt assigned to RH
-Column 6 in file ./meteo/meteo0011.txt assigned to AirT
-Column 7 in file ./meteo/meteo0011.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0011.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0011.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0011.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0011.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0011.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0011.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0011.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0011.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0011.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0011.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0011.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #12
-Column 1 in file ./horizon_meteo/horizon0012.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0012.txt assigned to el
-Column 1 in file ./meteo/meteo0012.txt assigned to Date
-Column 2 in file ./meteo/meteo0012.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0012.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0012.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0012.txt assigned to RH
-Column 6 in file ./meteo/meteo0012.txt assigned to AirT
-Column 7 in file ./meteo/meteo0012.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0012.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0012.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0012.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0012.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0012.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0012.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0012.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0012.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0012.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0012.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0012.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #13
-Column 1 in file ./horizon_meteo/horizon0013.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0013.txt assigned to el
-Column 1 in file ./meteo/meteo0013.txt assigned to Date
-Column 2 in file ./meteo/meteo0013.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0013.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0013.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0013.txt assigned to RH
-Column 6 in file ./meteo/meteo0013.txt assigned to AirT
-Column 7 in file ./meteo/meteo0013.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0013.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0013.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0013.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0013.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0013.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0013.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0013.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0013.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0013.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0013.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0013.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #14
-Column 1 in file ./horizon_meteo/horizon0014.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0014.txt assigned to el
-Column 1 in file ./meteo/meteo0014.txt assigned to Date
-Column 2 in file ./meteo/meteo0014.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0014.txt assigned to AirT
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0014.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0014.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0014.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0014.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0014.txt assigned to AirT
 
 Horizon file FOUND for meteo station #15
-Column 1 in file ./horizon_meteo/horizon0015.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0015.txt assigned to el
-Column 1 in file ./meteo/meteo0015.txt assigned to Date
-Column 2 in file ./meteo/meteo0015.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0015.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0015.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0015.txt assigned to RH
-Column 6 in file ./meteo/meteo0015.txt assigned to AirT
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0015.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0015.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0015.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0015.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0015.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0015.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0015.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0015.txt assigned to AirT
 
 Horizon file FOUND for meteo station #16
-Column 1 in file ./horizon_meteo/horizon0016.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0016.txt assigned to el
-Column 1 in file ./meteo/meteo0016.txt assigned to Date
-Column 2 in file ./meteo/meteo0016.txt assigned to WindSp
-Column 3 in file ./meteo/meteo0016.txt assigned to WindDir
-Column 4 in file ./meteo/meteo0016.txt assigned to AirT
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0016.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0016.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0016.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0016.txt assigned to WindSp
+Column 3 in file 3D/prealpiC/meteo/meteo0016.txt assigned to WindDir
+Column 4 in file 3D/prealpiC/meteo/meteo0016.txt assigned to AirT
 
 Horizon file FOUND for meteo station #17
-Column 1 in file ./horizon_meteo/horizon0017.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0017.txt assigned to el
-Column 1 in file ./meteo/meteo0017.txt assigned to Date
-Column 2 in file ./meteo/meteo0017.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0017.txt assigned to RH
-Column 4 in file ./meteo/meteo0017.txt assigned to AirT
-Column 5 in file ./meteo/meteo0017.txt assigned to Swglob
-Column 6 in file ./meteo/meteo0017.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0017.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0017.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0017.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0017.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0017.txt assigned to RH
+Column 4 in file 3D/prealpiC/meteo/meteo0017.txt assigned to AirT
+Column 5 in file 3D/prealpiC/meteo/meteo0017.txt assigned to Swglob
+Column 6 in file 3D/prealpiC/meteo/meteo0017.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #18
-Column 1 in file ./horizon_meteo/horizon0018.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0018.txt assigned to el
-Column 1 in file ./meteo/meteo0018.txt assigned to Date
-Column 2 in file ./meteo/meteo0018.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0018.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0018.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0018.txt assigned to RH
-Column 6 in file ./meteo/meteo0018.txt assigned to AirT
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0018.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0018.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0018.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0018.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0018.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0018.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0018.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0018.txt assigned to AirT
 
 Horizon file FOUND for meteo station #19
-Column 1 in file ./horizon_meteo/horizon0019.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0019.txt assigned to el
-Column 1 in file ./meteo/meteo0019.txt assigned to Date
-Column 2 in file ./meteo/meteo0019.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0019.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0019.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0019.txt assigned to RH
-Column 6 in file ./meteo/meteo0019.txt assigned to AirT
-Column 7 in file ./meteo/meteo0019.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0019.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0019.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0019.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0019.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0019.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0019.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0019.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0019.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0019.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0019.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0019.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #20
-Column 1 in file ./horizon_meteo/horizon0020.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0020.txt assigned to el
-Column 1 in file ./meteo/meteo0020.txt assigned to Date
-Column 2 in file ./meteo/meteo0020.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0020.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0020.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0020.txt assigned to RH
-Column 6 in file ./meteo/meteo0020.txt assigned to AirT
-Column 7 in file ./meteo/meteo0020.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0020.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0020.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0020.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0020.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0020.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0020.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0020.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0020.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0020.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0020.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0020.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #21
-Column 1 in file ./horizon_meteo/horizon0021.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0021.txt assigned to el
-Column 1 in file ./meteo/meteo0021.txt assigned to Date
-Column 2 in file ./meteo/meteo0021.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0021.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0021.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0021.txt assigned to RH
-Column 6 in file ./meteo/meteo0021.txt assigned to AirT
-Column 7 in file ./meteo/meteo0021.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0021.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0021.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0021.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0021.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0021.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0021.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0021.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0021.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0021.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0021.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0021.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #22
-Column 1 in file ./horizon_meteo/horizon0022.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0022.txt assigned to el
-Column 1 in file ./meteo/meteo0022.txt assigned to Date
-Column 2 in file ./meteo/meteo0022.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0022.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0022.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0022.txt assigned to RH
-Column 6 in file ./meteo/meteo0022.txt assigned to AirT
-Column 7 in file ./meteo/meteo0022.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0022.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0022.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0022.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0022.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0022.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0022.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0022.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0022.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0022.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0022.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0022.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #23
-Column 1 in file ./horizon_meteo/horizon0023.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0023.txt assigned to el
-Column 1 in file ./meteo/meteo0023.txt assigned to Date
-Column 2 in file ./meteo/meteo0023.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0023.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0023.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0023.txt assigned to RH
-Column 6 in file ./meteo/meteo0023.txt assigned to AirT
-Column 7 in file ./meteo/meteo0023.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0023.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0023.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0023.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0023.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0023.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0023.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0023.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0023.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0023.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0023.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0023.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #24
-Column 1 in file ./horizon_meteo/horizon0024.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0024.txt assigned to el
-Column 1 in file ./meteo/meteo0024.txt assigned to Date
-Column 2 in file ./meteo/meteo0024.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0024.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0024.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0024.txt assigned to RH
-Column 6 in file ./meteo/meteo0024.txt assigned to AirT
-Column 7 in file ./meteo/meteo0024.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0024.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0024.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0024.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0024.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0024.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0024.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0024.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0024.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0024.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0024.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0024.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #25
-Column 1 in file ./horizon_meteo/horizon0025.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0025.txt assigned to el
-Column 1 in file ./meteo/meteo0025.txt assigned to Date
-Column 2 in file ./meteo/meteo0025.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0025.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0025.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0025.txt assigned to RH
-Column 6 in file ./meteo/meteo0025.txt assigned to AirT
-Column 7 in file ./meteo/meteo0025.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0025.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0025.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0025.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0025.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0025.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0025.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0025.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0025.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0025.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0025.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0025.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #26
-Column 1 in file ./horizon_meteo/horizon0026.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0026.txt assigned to el
-Column 1 in file ./meteo/meteo0026.txt assigned to Date
-Column 2 in file ./meteo/meteo0026.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0026.txt assigned to RH
-Column 4 in file ./meteo/meteo0026.txt assigned to AirT
-Column 5 in file ./meteo/meteo0026.txt assigned to Swglob
-Column 6 in file ./meteo/meteo0026.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0026.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0026.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0026.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0026.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0026.txt assigned to RH
+Column 4 in file 3D/prealpiC/meteo/meteo0026.txt assigned to AirT
+Column 5 in file 3D/prealpiC/meteo/meteo0026.txt assigned to Swglob
+Column 6 in file 3D/prealpiC/meteo/meteo0026.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #27
-Column 1 in file ./horizon_meteo/horizon0027.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0027.txt assigned to el
-Column 1 in file ./meteo/meteo0027.txt assigned to Date
-Column 2 in file ./meteo/meteo0027.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0027.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0027.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0027.txt assigned to RH
-Column 6 in file ./meteo/meteo0027.txt assigned to AirT
-Column 7 in file ./meteo/meteo0027.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0027.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0027.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0027.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0027.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0027.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0027.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0027.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0027.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0027.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0027.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0027.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #28
-Column 1 in file ./horizon_meteo/horizon0028.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0028.txt assigned to el
-Column 1 in file ./meteo/meteo0028.txt assigned to Date
-Column 2 in file ./meteo/meteo0028.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0028.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0028.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0028.txt assigned to RH
-Column 6 in file ./meteo/meteo0028.txt assigned to AirT
-Column 7 in file ./meteo/meteo0028.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0028.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0028.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0028.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0028.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0028.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0028.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0028.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0028.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0028.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0028.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0028.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #29
-Column 1 in file ./horizon_meteo/horizon0029.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0029.txt assigned to el
-Column 1 in file ./meteo/meteo0029.txt assigned to Date
-Column 2 in file ./meteo/meteo0029.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0029.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0029.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0029.txt assigned to AirT
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0029.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0029.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0029.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0029.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0029.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0029.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0029.txt assigned to AirT
 
 Horizon file FOUND for meteo station #30
-Column 1 in file ./horizon_meteo/horizon0030.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0030.txt assigned to el
-Column 1 in file ./meteo/meteo0030.txt assigned to Date
-Column 2 in file ./meteo/meteo0030.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0030.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0030.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0030.txt assigned to RH
-Column 6 in file ./meteo/meteo0030.txt assigned to AirT
-Column 7 in file ./meteo/meteo0030.txt assigned to Swglob
-Column 8 in file ./meteo/meteo0030.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0030.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0030.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0030.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0030.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0030.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0030.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0030.txt assigned to RH
+Column 6 in file 3D/prealpiC/meteo/meteo0030.txt assigned to AirT
+Column 7 in file 3D/prealpiC/meteo/meteo0030.txt assigned to Swglob
+Column 8 in file 3D/prealpiC/meteo/meteo0030.txt assigned to CloudTrans
 
 Horizon file FOUND for meteo station #31
-Column 1 in file ./horizon_meteo/horizon0031.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0031.txt assigned to el
-Column 1 in file ./meteo/meteo0031.txt assigned to Date
-Column 2 in file ./meteo/meteo0031.txt assigned to Iprec
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0031.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0031.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0031.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0031.txt assigned to Iprec
 
 Horizon file FOUND for meteo station #32
-Column 1 in file ./horizon_meteo/horizon0032.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0032.txt assigned to el
-Column 1 in file ./meteo/meteo0032.txt assigned to Date
-Column 2 in file ./meteo/meteo0032.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0032.txt assigned to AirT
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0032.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0032.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0032.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0032.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0032.txt assigned to AirT
 
 Horizon file FOUND for meteo station #33
-Column 1 in file ./horizon_meteo/horizon0033.txt assigned to az
-Column 2 in file ./horizon_meteo/horizon0033.txt assigned to el
-Column 1 in file ./meteo/meteo0033.txt assigned to Date
-Column 2 in file ./meteo/meteo0033.txt assigned to Iprec
-Column 3 in file ./meteo/meteo0033.txt assigned to WindSp
-Column 4 in file ./meteo/meteo0033.txt assigned to WindDir
-Column 5 in file ./meteo/meteo0033.txt assigned to AirT
-Column 6 in file ./meteo/meteo0033.txt assigned to Swglob
-Column 7 in file ./meteo/meteo0033.txt assigned to CloudTrans
+Column 1 in file 3D/prealpiC/horizon_meteo/horizon0033.txt assigned to az
+Column 2 in file 3D/prealpiC/horizon_meteo/horizon0033.txt assigned to el
+Column 1 in file 3D/prealpiC/meteo/meteo0033.txt assigned to Date
+Column 2 in file 3D/prealpiC/meteo/meteo0033.txt assigned to Iprec
+Column 3 in file 3D/prealpiC/meteo/meteo0033.txt assigned to WindSp
+Column 4 in file 3D/prealpiC/meteo/meteo0033.txt assigned to WindDir
+Column 5 in file 3D/prealpiC/meteo/meteo0033.txt assigned to AirT
+Column 6 in file 3D/prealpiC/meteo/meteo0033.txt assigned to Swglob
+Column 7 in file 3D/prealpiC/meteo/meteo0033.txt assigned to CloudTrans
 Shortwave radiation measurements from station 2
 Cloudiness measurements from station 2
 WARNING: NO longwave radiation measurements available
@@ -1750,76 +1750,76 @@ WARNING: NO Bottom temperature measurements available
 Channel pixels: 0
 Soil water evaporates from the first 1 layers
 Soil water transpires from the first 3 layers
-16/10/2013 8:00 1.39% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:07  
-16/10/2013 9:00 2.78% - Time elapsed (h:m:s)  0:00:11 Time remaining (h:m)  0:06  
+16/10/2013 8:00 1.39% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m)  0:05  
+16/10/2013 9:00 2.78% - Time elapsed (h:m:s)  0:00:10 Time remaining (h:m)  0:05  
 16/10/2013 10:00 4.17% - Time elapsed (h:m:s)  0:00:14 Time remaining (h:m)  0:05  
 16/10/2013 11:00 5.56% - Time elapsed (h:m:s)  0:00:17 Time remaining (h:m)  0:04  
 16/10/2013 12:00 6.94% - Time elapsed (h:m:s)  0:00:20 Time remaining (h:m)  0:04  
 16/10/2013 13:00 8.33% - Time elapsed (h:m:s)  0:00:23 Time remaining (h:m)  0:04  
-16/10/2013 14:00 9.72% - Time elapsed (h:m:s)  0:00:26 Time remaining (h:m)  0:04  
-16/10/2013 15:00 11.11% - Time elapsed (h:m:s)  0:00:30 Time remaining (h:m)  0:04  
-16/10/2013 16:00 12.50% - Time elapsed (h:m:s)  0:00:33 Time remaining (h:m)  0:03  
-16/10/2013 17:00 13.89% - Time elapsed (h:m:s)  0:00:36 Time remaining (h:m)  0:03  
+16/10/2013 14:00 9.72% - Time elapsed (h:m:s)  0:00:25 Time remaining (h:m)  0:04  
+16/10/2013 15:00 11.11% - Time elapsed (h:m:s)  0:00:29 Time remaining (h:m)  0:03  
+16/10/2013 16:00 12.50% - Time elapsed (h:m:s)  0:00:32 Time remaining (h:m)  0:03  
+16/10/2013 17:00 13.89% - Time elapsed (h:m:s)  0:00:35 Time remaining (h:m)  0:03  
 16/10/2013 18:00 15.28% - Time elapsed (h:m:s)  0:00:41 Time remaining (h:m)  0:03  
-16/10/2013 19:00 16.67% - Time elapsed (h:m:s)  0:00:43 Time remaining (h:m)  0:03  
-16/10/2013 20:00 18.06% - Time elapsed (h:m:s)  0:00:45 Time remaining (h:m)  0:03  
-16/10/2013 21:00 19.44% - Time elapsed (h:m:s)  0:00:47 Time remaining (h:m)  0:03  
-16/10/2013 22:00 20.83% - Time elapsed (h:m:s)  0:00:49 Time remaining (h:m)  0:03  
+16/10/2013 19:00 16.67% - Time elapsed (h:m:s)  0:00:42 Time remaining (h:m)  0:03  
+16/10/2013 20:00 18.06% - Time elapsed (h:m:s)  0:00:44 Time remaining (h:m)  0:03  
+16/10/2013 21:00 19.44% - Time elapsed (h:m:s)  0:00:46 Time remaining (h:m)  0:03  
+16/10/2013 22:00 20.83% - Time elapsed (h:m:s)  0:00:48 Time remaining (h:m)  0:03  
 16/10/2013 23:00 22.22% - Time elapsed (h:m:s)  0:00:49 Time remaining (h:m)  0:02  
 17/10/2013 0:00 23.61% - Time elapsed (h:m:s)  0:00:51 Time remaining (h:m)  0:02  
 17/10/2013 1:00 25.00% - Time elapsed (h:m:s)  0:00:53 Time remaining (h:m)  0:02  
-17/10/2013 2:00 26.39% - Time elapsed (h:m:s)  0:00:56 Time remaining (h:m)  0:02  
+17/10/2013 2:00 26.39% - Time elapsed (h:m:s)  0:00:55 Time remaining (h:m)  0:02  
 17/10/2013 3:00 27.78% - Time elapsed (h:m:s)  0:00:57 Time remaining (h:m)  0:02  
-17/10/2013 4:00 29.17% - Time elapsed (h:m:s)  0:00:59 Time remaining (h:m)  0:02  
-17/10/2013 5:00 30.56% - Time elapsed (h:m:s)  0:01:01 Time remaining (h:m)  0:02  
-17/10/2013 6:00 31.94% - Time elapsed (h:m:s)  0:01:03 Time remaining (h:m)  0:02  
-17/10/2013 7:00 33.33% - Time elapsed (h:m:s)  0:01:07 Time remaining (h:m)  0:02  
-17/10/2013 8:00 34.72% - Time elapsed (h:m:s)  0:01:11 Time remaining (h:m)  0:02  
-17/10/2013 9:00 36.11% - Time elapsed (h:m:s)  0:01:15 Time remaining (h:m)  0:02  
-17/10/2013 10:00 37.50% - Time elapsed (h:m:s)  0:01:18 Time remaining (h:m)  0:02  
+17/10/2013 4:00 29.17% - Time elapsed (h:m:s)  0:00:58 Time remaining (h:m)  0:02  
+17/10/2013 5:00 30.56% - Time elapsed (h:m:s)  0:01:00 Time remaining (h:m)  0:02  
+17/10/2013 6:00 31.94% - Time elapsed (h:m:s)  0:01:01 Time remaining (h:m)  0:02  
+17/10/2013 7:00 33.33% - Time elapsed (h:m:s)  0:01:06 Time remaining (h:m)  0:02  
+17/10/2013 8:00 34.72% - Time elapsed (h:m:s)  0:01:10 Time remaining (h:m)  0:02  
+17/10/2013 9:00 36.11% - Time elapsed (h:m:s)  0:01:12 Time remaining (h:m)  0:02  
+17/10/2013 10:00 37.50% - Time elapsed (h:m:s)  0:01:16 Time remaining (h:m)  0:02  
 17/10/2013 11:00 38.89% - Time elapsed (h:m:s)  0:01:20 Time remaining (h:m)  0:02  
-17/10/2013 12:00 40.28% - Time elapsed (h:m:s)  0:01:24 Time remaining (h:m)  0:02  
+17/10/2013 12:00 40.28% - Time elapsed (h:m:s)  0:01:23 Time remaining (h:m)  0:02  
 17/10/2013 13:00 41.67% - Time elapsed (h:m:s)  0:01:26 Time remaining (h:m)  0:02  
 17/10/2013 14:00 43.06% - Time elapsed (h:m:s)  0:01:30 Time remaining (h:m)  0:01  
 17/10/2013 15:00 44.44% - Time elapsed (h:m:s)  0:01:33 Time remaining (h:m)  0:01  
 17/10/2013 16:00 45.83% - Time elapsed (h:m:s)  0:01:36 Time remaining (h:m)  0:01  
 17/10/2013 17:00 47.22% - Time elapsed (h:m:s)  0:01:38 Time remaining (h:m)  0:01  
 17/10/2013 18:00 48.61% - Time elapsed (h:m:s)  0:01:45 Time remaining (h:m)  0:01  
-17/10/2013 19:00 50.00% - Time elapsed (h:m:s)  0:01:47 Time remaining (h:m)  0:01  
-17/10/2013 20:00 51.39% - Time elapsed (h:m:s)  0:01:49 Time remaining (h:m)  0:01  
+17/10/2013 19:00 50.00% - Time elapsed (h:m:s)  0:01:46 Time remaining (h:m)  0:01  
+17/10/2013 20:00 51.39% - Time elapsed (h:m:s)  0:01:47 Time remaining (h:m)  0:01  
 17/10/2013 21:00 52.78% - Time elapsed (h:m:s)  0:01:49 Time remaining (h:m)  0:01  
 17/10/2013 22:00 54.17% - Time elapsed (h:m:s)  0:01:52 Time remaining (h:m)  0:01  
 17/10/2013 23:00 55.56% - Time elapsed (h:m:s)  0:01:54 Time remaining (h:m)  0:01  
 18/10/2013 0:00 56.94% - Time elapsed (h:m:s)  0:01:56 Time remaining (h:m)  0:01  
-18/10/2013 1:00 58.33% - Time elapsed (h:m:s)  0:01:58 Time remaining (h:m)  0:01  
+18/10/2013 1:00 58.33% - Time elapsed (h:m:s)  0:01:57 Time remaining (h:m)  0:01  
 18/10/2013 2:00 59.72% - Time elapsed (h:m:s)  0:01:58 Time remaining (h:m)  0:01  
 18/10/2013 3:00 61.11% - Time elapsed (h:m:s)  0:02:00 Time remaining (h:m)  0:01  
 18/10/2013 4:00 62.50% - Time elapsed (h:m:s)  0:02:02 Time remaining (h:m)  0:01  
 18/10/2013 5:00 63.89% - Time elapsed (h:m:s)  0:02:05 Time remaining (h:m)  0:01  
 18/10/2013 6:00 65.28% - Time elapsed (h:m:s)  0:02:07 Time remaining (h:m)  0:01  
-18/10/2013 7:00 66.67% - Time elapsed (h:m:s)  0:02:13 Time remaining (h:m)  0:01  
+18/10/2013 7:00 66.67% - Time elapsed (h:m:s)  0:02:12 Time remaining (h:m)  0:01  
 18/10/2013 8:00 68.06% - Time elapsed (h:m:s)  0:02:15 Time remaining (h:m)  0:01  
 18/10/2013 9:00 69.44% - Time elapsed (h:m:s)  0:02:18 Time remaining (h:m)  0:01  
 18/10/2013 10:00 70.83% - Time elapsed (h:m:s)  0:02:22 Time remaining (h:m)  0:00  
-18/10/2013 11:00 72.22% - Time elapsed (h:m:s)  0:02:30 Time remaining (h:m)  0:00  
-18/10/2013 12:00 73.61% - Time elapsed (h:m:s)  0:02:33 Time remaining (h:m)  0:00  
-18/10/2013 13:00 75.00% - Time elapsed (h:m:s)  0:02:37 Time remaining (h:m)  0:00  
+18/10/2013 11:00 72.22% - Time elapsed (h:m:s)  0:02:31 Time remaining (h:m)  0:00  
+18/10/2013 12:00 73.61% - Time elapsed (h:m:s)  0:02:35 Time remaining (h:m)  0:00  
+18/10/2013 13:00 75.00% - Time elapsed (h:m:s)  0:02:38 Time remaining (h:m)  0:00  
 18/10/2013 14:00 76.39% - Time elapsed (h:m:s)  0:02:40 Time remaining (h:m)  0:00  
 18/10/2013 15:00 77.78% - Time elapsed (h:m:s)  0:02:44 Time remaining (h:m)  0:00  
 18/10/2013 16:00 79.17% - Time elapsed (h:m:s)  0:02:46 Time remaining (h:m)  0:00  
 18/10/2013 17:00 80.56% - Time elapsed (h:m:s)  0:02:49 Time remaining (h:m)  0:00  
-18/10/2013 18:00 81.94% - Time elapsed (h:m:s)  0:02:54 Time remaining (h:m)  0:00  
+18/10/2013 18:00 81.94% - Time elapsed (h:m:s)  0:02:56 Time remaining (h:m)  0:00  
 18/10/2013 19:00 83.33% - Time elapsed (h:m:s)  0:02:56 Time remaining (h:m)  0:00  
 18/10/2013 20:00 84.72% - Time elapsed (h:m:s)  0:02:59 Time remaining (h:m)  0:00  
 18/10/2013 21:00 86.11% - Time elapsed (h:m:s)  0:03:00 Time remaining (h:m)  0:00  
-18/10/2013 22:00 87.50% - Time elapsed (h:m:s)  0:03:01 Time remaining (h:m)  0:00  
+18/10/2013 22:00 87.50% - Time elapsed (h:m:s)  0:03:03 Time remaining (h:m)  0:00  
 18/10/2013 23:00 88.89% - Time elapsed (h:m:s)  0:03:04 Time remaining (h:m)  0:00  
 19/10/2013 0:00 90.28% - Time elapsed (h:m:s)  0:03:06 Time remaining (h:m)  0:00  
 19/10/2013 1:00 91.67% - Time elapsed (h:m:s)  0:03:08 Time remaining (h:m)  0:00  
-19/10/2013 2:00 93.06% - Time elapsed (h:m:s)  0:03:08 Time remaining (h:m)  0:00  
-19/10/2013 3:00 94.44% - Time elapsed (h:m:s)  0:03:11 Time remaining (h:m)  0:00  
-19/10/2013 4:00 95.83% - Time elapsed (h:m:s)  0:03:13 Time remaining (h:m)  0:00  
+19/10/2013 2:00 93.06% - Time elapsed (h:m:s)  0:03:09 Time remaining (h:m)  0:00  
+19/10/2013 3:00 94.44% - Time elapsed (h:m:s)  0:03:12 Time remaining (h:m)  0:00  
+19/10/2013 4:00 95.83% - Time elapsed (h:m:s)  0:03:14 Time remaining (h:m)  0:00  
 19/10/2013 5:00 97.22% - Time elapsed (h:m:s)  0:03:15 Time remaining (h:m)  0:00  
 19/10/2013 6:00 98.61% - Time elapsed (h:m:s)  0:03:16 Time remaining (h:m)  0:00  
-19/10/2013 7:00 100.00% - Time elapsed (h:m:s)  0:03:22 Time remaining (h:m)  0:00  
+19/10/2013 7:00 100.00% - Time elapsed (h:m:s)  0:03:23 Time remaining (h:m)  0:00  
 Number of times the simulation #1 has been run: 1

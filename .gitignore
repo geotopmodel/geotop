@@ -44,6 +44,7 @@ input*
 failing_output
 *.log
 rec/*
+rec/
 NetPrec/*
 
 # Emacs back-up files

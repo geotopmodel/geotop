@@ -77,7 +77,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
   static long line_interp;
   double Dtplot=0., Delta, E0, Et, SWup, Tgskin, SWrefl_surr_ave=0.,
          Tgskin_surr_ave=0.;
-  FILE *f=NULL;
+  FILE *f=nullptr;
 
   //calculation to be done before plotting maps
   *W = 0.;
@@ -85,12 +85,12 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
   if (A->I->JD_plots->nh > 1 && A->I->iplot<=A->I->JD_plots->nh)
     {
       i=2*A->I->iplot-1;
-      if ( A->P->init_date->co[i_sim]+A->I->time/secinday+1.E-5 >=
-           A->I->JD_plots->co[i] &&
-           A->P->init_date->co[i_sim]+(A->I->time+Dt)/secinday-1.E-5 <=
-           A->I->JD_plots->co[i+1] )
+      if ( (*A->P->init_date)(i_sim) + A->I->time/secinday+1.E-5 >=
+           (*A->I->JD_plots)(i) &&
+           (*A->P->init_date)(i_sim) + (A->I->time+Dt)/secinday-1.E-5 <=
+           (*A->I->JD_plots)(i+1) )
         {
-          Dtplot=(A->I->JD_plots->co[i+1]-A->I->JD_plots->co[i])*secinday;
+          Dtplot=((*A->I->JD_plots)(i+1) - (*A->I->JD_plots)(i))*secinday;
           *W = Dt / Dtplot;
           f = fopen(logfile, "a");
           fprintf(f,"Saving plot number %ld Weight:%f \n",A->I->iplot,*W);
@@ -103,7 +103,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
   if (A->I->time==0) line_interp=0;
   for (i=1; i<=A->P->n_landuses; i++)
     {
-      if (A->P->vegflag->co[i]==1)
+      if ((*A->P->vegflag)(i)==1)
         {
           time_interp_linear(JD0, JDb, JDe, A->L->vegparv[i-1], A->L->vegpars[i-1],
                              A->L->NumlinesVegTimeDepData[i-1], jdvegprop+1, 0, 0, &line_interp);
@@ -130,12 +130,12 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
       if (A->E->dsun > 2*Pi) A->E->dsun -= 2*Pi;
       A->E->sinhsun = adaptiveSimpsons2(Sinalpha_, A->E->sun, JDb, JDe, 1.E-6,
                                         20) / (JDe - JDb);
-      if (A->P->cast_shadow==1) shadow_haiden(A->T->Z0, A->E->hsun, A->E->dsun,
-                                                A->L->shadow);
+      if (A->P->cast_shadow==1) 
+          shadow_haiden(A->T->Z0.get(), A->E->hsun, A->E->dsun, A->L->shadow.get());
     }
 
   //INITIALIZE BASIN AVERAGES
-  if (A->P->Dtplot_basin->co[i_sim]>0)
+  if ((*A->P->Dtplot_basin)(i_sim)>0)
     {
       for (i=0; i<nobsn; i++)
         {
@@ -160,11 +160,11 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
         }
       else   //LAND
         {
-          r = A->T->rc_cont->co[i - A->P->total_channel][1];
-          c = A->T->rc_cont->co[i - A->P->total_channel][2];
+          r = (*A->T->rc_cont)(i - A->P->total_channel,1);
+          c = (*A->T->rc_cont)(i - A->P->total_channel,2);
         }
 
-      if (A->L->delay->co[r][c] <= A->I->time/secinday)
+      if ((*A->L->delay)(r,c) <= A->I->time/secinday)
         {
 
           cnt++;
@@ -193,8 +193,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
             }
           else
             {
-              A->E->SWrefl_surr->co[r][c] = SWup;
-              A->E->Tgskin_surr->co[r][c] = Tgskin;
+                (*A->E->SWrefl_surr)(r,c) = SWup;
+                (*A->E->Tgskin_surr)(r,c) = Tgskin;
             }
         }
 
@@ -204,10 +204,10 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
     {
       for (i=1; i<=A->P->total_pixel; i++)
         {
-          r = A->T->rc_cont->co[i][1];
-          c = A->T->rc_cont->co[i][2];
-          A->E->SWrefl_surr->co[r][c] = SWrefl_surr_ave;
-          A->E->Tgskin_surr->co[r][c] = Tgskin_surr_ave;
+          r = (*A->T->rc_cont)(i,1);
+          c = (*A->T->rc_cont)(i,2);
+            (*A->E->SWrefl_surr)(r,c) = SWrefl_surr_ave;
+            (*A->E->Tgskin_surr)(r,c) = Tgskin_surr_ave;
         }
     }
 
@@ -258,50 +258,48 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
   if (i <= A->P->total_channel)
     {
       j = i;
-      lu = (short)A->L->LC->co[r][c];
+      lu = (short)(*A->L->LC)(r,c);
       sy = (*A->C->soil_type)(j);
 
       for (l=1; l<=Nl; l++)
         {
-          A->C->ET->co[l][j] = 0.0;
-          A->C->th->co[l][j] = theta_from_psi(C->P->co[l][j], C->thi->co[l][j], l,
-                                              A->S->pa->co[sy], PsiMin);
-          A->C->th->co[l][j] = Fmin( A->C->th->co[l][j],
-                                     A->S->pa->co[sy][jsat][l]-C->thi->co[l][j] );
+          (*A->C->ET)(l,j) = 0.0;
+          (*A->C->th)(l,j) = theta_from_psi((*C->P)(l,j), (*C->thi)(l,j), l, A->S->pa->co[sy], PsiMin);
+          (*A->C->th)(l,j) = Fmin( (*A->C->th)(l,j), A->S->pa->co[sy][jsat][l]-(*C->thi)(l,j) );
         }
 
     }
   else
     {
       j = i - A->P->total_channel;
-      A->W->Pnet->co[r][c] = 0.0;
-      lu = (short)A->L->LC->co[r][c];
-      sy = A->S->type->co[r][c];
+      (*A->W->Pnet)(r,c) = 0.0;
+      lu = (short)(*A->L->LC)(r,c);
+      sy = (*A->S->type)(r,c);
 
       for (l=1; l<=Nl; l++)
         {
           A->S->ET->co[l][r][c] = 0.0;
-          A->S->th->co[l][j] = theta_from_psi(L->P->co[l][j], L->thi->co[l][j], l,
+          (*A->S->th)(l,j) = theta_from_psi((*L->P)(l,j), (*L->thi)(l,j), l,
                                               A->S->pa->co[sy], PsiMin);
-          A->S->th->co[l][j] = Fmin( A->S->th->co[l][j],
-                                     A->S->pa->co[sy][jsat][l]-L->thi->co[l][j] );
+          (*A->S->th)(l,j) = Fmin( (*A->S->th)(l,j),
+                                     A->S->pa->co[sy][jsat][l]-(*L->thi)(l,j) );
         }
 
     }
 
 
   //METEO
-  Tpoint=A->M->Tgrid->co[r][c];
-  Ppoint=A->M->Pgrid->co[r][c];
-  RHpoint=A->M->RHgrid->co[r][c];
-  Vpoint=A->M->Vgrid->co[r][c];
+  Tpoint=(*A->M->Tgrid)(r,c);
+  Ppoint=(*A->M->Pgrid)(r,c);
+  RHpoint=(*A->M->RHgrid)(r,c);
+  Vpoint=(*A->M->Vgrid)(r,c);
 
-  Precpoint=A->W->PrecTot->co[r][c];
+  Precpoint=(*A->W->PrecTot)(r,c);
   //define prec as normal (not vertical)
-  Precpoint*=cos(A->T->slope->co[r][c]*Pi/180.);
+  Precpoint*=cos((*A->T->slope)(r,c)*Pi/180.);
   //another cosine correction applied for point simulations (due to area proejection)
   if (A->P->point_sim==1
-      && A->P->flag1D==0) Precpoint*=cos(A->T->slope->co[r][c]*Pi/180.);
+      && A->P->flag1D==0) Precpoint*=cos((*A->T->slope)(r,c)*Pi/180.);
 
   Tdirichlet=A->M->var[A->M->nstTs-1][iTs];
   if ((long)Tdirichlet == number_novalue
@@ -312,8 +310,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
       || (long)Tdirichlet_bottom == number_absent) Tdirichlet_bottom=A->P->Tbottom;
 
   //SNOW
-  snowD=DEPTH(r, c, S->lnum, S->Dzl);
-  ns=S->lnum->co[r][c];
+  snowD=DEPTH(r, c, S->lnum.get(), S->Dzl);
+  ns=(*S->lnum)(r,c);
 
   //vegetation parameters
   if (i>A->P->total_channel)
@@ -324,12 +322,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
           if ( (long)A->L->vegparv[lu-1][l] != number_novalue )
             {
               A->L->vegpar->co[l] = A->L->vegparv[lu-1][l];
-              if (l==jdroot) root(A->L->root_fraction->nch, A->L->vegpar->co[jdroot], 0.0,
-                                    A->S->pa->co[1][jdz], A->L->root_fraction->co[lu]);
+              if (l==jdroot)
+                root(A->L->root_fraction->nch, A->L->vegpar->co[jdroot], 0.0, A->S->pa->co[1][jdz], A->L->root_fraction->row(lu));
             }
           else
             {
-              A->L->vegpar->co[l] = A->L->ty->co[lu][l+jHveg-1];
+              A->L->vegpar->co[l] = (*A->L->ty)(lu,l+jHveg-1);
             }
         }
 
@@ -355,7 +353,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
       //glacier
       if (A->P->max_glac_layers>0)
         {
-          ng=G->lnum->co[r][c];
+          ng=(*G->lnum)(r,c);
           if (ng>0)
             {
               A->L->vegpar->co[jdLSAI]=0.0;
@@ -400,11 +398,11 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
     }
 
   //Adjusting snow precipitation in case of steep slope (contribution by Stephan Gruber)
-  if (A->P->snow_curv > 0 && A->T->slope->co[r][c] > A->P->snow_smin)
+  if (A->P->snow_curv > 0 && (*A->T->slope)(r,c) > A->P->snow_smin)
     {
-      if (A->T->slope->co[r][c] <= A->P->snow_smax)
+      if ((*A->T->slope)(r,c) <= A->P->snow_smax)
         {
-          k_snowred = ( exp(-pow(A->T->slope->co[r][c] - A->P->snow_smin,
+          k_snowred = ( exp(-pow((*A->T->slope)(r,c) - A->P->snow_smin,
                                  2.)/A->P->snow_curv) -
                         exp(-pow(A->P->snow_smax, 2.)/A->P->snow_curv) );
         }
@@ -444,7 +442,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
 
   //if averaged cloud transmissivity is not available it is estimated through this micromet subroutine (not very reliable)
   if (A->M->tau_cloud_av_yes==0) A->M->tau_cloud_av = 1. -
-                                                        0.71*find_cloudfactor(Tpoint, RHpoint, A->T->Z0->co[r][c], A->M->LRv[ilsTa],
+                                                        0.71*find_cloudfactor(Tpoint, RHpoint, (*A->T->Z0)(r,c), A->M->LRv[ilsTa],
                                                             A->M->LRv[ilsTdew]);//Kimball(1928)
 
   //in case of shortwave data not available
@@ -466,17 +464,17 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
     {
       if (i<=A->P->total_channel)
         {
-          theta_sup = A->C->th->co[1][j];
+          theta_sup = (*A->C->th)(1,j);
         }
       else
         {
-          theta_sup = A->S->th->co[1][j];
+          theta_sup = (*A->S->th)(1,j);
         }
-      avis_ground = find_albedo(A->L->ty->co[lu][ja_vis_dry],
-                                A->L->ty->co[lu][ja_vis_sat], theta_sup, A->S->pa->co[sy][jres][1],
+      avis_ground = find_albedo((*A->L->ty)(lu,ja_vis_dry),
+                                (*A->L->ty)(lu,ja_vis_sat), theta_sup, A->S->pa->co[sy][jres][1],
                                 A->S->pa->co[sy][jsat][1]);
-      anir_ground = find_albedo(A->L->ty->co[lu][ja_nir_dry],
-                                A->L->ty->co[lu][ja_nir_sat], theta_sup, A->S->pa->co[sy][jres][1],
+      anir_ground = find_albedo((*A->L->ty)(lu,ja_nir_dry),
+                                (*A->L->ty)(lu,ja_nir_sat), theta_sup, A->S->pa->co[sy][jres][1],
                                 A->S->pa->co[sy][jsat][1]);
       avis_b=avis_ground;
       avis_d=avis_ground;
@@ -487,8 +485,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
   //calculation of SWin
   if (A->P->point_sim==1)
     {
-      A->E->sun[0] = A->T->latitude->co[r][c]*Pi/180.;
-      A->E->sun[2] = (A->T->longitude->co[r][c]*Pi/180. - A->P->ST*Pi/12. +
+      A->E->sun[0] = (*A->T->latitude)(r,c)*Pi/180.;
+      A->E->sun[2] = ((*A->T->longitude)(r,c)*Pi/180. - A->P->ST*Pi/12. +
                       Et)/omega;
       A->E->hsun = adaptiveSimpsons2(SolarHeight__, A->E->sun, JDb, JDe, 1.E-6,
                                      20) / (JDe - JDb);
@@ -498,29 +496,28 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
       if (A->E->dsun > 2*Pi) A->E->dsun -= 2*Pi;
       A->E->sinhsun = adaptiveSimpsons2(Sinalpha_, A->E->sun, JDb, JDe, 1.E-6,
                                         20) / (JDe - JDb);
-      if (A->P->cast_shadow==1) A->L->shadow->co[r][c]=shadows_point(
-                                                           A->T->horizon_height[A->T->horizon_point->co[r][c]-1],
-                                                           A->T->horizon_numlines[A->T->horizon_point->co[r][c]-1], A->E->hsun*180./Pi,
+      if (A->P->cast_shadow==1) (*A->L->shadow)(r,c)=shadows_point(
+                                                           A->T->horizon_height[(*A->T->horizon_point)(r,c)-1],
+                                                           A->T->horizon_numlines[(*A->T->horizon_point)(r,c)-1], A->E->hsun*180./Pi,
                                                            A->E->dsun*180/Pi, 0., 0.);
     }
 
   A->E->sun[3] = RHpoint;
   A->E->sun[4] = Tpoint;
   A->E->sun[5] = Ppoint;
-  A->E->sun[6] = A->T->slope->co[r][c]*Pi/180.;
-  A->E->sun[7] = A->T->aspect->co[r][c]*Pi/180.;
+  A->E->sun[6] = (*A->T->slope)(r,c)*Pi/180.;
+  A->E->sun[7] = (*A->T->aspect)(r,c)*Pi/180.;
   if (A->P->albedoSWin != 0) A->E->sun[11] = (avis_b + avis_d + anir_b +
                                                 anir_d)/4.;
 
   shortwave_radiation(JDb, JDe, A->E->sun, A->E->sinhsun, E0,
-                      A->T->sky->co[r][c], A->E->SWrefl_surr->co[r][c],
-                      A->M->tau_cloud, A->L->shadow->co[r][c], &SWbeam, &SWdiff, &cosinc,
+                      (*A->T->sky)(r,c), (*A->E->SWrefl_surr)(r,c),
+                      A->M->tau_cloud, (*A->L->shadow)(r,c), &SWbeam, &SWdiff, &cosinc,
                       &tauatm_sinhsun, &SWb_yes);
 
   SWbeam=flux(A->M->nstsrad, iSWb, A->M->var, 1.0, 0.0, SWbeam);
   SWdiff=flux(A->M->nstsrad, iSWd, A->M->var, 1.0,
-              (1.-A->T->sky->co[r][c])*A->E->SWrefl_surr->co[r][c], SWdiff);
-
+              (1.-(*A->T->sky)(r,c)) * (*A->E->SWrefl_surr)(r,c), SWdiff);
   SWin=SWbeam+SWdiff;
 
   //update snow albedo
@@ -548,12 +545,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
           if (V->wsnow->co[j]<0) V->wsnow->co[j]=0.0;
           fsnowcan=pow(V->wsnow->co[j]/max_wcan_snow, 2./3.);
           shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, wsn_vis,
-                               Bsnd_vis, Bsnb_vis, avis_d, avis_b, A->L->ty->co[lu][jvCh],
-                               A->L->ty->co[lu][jvR_vis], A->L->ty->co[lu][jvT_vis],
+                               Bsnd_vis, Bsnb_vis, avis_d, avis_b, (*A->L->ty)(lu,jvCh),
+                               (*A->L->ty)(lu,jvR_vis), (*A->L->ty)(lu,jvT_vis),
                                A->L->vegpar->co[jdLSAI], &SWv_vis, &SWg_vis, &SWupabove_v_vis);
           shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, wsn_nir,
-                               Bsnd_nir, Bsnb_nir, anir_d, anir_b, A->L->ty->co[lu][jvCh],
-                               A->L->ty->co[lu][jvR_nir], A->L->ty->co[lu][jvT_nir],
+                               Bsnd_nir, Bsnb_nir, anir_d, anir_b, (*A->L->ty)(lu,jvCh),
+                               (*A->L->ty)(lu,jvR_nir), (*A->L->ty)(lu,jvT_nir),
                                A->L->vegpar->co[jdLSAI], &SWv_nir, &SWg_nir, &SWupabove_v_nir);
 
         }
@@ -595,19 +592,19 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
     }
   else
     {
-      eps=A->L->ty->co[lu][jemg];
+      eps=(*A->L->ty)(lu,jemg);
     }
 
   longwave_radiation(A->P->state_lwrad, ea, RHpoint, Tpoint, A->P->k1, A->P->k2,
                      A->M->tau_cloud_av, &epsa, &epsa_max, &epsa_min);
-  LWin=A->T->sky->co[r][c]*epsa*SB(Tpoint);
+  LWin=(*A->T->sky)(r,c)*epsa*SB(Tpoint);
 
   //if incoming LW data are available, they are used (priority)
   LWin=flux(A->M->nstlrad, iLWi, A->M->var, 1.0, 0.0, LWin);
 
   //roughness lengths
-  update_roughness_soil(A->L->ty->co[lu][jz0], 0.0, 0.0, snowD,
-                        A->L->ty->co[lu][jz0thressoil], A->P->z0_snow, &z0, &d0, &z0_z0t);
+  update_roughness_soil((*A->L->ty)(lu,jz0), 0.0, 0.0, snowD,
+                        (*A->L->ty)(lu,jz0thressoil), A->P->z0_snow, &z0, &d0, &z0_z0t);
   if (fc>0) update_roughness_veg(A->L->vegpar->co[jdHveg], snowD, zmeas_u,
                                    zmeas_T, &z0veg, &d0veg, &hveg);
 
@@ -633,16 +630,16 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
           if (i<=A->P->total_channel)
             {
               A->E->Dlayer->co[l] = 1.E-3*A->S->pa->co[sy][jdz][l-ns-ng];
-              A->E->liq->co[l] = A->C->th->co[l-ns-ng][j]*A->E->Dlayer->co[l]*rho_w;
-              A->E->ice->co[l] = C->thi->co[l-ns-ng][j]*A->E->Dlayer->co[l]*rho_w;
-              A->E->Temp->co[l] = C->T->co[l-ns-ng][j];
+              A->E->liq->co[l] = (*A->C->th)(l-ns-ng,j)*A->E->Dlayer->co[l]*rho_w;
+              A->E->ice->co[l] = (*C->thi)(l-ns-ng,j)*A->E->Dlayer->co[l]*rho_w;
+              A->E->Temp->co[l] = (*C->T)(l-ns-ng,j);
             }
           else
             {
               A->E->Dlayer->co[l] = 1.E-3*A->S->pa->co[sy][jdz][l-ns-ng];
-              A->E->liq->co[l] = A->S->th->co[l-ns-ng][j]*A->E->Dlayer->co[l]*rho_w;
-              A->E->ice->co[l] = L->thi->co[l-ns-ng][j]*A->E->Dlayer->co[l]*rho_w;
-              A->E->Temp->co[l] = L->T->co[l-ns-ng][j];
+              A->E->liq->co[l] = (*A->S->th)(l-ns-ng,j)*A->E->Dlayer->co[l]*rho_w;
+              A->E->ice->co[l] = (*L->thi)(l-ns-ng,j)*A->E->Dlayer->co[l]*rho_w;
+              A->E->Temp->co[l] = (*L->T)(l-ns-ng,j);
             }
         }
     }
@@ -717,13 +714,13 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
           A->E->ice->co[1] += ic;
           if (i<=A->P->total_channel)
             {
-              C->thi->co[1][j] = A->E->ice->co[1]/(A->E->Dlayer->co[1]*rho_w);
-              A->C->th->co[1][j] = A->E->liq->co[1]/(A->E->Dlayer->co[1]*rho_w);
+              (*C->thi)(1,j) = A->E->ice->co[1]/(A->E->Dlayer->co[1]*rho_w);
+              (*A->C->th)(1,j) = A->E->liq->co[1]/(A->E->Dlayer->co[1]*rho_w);
             }
           else
             {
-              L->thi->co[1][j] = A->E->ice->co[1]/(A->E->Dlayer->co[1]*rho_w);
-              A->S->th->co[1][j] = A->E->liq->co[1]/(A->E->Dlayer->co[1]*rho_w);
+              (*L->thi)(1,j) = A->E->ice->co[1]/(A->E->Dlayer->co[1]*rho_w);
+              (*A->S->th)(1,j) = A->E->liq->co[1]/(A->E->Dlayer->co[1]*rho_w);
             }
 
         }
@@ -733,7 +730,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
 
       //ENERGY BALANCE
       sux=SolvePointEnergyBalance(surface, Tdirichlet, Tdirichlet_bottom, A->P->EB,
-                                  A->P->Cair, A->P->micro, JDb-A->P->init_date->co[i_sim], Dt, i, j, r, c, L, C,
+                                  A->P->Cair, A->P->micro, JDb-(*A->P->init_date)(i_sim), Dt, i, j, r, c, L, C,
                                   V, A->E.get(), A->L.get(),
                                   A->S.get(), A->C.get(), A->T.get(), A->P.get(), ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg,
                                   1.0, hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa],
@@ -765,7 +762,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         {
 
           update_soil_channel(A->P->nsurface, ns+ng, i, fc, Dt, A->E.get(), A->S->pa->co[sy],
-                              C, A->C->ET, A->C->th);
+                              C, A->C->ET.get(), A->C->th.get());
 
         }
       else
@@ -812,7 +809,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
 
           //soil
           update_soil_land(A->P->nsurface, ns+ng, j, r, c, fc, Dt, A->E.get(),
-                           A->S->pa->co[sy], L, A->S->ET, A->S->th);
+                           A->S->pa->co[sy], L, A->S->ET, A->S->th.get());
 
           //glacier
           if (A->P->max_glac_layers>0)
@@ -820,39 +817,39 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
               //glacier melting
               WBglacier(ns, ng, r, c, G, &Melt_glac, A->P.get(), A->E.get(), Evap_glac);
               //adjust glacier layers
-              snow_layer_combination(A->P->alpha_snow, r, c, G, Tpoint,
-                                     A->P->inf_glac_layers.get(), A->P->max_weq_glac, 1.E10, f);
+                snow_layer_combination(A->P->alpha_snow, r, c, G, Tpoint, A->P->inf_glac_layers.get(),
+                                       A->P->max_weq_glac, 1.E10);
             }
 
           //SNOW
           //snow melting, compactation and percolation
-          WBsnow(Dt, ns, r, c, S, &Melt_snow, &RainOnSnow, A->P.get(), A->T->slope->co[r][c],
+          WBsnow(Dt, ns, r, c, S, &Melt_snow, &RainOnSnow, A->P.get(), (*A->T->slope)(r,c),
                  Prain, A->E.get(), Evap_snow);
 
           //adjust snow layers
           if (A->P->point_sim == 1)
             {
-              maxSWE = A->P->maxSWE->co[r][c];
+              maxSWE = (*A->P->maxSWE)(r,c);
             }
           else
             {
               maxSWE = 1.E10;
             }
-          snow_layer_combination(A->P->alpha_snow, r, c, S, Tpoint,
-                                 A->P->inf_snow_layers.get(), A->P->max_weq_snow, maxSWE, f);
+            snow_layer_combination(A->P->alpha_snow, r, c, S, Tpoint, A->P->inf_snow_layers.get(), A->P->max_weq_snow,
+                                   maxSWE);
 
           //add new snow
           if (Psnow>0) new_snow(A->P->alpha_snow, r, c, S, Psnow,
                                   Psnow*rho_w/rho_newlyfallensnow(Vpoint, Tpoint, Tfreezing), Tpoint);
 
           //NET PRECIPITATION
-          A->W->Pnet->co[r][c] += (Melt_snow + Melt_glac + Prain);
+          (*A->W->Pnet)(r,c) += (Melt_snow + Melt_glac + Prain);
 
           //VEGETATION
           if ( A->L->vegpar->co[jdLSAI]>=LSAIthres && ng==0 )
             {
 
-              snowD = DEPTH(r, c, S->lnum, S->Dzl);
+              snowD = DEPTH(r, c, S->lnum.get(), S->Dzl);
 
               fc0=fc;
 
@@ -884,7 +881,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                 {
                   new_snow(A->P->alpha_snow, r, c, S, V->wsnow->co[j]*(fc0-fc),
                            V->wsnow->co[j]*(fc0-fc)*1000./300, V->Tv->co[j]);
-                  A->W->Pnet->co[r][c] +=  V->wrain->co[j]*(fc0-fc);
+                  (*A->W->Pnet)(r,c) +=  V->wrain->co[j]*(fc0-fc);
                 }
 
               if (fc<1.E-6)
@@ -895,7 +892,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
             }
 
           //write output
-          if (A->P->output_snow->co[i_sim]>0)
+          if ((*A->P->output_snow)(i_sim)>0)
             {
               if (strcmp(files[fsnowmelt],
                          string_novalue) != 0) A->N->melted->co[j] = Melt_snow;
@@ -914,7 +911,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                 }
             }
 
-          if (A->P->max_glac_layers>0 && A->P->output_glac->co[i_sim]>0)
+          if (A->P->max_glac_layers>0 && (*A->P->output_glac)(i_sim)>0)
             {
               if (strcmp(files[fglacmelt],
                          string_novalue) != 0) A->G->melted->co[j] = Melt_glac;
@@ -929,8 +926,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
               if (strcmp(files[fradLW], string_novalue) != 0) A->E->LW->co[j] = LW;
               if (strcmp(files[fradSW], string_novalue) != 0)  A->E->SW->co[j] = SW;
               if (strcmp(files[fradSWin], string_novalue) != 0) A->E->SWin->co[j] = SWin;
-              if (strcmp(files[fradSWinbeam],
-                         string_novalue) != 0) A->E->SWinb->co[j] = SWbeam;
+              if (strcmp(files[fradSWinbeam], string_novalue) != 0) A->E->SWinb->co[j] = SWbeam;
               if (strcmp(files[fshadow], string_novalue) != 0) (*A->E->shad)(j) = SWb_yes;
               if (strcmp(files[fG], string_novalue) != 0) A->E->G->co[j] = surfEB;
               if (strcmp(files[fH], string_novalue) != 0)  A->E->H->co[j] = H;
@@ -938,12 +934,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
               if (strcmp(files[fTs], string_novalue) != 0) A->E->Ts->co[j] = (*Tgskin);
             }
 
-          if (A->P->output_meteo->co[i_sim]>0)
+          if ((*A->P->output_meteo)(i_sim)>0)
             {
               if (strcmp(files[fprec], string_novalue) != 0)
                 {
-                  A->W->Pt->co[j] = Precpoint;
-                  A->W->Ps->co[j] = Psnow_over;
+                 (*A->W->Pt)(j) = Precpoint;
+                 (*A->W->Ps)(j) = Psnow_over;
                 }
             }
 
@@ -976,7 +972,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
             {
               if ((*A->P->jplot)(j) > 0)
                 {
-                  if (A->P->Dtplot_point->co[i_sim]>0)
+                  if ((*A->P->Dtplot_point)(i_sim)>0)
                     {
                       for (l=0; l<nopnt; l++)
                         {
@@ -1004,151 +1000,149 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                                 }
                               else if (opnt[l] == oV)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Vpoint*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Vpoint*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oVdir)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] =
-                                    A->M->Vdir->co[r][c]*Dt/A->P->Dtplot_point->co[i_sim];
+                                    (*A->M->Vdir)(r,c)*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oRH)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = RHpoint*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = RHpoint*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oPa)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] =
-                                    Precpoint*Dt/A->P->Dtplot_point->co[i_sim];
+                                    Precpoint*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oTa)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Tpoint*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Tpoint*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oTdew)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Tdew*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Tdew*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oTg)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = *Tgskin*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = *Tgskin*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oTv)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] =
-                                    V->Tv->co[j]*Dt/A->P->Dtplot_point->co[i_sim];
+                                    V->Tv->co[j]*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oTs)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Ts*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Ts*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oEB)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = surfEB*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = surfEB*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oG)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = GEF*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = GEF*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oSWin)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = SWin*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = SWin*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oSWb)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = SWbeam*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = SWbeam*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oSWd)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = SWdiff*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = SWdiff*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oLWin)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = LWin*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = LWin*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == ominLWin)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = (A->T->sky->co[r][c]*epsa_min*SB(
-                                                                          Tpoint) + (1.-A->T->sky->co[r][c])*eps*SB(A->E->Tgskin_surr->co[r][c])) *
-                                                                       Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = ( (*A->T->sky)(r,c) * epsa_min * SB(Tpoint) + (1.-(*A->T->sky)(r,c)) * eps * SB((*A->E->Tgskin_surr)(r,c)) )
+                                                                        * Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == omaxLWin)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = (A->T->sky->co[r][c]*epsa_max*SB(
-                                                                          Tpoint) + (1.-A->T->sky->co[r][c])*eps*SB(A->E->Tgskin_surr->co[r][c])) *
-                                                                       Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = ((*A->T->sky)(r,c)*epsa_max*SB(Tpoint) + (1.-(*A->T->sky)(r,c)) * eps * SB((*A->E->Tgskin_surr)(r,c)) )
+                                                                      * Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oSW)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = SW*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = SW*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oLW)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = LW*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = LW*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oH)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = H*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = H*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oLE)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = LE*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = LE*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == ofc)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = fc*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = fc*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oLSAI)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] =
-                                    A->L->vegpar->co[jdLSAI]*Dt/A->P->Dtplot_point->co[i_sim];
+                                    A->L->vegpar->co[jdLSAI]*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oz0v)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = z0veg*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = z0veg*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == od0v)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = d0veg*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = d0veg*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oEcan)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] = (SWv_vis+SWv_nir+LWv-Hv-LEv)
-                                                                       *Dt/A->P->Dtplot_point->co[i_sim];
+                                                                       *Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oSWv)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] = (SWv_vis+SWv_nir)
-                                                                       *Dt/A->P->Dtplot_point->co[i_sim];
+                                                                       *Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oLWv)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = LWv*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = LWv*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oHv)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Hv*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Hv*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oLEv)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = LEv*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = LEv*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oHg0)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Hg0*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Hg0*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oLEg0)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] = Levap(*Tgskin)
-                                                                       *Eg0*Dt/A->P->Dtplot_point->co[i_sim];
+                                                                       *Eg0*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oHg1)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Hg1*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Hg1*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oLEg1)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] = Levap(*Tgskin)
-                                                                       *Eg1*Dt/A->P->Dtplot_point->co[i_sim];
+                                                                       *Eg1*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oevapsur)
                                 {
@@ -1160,47 +1154,47 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                                 }
                               else if (opnt[l] == oQv)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Qv*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Qv*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oQg)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Qg*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Qg*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oQa)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Qa*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Qa*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oQs)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Qs*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Qs*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oLobuk)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] =
-                                    Lobukhov*Dt/A->P->Dtplot_point->co[i_sim];
+                                    Lobukhov*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oLobukcan)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Locc*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = Locc*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == outop)
                                 {
-                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = u_top*Dt/A->P->Dtplot_point->co[i_sim];
+                                  odp[opnt[l]][(*A->P->jplot)(j)-1] = u_top*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == odecay)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] =
-                                    decaycoeff*Dt/A->P->Dtplot_point->co[i_sim];
+                                    decaycoeff*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oSWup)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] =
-                                    *SWupabove_v*Dt/A->P->Dtplot_point->co[i_sim];
+                                    *SWupabove_v*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oLWup)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] =
-                                    LWupabove_v*Dt/A->P->Dtplot_point->co[i_sim];
+                                    LWupabove_v*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == omrsnow)
                                 {
@@ -1226,7 +1220,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
 
           if (A->P->state_basin == 1)
             {
-              if (A->P->Dtplot_basin->co[i_sim]>0)
+              if ((*A->P->Dtplot_basin)(i_sim)>0)
                 {
                   for (l=0; l<nobsn; l++)
                     {
@@ -1250,17 +1244,17 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                             }
                           else if (obsn[l] == ooTa)
                             {
-                              odb[obsn[l]] += Tpoint*(Dt/A->P->Dtplot_basin->co[i_sim])/
+                              odb[obsn[l]] += Tpoint*(Dt/(*A->P->Dtplot_basin)(i_sim))/
                                               (double)A->P->total_pixel;
                             }
                           else if (obsn[l] == ooTg)
                             {
-                              odb[obsn[l]] += *Tgskin*(Dt/A->P->Dtplot_basin->co[i_sim])/
+                              odb[obsn[l]] += *Tgskin*(Dt/(*A->P->Dtplot_basin)(i_sim))/
                                               (double)A->P->total_pixel;
                             }
                           else if (obsn[l] == ooTv)
                             {
-                              odb[obsn[l]] += V->Tv->co[j]*(Dt/A->P->Dtplot_basin->co[i_sim])/
+                              odb[obsn[l]] += V->Tv->co[j]*(Dt/(*A->P->Dtplot_basin)(i_sim))/
                                               (double)A->P->total_pixel;
                             }
                           else if (obsn[l] == ooevapsur)
@@ -1273,52 +1267,52 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                             }
                           else if (obsn[l] == ooLE)
                             {
-                              odb[obsn[l]] += LE*(Dt/A->P->Dtplot_basin->co[i_sim])/(double)
+                              odb[obsn[l]] += LE*(Dt/(*A->P->Dtplot_basin)(i_sim))/(double)
                                               A->P->total_pixel;
                             }
                           else if (obsn[l] == ooH)
                             {
-                              odb[obsn[l]] += H*(Dt/A->P->Dtplot_basin->co[i_sim])/(double)
+                              odb[obsn[l]] += H*(Dt/(*A->P->Dtplot_basin)(i_sim))/(double)
                                               A->P->total_pixel;
                             }
                           else if (obsn[l] == ooSW)
                             {
-                              odb[obsn[l]] += SW*(Dt/A->P->Dtplot_basin->co[i_sim])/(double)
+                              odb[obsn[l]] += SW*(Dt/(*A->P->Dtplot_basin)(i_sim))/(double)
                                               A->P->total_pixel;
                             }
                           else if (obsn[l] == ooLW)
                             {
-                              odb[obsn[l]] += LW*(Dt/A->P->Dtplot_basin->co[i_sim])/(double)
+                              odb[obsn[l]] += LW*(Dt/(*A->P->Dtplot_basin)(i_sim))/(double)
                                               A->P->total_pixel;
                             }
                           else if (obsn[l] == ooLEv)
                             {
-                              odb[obsn[l]] += LEv*(Dt/A->P->Dtplot_basin->co[i_sim])/
+                              odb[obsn[l]] += LEv*(Dt/(*A->P->Dtplot_basin)(i_sim))/
                                               (double)A->P->total_pixel;
                             }
                           else if (obsn[l] == ooHv)
                             {
-                              odb[obsn[l]] += Hv*(Dt/A->P->Dtplot_basin->co[i_sim])/(double)
+                              odb[obsn[l]] += Hv*(Dt/(*A->P->Dtplot_basin)(i_sim))/(double)
                                               A->P->total_pixel;
                             }
                           else if (obsn[l] == ooSWv)
                             {
-                              odb[obsn[l]] += (SWv_vis+SWv_nir)*(Dt/A->P->Dtplot_basin->co[i_sim])/
+                              odb[obsn[l]] += (SWv_vis+SWv_nir)*(Dt/(*A->P->Dtplot_basin)(i_sim))/
                                               (double)A->P->total_pixel;
                             }
                           else if (obsn[l] == ooLWv)
                             {
-                              odb[obsn[l]] += LWv*(Dt/A->P->Dtplot_basin->co[i_sim])/
+                              odb[obsn[l]] += LWv*(Dt/(*A->P->Dtplot_basin)(i_sim))/
                                               (double)A->P->total_pixel;
                             }
                           else if (obsn[l] == ooSWin)
                             {
-                              odb[obsn[l]] += SWin*(Dt/A->P->Dtplot_basin->co[i_sim])/
+                              odb[obsn[l]] += SWin*(Dt/(*A->P->Dtplot_basin)(i_sim))/
                                               (double)A->P->total_pixel;
                             }
                           else if (obsn[l] == ooLWin)
                             {
-                              odb[obsn[l]] += LWin*(Dt/A->P->Dtplot_basin->co[i_sim])/
+                              odb[obsn[l]] += LWin*(Dt/(*A->P->Dtplot_basin)(i_sim))/
                                               (double)A->P->total_pixel;
                             }
                         }
@@ -1369,7 +1363,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 {
 
 
-  short iter_close, iter_close2, lu=land->LC->co[r][c], flagTmin = 0, sux,
+  short iter_close, iter_close2, lu=(*land->LC)(r,c), flagTmin = 0, sux,
                                  dirichlet = 0, neumann = 0, micro_sempl = 0, micro = 0, dirichlet_bottom = 0;
   long sur, sy, l, m, cont=0, cont2, n, cont_lambda_min=0;
   double EB=0., dEB_dT=0., dH_dT, dE_dT, EB0, Tg, Tg0, psim0, psi0, Qg0=0.,
@@ -1419,13 +1413,13 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
   if (i<=par->total_channel)
     {
       sy = (*cnet->soil_type)(j);
-      psi0 = SC->P->co[0][j];
+      psi0 = (*SC->P)(0,j);
       for (l=1; l<=Nl; l++)
         {
           //water content to be modified at each iteration
-          egy->THETA->co[l] = cnet->th->co[l][j];
+          egy->THETA->co[l] = (*cnet->th)(l,j);
           //total pressure (=pressure of the water would have if it was all in liquid state)
-          psim0=psi_teta(cnet->th->co[l][j]+SC->thi->co[l][j], 0.0,
+          psim0=psi_teta((*cnet->th)(l,j)+(*SC->thi)(l,j), 0.0,
                          sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
                          sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l],
                          PsiMin, sl->pa->co[sy][jss][l]);
@@ -1435,14 +1429,14 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
     }
   else
     {
-      sy = sl->type->co[r][c];
-      psi0 = SL->P->co[0][j];
+      sy = (*sl->type)(r,c);
+      psi0 = (*SL->P)(0,j);
       for (l=1; l<=Nl; l++)
         {
           //water content to be modified at each iteration
-          egy->THETA->co[l] = sl->th->co[l][j];
+          egy->THETA->co[l] = (*sl->th)(l,j);
           //total pressure (=pressure of the water would have if it was all in liquid state)
-          psim0=psi_teta(sl->th->co[l][j]+SL->thi->co[l][j], 0.0,
+          psim0=psi_teta((*sl->th)(l,j)+(*SL->thi)(l,j), 0.0,
                          sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
                          sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l],
                          PsiMin, sl->pa->co[sy][jss][l]);
@@ -1487,18 +1481,18 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
       EnergyFluxes(t, Tg, r, c, ns+ng, Tg0, Qg0, Tv0, zmu, zmT, z0s, d0s, rz0s, z0v,
                    d0v, rz0v, hveg, v, Ta, Qa, P, LR, psi0, eps, fc, LSAI,
                    decaycoeff0, *Wcrn, Wcrnmax, *Wcsn, Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0],
-                   sl->pa->co[sy], land->ty->co[lu],
-                   land->root_fraction->co[lu], par, egy->soil_transp_layer.get(), SWin, LWin, SWv, LW,
+                   sl->pa->co[sy], land->ty->row(lu),
+                   land->root_fraction->row(lu), par, egy->soil_transp_layer.get(), SWin, LWin, SWv, LW,
                    H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans,
                    &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, rh, rv, rc, rb, ruc,
                    &rh_g, &rv_g, Qg, u_top, decay, Locc, LWup_ab_v,
                    &egy->Temp->co[0], egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(),
-                   top->sky->co[r][c]);
+                   (*top->sky)(r,c));
 
       if (micro == 1)
         {
           EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Eadd + egy->SWlayer->co[0];
-          dEB_dT = -eps*top->sky->co[r][c]*dSB_dT(Tg) - dH_dT - latent(Tg,
+          dEB_dT = -eps*(*top->sky)(r,c)*dSB_dT(Tg) - dH_dT - latent(Tg,
                    Levap(Tg))*dE_dT;//changed
         }
     }
@@ -1799,23 +1793,23 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
                   if (i<=par->total_channel)
                     {
-                      th0 = cnet->th->co[m][j];
+                      th0 = (*cnet->th)(m,j);
                       th1 = teta_psi(Psif(Fmin(egy->Tstar->co[m],egy->Temp->co[l])), 0.0,
                                      sl->pa->co[sy][jsat][m],
                                      sl->pa->co[sy][jres][m], sl->pa->co[sy][ja][m], sl->pa->co[sy][jns][m],
                                      1-1/sl->pa->co[sy][jns][m], PsiMin, sl->pa->co[sy][jss][m]);
-                      if (th1 > cnet->th->co[m][j] + SC->thi->co[m][j]) th1 = cnet->th->co[m][j] +
-                                                                                SC->thi->co[m][j];
+                      if (th1 > (*cnet->th)(m,j) + (*SC->thi)(m,j)) th1 = (*cnet->th)(m,j) +
+                                                                                (*SC->thi)(m,j);
                     }
                   else
                     {
-                      th0 = sl->th->co[m][j];
+                      th0 = (*sl->th)(m,j);
                       th1 = teta_psi(Psif(Fmin(egy->Tstar->co[m],egy->Temp->co[l])), 0.0,
                                      sl->pa->co[sy][jsat][m],
                                      sl->pa->co[sy][jres][m], sl->pa->co[sy][ja][m], sl->pa->co[sy][jns][m],
                                      1-1/sl->pa->co[sy][jns][m], PsiMin, sl->pa->co[sy][jss][m]);
-                      if (th1 > sl->th->co[m][j] + SL->thi->co[m][j]) th1 = sl->th->co[m][j] +
-                                                                              SL->thi->co[m][j];
+                      if (th1 > (*sl->th)(m,j) + (*SL->thi)(m,j)) th1 = (*sl->th)(m,j) +
+                                                                              (*SL->thi)(m,j);
                     }
 
                   egy->deltaw->co[l]=(th1-th0)*egy->Dlayer->co[l]*rho_w;
@@ -1854,13 +1848,11 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
                           if (i<=par->total_channel)
                             {
-                              egy->THETA->co[m] = cnet->th->co[m][j] + egy->deltaw->co[l]/
-                                                  (rho_w*egy->Dlayer->co[l]);
+                              egy->THETA->co[m] = (*cnet->th)(m,j) + egy->deltaw->co[l]/(rho_w*egy->Dlayer->co[l]);
                             }
                           else
                             {
-                              egy->THETA->co[m] = sl->th->co[m][j] + egy->deltaw->co[l]/
-                                                  (rho_w*egy->Dlayer->co[l]);
+                              egy->THETA->co[m] = (*sl->th)(m,j) + egy->deltaw->co[l]/(rho_w*egy->Dlayer->co[l]);
                             }
 
                           //add canopy transpiration
@@ -1888,23 +1880,21 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                     }
 
                   //surface energy balance
-                  EnergyFluxes_no_rec_turbulence(t, Tg, r, c, ns+ng, egy->T0->co[1], Qg0, Tv0,
-                                                 zmu, zmT, z0s, d0s, rz0s, z0v, d0v, rz0v, hveg, v, Ta, Qa,
-                                                 P, LR, SL->P->co[0][j], eps, fc, LSAI, decaycoeff0, *Wcrn, Wcrnmax, *Wcsn,
-                                                 Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0],
-                                                 sl->pa->co[sy], land->ty->co[lu], land->root_fraction->co[lu], par,
-                                                 egy->soil_transp_layer.get(), SWin,
-                                                 LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans, &(V->Tv->co[j]),
-                                                 Qv, Ts, Qs, Hg0, Hg1,
-                                                 Eg0, Eg1, Lob, rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, Locc,
-                                                 LWup_ab_v, &egy->Temp->co[0],
-                                                 egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(), top->sky->co[r][c],
-                                                 flagTmin, cont);
+                  EnergyFluxes_no_rec_turbulence(t, Tg, r, c, ns+ng, egy->T0->co[1], Qg0, Tv0, zmu, zmT, // 10 parameters
+                                                 z0s, d0s, rz0s, z0v, d0v, rz0v, hveg, v, Ta, Qa, // 10 parameters
+                                                 P, LR, (*SL->P)(0,j), eps, fc, LSAI, decaycoeff0, *Wcrn, Wcrnmax, *Wcsn,  // 10 parameters
+                                                 Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0], sl->pa->co[sy], // 5 parameters
+                                                 land->ty->row(lu), land->root_fraction->row(lu), par, egy->soil_transp_layer.get(), SWin, // 5 parameters
+                                                 LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, // 10 parameters
+                                                 Etrans, &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, // 10 parameters
+                                                 rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, // 10 parameters
+                                                 Locc, LWup_ab_v, &egy->Temp->co[0], egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(), // 5 parameters
+                                                 (*top->sky)(r,c), flagTmin, cont); // 3 parameters => TOT = 78 parameters
 
                   if (micro == 1)
                     {
                       EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Eadd + egy->SWlayer->co[0];
-                      dEB_dT = -eps*top->sky->co[r][c]*dSB_dT(Tg) - dH_dT - latent(Tg,
+                      dEB_dT = -eps*(*top->sky)(r,c)*dSB_dT(Tg) - dH_dT - latent(Tg,
                                Levap(Tg))*dE_dT;//changed
                     }
 
@@ -2207,7 +2197,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
 void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
                       double Dt, ENERGY *egy, double **pa, SOIL_STATE *S, DOUBLETENSOR *ET,
-                      DOUBLEMATRIX *th)
+                      Matrix<double> *th)
 {
 
   long l;
@@ -2218,8 +2208,8 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
     {
 
       //canopy transpiration
-      if (l <= egy->soil_transp_layer->nh) ET->co[l][r][c] +=
-          fc*egy->soil_transp_layer->co[l]*Dt;
+      if (l <= egy->soil_transp_layer->nh)
+        ET->co[l][r][c] +=  fc*egy->soil_transp_layer->co[l]*Dt;
 
       //soil evaporation
       if (l <= egy->soil_evap_layer_bare->nh)
@@ -2232,19 +2222,19 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
       psisat = psi_saturation(Fmax(0.,
                                    egy->ice->co[l+n])/(rho_w*egy->Dlayer->co[l+n]), pa[jsat][l], pa[jres][l],
                               pa[ja][l], pa[jns][l], 1.-1./pa[jns][l]);
-      th_oversat = Fmax( S->P->co[l][i] - psisat, 0.0 ) * pa[jss][l];
+      th_oversat = Fmax( (*S->P)(l,i) - psisat, 0.0 ) * pa[jss][l];
 
-      th->co[l][i] = Fmax(0.,egy->liq->co[l+n]+egy->deltaw->co[l+n])/
+      (*th)(l,i) = Fmax(0.,egy->liq->co[l+n]+egy->deltaw->co[l+n])/
                      (rho_w*egy->Dlayer->co[l+n]);
-      S->thi->co[l][i] = Fmax(0.,
+      (*S->thi)(l,i) = Fmax(0.,
                               egy->ice->co[l+n]-egy->deltaw->co[l+n])/(rho_w*egy->Dlayer->co[l+n]);
 
-      S->P->co[l][i] = psi_teta(th->co[l][i]+th_oversat, S->thi->co[l][i],
+      (*S->P)(l,i) = psi_teta((*th)(l,i)+th_oversat, (*S->thi)(l,i),
                                 pa[jsat][l], pa[jres][l], pa[ja][l], pa[jns][l], 1.-1./pa[jns][l], PsiMin,
                                 pa[jss][l]);
 
       //temperature
-      S->T->co[l][i] = egy->Temp->co[l+n];
+        (*S->T)(l,i) = egy->Temp->co[l+n];
 
     }
 
@@ -2256,7 +2246,7 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
 /******************************************************************************************************************************************/
 
 void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
-                         ENERGY *egy, double **pa, SOIL_STATE *S, DOUBLEMATRIX *ET, DOUBLEMATRIX *th)
+                         ENERGY *egy, double **pa, SOIL_STATE *S, Matrix<double> *ET, Matrix<double> *th)
 {
 
   long l;
@@ -2267,32 +2257,30 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
     {
 
       //canopy transpiration
-      if (l <= egy->soil_transp_layer->nh) ET->co[l][ch] +=
+      if (l <= egy->soil_transp_layer->nh) (*ET)(l,ch) +=
           fc*egy->soil_transp_layer->co[l]*Dt;
 
       //soil evaporation
       if (l <= egy->soil_evap_layer_bare->nh)
         {
-          ET->co[l][ch] += (1.-fc)*egy->soil_evap_layer_bare->co[l]*Dt;
-          ET->co[l][ch] += fc*egy->soil_evap_layer_veg->co[l]*Dt;
+          (*ET)(l,ch) += (1.-fc)*egy->soil_evap_layer_bare->co[l]*Dt;
+          (*ET)(l,ch) += fc*egy->soil_evap_layer_veg->co[l]*Dt;
         }
 
       //water pressure and contents
-      psisat = psi_saturation(S->thi->co[l][ch], pa[jsat][l], pa[jres][l],
+      psisat = psi_saturation((*S->thi)(l,ch), pa[jsat][l], pa[jres][l],
                               pa[ja][l], pa[jns][l], 1.-1./pa[jns][l]);
-      th_oversat = Fmax( S->P->co[l][ch] - psisat, 0.0 ) * pa[jss][l];
+      th_oversat = Fmax( (*S->P)(l,ch) - psisat, 0.0 ) * pa[jss][l];
 
-      th->co[l][ch] = Fmax(0.,
-                           egy->liq->co[l+n]+egy->deltaw->co[l+n])/(rho_w*egy->Dlayer->co[l+n]);
-      S->thi->co[l][ch] = Fmax(0.,
-                               egy->ice->co[l+n]-egy->deltaw->co[l+n])/(rho_w*egy->Dlayer->co[l+n]);
+      (*th)(l,ch) = Fmax(0., egy->liq->co[l+n]+egy->deltaw->co[l+n])/(rho_w*egy->Dlayer->co[l+n]);
+      (*S->thi)(l,ch) = Fmax(0., egy->ice->co[l+n]-egy->deltaw->co[l+n])/(rho_w*egy->Dlayer->co[l+n]);
 
-      S->P->co[l][ch] = psi_teta(th->co[l][ch]+th_oversat, S->thi->co[l][ch],
+      (*S->P)(l,ch) = psi_teta((*th)(l,ch)+th_oversat, (*S->thi)(l,ch),
                                  pa[jsat][l], pa[jres][l], pa[ja][l], pa[jns][l], 1.-1./pa[jns][l], PsiMin,
                                  pa[jss][l]);
 
       //temperature
-      S->T->co[l][ch] = egy->Temp->co[l+n];
+        (*S->T)(l,ch) = egy->Temp->co[l+n];
 
     }
 }
@@ -2317,8 +2305,7 @@ void update_F_energy(long nbeg, long nend, Vector<double> *F, double w,
         }
       else if (l<nend)
         {
-          F->co[l] += w*(K->co[l-1]*T[l-1] - (K->co[l]+K->co[l-1])*T[l] + K->co[l]*T[l
-                         +1]);
+          F->co[l] += w*(K->co[l-1]*T[l-1] - (K->co[l]+K->co[l-1])*T[l] + K->co[l]*T[l+1]);
         }
       else
         {
@@ -2388,25 +2375,24 @@ double calc_C(long l, long nsng, double a, double *wi, double *wl, double *dw,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0,
-                  double Qg0, double Tv0, double zmu, double zmT, double z0s,
-                  double d0s, double rz0s, double z0v, double d0v, double rz0v, double hveg,
-                  double v, double Ta, double Qa,
-                  double P, double LR, double psi, double e, double fc, double LSAI,
-                  double decaycoeff0, double Wcrn,
-                  double Wcrnmax, double Wcsn, double Wcsnmax, double *dWcrn, double *dWcsn,
-                  double *theta, double **soil,
-                  double *land, double *root, PAR *par, Vector<double> *soil_transp_layer,
-                  double SWin, double LWin, double SWv, double *LW,
-                  double *H, double *dH_dT, double *E, double *dE_dT, double *LWv, double *Hv,
-                  double *LEv, double *Etrans,
-                  double *Tv, double *Qv, double *Ts, double *Qs, double *Hg0, double *Hg1,
-                  double *Eg0, double *Eg1, double *Lobukhov,
-                  double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g,
-                  double *rv_g, double *Qg,
-                  double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T,
-                  Vector<double> *soil_evap_layer_bare,
-                  Vector<double> *soil_evap_layer_veg, double sky)
+void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
+                  double Tg0, double Qg0, double Tv0, double zmu, double zmT, // 5 parameters
+                  double z0s, double d0s, double rz0s, double z0v, double d0v, // 5 parameters
+                  double rz0v, double hveg, double v, double Ta, double Qa, // 5 parameters
+                  double P, double LR, double psi, double e, double fc, // 5 parameters
+                  double LSAI, double decaycoeff0, double Wcrn, double Wcrnmax, double Wcsn, // 5 parameters
+                  double Wcsnmax, double *dWcrn, double *dWcsn, double *theta, double **soil, // 5 parameters
+                  RowView<double> &&land, RowView<double> &&root, PAR *par, Vector<double> *soil_transp_layer,
+                  double SWin, // 5 parameters
+                  double LWin, double SWv, double *LW, double *H, double *dH_dT, // 5 parameters
+                  double *E, double *dE_dT, double *LWv, double *Hv, double *LEv, // 5 parameters
+                  double *Etrans, double *Tv, double *Qv, double *Ts, double *Qs, // 5 parameters
+                  double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Lobukhov, // 5 parameters
+                  double *rh, double *rv, double *rc, double *rb, double *ruc, // 5 parameters
+                  double *rh_g, double *rv_g, double *Qg, double *u_top, double *decay, // 5 parameters
+                  double *Locc, double *LWup_above_v, double *T, Vector<double> *soil_evap_layer_bare,
+                  Vector<double> *soil_evap_layer_veg, // 5 parameters
+                  double sky) // 1 parameters
 {
 
 
@@ -2526,13 +2512,13 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, double Tg0,
   if (fc>0)
     {
 
-      Tcanopy(r, c, Tv0, Tg, *Qg, dQgdT, Tg0, Qg0, Ta, Qa, zmu, zmT, z0v, z0s, d0v,
-              rz0v, hveg, v, LR, P, SWin, SWv, LWin,
-              e, LSAI, decaycoeff0, land, Wcrn, Wcrnmax, Wcsn, Wcsnmax, dWcrn, dWcsn, LWv,
-              &LWg, Hv, &Hg, &dHg_dT, LEv, &Eg,
-              &dEg_dT, Ts, Qs, root, theta, soil_transp_layer, Lobukhov, par, n, &rm, rh,
-              rv, rc, rb, ruc, u_top, Etrans, Tv, Qv,
-              decay, Locc, &LWup, psi, soil, T, soil_evap_layer_veg);
+      Tcanopy(r, c, Tv0, Tg, *Qg, dQgdT, Tg0, Qg0, Ta, Qa, // 10
+              zmu, zmT, z0v, z0s, d0v, rz0v, hveg, v, LR, P, // 10
+              SWin, SWv, LWin, e, LSAI, decaycoeff0, std::forward<RowView<double>>(land), Wcrn, Wcrnmax, Wcsn, // 10
+              Wcsnmax, dWcrn, dWcsn, LWv, &LWg, Hv, &Hg, &dHg_dT, LEv, &Eg, // 10
+              &dEg_dT, Ts, Qs, std::forward<RowView<double>>(root), theta, soil_transp_layer, Lobukhov, par, n, &rm, // 10
+              rh, rv, rc, rb, ruc, u_top, Etrans, Tv, Qv, decay, // 10
+              Locc, &LWup, psi, soil, T, soil_evap_layer_veg); // 6
 
 
       *H+=fc*Hg;
@@ -2596,7 +2582,8 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
                                     double decaycoeff0, double Wcrn,
                                     double Wcrnmax, double Wcsn, double Wcsnmax, double *dWcrn, double *dWcsn,
                                     double *theta, double **soil,
-                                    double *land, double *root, PAR *par, Vector<double> *soil_transp_layer,
+                                    RowView<double> &&land, RowView<double> &&root, PAR *par,
+                                    Vector<double> *soil_transp_layer,
                                     double SWin, double LWin, double SWv, double *LW,
                                     double *H, double *dH_dT, double *E, double *dE_dT, double *LWv, double *Hv,
                                     double *LEv, double *Etrans,

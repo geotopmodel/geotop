@@ -38,7 +38,7 @@ void write_snow_output(long i, long iname, long r, long c, double init_date,
 
 void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
                      long h, long mi, double JDfrom0, double JDfrom0init,
-                     double JDfrom0end, double *var, Vector<double>* n, double *dz, double cosslope);
+                     double JDfrom0end, RowView<double> &&var, Vector<double> *n, double *dz, double cosslope);
 
 void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
                      long d, long m, long y, long h, long mi, double JDfrom0,
@@ -52,14 +52,14 @@ void write_snow_header(short a, long r, long c, FILE *f, Vector<double>* n,
 
 void plot(char *name, long i_plot, Vector<double>* V, short format, long **J);
 
-double interpolate_soil(long lmin, double h, long max, double *Dz, double *Q);
+double interpolate_soil(long lmin, double h, long max, double *Dz, RowView<double> &&Q);
 
 double interpolate_soil2(long lmin, double h, long max, double *Dz,
-                         DOUBLEMATRIX *Q, long i);
+                         Matrix<double> *Q, long i);
 
 void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
-                             short format, DOUBLEMATRIX *T, Vector<double> *n, long **J,
-                             LONGMATRIX *RC, double *dz, DOUBLEMATRIX *slope, short vertical);
+                             short format, Matrix<double> *T, Vector<double> *n, long **J,
+                             Matrix<long> *RC, double *dz, Matrix<double> *slope, short vertical);
 
 void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                          GLACIER *glac, WATER *wat, METEO *met, PAR *par, TIMES *time, TOPO *top,
@@ -70,9 +70,6 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par);
 void init_run(SOIL *sl, PAR *par);
 
 void end_period_1D(SOIL *sl, TOPO *top, PAR *par);
-
-void fflog(long previous_sim, long next_sim, PAR *par, TOPO *top,
-                 LAND *land, WATER *wat, CHANNEL *cnet);
 
 void end_period_1D(SOIL *sl, TOPO *top, PAR *par);
 

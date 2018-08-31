@@ -6,7 +6,7 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/
+WORKING DIRECTORY: 1D/PureDrainageFaked/
 
 TimeStepEnergyAndWater[1] = 3.600000e+03 
 InitDateDDMMYYYYhhmm[1] = 2.006201e+11 
@@ -804,14 +804,14 @@ HeaderMeteoStationStandardTime = none
 SuccessfulRunFile = none
 FailedRunFile = none
 SubfolderRecoveryFiles = none
-Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/soil/soil0001.txt assigned to Dz
-Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/soil/soil0001.txt assigned to Kv
-Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/soil/soil0001.txt assigned to Kh
-Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/soil/soil0001.txt assigned to res
-Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/soil/soil0001.txt assigned to sat
-Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/soil/soil0001.txt assigned to a
-Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/soil/soil0001.txt assigned to n
-Column 8 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/soil/soil0001.txt assigned to SS
+Column 1 in file 1D/PureDrainageFaked/soil/soil0001.txt assigned to Dz
+Column 3 in file 1D/PureDrainageFaked/soil/soil0001.txt assigned to Kv
+Column 2 in file 1D/PureDrainageFaked/soil/soil0001.txt assigned to Kh
+Column 4 in file 1D/PureDrainageFaked/soil/soil0001.txt assigned to res
+Column 5 in file 1D/PureDrainageFaked/soil/soil0001.txt assigned to sat
+Column 6 in file 1D/PureDrainageFaked/soil/soil0001.txt assigned to a
+Column 7 in file 1D/PureDrainageFaked/soil/soil0001.txt assigned to n
+Column 8 in file 1D/PureDrainageFaked/soil/soil0001.txt assigned to SS
 
 Soil Layers: 7
 -> Soil Type: 1
@@ -849,16 +849,16 @@ HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00),
 HeaderCthSoilSolids: 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06), 2300000.000000(2.30e+06)
 HeaderSpecificStorativity: 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06), 0.000001(1.00e-06)
 
-Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/listpoints.txt assigned to ID
-Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/listpoints.txt assigned to xcoord
-Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/listpoints.txt assigned to ycoord
-Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/listpoints.txt assigned to zcoord
-Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/listpoints.txt assigned to landcover
-Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/listpoints.txt assigned to soiltype
-Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/listpoints.txt assigned to slope
-Column 8 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/listpoints.txt assigned to aspect
-Column 9 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/listpoints.txt assigned to sky
-Column 10 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/listpoints.txt assigned to bedrock
+Column 1 in file 1D/PureDrainageFaked/listpoints.txt assigned to ID
+Column 2 in file 1D/PureDrainageFaked/listpoints.txt assigned to xcoord
+Column 3 in file 1D/PureDrainageFaked/listpoints.txt assigned to ycoord
+Column 4 in file 1D/PureDrainageFaked/listpoints.txt assigned to zcoord
+Column 5 in file 1D/PureDrainageFaked/listpoints.txt assigned to landcover
+Column 6 in file 1D/PureDrainageFaked/listpoints.txt assigned to soiltype
+Column 7 in file 1D/PureDrainageFaked/listpoints.txt assigned to slope
+Column 8 in file 1D/PureDrainageFaked/listpoints.txt assigned to aspect
+Column 9 in file 1D/PureDrainageFaked/listpoints.txt assigned to sky
+Column 10 in file 1D/PureDrainageFaked/listpoints.txt assigned to bedrock
 Attempting to read 'DemFile' in the file 'none': not present in file list
 Warning: Dem file not present
 Warning: Dem file is not present, and therefore it is not possible to calculate curvature
@@ -874,13 +874,13 @@ Novalue pixels: 0
 Basin area: 0.000001 km2
 
 Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/meteo/meteofake0001.txt assigned to POSIX
-Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/meteo/meteofake0001.txt assigned to JD
-Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/meteo/meteofake0001.txt assigned to Iprec
-Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/meteo/meteofake0001.txt assigned to WindSp
-Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/meteo/meteofake0001.txt assigned to WindDir
-Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/meteo/meteofake0001.txt assigned to RH
-Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/PureDrainageFaked/meteo/meteofake0001.txt assigned to AirT
+Column 1 in file 1D/PureDrainageFaked/meteo/meteofake0001.txt assigned to POSIX
+Column 2 in file 1D/PureDrainageFaked/meteo/meteofake0001.txt assigned to JD
+Column 3 in file 1D/PureDrainageFaked/meteo/meteofake0001.txt assigned to Iprec
+Column 4 in file 1D/PureDrainageFaked/meteo/meteofake0001.txt assigned to WindSp
+Column 5 in file 1D/PureDrainageFaked/meteo/meteofake0001.txt assigned to WindDir
+Column 6 in file 1D/PureDrainageFaked/meteo/meteofake0001.txt assigned to RH
+Column 7 in file 1D/PureDrainageFaked/meteo/meteofake0001.txt assigned to AirT
 WARNING: NO shortwave radiation measurements available
 WARNING: NO cloudiness measurements available
 WARNING: NO longwave radiation measurements available
