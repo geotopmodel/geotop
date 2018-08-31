@@ -2049,11 +2049,6 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
              Vector<double> &dhch, TOPO *top,
              LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, METEO *met, Vector<double> *Vsup, double *Voutnet,
              double *Voutland, double *mm1, double *mm2, double *mmo)
-//void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h, Vector<double> &dV,
-//             RowView<double> &&hch,
-//             Vector<double> &dhch, TOPO *top,
-//             LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, METEO *met, Vector<double> *Vsup, double *Voutnet,
-//             double *Voutland, double *mm1, double *mm2, double *mmo)
 {
 
 
