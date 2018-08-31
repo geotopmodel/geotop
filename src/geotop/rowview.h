@@ -21,13 +21,13 @@ public:
     /** range-checked access operator */
     T &at(const std::size_t j) {
         GEO_ERROR_IN_RANGE(j, ncl, nch);
-        return (*this)[j-ncl];
+        return (*this)[j];
     }
 
     /** range-checked access operator */
     const T &at(const std::size_t j) const {
         GEO_ERROR_IN_RANGE(j, ncl, nch);
-        return (*this)[j-ncl];
+        return (*this)[j];
     }
 
     T &operator[](const std::size_t j) noexcept {
@@ -50,7 +50,7 @@ public:
 #ifndef NDEBUG
         return at(j);
 #else
-        return (*this)[j-ncl];
+        return (*this)[j];
 
 #endif
     }
@@ -67,7 +67,7 @@ public:
 #ifndef NDEBUG
         return at(j);
 #else
-        return (*this)[j-ncl];
+        return (*this)[j];
 #endif
     }
 
