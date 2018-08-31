@@ -4371,7 +4371,7 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
     {
         for (l=1; l<=Nl; l++)
         {
-            fprintf(f,",%f",var[l]);
+            fprintf(f,",%f",var(l));
         }
     }
 
@@ -4646,15 +4646,15 @@ double interpolate_soil(long lmin, double h, long max, double *Dz, RowView<doubl
         {
             if (l == lmin)
             {
-                q = Q[lmin];
+                q = Q(lmin);
             }
             else if (l <= max)
             {
-                q = ( Q[l-1] * (z-h) + Q[l] * (h-z0) ) / (z - z0);
+                q = ( Q(l-1) * (z-h) + Q(l) * (h-z0) ) / (z - z0);
             }
             else
             {
-                q = Q[max];
+                q = Q(max);
             }
         }
 
