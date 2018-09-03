@@ -753,7 +753,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb, double J
 								}else if (opnt[l] == oV) { odp[opnt[l]][A->P->jplot->co[j]-1] = Vpoint*Dt/A->P->Dtplot_point->co[i_sim];
 								}else if (opnt[l] == oVdir) { odp[opnt[l]][A->P->jplot->co[j]-1] = A->M->Vdir->co[r][c]*Dt/A->P->Dtplot_point->co[i_sim];
 								}else if (opnt[l] == oRH) { odp[opnt[l]][A->P->jplot->co[j]-1] = RHpoint*Dt/A->P->Dtplot_point->co[i_sim];
-								}else if (opnt[l] == oPa) { odp[opnt[l]][A->P->jplot->co[j]-1] = Precpoint*Dt/A->P->Dtplot_point->co[i_sim];
+								}else if (opnt[l] == oPa) { odp[opnt[l]][A->P->jplot->co[j]-1] = Ppoint*Dt/A->P->Dtplot_point->co[i_sim];
+								//								}else if (opnt[l] == oPa) { odp[opnt[l]][A->P->jplot->co[j]-1] = Precpoint*Dt/A->P->Dtplot_point->co[i_sim];
 								}else if (opnt[l] == oTa) { odp[opnt[l]][A->P->jplot->co[j]-1] = Tpoint*Dt/A->P->Dtplot_point->co[i_sim];
 								}else if (opnt[l] == oTdew) { odp[opnt[l]][A->P->jplot->co[j]-1] = Tdew*Dt/A->P->Dtplot_point->co[i_sim];
 								}else if (opnt[l] == oTg) { odp[opnt[l]][A->P->jplot->co[j]-1] = *Tgskin*Dt/A->P->Dtplot_point->co[i_sim];
