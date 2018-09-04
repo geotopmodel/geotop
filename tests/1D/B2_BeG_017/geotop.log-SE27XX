@@ -1190,7 +1190,7 @@ Soil water transpires from the first 7 layers
 10/4/2014 18:00 19.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 10/4/2014 18:00 JD:99.750000 (1^ simulation day) 19.05% completed! 
- t_meteo:  0.00 s, t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.00 s
  SW=  1.31 W/m2  LW: -4.28 W/m2  H=  2.95 W/m2  LE= 19.99 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.321183e-08 mm/h 
@@ -1208,7 +1208,7 @@ Soil water transpires from the first 7 layers
 10/4/2014 20:00 20.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 10/4/2014 20:00 JD:99.833333 (2^ simulation day) 20.63% completed! 
- t_meteo:  0.00 s, t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.01 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW: -4.17 W/m2  H= -0.45 W/m2  LE= 15.84 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.920539e-09 mm/h 
@@ -1370,7 +1370,7 @@ Soil water transpires from the first 7 layers
 11/4/2014 14:00 34.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 11/4/2014 14:00 JD:100.583333 (2^ simulation day) 34.92% completed! 
- t_meteo:  0.00 s, t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
+ t_meteo:  0.00 s, t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
  SW= 15.60 W/m2  LW:  8.59 W/m2  H=-15.14 W/m2  LE= 27.00 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=2.370105e-08 mm/h 
@@ -1379,7 +1379,7 @@ Soil water transpires from the first 7 layers
 11/4/2014 15:00 35.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 11/4/2014 15:00 JD:100.625000 (2^ simulation day) 35.71% completed! 
- t_meteo:  0.00 s, t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
+ t_meteo:  0.00 s, t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.00 s
  SW=  6.89 W/m2  LW:  1.58 W/m2  H= -8.38 W/m2  LE= 22.38 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=3.219110e-09 mm/h 
@@ -1577,7 +1577,7 @@ Soil water transpires from the first 7 layers
 12/4/2014 13:00 53.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 12/4/2014 13:00 JD:101.541667 (3^ simulation day) 53.17% completed! 
- t_meteo:  0.00 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
+ t_meteo:  0.00 s, t_energy:  0.02 s, t_blowingsnow:  0.00 s, t_water:  0.01 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
  SW= 25.93 W/m2  LW: 19.68 W/m2  H=-29.49 W/m2  LE= 11.06 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.134189e-08 mm/h 
@@ -1712,7 +1712,7 @@ Soil water transpires from the first 7 layers
 13/4/2014 4:00 65.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 13/4/2014 4:00 JD:102.166667 (4^ simulation day) 65.08% completed! 
- t_meteo:  0.00 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
+ t_meteo:  0.00 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
  SW=  0.00 W/m2  LW: -2.45 W/m2  H= -0.64 W/m2  LE=  6.74 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.123222e-10 mm/h 
@@ -1721,7 +1721,7 @@ Soil water transpires from the first 7 layers
 13/4/2014 5:00 65.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 13/4/2014 5:00 JD:102.208333 (4^ simulation day) 65.87% completed! 
- t_meteo:  0.00 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
+ t_meteo:  0.00 s, t_energy:  0.03 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.01 s, t_sup:  0.00 s, t_out:  0.01 s
  SW=  0.00 W/m2  LW: -2.79 W/m2  H=  0.54 W/m2  LE=  6.08 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.616239e-11 mm/h 
@@ -2027,7 +2027,7 @@ Soil water transpires from the first 7 layers
 14/4/2014 15:00 92.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 14/4/2014 15:00 JD:103.625000 (5^ simulation day) 92.86% completed! 
- t_meteo:  0.00 s, t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
+ t_meteo:  0.00 s, t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
  SW= 58.02 W/m2  LW: 15.35 W/m2  H= -9.23 W/m2  LE= 37.70 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.995455e-07 mm/h 
@@ -2036,7 +2036,7 @@ Soil water transpires from the first 7 layers
 14/4/2014 16:00 93.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
 
 14/4/2014 16:00 JD:103.666667 (5^ simulation day) 93.65% completed! 
- t_meteo:  0.00 s, t_energy:  0.05 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
+ t_meteo:  0.00 s, t_energy:  0.04 s, t_blowingsnow:  0.00 s, t_water:  0.02 s, t_sub:  0.02 s, t_sup:  0.00 s, t_out:  0.01 s
  SW= 11.44 W/m2  LW:  0.80 W/m2  H=  5.63 W/m2  LE= 27.73 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.064814e-03 mm/h 
