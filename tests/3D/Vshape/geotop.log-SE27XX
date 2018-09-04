@@ -1,1238 +1,1147 @@
-geotop:STATEMENT:
+STATEMENT:
 
-Geotop 3.0.0 - 2018
+Geotop 2.0.0 - 31 Oct 2013
 
-Geotop 3.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
-geotop:WORKING DIRECTORY: ./
-geotop:LOGFILE: ./geotop.log
 
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:TimeStepEnergyAndWater[1] = 1800
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitDateDDMMYYYYhhmm[1] = 1.012e+10
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SimulationHours[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:EndDateDDMMYYYYhhmm[1] = 1.012e+10
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NumSimulationTimes[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:StandardTimeSimulation[1] = 1
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DtPlotDischarge[1] = 0.5
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DtPlotPoint[1] = 0.5
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DtPlotBasin[1] = 1
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NumLowPassFilterOnDemForAll[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NumLowPassFilterOnDemForCurv[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FlagSkyViewFactor[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FormatOutputMaps[1] = 3 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:PointSim[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RecoverSim[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NumLandCoverTypes[1] = 2
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilRoughness[1] = 10 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThresSnowSoilRough[1] = 10 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VegHeight[1] = 1000 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThresSnowVegUp[1] = 1000 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThresSnowVegDown[1] = 1000 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LSAI[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:CanopyFraction[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DecayCoeffCanopy[1] = 2.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VegSnowBurying[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RootDepth[1] = 300 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MinStomatalRes[1] = 60 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VegReflectVis[1] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VegReflNIR[1] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VegTransVis[1] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VegTransNIR[1] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LeafAngles[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:CanDensSurface[1] = 2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilAlbVisDry[1] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilAlbNIRDry[1] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilAlbVisWet[1] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilAlbNIRWet[1] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilEmissiv[1] = 0.96 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SurFlowResLand[1] = 159.64
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RoughElemXUnitArea[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RoughElemDiam[1] = 50 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilRoughness[2] = 10 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThresSnowSoilRough[2] = 10 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VegHeight[2] = 1000 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThresSnowVegUp[2] = 1000 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThresSnowVegDown[2] = 1000 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LSAI[2] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:CanopyFraction[2] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DecayCoeffCanopy[2] = 2.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VegSnowBurying[2] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RootDepth[2] = 300 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MinStomatalRes[2] = 60 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VegReflectVis[2] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VegReflNIR[2] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VegTransVis[2] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VegTransNIR[2] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LeafAngles[2] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:CanDensSurface[2] = 2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilAlbVisDry[2] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilAlbNIRDry[2] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilAlbVisWet[2] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilAlbNIRWet[2] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilEmissiv[2] = 0.96 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SurFlowResLand[2] = 1596.4
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RoughElemXUnitArea[2] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RoughElemDiam[2] = 50 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FrozenSoilHydrCondReduction[1] = 7 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FreeDrainageAtBottom[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FreeDrainageAtLateralBorder[1] = 0
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RichardTol[1] = 1e-08
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RichardMaxIter[1] = 1000
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RichardInitForc[1] = 0.01
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MinLambdaWater[1] = 1e-08
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MaxTimesMinLambdaWater[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ExitMinLambdaWater[1] = 1
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MinTimeStep[1] = 1
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SurFlowResExp[1] = 0.666667 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThresWaterDepthLandInf[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThresWaterDepthLandSup[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SurFlowResChannel[1] = 20 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThresWaterDepthChannel[1] = 50 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RatioChannelWidthPixelWidth[1] = 0.1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ChannelDepression[1] = 500 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MaxCourantSupFlowLand[1] = 0.001
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MaxCourantSupFlowChannel[1] = 0.1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MinSupWaterDepthLand[1] = 1e-10
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MinSupWaterDepthChannel[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MinDiffSupWaterDepthLandChannel[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MinTimeStepSupFlow[1] = 1e-50
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:Latitude[1] = 45 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:Longitude[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:Vmin[1] = 0.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RHmin[1] = 10 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaSnow[1] = 100000 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:HighestNodeCorrespondsToLayer[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:HeatEqTol[1] = 0.0001 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:HeatEqMaxIter[1] = 500 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MinLambdaEnergy[1] = 1e-05 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MaxTimesMinLambdaEnergy[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ExitMinLambdaEnergy[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DEMRotationAngle[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:CanopyMaxIter[1] = 3 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:BusingerMaxIter[1] = 5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:TsMaxIter[1] = 2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LocMaxIter[1] = 3 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:CanopyStabCorrection[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:Iobsint[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:Dn[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SlopeWeight[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:CurvatureWeight[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SlopeWeightD[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:CurvatureWeightD[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SlopeWeightI[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:CurvatureWeightI[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ZeroTempAmplitDepth[1] = 1e+20 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ZeroTempAmplitTemp[1] = 20 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:BottomBoundaryHeatFlux[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSWE[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSnowDensity[1] = 200 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSnowTemp[1] = -3 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSnowAge[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThresTempRain[1] = 3 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThresTempSnow[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DewTempOrNormTemp[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlbExtParSnow[1] = 10 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FreshSnowReflVis[1] = 0.9 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FreshSnowReflNIR[1] = 0.65 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:IrriducibleWatSatSnow[1] = 0.02 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowEmissiv[1] = 0.98 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowRoughness[1] = 0.1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowCorrFactor[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RainCorrFactor[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MaxSnowPorosity[1] = 0.7 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DrySnowDefRate[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowDensityCutoff[1] = 100 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WetSnowDefRate[1] = 1.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowViscosity[1] = 1e+06 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FetchUp[1] = 1000 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FetchDown[1] = 100 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:BlowingSnowSoftLayerIceContent[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:TimeStepBlowingSnow[1] = 1800 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowSMIN[1] = 30 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowSMAX[1] = 80 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowCURV[1] = -200 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MaxWaterEqSnowLayerContent[1] = 5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MaxSnowLayersMiddle[1] = 10 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MaxWaterEqSnowLayerContent[1] = 5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MaxSnowLayersMiddle[1] = 2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SWEbottom[1] = 20 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SWEtop[1] = 20 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:Max snow layer number: 10, of which 4 at the bottom, 2 in the middle, and 4 at the top.
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:Infinite Snow layer numbers are numbers: 5 6 
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitGlacierDepth[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitGlacierDensity[1] = 800 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitGlacierTemp[1] = -3 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:IrriducibleWatSatGlacier[1] = 0.02 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MaxWaterEqGlacLayerContent[1] = 5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MaxGlacLayersMiddle[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:GWEbottom[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:GWEtop[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:Max glac layer number: 0, of which 0 at the bottom, 0in the middle, and 0at the top.
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:Infinite Glac layer numbers are numbers: 
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LWinParameterization[1] = 9 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MoninObukhov[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:Surroundings[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WaterBalance[1] = 1
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:EnergyBalance[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:BlowingSnow[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MinIceContentForBlowingSnow[1] = 8 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:PointID[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:CoordinatePointX[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:CoordinatePointY[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SavingPoints[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:OutputSoilMaps[1] = 2
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:OutputSnowMaps[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:OutputGlacierMaps[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:OutputSurfEBALMaps[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:OutputVegetationMaps[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:OutputMeteoMaps[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecialPlotBegin[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecialPlotEnd[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilLayerTypes[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitWaterTableDepth[1] = 1997.11
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DefaultSoilTypeLand[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DefaultSoilTypeChannel[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilLayerThicknesses[1] = 499.277
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilLayerNumber[1] = 10
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressure[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTemp[1] = 5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivity[1] = 2.77778
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivity[1] = 2.77778
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaRes[1] = 0.08
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPoint[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacity[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSat[1] = 0.4
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchten[1] = 0.006
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchten[1] = 2
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualem[1] = 0.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolids[1] = 2.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolids[1] = 1e+06 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativity[1] = 1e-08
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressure[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTemp[2] = 5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivity[2] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivity[2] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaRes[2] = 0.08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPoint[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacity[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSat[2] = 0.4 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchten[2] = 0.006 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchten[2] = 2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualem[2] = 0.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolids[2] = 2.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolids[2] = 1e+06 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativity[2] = 1e-08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressure[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTemp[3] = 5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivity[3] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivity[3] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaRes[3] = 0.08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPoint[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacity[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSat[3] = 0.4 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchten[3] = 0.006 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchten[3] = 2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualem[3] = 0.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolids[3] = 2.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolids[3] = 1e+06 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativity[3] = 1e-08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressure[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTemp[4] = 5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivity[4] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivity[4] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaRes[4] = 0.08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPoint[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacity[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSat[4] = 0.4 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchten[4] = 0.006 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchten[4] = 2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualem[4] = 0.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolids[4] = 2.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolids[4] = 1e+06 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativity[4] = 1e-08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressure[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTemp[5] = 5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivity[5] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivity[5] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaRes[5] = 0.08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPoint[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacity[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSat[5] = 0.4 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchten[5] = 0.006 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchten[5] = 2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualem[5] = 0.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolids[5] = 2.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolids[5] = 1e+06 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativity[5] = 1e-08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressure[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTemp[6] = 5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivity[6] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivity[6] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaRes[6] = 0.08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPoint[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacity[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSat[6] = 0.4 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchten[6] = 0.006 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchten[6] = 2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualem[6] = 0.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolids[6] = 2.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolids[6] = 1e+06 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativity[6] = 1e-08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressure[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTemp[7] = 5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivity[7] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivity[7] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaRes[7] = 0.08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPoint[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacity[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSat[7] = 0.4 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchten[7] = 0.006 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchten[7] = 2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualem[7] = 0.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolids[7] = 2.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolids[7] = 1e+06 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativity[7] = 1e-08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressure[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTemp[8] = 5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivity[8] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivity[8] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaRes[8] = 0.08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPoint[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacity[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSat[8] = 0.4 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchten[8] = 0.006 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchten[8] = 2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualem[8] = 0.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolids[8] = 2.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolids[8] = 1e+06 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativity[8] = 1e-08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressure[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTemp[9] = 5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivity[9] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivity[9] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaRes[9] = 0.08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPoint[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacity[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSat[9] = 0.4 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchten[9] = 0.006 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchten[9] = 2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualem[9] = 0.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolids[9] = 2.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolids[9] = 1e+06 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativity[9] = 1e-08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressure[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTemp[10] = 5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivity[10] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivity[10] = 2.77778 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaRes[10] = 0.08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPoint[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacity[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSat[10] = 0.4 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchten[10] = 0.006 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchten[10] = 2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualem[10] = 0.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolids[10] = 2.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolids[10] = 1e+06 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativity[10] = 1e-08 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressureBedrock[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTempBedrock[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivityBedrock[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivityBedrock[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaResBedrock[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPointBedrock[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacityBedrock[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSatBedrock[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchtenBedrock[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchtenBedrock[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualemBedrock[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolidsBedrock[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolidsBedrock[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativityBedrock[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressureBedrock[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTempBedrock[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivityBedrock[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivityBedrock[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaResBedrock[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPointBedrock[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacityBedrock[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSatBedrock[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchtenBedrock[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchtenBedrock[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualemBedrock[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolidsBedrock[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolidsBedrock[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativityBedrock[2] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressureBedrock[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTempBedrock[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivityBedrock[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivityBedrock[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaResBedrock[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPointBedrock[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacityBedrock[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSatBedrock[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchtenBedrock[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchtenBedrock[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualemBedrock[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolidsBedrock[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolidsBedrock[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativityBedrock[3] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressureBedrock[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTempBedrock[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivityBedrock[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivityBedrock[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaResBedrock[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPointBedrock[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacityBedrock[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSatBedrock[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchtenBedrock[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchtenBedrock[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualemBedrock[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolidsBedrock[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolidsBedrock[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativityBedrock[4] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressureBedrock[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTempBedrock[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivityBedrock[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivityBedrock[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaResBedrock[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPointBedrock[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacityBedrock[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSatBedrock[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchtenBedrock[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchtenBedrock[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualemBedrock[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolidsBedrock[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolidsBedrock[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativityBedrock[5] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressureBedrock[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTempBedrock[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivityBedrock[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivityBedrock[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaResBedrock[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPointBedrock[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacityBedrock[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSatBedrock[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchtenBedrock[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchtenBedrock[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualemBedrock[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolidsBedrock[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolidsBedrock[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativityBedrock[6] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressureBedrock[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTempBedrock[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivityBedrock[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivityBedrock[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaResBedrock[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPointBedrock[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacityBedrock[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSatBedrock[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchtenBedrock[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchtenBedrock[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualemBedrock[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolidsBedrock[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolidsBedrock[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativityBedrock[7] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressureBedrock[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTempBedrock[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivityBedrock[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivityBedrock[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaResBedrock[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPointBedrock[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacityBedrock[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSatBedrock[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchtenBedrock[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchtenBedrock[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualemBedrock[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolidsBedrock[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolidsBedrock[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativityBedrock[8] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressureBedrock[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTempBedrock[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivityBedrock[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivityBedrock[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaResBedrock[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPointBedrock[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacityBedrock[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSatBedrock[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchtenBedrock[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchtenBedrock[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualemBedrock[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolidsBedrock[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolidsBedrock[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativityBedrock[9] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilPressureBedrock[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitSoilTempBedrock[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NormalHydrConductivityBedrock[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LateralHydrConductivityBedrock[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaResBedrock[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WiltingPointBedrock[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:FieldCapacityBedrock[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThetaSatBedrock[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AlphaVanGenuchtenBedrock[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NVanGenuchtenBedrock[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:VMualemBedrock[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalConductivitySoilSolidsBedrock[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ThermalCapacitySoilSolidsBedrock[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpecificStorativityBedrock[10] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MeteoStationsID[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NumberOfMeteoStations[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MeteoStationCoordinateX[1] = 15
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MeteoStationCoordinateY[1] = 5
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MeteoStationLatitude[1] = 0
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MeteoStationLongitude[1] = 0
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MeteoStationElevation[1] = 0
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MeteoStationSkyViewFactor[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MeteoStationStandardTime[1] = 1
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MeteoStationWindVelocitySensorHeight[1] = 10
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MeteoStationTemperatureSensorHeight[1] = 10
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LapseRateTemp[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LapseRateDewTemp[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LapseRatePrec[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MinPrecIncreaseFactorWithElev[2] = 0.1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MaxPrecDecreaseFactorWithElev[2] = 4.4 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:PointAll[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DatePoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:JulianDayFromYear0Point[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:TimeFromStartPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:PeriodPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RunPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:IDPointPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:PsnowPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:PrainPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:PsnowNetPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:PrainNetPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:PrainOnSnowPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WindSpeedPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WindDirPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RHPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AirPressPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AirTempPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:TDewPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:TsurfPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:TvegPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:TCanopyAirPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SurfaceEBPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilHeatFluxPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SWinPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SWbeamPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SWdiffPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LWinPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LWinMinPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LWinMaxPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SWNetPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LWNetPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:HPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LEPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:CanopyFractionPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LSAIPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:z0vegPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:d0vegPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:EstoredCanopyPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SWvPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LWvPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:HvPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LEvPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:HgUnvegPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LEgUnvegPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:HgVegPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LEgVegPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:EvapSurfacePoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:TraspCanopyPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WaterOnCanopyPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowOnCanopyPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:QVegPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:QSurfPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:QAirPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:QCanopyAirPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LObukhovPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LObukhovCanopyPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WindSpeedTopCanopyPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DecayKCanopyPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SWupPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LWupPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:HupPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LEupPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowDepthPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SWEPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowDensityPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowTempPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowMeltedPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowSublPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SWEBlownPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SWESublBlownPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:GlacDepthPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:GWEPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:GlacDensityPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:GlacTempPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:GlacMeltedPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:GlacSublPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LowestThawedSoilDepthPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:HighestThawedSoilDepthPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LowestWaterTableDepthPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:HighestWaterTableDepthPoint[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:BasinAll[1] = 1
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilPlotDepths[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilPlotDepths[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowPlotDepths[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowPlotDepths[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:GlacPlotDepths[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:GlacPlotDepths[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowAll[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DateSnow[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:JulianDayFromYear0Snow[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:TimeFromStartSnow[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:PeriodSnow[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RunSnow[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:IDPointSnow[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:GlacAll[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowAll[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DateGlac[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:JulianDayFromYear0Glac[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:TimeFromStartGlac[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:PeriodGlac[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RunGlac[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SoilAll[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DateSoil[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:JulianDayFromYear0Soil[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:TimeFromStartSoil[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:PeriodSoil[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RunSoil[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:IDPointSoil[1] = -1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RicalculateCloudiness[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DewTemperatureAsRH[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RHAsDewTemperature[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:NumberDayIntervalsToCalculateCloudiness[1] = 3 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:CalculateCastShadow[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WindAsSpeedAndDirection[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WindAsWindXAndWindY[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowAgingCoeffVis[1] = 0.2 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowAgingCoeffNIR[1] = 0.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DepthFreeSurfaceAtTheBoundary[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:PrecAsIntensity[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:LinearInterpolation[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:OutputDepthsVertical[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:UpwindBorderBlowingSnow[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:UpdateHydraulicConductivity[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ContinuousRecovery[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ActualOrProjectedArea[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MinRatioKactualToKSat[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:RunIfAnOldRunIsPresent[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MaxCourantSupFlowChannelLand[1] = 0.1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MinDiffSupWaterDepthChannelLand[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SpinUpLayerBottom[1] = 10000 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:InitInNewPeriods[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:KonzelmannA[1] = 0.484 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:KonzelmannB[1] = 8 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:Lozone[1] = 0.3 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AngstromAlpha[1] = 1.3 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:AngstromBeta[1] = 0.1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ConsiderAlbedoInSWin[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ConsiderMicrometeorology[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SurfaceEnergyFlux[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:ConvectiveHeatTransferCoefficient[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SurfaceTemperature[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:BaseAirTemperature[1] = 5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:BaseRelativeHumidity[1] = 70 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:BaseWindSpeed[1] = 0.5 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:BaseWindDirection[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:BaseIPrec[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DefaultSoilTypeBedrock[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:MinPrecToRestoreFreshSnowAlbedo[1] = 10 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:SnowThermalConductivityPar[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:WindCompaction1D[1] = 0 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DDChannel[1] = 1 (default)
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:DDLand[1] = 0
-geotop:get_all_input:read_inpts_par:assign_numeric_parameters:assignation_number:BottomTemperature[1] = -9999 (default)
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderDateDDMMYYYYhhmmMeteo = date
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderJulianDayfrom0Meteo = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderIPrec = IPrec
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPrec = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderWindVelocity = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderWindDirection = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderWindX = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderWindY = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderRH = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderAirTemp = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderDewTemp = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWglobal = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWdirect = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWdiffuse = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderCloudSWTransmissivity = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderCloudFactor = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLWin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWnet = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSurfaceTemperature = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderBottomTemperature = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSoilDz = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSoilInitPres = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSoilInitTemp = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderNormalHydrConductivity = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLateralHydrConductivity = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderThetaRes = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderWiltingPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderFieldCapacity = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderThetaSat = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderAlpha = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderN = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderV = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderKthSoilSolids = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderCthSoilSolids = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSpecificStorativity = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderHorizonAngle = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderHorizonHeight = none
-geotop:get_all_input:read_inpts_par:assignation_string:TimeStepsFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilParFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:MeteoFile = input-meteo/meteo
-geotop:get_all_input:read_inpts_par:assignation_string:MeteoStationsListFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:LapseRateFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:HorizonMeteoStationFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:PointFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:HorizonPointFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:TimeDependentVegetationParameterFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:TimeDependentIncomingDischargeFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:DemFile = input-maps/dem
-geotop:get_all_input:read_inpts_par:assignation_string:LandCoverMapFile = input-maps/land
-geotop:get_all_input:read_inpts_par:assignation_string:SoilMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:DaysDelayMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SkyViewFactorMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SlopeMapFile = input-maps/slope
-geotop:get_all_input:read_inpts_par:assignation_string:RiverNetwork = input-maps/net
-geotop:get_all_input:read_inpts_par:assignation_string:AspectMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:CurvaturesMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:BedrockDepthMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:InitWaterTableDepthMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:InitSnowDepthMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:InitSWEMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:InitSnowAgeMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:InitGlacierDepthMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:DischargeFile = output-tabs/discharge
-geotop:get_all_input:read_inpts_par:assignation_string:BasinOutputFile = output-tabs/basin
-geotop:get_all_input:read_inpts_par:assignation_string:BasinOutputFileWriteEnd = none
-geotop:get_all_input:read_inpts_par:assignation_string:PointOutputFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:PointOutputFileWriteEnd = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilTempProfileFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilTempProfileFileWriteEnd = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilAveragedTempProfileFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilAveragedTempProfileFileWriteEnd = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilLiqWaterPressProfileFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilLiqWaterPressProfileFileWriteEnd = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilTotWaterPressProfileFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilTotWaterPressProfileFileWriteEnd = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilLiqContentProfileFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilLiqContentProfileFileWriteEnd = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilAveragedLiqContentProfileFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilAveragedLiqContentProfileFileWriteEnd = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilIceContentProfileFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilIceContentProfileFileWriteEnd = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilAveragedIceContentProfileFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilAveragedIceContentProfileFileWriteEnd = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilSaturationRatioProfileFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SnowTempProfileFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SnowLiqContentProfileFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SnowIceContentProfileFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SnowDepthLayersFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SnowTempProfileFileWriteEnd = none
-geotop:get_all_input:read_inpts_par:assignation_string:SnowLiqContentProfileFileWriteEnd = none
-geotop:get_all_input:read_inpts_par:assignation_string:SnowIceContentProfileFileWriteEnd = none
-geotop:get_all_input:read_inpts_par:assignation_string:SnowDepthLayersFileWriteEnd = none
-geotop:get_all_input:read_inpts_par:assignation_string:GlacierProfileFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:GlacierProfileFileWriteEnd = none
-geotop:get_all_input:read_inpts_par:assignation_string:SnowCoveredAreaFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RunSoilAveragedTemperatureFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RunSoilAveragedTotalSoilMoistureFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RunSoilAveragedInternalEnergyFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RunSoilAveragedSnowWaterEquivalentFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RunSoilMaximumTemperatureFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RunSoilMinimumTemperatureFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RunSoilMaximumTotalSoilMoistureFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RunSoilMinimumTotalSoilMoistureFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilTempTensorFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:FirstSoilLayerTempMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilAveragedTempTensorFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:FirstSoilLayerAveragedTempMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilLiqContentTensorFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:FirstSoilLayerLiqContentMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilAveragedLiqContentTensorFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilIceContentTensorFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:FirstSoilLayerIceContentMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilAveragedIceContentTensorFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:LandSurfaceWaterDepthMapFile = output-maps/hsup
-geotop:get_all_input:read_inpts_par:assignation_string:ChannelSurfaceWaterDepthMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:NetRadiationMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:InLongwaveRadiationMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:NetLongwaveRadiationMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:NetShortwaveRadiationMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:InShortwaveRadiationMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:DirectInShortwaveRadiationMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:ShadowFractionTimeMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SurfaceHeatFluxMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SurfaceSensibleHeatFluxMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SurfaceLatentHeatFluxMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SurfaceTempMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:PrecipitationMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:CanopyInterceptedWaterMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SoilLiqWaterPressTensorFile = output-maps/Pw
-geotop:get_all_input:read_inpts_par:assignation_string:SoilTotWaterPressTensorFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SnowDepthMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:GlacierDepthMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SnowMeltedMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SnowSublMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:GlacierMeltedMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:GlacierSublimatedMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:AirTempMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:WindSpeedMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:WindDirMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RelHumMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SWEMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:GlacierWaterEqMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SnowDurationMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:ThawedSoilDepthMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:ThawedSoilDepthFromAboveMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:WaterTableDepthMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:WaterTableDepthFromAboveMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:NetPrecipitationMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:EvapotranspirationFromSoilMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotSurfaceHeatFluxMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotTotalSensibleHeatFluxMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotTotalLatentHeatFluxMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotSurfaceSensibleHeatFluxMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotSurfaceLatentHeatFluxMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotVegSensibleHeatFluxMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotVegLatentHeatFluxMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotIncomingShortwaveRadMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotNetSurfaceShortwaveRadMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotNetVegShortwaveRadMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotIncomingLongwaveRadMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotNetSurfaceLongwaveRadMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotNetVegLongwaveRadMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotCanopyAirTempMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotSurfaceTempMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotVegTempMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotAboveVegAirTempMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotWindSpeedMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotWindDirMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotRelHumMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotSnowDepthMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SpecificPlotSurfaceWaterContentMapFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverSoilWatPres = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverSoilIceCont = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverSoilTemp = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverSnowLayerThick = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverSnowLiqMass = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverSnowIceMass = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverSnowTemp = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverGlacierLayerThick = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverGlacierLiqMass = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverGlacierIceMass = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverGlacierTemp = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverSnowLayerNumber = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverGlacierLayerNumber = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverNonDimensionalSnowAge = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverLiqWaterOnCanopy = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverSnowOnCanopy = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverVegTemp = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverSoilWatPresChannel = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverSoilIceContChannel = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverSoilTempChannel = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverRunSoilAveragedTemperatureFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverRunSoilAveragedTotalSoilMoistureFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverRunSoilAveragedInternalEnergyFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverRunSoilAveragedSnowWaterEquivalentFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverRunSoilMaximumTemperatureFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverRunSoilMinimumTemperatureFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverRunSoilMaximumTotalSoilMoistureFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverRunSoilMinimumTotalSoilMoistureFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:RecoverTime = none
-geotop:get_all_input:read_inpts_par:assignation_string:SuccessfulRecoveryFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderDatePoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderJulianDayFromYear0Point = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTimeFromStartPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPeriodPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderRunPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderIDPointPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPsnowPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPrainPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPsnowNetPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPrainNetPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPrainOnSnowPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderWindSpeedPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderWindDirPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderRHPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderAirPressPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderAirTempPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTDewPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTsurfPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTvegPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTCanopyAirPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSurfaceEBPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSoilHeatFluxPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWinPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWbeamPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWdiffPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLWinPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLWinMinPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLWinMaxPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWNetPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLWNetPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderHPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLEPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderCanopyFractionPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLSAIPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:Headerz0vegPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:Headerd0vegPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderEstoredCanopyPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWvPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLWvPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderHvPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLEvPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderHgUnvegPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLEgUnvegPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderHgVegPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLEgVegPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderEvapSurfacePoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTraspCanopyPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderWaterOnCanopyPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSnowOnCanopyPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderQVegPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderQSurfPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderQAirPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderQCanopyAirPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLObukhovPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLObukhovCanopyPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderWindSpeedTopCanopyPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderDecayKCanopyPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWupPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLWupPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderHupPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLEupPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSnowDepthPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWEPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSnowDensityPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSnowTempPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSnowMeltedPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSnowSublPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWEBlownPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWESublBlownPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderGlacDepthPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderGWEPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderGlacDensityPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderGlacTempPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderGlacMeltedPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderGlacSublPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLowestThawedSoilDepthPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderHighestThawedSoilDepthPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLowestWaterTableDepthPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderHighestWaterTableDepthPoint = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderDateBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderJulianDayFromYear0Basin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTimeFromStartBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPeriodBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderRunBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPRainNetBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPSnowNetBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPRainBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPSnowBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPNetBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderAirTempBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTSurfBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTvegBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderEvapSurfaceBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTraspCanopyBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLEBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderHBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWNetBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLWNetBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLEvBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderHvBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWvBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLWvBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderSWinBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLWinBasin = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderMeanTimeStep = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTimeStepAverage = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderDateSnow = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderJulianDayFromYear0Snow = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTimeFromStartSnow = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPeriodSnow = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderRunSnow = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderIDPointSnow = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTempSnow = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderIceContentSnow = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderWatContentSnow = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderDepthSnow = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderDateGlac = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderJulianDayFromYear0Glac = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTimeFromStartGlac = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPeriodGlac = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderRunGlac = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderIDPointGlac = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTempGlac = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderIceContentGlac = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderWatContentGlac = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderDepthGlac = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderDateSoil = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderJulianDayFromYear0Soil = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderTimeFromStartSoil = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPeriodSoil = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderRunSoil = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderIDPointSoil = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointID = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderCoordinatePointX = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderCoordinatePointY = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointElevation = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointLandCoverType = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointSoilType = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointSlope = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointAspect = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointSkyViewFactor = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointCurvatureNorthSouthDirection = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointCurvatureWestEastDirection = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointCurvatureNorthwestSoutheastDirection = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointCurvatureNortheastSouthwestDirection = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointDepthFreeSurface = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointHorizon = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointMaxSWE = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointLatitude = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointLongitude = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderPointBedrockDepth = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderDateDDMMYYYYhhmmLapseRates = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLapseRateTemp = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLapseRateDewTemp = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderLapseRatePrec = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderIDMeteoStation = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderMeteoStationCoordinateX = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderMeteoStationCoordinateY = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderMeteoStationLatitude = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderMeteoStationLongitude = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderMeteoStationElevation = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderMeteoStationSkyViewFactor = none
-geotop:get_all_input:read_inpts_par:assignation_string:HeaderMeteoStationStandardTime = none
-geotop:get_all_input:read_inpts_par:assignation_string:SuccessfulRunFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:FailedRunFile = none
-geotop:get_all_input:read_inpts_par:assignation_string:SubfolderRecoveryFiles = none
-geotop:get_all_input:read_soil_parameters:Soil Layers: 10
-geotop:get_all_input:read_soil_parameters:-> Soil Type: 1
-geotop:get_all_input:read_soil_parameters:HeaderSoilDz: 499.277(499.277), 499.277(499.277), 499.277(499.277), 499.277(499.277), 499.277(499.277), 499.277(499.277), 499.277(499.277), 499.277(499.277), 499.277(499.277), 499.277(499.277)
-geotop:get_all_input:read_soil_parameters:HeaderSoilInitPres: -9999(-9999), -9999(-9999), -9999(-9999), -9999(-9999), -9999(-9999), -9999(-9999), -9999(-9999), -9999(-9999), -9999(-9999), -9999(-9999)
-geotop:get_all_input:read_soil_parameters:HeaderSoilInitTemp: 5(5), 5(5), 5(5), 5(5), 5(5), 5(5), 5(5), 5(5), 5(5), 5(5)
-geotop:get_all_input:read_soil_parameters:HeaderNormalHydrConductivity: 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778)
-geotop:get_all_input:read_soil_parameters:HeaderLateralHydrConductivity: 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778)
-geotop:get_all_input:read_soil_parameters:HeaderThetaRes: 0.08(0.08), 0.08(0.08), 0.08(0.08), 0.08(0.08), 0.08(0.08), 0.08(0.08), 0.08(0.08), 0.08(0.08), 0.08(0.08), 0.08(0.08)
-geotop:get_all_input:read_soil_parameters:HeaderWiltingPoint: 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488)
-geotop:get_all_input:read_soil_parameters:HeaderFieldCapacity: 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772)
-geotop:get_all_input:read_soil_parameters:HeaderThetaSat: 0.4(0.4), 0.4(0.4), 0.4(0.4), 0.4(0.4), 0.4(0.4), 0.4(0.4), 0.4(0.4), 0.4(0.4), 0.4(0.4), 0.4(0.4)
-geotop:get_all_input:read_soil_parameters:HeaderAlpha: 0.006(0.006), 0.006(0.006), 0.006(0.006), 0.006(0.006), 0.006(0.006), 0.006(0.006), 0.006(0.006), 0.006(0.006), 0.006(0.006), 0.006(0.006)
-geotop:get_all_input:read_soil_parameters:HeaderN: 2(2), 2(2), 2(2), 2(2), 2(2), 2(2), 2(2), 2(2), 2(2), 2(2)
-geotop:get_all_input:read_soil_parameters:HeaderV: 0.5(0.5), 0.5(0.5), 0.5(0.5), 0.5(0.5), 0.5(0.5), 0.5(0.5), 0.5(0.5), 0.5(0.5), 0.5(0.5), 0.5(0.5)
-geotop:get_all_input:read_soil_parameters:HeaderKthSoilSolids: 2.5(2.5), 2.5(2.5), 2.5(2.5), 2.5(2.5), 2.5(2.5), 2.5(2.5), 2.5(2.5), 2.5(2.5), 2.5(2.5), 2.5(2.5)
-geotop:get_all_input:read_soil_parameters:HeaderCthSoilSolids: 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06)
-geotop:get_all_input:read_soil_parameters:HeaderSpecificStorativity: 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08)
-geotop:get_all_input:read_soil_parameters:Soil Bedrock Layers: 10
-geotop:get_all_input:read_soil_parameters:-> Soil Type: 1
-geotop:get_all_input:read_soil_parameters:HeaderSoilDz: 499.277(499.277), 499.277(499.277), 499.277(499.277), 499.277(499.277), 499.277(499.277), 499.277(499.277), 499.277(499.277), 499.277(499.277), 499.277(499.277), 499.277(499.277)
-geotop:get_all_input:read_soil_parameters:HeaderSoilInitPres: -9999(-9999), -9999(-9999), -9999(-9999), -9999(-9999), -9999(-9999), -9999(-9999), -9999(-9999), -9999(-9999), -9999(-9999), -9999(-9999)
-geotop:get_all_input:read_soil_parameters:HeaderSoilInitTemp: 5(5), 5(5), 5(5), 5(5), 5(5), 5(5), 5(5), 5(5), 5(5), 5(5)
-geotop:get_all_input:read_soil_parameters:HeaderNormalHydrConductivity: 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778)
-geotop:get_all_input:read_soil_parameters:HeaderLateralHydrConductivity: 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778), 2.77778(2.77778)
-geotop:get_all_input:read_soil_parameters:HeaderThetaRes: 0.08(0.08), 0.08(0.08), 0.08(0.08), 0.08(0.08), 0.08(0.08), 0.08(0.08), 0.08(0.08), 0.08(0.08), 0.08(0.08), 0.08(0.08)
-geotop:get_all_input:read_soil_parameters:HeaderWiltingPoint: 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488), 0.0803488(0.0803488)
-geotop:get_all_input:read_soil_parameters:HeaderFieldCapacity: 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772), 0.0956772(0.0956772)
-geotop:get_all_input:read_soil_parameters:HeaderThetaSat: 0.4(0.4), 0.4(0.4), 0.4(0.4), 0.4(0.4), 0.4(0.4), 0.4(0.4), 0.4(0.4), 0.4(0.4), 0.4(0.4), 0.4(0.4)
-geotop:get_all_input:read_soil_parameters:HeaderAlpha: 0.006(0.006), 0.006(0.006), 0.006(0.006), 0.006(0.006), 0.006(0.006), 0.006(0.006), 0.006(0.006), 0.006(0.006), 0.006(0.006), 0.006(0.006)
-geotop:get_all_input:read_soil_parameters:HeaderN: 2(2), 2(2), 2(2), 2(2), 2(2), 2(2), 2(2), 2(2), 2(2), 2(2)
-geotop:get_all_input:read_soil_parameters:HeaderV: 0.5(0.5), 0.5(0.5), 0.5(0.5), 0.5(0.5), 0.5(0.5), 0.5(0.5), 0.5(0.5), 0.5(0.5), 0.5(0.5), 0.5(0.5)
-geotop:get_all_input:read_soil_parameters:HeaderKthSoilSolids: 2.5(2.5), 2.5(2.5), 2.5(2.5), 2.5(2.5), 2.5(2.5), 2.5(2.5), 2.5(2.5), 2.5(2.5), 2.5(2.5), 2.5(2.5)
-geotop:get_all_input:read_soil_parameters:HeaderCthSoilSolids: 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06), 1e+06(1e+06)
-geotop:get_all_input:read_soil_parameters:HeaderSpecificStorativity: 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08), 1e-08(1e-08)
-geotop:get_all_input:read_soil_parameters:
+WORKING DIRECTORY: ./
+
+TimeStepEnergyAndWater[1] = 1.800000e+03 
+InitDateDDMMYYYYhhmm[1] = 1.012000e+10 
+SimulationHours[1] = 1.000000e+00 (default) 
+EndDateDDMMYYYYhhmm[1] = 1.012000e+10 
+NumSimulationTimes[1] = 1.000000e+00 (default) 
+StandardTimeSimulation[1] = 1.000000e+00 
+DtPlotDischarge[1] = 5.000000e-01 
+DtPlotPoint[1] = 5.000000e-01 
+DtPlotBasin[1] = 1.000000e+00 
+NumLowPassFilterOnDemForAll[1] = 0.000000e+00 (default) 
+NumLowPassFilterOnDemForCurv[1] = 0.000000e+00 (default) 
+FlagSkyViewFactor[1] = 0.000000e+00 (default) 
+FormatOutputMaps[1] = 3.000000e+00 (default) 
+PointSim[1] = 0.000000e+00 (default) 
+RecoverSim[1] = 0.000000e+00 (default) 
+NumLandCoverTypes[1] = 2.000000e+00 
+SoilRoughness[1] = 1.000000e+01 (default) 
+ThresSnowSoilRough[1] = 1.000000e+01 (default) 
+VegHeight[1] = 1.000000e+03 (default) 
+ThresSnowVegUp[1] = 1.000000e+03 (default) 
+ThresSnowVegDown[1] = 1.000000e+03 (default) 
+LSAI[1] = 1.000000e+00 (default) 
+CanopyFraction[1] = 0.000000e+00 (default) 
+DecayCoeffCanopy[1] = 2.500000e+00 (default) 
+VegSnowBurying[1] = 1.000000e+00 (default) 
+RootDepth[1] = 3.000000e+02 (default) 
+MinStomatalRes[1] = 6.000000e+01 (default) 
+VegReflectVis[1] = 2.000000e-01 (default) 
+VegReflNIR[1] = 2.000000e-01 (default) 
+VegTransVis[1] = 2.000000e-01 (default) 
+VegTransNIR[1] = 2.000000e-01 (default) 
+LeafAngles[1] = 0.000000e+00 (default) 
+CanDensSurface[1] = 2.000000e+00 (default) 
+SoilAlbVisDry[1] = 2.000000e-01 (default) 
+SoilAlbNIRDry[1] = 2.000000e-01 (default) 
+SoilAlbVisWet[1] = 2.000000e-01 (default) 
+SoilAlbNIRWet[1] = 2.000000e-01 (default) 
+SoilEmissiv[1] = 9.600000e-01 (default) 
+SurFlowResLand[1] = 1.596400e+02 
+RoughElemXUnitArea[1] = 0.000000e+00 (default) 
+RoughElemDiam[1] = 5.000000e+01 (default) 
+SoilRoughness[2] = 1.000000e+01 (default) 
+ThresSnowSoilRough[2] = 1.000000e+01 (default) 
+VegHeight[2] = 1.000000e+03 (default) 
+ThresSnowVegUp[2] = 1.000000e+03 (default) 
+ThresSnowVegDown[2] = 1.000000e+03 (default) 
+LSAI[2] = 1.000000e+00 (default) 
+CanopyFraction[2] = 0.000000e+00 (default) 
+DecayCoeffCanopy[2] = 2.500000e+00 (default) 
+VegSnowBurying[2] = 1.000000e+00 (default) 
+RootDepth[2] = 3.000000e+02 (default) 
+MinStomatalRes[2] = 6.000000e+01 (default) 
+VegReflectVis[2] = 2.000000e-01 (default) 
+VegReflNIR[2] = 2.000000e-01 (default) 
+VegTransVis[2] = 2.000000e-01 (default) 
+VegTransNIR[2] = 2.000000e-01 (default) 
+LeafAngles[2] = 0.000000e+00 (default) 
+CanDensSurface[2] = 2.000000e+00 (default) 
+SoilAlbVisDry[2] = 2.000000e-01 (default) 
+SoilAlbNIRDry[2] = 2.000000e-01 (default) 
+SoilAlbVisWet[2] = 2.000000e-01 (default) 
+SoilAlbNIRWet[2] = 2.000000e-01 (default) 
+SoilEmissiv[2] = 9.600000e-01 (default) 
+SurFlowResLand[2] = 1.596400e+03 
+RoughElemXUnitArea[2] = 0.000000e+00 (default) 
+RoughElemDiam[2] = 5.000000e+01 (default) 
+FrozenSoilHydrCondReduction[1] = 7.000000e+00 (default) 
+FreeDrainageAtBottom[1] = 0.000000e+00 (default) 
+FreeDrainageAtLateralBorder[1] = 0.000000e+00 
+RichardTol[1] = 1.000000e-08 
+RichardMaxIter[1] = 1.000000e+03 
+RichardInitForc[1] = 1.000000e-02 
+MinLambdaWater[1] = 1.000000e-08 
+MaxTimesMinLambdaWater[1] = 0.000000e+00 (default) 
+ExitMinLambdaWater[1] = 1.000000e+00 
+MinTimeStep[1] = 1.000000e+00 
+SurFlowResExp[1] = 6.666667e-01 (default) 
+ThresWaterDepthLandInf[1] = 0.000000e+00 (default) 
+ThresWaterDepthLandSup[1] = 0.000000e+00 (default) 
+SurFlowResChannel[1] = 2.000000e+01 (default) 
+ThresWaterDepthChannel[1] = 5.000000e+01 (default) 
+RatioChannelWidthPixelWidth[1] = 1.000000e-01 (default) 
+ChannelDepression[1] = 5.000000e+02 (default) 
+MaxCourantSupFlowLand[1] = 1.000000e-03 
+MaxCourantSupFlowChannel[1] = 1.000000e-01 (default) 
+MinSupWaterDepthLand[1] = 1.000000e-10 
+MinSupWaterDepthChannel[1] = 1.000000e+00 (default) 
+MinDiffSupWaterDepthLandChannel[1] = 1.000000e+00 (default) 
+MinTimeStepSupFlow[1] = 1.000000e-50 
+Latitude[1] = 4.500000e+01 (default) 
+Longitude[1] = 0.000000e+00 (default) 
+Vmin[1] = 5.000000e-01 (default) 
+RHmin[1] = 1.000000e+01 (default) 
+AlphaSnow[1] = 1.000000e+05 (default) 
+HighestNodeCorrespondsToLayer[1] = 0.000000e+00 (default) 
+HeatEqTol[1] = 1.000000e-04 (default) 
+HeatEqMaxIter[1] = 5.000000e+02 (default) 
+MinLambdaEnergy[1] = 1.000000e-05 (default) 
+MaxTimesMinLambdaEnergy[1] = 0.000000e+00 (default) 
+ExitMinLambdaEnergy[1] = 0.000000e+00 (default) 
+DEMRotationAngle[1] = 0.000000e+00 (default) 
+CanopyMaxIter[1] = 3.000000e+00 (default) 
+BusingerMaxIter[1] = 5.000000e+00 (default) 
+TsMaxIter[1] = 2.000000e+00 (default) 
+LocMaxIter[1] = 3.000000e+00 (default) 
+CanopyStabCorrection[1] = 1.000000e+00 (default) 
+Iobsint[1] = 1.000000e+00 (default) 
+Dn[1] = 1.000000e+00 (default) 
+SlopeWeight[1] = 0.000000e+00 (default) 
+CurvatureWeight[1] = 0.000000e+00 (default) 
+SlopeWeightD[1] = 0.000000e+00 (default) 
+CurvatureWeightD[1] = 0.000000e+00 (default) 
+SlopeWeightI[1] = 0.000000e+00 (default) 
+CurvatureWeightI[1] = 0.000000e+00 (default) 
+ZeroTempAmplitDepth[1] = 1.000000e+20 (default) 
+ZeroTempAmplitTemp[1] = 2.000000e+01 (default) 
+BottomBoundaryHeatFlux[1] = 0.000000e+00 (default) 
+InitSWE[1] = 0.000000e+00 (default) 
+InitSnowDensity[1] = 2.000000e+02 (default) 
+InitSnowTemp[1] = -3.000000e+00 (default) 
+InitSnowAge[1] = 0.000000e+00 (default) 
+ThresTempRain[1] = 3.000000e+00 (default) 
+ThresTempSnow[1] = -1.000000e+00 (default) 
+DewTempOrNormTemp[1] = 0.000000e+00 (default) 
+AlbExtParSnow[1] = 1.000000e+01 (default) 
+FreshSnowReflVis[1] = 9.000000e-01 (default) 
+FreshSnowReflNIR[1] = 6.500000e-01 (default) 
+IrriducibleWatSatSnow[1] = 2.000000e-02 (default) 
+SnowEmissiv[1] = 9.800000e-01 (default) 
+SnowRoughness[1] = 1.000000e-01 (default) 
+SnowCorrFactor[1] = 1.000000e+00 (default) 
+RainCorrFactor[1] = 1.000000e+00 (default) 
+MaxSnowPorosity[1] = 7.000000e-01 (default) 
+DrySnowDefRate[1] = 1.000000e+00 (default) 
+SnowDensityCutoff[1] = 1.000000e+02 (default) 
+WetSnowDefRate[1] = 1.500000e+00 (default) 
+SnowViscosity[1] = 1.000000e+06 (default) 
+FetchUp[1] = 1.000000e+03 (default) 
+FetchDown[1] = 1.000000e+02 (default) 
+BlowingSnowSoftLayerIceContent[1] = 0.000000e+00 (default) 
+TimeStepBlowingSnow[1] = 1.800000e+03 (default) 
+SnowSMIN[1] = 3.000000e+01 (default) 
+SnowSMAX[1] = 8.000000e+01 (default) 
+SnowCURV[1] = -2.000000e+02 (default) 
+MaxWaterEqSnowLayerContent[1] = 5.000000e+00 (default) 
+MaxSnowLayersMiddle[1] = 1.000000e+01 (default) 
+MaxWaterEqSnowLayerContent[1] = 5.000000e+00 (default) 
+MaxSnowLayersMiddle[1] = 2.000000e+00 (default) 
+SWEbottom[1] = 2.000000e+01 (default) 
+SWEtop[1] = 2.000000e+01 (default) 
+Max snow layer number: 10, of which 4 at the bottom, 2 in the middle, and 4 at the top.
+Infinite Snow layer numbers are numbers: 5 6 
+InitGlacierDepth[1] = 0.000000e+00 (default) 
+InitGlacierDensity[1] = 8.000000e+02 (default) 
+InitGlacierTemp[1] = -3.000000e+00 (default) 
+IrriducibleWatSatGlacier[1] = 2.000000e-02 (default) 
+MaxWaterEqGlacLayerContent[1] = 5.000000e+00 (default) 
+MaxGlacLayersMiddle[1] = 0.000000e+00 (default) 
+GWEbottom[1] = 0.000000e+00 (default) 
+GWEtop[1] = 0.000000e+00 (default) 
+Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+Infinite Glac layer numbers are numbers: 
+LWinParameterization[1] = 9.000000e+00 (default) 
+MoninObukhov[1] = 1.000000e+00 (default) 
+Surroundings[1] = 0.000000e+00 (default) 
+WaterBalance[1] = 1.000000e+00 
+EnergyBalance[1] = 0.000000e+00 (default) 
+BlowingSnow[1] = 0.000000e+00 (default) 
+MinIceContentForBlowingSnow[1] = 8.000000e+00 (default) 
+PointID[1] = -9.999000e+03 (default) 
+CoordinatePointX[1] = -9.999000e+03 (default) 
+CoordinatePointY[1] = -9.999000e+03 (default) 
+SavingPoints[1] = 0.000000e+00 (default) 
+OutputSoilMaps[1] = 2.000000e+00 
+OutputSnowMaps[1] = 0.000000e+00 (default) 
+OutputGlacierMaps[1] = 0.000000e+00 (default) 
+OutputSurfEBALMaps[1] = 0.000000e+00 (default) 
+OutputVegetationMaps[1] = 0.000000e+00 (default) 
+OutputMeteoMaps[1] = 0.000000e+00 (default) 
+SpecialPlotBegin[1] = 0.000000e+00 (default) 
+SpecialPlotEnd[1] = 0.000000e+00 (default) 
+SoilLayerTypes[1] = 1.000000e+00 (default) 
+InitWaterTableDepth[1] = 1.997106e+03 
+DefaultSoilTypeLand[1] = 1.000000e+00 (default) 
+DefaultSoilTypeChannel[1] = 1.000000e+00 (default) 
+SoilLayerThicknesses[1] = 4.992766e+02 
+SoilLayerNumber[1] = 1.000000e+01 
+InitSoilPressure[1] = -9.999000e+03 (default) 
+InitSoilTemp[1] = 5.000000e+00 (default) 
+NormalHydrConductivity[1] = 2.777778e+00 
+LateralHydrConductivity[1] = 2.777778e+00 
+ThetaRes[1] = 8.000000e-02 
+WiltingPoint[1] = -9.999000e+03 (default) 
+FieldCapacity[1] = -9.999000e+03 (default) 
+ThetaSat[1] = 4.000000e-01 
+AlphaVanGenuchten[1] = 6.000000e-03 
+NVanGenuchten[1] = 2.000000e+00 
+VMualem[1] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[1] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[1] = 1.000000e+06 (default) 
+SpecificStorativity[1] = 1.000000e-08 
+InitSoilPressure[2] = -9.999000e+03 (default) 
+InitSoilTemp[2] = 5.000000e+00 (default) 
+NormalHydrConductivity[2] = 2.777778e+00 (default) 
+LateralHydrConductivity[2] = 2.777778e+00 (default) 
+ThetaRes[2] = 8.000000e-02 (default) 
+WiltingPoint[2] = -9.999000e+03 (default) 
+FieldCapacity[2] = -9.999000e+03 (default) 
+ThetaSat[2] = 4.000000e-01 (default) 
+AlphaVanGenuchten[2] = 6.000000e-03 (default) 
+NVanGenuchten[2] = 2.000000e+00 (default) 
+VMualem[2] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[2] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[2] = 1.000000e+06 (default) 
+SpecificStorativity[2] = 1.000000e-08 (default) 
+InitSoilPressure[3] = -9.999000e+03 (default) 
+InitSoilTemp[3] = 5.000000e+00 (default) 
+NormalHydrConductivity[3] = 2.777778e+00 (default) 
+LateralHydrConductivity[3] = 2.777778e+00 (default) 
+ThetaRes[3] = 8.000000e-02 (default) 
+WiltingPoint[3] = -9.999000e+03 (default) 
+FieldCapacity[3] = -9.999000e+03 (default) 
+ThetaSat[3] = 4.000000e-01 (default) 
+AlphaVanGenuchten[3] = 6.000000e-03 (default) 
+NVanGenuchten[3] = 2.000000e+00 (default) 
+VMualem[3] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[3] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[3] = 1.000000e+06 (default) 
+SpecificStorativity[3] = 1.000000e-08 (default) 
+InitSoilPressure[4] = -9.999000e+03 (default) 
+InitSoilTemp[4] = 5.000000e+00 (default) 
+NormalHydrConductivity[4] = 2.777778e+00 (default) 
+LateralHydrConductivity[4] = 2.777778e+00 (default) 
+ThetaRes[4] = 8.000000e-02 (default) 
+WiltingPoint[4] = -9.999000e+03 (default) 
+FieldCapacity[4] = -9.999000e+03 (default) 
+ThetaSat[4] = 4.000000e-01 (default) 
+AlphaVanGenuchten[4] = 6.000000e-03 (default) 
+NVanGenuchten[4] = 2.000000e+00 (default) 
+VMualem[4] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[4] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[4] = 1.000000e+06 (default) 
+SpecificStorativity[4] = 1.000000e-08 (default) 
+InitSoilPressure[5] = -9.999000e+03 (default) 
+InitSoilTemp[5] = 5.000000e+00 (default) 
+NormalHydrConductivity[5] = 2.777778e+00 (default) 
+LateralHydrConductivity[5] = 2.777778e+00 (default) 
+ThetaRes[5] = 8.000000e-02 (default) 
+WiltingPoint[5] = -9.999000e+03 (default) 
+FieldCapacity[5] = -9.999000e+03 (default) 
+ThetaSat[5] = 4.000000e-01 (default) 
+AlphaVanGenuchten[5] = 6.000000e-03 (default) 
+NVanGenuchten[5] = 2.000000e+00 (default) 
+VMualem[5] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[5] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[5] = 1.000000e+06 (default) 
+SpecificStorativity[5] = 1.000000e-08 (default) 
+InitSoilPressure[6] = -9.999000e+03 (default) 
+InitSoilTemp[6] = 5.000000e+00 (default) 
+NormalHydrConductivity[6] = 2.777778e+00 (default) 
+LateralHydrConductivity[6] = 2.777778e+00 (default) 
+ThetaRes[6] = 8.000000e-02 (default) 
+WiltingPoint[6] = -9.999000e+03 (default) 
+FieldCapacity[6] = -9.999000e+03 (default) 
+ThetaSat[6] = 4.000000e-01 (default) 
+AlphaVanGenuchten[6] = 6.000000e-03 (default) 
+NVanGenuchten[6] = 2.000000e+00 (default) 
+VMualem[6] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[6] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[6] = 1.000000e+06 (default) 
+SpecificStorativity[6] = 1.000000e-08 (default) 
+InitSoilPressure[7] = -9.999000e+03 (default) 
+InitSoilTemp[7] = 5.000000e+00 (default) 
+NormalHydrConductivity[7] = 2.777778e+00 (default) 
+LateralHydrConductivity[7] = 2.777778e+00 (default) 
+ThetaRes[7] = 8.000000e-02 (default) 
+WiltingPoint[7] = -9.999000e+03 (default) 
+FieldCapacity[7] = -9.999000e+03 (default) 
+ThetaSat[7] = 4.000000e-01 (default) 
+AlphaVanGenuchten[7] = 6.000000e-03 (default) 
+NVanGenuchten[7] = 2.000000e+00 (default) 
+VMualem[7] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[7] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[7] = 1.000000e+06 (default) 
+SpecificStorativity[7] = 1.000000e-08 (default) 
+InitSoilPressure[8] = -9.999000e+03 (default) 
+InitSoilTemp[8] = 5.000000e+00 (default) 
+NormalHydrConductivity[8] = 2.777778e+00 (default) 
+LateralHydrConductivity[8] = 2.777778e+00 (default) 
+ThetaRes[8] = 8.000000e-02 (default) 
+WiltingPoint[8] = -9.999000e+03 (default) 
+FieldCapacity[8] = -9.999000e+03 (default) 
+ThetaSat[8] = 4.000000e-01 (default) 
+AlphaVanGenuchten[8] = 6.000000e-03 (default) 
+NVanGenuchten[8] = 2.000000e+00 (default) 
+VMualem[8] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[8] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[8] = 1.000000e+06 (default) 
+SpecificStorativity[8] = 1.000000e-08 (default) 
+InitSoilPressure[9] = -9.999000e+03 (default) 
+InitSoilTemp[9] = 5.000000e+00 (default) 
+NormalHydrConductivity[9] = 2.777778e+00 (default) 
+LateralHydrConductivity[9] = 2.777778e+00 (default) 
+ThetaRes[9] = 8.000000e-02 (default) 
+WiltingPoint[9] = -9.999000e+03 (default) 
+FieldCapacity[9] = -9.999000e+03 (default) 
+ThetaSat[9] = 4.000000e-01 (default) 
+AlphaVanGenuchten[9] = 6.000000e-03 (default) 
+NVanGenuchten[9] = 2.000000e+00 (default) 
+VMualem[9] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[9] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[9] = 1.000000e+06 (default) 
+SpecificStorativity[9] = 1.000000e-08 (default) 
+InitSoilPressure[10] = -9.999000e+03 (default) 
+InitSoilTemp[10] = 5.000000e+00 (default) 
+NormalHydrConductivity[10] = 2.777778e+00 (default) 
+LateralHydrConductivity[10] = 2.777778e+00 (default) 
+ThetaRes[10] = 8.000000e-02 (default) 
+WiltingPoint[10] = -9.999000e+03 (default) 
+FieldCapacity[10] = -9.999000e+03 (default) 
+ThetaSat[10] = 4.000000e-01 (default) 
+AlphaVanGenuchten[10] = 6.000000e-03 (default) 
+NVanGenuchten[10] = 2.000000e+00 (default) 
+VMualem[10] = 5.000000e-01 (default) 
+ThermalConductivitySoilSolids[10] = 2.500000e+00 (default) 
+ThermalCapacitySoilSolids[10] = 1.000000e+06 (default) 
+SpecificStorativity[10] = 1.000000e-08 (default) 
+InitSoilPressureBedrock[1] = -9.999000e+03 (default) 
+InitSoilTempBedrock[1] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[1] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[1] = -9.999000e+03 (default) 
+ThetaResBedrock[1] = -9.999000e+03 (default) 
+WiltingPointBedrock[1] = -9.999000e+03 (default) 
+FieldCapacityBedrock[1] = -9.999000e+03 (default) 
+ThetaSatBedrock[1] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[1] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[1] = -9.999000e+03 (default) 
+VMualemBedrock[1] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[1] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[1] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[2] = -9.999000e+03 (default) 
+InitSoilTempBedrock[2] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[2] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[2] = -9.999000e+03 (default) 
+ThetaResBedrock[2] = -9.999000e+03 (default) 
+WiltingPointBedrock[2] = -9.999000e+03 (default) 
+FieldCapacityBedrock[2] = -9.999000e+03 (default) 
+ThetaSatBedrock[2] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[2] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[2] = -9.999000e+03 (default) 
+VMualemBedrock[2] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[2] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[2] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[3] = -9.999000e+03 (default) 
+InitSoilTempBedrock[3] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[3] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[3] = -9.999000e+03 (default) 
+ThetaResBedrock[3] = -9.999000e+03 (default) 
+WiltingPointBedrock[3] = -9.999000e+03 (default) 
+FieldCapacityBedrock[3] = -9.999000e+03 (default) 
+ThetaSatBedrock[3] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[3] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[3] = -9.999000e+03 (default) 
+VMualemBedrock[3] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[3] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[3] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[4] = -9.999000e+03 (default) 
+InitSoilTempBedrock[4] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[4] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[4] = -9.999000e+03 (default) 
+ThetaResBedrock[4] = -9.999000e+03 (default) 
+WiltingPointBedrock[4] = -9.999000e+03 (default) 
+FieldCapacityBedrock[4] = -9.999000e+03 (default) 
+ThetaSatBedrock[4] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[4] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[4] = -9.999000e+03 (default) 
+VMualemBedrock[4] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[4] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[4] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[5] = -9.999000e+03 (default) 
+InitSoilTempBedrock[5] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[5] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[5] = -9.999000e+03 (default) 
+ThetaResBedrock[5] = -9.999000e+03 (default) 
+WiltingPointBedrock[5] = -9.999000e+03 (default) 
+FieldCapacityBedrock[5] = -9.999000e+03 (default) 
+ThetaSatBedrock[5] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[5] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[5] = -9.999000e+03 (default) 
+VMualemBedrock[5] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[5] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[5] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[6] = -9.999000e+03 (default) 
+InitSoilTempBedrock[6] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[6] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[6] = -9.999000e+03 (default) 
+ThetaResBedrock[6] = -9.999000e+03 (default) 
+WiltingPointBedrock[6] = -9.999000e+03 (default) 
+FieldCapacityBedrock[6] = -9.999000e+03 (default) 
+ThetaSatBedrock[6] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[6] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[6] = -9.999000e+03 (default) 
+VMualemBedrock[6] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[6] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[6] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[6] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[7] = -9.999000e+03 (default) 
+InitSoilTempBedrock[7] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[7] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[7] = -9.999000e+03 (default) 
+ThetaResBedrock[7] = -9.999000e+03 (default) 
+WiltingPointBedrock[7] = -9.999000e+03 (default) 
+FieldCapacityBedrock[7] = -9.999000e+03 (default) 
+ThetaSatBedrock[7] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[7] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[7] = -9.999000e+03 (default) 
+VMualemBedrock[7] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[7] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[7] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[7] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[8] = -9.999000e+03 (default) 
+InitSoilTempBedrock[8] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[8] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[8] = -9.999000e+03 (default) 
+ThetaResBedrock[8] = -9.999000e+03 (default) 
+WiltingPointBedrock[8] = -9.999000e+03 (default) 
+FieldCapacityBedrock[8] = -9.999000e+03 (default) 
+ThetaSatBedrock[8] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[8] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[8] = -9.999000e+03 (default) 
+VMualemBedrock[8] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[8] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[8] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[8] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[9] = -9.999000e+03 (default) 
+InitSoilTempBedrock[9] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[9] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[9] = -9.999000e+03 (default) 
+ThetaResBedrock[9] = -9.999000e+03 (default) 
+WiltingPointBedrock[9] = -9.999000e+03 (default) 
+FieldCapacityBedrock[9] = -9.999000e+03 (default) 
+ThetaSatBedrock[9] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[9] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[9] = -9.999000e+03 (default) 
+VMualemBedrock[9] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[9] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[9] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[9] = -9.999000e+03 (default) 
+InitSoilPressureBedrock[10] = -9.999000e+03 (default) 
+InitSoilTempBedrock[10] = -9.999000e+03 (default) 
+NormalHydrConductivityBedrock[10] = -9.999000e+03 (default) 
+LateralHydrConductivityBedrock[10] = -9.999000e+03 (default) 
+ThetaResBedrock[10] = -9.999000e+03 (default) 
+WiltingPointBedrock[10] = -9.999000e+03 (default) 
+FieldCapacityBedrock[10] = -9.999000e+03 (default) 
+ThetaSatBedrock[10] = -9.999000e+03 (default) 
+AlphaVanGenuchtenBedrock[10] = -9.999000e+03 (default) 
+NVanGenuchtenBedrock[10] = -9.999000e+03 (default) 
+VMualemBedrock[10] = -9.999000e+03 (default) 
+ThermalConductivitySoilSolidsBedrock[10] = -9.999000e+03 (default) 
+ThermalCapacitySoilSolidsBedrock[10] = -9.999000e+03 (default) 
+SpecificStorativityBedrock[10] = -9.999000e+03 (default) 
+MeteoStationsID[1] = -9.999000e+03 (default) 
+NumberOfMeteoStations[1] = 1.000000e+00 (default) 
+MeteoStationCoordinateX[1] = 1.500000e+01 
+MeteoStationCoordinateY[1] = 5.000000e+00 
+MeteoStationLatitude[1] = 0.000000e+00 
+MeteoStationLongitude[1] = 0.000000e+00 
+MeteoStationElevation[1] = 0.000000e+00 
+MeteoStationSkyViewFactor[1] = 1.000000e+00 (default) 
+MeteoStationStandardTime[1] = 1.000000e+00 
+MeteoStationWindVelocitySensorHeight[1] = 1.000000e+01 
+MeteoStationTemperatureSensorHeight[1] = 1.000000e+01 
+LapseRateTemp[1] = -9.999000e+03 (default) 
+LapseRateDewTemp[1] = -9.999000e+03 (default) 
+LapseRatePrec[1] = -9.999000e+03 (default) 
+MinPrecIncreaseFactorWithElev[2] = 1.000000e-01 (default) 
+MaxPrecDecreaseFactorWithElev[2] = 4.400000e+00 (default) 
+PointAll[1] = 0.000000e+00 (default) 
+DatePoint[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Point[1] = -1.000000e+00 (default) 
+TimeFromStartPoint[1] = -1.000000e+00 (default) 
+PeriodPoint[1] = -1.000000e+00 (default) 
+RunPoint[1] = -1.000000e+00 (default) 
+IDPointPoint[1] = -1.000000e+00 (default) 
+PsnowPoint[1] = -1.000000e+00 (default) 
+PrainPoint[1] = -1.000000e+00 (default) 
+PsnowNetPoint[1] = -1.000000e+00 (default) 
+PrainNetPoint[1] = -1.000000e+00 (default) 
+PrainOnSnowPoint[1] = -1.000000e+00 (default) 
+WindSpeedPoint[1] = -1.000000e+00 (default) 
+WindDirPoint[1] = -1.000000e+00 (default) 
+RHPoint[1] = -1.000000e+00 (default) 
+AirPressPoint[1] = -1.000000e+00 (default) 
+AirTempPoint[1] = -1.000000e+00 (default) 
+TDewPoint[1] = -1.000000e+00 (default) 
+TsurfPoint[1] = -1.000000e+00 (default) 
+TvegPoint[1] = -1.000000e+00 (default) 
+TCanopyAirPoint[1] = -1.000000e+00 (default) 
+SurfaceEBPoint[1] = -1.000000e+00 (default) 
+SoilHeatFluxPoint[1] = -1.000000e+00 (default) 
+SWinPoint[1] = -1.000000e+00 (default) 
+SWbeamPoint[1] = -1.000000e+00 (default) 
+SWdiffPoint[1] = -1.000000e+00 (default) 
+LWinPoint[1] = -1.000000e+00 (default) 
+LWinMinPoint[1] = -1.000000e+00 (default) 
+LWinMaxPoint[1] = -1.000000e+00 (default) 
+SWNetPoint[1] = -1.000000e+00 (default) 
+LWNetPoint[1] = -1.000000e+00 (default) 
+HPoint[1] = -1.000000e+00 (default) 
+LEPoint[1] = -1.000000e+00 (default) 
+CanopyFractionPoint[1] = -1.000000e+00 (default) 
+LSAIPoint[1] = -1.000000e+00 (default) 
+z0vegPoint[1] = -1.000000e+00 (default) 
+d0vegPoint[1] = -1.000000e+00 (default) 
+EstoredCanopyPoint[1] = -1.000000e+00 (default) 
+SWvPoint[1] = -1.000000e+00 (default) 
+LWvPoint[1] = -1.000000e+00 (default) 
+HvPoint[1] = -1.000000e+00 (default) 
+LEvPoint[1] = -1.000000e+00 (default) 
+HgUnvegPoint[1] = -1.000000e+00 (default) 
+LEgUnvegPoint[1] = -1.000000e+00 (default) 
+HgVegPoint[1] = -1.000000e+00 (default) 
+LEgVegPoint[1] = -1.000000e+00 (default) 
+EvapSurfacePoint[1] = -1.000000e+00 (default) 
+TraspCanopyPoint[1] = -1.000000e+00 (default) 
+WaterOnCanopyPoint[1] = -1.000000e+00 (default) 
+SnowOnCanopyPoint[1] = -1.000000e+00 (default) 
+QVegPoint[1] = -1.000000e+00 (default) 
+QSurfPoint[1] = -1.000000e+00 (default) 
+QAirPoint[1] = -1.000000e+00 (default) 
+QCanopyAirPoint[1] = -1.000000e+00 (default) 
+LObukhovPoint[1] = -1.000000e+00 (default) 
+LObukhovCanopyPoint[1] = -1.000000e+00 (default) 
+WindSpeedTopCanopyPoint[1] = -1.000000e+00 (default) 
+DecayKCanopyPoint[1] = -1.000000e+00 (default) 
+SWupPoint[1] = -1.000000e+00 (default) 
+LWupPoint[1] = -1.000000e+00 (default) 
+HupPoint[1] = -1.000000e+00 (default) 
+LEupPoint[1] = -1.000000e+00 (default) 
+SnowDepthPoint[1] = -1.000000e+00 (default) 
+SWEPoint[1] = -1.000000e+00 (default) 
+SnowDensityPoint[1] = -1.000000e+00 (default) 
+SnowTempPoint[1] = -1.000000e+00 (default) 
+SnowMeltedPoint[1] = -1.000000e+00 (default) 
+SnowSublPoint[1] = -1.000000e+00 (default) 
+SWEBlownPoint[1] = -1.000000e+00 (default) 
+SWESublBlownPoint[1] = -1.000000e+00 (default) 
+GlacDepthPoint[1] = -1.000000e+00 (default) 
+GWEPoint[1] = -1.000000e+00 (default) 
+GlacDensityPoint[1] = -1.000000e+00 (default) 
+GlacTempPoint[1] = -1.000000e+00 (default) 
+GlacMeltedPoint[1] = -1.000000e+00 (default) 
+GlacSublPoint[1] = -1.000000e+00 (default) 
+LowestThawedSoilDepthPoint[1] = -1.000000e+00 (default) 
+HighestThawedSoilDepthPoint[1] = -1.000000e+00 (default) 
+LowestWaterTableDepthPoint[1] = -1.000000e+00 (default) 
+HighestWaterTableDepthPoint[1] = -1.000000e+00 (default) 
+BasinAll[1] = 1.000000e+00 
+SoilPlotDepths[1] = -9.999000e+03 (default) 
+SoilPlotDepths[1] = -9.999000e+03 (default) 
+SnowPlotDepths[1] = -9.999000e+03 (default) 
+SnowPlotDepths[1] = -9.999000e+03 (default) 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+GlacPlotDepths[1] = -9.999000e+03 (default) 
+SnowAll[1] = 0.000000e+00 (default) 
+DateSnow[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Snow[1] = -1.000000e+00 (default) 
+TimeFromStartSnow[1] = -1.000000e+00 (default) 
+PeriodSnow[1] = -1.000000e+00 (default) 
+RunSnow[1] = -1.000000e+00 (default) 
+IDPointSnow[1] = -1.000000e+00 (default) 
+GlacAll[1] = 0.000000e+00 (default) 
+SnowAll[1] = -1.000000e+00 (default) 
+DateGlac[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Glac[1] = -1.000000e+00 (default) 
+TimeFromStartGlac[1] = -1.000000e+00 (default) 
+PeriodGlac[1] = -1.000000e+00 (default) 
+RunGlac[1] = -1.000000e+00 (default) 
+SoilAll[1] = 0.000000e+00 (default) 
+DateSoil[1] = -1.000000e+00 (default) 
+JulianDayFromYear0Soil[1] = -1.000000e+00 (default) 
+TimeFromStartSoil[1] = -1.000000e+00 (default) 
+PeriodSoil[1] = -1.000000e+00 (default) 
+RunSoil[1] = -1.000000e+00 (default) 
+IDPointSoil[1] = -1.000000e+00 (default) 
+RicalculateCloudiness[1] = 0.000000e+00 (default) 
+DewTemperatureAsRH[1] = 1.000000e+00 (default) 
+RHAsDewTemperature[1] = 0.000000e+00 (default) 
+NumberDayIntervalsToCalculateCloudiness[1] = 3.000000e+00 (default) 
+CalculateCastShadow[1] = 1.000000e+00 (default) 
+WindAsSpeedAndDirection[1] = 1.000000e+00 (default) 
+WindAsWindXAndWindY[1] = 0.000000e+00 (default) 
+SnowAgingCoeffVis[1] = 2.000000e-01 (default) 
+SnowAgingCoeffNIR[1] = 5.000000e-01 (default) 
+DepthFreeSurfaceAtTheBoundary[1] = 0.000000e+00 (default) 
+PrecAsIntensity[1] = 0.000000e+00 (default) 
+LinearInterpolation[1] = 0.000000e+00 (default) 
+OutputDepthsVertical[1] = 0.000000e+00 (default) 
+UpwindBorderBlowingSnow[1] = 0.000000e+00 (default) 
+UpdateHydraulicConductivity[1] = 0.000000e+00 (default) 
+ContinuousRecovery[1] = 0.000000e+00 (default) 
+ActualOrProjectedArea[1] = 0.000000e+00 (default) 
+MinRatioKactualToKSat[1] = 0.000000e+00 (default) 
+RunIfAnOldRunIsPresent[1] = 1.000000e+00 (default) 
+MaxCourantSupFlowChannelLand[1] = 1.000000e-01 (default) 
+MinDiffSupWaterDepthChannelLand[1] = 1.000000e+00 (default) 
+SpinUpLayerBottom[1] = 1.000000e+04 (default) 
+InitInNewPeriods[1] = 0.000000e+00 (default) 
+KonzelmannA[1] = 4.840000e-01 (default) 
+KonzelmannB[1] = 8.000000e+00 (default) 
+Lozone[1] = 3.000000e-01 (default) 
+AngstromAlpha[1] = 1.300000e+00 (default) 
+AngstromBeta[1] = 1.000000e-01 (default) 
+ConsiderAlbedoInSWin[1] = 0.000000e+00 (default) 
+ConsiderMicrometeorology[1] = 1.000000e+00 (default) 
+SurfaceEnergyFlux[1] = -9.999000e+03 (default) 
+ConvectiveHeatTransferCoefficient[1] = -9.999000e+03 (default) 
+SurfaceTemperature[1] = -9.999000e+03 (default) 
+BaseAirTemperature[1] = 5.000000e+00 (default) 
+BaseRelativeHumidity[1] = 7.000000e+01 (default) 
+BaseWindSpeed[1] = 5.000000e-01 (default) 
+BaseWindDirection[1] = 0.000000e+00 (default) 
+BaseIPrec[1] = 0.000000e+00 (default) 
+DefaultSoilTypeBedrock[1] = 1.000000e+00 (default) 
+MinPrecToRestoreFreshSnowAlbedo[1] = 1.000000e+01 (default) 
+SnowThermalConductivityPar[1] = 1.000000e+00 (default) 
+WindCompaction1D[1] = 0.000000e+00 (default) 
+DDChannel[1] = 1.000000e+00 (default) 
+DDLand[1] = 0.000000e+00 
+BottomTemperature[1] = -9.999000e+03 (default) 
+HeaderDateDDMMYYYYhhmmMeteo = date
+HeaderJulianDayfrom0Meteo = none
+HeaderIPrec = IPrec
+HeaderPrec = none
+HeaderWindVelocity = none
+HeaderWindDirection = none
+HeaderWindX = none
+HeaderWindY = none
+HeaderRH = none
+HeaderAirTemp = none
+HeaderDewTemp = none
+HeaderSWglobal = none
+HeaderSWdirect = none
+HeaderSWdiffuse = none
+HeaderCloudSWTransmissivity = none
+HeaderCloudFactor = none
+HeaderLWin = none
+HeaderSWnet = none
+HeaderSurfaceTemperature = none
+HeaderBottomTemperature = none
+HeaderSoilDz = none
+HeaderSoilInitPres = none
+HeaderSoilInitTemp = none
+HeaderNormalHydrConductivity = none
+HeaderLateralHydrConductivity = none
+HeaderThetaRes = none
+HeaderWiltingPoint = none
+HeaderFieldCapacity = none
+HeaderThetaSat = none
+HeaderAlpha = none
+HeaderN = none
+HeaderV = none
+HeaderKthSoilSolids = none
+HeaderCthSoilSolids = none
+HeaderSpecificStorativity = none
+HeaderHorizonAngle = none
+HeaderHorizonHeight = none
+TimeStepsFile = none
+SoilParFile = none
+MeteoFile = input-meteo/meteo
+MeteoStationsListFile = none
+LapseRateFile = none
+HorizonMeteoStationFile = none
+PointFile = none
+HorizonPointFile = none
+TimeDependentVegetationParameterFile = none
+TimeDependentIncomingDischargeFile = none
+DemFile = input-maps/dem
+LandCoverMapFile = input-maps/land
+SoilMapFile = none
+DaysDelayMapFile = none
+SkyViewFactorMapFile = none
+SlopeMapFile = input-maps/slope
+RiverNetwork = input-maps/net
+AspectMapFile = none
+CurvaturesMapFile = none
+BedrockDepthMapFile = none
+InitWaterTableDepthMapFile = none
+InitSnowDepthMapFile = none
+InitSWEMapFile = none
+InitSnowAgeMapFile = none
+InitGlacierDepthMapFile = none
+DischargeFile = output-tabs/discharge
+BasinOutputFile = output-tabs/basin
+BasinOutputFileWriteEnd = none
+PointOutputFile = none
+PointOutputFileWriteEnd = none
+SoilTempProfileFile = none
+SoilTempProfileFileWriteEnd = none
+SoilAveragedTempProfileFile = none
+SoilAveragedTempProfileFileWriteEnd = none
+SoilLiqWaterPressProfileFile = none
+SoilLiqWaterPressProfileFileWriteEnd = none
+SoilTotWaterPressProfileFile = none
+SoilTotWaterPressProfileFileWriteEnd = none
+SoilLiqContentProfileFile = none
+SoilLiqContentProfileFileWriteEnd = none
+SoilAveragedLiqContentProfileFile = none
+SoilAveragedLiqContentProfileFileWriteEnd = none
+SoilIceContentProfileFile = none
+SoilIceContentProfileFileWriteEnd = none
+SoilAveragedIceContentProfileFile = none
+SoilAveragedIceContentProfileFileWriteEnd = none
+SoilSaturationRatioProfileFile = none
+SnowTempProfileFile = none
+SnowLiqContentProfileFile = none
+SnowIceContentProfileFile = none
+SnowDepthLayersFile = none
+SnowTempProfileFileWriteEnd = none
+SnowLiqContentProfileFileWriteEnd = none
+SnowIceContentProfileFileWriteEnd = none
+SnowDepthLayersFileWriteEnd = none
+GlacierProfileFile = none
+GlacierProfileFileWriteEnd = none
+SnowCoveredAreaFile = none
+RunSoilAveragedTemperatureFile = none
+RunSoilAveragedTotalSoilMoistureFile = none
+RunSoilAveragedInternalEnergyFile = none
+RunSoilAveragedSnowWaterEquivalentFile = none
+RunSoilMaximumTemperatureFile = none
+RunSoilMinimumTemperatureFile = none
+RunSoilMaximumTotalSoilMoistureFile = none
+RunSoilMinimumTotalSoilMoistureFile = none
+SoilTempTensorFile = none
+FirstSoilLayerTempMapFile = none
+SoilAveragedTempTensorFile = none
+FirstSoilLayerAveragedTempMapFile = none
+SoilLiqContentTensorFile = none
+FirstSoilLayerLiqContentMapFile = none
+SoilAveragedLiqContentTensorFile = none
+SoilIceContentTensorFile = none
+FirstSoilLayerIceContentMapFile = none
+SoilAveragedIceContentTensorFile = none
+LandSurfaceWaterDepthMapFile = output-maps/hsup
+ChannelSurfaceWaterDepthMapFile = none
+NetRadiationMapFile = none
+InLongwaveRadiationMapFile = none
+NetLongwaveRadiationMapFile = none
+NetShortwaveRadiationMapFile = none
+InShortwaveRadiationMapFile = none
+DirectInShortwaveRadiationMapFile = none
+ShadowFractionTimeMapFile = none
+SurfaceHeatFluxMapFile = none
+SurfaceSensibleHeatFluxMapFile = none
+SurfaceLatentHeatFluxMapFile = none
+SurfaceTempMapFile = none
+PrecipitationMapFile = none
+CanopyInterceptedWaterMapFile = none
+SoilLiqWaterPressTensorFile = output-maps/Pw
+SoilTotWaterPressTensorFile = none
+SnowDepthMapFile = none
+GlacierDepthMapFile = none
+SnowMeltedMapFile = none
+SnowSublMapFile = none
+GlacierMeltedMapFile = none
+GlacierSublimatedMapFile = none
+AirTempMapFile = none
+WindSpeedMapFile = none
+WindDirMapFile = none
+RelHumMapFile = none
+SWEMapFile = none
+GlacierWaterEqMapFile = none
+SnowDurationMapFile = none
+ThawedSoilDepthMapFile = none
+ThawedSoilDepthFromAboveMapFile = none
+WaterTableDepthMapFile = none
+WaterTableDepthFromAboveMapFile = none
+NetPrecipitationMapFile = none
+EvapotranspirationFromSoilMapFile = none
+SpecificPlotSurfaceHeatFluxMapFile = none
+SpecificPlotTotalSensibleHeatFluxMapFile = none
+SpecificPlotTotalLatentHeatFluxMapFile = none
+SpecificPlotSurfaceSensibleHeatFluxMapFile = none
+SpecificPlotSurfaceLatentHeatFluxMapFile = none
+SpecificPlotVegSensibleHeatFluxMapFile = none
+SpecificPlotVegLatentHeatFluxMapFile = none
+SpecificPlotIncomingShortwaveRadMapFile = none
+SpecificPlotNetSurfaceShortwaveRadMapFile = none
+SpecificPlotNetVegShortwaveRadMapFile = none
+SpecificPlotIncomingLongwaveRadMapFile = none
+SpecificPlotNetSurfaceLongwaveRadMapFile = none
+SpecificPlotNetVegLongwaveRadMapFile = none
+SpecificPlotCanopyAirTempMapFile = none
+SpecificPlotSurfaceTempMapFile = none
+SpecificPlotVegTempMapFile = none
+SpecificPlotAboveVegAirTempMapFile = none
+SpecificPlotWindSpeedMapFile = none
+SpecificPlotWindDirMapFile = none
+SpecificPlotRelHumMapFile = none
+SpecificPlotSnowDepthMapFile = none
+SpecificPlotSurfaceWaterContentMapFile = none
+RecoverSoilWatPres = none
+RecoverSoilIceCont = none
+RecoverSoilTemp = none
+RecoverSnowLayerThick = none
+RecoverSnowLiqMass = none
+RecoverSnowIceMass = none
+RecoverSnowTemp = none
+RecoverGlacierLayerThick = none
+RecoverGlacierLiqMass = none
+RecoverGlacierIceMass = none
+RecoverGlacierTemp = none
+RecoverSnowLayerNumber = none
+RecoverGlacierLayerNumber = none
+RecoverNonDimensionalSnowAge = none
+RecoverLiqWaterOnCanopy = none
+RecoverSnowOnCanopy = none
+RecoverVegTemp = none
+RecoverSoilWatPresChannel = none
+RecoverSoilIceContChannel = none
+RecoverSoilTempChannel = none
+RecoverRunSoilAveragedTemperatureFile = none
+RecoverRunSoilAveragedTotalSoilMoistureFile = none
+RecoverRunSoilAveragedInternalEnergyFile = none
+RecoverRunSoilAveragedSnowWaterEquivalentFile = none
+RecoverRunSoilMaximumTemperatureFile = none
+RecoverRunSoilMinimumTemperatureFile = none
+RecoverRunSoilMaximumTotalSoilMoistureFile = none
+RecoverRunSoilMinimumTotalSoilMoistureFile = none
+RecoverTime = none
+SuccessfulRecoveryFile = none
+HeaderDatePoint = none
+HeaderJulianDayFromYear0Point = none
+HeaderTimeFromStartPoint = none
+HeaderPeriodPoint = none
+HeaderRunPoint = none
+HeaderIDPointPoint = none
+HeaderPsnowPoint = none
+HeaderPrainPoint = none
+HeaderPsnowNetPoint = none
+HeaderPrainNetPoint = none
+HeaderPrainOnSnowPoint = none
+HeaderWindSpeedPoint = none
+HeaderWindDirPoint = none
+HeaderRHPoint = none
+HeaderAirPressPoint = none
+HeaderAirTempPoint = none
+HeaderTDewPoint = none
+HeaderTsurfPoint = none
+HeaderTvegPoint = none
+HeaderTCanopyAirPoint = none
+HeaderSurfaceEBPoint = none
+HeaderSoilHeatFluxPoint = none
+HeaderSWinPoint = none
+HeaderSWbeamPoint = none
+HeaderSWdiffPoint = none
+HeaderLWinPoint = none
+HeaderLWinMinPoint = none
+HeaderLWinMaxPoint = none
+HeaderSWNetPoint = none
+HeaderLWNetPoint = none
+HeaderHPoint = none
+HeaderLEPoint = none
+HeaderCanopyFractionPoint = none
+HeaderLSAIPoint = none
+Headerz0vegPoint = none
+Headerd0vegPoint = none
+HeaderEstoredCanopyPoint = none
+HeaderSWvPoint = none
+HeaderLWvPoint = none
+HeaderHvPoint = none
+HeaderLEvPoint = none
+HeaderHgUnvegPoint = none
+HeaderLEgUnvegPoint = none
+HeaderHgVegPoint = none
+HeaderLEgVegPoint = none
+HeaderEvapSurfacePoint = none
+HeaderTraspCanopyPoint = none
+HeaderWaterOnCanopyPoint = none
+HeaderSnowOnCanopyPoint = none
+HeaderQVegPoint = none
+HeaderQSurfPoint = none
+HeaderQAirPoint = none
+HeaderQCanopyAirPoint = none
+HeaderLObukhovPoint = none
+HeaderLObukhovCanopyPoint = none
+HeaderWindSpeedTopCanopyPoint = none
+HeaderDecayKCanopyPoint = none
+HeaderSWupPoint = none
+HeaderLWupPoint = none
+HeaderHupPoint = none
+HeaderLEupPoint = none
+HeaderSnowDepthPoint = none
+HeaderSWEPoint = none
+HeaderSnowDensityPoint = none
+HeaderSnowTempPoint = none
+HeaderSnowMeltedPoint = none
+HeaderSnowSublPoint = none
+HeaderSWEBlownPoint = none
+HeaderSWESublBlownPoint = none
+HeaderGlacDepthPoint = none
+HeaderGWEPoint = none
+HeaderGlacDensityPoint = none
+HeaderGlacTempPoint = none
+HeaderGlacMeltedPoint = none
+HeaderGlacSublPoint = none
+HeaderLowestThawedSoilDepthPoint = none
+HeaderHighestThawedSoilDepthPoint = none
+HeaderLowestWaterTableDepthPoint = none
+HeaderHighestWaterTableDepthPoint = none
+HeaderDateBasin = none
+HeaderJulianDayFromYear0Basin = none
+HeaderTimeFromStartBasin = none
+HeaderPeriodBasin = none
+HeaderRunBasin = none
+HeaderPRainNetBasin = none
+HeaderPSnowNetBasin = none
+HeaderPRainBasin = none
+HeaderPSnowBasin = none
+HeaderPNetBasin = none
+HeaderAirTempBasin = none
+HeaderTSurfBasin = none
+HeaderTvegBasin = none
+HeaderEvapSurfaceBasin = none
+HeaderTraspCanopyBasin = none
+HeaderLEBasin = none
+HeaderHBasin = none
+HeaderSWNetBasin = none
+HeaderLWNetBasin = none
+HeaderLEvBasin = none
+HeaderHvBasin = none
+HeaderSWvBasin = none
+HeaderLWvBasin = none
+HeaderSWinBasin = none
+HeaderLWinBasin = none
+HeaderMeanTimeStep = none
+HeaderTimeStepAverage = none
+HeaderDateSnow = none
+HeaderJulianDayFromYear0Snow = none
+HeaderTimeFromStartSnow = none
+HeaderPeriodSnow = none
+HeaderRunSnow = none
+HeaderIDPointSnow = none
+HeaderTempSnow = none
+HeaderIceContentSnow = none
+HeaderWatContentSnow = none
+HeaderDepthSnow = none
+HeaderDateGlac = none
+HeaderJulianDayFromYear0Glac = none
+HeaderTimeFromStartGlac = none
+HeaderPeriodGlac = none
+HeaderRunGlac = none
+HeaderIDPointGlac = none
+HeaderTempGlac = none
+HeaderIceContentGlac = none
+HeaderWatContentGlac = none
+HeaderDepthGlac = none
+HeaderDateSoil = none
+HeaderJulianDayFromYear0Soil = none
+HeaderTimeFromStartSoil = none
+HeaderPeriodSoil = none
+HeaderRunSoil = none
+HeaderIDPointSoil = none
+HeaderPointID = none
+HeaderCoordinatePointX = none
+HeaderCoordinatePointY = none
+HeaderPointElevation = none
+HeaderPointLandCoverType = none
+HeaderPointSoilType = none
+HeaderPointSlope = none
+HeaderPointAspect = none
+HeaderPointSkyViewFactor = none
+HeaderPointCurvatureNorthSouthDirection = none
+HeaderPointCurvatureWestEastDirection = none
+HeaderPointCurvatureNorthwestSoutheastDirection = none
+HeaderPointCurvatureNortheastSouthwestDirection = none
+HeaderPointDepthFreeSurface = none
+HeaderPointHorizon = none
+HeaderPointMaxSWE = none
+HeaderPointLatitude = none
+HeaderPointLongitude = none
+HeaderPointBedrockDepth = none
+HeaderDateDDMMYYYYhhmmLapseRates = none
+HeaderLapseRateTemp = none
+HeaderLapseRateDewTemp = none
+HeaderLapseRatePrec = none
+HeaderIDMeteoStation = none
+HeaderMeteoStationCoordinateX = none
+HeaderMeteoStationCoordinateY = none
+HeaderMeteoStationLatitude = none
+HeaderMeteoStationLongitude = none
+HeaderMeteoStationElevation = none
+HeaderMeteoStationSkyViewFactor = none
+HeaderMeteoStationStandardTime = none
+SuccessfulRunFile = none
+FailedRunFile = none
+SubfolderRecoveryFiles = none
+
+Soil Layers: 10
+-> Soil Type: 1
+HeaderSoilDz: 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00)
+HeaderNormalHydrConductivity: 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00)
+HeaderLateralHydrConductivity: 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00)
+HeaderThetaRes: 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02)
+HeaderWiltingPoint: 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02)
+HeaderFieldCapacity: 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02)
+HeaderThetaSat: 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01)
+HeaderAlpha: 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03)
+HeaderN: 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06)
+HeaderSpecificStorativity: 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08)
+
+Soil Bedrock Layers: 10
+-> Soil Type: 1
+HeaderSoilDz: 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02), 499.276573(4.99e+02)
+HeaderSoilInitPres: -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04), -9999.000000(-1.00e+04)
+HeaderSoilInitTemp: 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00), 5.000000(5.00e+00)
+HeaderNormalHydrConductivity: 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00)
+HeaderLateralHydrConductivity: 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00), 2.777778(2.78e+00)
+HeaderThetaRes: 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02), 0.080000(8.00e-02)
+HeaderWiltingPoint: 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02), 0.080349(8.03e-02)
+HeaderFieldCapacity: 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02), 0.095677(9.57e-02)
+HeaderThetaSat: 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01), 0.400000(4.00e-01)
+HeaderAlpha: 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03), 0.006000(6.00e-03)
+HeaderN: 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00), 2.000000(2.00e+00)
+HeaderV: 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01), 0.500000(5.00e-01)
+HeaderKthSoilSolids: 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00), 2.500000(2.50e+00)
+HeaderCthSoilSolids: 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06), 1000000.000000(1.00e+06)
+HeaderSpecificStorativity: 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08), 0.000000(1.00e-08)
+
 Warning: The points to plot specific results are not completely specified
 Output for single point output is deactivated.
-geotop:get_all_input:read_inputmaps:file_exists:Attempting to read 'DemFile' in the file './input-maps/dem': EXISTING in format 3
-geotop:get_all_input:read_inputmaps:file_exists:Attempting to read 'LandCoverMapFile' in the file './input-maps/land': EXISTING in format 3
-geotop:get_all_input:read_inputmaps:file_exists:Attempting to read 'SkyViewFactorMapFile' in the file 'none': not present in file list
-geotop:get_all_input:read_inputmaps:file_exists:Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
-geotop:get_all_input:read_inputmaps:file_exists:Attempting to read 'SoilMapFile' in the file 'none': not present in file list
-geotop:get_all_input:read_inputmaps:file_exists:Attempting to read 'SlopeMapFile' in the file './input-maps/slope': EXISTING in format 3
-geotop:get_all_input:read_inputmaps:Slope Min:0.02(1.14576deg)Max:0.0538517(3.08249deg)
-geotop:get_all_input:read_inputmaps:file_exists:Attempting to read 'AspectMapFile' in the file 'none': not present in file list
-geotop:get_all_input:read_inputmaps:Curvature N-S Min:0 Max:0
-geotop:get_all_input:read_inputmaps:Curvature W-E Min:0 Max:0.01
-geotop:get_all_input:read_inputmaps:Curvature NW-SE Min:0 Max:0.01
-geotop:get_all_input:read_inputmaps:Curvature NW-SE Min:0 Max:0.01
-geotop:get_all_input:read_inputmaps:file_exists:Attempting to read 'RiverNetwork' in the file './input-maps/net': EXISTING in format 3
-geotop:get_all_input:read_inputmaps:file_exists:Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
-geotop:get_all_input:Valid pixels: 110
-geotop:get_all_input:Number of nodes: 1210
-geotop:get_all_input:Novalue pixels: 46
-geotop:get_all_input:Basin area: 0.011 km2
-geotop:get_all_input:
-Warning: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-geotop:get_all_input:read_txt_matrix:ColumnCoder:Column 1 in file ./input-meteo/meteo0001.txt assigned to date
-geotop:get_all_input:read_txt_matrix:ColumnCoder:Column 2 in file ./input-meteo/meteo0001.txt assigned to IPrec
-geotop:get_all_input:WARNING: NO shortwave radiation measurements available
-geotop:get_all_input:WARNING: NO cloudiness measurements available
-geotop:get_all_input:WARNING: NO longwave radiation measurements available
-geotop:get_all_input:WARNING: NO Surface temperature measurements available
-geotop:get_all_input:WARNING: NO Bottom temperature measurements available
-geotop:get_all_input:Channel pixels: 0
-geotop:get_all_input:Soil water evaporates from the first 1 layers
-geotop:get_all_input:Soil water transpires from the first 10 layers
-geotop:time_loop:No temperature measurements, used the value of the previous time step
-geotop:time_loop:No RH measurements, used the value of the previous time step
-geotop:time_loop:No wind measurements, used the value of the previous time step
-geotop:time_loop:cnt:1 res:9.83022 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:15.9984 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:8.04047 lambda:0.5 Dt:1800 P:50
-geotop:time_loop:cnt:3 res:26.303 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:3 res:11.1649 lambda:0.5 Dt:1800 P:50
-geotop:time_loop:cnt:3 res:7.07593 lambda:0.119961 Dt:1800 P:50
-geotop:time_loop:cnt:4 res:6.44359 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:5 res:2.0111 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:6 res:0.582381 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:7 res:0.000845539 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:8 res:2.68946e-09 lambda:1 Dt:1800 P:50
-geotop:time_loop:write_output:1/1/2000 0:30 12.5 - Times: Elapsed (h:m:s) 0:0:1 	 Remaining (h:m) 0:0
-geotop:time_loop:No temperature measurements, used the value of the previous time step
-geotop:time_loop:No RH measurements, used the value of the previous time step
-geotop:time_loop:No wind measurements, used the value of the previous time step
-geotop:time_loop:cnt:1 res:13.5585 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:62.485 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:31.5136 lambda:0.5 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:12.8806 lambda:0.05 Dt:1800 P:50
-geotop:time_loop:cnt:3 res:26.7188 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:3 res:13.3631 lambda:0.5 Dt:1800 P:50
-geotop:time_loop:cnt:3 res:9.90189 lambda:0.23126 Dt:1800 P:50
-geotop:time_loop:cnt:4 res:6.40995 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:5 res:3.93549 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:6 res:0.720024 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:7 res:0.0296201 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:8 res:4.63248e-05 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:9 res:2.95651e-09 lambda:1 Dt:1800 P:50
-geotop:time_loop:write_output:1/1/2000 1:0 25 - Times: Elapsed (h:m:s) 0:0:1 	 Remaining (h:m) 0:0
-geotop:time_loop:write_output:1/1/2000 1:0 JD:0.0416667 (1^ simulation day) 25% completed!
-geotop:time_loop:write_output: t_meteo:3.9e-05 s, t_energy:0 s, t_blowingsnow:0 s, t_water:0.342021 s, t_sub:0.033304 s, t_sup:0.308712 s, t_out: 6.8e-05 s
-geotop:time_loop:write_output: SW=0 W/m2  LW:0 W/m2  H=0 W/m2  LE=0 W/m2
-geotop:time_loop:write_output: Pvert=100 mm Prain=0 mm  Psnow=0 mm
-geotop:time_loop:write_output: Max Error Richards=1.15363e-08 mm/h
-geotop:time_loop:write_output: Tot Error Richards=1.15363e-08 mm Mean Time Step=1800 s
-geotop:time_loop:No temperature measurements, used the value of the previous time step
-geotop:time_loop:No RH measurements, used the value of the previous time step
-geotop:time_loop:No wind measurements, used the value of the previous time step
-geotop:time_loop:cnt:1 res:23.6365 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:60.901 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:31.8704 lambda:0.5 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:22.4066 lambda:0.0520358 Dt:1800 P:50
-geotop:time_loop:cnt:3 res:5.41903 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:4 res:0.299345 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:5 res:0.0164378 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:6 res:5.99858e-05 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:7 res:7.36702e-10 lambda:1 Dt:1800 P:50
-geotop:time_loop:write_output:1/1/2000 1:30 37.5 - Times: Elapsed (h:m:s) 0:0:1 	 Remaining (h:m) 0:0
-geotop:time_loop:No temperature measurements, used the value of the previous time step
-geotop:time_loop:No RH measurements, used the value of the previous time step
-geotop:time_loop:No wind measurements, used the value of the previous time step
-geotop:time_loop:cnt:1 res:15.3363 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:26.1445 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:12.524 lambda:0.5 Dt:1800 P:50
-geotop:time_loop:cnt:3 res:7.51796 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:4 res:9.5643 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:4 res:5.25858 lambda:0.5 Dt:1800 P:50
-geotop:time_loop:cnt:5 res:4.38245 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:6 res:0.89113 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:7 res:0.075078 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:8 res:0.000495426 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:9 res:1.93926e-08 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:10 res:1.79784e-09 lambda:1 Dt:1800 P:50
-geotop:time_loop:write_output:1/1/2000 2:0 50 - Times: Elapsed (h:m:s) 0:0:2 	 Remaining (h:m) 0:0
-geotop:time_loop:write_output:1/1/2000 2:0 JD:0.0833333 (1^ simulation day) 50% completed!
-geotop:time_loop:write_output: t_meteo:9.7e-05 s, t_energy:0 s, t_blowingsnow:0 s, t_water:1.169 s, t_sub:0.063291 s, t_sup:1.1057 s, t_out: 0.000218 s
-geotop:time_loop:write_output: SW=0 W/m2  LW:0 W/m2  H=0 W/m2  LE=0 W/m2
-geotop:time_loop:write_output: Pvert=100 mm Prain=0 mm  Psnow=0 mm
-geotop:time_loop:write_output: Max Error Richards=1.32664e-08 mm/h
-geotop:time_loop:write_output: Tot Error Richards=2.48027e-08 mm Mean Time Step=1800 s
-geotop:time_loop:No temperature measurements, used the value of the previous time step
-geotop:time_loop:No RH measurements, used the value of the previous time step
-geotop:time_loop:No wind measurements, used the value of the previous time step
-geotop:time_loop:cnt:1 res:18.0097 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:25.7772 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:13.7343 lambda:0.5 Dt:1800 P:50
-geotop:time_loop:cnt:3 res:9.57205 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:4 res:11.5147 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:4 res:6.95481 lambda:0.5 Dt:1800 P:50
-geotop:time_loop:cnt:5 res:3.08172 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:6 res:1.41508 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:7 res:0.0923884 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:8 res:0.00029398 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:9 res:3.09464e-09 lambda:1 Dt:1800 P:50
-geotop:time_loop:write_output:1/1/2000 2:30 62.5 - Times: Elapsed (h:m:s) 0:0:2 	 Remaining (h:m) 0:0
-geotop:time_loop:No temperature measurements, used the value of the previous time step
-geotop:time_loop:No RH measurements, used the value of the previous time step
-geotop:time_loop:No wind measurements, used the value of the previous time step
-geotop:time_loop:cnt:1 res:16.0612 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:18.9112 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:10.2728 lambda:0.5 Dt:1800 P:50
-geotop:time_loop:cnt:3 res:7.01587 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:4 res:7.30886 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:4 res:4.02782 lambda:0.5 Dt:1800 P:50
-geotop:time_loop:cnt:5 res:0.715104 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:6 res:0.0340442 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:7 res:8.9369e-05 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:8 res:5.26263e-09 lambda:1 Dt:1800 P:50
-geotop:time_loop:write_output:1/1/2000 3:0 75 - Times: Elapsed (h:m:s) 0:0:4 	 Remaining (h:m) 0:0
-geotop:time_loop:write_output:1/1/2000 3:0 JD:0.125 (1^ simulation day) 75% completed!
-geotop:time_loop:write_output: t_meteo:0.000135 s, t_energy:0 s, t_blowingsnow:0 s, t_water:3.02409 s, t_sub:0.086878 s, t_sup:2.9372 s, t_out: 0.001416 s
-geotop:time_loop:write_output: SW=0 W/m2  LW:0 W/m2  H=0 W/m2  LE=0 W/m2
-geotop:time_loop:write_output: Pvert=100 mm Prain=0 mm  Psnow=0 mm
-geotop:time_loop:write_output: Max Error Richards=2.21162e-08 mm/h
-geotop:time_loop:write_output: Tot Error Richards=4.69189e-08 mm Mean Time Step=1800 s
-geotop:time_loop:No temperature measurements, used the value of the previous time step
-geotop:time_loop:No RH measurements, used the value of the previous time step
-geotop:time_loop:No wind measurements, used the value of the previous time step
-geotop:time_loop:cnt:1 res:15.2654 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:15.254 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:3 res:24.7669 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:3 res:8.16532 lambda:0.5 Dt:1800 P:50
-geotop:time_loop:cnt:4 res:5.19103 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:5 res:1.23028 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:6 res:0.131549 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:7 res:0.00150545 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:8 res:1.98172e-07 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:9 res:1.3337e-09 lambda:1 Dt:1800 P:50
-geotop:time_loop:write_output:1/1/2000 3:30 87.5 - Times: Elapsed (h:m:s) 0:0:5 	 Remaining (h:m) 0:0
-geotop:time_loop:No temperature measurements, used the value of the previous time step
-geotop:time_loop:No RH measurements, used the value of the previous time step
-geotop:time_loop:No wind measurements, used the value of the previous time step
-geotop:time_loop:cnt:1 res:15.4497 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:2 res:12.1545 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:3 res:20.0032 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:3 res:6.58971 lambda:0.5 Dt:1800 P:50
-geotop:time_loop:cnt:4 res:4.93414 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:5 res:1.15303 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:6 res:0.117218 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:7 res:0.00119997 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:8 res:1.29525e-07 lambda:1 Dt:1800 P:50
-geotop:time_loop:cnt:9 res:2.15781e-09 lambda:1 Dt:1800 P:50
-geotop:time_loop:write_output:1/1/2000 4:0 100 - Times: Elapsed (h:m:s) 0:0:7 	 Remaining (h:m) -1:59
-geotop:time_loop:write_output:1/1/2000 4:0 JD:0.166667 (1^ simulation day) 100% completed!
-geotop:time_loop:write_output: t_meteo:0.000178 s, t_energy:0 s, t_blowingsnow:0 s, t_water:6.12263 s, t_sub:0.109251 s, t_sup:6.01336 s, t_out: 0.0016 s
-geotop:time_loop:write_output: SW=0 W/m2  LW:0 W/m2  H=0 W/m2  LE=0 W/m2
-geotop:time_loop:write_output: Pvert=100 mm Prain=0 mm  Psnow=0 mm
-geotop:time_loop:write_output: Max Error Richards=1.36408e-08 mm/h
-geotop:time_loop:write_output: Tot Error Richards=6.05597e-08 mm Mean Time Step=1800 s
-geotop:Deallocating global variables
-geotop:Deallocating soil
-geotop:Deallocating top
-geotop:Deallocating land
-geotop:Deallocating water
-geotop:Deallocating channel network
-geotop:Deallocating UV
-geotop:Deallocating egy
-geotop:Deallocating snow
-geotop:Deallocating glacier
-geotop:Deallocating met
-geotop:Deallocating times
-geotop:Deallocating par
-geotop:Deallocating files
-geotop:Deallocating novalues
-geotop:End of simulation!
+Attempting to read 'DemFile' in the file './input-maps/dem': EXISTING in format 3
+Attempting to read 'LandCoverMapFile' in the file './input-maps/land': EXISTING in format 3
+Attempting to read 'SkyViewFactorMapFile' in the file 'none': not present in file list
+Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
+Attempting to read 'SoilMapFile' in the file 'none': not present in file list
+Attempting to read 'SlopeMapFile' in the file './input-maps/slope': EXISTING in format 3
+Slope Min:0.020000 (1.145763 deg) Max:0.053852 (3.082495 deg) 
+Attempting to read 'AspectMapFile' in the file 'none': not present in file list
+Curvature N-S Min:0.000000  Max:0.000000 
+Curvature W-E Min:0.000000  Max:0.010000 
+Curvature NW-SE Min:0.000000  Max:0.010000 
+Curvature NE-SW Min:0.000000  Max:0.010000 
+Attempting to read 'RiverNetwork' in the file './input-maps/net': EXISTING in format 3
+Attempting to read 'BedrockDepthMapFile' in the file 'none': not present in file list
+Valid pixels: 110
+Number of nodes: 1210
+Novalue pixels: 46
+Basin area: 0.011000 km2
+
+Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+Column 1 in file ./input-meteo/meteo0001.txt assigned to date
+Column 2 in file ./input-meteo/meteo0001.txt assigned to IPrec
+WARNING: NO shortwave radiation measurements available
+WARNING: NO cloudiness measurements available
+WARNING: NO longwave radiation measurements available
+WARNING: NO Surface temperature measurements available
+WARNING: NO Bottom temperature measurements available
+Channel pixels: 0
+Soil water evaporates from the first 1 layers
+Soil water transpires from the first 10 layers
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/1/2000 0:30 12.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/1/2000 1:00 25.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+1/1/2000 1:00 JD:0.041667 (1^ simulation day) 25.00% completed! 
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.25 s, t_sub:  0.03 s, t_sup:  0.22 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=100.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.153631e-08 mm/h 
+ Tot Error Richards=1.153631e-08 mm Mean Time Step=1800.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/1/2000 1:30 37.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/1/2000 2:00 50.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00  
+
+1/1/2000 2:00 JD:0.083333 (1^ simulation day) 50.00% completed! 
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.80 s, t_sub:  0.05 s, t_sup:  0.75 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=100.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.326640e-08 mm/h 
+ Tot Error Richards=2.480271e-08 mm Mean Time Step=1800.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/1/2000 2:30 62.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00  
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/1/2000 3:00 75.00% - Time elapsed (h:m:s)  0:00:02 Time remaining (h:m)  0:00  
+
+1/1/2000 3:00 JD:0.125000 (1^ simulation day) 75.00% completed! 
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  2.44 s, t_sub:  0.07 s, t_sup:  2.37 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=100.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=2.211616e-08 mm/h 
+ Tot Error Richards=4.691887e-08 mm Mean Time Step=1800.000000 s
+
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/1/2000 3:30 87.50% - Time elapsed (h:m:s)  0:00:03 Time remaining (h:m)  0:00  
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+1/1/2000 4:00 100.00% - Time elapsed (h:m:s)  0:00:05 Time remaining (h:m) -1:59  
+
+1/1/2000 4:00 JD:0.166667 (1^ simulation day) 100.00% completed! 
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  5.18 s, t_sub:  0.09 s, t_sup:  5.09 s, t_out:  0.00 s
+ SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
+ Pvert=100.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
+ Max Error Richards=1.364079e-08 mm/h 
+ Tot Error Richards=6.055966e-08 mm Mean Time Step=1800.000000 s
+
+Number of times the simulation #1 has been run: 1
