@@ -113,11 +113,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     geolog << "Deallocating soil" << std::endl;
 
     free_doubletensor(sl->pa);
-    //free_doubletensor(sl->ET);
-
-    delete sl->SS;
-
-    //  free(sl);
+    free_doubletensor(sl->ET);
 
     /* Deallocation of struct TOPO "top": */
     geolog << "Deallocating top" << std::endl;
@@ -156,14 +152,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
     free_doubletensor(top->Z);
 
-
-    if (par->point_sim==1)
-    {
-    }
-
-    //  free(top);
-
-
     /* Deallocation of struct LAND "land": */
     geolog << "Deallocating land" << std::endl;
 
@@ -185,11 +173,8 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     free(land->vegparv);
     free(land->NumlinesVegTimeDepData);
 
-    //  free(land);
-
     /* Deallocation of struct WATER "water": */
     geolog << "Deallocating water" << std::endl;
-    //  free(wat);
 
     /* Deallocation of struct CHANNEL "channel": */
     geolog << "Deallocating channel network" << std::endl;
@@ -200,7 +185,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     }
     free(cnet->ch3);
     delete cnet->SS;
-    //  free(cnet);
 
     /* Deallocation of struct T_INIT "UV": */
     geolog << "Deallocating UV" << std::endl;
@@ -208,123 +192,24 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     /* Deallocation of struct ENERGY "egy": */
     geolog << "Deallocating egy" << std::endl;
 
-    if (par->output_surfenergy_bin == 1)
-    {
-        if (strcmp(files[fshadow], string_novalue) != 0)
-        {
-        }
-    }
-
     free(egy->sun);
-
-    if (times->JD_plots->nh > 1)
-    {
-        if (strcmp(files[pH], string_novalue) != 0
-            || strcmp(files[pHg], string_novalue) != 0
-            || strcmp(files[pG], string_novalue) != 0)
-        {
-        }
-        if (strcmp(files[pLE], string_novalue) != 0
-            || strcmp(files[pLEg], string_novalue) != 0
-            || strcmp(files[pG], string_novalue) != 0)
-        {
-        }
-        if (strcmp(files[pH], string_novalue) != 0
-            || strcmp(files[pHv], string_novalue) != 0)
-        {
-        }
-        if (strcmp(files[pLE], string_novalue) != 0
-            || strcmp(files[pLEv], string_novalue) != 0)
-        {
-        }
-        if (strcmp(files[pSWin], string_novalue) != 0)
-        {
-        }
-        if (strcmp(files[pSWg], string_novalue) != 0
-            || strcmp(files[pG], string_novalue) != 0)
-        {
-        }
-        if (strcmp(files[pSWv], string_novalue) != 0)
-        {
-        }
-        if (strcmp(files[pLWin], string_novalue) != 0)
-        {
-        }
-        if (strcmp(files[pLWg], string_novalue) != 0
-            || strcmp(files[pG], string_novalue) != 0)
-        {
-        }
-        if (strcmp(files[pLWv], string_novalue) != 0)
-        {
-        }
-        if (strcmp(files[pTs], string_novalue) != 0)
-        {
-        }
-        if (strcmp(files[pTg], string_novalue) != 0)
-        {
-        }
-    }
-
-    //  free(egy);
 
     /* Deallocation of struct SNOW "snow": */
     geolog << "Deallocating snow" << std::endl;
-
-    if (times->JD_plots->nh > 1)
-    {
-    }
 
     delete snow->S;
 
     if (par->blowing_snow==1)
     {
         deallocate_statevar_1D(snow->S_for_BS);
-
-        if (par->output_snow_bin == 1)
-        {
-        }
     }
-
-    if (par->output_snow_bin == 1)
-    {
-        if (strcmp(files[fsndur], string_novalue) != 0)
-        {
-        }
-        if (strcmp(files[fsnowmelt], string_novalue) != 0)
-        {
-        }
-        if (strcmp(files[fsnowsubl], string_novalue) != 0)
-        {
-        }
-    }
-
-    //  free(snow);
 
     geolog << "Deallocating glacier" << std::endl;
     if (par->max_glac_layers>0)
     {
         delete glac->G;
-        if (par->output_glac_bin == 1)
-        {
-            if (strcmp(files[fglacmelt], string_novalue) != 0)
-            {
-            }
-            if (strcmp(files[fglacsubl], string_novalue) != 0)
-            {
-            }
-        }
     }
-    //  free(glac);
-
     geolog << "Deallocating met" << std::endl;
-
-    if (times->JD_plots->nh > 1)
-    {
-        if (strcmp(files[pVspd], string_novalue) != 0
-            || strcmp(files[pVdir], string_novalue) != 0)
-        {
-        }
-    }
 
     for (i=0; i<met->st->Z->nh; i++)
     {
@@ -332,7 +217,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
         for (j=0; j<met->numlines[i]; j++)
         {
           free(met->data[i][j]);
-
         }
         free(met->data[i]);
 
@@ -371,8 +255,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     free(met->LRcnc);
     free(met->LRd);
 
-//  dealloc_meteostations(met->st);
-
     free(met->qinv);
     if (par->qin == 1)
     {
@@ -381,9 +263,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
             free(met->qins[i]);
         }
     }
-
-    //  free(met);
-
 
     geolog << "Deallocating times" << std::endl;
     free(times->Dt_vector);
@@ -395,19 +274,9 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
         }
         free(times->Dt_matrix);
     }
-    //  free(times);
 
     /* Deallocation of struct PAR "par": */
     geolog << "Deallocating par" << std::endl;
-    if (par->state_pixel == 1)
-    {
-    }
-
-    if (par->point_sim == 1)
-    {
-    }
-
-    //  free(par);
 
     /* Deallocation of struct FILENAMES "filenames": */
     geolog << "Deallocating files" << std::endl;
@@ -419,7 +288,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
     geolog << "Deallocating novalues" << std::endl;
     free(string_novalue);
-
 
 }
 

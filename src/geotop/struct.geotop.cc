@@ -5,6 +5,7 @@
 #include "t_datamanipulation.h"
 
 STATEVAR_3D::STATEVAR_3D(double nan, long nl, long nr, long nc) :
+
         type{new Matrix<short>{nr, nc}},
         lnum{new Matrix<long>{nr, nc}},
         Dzl{new_doubletensor(nl, nr, nc)},
@@ -21,8 +22,6 @@ STATEVAR_3D::STATEVAR_3D(double nan, long nl, long nr, long nc) :
 }
 
 STATEVAR_3D::~STATEVAR_3D() {
-  //free_shortmatrix(type);
- //free_longmatrix(lnum);
   free_doubletensor(Dzl);
   free_doubletensor(T);
   free_doubletensor(w_ice);
@@ -30,12 +29,8 @@ STATEVAR_3D::~STATEVAR_3D() {
 }
 
 SOIL_STATE::SOIL_STATE(const long n, const long nl) :
-        T{new Matrix<double>{nl,n}},
+
         P{new Matrix<double>{nl,0,n,1}},
-        thi{new Matrix<double>{nl,n}}
-{
-  T.reset(new Matrix<double>{nl,n});
-  P.reset(new Matrix<double>{nl,0,n,1});
-  thi.reset(new Matrix<double>{nl,n});
-}
+        thi{new Matrix<double>{nl,n}},
+        T{new Matrix<double>{nl,n}} {}
 

@@ -3102,10 +3102,6 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
                 for (l=1; l<=lmax; l++)
                 {
-//                    std::cout << "Nl = " << Nl << std::endl;
-//                    std::cout << "(lu,l) = " << lu << " " << l << std::endl;
-//                    std::cout << "n° of rows = " << land->root_fraction->nrh - land->root_fraction->nrl + 1 << std::endl;
-//                    std::cout << "n° of cols = " << land->root_fraction->nch-land->root_fraction->ncl+1 << std::endl;
                     fprintf(f," The root fraction [-] of layer %ld: %f\n",l, (*land->root_fraction)(lu,l));
                 }
 
@@ -4375,7 +4371,7 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
     {
         for (l=1; l<=Nl; l++)
         {
-            fprintf(f,",%f",var[l]);
+            fprintf(f,",%f",var(l));
         }
     }
 
@@ -4650,15 +4646,15 @@ double interpolate_soil(long lmin, double h, long max, double *Dz, RowView<doubl
         {
             if (l == lmin)
             {
-                q = Q[lmin];
+                q = Q(lmin);
             }
             else if (l <= max)
             {
-                q = ( Q[l-1] * (z-h) + Q[l] * (h-z0) ) / (z - z0);
+                q = ( Q(l-1) * (z-h) + Q(l) * (h-z0) ) / (z - z0);
             }
             else
             {
-                q = Q[max];
+                q = Q(max);
             }
         }
 
@@ -4795,8 +4791,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
             {
                 for (i=1; i<=Nl; i++)
                 {
-                    sl->ETcum->co[j] += (*sl->ET)(i,r,c);
-                    //                    sl->ETcum->co[j] += sl->ET->co[i][r][c];
+                    sl->ETcum->co[j] += sl->ET->co[i][r][c];
                 }
             }
         }
@@ -5159,7 +5154,6 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
                 c = (*par->rc)(j,2);
                 fprintf(f, ",%f",
                         ((*sl->SS->thi)(l,top->j_cont[r][c]) + (*sl->th)(l,top->j_cont[r][c])) * sl->pa->co[(*sl->type)(r,c)][jdz][l] );
-                // ((*sl->SS->thi)(l,top->j_cont[r][c]) + sl->th->co[l][top->j_cont[r][c]]) * sl->pa->co[(*sl->type)(r,c)][jdz][l] );
             }
             fprintf(f, "\n");
         }
@@ -5459,12 +5453,6 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
             (*sl->SS->thi)(l,j) = thin;
 
         }
-
-        //print
-        /*for (l=1; l<=Nl; l++) {
-		printf("j:%ld l:%ld Pt:%f T:%f\n",j,l,(*sl->Ptot)(l,j),sl->SS->T->co[l][j]);
-	  }*/
-
     }
 }
 

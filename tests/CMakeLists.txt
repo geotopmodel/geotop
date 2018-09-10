@@ -27,7 +27,7 @@ set(_tests
   3D/prealpiC 
   3D/PSQL_test 
   3D/rendena
-  3D/RottCatchmentx
+  3D/RottCatchment
   3D/small_example 
   3D/small_example-channel 
   3D/small_example-onlyEnergy 

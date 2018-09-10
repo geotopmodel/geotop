@@ -1865,8 +1865,7 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
     {
       if (i<=n)
       {
-        f->co[i] += area * (*adt->S->ET)(l,r,c)/Dt;
-        //        f->co[i] += area*adt->S->ET->co[l][r][c]/Dt;
+        f->co[i] += area*adt->S->ET->co[l][r][c]/Dt;
       }
       else
       {
@@ -1956,8 +1955,7 @@ int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
     //evaporation
     if (l>0)
     {
-      f->co[i] += area * (*adt->S->ET)(l,r,c)/Dt;
-      //       f->co[i] += area*adt->S->ET->co[l][r][c]/Dt;
+       f->co[i] += area*adt->S->ET->co[l][r][c]/Dt;
     }
     else
     {
@@ -2000,7 +1998,7 @@ void find_dt_max(short DD, double Courant, RowView<double> &&h, LAND *land, TOPO
     r = (*top->rc_cont)(j,1);
     c = (*top->rc_cont)(j,2);
 
-    H = Fmax(0.0, h[j]) / cos(
+    H = Fmax(0.0, h(j)) / cos(
             (*top->slope)(r,c)*Pi/180.); //h[i] is the pressure at the surface, H is the depth of water normal to the surface
 
     if (H > par->min_hsup_land)
@@ -2051,11 +2049,6 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
              Vector<double> &dhch, TOPO *top,
              LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, METEO *met, Vector<double> *Vsup, double *Voutnet,
              double *Voutland, double *mm1, double *mm2, double *mmo)
-//void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h, Vector<double> &dV,
-//             RowView<double> &&hch,
-//             Vector<double> &dhch, TOPO *top,
-//             LAND *land, WATER *wat, CHANNEL *cnet, PAR *par, METEO *met, Vector<double> *Vsup, double *Voutnet,
-//             double *Voutland, double *mm1, double *mm2, double *mmo)
 {
 
 
@@ -2070,7 +2063,7 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
   {
     r = (*top->rc_cont)(j,1);
     c = (*top->rc_cont)(j,2);
-    H = Fmax(0., h[j]) / cos((*top->slope)(r,c)*Pi/180.);
+    H = Fmax(0., h(j)) / cos((*top->slope)(r,c)*Pi/180.);
     area = ds*ds;
     area /= cos((*top->slope)(r,c)*Pi/180.);
     m1 += H*1.E-3*area;
@@ -2097,7 +2090,7 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
       r = (*top->rc_cont)(j,1);
       c = (*top->rc_cont)(j,2);
 
-      H = Fmax(0., h[j]) / cos((*top->slope)(r,c)*Pi/180.);
+      H = Fmax(0., h(j)) / cos((*top->slope)(r,c)*Pi/180.);
 
       dV[j] = 0.0;
 
@@ -2159,18 +2152,18 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
       if (ch>0) area -= (*cnet->length)(ch) * par->w_dx *
                         ds; //area of the pixel[m2]
 
-      h[j] -= (1.E3 * dV[j]/area) * cos((*top->slope)(r,c)*Pi/180.);
+      h(j) -= (1.E3 * dV[j]/area) * cos((*top->slope)(r,c)*Pi/180.);
 
       if ((*top->BC_counter)(r,c) > 0 && (*top->pixel_type)(r,c) == -1)
       {
-        if (h[j] > 0)
+        if (h(j) > 0)
         {
-          h[j] += (1.E3*met->qinv[1]*ds*Dt/area) * cos((*top->slope)(r,c)*Pi/180.);
+          h(j) += (1.E3*met->qinv[1]*ds*Dt/area) * cos((*top->slope)(r,c)*Pi/180.);
         }
         else
         {
-          if ( met->qinv[1]*ds > 0) h[j] = (1.E3*met->qinv[1]*ds*Dt/area) * cos(
-                    (*top->slope)(r,c)*Pi/180.);
+          if ( met->qinv[1]*ds > 0)
+              h(j) = (1.E3*met->qinv[1]*ds*Dt/area) * cos((*top->slope)(r,c)*Pi/180.);
         }
       }
 
@@ -2188,15 +2181,14 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
           if (ch>0) area -= (*cnet->length)(ch) * par->w_dx *
                             ds; //area of the pixel[m2]
 
-          if (h[(*top->Jdown)(j,d)]>0)
+          if (h((*top->Jdown)(j,d))>0)
           {
-            h[(*top->Jdown)(j,d)] += (1.E3 * dV[j]*(*top->Qdown)(j,d)/area) * cos(
-                    (*top->slope)(R,C)*Pi/180.);
+            h((*top->Jdown)(j,d)) += (1.E3 * dV[j]*(*top->Qdown)(j,d)/area) * cos( (*top->slope)(R,C)*Pi/180.);
           }
           else
           {
-            if ( dV[j]*(*top->Qdown)(j,d) > 0) h[(*top->Jdown)(j,d)] =
-                                                       (1.E3 * dV[j]*(*top->Qdown)(j,d)/area) * cos((*top->slope)(R,C)*Pi/180.);
+            if ( dV[j]*(*top->Qdown)(j,d) > 0)
+                h((*top->Jdown)(j,d)) = (1.E3 * dV[j]*(*top->Qdown)(j,d)/area) * cos((*top->slope)(R,C)*Pi/180.);
           }
 
         }
@@ -2216,7 +2208,7 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
   {
     r = (*top->rc_cont)(j,1);
     c = (*top->rc_cont)(j,2);
-    H = Fmax(0., h[j]) / cos((*top->slope)(r,c)*Pi/180.);
+    H = Fmax(0., h(j)) / cos((*top->slope)(r,c)*Pi/180.);
     area = ds*ds;
     area /= cos((*top->slope)(r,c)*Pi/180.);
     m2 += H*1.E-3*area;
@@ -2248,12 +2240,12 @@ void find_dt_max_chla(double Courant, RowView<double> &&h, RowView<double> &&hch
     r = (*cnet->r)(ch);
     c = (*cnet->c)(ch);
 
-    H = Fmax(0.0, h[ch]) / cos(
-            (*top->slope)(r,c)*Pi/180.); //h[i] is the pressure at the surface, H is the depth of water normal to the surface
+    H = Fmax(0.0, h(ch)) / cos(
+            (*top->slope)(r,c)*Pi/180.); //h(i) is the pressure at the surface, H is the depth of water normal to the surface
     area = ds*ds/cos((*top->slope)(r,c)*Pi/180.) - (*cnet->length)(ch) *
                                                    par->w_dx * ds;
 
-    Hch = Fmax(0., hch[ch] ) / cos((*top->slope)(r,c)*Pi/180.) -
+    Hch = Fmax(0., hch(ch) ) / cos((*top->slope)(r,c)*Pi/180.) -
           par->depr_channel * cos((*top->slope)(r,c)*Pi/180.);
     areach = (*cnet->length)(ch) * par->w_dx * ds;
 
@@ -2346,8 +2338,8 @@ void supflow_chla(double Dt, double t, RowView<double> &&h, RowView<double> &&hc
       r = (*cnet->r)(ch);
       c = (*cnet->c)(ch);
 
-      H = Fmax(0., h[top->j_cont[r][c]]) / cos((*top->slope)(r,c)*Pi/180.);
-      Hch = Fmax(0., hch[ch] ) / cos((*top->slope)(r,c)*Pi/180.) -
+      H = Fmax(0., h(top->j_cont[r][c])) / cos((*top->slope)(r,c)*Pi/180.);
+      Hch = Fmax(0., hch(ch) ) / cos((*top->slope)(r,c)*Pi/180.) -
             par->depr_channel * cos((*top->slope)(r,c)*Pi/180.);
 
       area = ds*ds/cos((*top->slope)(r,c)*Pi/180.) - (*cnet->length)(ch) *
@@ -2368,22 +2360,19 @@ void supflow_chla(double Dt, double t, RowView<double> &&h, RowView<double> &&hc
 
           Vsup->co[ch] += q*dt;
 
-          h[top->j_cont[r][c]] -= (1.E3 * q*dt/area) * cos(
-                  (*top->slope)(r,c)*Pi/180.);
+          h(top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cos((*top->slope)(r,c)*Pi/180.);
 
-          if (hch[ch]>0)
+          if (hch(ch)>0)
           {
-            hch[ch] += (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*Pi/180.);  //mm;
+            hch(ch) += (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*Pi/180.);  //mm;
           }
           else
           {
-            if ( q > 0 ) hch[ch] = (1.E3 * q*dt/areach) * cos(
-                      (*top->slope)(r,c)*Pi/180.); //mm;
+            if ( q > 0 ) hch(ch) = (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*Pi/180.); //mm;
           }
 
         }
-        else if ( H - Hch >
-                  par->min_dhsup_land_channel_in ) //submerged flow towards channel
+        else if ( H - Hch > par->min_dhsup_land_channel_in ) //submerged flow towards channel
         {
 
           DH = H - Hch;
@@ -2394,17 +2383,15 @@ void supflow_chla(double Dt, double t, RowView<double> &&h, RowView<double> &&hc
 
           Vsup->co[ch] += q*dt;
 
-          h[top->j_cont[r][c]] -= (1.E3 * q*dt/area) * cos(
-                  (*top->slope)(r,c)*Pi/180.);
+          h(top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cos((*top->slope)(r,c)*Pi/180.);
 
-          if (hch[ch]>0)
+          if (hch(ch)>0)
           {
-            hch[ch] += (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*Pi/180.);  //mm;
+            hch(ch) += (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*Pi/180.);  //mm;
           }
           else
           {
-            if ( q > 0 ) hch[ch] = (1.E3 * q*dt/areach) * cos(
-                      (*top->slope)(r,c)*Pi/180.); //mm;
+            if ( q > 0 ) hch(ch) = (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*Pi/180.); //mm;
           }
         }
       }
@@ -2420,17 +2407,15 @@ void supflow_chla(double Dt, double t, RowView<double> &&h, RowView<double> &&hc
 
         Vsup->co[ch] -= q*dt;
 
-        hch[ch] -= (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*Pi/180.);
+        hch(ch) -= (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*Pi/180.);
 
-        if (h[top->j_cont[r][c]]>0)
+        if (h(top->j_cont[r][c])>0)
         {
-          h[top->j_cont[r][c]] += (1.E3 * q*dt/area) * cos(
-                  (*top->slope)(r,c)*Pi/180.); //mm;
+          h(top->j_cont[r][c]) += (1.E3 * q*dt/area) * cos((*top->slope)(r,c)*Pi/180.); //mm;
         }
         else
         {
-          if ( q > 0 ) h[top->j_cont[r][c]] = (1.E3 * q*dt/area) * cos(
-                    (*top->slope)(r,c)*Pi/180.);  //mm;
+          if ( q > 0 ) h(top->j_cont[r][c]) = (1.E3 * q*dt/area) * cos((*top->slope)(r,c)*Pi/180.);  //mm;
         }
       }
     }
@@ -2462,7 +2447,7 @@ void find_dt_max_channel(short DDcomplex, double Courant, RowView<double> &&h,
 
     r = (*cnet->r)(ch);
     c = (*cnet->c)(ch);
-    H = Fmax(0., h[ch]) / cos((*top->slope)(r,c)*Pi/180.);
+    H = Fmax(0., h(ch)) / cos((*top->slope)(r,c)*Pi/180.);
 
     if (H > par->min_hsup_channel)
     {
@@ -2503,7 +2488,7 @@ void find_dt_max_channel(short DDcomplex, double Courant, RowView<double> &&h,
         Ks = cm_h(par->Ks_channel, H, 1., par->thres_hchannel);
 
         i = ( ((*top->Z0)(r,c) - (*top->Z0)(R,C) ) + 1.E-3*(Fmax(0.0,
-                                                                 h[ch]) - Fmax(0.0, h[(*cnet->ch_down)(ch)])) ) / dD;
+                                                                 h(ch)) - Fmax(0.0, h((*cnet->ch_down)(ch)))) ) / dD;
 
         if (i<0) i=0.;
 
@@ -2578,7 +2563,7 @@ void channel_flow(double Dt, double t, short DDcomplex, RowView<double> &&h, Vec
 
         dV[ch] = 0.0;
 
-        H = Fmax(0., h[ch]) / cos((*top->slope)(r,c)*Pi/180.);
+        H = Fmax(0., h(ch)) / cos((*top->slope)(r,c)*Pi/180.);
 
         if (H > par->min_hsup_channel)
         {
@@ -2608,7 +2593,7 @@ void channel_flow(double Dt, double t, short DDcomplex, RowView<double> &&h, Vec
             Ks = cm_h(par->Ks_channel, H, 1., par->thres_hchannel);
 
             i= ( ((*top->Z0)(r,c) - (*top->Z0)(R,C) ) + 1.E-3*(Fmax(0.0,
-                                                                    h[ch]) - Fmax(0.0, h[(*cnet->ch_down)(ch)])) ) / dD;
+                                                                    h(ch)) - Fmax(0.0, h((*cnet->ch_down)(ch)))) ) / dD;
 
             if (i<0) i=0.;
 
@@ -2627,8 +2612,7 @@ void channel_flow(double Dt, double t, short DDcomplex, RowView<double> &&h, Vec
         r = (*cnet->r)(ch);
         c = (*cnet->c)(ch);
 
-        h[ch] -= (1.E3*dV[ch]/(dn*(*cnet->length)(ch))) * cos(
-                (*top->slope)(r,c)*Pi/180.);
+        h(ch) -= (1.E3*dV[ch]/(dn*(*cnet->length)(ch))) * cos((*top->slope)(r,c)*Pi/180.);
 
         if ((*top->is_on_border)(r,c) == 1
             && (*cnet->ch_down)(ch)==ch) //outlet section
@@ -2639,15 +2623,15 @@ void channel_flow(double Dt, double t, short DDcomplex, RowView<double> &&h, Vec
         {
           R = (*cnet->r)((*cnet->ch_down)(ch));
           C = (*cnet->c)((*cnet->ch_down)(ch));
-          if (h[(*cnet->ch_down)(ch)]>0)
+          if (h((*cnet->ch_down)(ch))>0)
           {
-            h[(*cnet->ch_down)(ch)] += (1.E3*dV[ch]/
+            h((*cnet->ch_down)(ch)) += (1.E3*dV[ch]/
                                         (dn*(*cnet->length)((*cnet->ch_down)(ch)))) * cos(
                     (*top->slope)(R,C)*Pi/180.); //mm;
           }
           else
           {
-            if ( dV[ch] > 0) h[(*cnet->ch_down)(ch)] = (1.E3*dV[ch]/
+            if ( dV[ch] > 0) h((*cnet->ch_down)(ch)) = (1.E3*dV[ch]/
                                                         (dn*cnet->length->co[(*cnet->ch_down)(ch)])) * cos(
                       (*top->slope)(R,C)*Pi/180.);  //mm;
           }
@@ -2675,13 +2659,13 @@ void draining_land(double alpha, long i, TOPO *T, LAND *L, PAR *P,
   long ir[5] = {0, -1, 1, 0,  0};
   long ic[5] = {0,  0, 0, -1, 1};
 
-  if (h[i] > 0)
+  if (h(i) > 0)
   {
 
     r = (*T->rc_cont)(i,1);
     c = (*T->rc_cont)(i,2);
-    H = Fmax(h[i], 0.)/cos((*T->slope)(r,c)*Pi/180.);
-    p = (*T->Z0)(r,c) + alpha*1.E-3*Fmax(h[i], 0.);
+    H = Fmax(h(i), 0.)/cos((*T->slope)(r,c)*Pi/180.);
+    p = (*T->Z0)(r,c) + alpha*1.E-3*Fmax(h(i), 0.);
     Ks = cm_h((*L->ty)((short)(*L->LC)(r,c),jcm), H, P->thres_hsup_1,
               P->thres_hsup_2);
 
@@ -2690,14 +2674,14 @@ void draining_land(double alpha, long i, TOPO *T, LAND *L, PAR *P,
 
       if (r+ir[d]>=1 && r+ir[d]<=Nr && c+ic[d]>=1 && c+ic[d]<=Nc)
       {
-        I[d] = T->j_cont[r+ir[d]][c+ic[d]];
+        I(d) = T->j_cont[r+ir[d]][c+ic[d]];
       }
       else
       {
-        I[d] = 0;
+        I(d) = 0;
       }
 
-      if (I[d]>0)
+      if (I(d)>0)
       {
 
         dD = find_3Ddistance(ds, (*T->Z0)(r,c) - (*T->Z0)(r+ir[d],c+ic[d]));
@@ -2712,15 +2696,15 @@ void draining_land(double alpha, long i, TOPO *T, LAND *L, PAR *P,
           dn /= cos(0.5*atan((*T->dzdN)(r,c))+0.5*atan( (*T->dzdN)(r+ir[d],c+ic[d]) ) );
         }
 
-        pn = (*T->Z0)(r+ir[d],c+ic[d]) + alpha*1.E-3*Fmax(h[I[d]], 0.);
+        pn = (*T->Z0)(r+ir[d],c+ic[d]) + alpha*1.E-3*Fmax(h(I(d)), 0.);
 
         if (pn < p)
         {
-          Q[d] = Ks*dn*pow(1.E-3*H, 1.0+P->gamma_m)*sqrt((p-pn)/dD);
+          Q(d) = Ks*dn*pow(1.E-3*H, 1.0+P->gamma_m)*sqrt((p-pn)/dD);
         }
         else
         {
-          Q[d] = 0.;
+          Q(d) = 0.;
         }
 
       }
@@ -2731,19 +2715,19 @@ void draining_land(double alpha, long i, TOPO *T, LAND *L, PAR *P,
         {
           if (H >= -T->BC_DepthFreeSurface->co[(*T->BC_counter)(r,c)] )
           {
-            Q[d] = Cd*(2./3.)*sqrt(2.*g*1.E-3*H)*(1.E-3*H)*ds;
-            if ((*cnet->ch)(r,c)>0) Q[d] = Q[d] * (1.-P->w_dx);
+            Q(d) = Cd*(2./3.)*sqrt(2.*g*1.E-3*H)*(1.E-3*H)*ds;
+            if ((*cnet->ch)(r,c)>0) Q(d) = Q(d) * (1.-P->w_dx);
           }
           else
           {
-            I[d] = i;
-            Q[d] = 0.;
+            I(d) = i;
+            Q(d) = 0.;
           }
         }
         else
         {
-          I[d] = i;
-          Q[d] = 0.;
+          I(d) = i;
+          Q(d) = 0.;
         }
 
       }
@@ -2756,8 +2740,8 @@ void draining_land(double alpha, long i, TOPO *T, LAND *L, PAR *P,
 
     for (d=1; d<=4; d++)
     {
-      I[d] = i;
-      Q[d] = 0.;
+      I(d) = i;
+      Q(d) = 0.;
     }
 
   }
@@ -2783,7 +2767,7 @@ void draining_channel(double alpha, long ch, Matrix<double> *Z, RowView<double> 
 
   r = (*cnet->r)(ch);
   c = (*cnet->c)(ch);
-  elev = (*Z)(r,c)+ alpha*1.E-3*Fmax(h[ch], 0.);
+  elev = (*Z)(r,c)+ alpha*1.E-3*Fmax(h(ch), 0.);
 
   for (d=1; d<=8; d++)
   {
@@ -2791,7 +2775,7 @@ void draining_channel(double alpha, long ch, Matrix<double> *Z, RowView<double> 
     {
       if ((*cnet->ch)(r+ir[d],c+ic[d]) > 0)
       {
-        elev1 = (*Z)(r+ir[d],c+ic[d]) + alpha*1.E-3*Fmax(h[(*cnet->ch)(r+ir[d],c+ic[d])], 0.);
+        elev1 = (*Z)(r+ir[d],c+ic[d]) + alpha*1.E-3*Fmax(h((*cnet->ch)(r+ir[d],c+ic[d])), 0.);
         if ( elev1 < elev)
         {
           elev = elev1;

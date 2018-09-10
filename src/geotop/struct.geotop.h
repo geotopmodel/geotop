@@ -25,7 +25,6 @@
 #include "tensor3D.h"
 #include <memory>
 
-#include <tensor.h>
 /*---------------------------------------------------------------------------*/
 typedef struct {
 
@@ -116,7 +115,6 @@ typedef struct {
 struct SOIL_STATE {
     SOIL_STATE(const long n, const long nl);
 
-
     std::unique_ptr<Matrix<double>> P;
     std::unique_ptr<Matrix<double>> thi;
     std::unique_ptr<Matrix<double>> T;
@@ -143,8 +141,7 @@ struct SOIL {
     std::unique_ptr<Matrix<double>> Ptot;
     std::unique_ptr<Matrix<double>> th;
 
-    //DOUBLETENSOR *ET;
-    std::unique_ptr<Tensor<double>> ET;
+    DOUBLETENSOR *ET;
 
     std::unique_ptr<Matrix<double>> Tzplot;
     std::unique_ptr<Matrix<double>> Tzavplot;
@@ -155,7 +152,7 @@ struct SOIL {
     std::unique_ptr<Matrix<double>> thizplot;
     std::unique_ptr<Matrix<double>> thizavplot;
     std::unique_ptr<Matrix<double>> satratio;
-    SOIL_STATE *SS;
+    std::unique_ptr<SOIL_STATE> SS;
     std::unique_ptr<STATE_VEG> VS;
 
     std::unique_ptr<Matrix<double>> Tzrun;

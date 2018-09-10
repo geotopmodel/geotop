@@ -276,7 +276,7 @@ void time_loop(ALLDATA *A)
             *a = *(A->N->age);
 
             if (A->P->max_glac_layers>0) copy_snowvar3D(A->G->G, G.get());
-            copy_soil_state(A->S->SS, L.get());
+            copy_soil_state(A->S->SS.get(), L.get());
             copy_soil_state(A->C->SS, C.get());
             copy_veg_state(A->S->VS.get(), V.get());
 
@@ -284,7 +284,7 @@ void time_loop(ALLDATA *A)
    l=A->T->lrc_cont->co[j][1];
    r=A->T->lrc_cont->co[j][2];
    c=A->T->lrc_cont->co[j][3];
-   printf("START %ld %ld %ld %e\n",l,r,c,(*A->S->SS->P)(l,A->T->j_cont[r][c]));
+   geolog << "START " << l << " " << r << " " << c << " " << (*A->S->SS->P)(l,A->T->j_cont[r][c]) << std::endl;
    } */
 
             // init
@@ -432,7 +432,7 @@ void time_loop(ALLDATA *A)
           *(A->N->age) = *a;
 
           if (A->P->max_glac_layers>0) copy_snowvar3D(G.get(), A->G->G);
-          copy_soil_state(L.get(), A->S->SS);
+          copy_soil_state(L.get(), A->S->SS.get());
           copy_soil_state(C.get(), A->C->SS);
           copy_veg_state(V.get(), A->S->VS.get());
           *(A->C->Vsub) += *Vsub_ch;

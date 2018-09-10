@@ -6,10 +6,7 @@
 #define GEOTOP_VECTOR_H
 
 #include "geotop_asserts.h"
-#include <cassert>
-#include <exception>
-#include <memory>
-#include <sstream>
+#include <memory> // to use std::unique_ptr
 
 template <typename T> class Vector {
 
@@ -51,25 +48,29 @@ public:
 
     /** range-checked access operator */
     T &at(const std::size_t i) {
-      GEO_ERROR_IN_RANGE(i, nl, nh);
-      return (*this)[i];
+        GEO_ERROR_IN_RANGE(i, nl, nh);
+        return (*this)[i];
     }
 
     /** range-checked access operator */
     const T &at(const std::size_t i) const {
-      GEO_ERROR_IN_RANGE(i, nl, nh);
-      return (*this)[i];
+        GEO_ERROR_IN_RANGE(i, nl, nh);
+        return (*this)[i];
     }
 
     /**
      * access operator. When the code is compiled in debug mode, it performes
      * a range check. No check is done when the code is compiled in release mode.
      */
-    T &operator()(const std::size_t i) {
+    T &operator()(const std::size_t i)
+#ifdef NDEBUG
+    noexcept
+#endif
+    {
 #ifndef NDEBUG
-      return at(i);
+        return at(i);
 #else
-      return (*this)[i];
+        return (*this)[i];
 #endif
     }
 
@@ -77,11 +78,15 @@ public:
      * access operator. When the code is compiled in debug mode, it performes
      * a range check. No check is done when the code is compiled in release mode.
      */
-    const T &operator()(const std::size_t i) const {
+    const T &operator()(const std::size_t i) const
+#ifdef NDEBUG
+    noexcept
+#endif
+    {
 #ifndef NDEBUG
-      return at(i);
+        return at(i);
 #else
-      return (*this)[i];
+        return (*this)[i];
 #endif
     }
 
@@ -106,8 +111,8 @@ public:
      */
     Vector(const Vector<T> &v)
             : _size{v._size}, nl{v.nl}, nh{v.nh}, co{new T[nh + 1]} {
-      for (auto i = nl; i <= nh; ++i)
-        (*this)[i] = v[i];
+        for (auto i = nl; i <= nh; ++i)
+            (*this)[i] = v[i];
     }
 
     /** Move constructor */
@@ -119,9 +124,9 @@ public:
 
     /** Copy assignment */
     Vector<T> &operator=(const Vector<T> &v) {
-      co.reset(); // release acquired memory
-      *this = Vector<T>{v}; // use move assignment and copy constructor
-      return *this;
+        co.reset(); // release acquired memory
+        *this = Vector<T>{v}; // use move assignment and copy constructor
+        return *this;
     }
 
     /** set all elements of the vector to @p v
@@ -129,9 +134,9 @@ public:
      * my_vector = 0
      */
     Vector<T> &operator=(const T v) {
-      for (auto &x : *this)
-        x = v;
-      return *this;
+        for (auto &x : *this)
+            x = v;
+        return *this;
     }
 
     /**
@@ -139,12 +144,12 @@ public:
      */
     Vector<T> &operator+=(const Vector<T> &v) {
 
-      GEO_ASSERT_EQ(nl, v.nl) << "vector length mismatch\n";
-      GEO_ASSERT_EQ(nh, v.nh) << "vector length mismatch\n";
+        GEO_ASSERT_EQ(nl, v.nl) << "vector length mismatch\n";
+        GEO_ASSERT_EQ(nh, v.nh) << "vector length mismatch\n";
 
-      for (auto i = nl; i <= nh; ++i)
-        (*this)[i] += v[i];
-      return *this;
+        for (auto i = nl; i <= nh; ++i)
+            (*this)[i] += v[i];
+        return *this;
     }
 
 
