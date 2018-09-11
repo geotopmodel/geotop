@@ -3,45 +3,6 @@
 //#include "t_statistics.h"
 
 
-void initialize_shortmatrix(SHORTMATRIX *L, short sign) {
-
-  long i, j;
-
-  if (L != nullptr) {
-    if (L->isdynamic == 1) {
-      for (i = 1; i <= L->nrh; i++) {
-        for (j = 1; j <= L->nch; j++) {
-          L->co[i][j] = sign;
-        }
-      }
-    } else {
-      t_error("This matrix was no properly allocated");
-    }
-  } else {
-    t_error("A null matrix was addressed");
-  }
-}
-
-/*---------------------------------------------------------------------------*/
-void initialize_doublematrix(DOUBLEMATRIX *L, double sign) {
-
-  long i, j;
-
-  if (L != nullptr) {
-    if (L->isdynamic == 1) {
-      for (i = L->nrl; i <= L->nrh; i++) {
-        for (j = L->ncl; j <= L->nch; j++) {
-          L->co[i][j] = sign;
-        }
-      }
-    } else {
-      t_error("This matrix was no properly allocated");
-    }
-  } else {
-    t_error("A null matrix was addressed");
-  }
-}
-
 /*--------------------------------------------------------------------------*/
 
 void copy_doublematrix(Matrix<double> *origin, Matrix<double> *destination) {
