@@ -178,11 +178,7 @@ typedef struct {
 
     std::unique_ptr<Matrix<double>> sky;        //view factor (of the sky) for each pixel
     std::unique_ptr<Matrix<short>> pixel_type;
-
-    //SHORTMATRIX *DD;      //Drainage Directions for each pixel; ex matr_ev->slope*/
-    //LONGMATRIX *DDup;
-    //std::unique_ptr<Matrix<double>> i_DD;       /*slope along Drainage Direction for each pixel*/
-
+    
     std::unique_ptr<Matrix<double>> aspect;     /*aspect; ex: matr_ev->azimuth*/
     std::unique_ptr<Matrix<double>> slope;     /*slope of the pixels; ex: matr_ev->slope*/
 
