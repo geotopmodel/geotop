@@ -57,39 +57,6 @@
 
 #define SQRT2  1.414213562373095
 
-/**-------------------------------------------------------------------
-
-MATRIXES: The same types as for vectors except for char:
-SHORTMATRIX, INTMATRIX, LONGMATRIX, FLOATMATRIX, DOUBLEMATRIX
-
----------------------------------------------------------------------*/
-
-typedef struct
-{
-    short isdynamic;         /* see FLOAT VECTOR */
-
-    const char *name;
-
-    long nrl,nrh,ncl,nch;    /* lower and upper bound for rows: nrl, nrh;
-                              lower and upper bounds for columns: ncl, nch */
-    short **co;
-
-} SHORTMATRIX;
-
-
-typedef struct
-{
-
-    short isdynamic;
-
-    const char *name;
-
-    long nrl,nrh,ncl,nch;
-
-    double **co;
-
-} DOUBLEMATRIX;
-
 
 /*  Tensor3D */
 
@@ -107,14 +74,6 @@ typedef struct
 
 
 
-
-
-
-
-
-
-
-
 /*
 
 t_keywords T_KEYWORDS={{"2","ascii","binary"},
@@ -128,12 +87,6 @@ t_keywords T_KEYWORDS={{"2","ascii","binary"},
              {"2"," ",","},
 
              {"2","{","}"}};
-
-
-
-
-
-
 
 */
 /*header of maps in fluid turtle format*/
@@ -164,11 +117,5 @@ struct T_INIT
 */
 
 void t_error(const char *error_text);
-
-
-
-
-
-
 
 #endif
