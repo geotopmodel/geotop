@@ -39,22 +39,19 @@ extern char *FailedRunFile;
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT,
-             double Tg0, double Qg0, double Ta, double Qa,
-             double zmu, double zmT, double z0, double z0s, double d0, double z0r,
-             double hveg, double v, double LR, double P,
-             double SW, double SWv, double LW, double e, double LSAI, double decaycoeff0,
-             double *land, double Wcrn0, double Wcrnmax,
-             double Wcsn0, double Wcsnmax, double *dWcrn, double *dWcsn, double *LWv,
-             double *LWg, double *Hv, double *Hg,
-             double *dHgdT, double *LEv, double *Eg, double *dEgdT, double *Ts, double *Qs,
-             double *froot, double *theta,
-             Vector<double> *soil_transp_layer, double *Lobukhov, PAR *par, long n,
-             double *rm, double *rh, double *rv, double *rc,
-             double *rb, double *ruc, double *u_top, double *Etrans, double *Tv,
-             double *Qv, double *decay, double *Locc,
-             double *LWup_above_v, double psi, double **soil, double *T,
-             Vector<double> *soil_evap_layer)
+void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, double Tg0, double Qg0, double Ta,
+             double Qa, // 10
+             double zmu, double zmT, double z0, double z0s, double d0, double z0r, double hveg, double v, double LR,
+             double P, // 10
+             double SW, double SWv, double LW, double e, double LSAI, double decaycoeff0, RowView<double> &&land,
+             double Wcrn0, double Wcrnmax, double Wcsn0, // 10
+             double Wcsnmax, double *dWcrn, double *dWcsn, double *LWv, double *LWg, double *Hv, double *Hg,
+             double *dHgdT, double *LEv, double *Eg, // 10
+             double *dEgdT, double *Ts, double *Qs, RowView<double> &&froot, double *theta, Vector<double> *soil_transp_layer,
+             double *Lobukhov, PAR *par, long n, double *rm, // 10
+             double *rh, double *rv, double *rc, double *rb, double *ruc, double *u_top, double *Etrans, double *Tv,
+             double *Qv, double *decay, // 10
+             double *Locc, double *LWup_above_v, double psi, double **soil, double *T, Vector<double> *soil_evap_layer) // 6 => TOT = 66 parameters
 {
 
   double C, C0;
@@ -82,10 +79,10 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT,
       *Ts=0.5*Tg0+0.5*Ta;
       *Qs=0.5*Qg0+0.5*Qa;
       canopy_fluxes(r, c, T00, Tg0, Ta, Qg0, Qa, zmu, zmT, z0, z0s, d0, z0r, hveg,
-                    v, LR, P, SW, LW, e, LSAI, decaycoeff0, land,
+                    v, LR, P, SW, LW, e, LSAI, decaycoeff0, std::forward<RowView<double>>(land),
                     Wcrn0, Wcrnmax, Wcsn0, Wcsnmax, &subl_can, Etrans, LWv, LWg, Hv, LEv, &h0,
-                    &dhdT, Ts, Qs, Qv, ruc,
-                    froot, theta, soil_transp_layer, chgsgn, Lobukhov, par, n, rm, rh, rv, rc, rb,
+                    &dhdT, Ts, Qs, Qv, ruc, std::forward<RowView<double>>(froot), theta, soil_transp_layer,
+                              chgsgn, Lobukhov, par, n, rm, rh, rv, rc, rb,
                     u_top, decay, Locc, LWup_above_v,
                     psi, soil, &alpha, &beta, T, soil_evap_layer);
     }
@@ -96,9 +93,9 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT,
   *Ts=0.5*Tg+0.5*Ta;
   *Qs=0.5*Qg+0.5*Qa;
   canopy_fluxes(r, c, T11, Tg, Ta, Qg, Qa, zmu, zmT, z0, z0s, d0, z0r, hveg, v,
-                LR, P, SW, LW, e, LSAI, decaycoeff0, land, Wcrn0,
+                LR, P, SW, LW, e, LSAI, decaycoeff0, std::forward<RowView<double>>(land), Wcrn0,
                 Wcrnmax, Wcsn0, Wcsnmax, &subl_can, Etrans, LWv, LWg, Hv, LEv, &h1, &dhdT, Ts,
-                Qs, Qv, ruc, froot, theta, soil_transp_layer, chgsgn,
+                Qs, Qv, ruc, std::forward<RowView<double>>(froot), theta, soil_transp_layer, chgsgn,
                 Lobukhov, par, n, rm, rh, rv, rc, rb, u_top, decay, Locc, LWup_above_v, psi,
                 soil, &alpha, &beta, T, soil_evap_layer);
 
@@ -193,9 +190,9 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT,
 
           canopy_fluxes(r, c, T11p, Tg, Ta, Qg, Qa, zmu, zmT, z0, z0s, d0, z0r, hveg, v,
                         LR, P, SW, LW, e, LSAI, decaycoeff0,
-                        land, Wcrn, Wcrnmax, Wcsn, Wcsnmax, &subl_can, Etrans, LWv, LWg, Hv, LEv, &h1,
+                        std::forward<RowView<double>>(land), Wcrn, Wcrnmax, Wcsn, Wcsnmax, &subl_can, Etrans, LWv, LWg, Hv, LEv, &h1,
                         &dhdT, Ts, Qs, Qv, ruc,
-                        froot, theta, soil_transp_layer, chgsgn, Lobukhov, par, n, rm, rh, rv, rc, rb,
+                        std::forward<RowView<double>>(froot), theta, soil_transp_layer, chgsgn, Lobukhov, par, n, rm, rh, rv, rc, rb,
                         u_top, decay, Locc,
                         LWup_above_v, psi, soil, &alpha, &beta, T, soil_evap_layer);
 
@@ -246,11 +243,11 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
                    double Qgsat, double Qa, double zmu, double zmT, double z0,
                    double z0s, double d0, double z0r, double hveg, double v, double LR, double P,
                    double SW, double LW, double e,
-                   double LSAI, double decaycoeff0, double *land, double Wcrn, double Wcrnmax,
+                   double LSAI, double decaycoeff0, RowView<double> &&land, double Wcrn, double Wcrnmax,
                    double Wcsn, double Wcsnmax,
                    double *Esubl, double *Etrans, double *LWv, double *LWg, double *H,
                    double *LE, double *h, double *dhdT,
-                   double *Ts, double *Qs, double *Qv, double *ruc, double *froot, double *theta,
+                   double *Ts, double *Qs, double *Qv, double *ruc, RowView<double> &&froot, double *theta,
                    Vector<double> *soil_transp_layer,
                    long chgsgn, double *Lobukhov, PAR *par, long n, double *rm, double *rh,
                    double *rv, double *rc, double *rb,
@@ -326,7 +323,8 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
             }
           else
             {
-              canopy_evapotranspiration(*rb, Tv, Qa, P, SW, theta, land, soil, froot, &ft,
+              canopy_evapotranspiration(*rb, Tv, Qa, P, SW, theta, std::forward<RowView<double>>(land), soil,
+                                        std::forward<RowView<double>>(froot), &ft,
                                         soil_transp_layer);
               R=fw+(1.0-fw)*ft;
             }
@@ -654,7 +652,7 @@ void update_roughness_veg(double hc, double snowD, double zmu, double zmt,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void root(long n, double d, double slope, double *D, double *root_fraction)
+void root(long n, double d, double slope, double *D, RowView<double> &&root_fraction)
 {
 
   //n = number of soil layers (from the surface) affected by root absorption
@@ -672,17 +670,17 @@ void root(long n, double d, double slope, double *D, double *root_fraction)
       z += D[l];
       if ( d_corr > z )
         {
-          root_fraction[l] = D[l]/d_corr;
+          root_fraction(l) = D[l]/d_corr;
         }
       else
         {
           if ( d_corr > z-D[l] )
             {
-              root_fraction[l] = ( d_corr - (z-D[l]) ) / d_corr;
+              root_fraction(l) = ( d_corr - (z-D[l]) ) / d_corr;
             }
           else
             {
-              root_fraction[l] = 0.0;
+              root_fraction(l) = 0.0;
             }
         }
     }
@@ -695,8 +693,8 @@ void root(long n, double d, double slope, double *D, double *root_fraction)
 /******************************************************************************************************************************************/
 
 void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa,
-                               double SWin, double *theta, double *land,
-                               double **soil, double *root, double *f, Vector<double> *fl)
+                               double SWin, double *theta, RowView<double> &&land,
+                               double **soil, RowView<double> &&root, double *f, Vector<double> *fl)
 {
 
   double fS, fe, fTemp, Rsmin, ea, ev;

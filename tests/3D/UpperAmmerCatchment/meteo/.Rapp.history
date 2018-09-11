@@ -1,0 +1,328 @@
+\
+for(j in 1:nrow(metadata_FILE)){print(paste(names(metadata_FILE)[which(!is.na(metadata_FILE[j,]))]))}
+j<-1;which(!is.na(metadata_FILE[j,])
+)
+j<-2;which(!is.na(metadata_FILE[j,]))
+names(metadata_FILE)[which(!is.na(metadata_FILE[j,])]
+names(metadata_FILE)[which(!is.na(metadata_FILE[j,]))]
+for(j in 1:nrow(metadata_FILE)){print(paste(metadata_FILE[j,1],"type:",names(metadata_FILE)[which(!is.na(metadata_FILE[j,]))]))}
+fun_get_sens_ID_and_type_from_stat
+levels(as.factor(as.character(metadata$dbf$DISTRICT)))
+dbf<-read.dbf("/Users/matteo/Documents/Mountain-eering/commerciale/SnowMap_BZ/meteo_alpi_FIN.dbf")
+metadata<-dbf$dbf
+levels(as.factor(as.character(metadata$DISTRICT)))
+match("TI")
+match("Tirol",metadata$DISTRICT)
+dbf<-read.dbf("/Users/matteo/Documents/Mountain-eering/commerciale/SnowMap_BZ/meteo_alpi_FIN.dbf")
+levels(as.factor(as.character(dbf$dbf$DISTRICT)))
+metadata<-dbf$dbf
+names(metadata)
+source("/private/var/folders/b1/b1UDzfzqGramk7dqEkgFyU+++TI/-Tmp-/d7580abe-2af7-406f-8bfe-90dee5352973/var/snowscripts/update_meteo.R")
+match(c("Alto Adige","Tirolo"),metadata$DISTRICT)
+match(metadata$DISTRICT,c("Alto Adige","Tirolo"))
+guf1<-which(!is.na(match(metadata$DISTRICT,c("Alto Adige","Tirolo"))))
+length(guf1)
+guf1[1:10]
+metadata_DBF<-fun_getSensTypeBZ(metadata[guf1,])
+names(metadata_DBF)
+nrow(metadata_DBF)
+metadata_DBF
+source("/private/var/folders/b1/b1UDzfzqGramk7dqEkgFyU+++TI/-Tmp-/d7580abe-2af7-406f-8bfe-90dee5352973/var/snowscripts/update_meteo.R")
+metadata_FILE[1:10]
+length(dbf_sensor)
+length(bz_sensor)
+dbf_sensor<-c(  "TA",   "RH",   "VW",   "DW",   "ISWR",  "P",   "Iprec","HS",   "TNS",  "RSWR",         "TN000",#
+ "TN020",        "TN025",  "TN050",  "TN100");
+length(dbf_sensor)
+match(names(metadata_FILE),bz_sensor)
+inddd<-match(names(metadata_FILE)[-1],bz_sensor)
+inddd
+dbf_sensor[inddd]
+names(metadata_FILE)[-1]
+inddd<-match(names(metadata_FILE)[-1],bz_sensor)#
+	names(metadata_FILE)<-c("NAME",dbf_sensor[inddd])
+names(metadata_FILE)
+names(metadata_DBF)
+metadata_DBF<-subset(metadata_DBF,select=c("NAME",dbf_sensor))
+names(metadata_DBF)
+fun_check_vector_elements(metadata_FILE,metadata_DBF)
+fun_check_vector_elements(metadata_FILE[,1],metadata_DBF[,1])
+metadata_FILE[,1]
+metadata_DBF[,1]
+ind<-grep("#SNAME",tutto)#
+	buf<-strsplit(tutto[ind],";")#
+	buf1<-unlist(buf)#
+	kio<-buf1[seq(1,length(buf1),8)]#
+	NAME<-substr(kio,7,nchar(kio))#
+	kio<-buf1[seq(3,length(buf1),8)]#
+	POIID<-substr(kio,5,nchar(kio))#
+	kio<-buf1[seq(7,length(buf1),8)]#
+	CODE<-substr(kio,4,nchar(kio))#
+	ind2<- grep("#CNAME",tutto)#
+	bif<-strsplit(tutto[ind2],";")#
+	bif1<-unlist(bif)#
+	kio<-bif1[seq(1,length(bif1),6)]#
+	POINTTYPE<-substr(kio,7,nchar(kio))
+POINTTYPE
+buf2<-unlist(strsplit(tutto[ind+1],";"))
+kio<-buf2[seq(7,length(buf2),8)]
+kio[1]
+buf2[1]
+buf2
+buf2[1:10]
+buf2[seq(7,length(buf2),8)][1]
+buf2[seq(1,length(buf2),8)][1]
+buf2[seq(1,length(buf2),8)][1:3]
+buf2[seq(1,length(buf2),9)][1:3]
+buf2[seq(1,length(buf2),10)][1:3]
+buf2[seq(1,length(buf2),11)][1:3]
+length(buf2)
+buf2[seq(1,length(buf2),6)][1:3]
+buf2[seq(1,length(buf2),16)][1:3]
+names(metadata)
+kio<-buf2[seq(1,length(buf2),16)]#
+	COORD_X<-substr(kio,4,nchar(kio))
+COORD_X[1:10]
+kio<-buf2[seq(1,length(buf2),16)]#
+	COORD_X<-substr(kio,6,nchar(kio));COORD_X[1:10]
+kio<-buf2[seq(2,length(buf2),16)]#
+	COORD_Y<-substr(kio,6,nchar(kio));COORD_Y
+buf2[seq(2,length(buf2),16)][1:10]
+buf2[seq(3,length(buf2),16)][1:10]
+kio<-buf2[seq(3,length(buf2),16)]#
+	COORD_Y<-substr(kio,6,nchar(kio));COORD_Y
+kio<-buf2[seq(3,length(buf2),16)]#
+	COORD_Y<-substr(kio,4,nchar(kio));COORD_Y
+as.numeric(substr(kio,4,nchar(kio)))[1:10]
+as.numeric(substr(kio,4,nchar(kio)))[977]
+COORD_Y<-substr(kio,4,nchar(kio))
+grep(",",COORD_Y)
+ind_comma<-grep(",",COORD_Y)
+COORD_Y[ind_comma]
+unlist(strsplit(COORD_Y[ind_comma],","))
+gig<-unlist(strsplit(COORD_Y[ind_comma],","))
+gig
+gig[seq(1,length(gig),2)]
+if(length(ind_comma)>0) {#
+		gig<-unlist(strsplit(COORD_Y[ind_comma],","))#
+		COORD_Y[ind_comma]<- gig[seq(1,length(gig),2)]#
+	}
+names(metadata)
+kio<-buf2[seq(9,length(buf2),16)]#
+	ELEVATION<-substr(kio,5,nchar(kio))
+ELEVATION[1:10]
+ind_comma<-grep(",",ELEVATION)
+ind_comma
+kio<-buf2[seq(9,length(buf2),16)]#
+	ELEVATION<-substr(kio,5,nchar(kio))#
+	ind_comma<-grep(",",ELEVATION)#
+	if(length(ind_comma)>0) {#
+		gig<-unlist(strsplit(ELEVATION[ind_comma],","))#
+		ELEVATION[ind_comma]<- gig[seq(1,length(gig),2)]#
+	}
+ELEVATION[1:30]
+as.numeric(ELEVATION)
+ind3<- grep("##SMANAGER",tutto)
+ind3[1:10]
+baf<-strsplit(tutto[ind3],";")
+baf[1:10]
+v
+baf<-unlist(strsplit(tutto[ind3],";"))
+baf[1:10]
+names(METADATA)
+names(metadata)
+kio<-baf[seq(1,length(baf),2)]
+kio[1:5]
+AGENCY<-substr(kio,10,nchar(kio))
+AGENCY[1:10]
+AGENCY<-substr(kio,11,nchar(kio))
+AGENCY[1:10]
+source("/private/var/folders/b1/b1UDzfzqGramk7dqEkgFyU+++TI/-Tmp-/d7580abe-2af7-406f-8bfe-90dee5352973/var/snowscripts/update_meteo.R")
+nuoveSTAT<-fun_getMetadataBZ(tutto)
+names(nuoveSTAT)
+nuoveSTAT[1:5,]
+fun_check_vector_elements(nuoveSTAT,metadata_DBF[,1])
+fun_check_vector_elements(nuoveSTAT[,1],metadata_DBF[,1])
+source("/private/var/folders/b1/b1UDzfzqGramk7dqEkgFyU+++TI/-Tmp-/d7580abe-2af7-406f-8bfe-90dee5352973/var/snowscripts/update_meteo.R")
+fun_check_vector_elements(nuoveSTAT[,1],metadata_DBF[,1])
+fun_check_vector_elements(nuoveSTAT[,1],metadata_DBF[,1])->diff1
+match(diff1$el_diff2,nuoveSTAT[,1])
+match(diff1$el_diff2,nuoveSTAT[,1])->ind7
+write.table(nuoveSTAT[ind7,],"nuoveSTATBZ.txt",sep=",",quote=FALSE,row.names=FALSE)
+getwd()
+nuoveSTAT<-fun_getMetadataBZ(tutto)
+guf<-fun_getMetadataBZ(tutto);#
+	metadata_FILE<-fun_getSensType(guf)
+length(metadata_FILE)
+metadata_FILE
+guf<-fun_getMetadataBZ(tutto);#
+	metadata_FILE<-fun_getSensType(guf)
+names(guf)
+match(guf$POINTTYPE,bz_sensor)
+nrow(guf)
+match(guf$POINTTYPE,bz_sensor)->ind6
+guftype<-dbf_sensor[ind6]
+guftype[1:10]
+guf$POINTTYPE[1:10]
+guftype[1:10]
+guftype[1:50]
+as.character(guf$POINTTYPE[1:50])
+guf$POINTTYPE<-dbf_sensor[ind6]
+which(is.na(guf$POINTTYPE))
+guf<-guf[-which(is.na(guf$POINTTYPE)),]
+nrow(guf)
+fun_check_vector_elements(guf[,1],metadata_DBF[,1])
+fun_check_vector_elements(guf[,1],metadata_DBF[,1])->diff1
+match(diff1$el_diff2,guf[,1])->ind7
+ind7
+write.table(guf[ind7,],"nuoveSTATBZ.txt",sep=",",quote=FALSE,row.names=FALSE)
+nrow(gur)
+nrow(guf)
+match(guf[,1],diff1$el_diff2)->ind7
+ind7
+which(!is.na(ind7))
+which(!is.na(match(guf[,1],diff1$el_diff2)))->ind7
+write.table(guf[ind7,],"nuoveSTATBZ.txt",sep=",",quote=FALSE,row.names=FALSE)
+?sort
+towrite<-guf[ind7,]
+guf[order(guf[,1])]
+guf[order(guf[,1]),]
+towrite<-guf[ind7,]#
+towrite<-towrite[order(towrite[,1]),]
+write.table(towrite,"nuoveSTATBZ.txt",sep=",",quote=FALSE,row.names=FALSE)
+totID<-seq(1,max(dbf$dbf$ID),1);fun_check_vector_elements(totID,dbf$dbf$ID)
+max(dbf$dbf$ID)
+max(dbf$dbf$POI_ID)
+levels(as.factor(as.character(towrite[,1])))
+516:(516+32)
+grep("Orino",dbf$dbf$NAME)
+dbf$dbf$POI_ID[grep("Orino",dbf$dbf$NAME)]
+fun_get_sens_ID_and_type_from_stat(265,dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(grep("Vidoletti",dbf$dbf$NAME)[1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(grep("Varese",dbf$dbf$NAME)[1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(grep("varese",dbf$dbf$NAME)[1],dbf$dbf)
+grep("varese",dbf$dbf$NAME)
+grep("Vidoletti",dbf$dbf$NAME)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Vidoletti",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Saronno",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Mariano",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Morbegno",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Bormio",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Colico",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Nibionno",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Bergamo",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Goisis",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Osio",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Pantano",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Vedano",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Gardone",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Porlezza",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Paribelli",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("(IP gsm)",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Valmadrera",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Rosa",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Capo di Ponte",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Capo di",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(dbf$dbf$POI_ID[grep("Orino",dbf$dbf$NAME)][1],dbf$dbf)
+fun_get_sens_ID_and_type_from_stat(122,dbf$dbf)
+grep("Vahrn",guf[,1])
+guf$POINTTYPE[grep("Vahrn",guf[,1])]
+towrite$POINTTYPE[grep("Vahrn",towrite[,1])]
+names(guf)
+dbf<-read.dbf("/Volumes/Documenti/Commerciale/2012/C12-15A-ALPI-SNOWMAPS/STAZIONI/NOVEMBRE2013_STAZ/20131204/meteo_alpi_FIN.dbf")
+metadata_FILE<-fun_getSensType(guf)#
+	metadata_FILE<-subset(metadata_FILE,select=c("NAME",bz_sensor))#
+	inddd<-match(names(metadata_FILE)[-1],bz_sensor)#
+	names(metadata_FILE)<-c("NAME",dbf_sensor[inddd])
+names(metadata_FILE)
+guf<-fun_getMetadataBZ(tutto);
+metadata_FILE<-fun_getSensType(guf)#
+	metadata_FILE<-subset(metadata_FILE,select=c("NAME",bz_sensor))#
+	inddd<-match(names(metadata_FILE)[-1],bz_sensor)#
+	names(metadata_FILE)<-c("NAME",dbf_sensor[inddd])
+names(metadata_FILE)
+metadata<-dbf$dbf
+nrow(metadata)
+guf1<-which(!is.na(match(metadata$DISTRICT,c("Alto Adige","Tirolo"))))#
+	metadata_DBF<-fun_getSensType(metadata[guf1,])#
+	metadata_DBF<-subset(metadata_DBF,select=c("NAME",dbf_sensor))
+nrow(metadata_DBF)
+nrow(metadata_FILE)
+fun_check_vector_elements(metadata_DBF[,1], metadata_FILE[,1])
+ncol(metadata_DBF)
+ncol(metadata_FILE)
+match(c("Brenner","Eselruecken - Kreuzspitze","Stilfserjoch","Stilfserjoch Messfeld","Wolfendorn"),metadata_DBF[,1])
+metadata_DBF1<-metadata_DBF[-c(7,17,98,99,123),]
+fun_check_vector_elements(metadata_DBF1[,1], metadata_FILE[,1])
+which(is.na(metadata_DBF1))
+which(is.na(metadata_DBF1))<-0
+metadata_DBF1[which(is.na(metadata_DBF1))]<-0
+source("/private/var/folders/b1/b1UDzfzqGramk7dqEkgFyU+++TI/-Tmp-/d7580abe-2af7-406f-8bfe-90dee5352973/var/snowscripts/update_meteo.R")
+guf<-fun_getMetadataBZ(tutto);#
+metadata_FILE<-fun_getSensType(guf)#
+metadata_FILE<-subset(metadata_FILE,select=c("NAME",bz_sensor))#
+inddd<-match(names(metadata_FILE)[-1],bz_sensor)#
+names(metadata_FILE)<-c("NAME",dbf_sensor[inddd])#
+guf1<-which(!is.na(match(metadata$DISTRICT,c("Alto Adige","Tirolo"))))#
+metadata_DBF<-fun_getSensType(metadata[guf1,])#
+metadata_DBF<-subset(metadata_DBF,select=c("NAME",dbf_sensor))#
+diff2<-fun_check_vector_elements(metadata_DBF[,1],metadata_FILE[,1])
+diff2
+metadata_DBF1<-metadata_DBF[-diff2$el_diff2,]
+diff2$el_diff2
+ind<-match(diff2$el_diff2,metadata_DBF[,1])
+ind
+metadata_DBF1<-metadata_DBF[-ind,]
+nrow(metadata_DBF1)
+nrow(metadata_FILE)
+diff3
+diff3<-metadata_DBF1[,-1]-metadata_FILE[,-1]
+diff3
+for (j in 1:nrow(diff3)){#
+ind_m1<-which(diff3[j,]==-1)#
+if(length(ind_m1)>0) print(names(metadata_DBF)[c(1,ind_m1)])#
+}
+for (j in 1:nrow(diff3)){#
+ind_m1<-which(diff3[j,]==-1)#
+if(length(ind_m1)>0) print(paste(metadata_DBF1[j,1],names(metadata_DBF)[ind_m1]))#
+}
+fun_get_sens_ID_and_type_from_stat(122,dbf$dbf)
+for (j in 1:nrow(diff3)){#
+ind_m1<-which(diff3[j,]==-1)#
+if(length(ind_m1)>0) print(paste(metadata_DBF1[j,1],names(metadata_DBF)[ind_m1+1]))#
+}
+setwd("~/Documents/Mountain-eering/commesse/sudafrica/new_sim/meteo/");
+meteo<-read.table("meteo0001.txt"sep=",",header=TRUE)
+meteo<-read.table("meteo0001.txt",sep=",",header=TRUE)
+names(meteo)
+meteo[,1]<-as.POSIXct(strptime(meteo[,1],"%d/%m/%Y %H:%M",tz='GMT'))
+meteo[1:10,1]
+meteo[,1]<-format(meteo[,1],"%d/%m/%Y %H:%M")
+meteo[1:10,1]
+filen<-"meteo0001.txt"
+write.table(meteo,filen,sep=",",quote=FALSE,row.names=FALSE)
+filen<-"meteo0002.txt"#
+meteo<-read.table(filen,sep=",",header=TRUE)#
+meteo[,1]<-as.POSIXct(strptime(meteo[,1],"%d/%m/%Y %H:%M",tz='GMT'))#
+meteo[,1]<-format(meteo[,1],"%d/%m/%Y %H:%M")#
+write.table(meteo,filen,sep=",",quote=FALSE,row.names=FALSE)
+filen<-"meteo0003.txt"#
+meteo<-read.table(filen,sep=",",header=TRUE)#
+meteo[,1]<-as.POSIXct(strptime(meteo[,1],"%d/%m/%Y %H:%M",tz='GMT'))#
+meteo[,1]<-format(meteo[,1],"%d/%m/%Y %H:%M")#
+write.table(meteo,filen,sep=",",quote=FALSE,row.names=FALSE)
+filen<-"meteo0004.txt"#
+meteo<-read.table(filen,sep=",",header=TRUE)#
+meteo[,1]<-as.POSIXct(strptime(meteo[,1],"%d/%m/%Y %H:%M",tz='GMT'))#
+meteo[,1]<-format(meteo[,1],"%d/%m/%Y %H:%M")#
+write.table(meteo,filen,sep=",",quote=FALSE,row.names=FALSE)
+filen<-"meteo0005.txt"#
+meteo<-read.table(filen,sep=",",header=TRUE)#
+meteo[,1]<-as.POSIXct(strptime(meteo[,1],"%d/%m/%Y %H:%M",tz='GMT'))#
+meteo[,1]<-format(meteo[,1],"%d/%m/%Y %H:%M")#
+write.table(meteo,filen,sep=",",quote=FALSE,row.names=FALSE)
+filen<-"meteo0006.txt"#
+meteo<-read.table(filen,sep=",",header=TRUE)#
+meteo[,1]<-as.POSIXct(strptime(meteo[,1],"%d/%m/%Y %H:%M",tz='GMT'))#
+meteo[,1]<-format(meteo[,1],"%d/%m/%Y %H:%M")#
+write.table(meteo,filen,sep=",",quote=FALSE,row.names=FALSE)

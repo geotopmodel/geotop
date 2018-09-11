@@ -2,15 +2,10 @@
 
  LONGPAIR
 
-
 Description:  It is a structure containing two long and a pointer to
 a structure of the same type.
 
-
-
 */
-
-
 struct  longpair
 {
     long i,j;
@@ -23,15 +18,10 @@ typedef struct longpair LONGPAIR;
 
  LONGPOKER
 
-
 Description:  It is a structure containing four long and a pointer to
 a structure of the same type.
 
-
-
 */
-
-
 struct  longpoker
 {
     long i,j,k,l;
@@ -44,15 +34,10 @@ typedef struct longpoker LONGPOKER;
 
   REAL  PAIR
 
-
 Description:  It is a structure containing two double and a pointer to
 a structure of the same type.
 
-
-
-
 */
-
 struct  realpair
 {
     double x,y;
@@ -61,20 +46,14 @@ struct  realpair
 
 typedef struct realpair REALPAIR;
 
-
 /*
 
   IX
 
-
 Description:  It is a structure containing a long (i) and a double (x) and a pointer to
 a structure of the same type.
 
-
-
-
 */
-
 struct  ix
 {
     long i;
@@ -88,14 +67,10 @@ typedef struct ix IX;
 
  IJX
 
-
 Description:  It is a structure containing two long, double and a pointer to
 a structure of the same type.
 
-
-
 */
-
 struct  ijx
 {
     long i,j;
@@ -109,14 +84,10 @@ typedef struct ijx IJX;
 
  XYZ
 
-
 Description:  It is a structure containing three double and a pointer to
 a structure of the same type.
 
-
-
 */
-
 struct  xyz
 {
     double x,y,z;
@@ -140,8 +111,6 @@ struct measure
 typedef struct measure MEASURES;
 
 
-
-
 struct phrase
 {
 
@@ -150,7 +119,6 @@ struct phrase
     struct phrase *next;
 
 };
-
 
 typedef struct phrase PHRASE;
 
@@ -185,39 +153,6 @@ See Also: Coupledfields_moments
 
 LONGPAIR *buffer2list(long  *s,LONGPAIR *nxt);
 REALPAIR *realbuffer2list(double  *s,REALPAIR *nxt);
-
-/**
-
-Name: new_
-
-Version: 0.9
-
-Synopsis:
-
-LONGPAIR *new_longpair(void);
-REALPAIR *new_realpair(void);
-IX * new_ix(void);
-IJX *new_ijx(void);
-XYZ *new_xyz(void);
-
-
-Description:  *_new_*creates aan element of a linear linked list of the specified types
-
-
- Inputs: void
-
- Return: a pointer to: LONGPAIR,  REALPAIR,  IX and IJX respectively
-
-
-Authors & Date: Riccardo Rigon, 1997
-
-FILE: LIBRARIES/BASICS/t_list.h, LIBRARIES/BASICS/list.c
-
-
-
-*/
-
-LONGPAIR *new_longpair(void);
 
 /**
 
@@ -367,32 +302,6 @@ void delete_xyz_list(XYZ *head);
 
 /**
 
-Name: appendto
-
-Version: 1.0
-
-Synopsis:
-
-LONGPAIR * appendto(LONGPAIR * head, LONGPAIR * element);
-
-Description:  appends element to a given linear linked list of the specified type
-
- Inputs: 1) a pointer to the head of the linear linked list; 2) a pointer to the element to be
- appended.
-
- Return: a pointer to the head of the linear linked list
-
- Authors & Date: Riccardo Rigon, 1997
-
-FILE: LIBRARIES/BASICS/t_list.h, LIBRARIES/BASICS/list.c
-
-
-*/
-
-LONGPAIR *appendto(LONGPAIR *head, LONGPAIR *element);
-
-/**
-
 Name: rotate
 
 Version: 1.0
@@ -416,6 +325,6 @@ FILE: LIBRARIES/BASICS/t_list.h, LIBRARIES/BASICS/list.c
 
 */
 
-LONGPAIR   *rotate(LONGPAIR *head,int n);
+LONGPAIR *rotate(LONGPAIR *head,int n);
 
 

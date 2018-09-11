@@ -1114,8 +1114,8 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   par->init_date.reset(new Vector<double>{num_param_components[cod]});
   for (i=1; i<=par->init_date->nh; i++)
     {
-      par->init_date->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components, 010119000000., 0);
-      par->init_date->co[i] = convert_dateeur12_JDfrom0(par->init_date->co[i]);
+      (*par->init_date)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components, 010119000000., 0);
+      (*par->init_date)(i) = convert_dateeur12_JDfrom0((*par->init_date)(i));
     }
 
   //simulation time
@@ -1134,15 +1134,15 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 
   for (i=1; i<=par->end_date->nh; i++)
     {
-      par->end_date->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+      (*par->end_date)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
                                                 (double) number_novalue, 0);
-      if ((long)par->end_date->co[i] == number_novalue)
+      if ((long)(*par->end_date)(i) == number_novalue)
         {
-          par->end_date->co[i] = par->init_date->co[i] + par->simulation_hours/24.;
+          (*par->end_date)(i) = (*par->init_date)(i) + par->simulation_hours/24.;
         }
       else
         {
-          par->end_date->co[i] = convert_dateeur12_JDfrom0(par->end_date->co[i]);
+          (*par->end_date)(i) = convert_dateeur12_JDfrom0((*par->end_date)(i));
         }
     }
 
@@ -1160,19 +1160,19 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 
   cod = 5;
   par->Dtplot_discharge.reset(new Vector<double> {par->init_date->nh});
-  par->Dtplot_discharge->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->Dtplot_discharge)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->Dtplot_discharge->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                        par->Dtplot_discharge->co[i - 1], 0);
+      (*par->Dtplot_discharge)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                        (*par->Dtplot_discharge)(i-1), 0);
     }
   par->plot_discharge_with_Dt_integration.reset(new Vector<short>{par->init_date->nh});
   par->state_discharge = 0;
   for (i=1; i<=par->init_date->nh; i++)
     {
-      par->Dtplot_discharge->co[i] *= 3600.;
-      if (par->Dtplot_discharge->co[i] > 1.E-5
-          && par->Dtplot_discharge->co[i] <= minDt)
+      (*par->Dtplot_discharge)(i) *= 3600.;
+      if ((*par->Dtplot_discharge)(i) > 1.E-5
+          && (*par->Dtplot_discharge)(i) <= minDt)
         {
           (*par->plot_discharge_with_Dt_integration)(i)=1;
         }
@@ -1180,23 +1180,23 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
         {
           (*par->plot_discharge_with_Dt_integration)(i)=0;
         }
-      if (par->Dtplot_discharge->co[i] > 1.E-5) par->state_discharge = 1;
+      if ((*par->Dtplot_discharge)(i) > 1.E-5) par->state_discharge = 1;
     }
 
   cod = 6;
   par->Dtplot_point.reset(new Vector<double>{par->init_date->nh});
-  par->Dtplot_point->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+ (*par->Dtplot_point)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->Dtplot_point->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                    par->Dtplot_point->co[i - 1], 0);
+     (*par->Dtplot_point)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                    (*par->Dtplot_point)(i-1), 0);
     }
   par->plot_point_with_Dt_integration.reset(new Vector<short>{par->init_date->nh});
   par->state_pixel = 0;
   for (i=1; i<=par->init_date->nh; i++)
     {
-      par->Dtplot_point->co[i] *= 3600.;
-      if (par->Dtplot_point->co[i] > 1.E-5 && par->Dtplot_point->co[i] <= minDt)
+     (*par->Dtplot_point)(i) *= 3600.;
+      if ((*par->Dtplot_point)(i) > 1.E-5 &&(*par->Dtplot_point)(i) <= minDt)
         {
           (*par->plot_point_with_Dt_integration)(i)=1;
         }
@@ -1204,23 +1204,23 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
         {
           (*par->plot_point_with_Dt_integration)(i)=0;
         }
-      if (par->Dtplot_point->co[i] > 1.E-5) par->state_pixel = 1;
+      if ((*par->Dtplot_point)(i) > 1.E-5) par->state_pixel = 1;
     }
 
   cod = 7;
   par->Dtplot_basin.reset(new Vector<double>{par->init_date->nh});
-  par->Dtplot_basin->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->Dtplot_basin)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->Dtplot_basin->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                    par->Dtplot_basin->co[i - 1], 0);
+      (*par->Dtplot_basin)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                    (*par->Dtplot_basin)(i-1), 0);
     }
   par->plot_basin_with_Dt_integration.reset(new Vector<short>{par->init_date->nh});
   par->state_basin = 0;
   for (i=1; i<=par->init_date->nh; i++)
     {
-      par->Dtplot_basin->co[i] *= 3600.;
-      if (par->Dtplot_basin->co[i] > 1.E-5 && par->Dtplot_basin->co[i] <= minDt)
+      (*par->Dtplot_basin)(i) *= 3600.;
+      if ((*par->Dtplot_basin)(i) > 1.E-5 && (*par->Dtplot_basin)(i) <= minDt)
         {
           (*par->plot_basin_with_Dt_integration)(i)=1;
         }
@@ -1228,7 +1228,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
         {
           (*par->plot_basin_with_Dt_integration)(i)=0;
         }
-      if (par->Dtplot_basin->co[i] > 1.E-5) par->state_basin = 1;
+      if ((*par->Dtplot_basin)(i) > 1.E-5) par->state_basin = 1;
     }
 
 
@@ -1243,46 +1243,46 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   //land cover types
   par->n_landuses = (long) assignation_number(14, 0, keyword, num_param, num_param_components, 1., 0);
 
-  land->ty = new_doublematrix(par->n_landuses, nlandprop);
+  land->ty.reset(new Matrix<double>{par->n_landuses, nlandprop});
 
-  land->ty->co[1][jz0] = assignation_number(15, 0, keyword, num_param, num_param_components, 10., 0);
-  land->ty->co[1][jz0thressoil] = assignation_number(16, 0, keyword, num_param, num_param_components,
-                                                     land->ty->co[1][jz0], 0);
-  land->ty->co[1][jHveg] = assignation_number(17, 0, keyword, num_param, num_param_components, 1000., 0);
-  land->ty->co[1][jz0thresveg] = assignation_number(18, 0, keyword, num_param, num_param_components,
-                                                    land->ty->co[1][jHveg], 0);
-  land->ty->co[1][jz0thresveg2] = assignation_number(19, 0, keyword, num_param, num_param_components,
-                                                     land->ty->co[1][jz0thresveg], 0);
-  land->ty->co[1][jLSAI] = assignation_number(20, 0, keyword, num_param, num_param_components, 1., 0);
-  land->ty->co[1][jcf] = assignation_number(21, 0, keyword, num_param, num_param_components, 0., 0);
-  land->ty->co[1][jdecay0] = assignation_number(22, 0, keyword, num_param, num_param_components, 2.5, 0);
-  land->ty->co[1][jexpveg] = assignation_number(23, 0, keyword, num_param, num_param_components, 1., 0);
-  land->ty->co[1][jroot] = assignation_number(24, 0, keyword, num_param, num_param_components, 300., 0);
-  land->ty->co[1][jrs] = assignation_number(25, 0, keyword, num_param, num_param_components, 60., 0);
-  land->ty->co[1][jvR_vis] = assignation_number(26, 0, keyword, num_param, num_param_components, 0.2, 0);
-  land->ty->co[1][jvR_nir] = assignation_number(27, 0, keyword, num_param, num_param_components, 0.2, 0);
-  land->ty->co[1][jvT_vis] = assignation_number(28, 0, keyword, num_param, num_param_components, 0.2, 0);
-  land->ty->co[1][jvT_nir] = assignation_number(29, 0, keyword, num_param, num_param_components, 0.2, 0);
-  land->ty->co[1][jvCh] = assignation_number(30, 0, keyword, num_param, num_param_components, 0., 0);
-  land->ty->co[1][jcd] = assignation_number(31, 0, keyword, num_param, num_param_components, 2., 0);
-  land->ty->co[1][ja_vis_dry] = assignation_number(32, 0, keyword, num_param, num_param_components, 0.2, 0);
-  land->ty->co[1][ja_nir_dry] = assignation_number(33, 0, keyword, num_param, num_param_components,
-                                                   land->ty->co[1][ja_vis_dry], 0);
-  land->ty->co[1][ja_vis_sat] = assignation_number(34, 0, keyword, num_param, num_param_components,
-                                                   land->ty->co[1][ja_vis_dry], 0);
-  land->ty->co[1][ja_nir_sat] = assignation_number(35, 0, keyword, num_param, num_param_components,
-                                                   land->ty->co[1][ja_nir_dry], 0);
-  land->ty->co[1][jemg] = assignation_number(36, 0, keyword, num_param, num_param_components, 0.96, 0);
-  land->ty->co[1][jcm] = assignation_number(37, 0, keyword, num_param, num_param_components, 0.5, 0);
-  land->ty->co[1][jN] = assignation_number(38, 0, keyword, num_param, num_param_components, 0., 0);
-  land->ty->co[1][jdv] = assignation_number(39, 0, keyword, num_param, num_param_components, 50., 0);
+  (*land->ty)(1,jz0) = assignation_number(15, 0, keyword, num_param, num_param_components, 10., 0);
+  (*land->ty)(1,jz0thressoil) = assignation_number(16, 0, keyword, num_param, num_param_components,
+                                                     (*land->ty)(1,jz0), 0);
+  (*land->ty)(1,jHveg) = assignation_number(17, 0, keyword, num_param, num_param_components, 1000., 0);
+  (*land->ty)(1,jz0thresveg) = assignation_number(18, 0, keyword, num_param, num_param_components,
+                                                    (*land->ty)(1,jHveg), 0);
+  (*land->ty)(1,jz0thresveg2) = assignation_number(19, 0, keyword, num_param, num_param_components,
+                                                     (*land->ty)(1,jz0thresveg), 0);
+  (*land->ty)(1,jLSAI) = assignation_number(20, 0, keyword, num_param, num_param_components, 1., 0);
+  (*land->ty)(1,jcf) = assignation_number(21, 0, keyword, num_param, num_param_components, 0., 0);
+  (*land->ty)(1,jdecay0) = assignation_number(22, 0, keyword, num_param, num_param_components, 2.5, 0);
+  (*land->ty)(1,jexpveg) = assignation_number(23, 0, keyword, num_param, num_param_components, 1., 0);
+  (*land->ty)(1,jroot) = assignation_number(24, 0, keyword, num_param, num_param_components, 300., 0);
+  (*land->ty)(1,jrs) = assignation_number(25, 0, keyword, num_param, num_param_components, 60., 0);
+  (*land->ty)(1,jvR_vis) = assignation_number(26, 0, keyword, num_param, num_param_components, 0.2, 0);
+  (*land->ty)(1,jvR_nir) = assignation_number(27, 0, keyword, num_param, num_param_components, 0.2, 0);
+  (*land->ty)(1,jvT_vis) = assignation_number(28, 0, keyword, num_param, num_param_components, 0.2, 0);
+  (*land->ty)(1,jvT_nir) = assignation_number(29, 0, keyword, num_param, num_param_components, 0.2, 0);
+  (*land->ty)(1,jvCh) = assignation_number(30, 0, keyword, num_param, num_param_components, 0., 0);
+  (*land->ty)(1,jcd) = assignation_number(31, 0, keyword, num_param, num_param_components, 2., 0);
+  (*land->ty)(1,ja_vis_dry) = assignation_number(32, 0, keyword, num_param, num_param_components, 0.2, 0);
+  (*land->ty)(1,ja_nir_dry) = assignation_number(33, 0, keyword, num_param, num_param_components,
+                                                   (*land->ty)(1,ja_vis_dry), 0);
+  (*land->ty)(1,ja_vis_sat) = assignation_number(34, 0, keyword, num_param, num_param_components,
+                                                   (*land->ty)(1,ja_vis_dry), 0);
+  (*land->ty)(1,ja_nir_sat) = assignation_number(35, 0, keyword, num_param, num_param_components,
+                                                   (*land->ty)(1,ja_nir_dry), 0);
+  (*land->ty)(1,jemg) = assignation_number(36, 0, keyword, num_param, num_param_components, 0.96, 0);
+  (*land->ty)(1,jcm) = assignation_number(37, 0, keyword, num_param, num_param_components, 0.5, 0);
+  (*land->ty)(1,jN) = assignation_number(38, 0, keyword, num_param, num_param_components, 0., 0);
+  (*land->ty)(1,jdv) = assignation_number(39, 0, keyword, num_param, num_param_components, 50., 0);
 
   for (i=2; i<=par->n_landuses; i++)
     {
       for (j=1; j<=nlandprop; j++)
         {
-          land->ty->co[i][j] = assignation_number(15 + j - 1, i - 1, keyword, num_param, num_param_components,
-                                                  land->ty->co[i - 1][j], 0);
+          (*land->ty)(i,j) = assignation_number(15 + j - 1, i - 1, keyword, num_param, num_param_components,
+                                                  (*land->ty)(i-1,j), 0);
         }
     }
 
@@ -1459,18 +1459,18 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 
   if (par->point_sim == 1)
     {
-      par->chkpt = new_doublematrix(npoints, ptTOT);
+      par->chkpt.reset(new Matrix<double>{npoints, ptTOT});
     }
   else
     {
-      par->chkpt = new_doublematrix(npoints, 3);
+      par->chkpt.reset(new Matrix<double>{npoints, 3});
     }
 
   for (i=1; i<=par->chkpt->nrh; i++)
     {
       for (j=1; j<=par->chkpt->nch; j++)
         {
-          par->chkpt->co[i][j] = assignation_number(cod + j - 1, i - 1, keyword, num_param, num_param_components,
+          (*par->chkpt)(i,j)= assignation_number(cod + j - 1, i - 1, keyword, num_param, num_param_components,
                                                     (double) number_novalue, 0);
         }
     }
@@ -1479,7 +1479,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   par->saving_points.reset(new Vector<double>{num_param_components[cod]});
   for (i=1; i<=par->saving_points->nh; i++)
     {
-      par->saving_points->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components, 0., 0);
+      (*par->saving_points)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components, 0., 0);
     }
 
   par->output_soil.reset(new Vector<double>{par->init_date->nh});
@@ -1490,51 +1490,51 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   par->output_meteo.reset(new Vector<double>{par->init_date->nh});
 
   cod = 157;
-  par->output_soil->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->output_soil)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->output_soil->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                   par->output_soil->co[i - 1], 0);
+      (*par->output_soil)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                   (*par->output_soil)(i-1), 0);
     }
 
   cod = 158;
-  par->output_snow->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->output_snow)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->output_snow->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                   par->output_snow->co[i - 1], 0);
+      (*par->output_snow)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                   (*par->output_snow)(i-1), 0);
     }
 
   cod = 159;
-  par->output_glac->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->output_glac)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->output_glac->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                   par->output_glac->co[i - 1], 0);
+      (*par->output_glac)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                   (*par->output_glac)(i-1), 0);
     }
 
   cod = 160;
-  par->output_surfenergy->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->output_surfenergy)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->output_surfenergy->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                         par->output_surfenergy->co[i - 1], 0);
+      (*par->output_surfenergy)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                         (*par->output_surfenergy)(i-1), 0);
     }
 
   cod = 161;
-  par->output_vegetation->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->output_vegetation)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->output_vegetation->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                         par->output_vegetation->co[i - 1], 0);
+      (*par->output_vegetation)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                         (*par->output_vegetation)(i-1), 0);
     }
 
   cod = 162;
-  par->output_meteo->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
+  (*par->output_meteo)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 0., 0);
   for (i=2; i<=par->init_date->nh; i++)
     {
-      par->output_meteo->co[i] = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
-                                                    par->output_meteo->co[i - 1], 0);
+      (*par->output_meteo)(i) = assignation_number(cod, i - 1, keyword, num_param, num_param_components,
+                                                    (*par->output_meteo)(i-1), 0);
     }
 
   par->output_soil_bin = 0;
@@ -1545,11 +1545,11 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 
   for (i=1; i<=par->init_date->nh; i++)
     {
-      if (par->output_soil->co[i] > 0) par->output_soil_bin = 1;
-      if (par->output_snow->co[i] > 0) par->output_snow_bin = 1;
-      if (par->output_glac->co[i] > 0) par->output_glac_bin = 1;
-      if (par->output_surfenergy->co[i] > 0) par->output_surfenergy_bin = 1;
-      if (par->output_meteo->co[i] > 0) par->output_meteo_bin = 1;
+      if ((*par->output_soil)(i) > 0) par->output_soil_bin = 1;
+      if ((*par->output_snow)(i) > 0) par->output_snow_bin = 1;
+      if ((*par->output_glac)(i) > 0) par->output_glac_bin = 1;
+      if ((*par->output_surfenergy)(i) > 0) par->output_surfenergy_bin = 1;
+      if ((*par->output_meteo)(i) > 0) par->output_meteo_bin = 1;
     }
 
   cod = 163;
@@ -1561,15 +1561,14 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
       t_error("Fatal Error! Geotop is closed. See failing report.");
     }
 
-  times->JD_plots.reset(new Vector<double> {num_param_components[cod] +
-                                     num_param_components[codn]});
+  times->JD_plots.reset(new Vector<double> {num_param_components[cod] + num_param_components[codn]});
   for (i=1; i<=(long)(times->JD_plots->nh/2.); i++)
     {
-      times->JD_plots->co[2*i-1] = assignation_number(cod, i - 1, keyword, num_param, num_param_components, 0., 0);
-      times->JD_plots->co[2*i  ] = assignation_number(codn, i - 1, keyword, num_param, num_param_components, 0., 0);
+      (*times->JD_plots)(2*i-1) = assignation_number(cod, i - 1, keyword, num_param, num_param_components, 0., 0);
+      (*times->JD_plots)(2*i) = assignation_number(codn, i - 1, keyword, num_param, num_param_components, 0., 0);
     }
-  if (times->JD_plots->nh == 2 && times->JD_plots->co[1] < 1.E-5
-      && times->JD_plots->co[2] < 1.E-5)
+  if (times->JD_plots->nh == 2 && (*times->JD_plots)(1) < 1.E-5
+      && (*times->JD_plots)(2) < 1.E-5)
     {
       times->JD_plots.reset(new Vector<double>{1});
     }
@@ -1577,7 +1576,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
     {
       for (i=1; i<=times->JD_plots->nh; i++)
         {
-          times->JD_plots->co[i] = convert_dateeur12_JDfrom0(times->JD_plots->co[i]);
+          (*times->JD_plots)(i) = convert_dateeur12_JDfrom0((*times->JD_plots)(i));
         }
     }
 
@@ -1803,44 +1802,44 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   met->st->Theight.reset(new Vector<double>{nmeteo_stations});
 
   i=1;
-  met->st->E->co[i] = assignation_number(201, i - 1, keyword, num_param, num_param_components, (double) number_novalue,
+  (*met->st->E)(i) = assignation_number(201, i - 1, keyword, num_param, num_param_components, (double) number_novalue,
                                          0);
-  met->st->N->co[i] = assignation_number(202, i - 1, keyword, num_param, num_param_components, (double) number_novalue,
+  (*met->st->N)(i) = assignation_number(202, i - 1, keyword, num_param, num_param_components, (double) number_novalue,
                                          0);
-  met->st->lat->co[i] = assignation_number(203, i - 1, keyword, num_param, num_param_components, par->latitude, 0);
-  met->st->lon->co[i] = assignation_number(204, i - 1, keyword, num_param, num_param_components, par->longitude, 0);
-  met->st->Z->co[i] = assignation_number(205, i - 1, keyword, num_param, num_param_components, 0., 0);
-  met->st->sky->co[i] = assignation_number(206, i - 1, keyword, num_param, num_param_components, 1., 0);
-  met->st->ST->co[i] = assignation_number(207, i - 1, keyword, num_param, num_param_components, par->ST, 0);
+  (*met->st->lat)(i) = assignation_number(203, i - 1, keyword, num_param, num_param_components, par->latitude, 0);
+ (*met->st->lon)(i) = assignation_number(204, i - 1, keyword, num_param, num_param_components, par->longitude, 0);
+ (*met->st->Z)(i) = assignation_number(205, i - 1, keyword, num_param, num_param_components, 0., 0);
+ (*met->st->sky)(i) = assignation_number(206, i - 1, keyword, num_param, num_param_components, 1., 0);
+  (*met->st->ST)(i) = assignation_number(207, i - 1, keyword, num_param, num_param_components, par->ST, 0);
 
   for (i=2; i<=nmeteo_stations; i++)
     {
-      met->st->E->co[i] = assignation_number(201, i - 1, keyword, num_param, num_param_components,
-                                             met->st->E->co[i - 1], 0);
-      met->st->N->co[i] = assignation_number(202, i - 1, keyword, num_param, num_param_components,
-                                             met->st->N->co[i - 1], 0);
-      met->st->lat->co[i] = assignation_number(203, i - 1, keyword, num_param, num_param_components,
-                                               met->st->lat->co[i - 1], 0);
-      met->st->lon->co[i] = assignation_number(204, i - 1, keyword, num_param, num_param_components,
-                                               met->st->lon->co[i - 1], 0);
-      met->st->Z->co[i] = assignation_number(205, i - 1, keyword, num_param, num_param_components,
-                                             met->st->Z->co[i - 1], 0);
-      met->st->sky->co[i] = assignation_number(206, i - 1, keyword, num_param, num_param_components,
-                                               met->st->sky->co[i - 1], 0);
-      met->st->ST->co[i] = assignation_number(207, i - 1, keyword, num_param, num_param_components,
-                                              met->st->ST->co[i - 1], 0);
+      (*met->st->E)(i) = assignation_number(201, i - 1, keyword, num_param, num_param_components,
+                                             (*met->st->E)(i-1), 0);
+      (*met->st->N)(i) = assignation_number(202, i - 1, keyword, num_param, num_param_components,
+                                             (*met->st->N)(i-1), 0);
+      (*met->st->lat)(i) = assignation_number(203, i - 1, keyword, num_param, num_param_components,
+                                               (*met->st->lat)(i-1), 0);
+     (*met->st->lon)(i) = assignation_number(204, i - 1, keyword, num_param, num_param_components,
+                                               (*met->st->lon)(i-1), 0);
+     (*met->st->Z)(i) = assignation_number(205, i - 1, keyword, num_param, num_param_components,
+                                            (*met->st->Z)(i-1), 0);
+     (*met->st->sky)(i) = assignation_number(206, i - 1, keyword, num_param, num_param_components,
+                                               (*met->st->sky)(i-1), 0);
+      (*met->st->ST)(i) = assignation_number(207, i - 1, keyword, num_param, num_param_components,
+                                              (*met->st->ST)(i-1), 0);
     }
 
   a = assignation_number(208, 0, keyword, num_param, num_param_components, 10., 0);
   for (i=1; i<=nmeteo_stations; i++)
     {
-      met->st->Vheight->co[i] = a;
+      (*met->st->Vheight)(i) = a;
     }
 
   a = assignation_number(209, 0, keyword, num_param, num_param_components, 2., 0);
   for (i=1; i<=nmeteo_stations; i++)
     {
-      met->st->Theight->co[i] = a;
+      (*met->st->Theight)(i) = a;
     }
 
   //lapse rates (cyclic)
@@ -1968,7 +1967,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   par->soil_plot_depths.reset(new Vector<double>{n});
   for (n=1; n<=par->soil_plot_depths->nh; n++)
     {
-      par->soil_plot_depths->co[n] = assignation_number(cod, n - 1, keyword, num_param, num_param_components,
+      (*par->soil_plot_depths)(n) = assignation_number(cod, n - 1, keyword, num_param, num_param_components,
                                                         (double) number_novalue, 0);
     }
 
@@ -1984,7 +1983,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   par->snow_plot_depths.reset(new Vector<double>{n});
   for (n=1; n<=par->snow_plot_depths->nh; n++)
     {
-      par->snow_plot_depths->co[n] = assignation_number(cod, n - 1, keyword, num_param, num_param_components,
+      (*par->snow_plot_depths)(n) = assignation_number(cod, n - 1, keyword, num_param, num_param_components,
                                                         (double) number_novalue, 0);
     }
 
@@ -2000,12 +1999,12 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   par->glac_plot_depths.reset(new Vector<double>{n});
   for (n=1; n<=par->glac_plot_depths->nh; n++)
     {
-      par->glac_plot_depths->co[n] = assignation_number(cod, n - 1, keyword, num_param, num_param_components,
+      (*par->glac_plot_depths)(n) = assignation_number(cod, n - 1, keyword, num_param, num_param_components,
                                                         (double) number_novalue, 0);
     }
 
   //output snow column
-  if ((long)par->snow_plot_depths->co[1] != number_novalue)
+  if ((long)(*par->snow_plot_depths)(1) != number_novalue)
     {
       m = par->snow_plot_depths->nh;
     }
@@ -2053,7 +2052,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 
 
   //output glacier column
-  if ((long)par->glac_plot_depths->co[1] != number_novalue)
+  if ((long)(*par->glac_plot_depths)(1) != number_novalue)
     {
       m = par->glac_plot_depths->nh;
     }
@@ -2657,7 +2656,7 @@ short read_point_file(char *name, char **key_header, PAR *par)
 {
   GEOLOG_PREFIX(__func__);
 
-  DOUBLEMATRIX *chkpt2;
+  std::unique_ptr<Matrix<double>> chkpt2;
   double **points;
   long nlines, n, j;
   char *temp;
@@ -2669,35 +2668,33 @@ short read_point_file(char *name, char **key_header, PAR *par)
       points = read_txt_matrix(temp, 33, 44, key_header, par->chkpt->nch, &nlines);
       free(temp);
 
-      chkpt2 = new_doublematrix(par->chkpt->nrh, par->chkpt->nch);
-      copy_doublematrix(par->chkpt, chkpt2);
-      free_doublematrix(par->chkpt);
+      chkpt2.reset(new Matrix<double>{*par->chkpt});
+      //copy_doublematrix(par->chkpt, chkpt2);
 
-      par->chkpt = new_doublematrix(nlines, chkpt2->nch);
+      par->chkpt.reset(new Matrix<double>{nlines, chkpt2->nch});
 
       for (n=1; n<=nlines; n++)
         {
           for (j=1; j<=chkpt2->nch; j++)
             {
-              par->chkpt->co[n][j] = points[n-1][j-1];
-              if ( (long)par->chkpt->co[n][j] == number_novalue
-                   || (long)par->chkpt->co[n][j] == number_absent )
+              (*par->chkpt)(n,j) = points[n-1][j-1];
+              if ( (long)(*par->chkpt)(n,j) == number_novalue
+                   || (long)(*par->chkpt)(n,j) == number_absent )
                 {
                   if ( n <= chkpt2->nrh )
                     {
-                      par->chkpt->co[n][j] = chkpt2->co[n][j];
+                      (*par->chkpt)(n,j) = (*chkpt2)(n,j);
                     }
                   else
                     {
-                      par->chkpt->co[n][j] = chkpt2->co[chkpt2->nrh][j];
+                      (*par->chkpt)(n,j) = (*chkpt2)(chkpt2->nrh,j);
                     }
                 }
             }
 
           if ( par->point_sim != 1 )
             {
-              if ( (long)par->chkpt->co[n][ptX] == number_novalue
-                   || (long)par->chkpt->co[n][ptY] == number_novalue )
+              if ( (long)(*par->chkpt)(n,ptX) == number_novalue || (long)(*par->chkpt)(n,ptY) == number_novalue )
                 {
                   par->state_pixel = 0;
                 }
@@ -2706,7 +2703,6 @@ short read_point_file(char *name, char **key_header, PAR *par)
           free(points[n-1]);
         }
 
-      free_doublematrix(chkpt2);
       free(points);
     }
 
@@ -2714,8 +2710,7 @@ short read_point_file(char *name, char **key_header, PAR *par)
     {
       for (n=1; n<=par->chkpt->nrh; n++)
         {
-          if ( (long)par->chkpt->co[n][ptX] == number_novalue
-               || (long)par->chkpt->co[n][ptY] == number_novalue)
+          if ( (long)(*par->chkpt)(n,ptX) == number_novalue || (long)(*par->chkpt)(n,ptY) == number_novalue)
             {
 	      geolog << "Warning: The points to plot specific results are not completely specified\n"
 		     << "Output for single point output is deactivated." << std::endl;
@@ -2759,31 +2754,31 @@ short read_meteostations_file(Vector<long> *i, METEO_STATIONS *S, char *name, ch
                         {
                           if (k==1)
                             {
-                              S->E->co[j] = M[n-1][k];
+                              (*S->E)(j) = M[n-1][k];
                             }
                           else if (k==2)
                             {
-                              S->N->co[j] = M[n-1][k];
+                              (*S->N)(j) = M[n-1][k];
                             }
                           else if (k==3)
                             {
-                              S->lat->co[j] = M[n-1][k];
+                              (*S->lat)(j) = M[n-1][k];
                             }
                           else if (k==4)
                             {
-                              S->lon->co[j] = M[n-1][k];
+                             (*S->lon)(j) = M[n-1][k];
                             }
                           else if (k==5)
                             {
-                              S->Z->co[j] = M[n-1][k];
+                             (*S->Z)(j) = M[n-1][k];
                             }
                           else if (k==6)
                             {
-                              S->sky->co[j] = M[n-1][k];
+                              (*S->sky)(j) = M[n-1][k];
                             }
                           else if (k==7)
                             {
-                              S->ST->co[j] = M[n-1][k];
+                              (*S->ST)(j) = M[n-1][k];
                             }
                         }
                     }

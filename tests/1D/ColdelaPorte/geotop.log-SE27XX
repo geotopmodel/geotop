@@ -6,7 +6,7 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: /home/ubuntu/geotopmodel/geotop/tests/1D/ColdelaPorte/
+WORKING DIRECTORY: ./
 
 TimeStepEnergyAndWater[1] = 3.600000e+03 
 InitDateDDMMYYYYhhmm[1] = 1.081993e+10 
@@ -1065,13 +1065,13 @@ Novalue pixels: 0
 Basin area: 0.000001 km2
 
 Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /home/ubuntu/geotopmodel/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Date
-Column 2 in file /home/ubuntu/geotopmodel/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Prec
-Column 3 in file /home/ubuntu/geotopmodel/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Ws
-Column 4 in file /home/ubuntu/geotopmodel/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Wd
-Column 5 in file /home/ubuntu/geotopmodel/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to Tair
-Column 6 in file /home/ubuntu/geotopmodel/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to SW
-Column 7 in file /home/ubuntu/geotopmodel/geotop/tests/1D/ColdelaPorte/GEOtop_CDP_0001.txt assigned to LW
+Column 1 in file ./GEOtop_CDP_0001.txt assigned to Date
+Column 2 in file ./GEOtop_CDP_0001.txt assigned to Prec
+Column 3 in file ./GEOtop_CDP_0001.txt assigned to Ws
+Column 4 in file ./GEOtop_CDP_0001.txt assigned to Wd
+Column 5 in file ./GEOtop_CDP_0001.txt assigned to Tair
+Column 6 in file ./GEOtop_CDP_0001.txt assigned to SW
+Column 7 in file ./GEOtop_CDP_0001.txt assigned to LW
 Shortwave radiation measurements from station 1
 WARNING: NO cloudiness measurements available
 Longwave radiation measurements from station 1

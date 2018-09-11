@@ -1,0 +1,89 @@
+STATEMENT:
+
+Geotop 2.0.0 - 31 Oct 2013
+
+Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: ./
+
+LOGFILE: ./geotop.log
+Column 1 in file ./soil/SoilARF0001.txt assigned to Dz
+Column 4 in file ./soil/SoilARF0001.txt assigned to Kv
+Column 3 in file ./soil/SoilARF0001.txt assigned to Kh
+Column 5 in file ./soil/SoilARF0001.txt assigned to vwc_r
+Column 6 in file ./soil/SoilARF0001.txt assigned to vwc_s
+Column 7 in file ./soil/SoilARF0001.txt assigned to VG_alpha
+Column 8 in file ./soil/SoilARF0001.txt assigned to VG_n
+Column 10 in file ./soil/SoilARF0001.txt assigned to thermcond
+Column 11 in file ./soil/SoilARF0001.txt assigned to thermcap
+Column 9 in file ./soil/SoilARF0001.txt assigned to SS
+./listpoints.txt
+Column 1 in file ./listpoints.txt assigned to ID
+Column 2 in file ./listpoints.txt assigned to xcoord
+Column 3 in file ./listpoints.txt assigned to ycoord
+Column 4 in file ./listpoints.txt assigned to zcoord
+Column 5 in file ./listpoints.txt assigned to landcover
+Column 6 in file ./listpoints.txt assigned to soiltype
+Column 7 in file ./listpoints.txt assigned to slope
+Column 8 in file ./listpoints.txt assigned to aspect
+Column 9 in file ./listpoints.txt assigned to sky
+Column 10 in file ./listpoints.txt assigned to bedrock
+Attempting to read 'DemFile' in the file 'none': not present in file list
+Warning: Dem file not present
+Warning: Dem file is not present, and therefore it is not possible to calculate curvature
+
+Warning:: No horizon file found for point type #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+
+Valid pixels: 1
+Number of nodes: 51
+Novalue pixels: 0
+Basin area: 0.000001 km2
+
+
+Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+Column 1 in file ./meteo/meteoNARRhourlyDynamicRepeatedWithSpinUp0001.txt assigned to POSIX
+Column 2 in file ./meteo/meteoNARRhourlyDynamicRepeatedWithSpinUp0001.txt assigned to JD
+Column 3 in file ./meteo/meteoNARRhourlyDynamicRepeatedWithSpinUp0001.txt assigned to Iprec
+Column 4 in file ./meteo/meteoNARRhourlyDynamicRepeatedWithSpinUp0001.txt assigned to WindSp
+Column 5 in file ./meteo/meteoNARRhourlyDynamicRepeatedWithSpinUp0001.txt assigned to RH
+Column 6 in file ./meteo/meteoNARRhourlyDynamicRepeatedWithSpinUp0001.txt assigned to AirT
+Column 7 in file ./meteo/meteoNARRhourlyDynamicRepeatedWithSpinUp0001.txt assigned to Swglob
+Column 8 in file ./meteo/meteoNARRhourlyDynamicRepeatedWithSpinUp0001.txt assigned to CloudTrans
+Shortwave radiation measurements from station 1
+Cloudiness measurements from station 1
+WARNING: NO longwave radiation measurements available
+WARNING: NO Surface temperature measurements available
+WARNING: NO Bottom temperature measurements available
+There is a specific vegetation parameter file for land cover type = 1
+Soil water evaporates from the first 10 layers
+Soil water transpires from the first 50 layers
+2/1/2000 23:00 10.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/1/2000 23:00 20.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/1/2000 23:00 30.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/1/2000 23:00 40.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/1/2000 23:00 50.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/1/2000 23:00 60.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/1/2000 23:00 70.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+9/1/2000 23:00 80.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+10/1/2000 23:00 90.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+11/1/2000 23:00 100.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+Number of times the simulation #1 has been run: 1
+Close files
+Deallocating global variables
+Deallocating soil
+Deallocating top
+Deallocating land
+Deallocating water
+Deallocating channel network
+Deallocating UV
+Deallocating egy
+Deallocating snow
+Deallocating glacier
+Deallocating met
+Deallocating times
+Deallocating par
+Deallocating files
+Deallocating novalues
+End of simulation!

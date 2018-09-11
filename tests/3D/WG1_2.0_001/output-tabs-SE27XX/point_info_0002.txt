@@ -104,8 +104,6 @@
  The root fraction [-] of layer 5: 0.000000
  The root fraction [-] of layer 6: 0.000000
  The root fraction [-] of layer 7: 0.000000
- The root fraction [-] of layer 8: 0.060000
- The root fraction [-] of layer 9: 0.200000
  Surface fraction of land covered by vegetation [-]: 0.000000 
  Leaf and Stem Area Index [-]: 0.000000 
  Momentum roughness length z0soil [m]: 0.100000 

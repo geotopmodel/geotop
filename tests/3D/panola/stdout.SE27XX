@@ -6,437 +6,6 @@ Geotop 2.0.0  is a free software and is distributed under GNU General Public Lic
 WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 
-WORKING DIRECTORY: /Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/
-
-LOGFILE: /Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/geotop.log
-Attempting to read 'DemFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-maps/dtm_map': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-maps/dtm_map
-Attempting to read 'LandCoverMapFile' in the file 'none': not present in file list
-Land cover type assumed to be always 1
-Attempting to read 'SkyViewFactorMapFile' in the file 'none': not present in file list
-Attempting to read 'DaysDelayMapFile' in the file 'none': not present in file list
-Attempting to read 'SoilMapFile' in the file 'none': not present in file list
-Attempting to read 'SlopeMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-maps/slope': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-maps/slope
-Slope Min:0.105732 (6.035564 deg) Max:0.253756 (14.238626 deg) 
-Attempting to read 'AspectMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-maps/aspect': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-maps/aspect
-Curvature N-S Min:-0.050065  Max:0.050065 
-Curvature W-E Min:-0.000000  Max:0.000000 
-Curvature NW-SE Min:-0.050065  Max:0.050065 
-Curvature NE-SW Min:-0.050065  Max:0.050065 
-Attempting to read 'RiverNetwork' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-maps/net': not existing
-Attempting to read 'BedrockDepthMapFile' in the file '/Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-maps/bedrock_depth': EXISTING in format 3
-/Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-maps/bedrock_depth
-
-Valid pixels: 2059
-Number of nodes: 24708
-Novalue pixels: 416
-Basin area: 0.002059 km2
-
-
-Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-meteo/meteo0001.txt assigned to Date
-Column 2 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-meteo/meteo0001.txt assigned to JDfrom0
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-meteo/meteo0001.txt assigned to Iprec
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-meteo/meteo0001.txt assigned to WindSp
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-meteo/meteo0001.txt assigned to WindDir
-Column 6 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-meteo/meteo0001.txt assigned to RelHum
-Column 7 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-meteo/meteo0001.txt assigned to AirT
-Column 8 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-meteo/meteo0001.txt assigned to SWglobal
-Column 9 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input-meteo/meteo0001.txt assigned to CloudTrans
-Column 1 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input/lapserate.txt assigned to Date
-Column 3 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input/lapserate.txt assigned to LapseRateTemp
-Column 4 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input/lapserate.txt assigned to LapseRateDewTemp
-Column 5 in file /Users/cozzini/GEOTOP/github/geotop/tests/3D/panola/input/lapserate.txt assigned to LapseRatePrec
-
-Lapse rate file read
-Shortwave radiation measurements from station 1
-Cloudiness measurements from station 1
-WARNING: NO longwave radiation measurements available
-WARNING: NO Surface temperature measurements available
-WARNING: NO Bottom temperature measurements available
-Soil water evaporates from the first 1 layers
-Soil water transpires from the first 11 layers
-cnt:1 res:2.182100e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:1.985799e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:3.583452e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:1.047216e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:5 res:1.812869e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:7.985598e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:1.658406e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:4.439527e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 1:00 4.17% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
-cnt:1 res:1.376620e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:1.951000e-01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:9.641167e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:2 res:1.403498e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
-cnt:2 res:1.132072e-02 lambda:1.743645e-02 Dt:3600.000000 P:10.000000
-cnt:3 res:1.065931e-01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:1.944140e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:1.423169e-02 lambda:1.986235e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:1.095568e-02 lambda:1.986235e-02 Dt:3600.000000 P:10.000000
-cnt:4 res:7.850448e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:1.706192e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:8.997015e-03 lambda:1.948260e-01 Dt:3600.000000 P:10.000000
-cnt:5 res:5.795857e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:1.225839e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:1.275046e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:1.790211e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:5.588581e-10 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:10 res:4.984932e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 2:00 8.33% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
-cnt:1 res:2.119121e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:1.274195e-01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:6.270635e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:2 res:2.055764e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
-cnt:3 res:1.817475e+00 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:7.798822e-01 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:1.936993e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
-cnt:4 res:3.826468e-01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:1.134836e-01 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:1.832403e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
-cnt:5 res:1.666354e-01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:5 res:1.887930e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:5 res:1.223877e-02 lambda:2.481139e-01 Dt:3600.000000 P:10.000000
-cnt:6 res:6.010750e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:1.290262e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:2.401882e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:1.166794e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:10 res:2.999408e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:11 res:2.078937e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 3:00 12.50% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
-cnt:1 res:1.715071e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:5.489685e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.650380e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:2 res:2.149423e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
-cnt:2 res:1.706446e-02 lambda:5.000000e-03 Dt:3600.000000 P:10.000000
-cnt:3 res:4.202522e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:2.126301e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:1.482016e-02 lambda:1.232602e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:2.725674e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:1.526474e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:1.150115e-02 lambda:2.307499e-01 Dt:3600.000000 P:10.000000
-cnt:5 res:3.780532e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:1.054746e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:1.473855e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:3.731036e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:2.512807e-09 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:10 res:5.343454e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 4:00 16.67% - Times: Elapsed (h:m:s)  0:00:02 Remaining (h:m)  0:00  
-cnt:1 res:2.140330e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.855739e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.501532e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:2 res:1.924197e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
-cnt:3 res:2.738336e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:1.438930e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:1.385731e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:5 res:2.042797e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:2.239089e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:3.466897e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:8.583397e-10 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:1.541609e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 5:00 20.83% - Times: Elapsed (h:m:s)  0:00:02 Remaining (h:m)  0:00  
-cnt:1 res:2.018707e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:4.942677e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.542563e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:2 res:2.126678e-02 lambda:1.103986e-01 Dt:3600.000000 P:10.000000
-cnt:2 res:1.995442e-02 lambda:1.103986e-02 Dt:3600.000000 P:10.000000
-cnt:3 res:4.942813e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:2.502832e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:1.679529e-02 lambda:1.187283e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:1.950240e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:1.011383e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:5 res:6.335096e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:7.264167e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:7.454018e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:9.462675e-07 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:1.559952e-10 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:10 res:4.811743e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 6:00 25.00% - Times: Elapsed (h:m:s)  0:00:03 Remaining (h:m)  0:00  
-cnt:1 res:2.044608e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:4.646175e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.518992e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:2 res:1.628891e-02 lambda:1.064909e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:2.765118e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:1.496330e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:4.851615e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:5 res:3.290092e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:1.585174e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:4.023207e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:2.728271e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 7:00 29.17% - Times: Elapsed (h:m:s)  0:00:04 Remaining (h:m)  0:00  
-cnt:1 res:2.119369e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.514566e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.309805e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:2 res:2.007765e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
-cnt:3 res:2.510810e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:1.319547e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:1.538271e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:6.597940e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:5 res:1.421844e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:2.119580e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:6.251621e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:5.737073e-09 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:1.086607e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 8:00 33.33% - Times: Elapsed (h:m:s)  0:00:05 Remaining (h:m)  0:00  
-cnt:1 res:2.069601e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:4.088415e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.065822e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:2.232970e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:1.075936e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:3.537660e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:5 res:5.824738e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:7.423107e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:2.044606e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:1.861204e-09 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:4.289526e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 9:00 37.50% - Times: Elapsed (h:m:s)  0:00:07 Remaining (h:m)  0:00  
-cnt:1 res:1.917043e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.735507e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:1.729259e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:2.102940e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:6.825168e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:2.336666e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:5 res:2.529987e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:3.940673e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:5.487976e-09 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:2.613150e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 10:00 41.67% - Times: Elapsed (h:m:s)  0:00:09 Remaining (h:m)  0:00  
-cnt:1 res:2.101769e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.212714e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.023517e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:2.072711e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:6.632639e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:2.585643e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:5 res:3.861302e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:8.753528e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:3.105359e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:6.648936e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 11:00 45.83% - Times: Elapsed (h:m:s)  0:00:11 Remaining (h:m)  0:00  
-cnt:1 res:2.126075e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.080170e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:1.774337e-01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:4.800815e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:1.836959e-02 lambda:1.169209e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:5.944116e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:9.522829e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:5 res:1.856390e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:5 res:1.364280e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:5 res:8.722472e-03 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
-cnt:6 res:7.791813e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:4.812327e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:1.848025e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:5.746941e-07 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:10 res:6.017906e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 12:00 50.00% - Times: Elapsed (h:m:s)  0:00:14 Remaining (h:m)  0:00  
-cnt:1 res:2.083561e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:5.796872e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.903359e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:2 res:1.604856e-02 lambda:5.233583e-02 Dt:3600.000000 P:10.000000
-cnt:3 res:3.796594e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:2.054654e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:1.478039e-02 lambda:7.594824e-02 Dt:3600.000000 P:10.000000
-cnt:4 res:2.008384e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:1.188895e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:5 res:3.690035e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:5.898816e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:5.140443e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:4.577261e-07 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:3.682347e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 13:00 54.17% - Times: Elapsed (h:m:s)  0:00:17 Remaining (h:m)  0:00  
-cnt:1 res:2.134883e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.165974e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.201060e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:2 res:1.857493e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
-cnt:3 res:2.128229e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:1.112268e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:8.344044e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:5 res:2.528224e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:1.073763e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:7.724921e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:7.535399e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 14:00 58.33% - Times: Elapsed (h:m:s)  0:00:19 Remaining (h:m)  0:00  
-cnt:1 res:2.164593e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.330702e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.292525e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:2 res:2.056363e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
-cnt:3 res:2.333097e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:1.355210e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:2.189214e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:6.135510e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:5 res:6.838688e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:5 res:3.124288e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:6 res:1.320551e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:1.782577e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:9.340216e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:1.116242e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:10 res:9.884251e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 15:00 62.50% - Times: Elapsed (h:m:s)  0:00:21 Remaining (h:m)  0:00  
-cnt:1 res:2.161455e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.212195e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.273937e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:2 res:2.053382e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
-cnt:3 res:2.211027e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:1.438438e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:2.122896e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:5.719953e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:5 res:3.144417e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:3.954242e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:2.134052e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:8.928698e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:6.297005e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 16:00 66.67% - Times: Elapsed (h:m:s)  0:00:23 Remaining (h:m)  0:00  
-cnt:1 res:2.178066e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.212210e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.161074e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:2.281853e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:9.137244e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:2.184243e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:4.169022e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:5 res:1.055840e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:1.629257e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:5.181035e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:1.131248e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:1.717228e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 17:00 70.83% - Times: Elapsed (h:m:s)  0:00:25 Remaining (h:m)  0:00  
-cnt:1 res:2.160335e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.435257e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.163680e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:2 res:1.469979e-02 lambda:2.437646e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:1.510339e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:9.909678e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:1.601882e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:5 res:2.076264e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:1.087300e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:1.442716e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:1.348696e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 18:00 75.00% - Times: Elapsed (h:m:s)  0:00:28 Remaining (h:m)  0:00  
-cnt:1 res:2.180599e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.202472e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.143570e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:2.297417e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:6.764629e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:2.217111e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:3.342310e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:5 res:1.625895e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:2.799688e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:1.240634e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:2.766914e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:1.982637e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 19:00 79.17% - Times: Elapsed (h:m:s)  0:00:30 Remaining (h:m)  0:00  
-cnt:1 res:2.117911e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:3.359524e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.076562e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:2.246887e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:8.390675e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:1.247546e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:4.195395e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:5 res:8.265406e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:1.355765e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:5.983460e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:8.468655e-09 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:1.968907e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 20:00 83.33% - Times: Elapsed (h:m:s)  0:00:33 Remaining (h:m)  0:00  
-cnt:1 res:2.177929e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.275264e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.181264e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:2 res:1.663245e-02 lambda:2.316097e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:2.066688e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:7.308660e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:2.789941e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:5 res:7.226084e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:7.959272e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:1.031288e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:1.788495e-10 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 21:00 87.50% - Times: Elapsed (h:m:s)  0:00:35 Remaining (h:m)  0:00  
-cnt:1 res:2.166005e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.156491e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:1.303967e-01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:3.036756e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:1.663859e-02 lambda:2.017538e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:2.304637e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:8.214877e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:5 res:2.247025e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:5 res:3.810982e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:6 res:1.378097e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:2.358788e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:7 res:8.338099e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:3.351037e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:3.999658e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:10 res:6.294667e-10 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:11 res:2.065408e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 22:00 91.67% - Times: Elapsed (h:m:s)  0:00:37 Remaining (h:m)  0:00  
-cnt:1 res:2.176514e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.559161e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.171115e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:6.310359e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:6.781618e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:2.106737e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:1.394611e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:6.442423e-03 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
-cnt:5 res:1.402200e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:5 res:5.337505e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:6 res:1.181307e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:2.716567e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:8 res:1.610797e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:8.645067e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:10 res:9.131052e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 23:00 95.83% - Times: Elapsed (h:m:s)  0:00:40 Remaining (h:m)  0:00  
-cnt:1 res:2.385826e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:2 res:2.240568e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:9.838825e-01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:3 res:3.616355e-01 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:3 res:2.123740e-02 lambda:5.000000e-02 Dt:3600.000000 P:10.000000
-cnt:4 res:2.777448e-01 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:4 res:3.967897e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:4 res:1.641410e-02 lambda:2.080156e-01 Dt:3600.000000 P:10.000000
-cnt:5 res:2.307737e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:5 res:1.030677e-02 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:6 res:2.284638e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:6 res:5.153388e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:7 res:2.176280e-02 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:7 res:2.847831e-03 lambda:5.000000e-01 Dt:3600.000000 P:10.000000
-cnt:8 res:1.863999e-03 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:9 res:8.889821e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:10 res:3.480271e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:11 res:1.479095e-07 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-cnt:12 res:1.326699e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-2/2/2012 0:00 100.00% - Times: Elapsed (h:m:s)  0:00:42 Remaining (h:m)  0:00  
-
-2/2/2012 0:00 JD:32.000000 (1^ simulation day) 100.00% completed! 
- t_meteo:  0.07 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 41.79 s, t_sub:  6.29 s, t_sup: 35.50 s, t_out:  0.01 s
- SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
- Pvert=240.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.210057e-09 mm/h 
- Tot Error Richards=2.904136e-08 mm Mean Time Step=3600.000000 s
-
-Number of times the simulation #1 has been run: 1
-Close files
-Deallocating global variables
-Deallocating soil
-Deallocating top
-Deallocating land
-Deallocating water
-Deallocating channel network
-Deallocating UV
-Deallocating egy
-Deallocating snow
-Deallocating glacier
-Deallocating met
-Deallocating times
-Deallocating par
-Deallocating files
-Deallocating novalues
-End of simulation!
-STATEMENT:
-
-Geotop 2.0.0 - 31 Oct 2013
-
-Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
-WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
-
 WORKING DIRECTORY: ./
 
 LOGFILE: ./geotop.log
@@ -500,7 +69,7 @@ cnt:8 res:4.439530e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 1:00 4.17% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 
 1/2/2012 1:00 JD:31.041667 (1^ simulation day)  4.17% completed! 
- t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.24 s, t_sub:  0.22 s, t_sup:  0.02 s, t_out:  0.00 s
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.25 s, t_sub:  0.24 s, t_sup:  0.02 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=6.200358e-09 mm/h 
@@ -527,7 +96,7 @@ cnt:10 res:4.985311e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 2:00 8.33% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
 
 1/2/2012 2:00 JD:31.083333 (1^ simulation day)  8.33% completed! 
- t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.67 s, t_sub:  0.58 s, t_sup:  0.08 s, t_out:  0.00 s
+ t_meteo:  0.01 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  0.67 s, t_sub:  0.59 s, t_sup:  0.08 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.480699e-09 mm/h 
@@ -555,7 +124,7 @@ cnt:11 res:2.078937e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 3:00 12.50% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
 
 1/2/2012 3:00 JD:31.125000 (1^ simulation day) 12.50% completed! 
- t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  1.14 s, t_sub:  0.93 s, t_sup:  0.21 s, t_out:  0.00 s
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  1.16 s, t_sub:  0.95 s, t_sup:  0.21 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=4.877711e-10 mm/h 
@@ -581,7 +150,7 @@ cnt:10 res:5.343452e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 4:00 16.67% - Times: Elapsed (h:m:s)  0:00:02 Remaining (h:m)  0:00  
 
 1/2/2012 4:00 JD:31.166667 (1^ simulation day) 16.67% completed! 
- t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  1.68 s, t_sub:  1.24 s, t_sup:  0.44 s, t_out:  0.00 s
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  1.69 s, t_sub:  1.25 s, t_sup:  0.44 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=2.443156e-10 mm/h 
@@ -599,10 +168,10 @@ cnt:6 res:2.239089e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 cnt:7 res:3.466897e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 cnt:8 res:8.583397e-10 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 cnt:9 res:1.541155e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 5:00 20.83% - Times: Elapsed (h:m:s)  0:00:02 Remaining (h:m)  0:00  
+1/2/2012 5:00 20.83% - Times: Elapsed (h:m:s)  0:00:03 Remaining (h:m)  0:00  
 
 1/2/2012 5:00 JD:31.208333 (1^ simulation day) 20.83% completed! 
- t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  2.29 s, t_sub:  1.48 s, t_sup:  0.81 s, t_out:  0.00 s
+ t_meteo:  0.02 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  2.33 s, t_sub:  1.50 s, t_sup:  0.84 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.315069e-11 mm/h 
@@ -627,7 +196,7 @@ cnt:10 res:4.736815e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 6:00 25.00% - Times: Elapsed (h:m:s)  0:00:03 Remaining (h:m)  0:00  
 
 1/2/2012 6:00 JD:31.250000 (1^ simulation day) 25.00% completed! 
- t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  3.04 s, t_sub:  1.77 s, t_sup:  1.27 s, t_out:  0.00 s
+ t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  3.10 s, t_sub:  1.79 s, t_sup:  1.31 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.015060e-11 mm/h 
@@ -647,7 +216,7 @@ cnt:8 res:2.794512e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 7:00 29.17% - Times: Elapsed (h:m:s)  0:00:04 Remaining (h:m)  0:00  
 
 1/2/2012 7:00 JD:31.291667 (1^ simulation day) 29.17% completed! 
- t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  3.86 s, t_sub:  2.00 s, t_sup:  1.86 s, t_out:  0.00 s
+ t_meteo:  0.03 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  3.90 s, t_sub:  2.01 s, t_sup:  1.89 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.834950e-10 mm/h 
@@ -669,7 +238,7 @@ cnt:9 res:1.021154e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 8:00 33.33% - Times: Elapsed (h:m:s)  0:00:05 Remaining (h:m)  0:00  
 
 1/2/2012 8:00 JD:31.333333 (1^ simulation day) 33.33% completed! 
- t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  5.04 s, t_sub:  2.25 s, t_sup:  2.79 s, t_out:  0.00 s
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  5.06 s, t_sub:  2.27 s, t_sup:  2.80 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=2.269517e-10 mm/h 
@@ -689,7 +258,7 @@ cnt:8 res:5.882139e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 9:00 37.50% - Times: Elapsed (h:m:s)  0:00:07 Remaining (h:m)  0:00  
 
 1/2/2012 9:00 JD:31.375000 (1^ simulation day) 37.50% completed! 
- t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  6.60 s, t_sub:  2.47 s, t_sup:  4.13 s, t_out:  0.00 s
+ t_meteo:  0.04 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  6.60 s, t_sub:  2.49 s, t_sup:  4.11 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=4.207303e-10 mm/h 
@@ -708,7 +277,7 @@ cnt:8 res:2.447677e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 10:00 41.67% - Times: Elapsed (h:m:s)  0:00:09 Remaining (h:m)  0:00  
 
 1/2/2012 10:00 JD:31.416667 (1^ simulation day) 41.67% completed! 
- t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  8.53 s, t_sub:  2.70 s, t_sup:  5.83 s, t_out:  0.00 s
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water:  8.57 s, t_sub:  2.71 s, t_sup:  5.86 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=5.469654e-10 mm/h 
@@ -727,7 +296,7 @@ cnt:8 res:4.814147e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 11:00 45.83% - Times: Elapsed (h:m:s)  0:00:11 Remaining (h:m)  0:00  
 
 1/2/2012 11:00 JD:31.458333 (1^ simulation day) 45.83% completed! 
- t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 10.75 s, t_sub:  2.92 s, t_sup:  7.82 s, t_out:  0.00 s
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 10.71 s, t_sub:  2.94 s, t_sup:  7.76 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=2.482002e-10 mm/h 
@@ -751,7 +320,7 @@ cnt:10 res:5.834443e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 12:00 50.00% - Times: Elapsed (h:m:s)  0:00:12 Remaining (h:m)  0:00  
 
 1/2/2012 12:00 JD:31.500000 (1^ simulation day) 50.00% completed! 
- t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 12.98 s, t_sub:  3.20 s, t_sup:  9.78 s, t_out:  0.00 s
+ t_meteo:  0.05 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 12.98 s, t_sub:  3.22 s, t_sup:  9.76 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.288499e-09 mm/h 
@@ -774,7 +343,7 @@ cnt:9 res:2.629056e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 13:00 54.17% - Times: Elapsed (h:m:s)  0:00:16 Remaining (h:m)  0:00  
 
 1/2/2012 13:00 JD:31.541667 (1^ simulation day) 54.17% completed! 
- t_meteo:  0.06 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 15.39 s, t_sub:  3.63 s, t_sup: 11.77 s, t_out:  0.00 s
+ t_meteo:  0.06 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 15.41 s, t_sub:  3.64 s, t_sup: 11.77 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.199623e-09 mm/h 
@@ -794,7 +363,7 @@ cnt:8 res:8.127717e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 14:00 58.33% - Times: Elapsed (h:m:s)  0:00:18 Remaining (h:m)  0:00  
 
 1/2/2012 14:00 JD:31.583333 (1^ simulation day) 58.33% completed! 
- t_meteo:  0.06 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 17.63 s, t_sub:  3.86 s, t_sup: 13.77 s, t_out:  0.00 s
+ t_meteo:  0.06 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 17.71 s, t_sub:  3.88 s, t_sup: 13.83 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=8.352485e-10 mm/h 
@@ -818,7 +387,7 @@ cnt:10 res:9.889469e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 15:00 62.50% - Times: Elapsed (h:m:s)  0:00:20 Remaining (h:m)  0:00  
 
 1/2/2012 15:00 JD:31.625000 (1^ simulation day) 62.50% completed! 
- t_meteo:  0.07 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 19.98 s, t_sub:  4.16 s, t_sup: 15.82 s, t_out:  0.00 s
+ t_meteo:  0.07 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 20.07 s, t_sub:  4.18 s, t_sup: 15.89 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=2.772932e-10 mm/h 
@@ -837,10 +406,10 @@ cnt:6 res:3.945452e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 cnt:7 res:2.139002e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 cnt:8 res:8.972809e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 cnt:9 res:6.349555e-12 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 16:00 66.67% - Times: Elapsed (h:m:s)  0:00:22 Remaining (h:m)  0:00  
+1/2/2012 16:00 66.67% - Times: Elapsed (h:m:s)  0:00:23 Remaining (h:m)  0:00  
 
 1/2/2012 16:00 JD:31.666667 (1^ simulation day) 66.67% completed! 
- t_meteo:  0.07 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 22.29 s, t_sub:  4.42 s, t_sup: 17.87 s, t_out:  0.00 s
+ t_meteo:  0.07 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 22.46 s, t_sub:  4.45 s, t_sup: 18.01 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=5.375982e-10 mm/h 
@@ -861,7 +430,7 @@ cnt:9 res:1.699819e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 17:00 70.83% - Times: Elapsed (h:m:s)  0:00:24 Remaining (h:m)  0:00  
 
 1/2/2012 17:00 JD:31.708333 (1^ simulation day) 70.83% completed! 
- t_meteo:  0.07 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 24.67 s, t_sub:  4.69 s, t_sup: 19.98 s, t_out:  0.00 s
+ t_meteo:  0.07 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 24.92 s, t_sub:  4.72 s, t_sup: 20.19 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=5.844510e-10 mm/h 
@@ -878,10 +447,10 @@ cnt:5 res:2.093759e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 cnt:6 res:1.105576e-05 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 cnt:7 res:1.491159e-08 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 cnt:8 res:1.388277e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 18:00 75.00% - Times: Elapsed (h:m:s)  0:00:26 Remaining (h:m)  0:00  
+1/2/2012 18:00 75.00% - Times: Elapsed (h:m:s)  0:00:28 Remaining (h:m)  0:00  
 
 1/2/2012 18:00 JD:31.750000 (1^ simulation day) 75.00% completed! 
- t_meteo:  0.08 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 27.12 s, t_sub:  4.96 s, t_sup: 22.16 s, t_out:  0.00 s
+ t_meteo:  0.08 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 27.34 s, t_sub:  4.99 s, t_sup: 22.35 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=7.643746e-10 mm/h 
@@ -902,7 +471,7 @@ cnt:9 res:2.008434e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 19:00 79.17% - Times: Elapsed (h:m:s)  0:00:30 Remaining (h:m)  0:00  
 
 1/2/2012 19:00 JD:31.791667 (1^ simulation day) 79.17% completed! 
- t_meteo:  0.08 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 29.54 s, t_sub:  5.24 s, t_sup: 24.30 s, t_out:  0.00 s
+ t_meteo:  0.08 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 29.85 s, t_sub:  5.28 s, t_sup: 24.57 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=9.353429e-10 mm/h 
@@ -920,10 +489,10 @@ cnt:6 res:1.360466e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 cnt:7 res:6.028048e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 cnt:8 res:8.596468e-09 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 cnt:9 res:1.998154e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 20:00 83.33% - Times: Elapsed (h:m:s)  0:00:32 Remaining (h:m)  0:00  
+1/2/2012 20:00 83.33% - Times: Elapsed (h:m:s)  0:00:33 Remaining (h:m)  0:00  
 
 1/2/2012 20:00 JD:31.833333 (1^ simulation day) 83.33% completed! 
- t_meteo:  0.09 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 32.02 s, t_sub:  5.53 s, t_sup: 26.49 s, t_out:  0.00 s
+ t_meteo:  0.09 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 32.34 s, t_sub:  5.56 s, t_sup: 26.78 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=5.891289e-10 mm/h 
@@ -944,7 +513,7 @@ cnt:9 res:1.527700e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 21:00 87.50% - Times: Elapsed (h:m:s)  0:00:35 Remaining (h:m)  0:00  
 
 1/2/2012 21:00 JD:31.875000 (1^ simulation day) 87.50% completed! 
- t_meteo:  0.09 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 34.48 s, t_sub:  5.81 s, t_sup: 28.67 s, t_out:  0.00 s
+ t_meteo:  0.09 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 34.93 s, t_sub:  5.85 s, t_sup: 29.08 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.340115e-09 mm/h 
@@ -966,10 +535,10 @@ cnt:8 res:3.351690e-04 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 cnt:9 res:3.984090e-06 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 cnt:10 res:6.363413e-10 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 cnt:11 res:2.104376e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
-1/2/2012 22:00 91.67% - Times: Elapsed (h:m:s)  0:00:37 Remaining (h:m)  0:00  
+1/2/2012 22:00 91.67% - Times: Elapsed (h:m:s)  0:00:38 Remaining (h:m)  0:00  
 
 1/2/2012 22:00 JD:31.916667 (1^ simulation day) 91.67% completed! 
- t_meteo:  0.09 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 37.17 s, t_sub:  6.13 s, t_sup: 31.03 s, t_out:  0.00 s
+ t_meteo:  0.09 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 37.56 s, t_sub:  6.20 s, t_sup: 31.36 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=3.061612e-09 mm/h 
@@ -994,7 +563,7 @@ cnt:10 res:4.727046e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 1/2/2012 23:00 95.83% - Times: Elapsed (h:m:s)  0:00:40 Remaining (h:m)  0:00  
 
 1/2/2012 23:00 JD:31.958333 (1^ simulation day) 95.83% completed! 
- t_meteo:  0.10 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 39.78 s, t_sub:  6.47 s, t_sup: 33.31 s, t_out:  0.00 s
+ t_meteo:  0.10 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 40.19 s, t_sub:  6.54 s, t_sup: 33.65 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=2.532826e-09 mm/h 
@@ -1018,7 +587,7 @@ cnt:10 res:3.778084e-11 lambda:1.000000e+00 Dt:3600.000000 P:10.000000
 2/2/2012 0:00 100.00% - Times: Elapsed (h:m:s)  0:00:43 Remaining (h:m)  0:00  
 
 2/2/2012 0:00 JD:32.000000 (1^ simulation day) 100.00% completed! 
- t_meteo:  0.10 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 42.40 s, t_sub:  6.81 s, t_sup: 35.60 s, t_out:  0.00 s
+ t_meteo:  0.10 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 42.88 s, t_sub:  6.88 s, t_sup: 36.00 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert= 10.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.444879e-09 mm/h 

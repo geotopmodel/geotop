@@ -416,7 +416,7 @@ cnt:23 res:9.450114e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.094122
 16/10/2010 13:00 25.00% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
 
 16/10/2010 13:00 JD:288.541667 (1^ simulation day) 25.00% completed! 
- t_meteo:  0.00 s, t_energy:  0.17 s, t_blowingsnow:  0.00 s, t_water:  0.52 s, t_sub:  0.52 s, t_sup:  0.00 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.16 s, t_blowingsnow:  0.00 s, t_water:  0.50 s, t_sub:  0.50 s, t_sup:  0.00 s, t_out:  0.00 s
  SW= 77.31 W/m2  LW:-34.51 W/m2  H= 20.06 W/m2  LE=-11.57 W/m2 
  Pvert=  0.09 mm Prain=  0.11 mm  Psnow=  0.10 mm  
  Max Error Richards=5.490961e-12 mm/h 
@@ -2017,7 +2017,7 @@ cnt:405 res:4.870149e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.091461
 16/10/2010 14:00 50.00% - Times: Elapsed (h:m:s)  0:00:12 Remaining (h:m)  0:00  
 
 16/10/2010 14:00 JD:288.583333 (1^ simulation day) 50.00% completed! 
- t_meteo:  0.01 s, t_energy:  0.36 s, t_blowingsnow:  0.00 s, t_water: 11.25 s, t_sub: 11.25 s, t_sup:  0.00 s, t_out:  0.02 s
+ t_meteo:  0.01 s, t_energy:  0.35 s, t_blowingsnow:  0.00 s, t_water: 11.14 s, t_sub: 11.14 s, t_sup:  0.00 s, t_out:  0.02 s
  SW= 48.99 W/m2  LW:-24.95 W/m2  H= 20.36 W/m2  LE= -9.04 W/m2 
  Pvert=  0.09 mm Prain=  0.11 mm  Psnow=  0.11 mm  
  Max Error Richards=2.451371e-12 mm/h 
@@ -4061,7 +4061,7 @@ cnt:516 res:4.132788e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.203211
 16/10/2010 15:00 75.00% - Times: Elapsed (h:m:s)  0:00:25 Remaining (h:m)  0:00  
 
 16/10/2010 15:00 JD:288.625000 (1^ simulation day) 75.00% completed! 
- t_meteo:  0.01 s, t_energy:  0.78 s, t_blowingsnow:  0.00 s, t_water: 24.88 s, t_sub: 24.88 s, t_sup:  0.00 s, t_out:  0.04 s
+ t_meteo:  0.01 s, t_energy:  0.79 s, t_blowingsnow:  0.00 s, t_water: 24.71 s, t_sub: 24.71 s, t_sup:  0.00 s, t_out:  0.04 s
  SW= 28.80 W/m2  LW:-17.36 W/m2  H=  8.98 W/m2  LE=  1.17 W/m2 
  Pvert=  0.20 mm Prain=  0.10 mm  Psnow=  0.11 mm  
  Max Error Richards=6.342637e-12 mm/h 
@@ -5657,7 +5657,7 @@ cnt:406 res:4.421183e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.118849
 16/10/2010 16:00 100.00% - Times: Elapsed (h:m:s)  0:00:37 Remaining (h:m) -1:59  
 
 16/10/2010 16:00 JD:288.666667 (1^ simulation day) 100.00% completed! 
- t_meteo:  0.01 s, t_energy:  1.11 s, t_blowingsnow:  0.00 s, t_water: 35.80 s, t_sub: 35.80 s, t_sup:  0.00 s, t_out:  0.06 s
+ t_meteo:  0.01 s, t_energy:  1.12 s, t_blowingsnow:  0.00 s, t_water: 35.34 s, t_sub: 35.34 s, t_sup:  0.00 s, t_out:  0.06 s
  SW= 14.25 W/m2  LW:-15.26 W/m2  H=  6.61 W/m2  LE=  3.31 W/m2 
  Pvert=  0.12 mm Prain=  0.09 mm  Psnow=  0.12 mm  
  Max Error Richards=5.992619e-12 mm/h 

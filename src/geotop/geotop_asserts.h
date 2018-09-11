@@ -58,7 +58,7 @@
  *
  * GEO_ASSERT(1>2,my_exception); // it will throw my_exception
  *
- * If you whant/need to create a specific type of assert with all the parameters
+ * If you want/need to create a specific type of assert with all the parameters
  * you want you can do as follows
  *
  * #define GEO_ASSERT_CUSTOM(a,b,c,d) \

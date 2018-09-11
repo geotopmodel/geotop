@@ -1,0 +1,522 @@
+STATEMENT:
+
+Geotop 2.0.0 - 31 Oct 2013
+
+Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+
+WORKING DIRECTORY: ./
+
+LOGFILE: ./geotop.log
+Column 1 in file ./soil/soil0001.txt assigned to Dz
+Column 3 in file ./soil/soil0001.txt assigned to Kv
+Column 2 in file ./soil/soil0001.txt assigned to Kh
+Column 4 in file ./soil/soil0001.txt assigned to res
+Column 5 in file ./soil/soil0001.txt assigned to sat
+Column 6 in file ./soil/soil0001.txt assigned to a
+Column 7 in file ./soil/soil0001.txt assigned to n
+Column 8 in file ./soil/soil0001.txt assigned to SS
+./listpoints.txt
+Column 1 in file ./listpoints.txt assigned to ID
+Column 2 in file ./listpoints.txt assigned to xcoord
+Column 3 in file ./listpoints.txt assigned to ycoord
+Column 4 in file ./listpoints.txt assigned to zcoord
+Column 5 in file ./listpoints.txt assigned to landcover
+Column 6 in file ./listpoints.txt assigned to soiltype
+Column 7 in file ./listpoints.txt assigned to slope
+Column 8 in file ./listpoints.txt assigned to aspect
+Column 9 in file ./listpoints.txt assigned to sky
+Column 10 in file ./listpoints.txt assigned to bedrock
+Attempting to read 'DemFile' in the file 'none': not present in file list
+Warning: Dem file not present
+Warning: Dem file is not present, and therefore it is not possible to calculate curvature
+
+Warning:: No horizon file found for point type #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+
+Valid pixels: 1
+Number of nodes: 8
+Novalue pixels: 0
+Basin area: 0.000001 km2
+
+
+Warning:: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+Column 1 in file ./meteo/meteofake0001.txt assigned to POSIX
+Column 2 in file ./meteo/meteofake0001.txt assigned to JD
+Column 3 in file ./meteo/meteofake0001.txt assigned to Iprec
+Column 4 in file ./meteo/meteofake0001.txt assigned to WindSp
+Column 5 in file ./meteo/meteofake0001.txt assigned to WindDir
+Column 6 in file ./meteo/meteofake0001.txt assigned to RH
+Column 7 in file ./meteo/meteofake0001.txt assigned to AirT
+WARNING: NO shortwave radiation measurements available
+WARNING: NO cloudiness measurements available
+WARNING: NO longwave radiation measurements available
+WARNING: NO Surface temperature measurements available
+WARNING: NO Bottom temperature measurements available
+Soil water evaporates from the first 1 layers
+Soil water transpires from the first 7 layers
+20/6/2014 20:00 0.22% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+20/6/2014 21:00 0.45% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+20/6/2014 22:00 0.67% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+20/6/2014 23:00 0.89% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 0:00 1.12% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 1:00 1.34% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 2:00 1.57% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 3:00 1.79% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 4:00 2.01% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 5:00 2.24% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 6:00 2.46% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 7:00 2.68% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 8:00 2.91% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 9:00 3.13% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 10:00 3.36% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 11:00 3.58% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 12:00 3.80% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 13:00 4.03% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 14:00 4.25% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 15:00 4.47% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 16:00 4.70% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 17:00 4.92% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 18:00 5.15% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 19:00 5.37% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 20:00 5.59% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 21:00 5.82% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 22:00 6.04% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+21/6/2014 23:00 6.26% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 0:00 6.49% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 1:00 6.71% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 2:00 6.94% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 3:00 7.16% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 4:00 7.38% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 5:00 7.61% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 6:00 7.83% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 7:00 8.05% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 8:00 8.28% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 9:00 8.50% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 10:00 8.72% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 11:00 8.95% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 12:00 9.17% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 13:00 9.40% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 14:00 9.62% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 15:00 9.84% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 16:00 10.07% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 17:00 10.29% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 18:00 10.51% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 19:00 10.74% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 20:00 10.96% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 21:00 11.19% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 22:00 11.41% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+22/6/2014 23:00 11.63% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 0:00 11.86% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 1:00 12.08% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 2:00 12.30% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 3:00 12.53% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 4:00 12.75% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 5:00 12.98% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 6:00 13.20% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 7:00 13.42% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 8:00 13.65% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 9:00 13.87% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 10:00 14.09% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 11:00 14.32% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 12:00 14.54% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 13:00 14.77% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 14:00 14.99% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 15:00 15.21% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 16:00 15.44% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 17:00 15.66% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 18:00 15.88% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 19:00 16.11% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 20:00 16.33% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 21:00 16.55% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 22:00 16.78% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+23/6/2014 23:00 17.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 0:00 17.23% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 1:00 17.45% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 2:00 17.67% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 3:00 17.90% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 4:00 18.12% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 5:00 18.34% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 6:00 18.57% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 7:00 18.79% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 8:00 19.02% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 9:00 19.24% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 10:00 19.46% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 11:00 19.69% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 12:00 19.91% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 13:00 20.13% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 14:00 20.36% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 15:00 20.58% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 16:00 20.81% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 17:00 21.03% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 18:00 21.25% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 19:00 21.48% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 20:00 21.70% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 21:00 21.92% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 22:00 22.15% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+24/6/2014 23:00 22.37% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 0:00 22.60% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 1:00 22.82% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 2:00 23.04% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 3:00 23.27% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 4:00 23.49% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 5:00 23.71% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 6:00 23.94% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 7:00 24.16% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 8:00 24.38% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 9:00 24.61% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 10:00 24.83% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 11:00 25.06% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 12:00 25.28% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 13:00 25.50% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 14:00 25.73% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 15:00 25.95% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 16:00 26.17% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 17:00 26.40% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 18:00 26.62% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 19:00 26.85% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 20:00 27.07% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 21:00 27.29% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 22:00 27.52% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+25/6/2014 23:00 27.74% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 0:00 27.96% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 1:00 28.19% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 2:00 28.41% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 3:00 28.64% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 4:00 28.86% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 5:00 29.08% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 6:00 29.31% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 7:00 29.53% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 8:00 29.75% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 9:00 29.98% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 10:00 30.20% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 11:00 30.43% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 12:00 30.65% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 13:00 30.87% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 14:00 31.10% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 15:00 31.32% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 16:00 31.54% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 17:00 31.77% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 18:00 31.99% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 19:00 32.21% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 20:00 32.44% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 21:00 32.66% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 22:00 32.89% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+26/6/2014 23:00 33.11% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 0:00 33.33% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 1:00 33.56% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 2:00 33.78% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 3:00 34.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 4:00 34.23% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 5:00 34.45% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 6:00 34.68% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 7:00 34.90% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 8:00 35.12% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 9:00 35.35% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 10:00 35.57% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 11:00 35.79% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 12:00 36.02% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 13:00 36.24% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 14:00 36.47% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 15:00 36.69% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 16:00 36.91% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 17:00 37.14% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 18:00 37.36% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 19:00 37.58% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 20:00 37.81% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 21:00 38.03% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 22:00 38.26% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+27/6/2014 23:00 38.48% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 0:00 38.70% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 1:00 38.93% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 2:00 39.15% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 3:00 39.37% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 4:00 39.60% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 5:00 39.82% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 6:00 40.04% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 7:00 40.27% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 8:00 40.49% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 9:00 40.72% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 10:00 40.94% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 11:00 41.16% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 12:00 41.39% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 13:00 41.61% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 14:00 41.83% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 15:00 42.06% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 16:00 42.28% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 17:00 42.51% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 18:00 42.73% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 19:00 42.95% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 20:00 43.18% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 21:00 43.40% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 22:00 43.62% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+28/6/2014 23:00 43.85% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 0:00 44.07% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 1:00 44.30% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 2:00 44.52% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 3:00 44.74% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 4:00 44.97% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 5:00 45.19% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 6:00 45.41% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 7:00 45.64% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 8:00 45.86% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 9:00 46.09% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 10:00 46.31% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 11:00 46.53% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 12:00 46.76% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 13:00 46.98% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 14:00 47.20% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 15:00 47.43% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 16:00 47.65% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 17:00 47.87% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 18:00 48.10% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 19:00 48.32% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 20:00 48.55% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 21:00 48.77% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 22:00 48.99% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+29/6/2014 23:00 49.22% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 0:00 49.44% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 1:00 49.66% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 2:00 49.89% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 3:00 50.11% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 4:00 50.34% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 5:00 50.56% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 6:00 50.78% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 7:00 51.01% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 8:00 51.23% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 9:00 51.45% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 10:00 51.68% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 11:00 51.90% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 12:00 52.13% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 13:00 52.35% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 14:00 52.57% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 15:00 52.80% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 16:00 53.02% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 17:00 53.24% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 18:00 53.47% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 19:00 53.69% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 20:00 53.91% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 21:00 54.14% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 22:00 54.36% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+30/6/2014 23:00 54.59% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 0:00 54.81% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 1:00 55.03% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 2:00 55.26% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 3:00 55.48% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 4:00 55.70% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 5:00 55.93% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 6:00 56.15% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 7:00 56.38% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 8:00 56.60% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 9:00 56.82% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 10:00 57.05% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 11:00 57.27% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 12:00 57.49% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 13:00 57.72% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 14:00 57.94% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 15:00 58.17% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 16:00 58.39% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 17:00 58.61% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 18:00 58.84% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 19:00 59.06% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 20:00 59.28% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 21:00 59.51% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 22:00 59.73% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+1/7/2014 23:00 59.96% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 0:00 60.18% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 1:00 60.40% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 2:00 60.63% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 3:00 60.85% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 4:00 61.07% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 5:00 61.30% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 6:00 61.52% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 7:00 61.74% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 8:00 61.97% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 9:00 62.19% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 10:00 62.42% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 11:00 62.64% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 12:00 62.86% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 13:00 63.09% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 14:00 63.31% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 15:00 63.53% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 16:00 63.76% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 17:00 63.98% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 18:00 64.21% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 19:00 64.43% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 20:00 64.65% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 21:00 64.88% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 22:00 65.10% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+2/7/2014 23:00 65.32% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 0:00 65.55% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 1:00 65.77% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 2:00 66.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 3:00 66.22% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 4:00 66.44% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 5:00 66.67% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 6:00 66.89% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 7:00 67.11% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 8:00 67.34% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 9:00 67.56% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 10:00 67.79% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 11:00 68.01% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 12:00 68.23% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 13:00 68.46% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 14:00 68.68% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 15:00 68.90% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 16:00 69.13% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 17:00 69.35% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 18:00 69.57% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 19:00 69.80% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 20:00 70.02% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 21:00 70.25% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 22:00 70.47% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+3/7/2014 23:00 70.69% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 0:00 70.92% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 1:00 71.14% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 2:00 71.36% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 3:00 71.59% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 4:00 71.81% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 5:00 72.04% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 6:00 72.26% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 7:00 72.48% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 8:00 72.71% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 9:00 72.93% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 10:00 73.15% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 11:00 73.38% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 12:00 73.60% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 13:00 73.83% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 14:00 74.05% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 15:00 74.27% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 16:00 74.50% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 17:00 74.72% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 18:00 74.94% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 19:00 75.17% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 20:00 75.39% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 21:00 75.62% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 22:00 75.84% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+4/7/2014 23:00 76.06% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 0:00 76.29% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 1:00 76.51% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 2:00 76.73% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 3:00 76.96% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 4:00 77.18% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 5:00 77.40% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 6:00 77.63% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 7:00 77.85% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 8:00 78.08% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 9:00 78.30% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 10:00 78.52% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 11:00 78.75% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 12:00 78.97% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 13:00 79.19% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 14:00 79.42% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 15:00 79.64% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 16:00 79.87% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 17:00 80.09% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 18:00 80.31% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 19:00 80.54% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 20:00 80.76% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 21:00 80.98% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 22:00 81.21% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+5/7/2014 23:00 81.43% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 0:00 81.66% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 1:00 81.88% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 2:00 82.10% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 3:00 82.33% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 4:00 82.55% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 5:00 82.77% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 6:00 83.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 7:00 83.22% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 8:00 83.45% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 9:00 83.67% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 10:00 83.89% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 11:00 84.12% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 12:00 84.34% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 13:00 84.56% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 14:00 84.79% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 15:00 85.01% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 16:00 85.23% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 17:00 85.46% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 18:00 85.68% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 19:00 85.91% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 20:00 86.13% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 21:00 86.35% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 22:00 86.58% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+6/7/2014 23:00 86.80% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 0:00 87.02% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 1:00 87.25% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 2:00 87.47% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 3:00 87.70% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 4:00 87.92% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 5:00 88.14% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 6:00 88.37% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 7:00 88.59% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 8:00 88.81% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 9:00 89.04% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 10:00 89.26% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 11:00 89.49% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 12:00 89.71% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 13:00 89.93% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 14:00 90.16% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 15:00 90.38% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 16:00 90.60% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 17:00 90.83% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 18:00 91.05% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 19:00 91.28% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 20:00 91.50% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 21:00 91.72% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 22:00 91.95% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+7/7/2014 23:00 92.17% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 0:00 92.39% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 1:00 92.62% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 2:00 92.84% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 3:00 93.06% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 4:00 93.29% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 5:00 93.51% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 6:00 93.74% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 7:00 93.96% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 8:00 94.18% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 9:00 94.41% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 10:00 94.63% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 11:00 94.85% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 12:00 95.08% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 13:00 95.30% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 14:00 95.53% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 15:00 95.75% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 16:00 95.97% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 17:00 96.20% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 18:00 96.42% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 19:00 96.64% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 20:00 96.87% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 21:00 97.09% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 22:00 97.32% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+8/7/2014 23:00 97.54% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+9/7/2014 0:00 97.76% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+9/7/2014 1:00 97.99% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+9/7/2014 2:00 98.21% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+9/7/2014 3:00 98.43% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+9/7/2014 4:00 98.66% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+9/7/2014 5:00 98.88% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+9/7/2014 6:00 99.11% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+9/7/2014 7:00 99.33% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+9/7/2014 8:00 99.55% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+9/7/2014 9:00 99.78% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+9/7/2014 10:00 100.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
+Number of times the simulation #1 has been run: 1
+Close files
+Deallocating global variables
+Deallocating soil
+Deallocating top
+Deallocating land
+Deallocating water
+Deallocating channel network
+Deallocating UV
+Deallocating egy
+Deallocating snow
+Deallocating glacier
+Deallocating met
+Deallocating times
+Deallocating par
+Deallocating files
+Deallocating novalues
+End of simulation!

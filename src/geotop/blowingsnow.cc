@@ -81,19 +81,19 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
 
       //meteo distribution
       meteo_distr(met->line_interp_Bsnow, met->line_interp_Bsnow_LR, met, wat, top,
-                  par, par->init_date->co[i_sim]+t0/secinday,
-                  par->init_date->co[i_sim]+(t0+t)/secinday,
-                  par->init_date->co[i_sim]+(t0+t+Dt)/secinday);
+                  par, (*par->init_date)(i_sim) + t0/secinday,
+                  (*par->init_date)(i_sim) + (t0+t)/secinday,
+                  (*par->init_date)(i_sim) + (t0+t+Dt)/secinday);
 
 
       //vegetation
       for (lux=1; lux<=par->n_landuses; lux++)
         {
-          if (par->vegflag->co[lux]==1)
+          if ((*par->vegflag)(lux)==1)
             {
-              time_interp_linear(par->init_date->co[i_sim]+t0/secinday,
-                                 par->init_date->co[i_sim]+(t0+t)/secinday,
-                                 par->init_date->co[i_sim]+(t0+t+Dt)/secinday,
+              time_interp_linear((*par->init_date)(i_sim)+t0/secinday,
+                                 (*par->init_date)(i_sim)+(t0+t)/secinday,
+                                 (*par->init_date)(i_sim)+(t0+t+Dt)/secinday,
                                  land->vegparv[lux-1], land->vegpars[lux-1],
                                  land->NumlinesVegTimeDepData[lux-1], jdvegprop+1, 0, 0, &line_interp);
             }
@@ -104,23 +104,23 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
         {
           for (c=1; c<=Nc; c++)
             {
-              if ( (long)land->LC->co[r][c]!=number_novalue)
+              if ( (long)(*land->LC)(r,c)!=number_novalue)
                 {
 
 
-                  D = DEPTH(r, c, snow->S->lnum, snow->S->Dzl);
-                  wice = DEPTH(r, c, snow->S->lnum, snow->S->w_ice);
+                  D = DEPTH(r, c, snow->S->lnum.get(), snow->S->Dzl);
+                  wice = DEPTH(r, c, snow->S->lnum.get(), snow->S->w_ice);
 
-                  //U += met->Vgrid->co[r][c]/par->total_pixel;
+                  //U += (*met->Vgrid)(r,c)/par->total_pixel;
 
                   if (wice > par->Wmin_BS)
                     {
 
                       //find canopy_height_over_snow
-                      lu = (short)land->LC->co[r][c];
+                      lu = (short)(*land->LC)(r,c);
                       canopy_height_over_snow = 0.0;
-                      //zmeas = Fmax(0.1, met->st->Vheight->co[1]-1.E-3*D);
-                      zmeas = met->st->Vheight->co[1];
+                      //zmeas = Fmax(0.1, (*met->st->Vheight)(1)-1.E-3*D);
+                      zmeas = (*met->st->Vheight)(1);
 
                       for (j=1; j<=jdvegprop; j++)
                         {
@@ -130,7 +130,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                             }
                           else
                             {
-                              land->vegpar->co[j] = land->ty->co[lu][j+jHveg-1];
+                              land->vegpar->co[j] = (*land->ty)(lu,j+jHveg-1);
                             }
                         }
 
@@ -154,10 +154,10 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                                                                      0.)*1.E-3;
 
                       //rearrange snow layers
-                      ns = snow->S->lnum->co[r][c];
+                      ns = (*snow->S->lnum)(r,c);
                       sux = copy_statevar_from3D_to1D(r, c, snow->S, snow->S_for_BS);
 
-                      if ( snow->S_for_BS->w_ice->co[ns] < par->Wice_PBSM )
+                      if ( (*snow->S_for_BS->w_ice)(ns) < par->Wice_PBSM )
                         {
                           l=ns;
                           do
@@ -166,26 +166,23 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                               sux = set_snowice_min(par->alpha_snow, r, c, snow->S_for_BS, ns, l,
                                                     par->Wice_PBSM);
                             }
-                          while ( l > 1 && snow->S_for_BS->w_ice->co[ns] < par->Wice_PBSM );
+                          while ( l > 1 && (*snow->S_for_BS->w_ice)(ns) < par->Wice_PBSM );
                         }
 
                       //find equilibrium snow trasport
-                      rho_snow_surface = (snow->S_for_BS->w_ice->co[ns] +
-                                          snow->S_for_BS->w_liq->co[ns]) / (1.E-3*snow->S_for_BS->Dzl->co[ns]);
+                      rho_snow_surface = ((*snow->S_for_BS->w_ice)(ns) +
+                                          (*snow->S_for_BS->w_liq)(ns)) / (1.E-3*(*snow->S_for_BS->Dzl)(ns));
 
-                      Pbsm (r, c, PBSM_fetch, land->ty->co[lu][jN], 1.E-3*land->ty->co[lu][jdv],
-                            canopy_height_over_snow, rho_snow_surface, zmeas,
-                            met->Vgrid->co[r][c], met->Tgrid->co[r][c], met->RHgrid->co[r][c],
-                            &(snow->Qtrans->co[r][c]), &(snow->Qsub->co[r][c]),
-                            &(snow->Qsalt->co[r][c]), D, top->slope->co[r][c], f);
-
-
+                        Pbsm(r, c, PBSM_fetch, (*land->ty)(lu,jN), 1.E-3 * (*land->ty)(lu,jdv),
+                             canopy_height_over_snow, rho_snow_surface, zmeas, (*met->Vgrid)(r,c),
+                             (*met->Tgrid)(r,c), (*met->RHgrid)(r,c), (*snow->Qtrans)(r,c),
+                             (*snow->Qsub)(r,c), (*snow->Qsalt)(r,c), D, (*top->slope)(r,c));
                     }
                   else
                     {
 
-                      snow->Qtrans->co[r][c] = 0.0;
-                      snow->Qsub->co[r][c] = 0.0;
+                      (*snow->Qtrans)(r,c) = 0.0;
+                      (*snow->Qsub)(r,c) = 0.0;
 
                     }
 
@@ -203,13 +200,13 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                 {
                   for (c=1; c<=Nc; c++)
                     {
-                      if ( (long)land->LC->co[r][c]!=number_novalue)
+                      if ( (long)(*land->LC)(r,c)!=number_novalue)
                         {
-                          wice = DEPTH(r, c, snow->S->lnum, snow->S->w_ice);
-                          dErdt = sqrt(pow(snow->Qsub_x->co[r][c], 2.)+pow(snow->Qsub_y->co[r][c],
-                                                                           2.)) - snow->Nabla2_Qtrans->co[r][c];
+                          wice = DEPTH(r, c, snow->S->lnum.get(), snow->S->w_ice);
+                          dErdt = sqrt(pow((*snow->Qsub_x)(r,c), 2.) +pow((*snow->Qsub_y)(r,c),2.))
+                                  - (*snow->Nabla2_Qtrans)(r,c);
 
-                          if ( snow->S->lnum->co[r][c] > 0 )
+                          if ( (*snow->S->lnum)(r,c) > 0 )
                             {
                               if (dErdt*Dt > 0.99*wice) Dt=0.99*wice/dErdt;
                             }
@@ -220,7 +217,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
 
               Dt=Fmin(Dt,Dt0);
               set_windtrans_snow(Dt, t0+t, snow, met, land, par, f);
-              print_windtrans_snow(Dt, snow, par, top, met, land->LC);
+              print_windtrans_snow(Dt, snow, par, top, met, land->LC.get());
             }
 
         }
@@ -231,7 +228,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
             {
               for (c=1; c<=Nc; c++)
                 {
-                  if ( (long)land->LC->co[r][c]!=number_novalue)
+                  if ( (long)(*land->LC)(r,c)!=number_novalue)
                     {
                       wind_packing(snow, par, r, c, Dt);
                     }
@@ -273,16 +270,16 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
   *yes = 0;
 
   //initialize Nabla2_Qtrans(snow deposition if >0, snow erosion if <0)
-  initialize_doublematrix(snow->Nabla2_Qtrans, 0.0);
+    (*snow->Nabla2_Qtrans) = 0;
 
   //check if there is snow transport
   for (r=1; r<=Nr; r++)
     {
       for (c=1; c<=Nc; c++)
         {
-          if ( (long)land->LC->co[r][c]!=number_novalue)
+          if ( (long)(*land->LC)(r,c)!=number_novalue)
             {
-              Qtrans += snow->Qtrans->co[r][c]/(double)par->total_pixel;
+              Qtrans += (*snow->Qtrans)(r,c)/(double)par->total_pixel;
             }
         }
     }
@@ -307,10 +304,8 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
           //find west-east component
           for (c=1; c<=Nc; c++)
             {
-              snow->Qtrans_x->co[r][c]=fabs(snow->Qtrans->co[r][c]*(-sin(
-                                                                      met->Vdir->co[r][c]*Pi/180.)));
-              snow->Qsub_x->co[r][c]=fabs(snow->Qsub->co[r][c]*(-sin(
-                                                                  met->Vdir->co[r][c]*Pi/180.)));
+              (*snow->Qtrans_x)(r,c)=fabs((*snow->Qtrans)(r,c)*(-sin((*met->Vdir)(r,c)*Pi/180.)));
+              (*snow->Qsub_x)(r,c)=fabs((*snow->Qsub)(r,c)*(-sin((*met->Vdir)(r,c)*Pi/180.)));
             }
 
           //find when there is a wind direction inversion
@@ -329,8 +324,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
                 {
                   c++;
                 }
-              while ( (-sin(met->Vdir->co[r][c]*Pi/180.))*(-sin(
-                                                             met->Vdir->co[r][c0]*Pi/180.))>0 && c<Nc );
+              while ( (-sin((*met->Vdir)(r,c)*Pi/180.))*(-sin((*met->Vdir)(r,c0)*Pi/180.))>0 && c<Nc );
 
               num_change++;
               c0=c;
@@ -342,33 +336,32 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
           for (i=1; i<num_change; i++)
             {
               //east wind
-              if ( (-sin(met->Vdir->co[r][(*snow->change_dir_wind)(i)]*Pi/180.)) > 0 )
+              if ( (-sin((*met->Vdir)(r,(*snow->change_dir_wind)(i))*Pi/180.)) > 0 )
                 {
-                  if (par->upwindblowingsnow==1
-                      && (*snow->change_dir_wind)(i)!=1)
-                    snow->Qtrans_x->co[r][(*snow->change_dir_wind)(i)]=0.0;
-                  snow->Qtrans_x->co[r][(*snow->change_dir_wind)(i)]=0.0;
+                  if (par->upwindblowingsnow==1 && (*snow->change_dir_wind)(i)!=1)
+                    (*snow->Qtrans_x)(r,(*snow->change_dir_wind)(i))=0.0;
+                  
+                  (*snow->Qtrans_x)(r,(*snow->change_dir_wind)(i))=0.0;
                   for (c=(*snow->change_dir_wind)(i)+1; c<=(*snow->change_dir_wind)(i+1); c++)
                     {
-                      if ((*snow->change_dir_wind)(i+1)==Nc || ((*snow->change_dir_wind)(i+1)!=Nc
-                                                                 && c<(*snow->change_dir_wind)(i+1)))
+                      if ((*snow->change_dir_wind)(i+1)==Nc || ((*snow->change_dir_wind)(i+1)!=Nc && c<(*snow->change_dir_wind)(i+1)))
                         {
-                          Qup = snow->Qtrans_x->co[r][c-1];
-                          Qdown = snow->Qtrans_x->co[r][c];
-                          Sup = snow->Qsub_x->co[r][c-1];
-                          Sdown = snow->Qsub_x->co[r][c];
+                          Qup = (*snow->Qtrans_x)(r,c-1);
+                          Qdown = (*snow->Qtrans_x)(r,c);
+                          Sup = (*snow->Qsub_x)(r,c-1);
+                          Sdown = (*snow->Qsub_x)(r,c);
                           if (Qdown>=Qup)
                             {
-                              snow->Qtrans_x->co[r][c] = (Qdown + Qup*F1/dx)/(1.+F1/dx);
-                              snow->Qsub_x->co[r][c] = (Sdown + Sup*F1/dx)/(1.+F1/dx);
+                              (*snow->Qtrans_x)(r,c) = (Qdown + Qup*F1/dx)/(1.+F1/dx);
+                              (*snow->Qsub_x)(r,c) = (Sdown + Sup*F1/dx)/(1.+F1/dx);
                             }
                           else
                             {
-                              snow->Qtrans_x->co[r][c] = (Qdown + Qup*F2/dx)/(1.+F2/dx);
-                              snow->Qsub_x->co[r][c] = (Sdown + Sup*F2/dx)/(1.+F2/dx);
+                              (*snow->Qtrans_x)(r,c) = (Qdown + Qup*F2/dx)/(1.+F2/dx);
+                              (*snow->Qsub_x)(r,c) = (Sdown + Sup*F2/dx)/(1.+F2/dx);
                             }
-                          Qdown = snow->Qtrans_x->co[r][c];
-                          snow->Nabla2_Qtrans->co[r][c] += ( Qup - Qdown )/dx;
+                          Qdown = (*snow->Qtrans_x)(r,c);
+                          (*snow->Nabla2_Qtrans)(r,c) += ( Qup - Qdown )/dx;
                         }
                     }
 
@@ -376,31 +369,31 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
                 }
               else
                 {
-                  if (par->upwindblowingsnow==1
-                      && (*snow->change_dir_wind)(i+1)!=Nc)
-                    snow->Qtrans_x->co[r][(*snow->change_dir_wind)(i+1)-1]=0.0;
-                  snow->Qtrans_x->co[r][(*snow->change_dir_wind)(i+1)-1]=0.0;
+                  if (par->upwindblowingsnow==1 && (*snow->change_dir_wind)(i+1)!=Nc)
+                    (*snow->Qtrans_x)(r,(*snow->change_dir_wind)(i+1)-1)=0.0;
+                  
+                  (*snow->Qtrans_x)(r,(*snow->change_dir_wind)(i+1)-1)=0.0;
                   for (c=(*snow->change_dir_wind)(i+1)-1; c>=(*snow->change_dir_wind)(i); c--)
                     {
                       if ((*snow->change_dir_wind)(i+1)==Nc || ((*snow->change_dir_wind)(i+1)!=Nc
                                                                  && c<(*snow->change_dir_wind)(i+1)-1))
                         {
-                          Qup = snow->Qtrans_x->co[r][c+1];
-                          Qdown = snow->Qtrans_x->co[r][c];
-                          Sup = snow->Qsub_x->co[r][c+1];
-                          Sdown = snow->Qsub_x->co[r][c];
+                          Qup = (*snow->Qtrans_x)(r,c+1);
+                          Qdown = (*snow->Qtrans_x)(r,c);
+                          Sup = (*snow->Qsub_x)(r,c+1);
+                          Sdown = (*snow->Qsub_x)(r,c);
                           if (Qdown>=Qup)
                             {
-                              snow->Qtrans_x->co[r][c] = (Qdown + Qup*F1/dx)/(1.+F1/dx);
-                              snow->Qsub_x->co[r][c] = (Sdown + Sup*F1/dx)/(1.+F1/dx);
+                              (*snow->Qtrans_x)(r,c) = (Qdown + Qup*F1/dx)/(1.+F1/dx);
+                              (*snow->Qsub_x)(r,c) = (Sdown + Sup*F1/dx)/(1.+F1/dx);
                             }
                           else
                             {
-                              snow->Qtrans_x->co[r][c] = (Qdown + Qup*F2/dx)/(1.+F2/dx);
-                              snow->Qsub_x->co[r][c] = (Sdown + Sup*F2/dx)/(1.+F2/dx);
+                              (*snow->Qtrans_x)(r,c) = (Qdown + Qup*F2/dx)/(1.+F2/dx);
+                              (*snow->Qsub_x)(r,c) = (Sdown + Sup*F2/dx)/(1.+F2/dx);
                             }
-                          Qdown = snow->Qtrans_x->co[r][c];
-                          snow->Nabla2_Qtrans->co[r][c] += ( Qup - Qdown )/dx;
+                          Qdown = (*snow->Qtrans_x)(r,c);
+                          (*snow->Nabla2_Qtrans)(r,c) += ( Qup - Qdown )/dx;
                         }
                     }
                 }
@@ -421,10 +414,8 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
           //find south-north component
           for (r=1; r<=Nr; r++)
             {
-              snow->Qtrans_y->co[r][c]=fabs(snow->Qtrans->co[r][c]*(-cos(
-                                                                      met->Vdir->co[r][c]*Pi/180.)));
-              snow->Qsub_y->co[r][c]=fabs(snow->Qsub->co[r][c]*(-cos(
-                                                                  met->Vdir->co[r][c]*Pi/180.)));
+              (*snow->Qtrans_y)(r,c)=fabs((*snow->Qtrans)(r,c)*(-cos((*met->Vdir)(r,c)*Pi/180.)));
+              (*snow->Qsub_y)(r,c)=fabs((*snow->Qsub)(r,c)*(-cos((*met->Vdir)(r,c)*Pi/180.)));
             }
 
           //find when there is a wind direction inversion
@@ -443,8 +434,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
                 {
                   r++;
                 }
-              while ( (-cos(met->Vdir->co[r][c]*Pi/180.))*(-cos(
-                                                             met->Vdir->co[r0][c]*Pi/180.))>0 && r<Nr );
+              while ( (-cos((*met->Vdir)(r,c)*Pi/180.))*(-cos((*met->Vdir)(r0,c)*Pi/180.))>0 && r<Nr );
 
               num_change++;
               r0=r;
@@ -456,33 +446,32 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
           for (i=1; i<num_change; i++)
             {
               //south wind
-              if ( (-cos(met->Vdir->co[(*snow->change_dir_wind)(i)][c]*Pi/180.)) < 0 )
+              if ( (-cos((*met->Vdir)((*snow->change_dir_wind)(i),c)*Pi/180.)) < 0 )
                 {
-                  if (par->upwindblowingsnow==1
-                      && (*snow->change_dir_wind)(i)!=1)
-                    snow->Qtrans_y->co[(*snow->change_dir_wind)(i)][c]=0.0;
-                  snow->Qtrans_y->co[(*snow->change_dir_wind)(i)][c]=0.0;
+                  if (par->upwindblowingsnow==1 && (*snow->change_dir_wind)(i)!=1)
+                    (*snow->Qtrans)((*snow->change_dir_wind)(i),c)=0.0;
+                  
+                  (*snow->Qtrans)((*snow->change_dir_wind)(i),c)=0.0;
                   for (r=(*snow->change_dir_wind)(i)+1; r<=(*snow->change_dir_wind)(i+1); r++)
                     {
-                      if ((*snow->change_dir_wind)(i+1)==Nr || ((*snow->change_dir_wind)(i+1)!=Nr
-                                                                 && r<(*snow->change_dir_wind)(i+1)))
+                      if ((*snow->change_dir_wind)(i+1)==Nr || ((*snow->change_dir_wind)(i+1)!=Nr && r<(*snow->change_dir_wind)(i+1)))
                         {
-                          Qup = snow->Qtrans_y->co[r-1][c];
-                          Qdown = snow->Qtrans_y->co[r][c];
-                          Sup = snow->Qsub_y->co[r-1][c];
-                          Sdown = snow->Qsub_y->co[r][c];
+                          Qup = (*snow->Qtrans_y)(r-1,c);
+                          Qdown = (*snow->Qtrans_y)(r,c);
+                          Sup = (*snow->Qsub_y)(r-1,c);
+                          Sdown = (*snow->Qsub_y)(r,c);
                           if (Qdown>=Qup)
                             {
-                              snow->Qtrans_y->co[r][c] = (Qdown + Qup*F1/dy)/(1.+F1/dy);
-                              snow->Qsub_y->co[r][c] = (Sdown + Sup*F1/dy)/(1.+F1/dy);
+                              (*snow->Qtrans_y)(r,c) = (Qdown + Qup*F1/dy)/(1.+F1/dy);
+                              (*snow->Qsub_y)(r,c) = (Sdown + Sup*F1/dy)/(1.+F1/dy);
                             }
                           else
                             {
-                              snow->Qtrans_y->co[r][c] = (Qdown + Qup*F2/dy)/(1.+F2/dy);
-                              snow->Qsub_y->co[r][c] = (Sdown + Sup*F2/dy)/(1.+F2/dy);
+                              (*snow->Qtrans_y)(r,c) = (Qdown + Qup*F2/dy)/(1.+F2/dy);
+                              (*snow->Qsub_y)(r,c) = (Sdown + Sup*F2/dy)/(1.+F2/dy);
                             }
-                          Qdown = snow->Qtrans_y->co[r][c];
-                          snow->Nabla2_Qtrans->co[r][c] += ( Qup - Qdown )/dy;
+                          Qdown = (*snow->Qtrans_y)(r,c);
+                          (*snow->Nabla2_Qtrans)(r,c) += ( Qup - Qdown )/dy;
                         }
                     }
 
@@ -490,31 +479,31 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
                 }
               else
                 {
-                  if (par->upwindblowingsnow==1
-                      && (*snow->change_dir_wind)(i+1)!=Nr)
-                    snow->Qtrans_y->co[(*snow->change_dir_wind)(i+1)-1][c]=0.0;
-                  snow->Qtrans_y->co[(*snow->change_dir_wind)(i+1)-1][c]=0.0;
+                  if (par->upwindblowingsnow==1 && (*snow->change_dir_wind)(i+1)!=Nr)
+                    (*snow->Qtrans_y)((*snow->change_dir_wind)(i+1)-1,c)=0.0;
+                  
+                  (*snow->Qtrans_y)((*snow->change_dir_wind)(i+1)-1,c)=0.0;
                   for (r=(*snow->change_dir_wind)(i+1)-1; r>=(*snow->change_dir_wind)(i); r--)
                     {
                       if ((*snow->change_dir_wind)(i+1)==Nr || ((*snow->change_dir_wind)(i+1)!=Nr
                                                                  && r<(*snow->change_dir_wind)(i+1)-1))
                         {
-                          Qup = snow->Qtrans_y->co[r+1][c];
-                          Qdown = snow->Qtrans_y->co[r][c];
-                          Sup = snow->Qsub_y->co[r+1][c];
-                          Sdown = snow->Qsub_y->co[r][c];
+                          Qup = (*snow->Qtrans_y)(r+1,c);
+                          Qdown = (*snow->Qtrans_y)(r,c);
+                          Sup = (*snow->Qsub_y)(r+1,c);
+                          Sdown = (*snow->Qsub_y)(r,c);
                           if (Qdown>=Qup)
                             {
-                              snow->Qtrans_y->co[r][c] = (Qdown + Qup*F1/dy)/(1.+F1/dy);
-                              snow->Qsub_y->co[r][c] = (Sdown + Sup*F1/dy)/(1.+F1/dy);
+                              (*snow->Qtrans_y)(r,c) = (Qdown + Qup*F1/dy)/(1.+F1/dy);
+                              (*snow->Qsub_y)(r,c) = (Sdown + Sup*F1/dy)/(1.+F1/dy);
                             }
                           else
                             {
-                              snow->Qtrans_y->co[r][c] = (Qdown + Qup*F2/dy)/(1.+F2/dy);
-                              snow->Qsub_y->co[r][c] = (Sdown + Sup*F2/dy)/(1.+F2/dy);
+                              (*snow->Qtrans_y)(r,c) = (Qdown + Qup*F2/dy)/(1.+F2/dy);
+                              (*snow->Qsub_y)(r,c) = (Sdown + Sup*F2/dy)/(1.+F2/dy);
                             }
-                          Qdown = snow->Qtrans_y->co[r][c];
-                          snow->Nabla2_Qtrans->co[r][c] += ( Qup - Qdown )/dy;
+                          Qdown = (*snow->Qtrans_y)(r,c);
+                          (*snow->Nabla2_Qtrans)(r,c) += ( Qup - Qdown )/dy;
                         }
                     }
                 }
@@ -526,13 +515,13 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
         {
           for (c=1; c<=Nc; c++)
             {
-              if ( (long)land->LC->co[r][c]!=number_novalue )
+              if ( (long)(*land->LC)(r,c)!=number_novalue )
                 {
-                  if (par->snow_curv > 0 && top->slope->co[r][c] > par->snow_smin)
+                  if (par->snow_curv > 0 && (*top->slope)(r,c) > par->snow_smin)
                     {
-                      if (top->slope->co[r][c] <= par->snow_smax)
+                      if ((*top->slope)(r,c) <= par->snow_smax)
                         {
-                          k_snowred = ( exp(-pow(top->slope->co[r][c] - par->snow_smin,
+                          k_snowred = ( exp(-pow((*top->slope)(r,c) - par->snow_smin,
                                                  2.)/par->snow_curv) -
                                         exp(-pow(par->snow_smax, 2.)/par->snow_curv) );
                         }
@@ -540,7 +529,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
                         {
                           k_snowred = 0.0;
                         }
-                      if ( snow->Nabla2_Qtrans->co[r][c] > 0 ) snow->Nabla2_Qtrans->co[r][c] *=
+                      if ( (*snow->Nabla2_Qtrans)(r,c) > 0 ) (*snow->Nabla2_Qtrans)(r,c) *=
                           k_snowred;
                     }
                 }
@@ -571,18 +560,18 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
     {
       for (c=1; c<=Nc; c++)
         {
-          if ((long)land->LC->co[r][c]!=number_novalue)
+          if ((long)(*land->LC)(r,c)!=number_novalue)
             {
 
-              ns = snow->S->lnum->co[r][c];
+              ns = (*snow->S->lnum)(r,c);
 
-              Qsub = sqrt(pow(snow->Qsub_x->co[r][c], 2.)+pow(snow->Qsub_y->co[r][c], 2.));
+              Qsub = sqrt(pow((*snow->Qsub_x)(r,c), 2.)+pow((*snow->Qsub_y)(r,c), 2.));
 
               Wsubl_tot += Dt*Qsub/(double)par->total_pixel;
-              Wtrans_tot += Dt*snow->Nabla2_Qtrans->co[r][c]/(double)par->total_pixel;
-              Utot += met->Vgrid->co[r][c]/(double)par->total_pixel;
+              Wtrans_tot += Dt*(*snow->Nabla2_Qtrans)(r,c)/(double)par->total_pixel;
+              Utot += (*met->Vgrid)(r,c)/(double)par->total_pixel;
 
-              DW = Dt*(snow->Nabla2_Qtrans->co[r][c] - Qsub);
+              DW = Dt*((*snow->Nabla2_Qtrans)(r,c) - Qsub);
 
               if (ns>0) //snow on the soil
                 {
@@ -605,7 +594,7 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
                                   snow->S->w_ice->co[i+1][r][c]=0.0;
                                   snow->S->w_liq->co[i+1][r][c]=0.0;
                                   snow->S->Dzl->co[i+1][r][c]=0.0;
-                                  snow->S->lnum->co[r][c]-=1;
+                                  (*snow->S->lnum)(r,c)-=1;
                                 }
                             }
 
@@ -623,16 +612,16 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
                         {
                           snow->S->w_ice->co[i+1][r][c]=0.0;        //kg/m2
                           snow->S->Dzl->co[i+1][r][c]=0.0;  //mm
-                          snow->S->lnum->co[r][c]=0;
+                          (*snow->S->lnum)(r,c)=0;
                         }
 
                     }
                   else    //snow drifted
                     {
 
-                      i = snow->S->lnum->co[r][c];
+                      i = (*snow->S->lnum)(r,c);
                       snow->S->w_ice->co[i][r][c]+=DW;
-                      snow->S->Dzl->co[snow->S->lnum->co[r][c]][r][c] +=
+                      snow->S->Dzl->co[(*snow->S->lnum)(r,c)][r][c] +=
                         1.0E+3*DW/rho_wind_transported_snow;
 
                     }
@@ -646,7 +635,7 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
 
                       snow->S->w_ice->co[1][r][c]+=DW;
                       snow->S->Dzl->co[1][r][c]+=1.0E+3*DW/rho_wind_transported_snow;
-                      snow->S->T->co[1][r][c]=Fmin(-1.,met->Tgrid->co[r][c]);
+                      snow->S->T->co[1][r][c]=Fmin(-1.,(*met->Vgrid)(r,c));
 
                     }
 
@@ -654,8 +643,8 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
 
               wind_packing(snow, par, r, c, Dt);
 
-              snow_layer_combination(par->alpha_snow, r, c, snow->S, met->Tgrid->co[r][c],
-                                     par->inf_snow_layers.get(), par->max_weq_snow, 1.E10, f);
+                snow_layer_combination(par->alpha_snow, r, c, snow->S, (*met->Vgrid)(r,c), 
+                                       par->inf_snow_layers.get(),par->max_weq_snow, 1.E10);
 
             }
         }
@@ -673,7 +662,7 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
 //*****************************************************************************************************
 
 void print_windtrans_snow(double Dt, SNOW *snow, PAR *par, TOPO *top,
-                          METEO *met, DOUBLEMATRIX *LC)
+                          METEO *met, Matrix<double> *LC)
 {
 
   long i, r, c;
@@ -682,22 +671,22 @@ void print_windtrans_snow(double Dt, SNOW *snow, PAR *par, TOPO *top,
   for (i=1; i<=par->total_pixel; i++)
     {
 
-      r = top->rc_cont->co[i][1];
-      c = top->rc_cont->co[i][2];
+      r = (*top->rc_cont)(i,1);
+      c = (*top->rc_cont)(i,2);
 
-      Qsub = sqrt(pow(snow->Qsub_x->co[r][c], 2.)+pow(snow->Qsub_y->co[r][c], 2.));
+      Qsub = sqrt(pow((*snow->Qsub_x)(r,c), 2.)+pow((*snow->Qsub_y)(r,c), 2.));
 
-      if (par->output_snow->co[i_sim]>0)
+      if ((*par->output_snow)(i_sim)>0)
         {
-          snow->Wtrans_plot->co[r][c] += Dt*snow->Nabla2_Qtrans->co[r][c];
-          snow->Wsubl_plot->co[r][c] += Dt*Qsub;
+          (*snow->Wtrans_plot)(r,c) += Dt*(*snow->Nabla2_Qtrans)(r,c);
+          (*snow->Wsubl_plot)(r,c) += Dt*Qsub;
         }
 
-      if (par->Dtplot_point->co[i_sim] > 1.E-5 && par->state_pixel == 1
+      if ((*par->Dtplot_point)(i_sim) > 1.E-5 && par->state_pixel == 1
           && (*par->jplot)(i) > 0)
         {
           odp[oblowingsnowtrans][(*par->jplot)(i)-1] -=
-            Dt*snow->Nabla2_Qtrans->co[r][c];
+            Dt*(*snow->Nabla2_Qtrans)(r,c);
           odp[oblowingsnowsubl][(*par->jplot)(i)-1] += Dt*Qsub;
         }
 
@@ -731,16 +720,16 @@ void wind_packing(SNOW *snow, PAR *par, long r, long c, double Dt)
   float D4 = 0.0884;//m2 N-1
 
   //from Liston(2007) - wind packing factor
-  if (snow->Qtrans->co[r][c]>1.E-10)
+  if ((*snow->Qtrans)(r,c)>1.E-10)
     {
 
-      for (l=snow->S->lnum->co[r][c]; l>=1; l--)
+      for (l=(*snow->S->lnum)(r,c); l>=1; l--)
         {
 
           overburden += (snow->S->w_ice->co[l][r][c]+snow->S->w_liq->co[l][r][c])/2.;
 
           //compactation at the surface (10%/hour if U8=8m/s U8t=4m/s => Qsalt=3.555342e-03 kg/m/s)
-          CR = -A4 * snow->Qsalt->co[r][c];
+          CR = -A4 * (*snow->Qsalt)(r,c);
           //decrease due to oberburden
           CR *= exp( -D4*g*overburden );
 

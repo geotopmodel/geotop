@@ -38,11 +38,11 @@ DtPlotPoint = 1
 DtPlotBasin = 1
 
 !Output maps Dt in hours 
-OutputSoilMaps = 24
-OutputSurfEBALMaps = 24
-OutputMeteoMaps = 24
-OutputSnowMaps = 24
-OutputGlacierMaps=24
+OutputSoilMaps = 48
+OutputSurfEBALMaps = 48
+OutputMeteoMaps = 48
+OutputSnowMaps = 48
+OutputGlacierMaps=48
 
 CoordinatePointX = -1
 !!0,0 
@@ -154,10 +154,12 @@ SlopeMapFile = "input-maps/slope"
 
 ! Tabs 
 DischargeFile = "output-tabs/discharge"
-SoilAll = 1
 PointOutputFile = "output-tabs/point"
+PointAll = 1
+
 SoilLiqWaterPressProfileFile = "output-tabs/psiliq"
 SoilLiqContentProfileFile = "output-tabs/thetaliq"
+SoilAll = 1
 !SoilIceContentProfileFile = "output-tabs/I"
 !SoilSaturationRatioProfileFile = "output-tabs/Sr"
 

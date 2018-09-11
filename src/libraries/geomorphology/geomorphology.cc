@@ -9,111 +9,111 @@
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void find_slope(double deltax, double deltay, DOUBLEMATRIX *topo,
-                DOUBLEMATRIX *dzdx, DOUBLEMATRIX *dzdy, long undef)
+void find_slope(double deltax, double deltay, Matrix<double> *topo,
+                Matrix<double> *dzdx, Matrix<double> *dzdy, long undef)
 {
 
-  long r,c,R1,C1,R2,C2;
-  long nc=topo->nch;
-  long nr=topo->nrh;
-  double a, delta;
+    long r,c,R1,C1,R2,C2;
+    long nc=topo->nch;
+    long nr=topo->nrh;
+    double a, delta;
 
-  // Find dzdx.
-  for (r=1; r<=nr; r++)
+    // Find dzdx.
+    for (r=1; r<=nr; r++)
     {
-      for (c=1; c<=nc; c++)
+        for (c=1; c<=nc; c++)
         {
-          if ((long)topo->co[r][c]!=undef)
+            if ((long)(*topo)(r,c)!=undef)
             {
 
-              a=0.0;
-              R1=r;
-              R2=r;
-              C1=c-1;
-              C2=c+1;
-              delta=deltax;
-              if (R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc)
+                a=0.0;
+                R1=r;
+                R2=r;
+                C1=c-1;
+                C2=c+1;
+                delta=deltax;
+                if (R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc)
                 {
-                  if ((long)topo->co[R1][C1]!=undef && (long)topo->co[R2][C2]!=undef)
+                    if ((long)(*topo)(R1,C1)!=undef && (long)(*topo)(R2,C2)!=undef)
                     {
-                      if ( (topo->co[R2][C2] - topo->co[r][c]) * (topo->co[r][c] - topo->co[R1][C1])
-                           < 0)
+                        if ( ((*topo)(R2,C2) - (*topo)(r,c)) * ((*topo)(r,c) - (*topo)(R1,C1))
+                             < 0)
                         {
-                          if ( fabs(topo->co[r][c] - topo->co[R1][C1]) > fabs(topo->co[R2][C2] -
-                                                                              topo->co[r][c]) )
+                            if ( fabs((*topo)(r,c) - (*topo)(R1,C1)) > fabs((*topo)(R2,C2) -
+                                                                            (*topo)(r,c)) )
                             {
-                              a += (topo->co[r][c] - topo->co[R1][C1]) / delta;
+                                a += ((*topo)(r,c) - (*topo)(R1,C1)) / delta;
                             }
-                          else
+                            else
                             {
-                              a += (topo->co[R2][C2] - topo->co[r][c]) / delta;
+                                a += ((*topo)(R2,C2) - (*topo)(r,c)) / delta;
                             }
                         }
-                      else
+                        else
                         {
-                          a += (topo->co[R2][C2] - topo->co[R1][C1]) / (2.*delta);
+                            a += ((*topo)(R2,C2) - (*topo)(R1,C1)) / (2.*delta);
                         }
                     }
-                  else if ((long)topo->co[R1][C1]==undef && (long)topo->co[R2][C2]!=undef)
+                    else if ((long)(*topo)(R1,C1)==undef && (long)(*topo)(R2,C2)!=undef)
                     {
-                      a += (topo->co[R2][C2] - topo->co[r][c]) / delta;
+                        a += ((*topo)(R2,C2) - (*topo)(r,c)) / delta;
                     }
-                  else if ((long)topo->co[R1][C1]!=undef && (long)topo->co[R2][C2]==undef)
+                    else if ((long)(*topo)(R1,C1)!=undef && (long)(*topo)(R2,C2)==undef)
                     {
-                      a += (topo->co[r][c] - topo->co[R1][C1]) / delta;
+                        a += ((*topo)(r,c) - (*topo)(R1,C1)) / delta;
                     }
                 }
-              dzdx->co[r][c] = a;
+                (*dzdx)(r,c) = a;
 
-              a=0.0;
-              R1=r+1;
-              R2=r-1;
-              C1=c;
-              C2=c;
-              delta=deltay;
-              if (R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc)
+                a=0.0;
+                R1=r+1;
+                R2=r-1;
+                C1=c;
+                C2=c;
+                delta=deltay;
+                if (R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc)
                 {
-                  if ((long)topo->co[R1][C1]!=undef && (long)topo->co[R2][C2]!=undef)
+                    if ((long)(*topo)(R1,C1)!=undef && (long)(*topo)(R2,C2)!=undef)
                     {
-                      if ( (topo->co[R2][C2] - topo->co[r][c]) * (topo->co[r][c] - topo->co[R1][C1])
-                           < 0)
+                        if ( ((*topo)(R2,C2) - (*topo)(r,c)) * ((*topo)(r,c) - (*topo)(R1,C1))
+                             < 0)
                         {
-                          if ( fabs(topo->co[r][c] - topo->co[R1][C1]) > fabs(topo->co[R2][C2] -
-                                                                              topo->co[r][c]) )
+                            if ( fabs((*topo)(r,c) - (*topo)(R1,C1)) > fabs((*topo)(R2,C2) -
+                                                                            (*topo)(r,c)) )
                             {
-                              a += (topo->co[r][c] - topo->co[R1][C1]) / delta;
+                                a += ((*topo)(r,c) - (*topo)(R1,C1)) / delta;
                             }
-                          else
+                            else
                             {
-                              a += (topo->co[R2][C2] - topo->co[r][c]) / delta;
+                                a += ((*topo)(R2,C2) - (*topo)(r,c)) / delta;
                             }
                         }
-                      else
+                        else
                         {
-                          a += (topo->co[R2][C2] - topo->co[R1][C1]) / (2.*delta);
+                            a += ((*topo)(R2,C2) - (*topo)(R1,C1)) / (2.*delta);
                         }
                     }
-                  else if ((long)topo->co[R1][C1]==undef && (long)topo->co[R2][C2]!=undef)
+                    else if ((long)(*topo)(R1,C1)==undef && (long)(*topo)(R2,C2)!=undef)
                     {
-                      a += (topo->co[R2][C2] - topo->co[r][c]) / delta;
+                        a += ((*topo)(R2,C2) - (*topo)(r,c)) / delta;
                     }
-                  else if ((long)topo->co[R1][C1]!=undef && (long)topo->co[R2][C2]==undef)
+                    else if ((long)(*topo)(R1,C1)!=undef && (long)(*topo)(R2,C2)==undef)
                     {
-                      a += (topo->co[r][c] - topo->co[R1][C1]) / delta;
+                        a += ((*topo)(r,c) - (*topo)(R1,C1)) / delta;
                     }
                 }
-              dzdy->co[r][c] = a;
+                (*dzdy)(r,c) = a;
 
-              //Some compilers will not allow dzdx and dzdy to both be 0.0 in the atan2 computation.
-              //if (fabs(dzdx->co[r][c])<1.E-10) dzdx->co[r][c] = 1.E-10;
-              if (fabs(dzdy->co[r][c])<1.E-10) dzdy->co[r][c] = 1.E-10;
+                //Some compilers will not allow dzdx and dzdy to both be 0.0 in the atan2 computation.
+                //if (fabs((*dzdx)(r,c))<1.E-10) (*dzdx)(r,c) = 1.E-10;
+                if (fabs((*dzdy)(r,c))<1.E-10) (*dzdy)(r,c) = 1.E-10;
 
             }
-          else
+            else
             {
 
-              dzdx->co[r][c] = (double)undef;
-              dzdy->co[r][c] = (double)undef;
+                (*dzdx)(r,c) = (double)undef;
+                (*dzdy)(r,c) = (double)undef;
 
             }
 
@@ -126,35 +126,36 @@ void find_slope(double deltax, double deltay, DOUBLEMATRIX *topo,
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-DOUBLEMATRIX *find_max_slope(DOUBLEMATRIX *topo, DOUBLEMATRIX *dzdx,
-                             DOUBLEMATRIX *dzdy, long undef)
+Matrix<double> * find_max_slope(Matrix<double> *topo, Matrix<double> *dzdx,
+                                Matrix<double> *dzdy, long undef)
 {
 
-  long r, c;
-  long nc=topo->nch;
-  long nr=topo->nrh;
-  DOUBLEMATRIX *M;
+    long r, c;
+    long nc=topo->nch;
+    long nr=topo->nrh;
+    Matrix<double> *M;
 
-  M=new_doublematrix(nr, nc);
+    M=new Matrix<double>{nr, nc};
 
-  for (r=1; r<=nr; r++)
+
+    for (r=1; r<=nr; r++)
     {
-      for (c=1; c<=nc; c++)
+        for (c=1; c<=nc; c++)
         {
-          if ((long)topo->co[r][c]!=undef)
+            if ((long)(*topo)(r,c)!=undef)
             {
-              M->co[r][c] = (180./Pi) * atan(pow(pow(dzdx->co[r][c],
-                                                     2.0) + pow(dzdy->co[r][c], 2.0), 0.5));
+                (*M)(r,c) = (180./Pi) * atan(pow(pow((*dzdx)(r,c),
+                                                     2.0) + pow((*dzdy)(r,c), 2.0), 0.5));
             }
-          else
+            else
             {
-              M->co[r][c] = (double)undef;
+                (*M)(r,c) = (double)undef;
             }
 
         }
     }
 
-  return M;
+    return M;
 }
 
 //***************************************************************************************************************
@@ -162,35 +163,35 @@ DOUBLEMATRIX *find_max_slope(DOUBLEMATRIX *topo, DOUBLEMATRIX *dzdx,
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-DOUBLEMATRIX *find_aspect(DOUBLEMATRIX *topo, DOUBLEMATRIX *dzdx,
-                          DOUBLEMATRIX *dzdy, long undef)
+Matrix<double> * find_aspect(Matrix<double> *topo, Matrix<double> *dzdx,
+                             Matrix<double> *dzdy, long undef)
 {
 
-  long r, c;
-  long nc=topo->nch;
-  long nr=topo->nrh;
-  DOUBLEMATRIX *M;
+    long r, c;
+    long nc=topo->nch;
+    long nr=topo->nrh;
+    Matrix<double> *M;
 
-  M=new_doublematrix(nr, nc);
+    M=new Matrix<double>{nr, nc};
 
-  for (r=1; r<=nr; r++)
+    for (r=1; r<=nr; r++)
     {
-      for (c=1; c<=nc; c++)
+        for (c=1; c<=nc; c++)
         {
-          if ((long)topo->co[r][c]!=undef)
+            if ((long)(*topo)(r,c)!=undef)
             {
-              M->co[r][c] = (180./Pi) * (3.0 / 2.0 * Pi - atan2(dzdy->co[r][c],
-                                                                dzdx->co[r][c]));
-              if (M->co[r][c]>=360.0) M->co[r][c] -= 360.0;
+                (*M)(r,c) = (180./Pi) * (3.0 / 2.0 * Pi - atan2((*dzdy)(r,c),
+                                                                (*dzdx)(r,c)));
+                if ((*M)(r,c)>=360.0) (*M)(r,c) -= 360.0;
             }
-          else
+            else
             {
-              M->co[r][c] = (double)undef;
+                (*M)(r,c) = (double)undef;
             }
         }
     }
 
-  return M;
+    return M;
 }
 
 
@@ -199,94 +200,94 @@ DOUBLEMATRIX *find_aspect(DOUBLEMATRIX *topo, DOUBLEMATRIX *dzdx,
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void curvature(double deltax, double deltay, DOUBLEMATRIX *topo,
-               DOUBLEMATRIX *c1, DOUBLEMATRIX *c2, DOUBLEMATRIX *c3, DOUBLEMATRIX *c4,
+void curvature(double deltax, double deltay, Matrix<double> *topo,
+               Matrix<double> *c1, Matrix<double> *c2, Matrix<double> *c3, Matrix<double> *c4,
                long undef)
 {
 
-  long r,c;
-  long R1, R2, C1, C2;
-  long nc=topo->nch;
-  long nr=topo->nrh;
-  double delta;
+    long r,c;
+    long R1, R2, C1, C2;
+    long nc=topo->nch;
+    long nr=topo->nrh;
+    double delta;
 
-  // Compute the curvature.
-  for (r=1; r<=nr; r++)
+    // Compute the curvature.
+    for (r=1; r<=nr; r++)
     {
-      for (c=1; c<=nc; c++)
+        for (c=1; c<=nc; c++)
         {
-          if ((long)topo->co[r][c]!=undef)
+            if ((long)(*topo)(r,c)!=undef)
             {
 
-              c1->co[r][c]=0.0;
-              R1=r-1;
-              R2=r+1;
-              C1=c;
-              C2=c;
-              delta=deltay;
-              if (R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc)
+                (*c1)(r,c)=0.0;
+                R1=r-1;
+                R2=r+1;
+                C1=c;
+                C2=c;
+                delta=deltay;
+                if (R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc)
                 {
-                  if ((long)topo->co[R1][C1]!=undef && (long)topo->co[R2][C2]!=undef)
+                    if ((long)(*topo)(R1,C1)!=undef && (long)(*topo)(R2,C2)!=undef)
                     {
-                      c1->co[r][c] += (topo->co[R1][C1]+topo->co[R2][C2]-2.*topo->co[r][c])/pow(
-                                        delta,2.);
+                        (*c1)(r,c) += ((*topo)(R1,C1)+(*topo)(R2,C2)-2.*(*topo)(r,c))/pow(
+                                delta,2.);
                     }
                 }
 
-              c2->co[r][c]=0.0;
-              R1=r;
-              R2=r;
-              C1=c+1;
-              C2=c-1;
-              delta=deltax;
-              if (R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc)
+                (*c2)(r,c)=0.0;
+                R1=r;
+                R2=r;
+                C1=c+1;
+                C2=c-1;
+                delta=deltax;
+                if (R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc)
                 {
-                  if ((long)topo->co[R1][C1]!=undef && (long)topo->co[R2][C2]!=undef)
+                    if ((long)(*topo)(R1,C1)!=undef && (long)(*topo)(R2,C2)!=undef)
                     {
-                      c2->co[r][c] += (topo->co[R1][C1]+topo->co[R2][C2]-2.*topo->co[r][c])/pow(
-                                        delta,2.);
+                        (*c2)(r,c) += ((*topo)(R1,C1)+(*topo)(R2,C2)-2.*(*topo)(r,c))/pow(
+                                delta,2.);
                     }
                 }
 
-              c3->co[r][c]=0.0;
-              R1=r-1;
-              R2=r+1;
-              C1=c-1;
-              C2=c+1;
-              delta=sqrt(deltax*deltay);
-              if (R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc)
+                (*c3)(r,c)=0.0;
+                R1=r-1;
+                R2=r+1;
+                C1=c-1;
+                C2=c+1;
+                delta=sqrt(deltax*deltay);
+                if (R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc)
                 {
-                  if ((long)topo->co[R1][C1]!=undef && (long)topo->co[R2][C2]!=undef)
+                    if ((long)(*topo)(R1,C1)!=undef && (long)(*topo)(R2,C2)!=undef)
                     {
-                      c3->co[r][c] += (topo->co[R1][C1]+topo->co[R2][C2]-2.*topo->co[r][c])/pow(
-                                        delta,2.);
+                        (*c3)(r,c) += ((*topo)(R1,C1)+(*topo)(R2,C2)-2.*(*topo)(r,c))/pow(
+                                delta,2.);
                     }
                 }
 
-              c4->co[r][c]=0.0;
-              R1=r-1;
-              R2=r+1;
-              C1=c+1;
-              C2=c-1;
-              delta=sqrt(deltax*deltay);
-              if (R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc)
+                (*c4)(r,c)=0.0;
+                R1=r-1;
+                R2=r+1;
+                C1=c+1;
+                C2=c-1;
+                delta=sqrt(deltax*deltay);
+                if (R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc)
                 {
-                  if ((long)topo->co[R1][C1]!=undef && (long)topo->co[R2][C2]!=undef)
+                    if ((long)(*topo)(R1,C1)!=undef && (long)(*topo)(R2,C2)!=undef)
                     {
-                      c4->co[r][c] += (topo->co[R1][C1]+topo->co[R2][C2]-2.*topo->co[r][c])/pow(
-                                        delta,2.);
+                        (*c4)(r,c) += ((*topo)(R1,C1)+(*topo)(R2,C2)-2.*(*topo)(r,c))/pow(
+                                delta,2.);
                     }
                 }
 
 
             }
-          else
+            else
             {
 
-              c1->co[r][c] = (double)undef;
-              c2->co[r][c] = (double)undef;
-              c3->co[r][c] = (double)undef;
-              c4->co[r][c] = (double)undef;
+                (*c1)(r,c) = (double)undef;
+                (*c2)(r,c) = (double)undef;
+                (*c3)(r,c) = (double)undef;
+                (*c4)(r,c) = (double)undef;
 
             }
 
@@ -300,58 +301,58 @@ void curvature(double deltax, double deltay, DOUBLEMATRIX *topo,
 /******************************************************************************************************************************************/
 
 
-void topofilter(DOUBLEMATRIX *Zin, DOUBLEMATRIX *Zout, long novalue, long n)
+void topofilter(Matrix<double> *Zin, Matrix<double> *Zout, long novalue, long n)
 {
 
-  long r, c, nr, nc, ir, ic, i;
-  std::unique_ptr<Vector<double>> values;
-  long cnt;
+    long r, c, nr, nc, ir, ic, i;
+    std::unique_ptr<Vector<double>> values;
+    long cnt;
 
-  values.reset(new Vector<double>{(2*n+1)*(2*n+1)});
+    values.reset(new Vector<double>{(2*n+1)*(2*n+1)});
 
-  nr=Zin->nrh;
-  nc=Zin->nch;
+    nr=Zin->nrh;
+    nc=Zin->nch;
 
-  for (r=1; r<=nr; r++)
+    for (r=1; r<=nr; r++)
     {
-      for (c=1; c<=nc; c++)
+        for (c=1; c<=nc; c++)
         {
-          if ((long)Zin->co[r][c] != novalue)
+            if ((long)(*Zin)(r,c) != novalue)
             {
-              cnt=0;
-              for (ir=-n; ir<=n; ir++)
+                cnt=0;
+                for (ir=-n; ir<=n; ir++)
                 {
-                  for (ic=-n; ic<=n; ic++)
+                    for (ic=-n; ic<=n; ic++)
                     {
-                      if (r+ir>=1 && r+ir<=nr && c+ic>=1 && c+ic<=nc)
+                        if (r+ir>=1 && r+ir<=nr && c+ic>=1 && c+ic<=nc)
                         {
-                          if ((long)Zin->co[r+ir][c+ic]!=novalue)
+                            if ((long)(*Zin)(r+ir,c+ic)!=novalue)
                             {
-                              cnt++;
-                              values->co[cnt]=Zin->co[r+ir][c+ic];
+                                cnt++;
+                                values->co[cnt]=(*Zin)(r+ir,c+ic);
                             }
                         }
                     }
                 }
 
-              /*order_values(values, cnt);
-               if (fmod(cnt, 2)>1.E-5) {
-               Zout->co[r][c] = values->co[(long)(0.5*(cnt+1))];
-               }else{
-               Zout->co[r][c] = 0.5*(values->co[(long)(0.5*(cnt))]+values->co[(long)(0.5*(cnt)+1)]);
-               }*/
+                /*order_values(values, cnt);
+                 if (fmod(cnt, 2)>1.E-5) {
+                 (*Zout)(r,c) = values->co[(long)(0.5*(cnt+1))];
+                 }else{
+                 (*Zout)(r,c) = 0.5*(values->co[(long)(0.5*(cnt))]+values->co[(long)(0.5*(cnt)+1)]);
+                 }*/
 
-              Zout->co[r][c] = 0.;
-              for (i=1; i<=cnt; i++)
+                (*Zout)(r,c) = 0.;
+                for (i=1; i<=cnt; i++)
                 {
-                  Zout->co[r][c] += values->co[i]/(double)cnt;
+                    (*Zout)(r,c) += values->co[i]/(double)cnt;
                 }
 
             }
-          else
+            else
             {
 
-              Zout->co[r][c] = (double)novalue;
+                (*Zout)(r,c) = (double)novalue;
 
             }
 
@@ -368,22 +369,22 @@ void topofilter(DOUBLEMATRIX *Zin, DOUBLEMATRIX *Zout, long novalue, long n)
 void order_values(Vector<double>* list, long n)
 {
 
-  long i,j,k=0;
-  double min;
+    long i,j,k=0;
+    double min;
 
-  for (i=1; i<=n; i++)
+    for (i=1; i<=n; i++)
     {
-      min = 1.E99;
-      for (j=i; j<=n; j++)
+        min = 1.E99;
+        for (j=i; j<=n; j++)
         {
-          if (min > list->co[j])
+            if (min > list->co[j])
             {
-              min = list->co[j];
-              k=j;
+                min = list->co[j];
+                k=j;
             }
         }
-      list->co[k] = list->co[i];
-      list->co[i] = min;
+        list->co[k] = list->co[i];
+        list->co[i] = min;
     }
 }
 
@@ -392,39 +393,38 @@ void order_values(Vector<double>* list, long n)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void multipass_topofilter(long ntimes, DOUBLEMATRIX *Zin, DOUBLEMATRIX *Zout,
-                          long novalue, long n)
+void multipass_topofilter(long ntimes, Matrix<double> *Zin, Matrix<double> *Zout, long novalue, long n)
 {
 
-  long i, r, c;
-  DOUBLEMATRIX *M;
+    long i, r, c;
+    Matrix<double> *M;
 
-  M=new_doublematrix(Zin->nrh, Zin->nch);
+    M = new Matrix<double>{Zin->nrh, Zin->nch};
 
-  for (r=1; r<=Zin->nrh; r++)
+    for (r=1; r<=Zin->nrh; r++)
     {
-      for (c=1; c<=Zin->nch; c++)
+        for (c=1; c<=Zin->nch; c++)
         {
-          Zout->co[r][c] = Zin->co[r][c];
+            (*Zout)(r,c) = (*Zin)(r,c);
         }
     }
 
-  for (i=1; i<=ntimes; i++)
+    for (i=1; i<=ntimes; i++)
     {
 
-      for (r=1; r<=Zout->nrh; r++)
+        for (r=1; r<=Zout->nrh; r++)
         {
-          for (c=1; c<=Zout->nch; c++)
+            for (c=1; c<=Zout->nch; c++)
             {
-              M->co[r][c] = Zout->co[r][c];
+                (*M)(r,c) = (*Zout)(r,c);
             }
         }
 
-      topofilter(M, Zout, novalue, n);
+        topofilter(M, Zout, novalue, n);
 
     }
 
-  free_doublematrix(M);
+    delete M;
 }
 
 /******************************************************************************************************************************************/
@@ -432,45 +432,45 @@ void multipass_topofilter(long ntimes, DOUBLEMATRIX *Zin, DOUBLEMATRIX *Zout,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short is_boundary(long r, long c, DOUBLEMATRIX *dem, long novalue)
+short is_boundary(long r, long c, Matrix<double> *dem, long novalue)
 {
 
-  long ir, ic;
-  short yes = 0;
+    long ir, ic;
+    short yes = 0;
 
-  ir=-1;
-  ic=0;
-  if ( (long)dem->co[r+ir][c+ic]==novalue ) yes = 1;
+    ir=-1;
+    ic=0;
+    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
-  ir=-1;
-  ic=1;
-  if ( (long)dem->co[r+ir][c+ic]==novalue ) yes = 1;
+    ir=-1;
+    ic=1;
+    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
-  ir=0;
-  ic=1;
-  if ( (long)dem->co[r+ir][c+ic]==novalue ) yes = 1;
+    ir=0;
+    ic=1;
+    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
-  ir=1;
-  ic=1;
-  if ( (long)dem->co[r+ir][c+ic]==novalue ) yes = 1;
+    ir=1;
+    ic=1;
+    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
-  ir=1;
-  ic=0;
-  if ( (long)dem->co[r+ir][c+ic]==novalue ) yes = 1;
+    ir=1;
+    ic=0;
+    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
-  ir=1;
-  ic=-1;
-  if ( (long)dem->co[r+ir][c+ic]==novalue ) yes = 1;
+    ir=1;
+    ic=-1;
+    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
-  ir=0;
-  ic=-1;
-  if ( (long)dem->co[r+ir][c+ic]==novalue ) yes = 1;
+    ir=0;
+    ic=-1;
+    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
-  ir=-1;
-  ic=-1;
-  if ( (long)dem->co[r+ir][c+ic]==novalue ) yes = 1;
+    ir=-1;
+    ic=-1;
+    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
-  return yes;
+    return yes;
 
 }
 
@@ -479,22 +479,22 @@ short is_boundary(long r, long c, DOUBLEMATRIX *dem, long novalue)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void find_min_max(DOUBLEMATRIX *M, long novalue, double *max, double *min)
+void find_min_max(Matrix<double> *M, long novalue, double *max, double *min)
 {
 
-  long r, c, nr=M->nrh, nc=M->nch;
+    long r, c, nr=M->nrh, nc=M->nch;
 
-  *max=-1.E99;
-  *min=1.E99;
+    *max=-1.E99;
+    *min=1.E99;
 
-  for (r=1; r<=nr; r++)
+    for (r=1; r<=nr; r++)
     {
-      for (c=1; c<=nc; c++)
+        for (c=1; c<=nc; c++)
         {
-          if ((long)M->co[r][c] != novalue)
+            if ((long)(*M)(r,c) != novalue)
             {
-              if (*max < M->co[r][c]) *max = M->co[r][c];
-              if (*min > M->co[r][c]) *min = M->co[r][c];
+                if (*max < (*M)(r,c)) *max = (*M)(r,c);
+                if (*min > (*M)(r,c)) *min = (*M)(r,c);
             }
         }
     }
@@ -508,22 +508,22 @@ void find_min_max(DOUBLEMATRIX *M, long novalue, double *max, double *min)
 long row(double N, long nrows, T_INIT *UV, long novalue)
 {
 
-  long cnt;
+    long cnt;
 
-  if (N<UV->U->co[3] || N>UV->U->co[3]+nrows*UV->U->co[1])
+    if (N<UV->U->co[3] || N>UV->U->co[3]+nrows*UV->U->co[1])
     {
-      return novalue;
+        return novalue;
 
     }
-  else
+    else
     {
-      cnt=0;
-      do
+        cnt=0;
+        do
         {
-          cnt++;
+            cnt++;
         }
-      while (UV->U->co[3]+(nrows-cnt)*UV->U->co[1]>N);
-      return cnt;
+        while (UV->U->co[3]+(nrows-cnt)*UV->U->co[1]>N);
+        return cnt;
     }
 }
 
@@ -535,21 +535,21 @@ long row(double N, long nrows, T_INIT *UV, long novalue)
 long col(double E, long ncols, T_INIT *UV, long novalue)
 {
 
-  long cnt;
+    long cnt;
 
-  if (E<UV->U->co[4] || E>UV->U->co[4]+ncols*UV->U->co[2])
+    if (E<UV->U->co[4] || E>UV->U->co[4]+ncols*UV->U->co[2])
     {
-      return novalue;
+        return novalue;
     }
-  else
+    else
     {
-      cnt=0;
-      do
+        cnt=0;
+        do
         {
-          cnt++;
+            cnt++;
         }
-      while (UV->U->co[4]+cnt*UV->U->co[2]<E);
-      return cnt;
+        while (UV->U->co[4]+cnt*UV->U->co[2]<E);
+        return cnt;
     }
 }
 
@@ -562,7 +562,7 @@ double topo_from_origin(double **topo, double E, double N, long ncols,
                         long nrows, T_INIT *UV, long novalue)
 {
 
-  return topo[row(N, nrows, UV, novalue)][col(E, ncols, UV, novalue)];
+    return topo[row(N, nrows, UV, novalue)][col(E, ncols, UV, novalue)];
 
 }
 
@@ -571,93 +571,93 @@ double topo_from_origin(double **topo, double E, double N, long ncols,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double interp_value(double E, double N, DOUBLEMATRIX *M, DOUBLEMATRIX *Z,
+double interp_value(double E, double N, Matrix<double> *M, Matrix<double> *Z,
                     T_INIT *UV, long novalue)
 {
 
-  double  dN, dE, N0, E0, DN, DE, w1, V;
-  long r, c;
+    double  dN, dE, N0, E0, DN, DE, w1, V;
+    long r, c;
 
-  r=row(N, Z->nrh, UV, novalue);
-  c=col(E, Z->nch, UV, novalue);
+    r=row(N, Z->nrh, UV, novalue);
+    c=col(E, Z->nch, UV, novalue);
 
-  if (r==0 || c==0 || (long)Z->co[r][c]==novalue)
+    if (r==0 || c==0 || (long)(*Z)(r,c)==novalue)
     {
 
-      V=(double)novalue;
+        V=(double)novalue;
 
     }
-  else
+    else
     {
 
-      dN=UV->U->co[1];
-      dE=UV->U->co[2];
+        dN=UV->U->co[1];
+        dE=UV->U->co[2];
 
-      N0=UV->U->co[3] + (Z->nrh-r+0.5)*dN;
-      E0=UV->U->co[4] + (c-0.5)*dE;
+        N0=UV->U->co[3] + (Z->nrh-r+0.5)*dN;
+        E0=UV->U->co[4] + (c-0.5)*dE;
 
-      DN=(N-N0)/(0.5*dN);
-      DE=(E-E0)/(0.5*dE);
+        DN=(N-N0)/(0.5*dN);
+        DE=(E-E0)/(0.5*dE);
 
-      if (DN<=DE && DN>=-DE)
+        if (DN<=DE && DN>=-DE)
         {
 
-          if ((long)Z->co[r][c+1]!=novalue)
+            if ((long)(*Z)(r,c+1)!=novalue)
             {
-              w1=(E0+dE-E)/dE;
-              V=w1*M->co[r][c]+(1.0-w1)*M->co[r][c+1];
+                w1=(E0+dE-E)/dE;
+                V=w1*(*M)(r,c)+(1.0-w1) * (*M)(r,c+1);
             }
-          else
+            else
             {
-              V=M->co[r][c];
+                V=(*M)(r,c);
             }
 
         }
-      else if (DN>=DE && DN>=-DE)
+        else if (DN>=DE && DN>=-DE)
         {
 
-          if ((long)Z->co[r-1][c]!=novalue)
+            if ((long)(*Z)(r-1,c)!=novalue)
             {
-              w1=(N0+dN-N)/dN;
-              V=w1*M->co[r][c]+(1.0-w1)*M->co[r-1][c];
+                w1=(N0+dN-N)/dN;
+                V=w1*(*M)(r,c)+(1.0-w1)*(*M)(r-1,c);
             }
-          else
+            else
             {
-              V=M->co[r][c];
+                V=(*M)(r,c);
             }
 
         }
-      else if (DN>=DE && DN<=-DE)
+        else if (DN>=DE && DN<=-DE)
         {
 
-          if ((long)Z->co[r][c-1]!=novalue)
+            if ((long)(*Z)(r,c-1)!=novalue)
             {
-              w1=(E-(E0-dE))/dE;
-              V=w1*M->co[r][c]+(1.0-w1)*M->co[r][c-1];
+                w1=(E-(E0-dE))/dE;
+                V=w1*(*M)(r,c)+(1.0-w1)*(*M)(r,c-1);
             }
-          else
+            else
             {
-              V=M->co[r][c];
+                V=(*M)(r,c);
             }
 
         }
-      else
+        else
         {
 
-          if ((long)Z->co[r+1][c]!=novalue)
+            if ((long)(*Z)(r+1,c)!=novalue)
             {
-              w1=(N-(N0-dN))/dN;
-              V=w1*M->co[r][c]+(1.0-w1)*M->co[r+1][c];
+                w1=(N-(N0-dN))/dN;
+                V=w1*(*M)(r,c)+(1.0-w1)*(*M)(r+1,c);
             }
-          else
+            else
             {
-              V=M->co[r][c];
+                V=(*M)(r,c);
             }
 
         }
     }
 
-  return (V);
+    return (V);
 
 }
 

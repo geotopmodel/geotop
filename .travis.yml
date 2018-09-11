@@ -32,7 +32,7 @@ before_install:
 install:
   - meson.py build
   - cd build
-  - ninja
+  - ninja -j2
 
 
 script:

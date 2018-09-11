@@ -568,10 +568,10 @@ cnt:5 res:1.444231e-02 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:6 res:1.382455e-03 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:7 res:1.453646e-05 lambda:1.000000e+00 Dt:18.000000 P:0.250000
 cnt:8 res:4.950962e-09 lambda:1.000000e+00 Dt:18.000000 P:0.250000
-1/1/2000 0:03 100.00% - Times: Elapsed (h:m:s)  0:00:48 Remaining (h:m) -1:59  
+1/1/2000 0:03 100.00% - Times: Elapsed (h:m:s)  0:00:49 Remaining (h:m) -1:59  
 
 1/1/2000 0:03 JD:0.002083 (1^ simulation day) 100.00% completed! 
- t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 47.90 s, t_sub: 47.90 s, t_sup:  0.00 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  0.00 s, t_blowingsnow:  0.00 s, t_water: 49.00 s, t_sub: 49.00 s, t_sup:  0.00 s, t_out:  0.00 s
  SW=  0.00 W/m2  LW:  0.00 W/m2  H=  0.00 W/m2  LE=  0.00 W/m2 
  Pvert=  2.50 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=1.081874e-05 mm/h 

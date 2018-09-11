@@ -362,252 +362,252 @@ cnt:2 res:5.027339e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 24/2/2012 2:00 39.81% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:2.400034e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:4.786090e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 3:00 40.28% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 3:00 40.28% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.943032e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:3.226439e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 4:00 40.74% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 4:00 40.74% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.663923e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.681911e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 5:00 41.20% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 5:00 41.20% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.990867e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:4.051847e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 6:00 41.67% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 6:00 41.67% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.908629e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:3.118015e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 7:00 42.13% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 7:00 42.13% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:3.531310e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.015796e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 8:00 42.59% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 8:00 42.59% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.159297e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.101057e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 9:00 43.06% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 9:00 43.06% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:8.972505e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:6.642939e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 10:00 43.52% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 10:00 43.52% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:4.047374e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.353549e-06 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:3 res:3.360591e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 11:00 43.98% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 11:00 43.98% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:8.023258e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:5.328374e-06 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:3 res:4.349666e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 12:00 44.44% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 12:00 44.44% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.256271e-01 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.309254e-05 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:3 res:2.398578e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 13:00 44.91% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 13:00 44.91% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.331185e-01 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.473476e-05 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:3 res:3.609033e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 14:00 45.37% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 14:00 45.37% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:8.893422e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:6.589477e-06 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:3 res:4.298934e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 15:00 45.83% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 15:00 45.83% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:3.708724e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.147403e-06 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:3 res:2.245755e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 16:00 46.30% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 16:00 46.30% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.077767e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:9.570437e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 17:00 46.76% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 17:00 46.76% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.769802e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.582384e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 18:00 47.22% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 18:00 47.22% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:9.139823e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:6.994063e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 19:00 47.69% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 19:00 47.69% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.574540e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.046248e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 20:00 48.15% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 20:00 48.15% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.386373e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.587181e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 21:00 48.61% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 21:00 48.61% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:7.635067e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:4.877695e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 22:00 49.07% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 22:00 49.07% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:5.454562e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.456434e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-24/2/2012 23:00 49.54% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+24/2/2012 23:00 49.54% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:6.980657e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:4.026419e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 0:00 50.00% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 0:00 50.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:4.638634e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.719057e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 1:00 50.46% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 1:00 50.46% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:3.492074e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.015484e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 2:00 50.93% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 2:00 50.93% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:5.611077e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.552808e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 3:00 51.39% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 3:00 51.39% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:6.900380e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:3.957774e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 4:00 51.85% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 4:00 51.85% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:6.714472e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:3.719355e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 5:00 52.31% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 5:00 52.31% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:5.961261e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.934460e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 6:00 52.78% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 6:00 52.78% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:6.426097e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:3.451734e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 7:00 53.24% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 7:00 53.24% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:3.409963e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.028170e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 8:00 53.70% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 8:00 53.70% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.157211e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.101187e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 9:00 54.17% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 9:00 54.17% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:9.579470e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:7.684428e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 10:00 54.63% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 10:00 54.63% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:4.388276e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.614830e-06 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:3 res:2.189712e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 11:00 55.09% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 11:00 55.09% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.329360e-01 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.485162e-05 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:3 res:2.140303e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 12:00 55.56% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 12:00 55.56% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.172305e-01 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.157472e-05 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:3 res:1.868568e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 13:00 56.02% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 13:00 56.02% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:2.708625e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:5.991856e-07 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 14:00 56.48% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 14:00 56.48% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.589968e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.105685e-07 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 15:00 56.94% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 15:00 56.94% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.028096e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:8.810375e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 16:00 57.41% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 16:00 57.41% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:2.787843e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:6.451250e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 17:00 57.87% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 17:00 57.87% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.438391e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.717990e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 18:00 58.33% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 18:00 58.33% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.261223e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.315627e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 19:00 58.80% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 19:00 58.80% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:8.178757e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:5.663553e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 20:00 59.26% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 20:00 59.26% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:6.717507e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:3.710813e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 21:00 59.72% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 21:00 59.72% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:6.451317e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:3.412336e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 22:00 60.19% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 22:00 60.19% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:5.942229e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.871380e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-25/2/2012 23:00 60.65% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+25/2/2012 23:00 60.65% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:5.573781e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.626673e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 0:00 61.11% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 0:00 61.11% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:5.445424e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.376641e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 1:00 61.57% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 1:00 61.57% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:5.398706e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.327147e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 2:00 62.04% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 2:00 62.04% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:6.055048e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:3.116503e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 3:00 62.50% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 3:00 62.50% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:5.622585e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.611595e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 4:00 62.96% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 4:00 62.96% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:5.012787e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.150432e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 5:00 63.43% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 5:00 63.43% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:7.160254e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:4.292558e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 6:00 63.89% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 6:00 63.89% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:5.837492e-04 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.795552e-10 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 7:00 64.35% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 7:00 64.35% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.109667e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.028368e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 8:00 64.81% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 8:00 64.81% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:8.028913e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:5.458516e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 9:00 65.28% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 9:00 65.28% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.663199e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.285860e-07 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 10:00 65.74% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 10:00 65.74% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:8.101426e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:5.458114e-06 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:3 res:2.465623e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 11:00 66.20% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 11:00 66.20% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.630547e-01 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.203008e-05 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:3 res:1.836750e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 12:00 66.67% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 12:00 66.67% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.705619e-01 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.480882e-05 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:3 res:2.991722e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 13:00 67.13% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 13:00 67.13% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.449748e-01 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.796635e-05 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:3 res:2.005851e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 14:00 67.59% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 14:00 67.59% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:8.583105e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:6.309223e-06 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:3 res:2.943532e-11 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 15:00 68.06% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 15:00 68.06% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:2.853099e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:6.822065e-07 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 16:00 68.52% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 16:00 68.52% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.977054e-02 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:3.278726e-07 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 17:00 68.98% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 17:00 68.98% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:5.796691e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.809449e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 18:00 69.44% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 18:00 69.44% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:4.616551e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.798251e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 19:00 69.91% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 19:00 69.91% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:4.880527e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.010615e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 20:00 70.37% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 20:00 70.37% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:3.196497e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:8.626681e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 21:00 70.83% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 21:00 70.83% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:3.891315e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.278962e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 22:00 71.30% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 22:00 71.30% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:2.598350e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:5.705776e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-26/2/2012 23:00 71.76% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+26/2/2012 23:00 71.76% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:2.843297e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:6.831014e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-27/2/2012 0:00 72.22% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+27/2/2012 0:00 72.22% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:2.105452e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:3.748859e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-27/2/2012 1:00 72.69% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+27/2/2012 1:00 72.69% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:2.081269e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:3.665177e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-27/2/2012 2:00 73.15% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+27/2/2012 2:00 73.15% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.434498e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.705813e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-27/2/2012 3:00 73.61% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+27/2/2012 3:00 73.61% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.306117e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.418873e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-27/2/2012 4:00 74.07% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+27/2/2012 4:00 74.07% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.773355e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.666316e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-27/2/2012 5:00 74.54% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+27/2/2012 5:00 74.54% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.829334e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.828437e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-27/2/2012 6:00 75.00% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+27/2/2012 6:00 75.00% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.288153e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:1.409136e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-27/2/2012 7:00 75.46% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+27/2/2012 7:00 75.46% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:1.568832e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:2.079453e-09 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
-27/2/2012 8:00 75.93% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  
+27/2/2012 8:00 75.93% - Times: Elapsed (h:m:s)  0:00:00 Remaining (h:m)  0:00  
 cnt:1 res:6.133695e-03 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 cnt:2 res:3.240110e-08 lambda:1.000000e+00 Dt:3600.000000 P:0.000000
 27/2/2012 9:00 76.39% - Times: Elapsed (h:m:s)  0:00:01 Remaining (h:m)  0:00  

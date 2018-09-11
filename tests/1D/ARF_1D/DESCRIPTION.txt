@@ -1,0 +1,14 @@
+This is an example GEOtop dataset intended to reproduce the Wierenga et
+al. (1991) WRR infiltration trench experiment conducted at Las Cruces. 
+DOI for original paper: 10.1029/91WR01537
+
+Code to run with Docker: docker run --rm -v $(pwd):/work omslab/geotop
+
+Infiltration is applied to the land surface at a rate of 1.82 cm/day for
+86 days, while plastic sheeting is used to remove any other fluxes at 
+the land surface (e.g. precipitation and evaporation). Soil moisture 
+sensors at a variety of depths measured water content throughout the
+experiment, and observations are reported for days 19 and 35.
+
+Created by Sam Zipper, February 2017, in order to learn how to build the
+inputs for a GEOtop simulation.

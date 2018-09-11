@@ -588,12 +588,12 @@ void rad_snow_absorption(long r, long c, Vector<double> *frac, double R,
   *frac=0.;
 
   //in case of snow
-  if ( snow->lnum->co[r][c] > 1)
+  if ( (*snow->lnum)(r,c) > 1)
     {
 
-      for (l=snow->lnum->co[r][c]; l>=1; l--)
+      for (l=(*snow->lnum)(r,c); l>=1; l--)
         {
-          m=snow->lnum->co[r][c]-l+1;
+          m=(*snow->lnum)(r,c)-l+1;
           z+=0.001*snow->Dzl->co[l][r][c];
           rho=(snow->w_ice->co[l][r][c]+snow->w_liq->co[l][r][c])/
               (0.001*snow->Dzl->co[l][r][c]);
@@ -602,7 +602,7 @@ void rad_snow_absorption(long r, long c, Vector<double> *frac, double R,
           res=R*exp(-k*z);
         }
 
-      frac->co[snow->lnum->co[r][c]+1]=res;
+      frac->co[(*snow->lnum)(r,c)+1]=res;
 
     }
   else
@@ -715,7 +715,7 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met,
   double P, RH, T, c;
 
   //pressure [mbar]
-  P=pressure(met->st->Z->co[i]);
+  P=pressure((*met->st->Z)(i));
 
   //relative humidity
   if ((long)met->var[i-1][iRh] != number_novalue
@@ -730,7 +730,7 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met,
            && (long)met->var[i-1][iTdew] != number_absent
            && (long)met->var[i-1][iTdew] != number_novalue)
         {
-          RH=RHfromTdew(met->var[i-1][iT], met->var[i-1][iTdew], met->st->Z->co[i]);
+          RH=RHfromTdew(met->var[i-1][iT], met->var[i-1][iTdew], (*met->st->Z)(i));
         }
       else
         {
@@ -742,10 +742,10 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met,
   T=met->var[i-1][iT];
   if ((long)T == number_novalue || (long)T == number_absent) T=0.0;
 
-  c = cloud_transmittance(JDbeg, JDend, met->st->lat->co[i]*Pi/180., Delta,
-                          (met->st->lon->co[i]*Pi/180. - ST*Pi/12. + Et)/omega, RH,
+  c = cloud_transmittance(JDbeg, JDend, (*met->st->lat)(i)*Pi/180., Delta,
+                          ((*met->st->lon)(i)*Pi/180. - ST*Pi/12. + Et)/omega, RH,
                           T, P, met->var[i-1][iSWd], met->var[i-1][iSWb], met->var[i-1][iSW], E0,
-                          met->st->sky->co[i], SWrefl_surr,
+                          (*met->st->sky)(i), SWrefl_surr,
                           Lozone, alpha, beta, albedo);
 
   return c;
@@ -761,7 +761,7 @@ short shadows_point(double **hor, long n, double alpha, double azimuth,
 
 /*routine that tells you whether a point is in shadow or not, depending on the solar azimuth, elevation and horizon file at that point
  * Author: Matteo Dall'Amico, May 2011
- Inputs: DOUBLEMATRIX* hor_height: matrix of horizon_height at the point
+ Inputs: Matrix<double>* hor_height: matrix of horizon_height at the point
  double alpha: solar altitude (degree)
  double azimuth: solar azimuth (degree)
  double tol_mount: tolerance over a mountaneaus horizon to have a reliable cloud datum (degree)
@@ -829,8 +829,8 @@ short shadows_point(double **hor, long n, double alpha, double azimuth,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void shadow_haiden(DOUBLEMATRIX *Z, double alpha, double direction,
-                   SHORTMATRIX *SH)
+void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
+                   Matrix<short> *SH)
 
 /*  Author: Thomas Haiden, Year: 16 june 2003
  *  Function that calculates if each pixel (matrix of shadows) is in shadow or at sun given
@@ -900,10 +900,10 @@ void shadow_haiden(DOUBLEMATRIX *Z, double alpha, double direction,
               //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
               rr=Nr-kk;
               cc=ll+1;
-              zray=Z->co[rr][cc];
-              SH->co[r][c]=0;
+              zray=(*Z)(rr,cc);
+              (*SH)(r,c)=0;
 
-              while ( (SH->co[r][c]==0) && (kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1) )
+              while ( ((*SH)(r,c)==0) && (kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1) )
                 {
                   q=((ll+orix)*GDX+0.5*GDX-xp)/sx;
                   y=yp+q*sy;
@@ -916,10 +916,10 @@ void shadow_haiden(DOUBLEMATRIX *Z, double alpha, double direction,
                       //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
                       rr=Nr-kk;
                       cc=ll+1;
-                      z1=Z->co[rr][cc];
+                      z1=(*Z)(rr,cc);
                       //rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, UV, number_novalue);
                       rr=Nr-(kk+oriy);
-                      z2=Z->co[rr][cc];
+                      z2=(*Z)(rr,cc);
                       ztopo=z1+(z2-z1)*(yp-(GDY*kk+0.5*GDY))/(oriy*GDY);
                     }
                   else
@@ -933,14 +933,14 @@ void shadow_haiden(DOUBLEMATRIX *Z, double alpha, double direction,
                       //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
                       rr=Nr-kk;
                       cc=ll+1;
-                      z1=Z->co[rr][cc];
+                      z1=(*Z)(rr,cc);
                       //cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, UV, number_novalue);
                       cc=ll+orix+1;
-                      z2=Z->co[rr][cc];
+                      z2=(*Z)(rr,cc);
                       ztopo=z1+(z2-z1)*(xp-(GDX*ll+0.5*GDX))/(orix*GDX);
                     }
                   zray=zray+q*sz;
-                  if (ztopo>zray) SH->co[r][c]=1;
+                  if (ztopo>zray) (*SH)(r,c)=1;
                 }
             }
         }
@@ -990,10 +990,10 @@ void shadow_haiden(DOUBLEMATRIX *Z, double alpha, double direction,
               //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
               rr=Nr-kk;
               cc=ll+1;
-              zray=Z->co[rr][cc];
-              SH->co[r][c]=0;
+              zray=(*Z)(rr,cc);
+              (*SH)(r,c)=0;
 
-              while ( (SH->co[r][c]==0) &&(kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1))
+              while ( ((*SH)(r,c)==0) &&(kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1))
                 {
                   q=((kk+oriy)*GDY+0.5*GDY-yp)/sy;
                   x=xp+q*sx;
@@ -1006,10 +1006,10 @@ void shadow_haiden(DOUBLEMATRIX *Z, double alpha, double direction,
                       //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
                       rr=Nr-kk;
                       cc=ll+1;
-                      z1=Z->co[rr][cc];
+                      z1=(*Z)(rr,cc);
                       //cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, UV, number_novalue);
                       cc=ll+orix+1;
-                      z2=Z->co[rr][cc];
+                      z2=(*Z)(rr,cc);
                       ztopo=z1+(z2-z1)*(xp-(GDX*ll+0.5*GDX))/(orix*GDX);
                     }
                   else
@@ -1023,14 +1023,14 @@ void shadow_haiden(DOUBLEMATRIX *Z, double alpha, double direction,
                       //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
                       rr=Nr-kk;
                       cc=ll+1;
-                      z1=Z->co[rr][cc];
+                      z1=(*Z)(rr,cc);
                       //rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, UV, number_novalue);
                       rr=Nr-(kk+oriy);
-                      z2=Z->co[rr][cc];
+                      z2=(*Z)(rr,cc);
                       ztopo=z1+(z2-z1)*(yp-(GDY*kk+0.5*GDY))/(oriy*GDY);
                     }
                   zray=zray+q*sz;
-                  if (ztopo>zray) SH->co[r][c]=1;
+                  if (ztopo>zray) (*SH)(r,c)=1;
                 }
             }
         }

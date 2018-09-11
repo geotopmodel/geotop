@@ -1,10 +1,9 @@
 #include  "turtle.h"
 #include  "tensor3D.h"
-/* Note that depth is the first indices and that the indices were pernutated
+/* Note that depth is the first indices and that the indices were permuted
 with respect to NR */
 
 /*-----------------------------------------------------------------------*/
-
 
 double ***d3tensor(long nrl, long nrh, long ncl, long nch, long ndl, long ndh)
 /* allocate a double 3tensor with range t[nrl..nrh][ncl..nch][ndl..ndh] */
@@ -43,12 +42,9 @@ double ***d3tensor(long nrl, long nrh, long ncl, long nch, long ndl, long ndh)
   return t;
 }
 
-
 /*-----------------------------------------------------------------------*/
 
-
 DOUBLETENSOR *new_doubletensor(long ndh,long nrh,long nch)
-
 
 {
 
@@ -67,14 +63,12 @@ DOUBLETENSOR *new_doubletensor(long ndh,long nrh,long nch)
 
   m->co=d3tensor(m->ndl,m->ndh,m->nrl,m->nrh,m->ncl,m->nch);
 
-
   return m;
-
 
 }
 
-DOUBLETENSOR *new_doubletensor0(long ndh,long nrh,long nch)
 
+DOUBLETENSOR *new_doubletensor0(long ndh,long nrh,long nch)
 
 {
 
@@ -93,15 +87,11 @@ DOUBLETENSOR *new_doubletensor0(long ndh,long nrh,long nch)
 
   m->co=d3tensor(m->ndl,m->ndh,m->nrl,m->nrh,m->ncl,m->nch);
 
-
   return m;
-
 
 }
 
-
 /*-----------------------------------------------------------------------*/
-
 
 void free_d3tensor(double ***t, long nrl, long ncl, long ndl)
 {
@@ -110,16 +100,13 @@ void free_d3tensor(double ***t, long nrl, long ncl, long ndl)
   free((FREE_ARG) (t+nrl-NR_END));
 }
 
-
 /*-----------------------------------------------------------------------*/
-
 
 void free_doubletensor( DOUBLETENSOR *m)
 
 {
 
-
-  if (m==NULL || m->co==NULL)
+  if (m==nullptr || m->co==nullptr)
     {
       t_error("This matrix was never allocated");
     }
@@ -136,13 +123,8 @@ void free_doubletensor( DOUBLETENSOR *m)
   else
     {
       printf("\nWarning::An attemp was made to free a non dynamic tensor\n");
-
     }
-
-
 }
-
-
 
 /*---------------------------------------------------------------------------*/
 void initialize_doubletensor(DOUBLETENSOR *L, double sign)
@@ -151,7 +133,7 @@ void initialize_doubletensor(DOUBLETENSOR *L, double sign)
 
   long i,j,k;
 
-  if (L!=NULL)
+  if (L!=nullptr)
     {
       if (L->isdynamic==1)
         {

@@ -39,7 +39,7 @@ double *read_grassascii(double *header, double novalue, char *name)
   double *dtm;
 
   f=fopen(join_strings(name,ascii_grass),"r");
-  if (f==NULL)
+  if (f==nullptr)
     {
       printf("\nFile %s doesn't exist",join_strings(name,ascii_grass));
       t_error("Fatal error");
@@ -301,7 +301,7 @@ double *read_esriascii(double *header, double novalue, char *name)
 
   f=fopen(temp,"r");
 
-  if (f==NULL)
+  if (f==nullptr)
     {
       printf("\nFile %s doesn't exist",temp);
       t_error("Fatal error");

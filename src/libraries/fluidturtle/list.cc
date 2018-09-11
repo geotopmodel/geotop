@@ -3,11 +3,9 @@
 #define MAX_NAME 256
 
 /*--------------------------------------------------------------------------*/
-
 /* Translating a buffer of longs into a list */
 
 LONGPAIR *buffer2list(long  *s,LONGPAIR *nxt)
-
 
 {
   LONGPAIR *head;
@@ -29,7 +27,6 @@ LONGPAIR *buffer2list(long  *s,LONGPAIR *nxt)
 
 REALPAIR *realbuffer2list(double  *s,REALPAIR *nxt)
 
-
 {
 
   REALPAIR *head;
@@ -46,31 +43,13 @@ REALPAIR *realbuffer2list(double  *s,REALPAIR *nxt)
     }
 }
 
-/*--------------------------------------------------------------------------*/
-
-LONGPAIR *new_longpair()
-{
-
-  LONGPAIR *head;
-
-  head=(LONGPAIR * )malloc(sizeof(LONGPAIR));
-  if (!head) t_error("I cannot allocate further memory");
-  head->next = NULL;
-  head->i=0;
-  head->j=0;
-
-  return head;
-
-
-}
-
 
 /*--------------------------------------------------------------------------*/
 
 long count_longpair_elements(LONGPAIR *head)
 
 {
-  if (head==NULL)
+  if (head==nullptr)
     return 0;
   else
     return (1+count_longpair_elements(head->next));
@@ -81,7 +60,7 @@ long count_longpair_elements(LONGPAIR *head)
 long count_longpoker_elements(LONGPOKER *head)
 
 {
-  if (head==NULL)
+  if (head==nullptr)
     return 0;
   else
     return (1+count_longpoker_elements(head->next));
@@ -92,7 +71,7 @@ long count_longpoker_elements(LONGPOKER *head)
 long count_ix_elements(IX *head)
 
 {
-  if (head==NULL)
+  if (head==nullptr)
     return 0;
   else
     return (1+count_ix_elements(head->next));
@@ -103,7 +82,7 @@ long count_ix_elements(IX *head)
 long count_realpair_elements(REALPAIR *head)
 
 {
-  if (head==NULL)
+  if (head==nullptr)
     return 0;
   else
     return (1+count_realpair_elements(head->next));
@@ -114,7 +93,7 @@ long count_realpair_elements(REALPAIR *head)
 long count_ijx_elements(IJX *head)
 
 {
-  if (head==NULL)
+  if (head==nullptr)
     return 0;
   else
     return (1+count_ijx_elements(head->next));
@@ -126,7 +105,7 @@ long count_ijx_elements(IJX *head)
 long count_xyz_elements(XYZ *head)
 
 {
-  if (head==NULL)
+  if (head==nullptr)
     return 0;
   else
     return (1+count_xyz_elements(head->next));
@@ -137,17 +116,16 @@ long count_xyz_elements(XYZ *head)
 long count_phrase_elements(PHRASE *head)
 
 {
-  if (head==NULL)
+  if (head==nullptr)
     return 0;
   else
     return (1+count_phrase_elements(head->next));
 }
 
-
-
 /*--------------------------------------------------------------------------*/
 /* Pointing to the antecedent to a numbered element of the list.
-If NULL the first is being pointed. */
+If nullptr the first is being pointed. */
+
 LONGPAIR *point2longpair(LONGPAIR *head,long point)
 
 {
@@ -155,13 +133,13 @@ LONGPAIR *point2longpair(LONGPAIR *head,long point)
    printf("#%d#\n",point);
    print_longlist_elements(head,10);
   */
-  if (head==NULL)
+  if (head==nullptr)
     {
       t_error("This element does not exist in the list");
     }
   else if (point<=0)
     {
-      return NULL;
+      return nullptr;
     }
   else if (point==1)
     {
@@ -171,22 +149,21 @@ LONGPAIR *point2longpair(LONGPAIR *head,long point)
     {
       point2longpair(head->next,point-1);
     }
-  return NULL;
+  return nullptr;
 
 }
-
 
 /*--------------------------------------------------------------------------*/
 LONGPOKER *point2longpoker(LONGPOKER *head,long point)
 
 {
-  if (head==NULL)
+  if (head==nullptr)
     {
       t_error("This element does not exist in the list");
     }
   else if (point<=0)
     {
-      return NULL;
+      return nullptr;
     }
   else if (point==1)
     {
@@ -196,7 +173,7 @@ LONGPOKER *point2longpoker(LONGPOKER *head,long point)
     {
       point2longpoker(head->next,point-1);
     }
-  return NULL;
+  return nullptr;
 }
 
 /*--------------------------------------------------------------------------*/
@@ -204,13 +181,13 @@ REALPAIR *point2realpair(REALPAIR *head,long point)
 
 {
 
-  if (head==NULL)
+  if (head==nullptr)
     {
       t_error("This element does not exist in the list");
     }
   else if (point<=0)
     {
-      return NULL;
+      return nullptr;
     }
   else if (point==1)
     {
@@ -220,7 +197,7 @@ REALPAIR *point2realpair(REALPAIR *head,long point)
     {
       point2realpair(head->next,point-1);
     }
-  return NULL;
+  return nullptr;
 
 }
 
@@ -229,13 +206,13 @@ IX *point2ix(IX *head,long point)
 
 {
 
-  if (head==NULL)
+  if (head==nullptr)
     {
       t_error("This element does not exist in the list");
     }
   else if (point<=0)
     {
-      return NULL;
+      return nullptr;
     }
   else if (point==1)
     {
@@ -245,7 +222,7 @@ IX *point2ix(IX *head,long point)
     {
       point2ix(head->next,point-1);
     }
-  return NULL;
+  return nullptr;
 
 }
 
@@ -254,13 +231,13 @@ IJX *point2ijx(IJX *head,long point)
 
 {
 
-  if (head==NULL)
+  if (head==nullptr)
     {
       t_error("This element does not exist in the list");
     }
   else if (point<=0)
     {
-      return NULL;
+      return nullptr;
     }
   else if (point==1)
     {
@@ -270,7 +247,7 @@ IJX *point2ijx(IJX *head,long point)
     {
       point2ijx(head->next,point-1);
     }
-  return NULL;
+  return nullptr;
 
 }
 /*--------------------------------------------------------------------------*/
@@ -278,13 +255,13 @@ XYZ *point2measure(XYZ *head,long point)
 
 {
 
-  if (head==NULL)
+  if (head==nullptr)
     {
       t_error("This element does not exist in the list");
     }
   else if (point<=0)
     {
-      return NULL;
+      return nullptr;
     }
   else if (point==1)
     {
@@ -295,21 +272,17 @@ XYZ *point2measure(XYZ *head,long point)
       point2measure(head->next,point-1);
     }
 
-  return NULL;
+  return nullptr;
 
 }
 
 /*--------------------------------------------------------------------------*/
-
-
-
-
 /* Recursive deletion of a list */
 /*--------------------------------------------------------------------------*/
 
 void delete_longpair_list(LONGPAIR *head)
 {
-  if (head!=NULL)
+  if (head!=nullptr)
     {
       delete_longpair_list(head->next);
       free(head);
@@ -320,7 +293,7 @@ void delete_longpair_list(LONGPAIR *head)
 
 void delete_longpoker_list(LONGPOKER *head)
 {
-  if (head!=NULL)
+  if (head!=nullptr)
     {
       delete_longpoker_list(head->next);
       free(head);
@@ -331,7 +304,7 @@ void delete_longpoker_list(LONGPOKER *head)
 
 void delete_realpair_list(REALPAIR *head)
 {
-  if (head!=NULL)
+  if (head!=nullptr)
     {
       delete_realpair_list(head->next);
       free(head);
@@ -341,7 +314,7 @@ void delete_realpair_list(REALPAIR *head)
 
 void delete_ix_list(IX *head)
 {
-  if (head!=NULL)
+  if (head!=nullptr)
     {
       delete_ix_list(head->next);
       free(head);
@@ -354,7 +327,7 @@ void delete_ijx_list(IJX *head)
 
 {
 
-  if (head!=NULL)
+  if (head!=nullptr)
     {
       delete_ijx_list(head->next);
       free(head);
@@ -365,7 +338,7 @@ void delete_ijx_list(IJX *head)
 
 void delete_xyz_list(XYZ *head)
 {
-  if (head!=NULL)
+  if (head!=nullptr)
     {
       delete_xyz_list(head->next);
       free(head);
@@ -377,7 +350,7 @@ void delete_xyz_list(XYZ *head)
 void delete_phrase(PHRASE *head)
 {
   /* char ch; */
-  if (head!=NULL)
+  if (head!=nullptr)
     {
       delete_phrase(head->next);
       free(head->word);
@@ -385,56 +358,40 @@ void delete_phrase(PHRASE *head)
     }
 }
 
-/*--------------------------------------------------------------------------*/
-
-LONGPAIR *appendto(LONGPAIR *head, LONGPAIR *element)
-{
-
-  LONGPAIR *tmp=head;
-
-  if (head==NULL) return element;
-  else
-    {
-      while (tmp->next!=NULL) tmp=tmp->next;
-      tmp->next=element;
-      return head;
-    }
-}
-
 
 /*--------------------------------------------------------------------------
 This rotate the list n times
 ---------------------------------------------------------------------------*/
-LONGPAIR   *rotate(LONGPAIR *head,int n)
+LONGPAIR *rotate(LONGPAIR *head,int n)
 {
 
-  LONGPAIR *tmp=head,*back=NULL;
+  LONGPAIR *tmp=head,*back=nullptr;
   int m=0;
 
   if (n==0)
     {
       return tmp;
     }
-  else if (head==NULL)
+  else if (head==nullptr)
     {
-      return NULL;
+      return nullptr;
     }
   else
     {
-      while (tmp->next!=NULL && m<n) {back=tmp; tmp=tmp->next; m++;}
+      while (tmp->next!=nullptr && m<n) {back=tmp; tmp=tmp->next; m++;}
       if (m==n)
         {
-          back->next=NULL;
+          back->next=nullptr;
           back=tmp;
-          while (back->next!=NULL) back=back->next;
+          while (back->next!=nullptr) back=back->next;
           back->next=head;
           return tmp;
         }
-      else if (tmp->next==NULL)
+      else if (tmp->next==nullptr)
         return rotate(head,n-m);
     }
 
-  return NULL;
+  return nullptr;
 
 }
 
