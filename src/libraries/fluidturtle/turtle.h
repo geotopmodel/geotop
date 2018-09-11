@@ -77,34 +77,6 @@ typedef struct
 } SHORTMATRIX;
 
 
-
-typedef struct
-{
-    short isdynamic;
-
-    const char *name;
-
-    long nrl,nrh,ncl,nch;
-
-    int **co;
-
-} INTMATRIX;
-
-
-typedef struct
-{
-
-    short isdynamic;
-
-    const char *name;
-
-    long nrl,nrh,ncl,nch;
-
-    float **co;
-
-} FLOATMATRIX;
-
-
 typedef struct
 {
 
@@ -117,19 +89,6 @@ typedef struct
     double **co;
 
 } DOUBLEMATRIX;
-
-
-typedef struct
-{
-    short isdynamic;
-
-    const char *name;
-
-    long nrl,nrh,ncl,nch;
-
-    long **co;
-
-} LONGMATRIX;
 
 
 /*  Tensor3D */
