@@ -33,10 +33,6 @@ Matrix<double> * copydouble_longmatrix(Matrix<long> *L);
 
 Matrix<double> *copydoublematrix_const(double c0, Matrix<double> *Mref, double NOVALUE);
 
-DOUBLETENSOR *build_frommatrix(DOUBLEMATRIX *M, long l, long lmax);
-
-void write_frommatrix(long l, DOUBLEMATRIX *M, DOUBLETENSOR *T);
-
 //------------------------------------------------------------------------------------------------------
 //------------------------------------------------------------------------------------------------------
 //UTILITITY subroutines
