@@ -97,6 +97,7 @@ double elapsed_time, elapsed_time_start, cum_time, max_time;
 int main(int argc,char *argv[])
 {
   std::string wd;
+
   if (!argv[1])
   {
     std::cerr << "Wrong number of arguments. Abort.\n"
@@ -105,8 +106,17 @@ int main(int argc,char *argv[])
     exit(9);
   }
   else
-  {
+  { 
     wd = argv[1];
+
+    if (wd == "-v"){
+      std::cout << std::endl;
+      std::cout << "Version: " << PACKAGE_STRING << std::endl;
+      std::cout << "Commit :  " << GEOtop_BUILD_VERSION << std::endl;
+      std::cout << std::endl;
+      exit(10);
+    }
+    
     if (wd.back() != '/')
       wd.append("/");
   }
