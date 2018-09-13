@@ -20,8 +20,6 @@ TEST(Matrix, initialization){
   EXPECT_EQ( 0, m(1,2) );
   EXPECT_EQ( 0, m(2,1) );
   EXPECT_EQ( 0, m(2,2) );
-  // EXPECT_EQ( 0, m(0,0)); // => expected to fail => OK
-  // EXPECT_EQ( 0, m(3,3)); // => expected to fail => OK
 }
 
 TEST(Matrix, begin){
