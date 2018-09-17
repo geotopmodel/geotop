@@ -927,8 +927,7 @@ land cover %ld, meteo station %ld\n",
     sl->Ptot.reset(new Matrix<double>{Nl,par->total_pixel});
     (*sl->Ptot) = (double)number_novalue;
 
-    sl->ET=new_doubletensor(Nl,Nr,Nc);
-    initialize_doubletensor(sl->ET,0.);
+    sl->ET.reset(new Tensor<double>{Nl,Nr,Nc});
 
     if (par->output_soil_bin == 1)
     {
