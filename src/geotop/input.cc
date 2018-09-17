@@ -302,7 +302,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
         }
     }
 
-    top->Z = find_Z_of_any_layer(top->Z0.get(), top->slope.get(), land->LC.get(), sl, par->point_sim);
+    top->Z.reset(find_Z_of_any_layer(top->Z0.get(), top->slope.get(), land->LC.get(), sl, par->point_sim));
 
     top->Jdown.reset(new Matrix<long>{par->total_pixel, 4});
     top->Qdown.reset(new Matrix<double>{par->total_pixel, 4});
@@ -3751,12 +3751,12 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
 /***************************************************************************************************/
 /***************************************************************************************************/
 
-DOUBLETENSOR *find_Z_of_any_layer(Matrix<double> *Zsurface, Matrix<double> *slope,
-                                  Matrix<double> *LC, SOIL *sl, short point)
+Tensor<double>* find_Z_of_any_layer(Matrix<double> *Zsurface, Matrix<double> *slope,
+                                     Matrix<double> *LC, SOIL *sl, short point)
 {
 
     GEOLOG_PREFIX(__func__);
-    DOUBLETENSOR *Z;
+    Tensor<double> *Z;
     double Zaverage=0., z, cosine;
     long l, r, c, n, sy;
 
@@ -3779,8 +3779,8 @@ DOUBLETENSOR *find_Z_of_any_layer(Matrix<double> *Zsurface, Matrix<double> *slop
     }
 
 
-    Z=new_doubletensor0(sl->pa->nch, Zsurface->nrh, Zsurface->nch);
-    initialize_doubletensor(Z, (double)number_novalue);
+    Z = new Tensor<double>{sl->pa->nch, 0, Zsurface->nrh, 1, Zsurface->nch,1};
+    *Z = (double)number_novalue;
 
     for (r=1; r<=Zsurface->nrh; r++)
     {
@@ -3801,13 +3801,13 @@ DOUBLETENSOR *find_Z_of_any_layer(Matrix<double> *Zsurface, Matrix<double> *slop
                 }
 
                 l=0;
-                Z->co[l][r][c]=z;
+                (*Z)(l,r,c)=z;
 
                 do
                 {
                     l++;
                     z -= 0.5*sl->pa->co[sy][jdz][l]*cosine;
-                    Z->co[l][r][c]=z;
+                    (*Z)(l,r,c)=z;
                     z -= 0.5*sl->pa->co[sy][jdz][l]*cosine;
                 }
                 while (l<sl->pa->nch);

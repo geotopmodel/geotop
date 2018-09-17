@@ -6,10 +6,8 @@
 #define GEOTOP_TENSOR_H
 
 #include "geotop_asserts.h"
-#include <cassert>
 #include <exception>
-#include <memory>
-#include <sstream>
+#include <memory> // to use std::unique_ptr
 #include "matrix.h"
 
 template <class T> class RowView;
