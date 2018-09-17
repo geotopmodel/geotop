@@ -74,7 +74,7 @@ void write_map_vector(char *filename, short type, short format,
                       Vector<double> *V, T_INIT *UV, long novalue, long **j, long nr, long nc);
 
 void write_tensorseries(short a, long l, long i, char *filename, short type,
-                        short format, DOUBLETENSOR *T, T_INIT *UV, long novalue);
+                        short format, Tensor<double> *T, T_INIT *UV, long novalue);
 
 void write_tensorseries_vector(short a, long l, long i, char *filename,
                                short type, short format, Matrix<double> *T, T_INIT *UV, long novalue, long **J,

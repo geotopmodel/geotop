@@ -451,7 +451,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
   //albedo
   if (snowD>0)
     {
-      if (i>A->P->total_channel) update_snow_age(Psnow_over, S->T->co[ns][r][c], Dt,
+      if (i>A->P->total_channel) update_snow_age(Psnow_over, (*S->T)(ns,r,c), Dt,
                                                    A->P->minP_torestore_A, &(snowage->co[j]));
       avis_d=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo,
                          A->P->snow_aging_vis, snowage->co[j], 0., (*Zero));
@@ -616,14 +616,14 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
           A->E->Dlayer->co[l] = 1.E-3*S->Dzl->co[ns+1-l][r][c];
           A->E->liq->co[l] = S->w_liq->co[ns+1-l][r][c];
           A->E->ice->co[l] = S->w_ice->co[ns+1-l][r][c];
-          A->E->Temp->co[l] = S->T->co[ns+1-l][r][c];
+          A->E->Temp->co[l] = (*S->T)(ns+1-l,r,c);
         }
       else if (l<=ns+ng)    //glacier
         {
           A->E->Dlayer->co[l] = 1.E-3*G->Dzl->co[ns+ng+1-l][r][c];
           A->E->liq->co[l] = G->w_liq->co[ns+ng+1-l][r][c];
           A->E->ice->co[l] = G->w_ice->co[ns+ng+1-l][r][c];
-          A->E->Temp->co[l] =  G->T->co[ns+ng+1-l][r][c];
+          A->E->Temp->co[l] =  (*G->T)(ns+ng+1-l,r,c);
         }
       else    //soil
         {

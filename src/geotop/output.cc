@@ -311,7 +311,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                             odpnt[osnowdepth][i-1] += snow->S->Dzl->co[l][r][c];
                             odpnt[oSWE][i-1] += 1.0E+3*(snow->S->w_liq->co[l][r][c]
                                                         +snow->S->w_ice->co[l][r][c])/rho_w;
-                            odpnt[osnowT][i-1] += snow->S->T->co[l][r][c]*snow->S->Dzl->co[l][r][c];
+                            odpnt[osnowT][i-1] += (*snow->S->T)(l,r,c)*snow->S->Dzl->co[l][r][c];
                         }
                         odpnt[osnowdens][i-1] = odpnt[oSWE][i-1]*rho_w/odpnt[osnowdepth][i-1];
                         odpnt[osnowT][i-1] /= odpnt[osnowdepth][i-1];
@@ -337,7 +337,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                 odpnt[oglacdepth][i-1] += glac->G->Dzl->co[l][r][c];
                                 odpnt[oGWE][i-1] += 1.0E+3*(glac->G->w_liq->co[l][r][c]
                                                             +glac->G->w_ice->co[l][r][c])/rho_w;
-                                odpnt[oglacT][i-1] += glac->G->T->co[l][r][c]*glac->G->Dzl->co[l][r][c];
+                                odpnt[oglacT][i-1] += (*glac->G->T)(l,r,c)*glac->G->Dzl->co[l][r][c];
                             }
                             odpnt[oglacdens][i-1] = odpnt[oGWE][i-1]*rho_w/odpnt[oglacdepth][i-1];
                             odpnt[oglacT][i-1] /= odpnt[oglacdepth][i-1];
@@ -573,12 +573,12 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                                                      cosslope,
                                                                      (*glac->G->lnum)(r,c),
                                                                      glac->G->Dzl,
-                                                                     glac->G->T,
+                                                                     glac->G->T.get(),
                                                                      0.));
                                         }
                                         else
                                         {
-                                            fprintf(f, "%f", glac->G->T->co[l][r][c]);
+                                            fprintf(f, "%f", (*glac->G->T)(l,r,c));
                                         }
                                     }
                                     else if (oglc[j] <= 5 + 2*m)
@@ -695,12 +695,12 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                                                      (*par->glac_plot_depths)(l)*
                                                                      cosslope, (*glac->G->lnum)(r,c),
                                                                      glac->G->Dzl,
-                                                                     glac->G->T,
+                                                                     glac->G->T.get(),
                                                                      0.));
                                         }
                                         else
                                         {
-                                            fprintf(ffglac, "%f", glac->G->T->co[l][r][c]);
+                                            fprintf(ffglac, "%f", (*glac->G->T)(l,r,c));
                                         }
                                     }
                                     else if (oglc[j] <= 5 + 2*m)
@@ -2136,7 +2136,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                            snow->S->w_ice, UV, number_novalue);
                     if (strcmp(files[rTs], string_novalue) != 0)
                         write_tensorseries(1, l, isavings, files[rTs], 0, par->format_out,
-                                           snow->S->T, UV, number_novalue);
+                                           snow->S->T.get(), UV, number_novalue);
                 }
 
                 if (strcmp(files[rsnag], string_novalue) != 0)
@@ -2170,7 +2170,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                                glac->G->w_ice, UV, number_novalue);
                         if (strcmp(files[rTi], string_novalue) != 0)
                             write_tensorseries(1, l, isavings, files[rTi], 0, par->format_out,
-                                               glac->G->T, UV, number_novalue);
+                                               glac->G->T.get(), UV, number_novalue);
                     }
 
                     if (strcmp(files[rni], string_novalue) != 0)
@@ -2365,7 +2365,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 if (strcmp(files[rTs], string_novalue) != 0)
                 {
                     rename_tensorseries(1, l, 0, files[rTs]);
-                    write_tensorseries(1, l, 0, files[rTs], 0, par->format_out, snow->S->T, UV,
+                    write_tensorseries(1, l, 0, files[rTs], 0, par->format_out, snow->S->T.get(), UV,
                                        number_novalue);
                 }
             }
@@ -2413,7 +2413,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     if (strcmp(files[rTi], string_novalue) != 0)
                     {
                         rename_tensorseries(1, l, 0, files[rTi]);
-                        write_tensorseries(1, l, 0, files[rTi], 0, par->format_out, glac->G->T, UV,
+                        write_tensorseries(1, l, 0, files[rTi], 0, par->format_out, glac->G->T.get(), UV,
                                            number_novalue);
                     }
                 }
@@ -4174,7 +4174,7 @@ void write_snow_output(long i, long iname, long r, long c, double init_date,
 
         f=fopen(name,"a");
         write_snow_file(0, iname, r, c, (*snow->lnum)(r,c), f, day, month, year,
-                        hour, minute, JDfrom0, init_date, end_date, n, snow->Dzl, snow->T, cosslope);
+                        hour, minute, JDfrom0, init_date, end_date, n, snow->Dzl, snow->T.get(), cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -4183,7 +4183,7 @@ void write_snow_output(long i, long iname, long r, long c, double init_date,
     if (strcmp(files[fsnTzwriteend], string_novalue) != 0)
     {
         write_snow_file(0, iname, r, c, (*snow->lnum)(r,c), ffsnowT, day, month,
-                        year, hour, minute, JDfrom0, init_date, end_date, n, snow->Dzl, snow->T,
+                        year, hour, minute, JDfrom0, init_date, end_date, n, snow->Dzl, snow->T.get(),
                         cosslope);
     }
 
@@ -4390,8 +4390,8 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
 
 void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
                      long d, long m, long y, long h, long mi, double JDfrom0,
-                     double JDfrom0init, double JDfrom0end, Vector<double>* n, DOUBLETENSOR *snowDz,
-                     DOUBLETENSOR *var, double cosslope)
+                     double JDfrom0init, double JDfrom0end, Vector<double> *n, DOUBLETENSOR *snowDz,
+                     Tensor<double> *var, double cosslope)
 {
 
     short first_column=1;
@@ -4445,8 +4445,7 @@ void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
     {
         for (l=1; l<=n->nh; l++)
         {
-            fprintf(f, ",%f",interpolate_snow(r, c, n->co[l]*cosslope, lmax, snowDz, var,
-                                              a));
+            fprintf(f, ",%f",interpolate_snow(r, c, n->co[l]*cosslope, lmax, snowDz, var, a));
         }
     }
     else
@@ -4457,7 +4456,7 @@ void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
             {
                 if (snowDz->co[l][r][c] > 0)
                 {
-                    fprintf(f,",%f",var->co[l][r][c]);
+                    fprintf(f,",%f", (*var)(l,r,c));
                 }
                 else
                 {
@@ -4471,7 +4470,7 @@ void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
             {
                 if (snowDz->co[l][r][c] > 0)
                 {
-                    fprintf(f,",%f",var->co[l][r][c]/snowDz->co[l][r][c]);
+                    fprintf(f,",%f", (*var)(l,r,c)/snowDz->co[l][r][c]);
                 }
                 else
                 {

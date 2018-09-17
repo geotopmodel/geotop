@@ -19,6 +19,7 @@
 
  */
 
+#include <tensor.h>
 #include "turtle.h"
 #include "rw_maps.h"
 #include "import_ascii.h"
@@ -635,7 +636,7 @@ void write_map_vector(char *filename, short type, short format,
 /******************************************************************************************************************************************/
 
 void write_tensorseries(short a, long l, long i, char *filename, short type,
-                        short format, DOUBLETENSOR *T, T_INIT *UV, long novalue)
+                        short format, Tensor<double> *T, T_INIT *UV, long novalue)
 {
 
   //  a=0 non include "l" nel suffisso
@@ -671,7 +672,7 @@ void write_tensorseries(short a, long l, long i, char *filename, short type,
   {
     for (c=1; c<=T->nch; c++)
     {
-      (*M)(r,c)=T->co[l][r][c];
+      (*M)(r,c) = (*T)(l,r,c);
     }
   }
 

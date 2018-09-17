@@ -111,7 +111,7 @@ void snow_compactation(double Dt, long r, long c, long l, STATEVAR_3D *snow,
       if (theta_w>0.001) c1*=par->wetsnowdef_rate;
       c2=2.777E-6; //[s^-1]
       c3=0.04;   //[K^-1]
-      CR1=-c1*c2*exp(-c3*(Tfreezing-snow->T->co[l][r][c]));
+      CR1=-c1*c2*exp(-c3*(Tfreezing-(*snow->T)(l,r,c)));
 
       //OVERBURDEN
       eta0=par->snow_viscosity;  //[kg s m^-2]
@@ -123,7 +123,7 @@ void snow_compactation(double Dt, long r, long c, long l, STATEVAR_3D *snow,
           load+=(snow->w_ice->co[m][r][c]+snow->w_liq->co[m][r][c]);
         }
       load*=fabs(cos(slope*Pi/180.));
-      eta=eta0*exp(c4*(Tfreezing-snow->T->co[l][r][c])+c5*(rho_i*theta_i));
+      eta=eta0*exp(c4*(Tfreezing-(*snow->T)(l,r,c))+c5*(rho_i*theta_i));
       CR2=-load/eta;
 
       snow->Dzl->co[l][r][c] *= exp( (CR1 + CR2) * Dt ); // Cuell
@@ -184,7 +184,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
           snow->Dzl->co[l][r][c]=0.0;
           snow->w_ice->co[l][r][c]=0.0;
           snow->w_liq->co[l][r][c]=0.0;
-          snow->T->co[l][r][c]=0.0; //Temperatura di inizializzazione
+          (*snow->T)(l,r,c)=0.0; //Temperatura di inizializzazione
         }
 
 
@@ -202,7 +202,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
             }
           for (l=2; l<=max; l++)
             {
-              snow->T->co[l][r][c]=0.0;
+              (*snow->T)(l,r,c)=0.0;
               snow->Dzl->co[l][r][c]=0.0;
               snow->w_liq->co[l][r][c]=0.0;
               snow->w_ice->co[l][r][c]=0.0;
@@ -224,7 +224,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
 
       (*snow->lnum)(r,c)=1;
       (*snow->type)(r,c)=1;
-      snow->T->co[1][r][c]=Fmin(Ta,-0.1);
+      (*snow->T)(1,r,c)=Fmin(Ta,-0.1);
 
 
       //5. if there is not yet a snow layer and D>=Dmin(max), simplified case
@@ -234,7 +234,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
 
       (*snow->lnum)(r,c)=1;
       (*snow->type)(r,c)=2;
-      snow->T->co[1][r][c]=Fmin(Ta,-0.1);
+      (*snow->T)(1,r,c)=Fmin(Ta,-0.1);
 
     }
 
@@ -326,7 +326,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
                 {
                   snow->w_ice->co[l][r][c] = snow->w_ice->co[l+1][r][c];
                   snow->w_liq->co[l][r][c] = snow->w_liq->co[l+1][r][c];
-                  snow->T->co[l][r][c] = snow->T->co[l+1][r][c];
+                  (*snow->T)(l,r,c) = (*snow->T)(l+1,r,c);
                   snow->Dzl->co[l][r][c] = snow->Dzl->co[l+1][r][c];
                 }
 
@@ -345,8 +345,8 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
             snow->w_ice->co[(*snow->lnum)(r,c)][r][c];
           snow->w_ice->co[(*snow->lnum)(r,c)+1][r][c] =
             snow->w_ice->co[(*snow->lnum)(r,c)][r][c] - SWEmax_layer;
-          snow->T->co[(*snow->lnum)(r,c)+1][r][c] =
-            snow->T->co[(*snow->lnum)(r,c)][r][c];
+          (*snow->T)((*snow->lnum)(r,c)+1,r,c) =
+            (*snow->T)((*snow->lnum)(r,c),r,c);
 
           snow->w_ice->co[(*snow->lnum)(r,c)][r][c] -=
             snow->w_ice->co[(*snow->lnum)(r,c)+1][r][c];
@@ -385,7 +385,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
                           snow->w_ice->co[j+1][r][c] = snow->w_ice->co[j][r][c];
                           snow->Dzl->co[j+1][r][c] = snow->Dzl->co[j][r][c];
                           snow->w_liq->co[j+1][r][c] = snow->w_liq->co[j][r][c];
-                          snow->T->co[j+1][r][c] = snow->T->co[j][r][c];
+                          (*snow->T)(j+1,r,c) = (*snow->T)(j,r,c);
                         }
 
                       snow->Dzl->co[l+1][r][c] = snow->Dzl->co[l][r][c] * SWEmax_layer /
@@ -394,7 +394,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
                                                    snow->w_ice->co[l][r][c];
                       snow->w_ice->co[l+1][r][c] = SWEmax_layer;
 
-                      snow->T->co[l+1][r][c] = snow->T->co[l][r][c];
+                      (*snow->T)(l+1,r,c) = (*snow->T)(l,r,c);
 
                       snow->Dzl->co[l][r][c] -= snow->Dzl->co[l+1][r][c];
                       snow->w_liq->co[l][r][c] -= snow->w_liq->co[l+1][r][c];
@@ -486,8 +486,8 @@ void snowlayer_merging(double a, long r, long c, STATEVAR_3D *snow, long l1,
   double h;
 
   h=internal_energy(snow->w_ice->co[l1][r][c],snow->w_liq->co[l1][r][c],
-                    snow->T->co[l1][r][c])+internal_energy(snow->w_ice->co[l2][r][c],
-                                                           snow->w_liq->co[l2][r][c],snow->T->co[l2][r][c]);
+                    (*snow->T)(l1,r,c))+internal_energy(snow->w_ice->co[l2][r][c],
+                                                           snow->w_liq->co[l2][r][c],(*snow->T)(l2,r,c));
   snow->Dzl->co[lres][r][c]=snow->Dzl->co[l1][r][c]+snow->Dzl->co[l2][r][c];
   snow->w_ice->co[lres][r][c]=snow->w_ice->co[l1][r][c]
                               +snow->w_ice->co[l2][r][c];
@@ -502,8 +502,8 @@ void snowlayer_merging(double a, long r, long c, STATEVAR_3D *snow, long l1,
       t_error("Stop Execution");
     }
   from_internal_energy(a, r+6000,c+6000,h,&(snow->w_ice->co[lres][r][c]),
-                       &(snow->w_liq->co[lres][r][c]),&(snow->T->co[lres][r][c]));
-  if (snow->T->co[lres][r][c]>0)
+                       &(snow->w_liq->co[lres][r][c]),&((*snow->T)(lres,r,c)));
+  if ((*snow->T)(lres,r,c)>0)
     {
       printf("ERROR 2 in snow layer merging r:%ld c:%ld l1:%ld l2:%ld lres:%ld\n",r,
              c,l1,l2,lres);
@@ -570,7 +570,7 @@ void write_snow(long r, long c, long l, STATEVAR_3D *snow)
 
   printf("r:%ld c:%ld wice(%ld/%ld):%f wliq(%ld):%f T(%ld):%f Dz(%ld):%f\n",r,c,
          l,(*snow->lnum)(r,c),snow->w_ice->co[l][r][c],l,snow->w_liq->co[l][r][c],
-         l,snow->T->co[l][r][c],l,snow->Dzl->co[l][r][c]);
+         l,(*snow->T)(l,r,c),l,snow->Dzl->co[l][r][c]);
 
 }
 
@@ -605,7 +605,7 @@ short set_snow_min(double a, long r, long c, STATEVAR_3D *snow, long l1,
       f = Fmin(Dmin - snow->Dzl->co[l1][r][c],
                snow->Dzl->co[l2][r][c])/snow->Dzl->co[l2][r][c];
       h = internal_energy(snow->w_ice->co[l1][r][c], snow->w_liq->co[l1][r][c],
-                          snow->T->co[l1][r][c]);
+                          (*snow->T)(l1,r,c));
       dd = f*snow->Dzl->co[l2][r][c];
       snow->Dzl->co[l1][r][c] += dd;
       snow->Dzl->co[l2][r][c] -= dd;
@@ -615,9 +615,9 @@ short set_snow_min(double a, long r, long c, STATEVAR_3D *snow, long l1,
       dwi = f*snow->w_ice->co[l2][r][c];
       snow->w_ice->co[l1][r][c] += dwi;
       snow->w_ice->co[l2][r][c] -= dwi;
-      h += internal_energy(dwi, dwl, snow->T->co[l2][r][c]);
+      h += internal_energy(dwi, dwl, (*snow->T)(l2,r,c));
       from_internal_energy(a, r+1000, c+1000, h, &(snow->w_ice->co[l1][r][c]),
-                           &(snow->w_liq->co[l1][r][c]), &(snow->T->co[l1][r][c]));
+                           &(snow->w_liq->co[l1][r][c]), &((*snow->T)(l1,r,c)));
       return 1;
     }
   else
@@ -640,8 +640,7 @@ short set_snow_max(double a, long r, long c, STATEVAR_3D *snow, long l1,
   if (snow->Dzl->co[l1][r][c] > Dmax) //l1 too thick and gives mass to l2
     {
       f = (snow->Dzl->co[l1][r][c] - Dmax)/snow->Dzl->co[l1][r][c];
-      h = internal_energy(snow->w_ice->co[l2][r][c], snow->w_liq->co[l2][r][c],
-                          snow->T->co[l2][r][c]);
+      h = internal_energy(snow->w_ice->co[l2][r][c], snow->w_liq->co[l2][r][c], (*snow->T)(l2,r,c));
       dd = f*snow->Dzl->co[l1][r][c];
       snow->Dzl->co[l1][r][c] -= dd;
       snow->Dzl->co[l2][r][c] += dd;
@@ -651,9 +650,9 @@ short set_snow_max(double a, long r, long c, STATEVAR_3D *snow, long l1,
       dwi = f*snow->w_ice->co[l1][r][c];
       snow->w_ice->co[l1][r][c] -= dwi;
       snow->w_ice->co[l2][r][c] += dwi;
-      h += internal_energy(dwi, dwl, snow->T->co[l1][r][c]);
+      h += internal_energy(dwi, dwl, (*snow->T)(l1,r,c));
       from_internal_energy(a, r+2000, c+2000, h, &(snow->w_ice->co[l2][r][c]),
-                           &(snow->w_liq->co[l2][r][c]), &(snow->T->co[l2][r][c]));
+                           &(snow->w_liq->co[l2][r][c]), &((*snow->T)(l2,r,c)));
       return 1;
     }
   else
@@ -726,7 +725,7 @@ void split_layers(long r, long c, STATEVAR_3D *snow, long l1)
     {
       snow->w_ice->co[l+1][r][c]=snow->w_ice->co[l][r][c];
       snow->w_liq->co[l+1][r][c]=snow->w_liq->co[l][r][c];
-      snow->T->co[l+1][r][c]=snow->T->co[l][r][c];
+      (*snow->T)(l+1,r,c)=(*snow->T)(l,r,c);
       snow->Dzl->co[l+1][r][c]=snow->Dzl->co[l][r][c];
     }
 
@@ -764,7 +763,7 @@ void merge_layers(double a, long r, long c, STATEVAR_3D *snow, long l1)
         {
           snow->w_ice->co[l][r][c]=snow->w_ice->co[l+1][r][c];
           snow->w_liq->co[l][r][c]=snow->w_liq->co[l+1][r][c];
-          snow->T->co[l][r][c]=snow->T->co[l+1][r][c];
+          (*snow->T)(l,r,c)=(*snow->T)(l+1,r,c);
           snow->Dzl->co[l][r][c]=snow->Dzl->co[l+1][r][c];
         }
       initialize_snow(r, c, (*snow->lnum)(r,c), snow);
@@ -837,7 +836,7 @@ void initialize_snow(long r, long c, long l, STATEVAR_3D *snow)
   snow->w_ice->co[l][r][c]=0.0;
   snow->w_liq->co[l][r][c]=0.0;
   snow->Dzl->co[l][r][c]=0.0;
-  snow->T->co[l][r][c]=0.0;
+  (*snow->T)(l,r,c)=0.0;
 
 }
 
@@ -990,21 +989,20 @@ void glac2snow(double a, long r, long c, STATEVAR_3D *snow, STATEVAR_3D *glac)
   double h;
   long ns=(*snow->lnum)(r,c);
 
-  h = internal_energy(glac->w_ice->co[1][r][c], glac->w_liq->co[1][r][c],
-                      glac->T->co[1][r][c]);
-  if (ns>0) h += internal_energy(snow->w_ice->co[1][r][c],
-                                   snow->w_liq->co[1][r][c], snow->T->co[1][r][c]);
+  h = internal_energy(glac->w_ice->co[1][r][c], glac->w_liq->co[1][r][c], (*glac->T)(1,r,c));
+  if (ns>0) 
+    h += internal_energy(snow->w_ice->co[1][r][c], snow->w_liq->co[1][r][c], (*snow->T)(1,r,c));
 
   snow->Dzl->co[1][r][c] += glac->Dzl->co[1][r][c];
   snow->w_ice->co[1][r][c] += glac->w_ice->co[1][r][c];
   snow->w_liq->co[1][r][c] += glac->w_liq->co[1][r][c];
   if (ns>0) from_internal_energy(a, r, c, h, &(snow->w_ice->co[1][r][c]),
-                                   &(snow->w_liq->co[1][r][c]), &(snow->T->co[1][r][c]));
+                                   &(snow->w_liq->co[1][r][c]), &((*snow->T)(1,r,c)));
 
   glac->Dzl->co[1][r][c]=0.0;
   glac->w_liq->co[1][r][c]=0.0;
   glac->w_ice->co[1][r][c]=0.0;
-  glac->T->co[1][r][c]=0.0;
+  (*glac->T)(1,r,c)=0.0;
   (*glac->lnum)(r,c)=0;
   (*glac->type)(r,c)=0;
 }
@@ -1021,20 +1019,20 @@ void snow2glac(double a, long r, long c, STATEVAR_3D *snow, STATEVAR_3D *glac)
   long ng=(*glac->lnum)(r,c);
 
   h = internal_energy(snow->w_ice->co[1][r][c], snow->w_liq->co[1][r][c],
-                      snow->T->co[1][r][c]);
-  if (ng>0) h += internal_energy(glac->w_ice->co[ng][r][c],
-                                   glac->w_liq->co[ng][r][c], glac->T->co[ng][r][c]);
+                      (*snow->T)(1,r,c));
+  if (ng>0) 
+    h += internal_energy(glac->w_ice->co[ng][r][c], glac->w_liq->co[ng][r][c], (*glac->T)(ng,r,c));
 
   glac->Dzl->co[Fmaxlong(ng,1)][r][c] += snow->Dzl->co[1][r][c];
   glac->w_ice->co[Fmaxlong(ng,1)][r][c] += snow->w_ice->co[1][r][c];
   glac->w_liq->co[Fmaxlong(ng,1)][r][c] += snow->w_liq->co[1][r][c];
-  if (ng>0) from_internal_energy(a, r, c, h, &(glac->w_ice->co[ng][r][c]),
-                                   &(glac->w_liq->co[ng][r][c]), &(glac->T->co[ng][r][c]));
+  if (ng>0) 
+    from_internal_energy(a, r, c, h, &(glac->w_ice->co[ng][r][c]), &(glac->w_liq->co[ng][r][c]), &((*glac->T)(ng,r,c)));
 
   snow->Dzl->co[1][r][c]=0.0;
   snow->w_liq->co[1][r][c]=0.0;
   snow->w_ice->co[1][r][c]=0.0;
-  snow->T->co[1][r][c]=0.0;
+  (*snow->T)(1,r,c)=0.0;
   (*snow->lnum)(r,c)=0;
   (*snow->type)(r,c)=0;
 }
@@ -1085,7 +1083,7 @@ void WBsnow(double Dt, long ns, long r, long c, STATEVAR_3D *snow,
           else
             {
 
-              snow->T->co[l][r][c] = E->Temp->co[m];
+              (*snow->T)(l,r,c) = E->Temp->co[m];
               snow->w_ice->co[l][r][c] = Fmax(0., E->ice->co[m] - E->deltaw->co[m] - Edt);
               snow->w_liq->co[l][r][c] = Fmax(0., E->liq->co[m] + E->deltaw->co[m] + Wdt);
               snow->Dzl->co[l][r][c] = 1.E3 * E->Dlayer->co[m];
@@ -1175,15 +1173,14 @@ void new_snow(double a, long r, long c, STATEVAR_3D *snow, double P,
 
       ns=(*snow->lnum)(r,c);
 
-      h=internal_energy(snow->w_ice->co[ns][r][c], snow->w_liq->co[ns][r][c],
-                        snow->T->co[ns][r][c]);
+      h=internal_energy(snow->w_ice->co[ns][r][c], snow->w_liq->co[ns][r][c], (*snow->T)(ns,r,c));
       h+=(c_ice*P)*(Fmin(T, -0.1) - Tfreezing);
 
       snow->Dzl->co[ns][r][c]+=Dz;
       snow->w_ice->co[ns][r][c]+=P;
 
       from_internal_energy(a, r, c, h, &(snow->w_ice->co[ns][r][c]),
-                           &(snow->w_liq->co[ns][r][c]),&(snow->T->co[ns][r][c]));
+                           &(snow->w_liq->co[ns][r][c]),&((*snow->T)(ns,r,c)));
 
     }
 }
@@ -1235,7 +1232,7 @@ void WBglacier(long ns, long ng, long r, long c, STATEVAR_3D *glac,
           else
             {
 
-              glac->T->co[l][r][c] = E->Temp->co[m];
+              (*glac->T)(l,r,c) = E->Temp->co[m];
               glac->w_ice->co[l][r][c] = Fmax(0., E->ice->co[m] - E->deltaw->co[m] - Edt);
               glac->w_liq->co[l][r][c] = Fmax(0., E->liq->co[m] + E->deltaw->co[m]);
               glac->Dzl->co[l][r][c] = 1.E3 * E->Dlayer->co[m];
@@ -1322,7 +1319,7 @@ void find_SCA(STATEVAR_3D *snow, PAR *par, Matrix<double> *Z, double t)
                 {
                   D+=snow->Dzl->co[l][r][c];
                   SWE+=(snow->w_liq->co[l][r][c]+snow->w_ice->co[l][r][c]);
-                  T+=snow->T->co[l][r][c]*snow->Dzl->co[l][r][c];
+                  T+= (*snow->T)(l,r,c) * snow->Dzl->co[l][r][c];
                 }
               if (D>0)T/=D;
 
@@ -1333,7 +1330,7 @@ void find_SCA(STATEVAR_3D *snow, PAR *par, Matrix<double> *Z, double t)
                   Dmean+=D;
                   SWEmean+=SWE;
                   Tmean+=T;
-                  Tsmean+=snow->T->co[(*snow->lnum)(r,c)][r][c];
+                  Tsmean+= (*snow->T)((*snow->lnum)(r,c),r,c);
                 }
 
             }
@@ -1480,7 +1477,7 @@ short copy_statevar_from3D_to1D(long r, long c, STATEVAR_3D *origin,
   for (l=1; l<=nl; l++)
     {
       (*destination->Dzl)(l) = origin->Dzl->co[l][r][c];
-      (*destination->T)(l) = origin->T->co[l][r][c];
+      (*destination->T)(l) = (*origin->T)(l,r,c);
       (*destination->w_ice)(l) = origin->w_ice->co[l][r][c];
       (*destination->w_liq)(l) = origin->w_liq->co[l][r][c];
     }
@@ -1495,7 +1492,7 @@ short copy_statevar_from3D_to1D(long r, long c, STATEVAR_3D *origin,
 /******************************************************************************************************************************************/
 
 double interpolate_snow(long r, long c, double h, long max, DOUBLETENSOR *Dz,
-                        DOUBLETENSOR *Q, short k)
+                        Tensor<double> *Q, short k)
 {
 
   double q, z, z0=0.;
@@ -1538,11 +1535,11 @@ double interpolate_snow(long r, long c, double h, long max, DOUBLETENSOR *Dz,
             {
               if (k==0)
                 {
-                  q = Q->co[l][r][c];
+                  q = (*Q)(l,r,c);
                 }
               else
                 {
-                  q = Q->co[l][r][c]/Dz->co[l][r][c];
+                  q = (*Q)(l,r,c)/Dz->co[l][r][c];
                 }
             }
           else if (l <= max)
@@ -1551,24 +1548,24 @@ double interpolate_snow(long r, long c, double h, long max, DOUBLETENSOR *Dz,
                 {
                   if (k==0)
                     {
-                      q = ( Q->co[l-1][r][c] * (h-z0) + Q->co[l][r][c] * (z-h) ) / (z - z0);
+                      q = ( (*Q)(l-1,r,c) * (h-z0) + (*Q)(l,r,c) * (z-h) ) / (z - z0);
                     }
                   else
                     {
-                      q = ( Q->co[l-1][r][c]/Dz->co[l-1][r][c] * (h-z0) +
-                            Q->co[l][r][c]/Dz->co[l][r][c] * (z-h) ) / (z - z0);
+                      q = ( (*Q)(l-1,r,c)/Dz->co[l-1][r][c] * (h-z0) +
+                            (*Q)(l,r,c)/Dz->co[l][r][c] * (z-h) ) / (z - z0);
                     }
                 }
               else
                 {
                   if (k==0)
                     {
-                      q = ( Q->co[l-1][r][c] * (z-h) + Q->co[l][r][c] * (h-z0) ) / (z - z0);
+                      q = ( (*Q)(l-1,r,c) * (z-h) + (*Q)(l,r,c) * (h-z0) ) / (z - z0);
                     }
                   else
                     {
-                      q = ( Q->co[l-1][r][c]/Dz->co[l-1][r][c] * (z-h) +
-                            Q->co[l][r][c]/Dz->co[l][r][c] * (h-z0) ) / (z - z0);
+                      q = ( (*Q)(l-1,r,c)/Dz->co[l-1][r][c] * (z-h) +
+                            (*Q)(l,r,c)/Dz->co[l][r][c] * (h-z0) ) / (z - z0);
 
                     }
                 }
@@ -1577,11 +1574,11 @@ double interpolate_snow(long r, long c, double h, long max, DOUBLETENSOR *Dz,
             {
               if (k==0)
                 {
-                  q = Q->co[max][r][c];
+                  q = (*Q)(max,r,c);
                 }
               else
                 {
-                  q = Q->co[max][r][c]/Dz->co[max][r][c];
+                  q = (*Q)(max,r,c)/Dz->co[max][r][c];
                 }
 
             }
@@ -1620,7 +1617,7 @@ void copy_snowvar3D(STATEVAR_3D *from, STATEVAR_3D *to)
               to->Dzl->co[l][r][c] = from->Dzl->co[l][r][c];
               to->w_liq->co[l][r][c] = from->w_liq->co[l][r][c];
               to->w_ice->co[l][r][c] = from->w_ice->co[l][r][c];
-              to->T->co[l][r][c] = from->T->co[l][r][c];
+              (*to->T)(l,r,c) = (*from->T)(l,r,c);
             }
         }
     }
