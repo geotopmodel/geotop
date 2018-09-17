@@ -176,7 +176,7 @@ struct SOIL {
 /*---------------------------------------------------------------------------*/
 typedef struct {
     std::unique_ptr<Matrix<double>> Z0;         //elevation of each pixel (DEM)
-    DOUBLETENSOR *Z;
+    std::unique_ptr<Tensor<double>> Z;
 
     std::unique_ptr<Matrix<double>> sky;        //view factor (of the sky) for each pixel
     std::unique_ptr<Matrix<short>> pixel_type;

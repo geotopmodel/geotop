@@ -149,8 +149,6 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
     }
     free(top->j_cont);
 
-    free_doubletensor(top->Z);
-
     /* Deallocation of struct LAND "land": */
     geolog << "Deallocating land" << std::endl;
 
