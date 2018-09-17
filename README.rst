@@ -115,15 +115,13 @@ Here is the full list of peer-reviewed publications using the GEOtop model (upda
 
 * Mauder, M., Genzel, S., Fu, J., Kiese, R., Soltani, M., Steinbrecher, R., Zeeman, M., Banerjee, T., De Roo, F., Kunstmann, H., 2017. Evaluation of energy balance closure adjustment methods by independent evapotranspiration estimates from lysimeters and hydrological simulations. Hydrol. Process. https://doi.org/10.1002/hyp.11397
 
-* Engel, M., Notarnicola, C., Endrizzi, S., Bertoldi, G., 2017. A sensitivity analysis of a snow model to understand spatial and temporal snow dynamic in a high-elevation catchment. Hydrol. Process. 1–18. https://doi.org/10.1002/hyp.11314
-
 * Formetta, G., Capparelli, G., David, O., Green, T.R., Rigon, R., 2016. Integration of a Three-Dimensional Process-Based Hydrological Model into the Object Modeling System. Water 8, 1–15. https://doi.org/10.3390/w8010012
 
 * Hingerl, L., Kunstmann, H., Wagner, S., Mauder, M., Bliefernicht, J., Rigon, R., 2016. Spatio-temporal variability of water and energy fluxes - a case study for a mesoscale catchment in pre-alpine environment. Hydrol. Process. 30, 3804–3823. https://doi.org/10.1002/hyp.10893
 
 * Zi, T., Kumar, M., Kiely, G., Lewis, C., Albertson, J., 2016. Simulating the spatio-temporal dynamics of soil erosion , deposition , and yield using a coupled sediment dynamics and 3D distributed hydrologic model. Environ. Model. Softw. 83, 310–325. https://doi.org/10.1016/j.envsoft.2016.06.004
 
-* Formetta, G., Capparelli, G., David, O., Green, T.R., Rigon, R., 2016. Integration of a Three-Dimensional Process-Based Hydrological Model into the Object Modeling System 1–15. https://doi.org/10.3390/w8010012
+* Formetta, G., Capparelli, G., David, O., Green, T.R., Rigon, R., 2016. Integration of a Three-Dimensional Process-Based Hydrological Model into the Object Modeling System. Water  8(1), 12. https://doi.org/10.3390/w8010012
 
 * Formetta, G., Simoni, S., Godt, J.W., Lu, N., Rigon, R., 2016. Geomorphological control on variably saturated hillslope hydrology and slope instability. Water Resour. Res. 52, 4590–4607. https://doi.org/10.1002/2015WR017626
 
@@ -131,13 +129,9 @@ Here is the full list of peer-reviewed publications using the GEOtop model (upda
 
 * Fiddes, J., Endrizzi, S., Gruber, S., 2015. Large-area land surface simulations in heterogeneous terrain driven by global data sets : application to mountain permafrost. Cryosph. 9, 411–426. https://doi.org/10.5194/tc-9-411-2015
 
-* Greifeneder, F., Notarnicola, C., Bertoldi, G., Brenner, J., Wagner, W., 2015. A novel approach to improve spatial detail in modeled soil moisture through the integration of remote sensing data, in: Geoscience and Remote Sensing Symposium (IGARSS), 2015 IEEE International. pp. 1988–1991. https://doi.org/10.1109/IGARSS.2015.7326187
-
 * Eccel, E., Cordano, E., Zottele, F., 2015. A project for climatologic mapping of soil water content in Trentino. Ital. J. Agrometeorol. 1, 5–20.
 
 * Bertoldi, G., Della Chiesa, S., Notarnicola, C., Pasolli, L., Niedrist, G., Tappeiner, U., Della, S., Notarnicola, C., Pasolli, L., Niedrist, G., Tappeiner, U., 2014. Estimation of soil moisture patterns in mountain grasslands by means of SAR RADARSAT2 images and hydrological modeling. J. Hydrol. 516, 245–257. https://doi.org/10.1016/j.jhydrol.2014.02.018
-
-* Della Chiesa, S., Bertoldi, G., Niedrist, G., Obojes, N., Endrizzi, S., Albertson, J.D.D., Wohlfahrt, G., Hörtnagl, L., Tappeiner, U., Chiesa, S.D., Bertoldi, G., Niedrist, G., Obojes, N., Endrizzi, S., Albertson, J.D.D., Wohlfahrt, G., Hörtnagl, L., Tappeiner, U., 2014. Modelling changes in grassland hydrological cycling along an elevational gradient in the Alps. Ecohydrology 7, n/a--n/a. https://doi.org/10.1002/eco.1471
 
 * Endrizzi, S., Gruber, S., Dall’Amico, M., Rigon, R., 2014. GEOtop 2.0: simulating the combined energy and water balance at and below the land surface accounting for soil freezing, snow cover and terrain effects. Geosci. Model Dev. 7, 2831–2857. https://doi.org/10.5194/gmd-7-2831-2014
 
