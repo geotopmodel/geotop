@@ -42,8 +42,8 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
 
 void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
                      long d, long m, long y, long h, long mi, double JDfrom0,
-                     double JDfrom0init, double JDfrom0end, Vector<double>* n, DOUBLETENSOR *snowDz,
-                     DOUBLETENSOR *var, double cosslope);
+                     double JDfrom0init, double JDfrom0end, Vector<double> *n, DOUBLETENSOR *snowDz,
+                     Tensor<double> *var, double cosslope);
 
 void write_soil_header(FILE *f, Vector<double>* n, double *dz);
 

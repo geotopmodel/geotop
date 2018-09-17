@@ -1774,7 +1774,7 @@ land cover %ld, meteo station %ld\n",
                     for (n=1; n<=(*snow->S->lnum)(r,c); n++)
                     {
                         snow->S->Dzl->co[n][r][c] = D * (snow->S->w_ice->co[n][r][c] / SWE);
-                        snow->S->T->co[n][r][c] = IT->Tsnow0;
+                        (*snow->S->T)(n,r,c) = IT->Tsnow0;
                     }
                 }
 
@@ -1812,7 +1812,7 @@ land cover %ld, meteo station %ld\n",
 
         assign_recovered_tensor(old, par->recover, files[rwis], snow->S->w_ice, par, land->LC.get());
 
-        assign_recovered_tensor(old, par->recover, files[rTs], snow->S->T, par, land->LC.get());
+        assign_recovered_tensor(old, par->recover, files[rTs], snow->S->T.get(), par, land->LC.get());
 
         /* f = fopen(logfile, "a");
        for(r=1;r<=Nr;r++){
@@ -1916,7 +1916,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
                                 glac->G->Dzl->co[n][r][c] = rho_w * glac->G->w_ice->co[n][r][c] /
                                                             IT->rhoglac0;
-                                glac->G->T->co[n][r][c] = IT->Tglac0;
+                                (*glac->G->T)(n,r,c) = IT->Tglac0;
 
                                 z += glac->G->w_ice->co[n][r][c];
 
@@ -1957,7 +1957,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
                                 glac->G->Dzl->co[n][r][c] = rho_w * glac->G->w_ice->co[n][r][c] /
                                                             IT->rhoglac0;
-                                glac->G->T->co[n][r][c] = IT->Tglac0;
+                                (*glac->G->T)(n,r,c) = IT->Tglac0;
 
                             }
                         }
@@ -1978,7 +1978,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
             assign_recovered_tensor(old, par->recover, files[rDzi], glac->G->Dzl, par, land->LC.get());
             assign_recovered_tensor(old, par->recover, files[rwli], glac->G->w_liq, par, land->LC.get());
             assign_recovered_tensor(old, par->recover, files[rwii], glac->G->w_ice, par, land->LC.get());
-            assign_recovered_tensor(old, par->recover, files[rTi], glac->G->T, par, land->LC.get());
+            assign_recovered_tensor(old, par->recover, files[rTi], glac->G->T.get(), par, land->LC.get());
         }
     }
 

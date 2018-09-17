@@ -644,7 +644,7 @@ struct STATEVAR_3D {
     DOUBLETENSOR *Dzl;
     DOUBLETENSOR *w_liq;
     DOUBLETENSOR *w_ice;
-    DOUBLETENSOR *T;
+    std::unique_ptr<Tensor<double>> T;
 };
 
 

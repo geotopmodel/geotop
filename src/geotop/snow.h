@@ -151,7 +151,7 @@ short copy_statevar_from3D_to1D(long r, long c, STATEVAR_3D *origin,
 
 /*----------------------------------------------------------------------------------------------------------*/
 double interpolate_snow(long r, long c, double h, long max, DOUBLETENSOR *Dz,
-                        DOUBLETENSOR *Q, short k);
+                        Tensor<double> *Q, short k);
 
 /*----------------------------------------------------------------------------------------------------------*/
 void copy_snowvar3D(STATEVAR_3D *from, STATEVAR_3D *to);

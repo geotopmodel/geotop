@@ -635,7 +635,7 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
 
                       snow->S->w_ice->co[1][r][c]+=DW;
                       snow->S->Dzl->co[1][r][c]+=1.0E+3*DW/rho_wind_transported_snow;
-                      snow->S->T->co[1][r][c]=Fmin(-1.,(*met->Vgrid)(r,c));
+                      (*snow->S->T)(1,r,c)=Fmin(-1.,(*met->Vgrid)(r,c));
 
                     }
 
