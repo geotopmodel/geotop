@@ -3053,40 +3053,40 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 for (l=1; l<=Nl; l++)
                 {
                     fprintf(f," Alpha of van Genuchten[mm^-1] of the layer %ld: %f\n",l,
-                            sl->pa->co[sy][ja][l]);
+                            (*sl->pa)(sy,ja,l));
                 }
                 for (l=1; l<=Nl; l++)
                 {
                     fprintf(f," n of van Genuchten[-] of the layer %ld: %f\n",l,
-                            sl->pa->co[sy][jns][l]);
+                            (*sl->pa)(sy,jns,l));
                 }
                 for (l=1; l<=Nl; l++)
                 {
                     fprintf(f," m of van Genuchten[-] of the layer %ld: %f\n",l,
-                            1-1/sl->pa->co[sy][jns][l]);
+                            1-1/(*sl->pa)(sy,jns,l));
                 }
                 for (l=1; l<=Nl; l++)
                 {
                     fprintf(f," v of van Genuchten[-] of the layer %ld: %f\n",l,
-                            sl->pa->co[sy][jv][l]);
+                            (*sl->pa)(sy,jv,l));
                 }
                 for (l=1; l<=Nl; l++)
                 {
                     fprintf(f," Water content of wilting point [-] of the layer %ld: %f\n",l,
-                            sl->pa->co[sy][jwp][l]);
+                            (*sl->pa)(sy,jwp,l));
                 }
                 for (l=1; l<=Nl; l++)
                 {
                     fprintf(f," Water content of field capacity [-] of the layer %ld: %f\n",l,
-                            sl->pa->co[sy][jfc][l]);
+                            (*sl->pa)(sy,jfc,l));
                 }
                 for (l=1; l<=Nl; l++)
                 {
-                    fprintf(f," Kv_sat of layer %ld [mm/s]: %f\n",l,sl->pa->co[sy][jKn][l]);
+                    fprintf(f," Kv_sat of layer %ld [mm/s]: %f\n",l,(*sl->pa)(sy,jKn,l));
                 }
                 for (l=1; l<=Nl; l++)
                 {
-                    fprintf(f," Kh_sat of layer %ld [mm/s]: %f\n",l,sl->pa->co[sy][jKl][l]);
+                    fprintf(f," Kh_sat of layer %ld [mm/s]: %f\n",l,(*sl->pa)(sy,jKl,l));
                 }
 
                 fprintf(f," Terrain elevation [m]: %f\n",(*top->Z0)(r,c));
@@ -4952,7 +4952,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                     }
                     if (par->wzrun == 1 || par->wzmaxrun == 1 || par->wzminrun == 1)
                     {
-                        w = ((*sl->SS->thi)(i,j) + (*sl->th)(i,j)) * sl->pa->co[(*sl->type)(r,c)][jdz][i];
+                        w = ((*sl->SS->thi)(i,j) + (*sl->th)(i,j)) * (*sl->pa)((*sl->type)(r,c),jdz,i);
                         if (par->wzrun == 1)
                             (*sl->wzrun)((*par->jplot)(j),i) += w * Dt / (((*par->end_date)(i_sim) - (*par->init_date)(i_sim))*86400.);
                         if (par->wzmaxrun == 1)
@@ -5150,7 +5150,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
                 r = (*par->rc)(j,1);
                 c = (*par->rc)(j,2);
                 fprintf(f, ",%f",
-                        ((*sl->SS->thi)(l,top->j_cont[r][c]) + (*sl->th)(l,top->j_cont[r][c])) * sl->pa->co[(*sl->type)(r,c)][jdz][l] );
+                        ((*sl->SS->thi)(l,top->j_cont[r][c]) + (*sl->th)(l,top->j_cont[r][c])) * (*sl->pa)((*sl->type)(r,c),jdz,l) );
             }
             fprintf(f, "\n");
         }
@@ -5227,7 +5227,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
                 r = (*par->rc)(j,1);
                 c = (*par->rc)(j,2);
                 fprintf(f, ",%f",((*sl->SS->thi)(l,top->j_cont[r][c])
-                                  + (*sl->th)(l,top->j_cont[r][c]))*sl->pa->co[(*sl->type)(r,c)][jdz][l]);
+                                  + (*sl->th)(l,top->j_cont[r][c]))*(*sl->pa)((*sl->type)(r,c),jdz,l));
             }
             fprintf(f, "\n");
         }
@@ -5360,10 +5360,10 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
             for (l=1; l<=n; l++)
             {
                 (*sl->SS->T)(l,j) = (*sl->Tzrun)(j,l);
-                (*sl->Ptot)(l,j) = psi_from_theta( (*sl->wzrun)(j,l)/sl->pa->co[sy][jdz][l], 0., l, sl->pa->co[sy], PsiMin );
+                (*sl->Ptot)(l,j) = psi_from_theta( (*sl->wzrun)(j,l)/(*sl->pa)(sy,jdz,l), 0., l, sl->pa->co[sy], PsiMin );
                 (*sl->SS->P)(l,j) = Fmin(Psif((*sl->Tzrun)(j,l)),(*sl->Ptot)(l,j));
                 (*sl->th)(l,j) = theta_from_psi((*sl->SS->P)(l,j), 0., l, sl->pa->co[sy], PsiMin);
-                (*sl->SS->thi)(l,j) = (*sl->wzrun)(j,l)/sl->pa->co[sy][jdz][l] - (*sl->th)(l,j);
+                (*sl->SS->thi)(l,j) = (*sl->wzrun)(j,l)/(*sl->pa)(sy,jdz,l) - (*sl->th)(l,j);
             }
             Tlow = (*sl->SS->T)(n,j);
             Ptlow = (*sl->Ptot)(n,j);
@@ -5373,21 +5373,21 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
         else if (par->newperiodinit == 1)
         {
             Tlow = (*sl->Tzrun)(j,n);
-            Ptlow = psi_from_theta((*sl->wzrun)(j,n)/sl->pa->co[sy][jdz][n], 0., n, sl->pa->co[sy], PsiMin);
+            Ptlow = psi_from_theta((*sl->wzrun)(j,n)/(*sl->pa)(sy,jdz,n), 0., n, sl->pa->co[sy], PsiMin);
             thwlow = theta_from_psi(Fmin(Psif(Tlow),Ptlow), 0., n, sl->pa->co[sy],PsiMin);
-            thilow = (*sl->wzrun)(j,n)/sl->pa->co[sy][jdz][n] - thwlow;
+            thilow = (*sl->wzrun)(j,n)/(*sl->pa)(sy,jdz,n) - thwlow;
         }
 
         z = 0.;
         for (l=1; l<=n; l++)
         {
-            z += sl->pa->co[sy][jdz][l];
+            z += (*sl->pa)(sy,jdz,l);
         }
 
         //non-spinned up soil portion (below) -> interpolation (== 1 or 2)
         for (l=n+1; l<=Nl; l++)
         {
-            z += sl->pa->co[sy][jdz][l];
+            z += (*sl->pa)(sy,jdz,l);
 
             //above the weir set equal to the value of the deepest node of the spinned up soil portion, below the weir assumed saturation
             if (z<top->BC_DepthFreeSurface->co[j])
@@ -5402,14 +5402,14 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
             //thermal conductivity of layer above
             if (l-1 == n)
             {
-                k = k_thermal(0, 1, thwlow, thilow, sl->pa->co[sy][jsat][l-1],
-                              sl->pa->co[sy][jkt][l-1]);
+                k = k_thermal(0, 1, thwlow, thilow, (*sl->pa)(sy,jsat,l-1),
+                              (*sl->pa)(sy,jkt,l-1));
                 T = Tlow;
             }
             else
             {
                 k = k_thermal(0, 1, (*sl->th)(l-1,j), (*sl->SS->thi)(l-1,j),
-                              sl->pa->co[sy][jsat][l-1], sl->pa->co[sy][jkt][l-1]);
+                              (*sl->pa)(sy,jsat,l-1), (*sl->pa)(sy,jkt,l-1));
                 T = (*sl->SS->T)(l-1,j);
             }
 
@@ -5424,12 +5424,12 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
                 thin = theta_from_psi((*sl->Ptot)(l,j), 0., l, sl->pa->co[sy],
                                       PsiMin) - thwn;
                 kn = k_thermal(0, 1, thwn, thin, (*sl->pa)(sy,jsat,l),
-                               sl->pa->co[sy][jkt][l]);
+                               (*sl->pa)(sy,jkt,l));
 
                 T0n = Tn;
 
-                Tn = T + par->Fboundary * 1.E-3 * (sl->pa->co[sy][jdz][l-1]/k +
-                                                   sl->pa->co[sy][jdz][l]/kn);
+                Tn = T + par->Fboundary * 1.E-3 * ((*sl->pa)(sy,jdz,l-1)/k +
+                                                   (*sl->pa)(sy,jdz,l)/kn);
                 m++;
 
             }
