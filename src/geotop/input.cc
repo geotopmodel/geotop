@@ -3629,7 +3629,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
 void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, Matrix<double> *LC)
 {
     GEOLOG_PREFIX(__func__);
-    DOUBLETENSOR *T;
+    std::unique_ptr<Tensor<double>> T;
     std::unique_ptr<Vector<double>> WT;
     long i, j, l, r, c, sy, synew;
     double zlim, z;
@@ -3661,19 +3661,18 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
         }
 
         // rewrite soil type
-        T=new_doubletensor(sl->pa->ndh, nsoilprop, Nl);
+        T.reset(new Tensor<double>{sl->pa->ndh, nsoilprop, Nl});
         for (i=1; i<=sl->pa->ndh; i++)
         {
             for (j=1; j<=nsoilprop; j++)
             {
                 for (l=1; l<=Nl; l++)
                 {
-                    T->co[i][j][l]=sl->pa->co[i][j][l];
+                    (*T)(i,j,l) =(*sl->pa)(i,j,l);
                 }
             }
         }
-        free_doubletensor(sl->pa);
-        sl->pa=new_doubletensor(par->total_pixel+par->total_channel, nsoilprop, Nl);
+        sl->pa.reset(new Tensor<double>{par->total_pixel+par->total_channel, nsoilprop, Nl});
 
         // rewrite initial water table depth
         WT.reset(new Vector<double>{IT->init_water_table_depth->nh});
@@ -3689,7 +3688,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
         {
             for (l=1; l<=Nl; l++)
             {
-                sl->pa->co[i][jdz][l]=T->co[1][jdz][l];
+                (*sl->pa)(i,jdz,l) = (*T)(1,jdz,l);
             }
         }
 
@@ -3721,24 +3720,24 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
 
             for (l=1; l<=Nl; l++)
             {
-                z += 0.5*sl->pa->co[synew][jdz][l];
+                z += 0.5 * (*sl->pa)(synew,jdz,l);
 
                 if (z <= zlim)
                 {
 
                     for (j=1; j<=nsoilprop; j++)
                     {
-                        sl->pa->co[synew][j][l] = T->co[sy][j][l];
+                        (*sl->pa)(synew,j,l) = (*T)(sy,j,l);
                     }
                 }
                 else
                 {
                     for (j=1; j<=nsoilprop; j++)
                     {
-                        sl->pa->co[synew][j][l] = (*IT->pa_bed)(sy,j,l) ;
+                        (*sl->pa)(synew,j,l) = (*IT->pa_bed)(sy,j,l);
                     }
                 }
-                z += 0.5*sl->pa->co[synew][jdz][l];
+                z += 0.5*(*sl->pa)(synew,jdz,l);
             }
         }
         free_doubletensor(T);
