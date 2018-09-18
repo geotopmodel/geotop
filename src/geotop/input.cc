@@ -1808,7 +1808,7 @@ land cover %ld, meteo station %ld\n",
 
         assign_recovered_tensor(old, par->recover, files[rDzs], snow->S->Dzl.get(), par, land->LC.get());
 
-        assign_recovered_tensor(old, par->recover, files[rwls], snow->S->w_liq, par, land->LC.get());
+        assign_recovered_tensor(old, par->recover, files[rwls], snow->S->w_liq.get(), par, land->LC.get());
 
         assign_recovered_tensor(old, par->recover, files[rwis], snow->S->w_ice, par, land->LC.get());
 
@@ -1976,7 +1976,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         {
             assign_recovered_map_long(old, par->recover, files[rni], glac->G->lnum.get(), par, land->LC.get());
             assign_recovered_tensor(old, par->recover, files[rDzi], glac->G->Dzl.get(), par, land->LC.get());
-            assign_recovered_tensor(old, par->recover, files[rwli], glac->G->w_liq, par, land->LC.get());
+            assign_recovered_tensor(old, par->recover, files[rwli], glac->G->w_liq.get(), par, land->LC.get());
             assign_recovered_tensor(old, par->recover, files[rwii], glac->G->w_ice, par, land->LC.get());
             assign_recovered_tensor(old, par->recover, files[rTi], glac->G->T.get(), par, land->LC.get());
         }
