@@ -47,11 +47,13 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
              double Wcrn0, double Wcrnmax, double Wcsn0, // 10
              double Wcsnmax, double *dWcrn, double *dWcsn, double *LWv, double *LWg, double *Hv, double *Hg,
              double *dHgdT, double *LEv, double *Eg, // 10
-             double *dEgdT, double *Ts, double *Qs, RowView<double> &&froot, double *theta, Vector<double> *soil_transp_layer,
+             double *dEgdT, double *Ts, double *Qs, RowView<double> &&froot, double *theta,
+             Vector<double> *soil_transp_layer,
              double *Lobukhov, PAR *par, long n, double *rm, // 10
              double *rh, double *rv, double *rc, double *rb, double *ruc, double *u_top, double *Etrans, double *Tv,
              double *Qv, double *decay, // 10
-             double *Locc, double *LWup_above_v, double psi, double **soil, double *T, Vector<double> *soil_evap_layer) // 6 => TOT = 66 parameters
+             double *Locc, double *LWup_above_v, double psi, MatrixView<double> &&soil, double *T,
+             Vector<double> *soil_evap_layer) // 6 => TOT = 66 parameters
 {
 
   double C, C0;
@@ -84,7 +86,7 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
                     &dhdT, Ts, Qs, Qv, ruc, std::forward<RowView<double>>(froot), theta, soil_transp_layer,
                               chgsgn, Lobukhov, par, n, rm, rh, rv, rc, rb,
                     u_top, decay, Locc, LWup_above_v,
-                    psi, soil, &alpha, &beta, T, soil_evap_layer);
+                    psi, std::forward<MatrixView<double>>(soil), &alpha, &beta, T, soil_evap_layer);
     }
 
   //calculates values at the instant t1 -> h1, through iterations
@@ -97,7 +99,7 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
                 Wcrnmax, Wcsn0, Wcsnmax, &subl_can, Etrans, LWv, LWg, Hv, LEv, &h1, &dhdT, Ts,
                 Qs, Qv, ruc, std::forward<RowView<double>>(froot), theta, soil_transp_layer, chgsgn,
                 Lobukhov, par, n, rm, rh, rv, rc, rb, u_top, decay, Locc, LWup_above_v, psi,
-                soil, &alpha, &beta, T, soil_evap_layer);
+                std::forward<MatrixView<double>>(soil), &alpha, &beta, T, soil_evap_layer);
 
   do
     {
@@ -252,7 +254,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
                    long chgsgn, double *Lobukhov, PAR *par, long n, double *rm, double *rh,
                    double *rv, double *rc, double *rb,
                    double *u_top, double *decay, double *Locc, double *LWup_above_v, double psi,
-                   double **soil, double *alpha,
+                   MatrixView<double> &&soil, double *alpha,
                    double *beta, double *T, Vector<double> *soil_evap_layer)
 {
 
@@ -315,7 +317,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
                             d0, LSAI, decaycoeff0, *Lobukhov, Loc, rb, ruc, decay);
 
           find_actual_evaporation_parameters(r, c, alpha, beta, soil_evap_layer, theta,
-                                             soil, T, psi, P, *ruc, Ta, Qa, Qgsat, n);
+                                             std::forward<MatrixView<double>>(soil), T, psi, P, *ruc, Ta, Qa, Qgsat, n);
 
           if ((*Qv)<(*Qs))  //condensation
             {
@@ -323,7 +325,8 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
             }
           else
             {
-              canopy_evapotranspiration(*rb, Tv, Qa, P, SW, theta, std::forward<RowView<double>>(land), soil,
+              canopy_evapotranspiration(*rb, Tv, Qa, P, SW, theta, std::forward<RowView<double>>(land), 
+                                        std::forward<MatrixView<double>>(soil),
                                         std::forward<RowView<double>>(froot), &ft,
                                         soil_transp_layer);
               R=fw+(1.0-fw)*ft;
@@ -694,7 +697,7 @@ void root(long n, double d, double slope, RowView<double> &&D, RowView<double> &
 
 void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa,
                                double SWin, double *theta, RowView<double> &&land,
-                               double **soil, RowView<double> &&root, double *f, Vector<double> *fl)
+                               MatrixView<double> &&soil, RowView<double> &&root, double *f, Vector<double> *fl)
 {
 
   double fS, fe, fTemp, Rsmin, ea, ev;
@@ -731,9 +734,9 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa,
         {
           fl->co[l] = 1.0;
         }
-      else if (theta[l] > soil[jwp][l])
+      else if (theta[l] > soil(jwp,l))
         {
-          fl->co[l] = (theta[l]-soil[jwp][l])/(soil[jfc][l]-soil[jwp][l]);
+          fl->co[l] = (theta[l]-soil(jwp,l))/(soil[jfc][l]-soil(jwp,l));
         }
       else
         {
