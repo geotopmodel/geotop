@@ -1102,7 +1102,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[fliqav], 0, par->format_out,
                                         sl->thw_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
-                                        top->rc_cont.get(), sl->pa->co[1][jdz], top->slope.get(),
+                                        top->rc_cont.get(), sl->pa->row(1,jdz), top->slope.get(),
                                         par->output_vertical_distances);
             }
             else
@@ -5360,9 +5360,9 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
             for (l=1; l<=n; l++)
             {
                 (*sl->SS->T)(l,j) = (*sl->Tzrun)(j,l);
-                (*sl->Ptot)(l,j) = psi_from_theta( (*sl->wzrun)(j,l)/(*sl->pa)(sy,jdz,l), 0., l, sl->pa->co[sy], PsiMin );
+                (*sl->Ptot)(l,j) = psi_from_theta( (*sl->wzrun)(j,l)/(*sl->pa)(sy,jdz,l), 0., l, sl->pa->matrix(sy), PsiMin );
                 (*sl->SS->P)(l,j) = Fmin(Psif((*sl->Tzrun)(j,l)),(*sl->Ptot)(l,j));
-                (*sl->th)(l,j) = theta_from_psi((*sl->SS->P)(l,j), 0., l, sl->pa->co[sy], PsiMin);
+                (*sl->th)(l,j) = theta_from_psi((*sl->SS->P)(l,j), 0., l, sl->pa->matrix(sy), PsiMin);
                 (*sl->SS->thi)(l,j) = (*sl->wzrun)(j,l)/(*sl->pa)(sy,jdz,l) - (*sl->th)(l,j);
             }
             Tlow = (*sl->SS->T)(n,j);
@@ -5373,8 +5373,8 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
         else if (par->newperiodinit == 1)
         {
             Tlow = (*sl->Tzrun)(j,n);
-            Ptlow = psi_from_theta((*sl->wzrun)(j,n)/(*sl->pa)(sy,jdz,n), 0., n, sl->pa->co[sy], PsiMin);
-            thwlow = theta_from_psi(Fmin(Psif(Tlow),Ptlow), 0., n, sl->pa->co[sy],PsiMin);
+            Ptlow = psi_from_theta((*sl->wzrun)(j,n)/(*sl->pa)(sy,jdz,n), 0., n, sl->pa->matrix(sy), PsiMin);
+            thwlow = theta_from_psi(Fmin(Psif(Tlow),Ptlow), 0., n, sl->pa->matrix(sy),PsiMin);
             thilow = (*sl->wzrun)(j,n)/(*sl->pa)(sy,jdz,n) - thwlow;
         }
 
@@ -5420,8 +5420,8 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
             do
             {
                 psin = Fmin(Psif(Tn), (*sl->Ptot)(l,j));
-                thwn = theta_from_psi(psin, 0., l, sl->pa->co[sy], PsiMin);
-                thin = theta_from_psi((*sl->Ptot)(l,j), 0., l, sl->pa->co[sy],
+                thwn = theta_from_psi(psin, 0., l, sl->pa->matrix(sy), PsiMin);
+                thin = theta_from_psi((*sl->Ptot)(l,j), 0., l, sl->pa->matrix(sy),
                                       PsiMin) - thwn;
                 kn = k_thermal(0, 1, thwn, thin, (*sl->pa)(sy,jsat,l),
                                (*sl->pa)(sy,jkt,l));

@@ -40,7 +40,7 @@ double Psif(double T);
 
 double theta_from_psi(double psi, double ice, long l, MatrixView<double> &&pa, double pmin);
 
-double psi_from_theta(double th, double ice, long l, double **pa, double pmin);
+double psi_from_theta(double th, double ice, long l, MatrixView<double> &&pa, double pmin);
 
 double dtheta_dpsi_from_psi(double psi, double ice, long l, double **pa, double pmin);
 
