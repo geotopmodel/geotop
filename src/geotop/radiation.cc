@@ -593,13 +593,12 @@ void rad_snow_absorption(long r, long c, Vector<double> *frac, double R,
 
       for (l=(*snow->lnum)(r,c); l>=1; l--)
         {
-          m=(*snow->lnum)(r,c)-l+1;
-          z+=0.001 * (*snow->Dzl)(l,r,c);
-          rho=(snow->w_ice->co[l][r][c] + (*snow->w_liq)(l,r,c))/
-              (0.001 * (*snow->Dzl)(l,r,c));
-          k=rho/3.0+50.0;
-          frac->co[m]=res-R*exp(-k*z);
-          res=R*exp(-k*z);
+          m = (*snow->lnum)(r,c)-l+1;
+          z += 0.001 * (*snow->Dzl)(l,r,c);
+          rho = ((*snow->w_ice)(l,r,c) + (*snow->w_liq)(l,r,c))/ (0.001 * (*snow->Dzl)(l,r,c));
+          k = rho/3.0+50.0;
+          frac->co[m] = res-R*exp(-k*z);
+          res = R*exp(-k*z);
         }
 
       frac->co[(*snow->lnum)(r,c)+1]=res;

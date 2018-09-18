@@ -1501,7 +1501,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                snow->S->w_ice->co[1][r][c] = (*M)(r,c);
+                (*snow->S->w_ice)(1,r,c) = (*M)(r,c);
             }
         }
     }
@@ -1521,7 +1521,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                if ((long)(*land->LC)(r,c) != number_novalue) snow->S->w_ice->co[1][r][c] =
+                if ((long)(*land->LC)(r,c) != number_novalue) (*snow->S->w_ice)(1,r,c) =
                                                                       (*snow->S->Dzl)(1,r,c) *
                                                                       IT->rhosnow0/rho_w;
             }
@@ -1536,7 +1536,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                snow->S->w_ice->co[1][r][c] = (*M)(r,c);
+                (*snow->S->w_ice)(1,r,c) = (*M)(r,c);
             }
         }
 
@@ -1545,7 +1545,7 @@ land cover %ld, meteo station %ld\n",
             for (c=1; c<=Nc; c++)
             {
                 if ((long)(*land->LC)(r,c) != number_novalue) (*snow->S->Dzl)(1,r,c) =
-                                                                      snow->S->w_ice->co[1][r][c] *
+                                                                      (*snow->S->w_ice)(1,r,c) *
                                                                       rho_w/IT->rhosnow0;
             }
         }
@@ -1559,7 +1559,7 @@ land cover %ld, meteo station %ld\n",
             {
                 if ((long)(*land->LC)(r,c) != number_novalue)
                 {
-                    snow->S->w_ice->co[1][r][c] = IT->swe0;
+                    (*snow->S->w_ice)(1,r,c) = IT->swe0;
                     (*snow->S->Dzl)(1,r,c) = IT->swe0*rho_w/IT->rhosnow0;
                 }
             }
@@ -1676,11 +1676,11 @@ land cover %ld, meteo station %ld\n",
                         k_snowred = 0.0;
                     }
                     (*snow->S->Dzl)(1,r,c) *= k_snowred;
-                    snow->S->w_ice->co[1][r][c] *= k_snowred;
+                    (*snow->S->w_ice)(1,r,c) *= k_snowred;
                 }
 
                 D = (*snow->S->Dzl)(1,r,c);
-                SWE = snow->S->w_ice->co[1][r][c];
+                SWE = (*snow->S->w_ice)(1,r,c);
 
                 if (D<0 || SWE<0)
                 {
@@ -1723,23 +1723,23 @@ land cover %ld, meteo station %ld\n",
 
                             for (n=1; n<=i; n++)
                             {
-                                snow->S->w_ice->co[n][r][c] = par->max_weq_snow;
+                                (*snow->S->w_ice)(n,r,c) = par->max_weq_snow;
                             }
 
                             if (SWE - i * par->max_weq_snow > 0.1 * par->max_weq_snow)
                             {
-                                snow->S->w_ice->co[i+1][r][c] = SWE - i * par->max_weq_snow;
+                                (*snow->S->w_ice)(i+1,r,c) = SWE - i * par->max_weq_snow;
                                 (*snow->S->lnum)(r,c) = i+1;
                             }
                             else
                             {
-                                snow->S->w_ice->co[i][r][c] += (SWE - i * par->max_weq_snow);
+                                (*snow->S->w_ice)(i,r,c) += (SWE - i * par->max_weq_snow);
                                 (*snow->S->lnum)(r,c) = i;
                             }
                         }
                         else
                         {
-                            snow->S->w_ice->co[1][r][c] = SWE;
+                            (*snow->S->w_ice)(1,r,c) = SWE;
                             (*snow->S->lnum)(r,c) = 1;
                         }
                     }
@@ -1759,11 +1759,11 @@ land cover %ld, meteo station %ld\n",
 
                             if (a == 0)
                             {
-                                snow->S->w_ice->co[n][r][c] = par->max_weq_snow;
+                                (*snow->S->w_ice)(n,r,c) = par->max_weq_snow;
                             }
                             else
                             {
-                                snow->S->w_ice->co[n][r][c] = ( SWE - par->max_weq_snow *
+                                (*snow->S->w_ice)(n,r,c) = ( SWE - par->max_weq_snow *
                                                                       ( par->max_snow_layers -
                                                                         par->inf_snow_layers->nh ) ) /
                                                               par->inf_snow_layers->nh;
@@ -1773,7 +1773,7 @@ land cover %ld, meteo station %ld\n",
 
                     for (n=1; n<=(*snow->S->lnum)(r,c); n++)
                     {
-                        (*snow->S->Dzl)(n,r,c) = D * (snow->S->w_ice->co[n][r][c] / SWE);
+                        (*snow->S->Dzl)(n,r,c) = D * ((*snow->S->w_ice)(n,r,c) / SWE);
                         (*snow->S->T)(n,r,c) = IT->Tsnow0;
                     }
                 }
@@ -1810,7 +1810,7 @@ land cover %ld, meteo station %ld\n",
 
         assign_recovered_tensor(old, par->recover, files[rwls], snow->S->w_liq.get(), par, land->LC.get());
 
-        assign_recovered_tensor(old, par->recover, files[rwis], snow->S->w_ice, par, land->LC.get());
+        assign_recovered_tensor(old, par->recover, files[rwis], snow->S->w_ice.get(), par, land->LC.get());
 
         assign_recovered_tensor(old, par->recover, files[rTs], snow->S->T.get(), par, land->LC.get());
 
@@ -1906,19 +1906,19 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
                                 if (IT->rhoglac0 * (*M)(r,c) / rho_w < par->max_weq_glac * n)
                                 {
-                                    glac->G->w_ice->co[n][r][c] = par->max_weq_glac;
+                                    (*glac->G->w_ice)(n,r,c) = par->max_weq_glac;
                                 }
                                 else
                                 {
-                                    glac->G->w_ice->co[n][r][c] = IT->rhoglac0 * (*M)(r,c) /
+                                    (*glac->G->w_ice)(n,r,c) = IT->rhoglac0 * (*M)(r,c) /
                                                                   1000. - z;
                                 }
 
-                               (*glac->G->Dzl)(n,r,c) = rho_w * glac->G->w_ice->co[n][r][c] /
+                               (*glac->G->Dzl)(n,r,c) = rho_w * (*glac->G->w_ice)(n,r,c) /
                                                             IT->rhoglac0;
                                 (*glac->G->T)(n,r,c) = IT->Tglac0;
 
-                                z += glac->G->w_ice->co[n][r][c];
+                                z += (*glac->G->w_ice)(n,r,c);
 
                             }
                             while (fabs(z - IT->rhoglac0 * (*M)(r,c) / rho_w) < 1.E-6);
@@ -1943,11 +1943,11 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
                                 if (a == 0)
                                 {
-                                    glac->G->w_ice->co[n][r][c] = par->max_weq_glac;
+                                    (*glac->G->w_ice)(n,r,c) = par->max_weq_glac;
                                 }
                                 else
                                 {
-                                    glac->G->w_ice->co[n][r][c] = ( IT->rhoglac0 * (*M)(r,c) /
+                                    (*glac->G->w_ice)(n,r,c) = ( IT->rhoglac0 * (*M)(r,c) /
                                                                     rho_w -
                                                                     par->max_weq_glac *
                                                                     ( par->max_glac_layers -
@@ -1955,7 +1955,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                                                                   par->inf_glac_layers->nh;
                                 }
 
-                               (*glac->G->Dzl)(n,r,c) = rho_w * glac->G->w_ice->co[n][r][c] /
+                               (*glac->G->Dzl)(n,r,c) = rho_w * (*glac->G->w_ice)(n,r,c) /
                                                             IT->rhoglac0;
                                 (*glac->G->T)(n,r,c) = IT->Tglac0;
 
@@ -1977,7 +1977,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
             assign_recovered_map_long(old, par->recover, files[rni], glac->G->lnum.get(), par, land->LC.get());
             assign_recovered_tensor(old, par->recover, files[rDzi], glac->G->Dzl.get(), par, land->LC.get());
             assign_recovered_tensor(old, par->recover, files[rwli], glac->G->w_liq.get(), par, land->LC.get());
-            assign_recovered_tensor(old, par->recover, files[rwii], glac->G->w_ice, par, land->LC.get());
+            assign_recovered_tensor(old, par->recover, files[rwii], glac->G->w_ice.get(), par, land->LC.get());
             assign_recovered_tensor(old, par->recover, files[rTi], glac->G->T.get(), par, land->LC.get());
         }
     }

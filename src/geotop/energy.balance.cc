@@ -310,7 +310,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
       || (long)Tdirichlet_bottom == number_absent) Tdirichlet_bottom=A->P->Tbottom;
 
   //SNOW
-  snowD=DEPTH(r, c, S->lnum.get(), S->Dzl);
+  snowD=DEPTH(r, c, S->lnum.get(), S->Dzl.get());
   ns=(*S->lnum)(r,c);
 
   //vegetation parameters
@@ -615,14 +615,14 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         {
           A->E->Dlayer->co[l] = 1.E-3*(*S->Dzl)(ns+1-l,r,c);
           A->E->liq->co[l] = (*S->w_liq)(ns+1-l,r,c);
-          A->E->ice->co[l] = S->w_ice->co[ns+1-l][r][c];
+          A->E->ice->co[l] = (*S->w_ice)(ns+1-l,r,c);
           A->E->Temp->co[l] = (*S->T)(ns+1-l,r,c);
         }
       else if (l<=ns+ng)    //glacier
         {
           A->E->Dlayer->co[l] = 1.E-3*(*G->Dzl)(ns+ng+1-l,r,c);
           A->E->liq->co[l] =(*G->w_liq)(ns+ng+1-l,r,c);
-          A->E->ice->co[l] = G->w_ice->co[ns+ng+1-l][r][c];
+          A->E->ice->co[l] = (*G->w_ice)(ns+ng+1-l,r,c);
           A->E->Temp->co[l] =  (*G->T)(ns+ng+1-l,r,c);
         }
       else    //soil
@@ -849,7 +849,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
           if ( A->L->vegpar->co[jdLSAI]>=LSAIthres && ng==0 )
             {
 
-              snowD = DEPTH(r, c, S->lnum.get(), S->Dzl);
+              snowD = DEPTH(r, c, S->lnum.get(), S->Dzl.get());
 
               fc0=fc;
 
