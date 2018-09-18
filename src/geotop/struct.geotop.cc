@@ -10,19 +10,18 @@ STATEVAR_3D::STATEVAR_3D(double nan, long nl, long nr, long nc) :
         lnum{new Matrix<long>{nr, nc}},
         Dzl{new Tensor<double>{nl, nr, nc}},
         w_liq{new Tensor<double>{nl, nr, nc}},
-        w_ice{new_doubletensor(nl, nr, nc)},
+        w_ice{new Tensor<double>{nl, nr, nc}},
         T{new Tensor<double>{nl, nr, nc}}
 {
   *type = 2;
   *lnum = 0;
   *Dzl = 0.;
   *T = nan;
-  initialize_doubletensor(w_ice, 0.);
+  *w_ice = 0.;
   *w_liq = 0.;
 }
 
 STATEVAR_3D::~STATEVAR_3D() {
-  free_doubletensor(w_ice);
 }
 
 SOIL_STATE::SOIL_STATE(const long n, const long nl) :

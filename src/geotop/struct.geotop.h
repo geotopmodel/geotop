@@ -643,7 +643,7 @@ struct STATEVAR_3D {
     std::unique_ptr<Matrix<long>> lnum;
     std::unique_ptr<Tensor<double>> Dzl;
     std::unique_ptr<Tensor<double>> w_liq;
-    DOUBLETENSOR *w_ice;
+    std::unique_ptr<Tensor<double>> w_ice;
     std::unique_ptr<Tensor<double>> T;
 };
 
