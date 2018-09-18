@@ -613,15 +613,15 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
     {
       if (l<=ns)  //snow
         {
-          A->E->Dlayer->co[l] = 1.E-3*S->Dzl->co[ns+1-l][r][c];
-          A->E->liq->co[l] = S->w_liq->co[ns+1-l][r][c];
+          A->E->Dlayer->co[l] = 1.E-3*(*S->Dzl)(ns+1-l,r,c);
+          A->E->liq->co[l] = (*S->w_liq)(ns+1-l,r,c);
           A->E->ice->co[l] = S->w_ice->co[ns+1-l][r][c];
           A->E->Temp->co[l] = (*S->T)(ns+1-l,r,c);
         }
       else if (l<=ns+ng)    //glacier
         {
-          A->E->Dlayer->co[l] = 1.E-3*G->Dzl->co[ns+ng+1-l][r][c];
-          A->E->liq->co[l] = G->w_liq->co[ns+ng+1-l][r][c];
+          A->E->Dlayer->co[l] = 1.E-3*(*G->Dzl)(ns+ng+1-l,r,c);
+          A->E->liq->co[l] =(*G->w_liq)(ns+ng+1-l,r,c);
           A->E->ice->co[l] = G->w_ice->co[ns+ng+1-l][r][c];
           A->E->Temp->co[l] =  (*G->T)(ns+ng+1-l,r,c);
         }

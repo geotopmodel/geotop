@@ -40,7 +40,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
 double DEPTH(long r, long c, Matrix<long> *n, Tensor<double> *Dz);
 
 /*----------------------------------------------------------------------------------------------------------*/
-double get_SWE(long r, long c, Matrix<long> *n, DOUBLETENSOR *w1, DOUBLETENSOR *w2);
+double get_SWE(long r, long c, Matrix<long> *n, DOUBLETENSOR *w1, Tensor<double> *w2);
 
 /*----------------------------------------------------------------------------------------------------------*/
 void snowlayer_merging(double a, long r, long c, STATEVAR_3D *snow, long l1,

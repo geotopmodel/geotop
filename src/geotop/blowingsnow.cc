@@ -589,10 +589,10 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
                               ok=0;
                               if (snow->S->w_ice->co[i+1][r][c]<0)
                                 {
-                                  DW=snow->S->w_ice->co[i+1][r][c];
-                                  DWl=snow->S->w_liq->co[i+1][r][c];
+                                  DW = snow->S->w_ice->co[i+1][r][c];
+                                  DWl = (*snow->S->w_liq)(i+1,r,c);
                                   snow->S->w_ice->co[i+1][r][c]=0.0;
-                                  snow->S->w_liq->co[i+1][r][c]=0.0;
+                                  (*snow->S->w_liq)(i+1,r,c)=0.0;
                                   (*snow->S->Dzl)(i+1,r,c)=0.0;
                                   (*snow->S->lnum)(r,c)-=1;
                                 }
@@ -601,7 +601,7 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
                           (*snow->S->Dzl)(i,r,c)*=(snow->S->w_ice->co[i][r][c]
                                                       +DW)/snow->S->w_ice->co[i][r][c];
                           snow->S->w_ice->co[i][r][c]+=DW;        //kg/m2
-                          snow->S->w_liq->co[i][r][c]+=DWl;       //kg/m2
+                          (*snow->S->w_liq)(i,r,c)+=DWl;       //kg/m2
 
                           i--;
 
@@ -726,7 +726,7 @@ void wind_packing(SNOW *snow, PAR *par, long r, long c, double Dt)
       for (l=(*snow->S->lnum)(r,c); l>=1; l--)
         {
 
-          overburden += (snow->S->w_ice->co[l][r][c]+snow->S->w_liq->co[l][r][c])/2.;
+          overburden += (snow->S->w_ice->co[l][r][c] + (*snow->S->w_liq)(l,r,c))/2.;
 
           //compactation at the surface (10%/hour if U8=8m/s U8t=4m/s => Qsalt=3.555342e-03 kg/m/s)
           CR = -A4 * (*snow->Qsalt)(r,c);
@@ -742,7 +742,7 @@ void wind_packing(SNOW *snow, PAR *par, long r, long c, double Dt)
                                           (rho_w*par->snow_maxpor);
             }
 
-          overburden += (snow->S->w_ice->co[l][r][c]+snow->S->w_liq->co[l][r][c])/2.;
+          overburden += (snow->S->w_ice->co[l][r][c]+(*snow->S->w_liq)(l,r,c))/2.;
         }
     }
 }
