@@ -302,7 +302,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
         }
     }
 
-    top->Z.reset(find_Z_of_any_layer(top->Z0.get(), top->slope.get(), land->LC.get(), sl, par->point_sim));
+    top->Z = find_Z_of_any_layer(top->Z0.get(), top->slope.get(), land->LC.get(), sl, par->point_sim);
 
     top->Jdown.reset(new Matrix<long>{par->total_pixel, 4});
     top->Qdown.reset(new Matrix<double>{par->total_pixel, 4});
@@ -3751,12 +3751,12 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
 /***************************************************************************************************/
 /***************************************************************************************************/
 
-Tensor<double>* find_Z_of_any_layer(Matrix<double> *Zsurface, Matrix<double> *slope,
-                                     Matrix<double> *LC, SOIL *sl, short point)
+std::unique_ptr<Tensor<double>> find_Z_of_any_layer(Matrix<double> *Zsurface, Matrix<double> *slope,
+                                                    Matrix<double> *LC, SOIL *sl, short point)
 {
 
     GEOLOG_PREFIX(__func__);
-    Tensor<double> *Z;
+    std::unique_ptr<Tensor<double>> Z;
     double Zaverage=0., z, cosine;
     long l, r, c, n, sy;
 
@@ -3779,7 +3779,7 @@ Tensor<double>* find_Z_of_any_layer(Matrix<double> *Zsurface, Matrix<double> *sl
     }
 
 
-    Z = new Tensor<double>{sl->pa->nch, 0, Zsurface->nrh, 1, Zsurface->nch,1};
+    Z.reset(new Tensor<double>{sl->pa->nch, 0, Zsurface->nrh, 1, Zsurface->nch,1});
     *Z = (double)number_novalue;
 
     for (r=1; r<=Zsurface->nrh; r++)
