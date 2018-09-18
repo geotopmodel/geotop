@@ -291,8 +291,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                             (*sl->thizplot)(i,l) = (*sl->SS->thi)(l,j);
                         if (strcmp(files[fsatz], string_novalue) != 0)
                             (*sl->satratio)(i,l) = ((*sl->SS->thi)(l,j) + (*sl->th)(l,j) -
-                                                    sl->pa->co[sy][jres][l]) /(sl->pa->co[sy][jsat][l] -
-                                                                               sl->pa->co[sy][jres][l]);
+                                                   (*sl->pa)(sy,jres,l)) /((*sl->pa)(sy,jsat,l) -
+                                                                              (*sl->pa)(sy,jres,l));
                     }
                     for (l=0; l<=Nl; l++)
                     {
@@ -1073,7 +1073,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[fliq], 0, par->format_out, sl->th.get(),
                                         par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
-                                        sl->pa->co[1][jdz], top->slope.get(), par->output_vertical_distances);
+                                        sl->pa->row(1,jdz), top->slope.get(), par->output_vertical_distances);
             }
             else
             {
@@ -3043,12 +3043,12 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 for (l=1; l<=Nl; l++)
                 {
                     fprintf(f," Residual water content[-] of the layer %ld: %f\n",l,
-                            sl->pa->co[sy][jres][l]);
+                           (*sl->pa)(sy,jres,l));
                 }
                 for (l=1; l<=Nl; l++)
                 {
                     fprintf(f," Saturated water content[-] of the layer %ld: %f\n",l,
-                            sl->pa->co[sy][jsat][l]);
+                            (*sl->pa)(sy,jsat,l));
                 }
                 for (l=1; l<=Nl; l++)
                 {
@@ -4671,7 +4671,7 @@ double interpolate_soil(long lmin, double h, long max, double *Dz, RowView<doubl
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-double interpolate_soil2(long lmin, double h, long max, double *Dz, Matrix<double> *Q, long i)
+double interpolate_soil2(long lmin, double h, long max, RowView<double> &&Dz, Matrix<double> *Q, long i)
 {
 
     double q, z, z0=0.;
@@ -4686,16 +4686,16 @@ double interpolate_soil2(long lmin, double h, long max, double *Dz, Matrix<doubl
         if (l == lmin)
         {
             z = z0;
-            if (l>0) z += Dz[l]/2.;
+            if (l>0) z += Dz(l)/2.;
         }
         else if (l <= max)
         {
-            z = z0 + Dz[l]/2.;
-            if (l>1) z += Dz[l-1]/2.;
+            z = z0 + Dz(l)/2.;
+            if (l>1) z += Dz(l-1)/2.;
         }
         else
         {
-            z = z0 + Dz[max]/2.;
+            z = z0 + Dz(max)/2.;
         }
 
         if (h < z && h >= z0)
@@ -4732,7 +4732,7 @@ double interpolate_soil2(long lmin, double h, long max, double *Dz, Matrix<doubl
 
 void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
                              short format, Matrix<double> *T, Vector<double> *n, long **J, Matrix<long> *RC,
-                             double *dz, Matrix<double> *slope, short vertical)
+                             RowView<double> &&dz, Matrix<double> *slope, short vertical)
 {
 
     char LLLLL[ ]= {"LLLLL"};
@@ -4751,7 +4751,7 @@ void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
         for (i=1; i<=npoints; i++)
         {
             if (vertical == 1) cosslope = cos( Fmin(max_slope, (*slope)((*RC)(i,1),(*RC)(i,2))) * Pi/180. );
-            V->co[i] = interpolate_soil2(lmin, n->co[l]*cosslope, Nl, dz, T, i);
+            V->co[i] = interpolate_soil2(lmin, n->co[l]*cosslope, Nl, std::forward<RowView<double>>(dz), T, i);
         }
 
         temp2 = join_strings(filename, temp1);
@@ -5423,7 +5423,7 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
                 thwn = theta_from_psi(psin, 0., l, sl->pa->co[sy], PsiMin);
                 thin = theta_from_psi((*sl->Ptot)(l,j), 0., l, sl->pa->co[sy],
                                       PsiMin) - thwn;
-                kn = k_thermal(0, 1, thwn, thin, sl->pa->co[sy][jsat][l],
+                kn = k_thermal(0, 1, thwn, thin, (*sl->pa)(sy,jsat,l),
                                sl->pa->co[sy][jkt][l]);
 
                 T0n = Tn;

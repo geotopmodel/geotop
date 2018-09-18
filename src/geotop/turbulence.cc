@@ -548,7 +548,8 @@ double latent(double Ts, double Le)
 
 void find_actual_evaporation_parameters(long R, long C, double *alpha,
                                         double *beta, Vector<double> *evap_layer, double *theta,
-                                        double **soil, double *T, double psi, double P, double rv, double Ta,
+                                        MatrixView<double> &&soil, double *T, double psi, double P, double rv,
+                                        double Ta,
                                         double Qa, double Qgsat, long nsnow)
 {
 
@@ -580,7 +581,7 @@ void find_actual_evaporation_parameters(long R, long C, double *alpha,
           evap_layer->co[1] = rho * ( Qgsat - Qa ) / rv;
 
         }
-      else if (theta[1] >= soil[jsat][1])   //saturation
+      else if (theta[1] >= soil(jsat,1))   //saturation
         {
 
           *alpha = 1.0;
@@ -603,26 +604,26 @@ void find_actual_evaporation_parameters(long R, long C, double *alpha,
 
               D = D00 * pow((T[l]+tk)/tk,
                             2.) * (Pa0/P);  //molecular diffusivity water vapor [mm2/s]
-              r->co[l] = (1.E3/D) * soil[jdz][l];
+              r->co[l] = (1.E3/D) * soil(jdz,l);
 
               Qsat = SpecHumidity(SatVapPressure(T[l], P), P);
               if (l>1) r->co[l] += r->co[l-1];
 
-              if ( theta[l] <= soil[jfc][l] )
+              if ( theta[l] <= soil(jfc,l) )
                 {
-                  hs = 0.5 * ( 1. - cos( Pi * ( theta[l] - soil[jres][l] ) /
-                                         ( soil[jfc][l] - soil[jres][l] ) ) );
+                  hs = 0.5 * ( 1. - cos( Pi * ( theta[l] - soil(jres,l) ) /
+                                         ( soil(jfc,l) - soil(jres,l) ) ) );
                 }
               else
                 {
                   hs = 1.;
                 }
 
-              evap_layer->co[l] = rho*(soil[jsat][l] - theta[l]) * hs * Qsat / r->co[l];
+              evap_layer->co[l] = rho*(soil(jsat,l) - theta[l]) * hs * Qsat / r->co[l];
 
-              A += ( (soil[jsat][l] - theta[l]) / (soil[jsat][1] - theta[1]) ) *
+              A += ( (soil(jsat,l) - theta[l]) / (soil(jsat,1) - theta[1]) ) *
                    (rv/r->co[l]) * hs * Qsat;
-              B += ( (soil[jsat][l] - theta[l]) / (soil[jsat][1] - theta[1]) ) *
+              B += ( (soil(jsat,l) - theta[l]) / (soil(jsat,1) - theta[1]) ) *
                    (rv/r->co[l]);
 
             }
@@ -631,17 +632,17 @@ void find_actual_evaporation_parameters(long R, long C, double *alpha,
 
           for (l=1; l<=n; l++)
             {
-              evap_layer->co[l] -= rho*(soil[jsat][l] - theta[l]) * Qs / r->co[l];
+              evap_layer->co[l] -= rho*(soil(jsat,l) - theta[l]) * Qs / r->co[l];
             }
 
           //calculates evaporation from the surface
-          F = ( soil[jsat][1] ) / ( soil[jsat][1] - soil[jres][1] );
-          evap_layer->co[1] += rho*( theta[1] - soil[jres][1] ) * F *
+          F = ( soil(jsat,1) ) / ( soil(jsat,1) - soil(jres,1) );
+          evap_layer->co[1] += rho*( theta[1] - soil(jres,1) ) * F *
                                ( Qgsat - Qa ) / rv;
 
-          *beta = ( soil[jsat][1] - theta[1] ) + ( theta[1] - soil[jres][1] ) * F  -
-                  ( soil[jsat][1] - theta[1] ) / ( 1. + B );
-          *alpha = ( ( theta[1] - soil[jres][1] ) * F + ( soil[jsat][1] - theta[1] ) *
+          *beta = ( soil(jsat,1) - theta[1] ) + ( theta[1] - soil(jres,1) ) * F  -
+                  ( soil(jsat,1) - theta[1] ) / ( 1. + B );
+          *alpha = ( ( theta[1] - soil(jres,1) ) * F + ( soil(jsat,1) - theta[1] ) *
                      A / ( Qgsat * (1. + B ) ) ) / (*beta);
 
         }

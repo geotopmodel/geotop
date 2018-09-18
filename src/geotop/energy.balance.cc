@@ -1478,7 +1478,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
       EnergyFluxes(t, Tg, r, c, ns+ng, Tg0, Qg0, Tv0, zmu, zmT, z0s, d0s, rz0s, z0v,
                    d0v, rz0v, hveg, v, Ta, Qa, P, LR, psi0, eps, fc, LSAI,
                    decaycoeff0, *Wcrn, Wcrnmax, *Wcsn, Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0],
-                   sl->pa->co[sy], land->ty->row(lu),
+                   sl->pa->matrix(sy), land->ty->row(lu),
                    land->root_fraction->row(lu), par, egy->soil_transp_layer.get(), SWin, LWin, SWv, LW,
                    H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans,
                    &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, rh, rv, rc, rb, ruc,
@@ -1592,9 +1592,9 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
       //diagonal part of F due to heat capacity and boundary condition (except conduction)
       C0 = calc_C(l, ns+ng, 0.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
-                  &egy->Dlayer->co[0], sl->pa->co[sy]);
+                  &egy->Dlayer->co[0], sl->pa->matrix(sy));
       C1 = calc_C(l, ns+ng, 1.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
-                  &egy->Dlayer->co[0], sl->pa->co[sy]);
+                  &egy->Dlayer->co[0], sl->pa->matrix(sy));
       if (l<=ns+ng
           && egy->ice->co[l]-egy->deltaw->co[l]<1.E-7) C1 = Csnow_at_T_greater_than_0;
       egy->Fenergy->co[l] += ( Lf*egy->deltaw->co[l] +
@@ -1669,7 +1669,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
           //real thermal capacity
           C1 = calc_C(l, ns+ng, 1.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
-                      &egy->Dlayer->co[0], sl->pa->co[sy]);
+                      &egy->Dlayer->co[0], sl->pa->matrix(sy));
           if (l<=ns+ng
               && egy->ice->co[l]-egy->deltaw->co[l]<1.E-7) C1 = Csnow_at_T_greater_than_0;
           //adds apparent thermal conductivity (due to phase change) for both snow and soil
@@ -1880,7 +1880,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                   EnergyFluxes_no_rec_turbulence(t, Tg, r, c, ns+ng, egy->T0->co[1], Qg0, Tv0, zmu, zmT, // 10 parameters
                                                  z0s, d0s, rz0s, z0v, d0v, rz0v, hveg, v, Ta, Qa, // 10 parameters
                                                  P, LR, (*SL->P)(0,j), eps, fc, LSAI, decaycoeff0, *Wcrn, Wcrnmax, *Wcsn,  // 10 parameters
-                                                 Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0], sl->pa->co[sy], // 5 parameters
+                                                 Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0], sl->pa->matrix(sy), // 5 parameters
                                                  land->ty->row(lu), land->root_fraction->row(lu), par, egy->soil_transp_layer.get(), SWin, // 5 parameters
                                                  LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, // 10 parameters
                                                  Etrans, &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, // 10 parameters
@@ -1988,9 +1988,9 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
               //diagonal part of F due to heat capacity and boundary condition (except conduction)
               C0 = calc_C(l, ns+ng, 0.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
-                          &egy->Dlayer->co[0], sl->pa->co[sy]);
+                          &egy->Dlayer->co[0], sl->pa->matrix(sy));
               C1 = calc_C(l, ns+ng, 1.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
-                          &egy->Dlayer->co[0], sl->pa->co[sy]);
+                          &egy->Dlayer->co[0], sl->pa->matrix(sy));
               if (l<=ns+ng
                   && egy->ice->co[l]-egy->deltaw->co[l]<1.E-7) C1 = Csnow_at_T_greater_than_0;
               egy->Fenergy->co[l] += ( Lf*egy->deltaw->co[l] +
@@ -2348,7 +2348,7 @@ void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w,
 /******************************************************************************************************************************************/
 
 double calc_C(long l, long nsng, double a, double *wi, double *wl, double *dw,
-              double *D, double **pa)
+              double *D, MatrixView<double> &&pa)
 {
 
   double C;
@@ -2359,7 +2359,7 @@ double calc_C(long l, long nsng, double a, double *wi, double *wl, double *dw,
     }
   else    //soil
     {
-      C = pa[jct][l-nsng]*(1.-pa[jsat][l-nsng]) + (c_ice*(wi[l]-a*dw[l]) + c_liq*
+      C = pa(jct,l-nsng)*(1.-pa(jsat,l-nsng)) + (c_ice*(wi[l]-a*dw[l]) + c_liq*
                                                    (wl[l]+a*dw[l]))/D[l];
     }
 
@@ -2378,7 +2378,8 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
                   double rz0v, double hveg, double v, double Ta, double Qa, // 5 parameters
                   double P, double LR, double psi, double e, double fc, // 5 parameters
                   double LSAI, double decaycoeff0, double Wcrn, double Wcrnmax, double Wcsn, // 5 parameters
-                  double Wcsnmax, double *dWcrn, double *dWcsn, double *theta, double **soil, // 5 parameters
+                  double Wcsnmax, double *dWcrn, double *dWcsn, double *theta,
+                  MatrixView<double> &&soil, // 5 parameters
                   RowView<double> &&land, RowView<double> &&root, PAR *par, Vector<double> *soil_transp_layer,
                   double SWin, // 5 parameters
                   double LWin, double SWv, double *LW, double *H, double *dH_dT, // 5 parameters
@@ -2455,7 +2456,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
                       &rm, rh_g, rv_g, par->state_turb, par->monin_obukhov, par->maxiter_Businger);
 
       find_actual_evaporation_parameters(r,c,&alpha, &beta, soil_evap_layer_bare,
-                                         theta, soil, T, psi, P, *rv_g, Ta, Qa, *Qg, n);
+                                         theta, std::forward<MatrixView<double>>(soil), T, psi, P, *rv_g, Ta, Qa, *Qg, n);
       turbulent_fluxes(*rh_g, *rv_g/beta, P, Ta, Tg, Qa, *Qg*alpha, dQgdT*alpha,
                        &Hg, &dHg_dT, &Eg, &dEg_dT);
 
@@ -2515,7 +2516,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
               Wcsnmax, dWcrn, dWcsn, LWv, &LWg, Hv, &Hg, &dHg_dT, LEv, &Eg, // 10
               &dEg_dT, Ts, Qs, std::forward<RowView<double>>(root), theta, soil_transp_layer, Lobukhov, par, n, &rm, // 10
               rh, rv, rc, rb, ruc, u_top, Etrans, Tv, Qv, decay, // 10
-              Locc, &LWup, psi, soil, T, soil_evap_layer_veg); // 6
+              Locc, &LWup, psi, std::forward<MatrixView<double>>(soil), T, soil_evap_layer_veg); // 6
 
 
       *H+=fc*Hg;
@@ -2578,7 +2579,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
                                     double P, double LR, double psi, double e, double fc, double LSAI,
                                     double decaycoeff0, double Wcrn,
                                     double Wcrnmax, double Wcsn, double Wcsnmax, double *dWcrn, double *dWcsn,
-                                    double *theta, double **soil,
+                                    double *theta, MatrixView<double> &&soil,
                                     RowView<double> &&land, RowView<double> &&root, PAR *par,
                                     Vector<double> *soil_transp_layer,
                                     double SWin, double LWin, double SWv, double *LW,
@@ -2623,7 +2624,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
                 par->state_turb, 2, par->maxiter_Businger);
 
       find_actual_evaporation_parameters(r,c,&alpha, &beta, soil_evap_layer_bare,
-                                         theta, soil, T, psi, P, *rv_g, Ta, Qa, *Qg, n);
+                                         theta, std::forward<MatrixView<double>>(soil), T, psi, P, *rv_g, Ta, Qa, *Qg, n);
       turbulent_fluxes(*rh_g, *rv_g/beta, P, Ta, Tg, Qa, *Qg*alpha, dQgdT*alpha,
                        &Hg, &dHg_dT, &Eg, &dEg_dT);
 
@@ -2679,7 +2680,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
     {
 
       find_actual_evaporation_parameters(r,c,&alpha, &beta, soil_evap_layer_veg,
-                                         theta, soil, T, psi, P, *ruc, Ta, Qa, *Qg, n);
+                                         theta, std::forward<MatrixView<double>>(soil), T, psi, P, *ruc, Ta, Qa, *Qg, n);
       *Ts=(Ta/(*rh)+Tg/(*ruc)+(*Tv)/(*rb))/(1./(*rh)+1./(*ruc)+1./(*rb));
       *Qs=(Qa/(*rv)+(*Qg)*alpha*beta/(*ruc)+(*Qv)/(*rc))/(1./(*rv)+beta/(*ruc)+1./
                                                           (*rc));

@@ -774,7 +774,7 @@ keyword LinearInterpolation at 1.\n");
         (*land->ty)(i,jz0)*=0.001;
 
         // find root fraction
-        root(land->root_fraction->nch, (*land->ty)(i,jroot), 0.0, sl->pa->co[1][jdz], land->root_fraction->row(i));
+        root(land->root_fraction->nch, (*land->ty)(i,jroot), 0.0, sl->pa->row(1,jdz), land->root_fraction->row(i));
 
         // error messages
         for (l=1; l<=met->st->Z->nh; l++)
@@ -977,16 +977,16 @@ land cover %ld, meteo station %ld\n",
                                     cos((*top->slope)(r,c)*Pi/180.);
                 for (l=1; l<=Nl; l++)
                 {
-                    z += 0.5*sl->pa->co[sy][jdz][l]*cos((*top->slope)(r,c)*Pi/180.);
+                    z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*Pi/180.);
                     (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
-                    z += 0.5*sl->pa->co[sy][jdz][l]*cos((*top->slope)(r,c)*Pi/180.);
+                    z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*Pi/180.);
                 }
             }
             else
             {
                 for (l=1; l<=Nl; l++)
                 {
-                    (*sl->SS->P)(l,i) = sl->pa->co[sy][jpsi][l];
+                    (*sl->SS->P)(l,i) = (*sl->pa)(sy,jpsi,l);
                 }
             }
         }
@@ -1007,9 +1007,9 @@ land cover %ld, meteo station %ld\n",
             (*sl->SS->P)(0,i) = -(*M)(r,c)*cos((*top->slope)(r,c)*Pi/180.);
             for (l=1; l<=Nl; l++)
             {
-                z += 0.5*sl->pa->co[sy][jdz][l]*cos((*top->slope)(r,c)*Pi/180.);
+                z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*Pi/180.);
                 (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
-                z += 0.5*sl->pa->co[sy][jdz][l]*cos((*top->slope)(r,c)*Pi/180.);
+                z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*Pi/180.);
             }
         }
     }
@@ -1023,15 +1023,15 @@ land cover %ld, meteo station %ld\n",
 
         for (l=1; l<=Nl; l++)
         {
-            (*sl->SS->T)(l,i)=sl->pa->co[sy][jT][l];
+            (*sl->SS->T)(l,i) = (*sl->pa)(sy,jT,l);
 
             (*sl->Ptot)(l,i) = (*sl->SS->P)(l,i);
-            (*sl->th)(l,i) = teta_psi((*sl->SS->P)(l,i), 0.0, sl->pa->co[sy][jsat][l],
-                                      sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-                                      sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l], PsiMin,
-                                      sl->pa->co[sy][jss][l]);
+            (*sl->th)(l,i) = teta_psi((*sl->SS->P)(l,i), 0.0, (*sl->pa)(sy,jsat,l),
+                                      (*sl->pa)(sy,jres,l), (*sl->pa)(sy,ja,l),
+                                      (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l), PsiMin,
+                                      (*sl->pa)(sy,jss,l));
 
-            th_oversat = Fmax( (*sl->SS->P)(l,i), 0.0 ) * sl->pa->co[sy][jss][l];
+            th_oversat = Fmax( (*sl->SS->P)(l,i), 0.0 ) * (*sl->pa)(sy,jss,l);
             (*sl->th)(l,i) -= th_oversat;
 
             if ((*sl->SS->T)(l,i) <=Tfreezing)
@@ -1040,13 +1040,13 @@ land cover %ld, meteo station %ld\n",
                 // Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
                 (*sl->SS->thi)(l,i) = (*sl->th)(l,i) - teta_psi(Psif((*sl->SS->T)(l,i)),
                                                                 0.0,
-                                                                sl->pa->co[sy][jsat][l],
-                                                                sl->pa->co[sy][jres][l],
-                                                                sl->pa->co[sy][ja][l],
-                                                                sl->pa->co[sy][jns][l],
-                                                                1.-1./sl->pa->co[sy][jns][l],
+                                                                (*sl->pa)(sy,jsat,l),
+                                                                (*sl->pa)(sy,jres,l),
+                                                                (*sl->pa)(sy,ja,l),
+                                                                (*sl->pa)(sy,jns,l),
+                                                                1.-1./(*sl->pa)(sy,jns,l),
                                                                 PsiMin,
-                                                                sl->pa->co[sy][jss][l]);
+                                                                (*sl->pa)(sy,jss,l));
 
                 // if Theta(without freezing) < Theta_unfrozen(in equilibrium with T):
                 // Theta_ice is set at 0
@@ -1057,10 +1057,10 @@ land cover %ld, meteo station %ld\n",
                 (*sl->th)(l,i) -= (*sl->SS->thi)(l,i);
 
                 (*sl->SS->P)(l,i) = psi_teta((*sl->th)(l,i) + th_oversat,
-                                             (*sl->SS->thi)(l,i), sl->pa->co[sy][jsat][l],
-                                             sl->pa->co[sy][jres][l], sl->pa->co[sy][ja][l],
-                                             sl->pa->co[sy][jns][l], 1-1/sl->pa->co[sy][jns][l],
-                                             PsiMin, sl->pa->co[sy][jss][l]);
+                                             (*sl->SS->thi)(l,i), (*sl->pa)(sy,jsat,l),
+                                             (*sl->pa)(sy,jres,l), (*sl->pa)(sy,ja,l),
+                                             (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l),
+                                             PsiMin, (*sl->pa)(sy,jss,l));
             }
         }
     }
@@ -1112,7 +1112,7 @@ land cover %ld, meteo station %ld\n",
                 if (strcmp(files[fsatz], string_novalue) != 0)
                     (*sl->satratio)(i,l) = ((*sl->SS->thi)(l,j)
                                             + (*sl->th)(l,j)
-                                            - sl->pa->co[sy][jres][l]) / (sl->pa->co[sy][jsat][l]- sl->pa->co[sy][jres][l]);
+                                            - (*sl->pa)(sy,jres,l)) / ((*sl->pa)(sy,jsat,l)- (*sl->pa)(sy,jres,l));
             }
             for (l=0; l<=Nl; l++)
             {
@@ -1166,15 +1166,15 @@ land cover %ld, meteo station %ld\n",
 
         for (l=1; l<=Nl; l++)
         {
-            (*cnet->SS->T)(l,j)=sl->pa->co[sy][jT][l];
+            (*cnet->SS->T)(l,j)=(*sl->pa)(sy,jT,l);
 
             (*cnet->th)(l,j) = teta_psi((*cnet->SS->P)(l,j), 0.0,
-                                        sl->pa->co[sy][jsat][l], sl->pa->co[sy][jres][l],
-                                        sl->pa->co[sy][ja][l], sl->pa->co[sy][jns][l],
-                                        1.-1./sl->pa->co[sy][jns][l],
-                                        PsiMin, sl->pa->co[sy][jss][l]);
+                                        (*sl->pa)(sy,jsat,l), (*sl->pa)(sy,jres,l),
+                                        (*sl->pa)(sy,ja,l), (*sl->pa)(sy,jns,l),
+                                        1.-1./(*sl->pa)(sy,jns,l),
+                                        PsiMin, (*sl->pa)(sy,jss,l));
 
-            th_oversat = Fmax( (*cnet->SS->P)(l,j), 0.0 ) * sl->pa->co[sy][jss][l];
+            th_oversat = Fmax( (*cnet->SS->P)(l,j), 0.0 ) * (*sl->pa)(sy,jss,l);
             (*cnet->th)(l,j) -= th_oversat;
 
             if ((*cnet->SS->T)(l,j) <=Tfreezing)
@@ -1182,13 +1182,13 @@ land cover %ld, meteo station %ld\n",
                 // Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
                 (*cnet->SS->thi)(l,j) = (*cnet->th)(l,j) - teta_psi(Psif( (*cnet->SS->T)(l,j)),
                                                                     0.0,
-                                                                    sl->pa->co[sy][jsat][l],
-                                                                    sl->pa->co[sy][jres][l],
-                                                                    sl->pa->co[sy][ja][l],
-                                                                    sl->pa->co[sy][jns][l],
-                                                                    1.-1./sl->pa->co[sy][jns][l],
+                                                                    (*sl->pa)(sy,jsat,l),
+                                                                    (*sl->pa)(sy,jres,l),
+                                                                    (*sl->pa)(sy,ja,l),
+                                                                    (*sl->pa)(sy,jns,l),
+                                                                    1.-1./(*sl->pa)(sy,jns,l),
                                                                     PsiMin,
-                                                                    sl->pa->co[sy][jss][l]);
+                                                                    (*sl->pa)(sy,jss,l));
 
                 // if Theta(without freezing)< Theta_unfrozen(in equilibrium with T)
                 // Theta_ice is set at 0
@@ -1198,13 +1198,13 @@ land cover %ld, meteo station %ld\n",
                 (*cnet->th)(l,j) -= (*cnet->SS->thi)(l,j);
                 (*cnet->SS->P)(l,j) = psi_teta((*cnet->th)(l,j) + th_oversat,
                                                (*cnet->SS->thi)(l,j),
-                                               sl->pa->co[sy][jsat][l],
-                                               sl->pa->co[sy][jres][l],
-                                               sl->pa->co[sy][ja][l],
-                                               sl->pa->co[sy][jns][l],
-                                               1.-1./sl->pa->co[sy][jns][l],
+                                               (*sl->pa)(sy,jsat,l),
+                                               (*sl->pa)(sy,jres,l),
+                                               (*sl->pa)(sy,ja,l),
+                                               (*sl->pa)(sy,jns,l),
+                                               1.-1./(*sl->pa)(sy,jns,l),
                                                PsiMin,
-                                               sl->pa->co[sy][jss][l]);
+                                               (*sl->pa)(sy,jss,l));
             }
         }
     }
@@ -1225,19 +1225,19 @@ land cover %ld, meteo station %ld\n",
                 sy = (*cnet->soil_type)(i);
                 (*cnet->th)(l,i) = teta_psi(Fmin((*cnet->SS->P)(l,i),
                                                  psi_saturation((*cnet->SS->thi)(l,i),
-                                                                sl->pa->co[sy][jsat][l],
-                                                                sl->pa->co[sy][jres][l],
-                                                                sl->pa->co[sy][ja][l],
-                                                                sl->pa->co[sy][jns][l],
-                                                                1.-1./sl->pa->co[sy][jns][l])),
+                                                                (*sl->pa)(sy,jsat,l),
+                                                                (*sl->pa)(sy,jres,l),
+                                                                (*sl->pa)(sy,ja,l),
+                                                                (*sl->pa)(sy,jns,l),
+                                                                1.-1./(*sl->pa)(sy,jns,l))),
                                             (*cnet->SS->thi)(l,i),
-                                            sl->pa->co[sy][jsat][l],
-                                            sl->pa->co[sy][jres][l],
-                                            sl->pa->co[sy][ja][l],
-                                            sl->pa->co[sy][jns][l],
-                                            1.-1./sl->pa->co[sy][jns][l],
+                                            (*sl->pa)(sy,jsat,l),
+                                            (*sl->pa)(sy,jres,l),
+                                            (*sl->pa)(sy,ja,l),
+                                            (*sl->pa)(sy,jns,l),
+                                            1.-1./(*sl->pa)(sy,jns,l),
                                             PsiMin,
-                                            sl->pa->co[sy][jss][l]);
+                                            (*sl->pa)(sy,jss,l));
             }
         }
     }
@@ -3805,9 +3805,9 @@ std::unique_ptr<Tensor<double>> find_Z_of_any_layer(Matrix<double> *Zsurface, Ma
                 do
                 {
                     l++;
-                    z -= 0.5*sl->pa->co[sy][jdz][l]*cosine;
+                    z -= 0.5*(*sl->pa)(sy,jdz,l)*cosine;
                     (*Z)(l,r,c)=z;
-                    z -= 0.5*sl->pa->co[sy][jdz][l]*cosine;
+                    z -= 0.5*(*sl->pa)(sy,jdz,l)*cosine;
                 }
                 while (l<sl->pa->nch);
             }
