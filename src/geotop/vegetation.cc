@@ -652,7 +652,7 @@ void update_roughness_veg(double hc, double snowD, double zmu, double zmt,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void root(long n, double d, double slope, double *D, RowView<double> &&root_fraction)
+void root(long n, double d, double slope, RowView<double> &&D, RowView<double> &&root_fraction)
 {
 
   //n = number of soil layers (from the surface) affected by root absorption
@@ -667,16 +667,16 @@ void root(long n, double d, double slope, double *D, RowView<double> &&root_frac
 
   for (l=1; l<=n; l++)
     {
-      z += D[l];
+      z += D(l);
       if ( d_corr > z )
         {
-          root_fraction(l) = D[l]/d_corr;
+          root_fraction(l) = D(l)/d_corr;
         }
       else
         {
-          if ( d_corr > z-D[l] )
+          if ( d_corr > z-D(l) )
             {
-              root_fraction(l) = ( d_corr - (z-D[l]) ) / d_corr;
+              root_fraction(l) = ( d_corr - (z-D(l)) ) / d_corr;
             }
           else
             {

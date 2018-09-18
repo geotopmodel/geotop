@@ -241,16 +241,16 @@ double Psif(double T)
 }
 
 /******************************************************************************************************************************************/
-double theta_from_psi(double psi, double ice, long l, double **pa,
+double theta_from_psi(double psi, double ice, long l, MatrixView<double> &&pa,
                       double pmin)
 {
 
-  double s=pa[jsat][l];
-  double res=pa[jres][l];
-  double a=pa[ja][l];
-  double n=pa[jns][l];
-  double m=1.-1./n;
-  double Ss=pa[jss][l];
+  double s = pa(jsat,l);
+  double res = pa(jres,l);
+  double a = pa(ja,l);
+  double n = pa(jns,l);
+  double m = 1.-1./n;
+  double Ss = pa(jss,l);
 
   return teta_psi(psi, ice, s, res, a, n, m, pmin, Ss);
 
