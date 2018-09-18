@@ -37,7 +37,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
                             double SWEmax_layer, double SWEmax_tot);
 
 /*----------------------------------------------------------------------------------------------------------*/
-double DEPTH(long r, long c, Matrix<long> *n, DOUBLETENSOR *Dz);
+double DEPTH(long r, long c, Matrix<long> *n, Tensor<double> *Dz);
 
 /*----------------------------------------------------------------------------------------------------------*/
 double get_SWE(long r, long c, Matrix<long> *n, DOUBLETENSOR *w1, DOUBLETENSOR *w2);
@@ -150,7 +150,7 @@ short copy_statevar_from3D_to1D(long r, long c, STATEVAR_3D *origin,
                                 STATEVAR_1D *destination);
 
 /*----------------------------------------------------------------------------------------------------------*/
-double interpolate_snow(long r, long c, double h, long max, DOUBLETENSOR *Dz,
+double interpolate_snow(long r, long c, double h, long max, Tensor<double> *Dz,
                         Tensor<double> *Q, short k);
 
 /*----------------------------------------------------------------------------------------------------------*/

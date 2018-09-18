@@ -42,13 +42,13 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
 
 void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
                      long d, long m, long y, long h, long mi, double JDfrom0,
-                     double JDfrom0init, double JDfrom0end, Vector<double> *n, DOUBLETENSOR *snowDz,
+                     double JDfrom0init, double JDfrom0end, Vector<double> *n, Tensor<double> *snowDz,
                      Tensor<double> *var, double cosslope);
 
 void write_soil_header(FILE *f, Vector<double>* n, double *dz);
 
-void write_snow_header(short a, long r, long c, FILE *f, Vector<double>* n,
-                       DOUBLETENSOR *Dz);
+void write_snow_header(short a, long r, long c, FILE *f, Vector<double> *n,
+                       Tensor<double> *Dz);
 
 void plot(char *name, long i_plot, Vector<double>* V, short format, long **J);
 

@@ -108,7 +108,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                 {
 
 
-                  D = DEPTH(r, c, snow->S->lnum.get(), snow->S->Dzl);
+                  D = DEPTH(r, c, snow->S->lnum.get(), snow->S->Dzl.get());
                   wice = DEPTH(r, c, snow->S->lnum.get(), snow->S->w_ice);
 
                   //U += (*met->Vgrid)(r,c)/par->total_pixel;
@@ -593,12 +593,12 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
                                   DWl=snow->S->w_liq->co[i+1][r][c];
                                   snow->S->w_ice->co[i+1][r][c]=0.0;
                                   snow->S->w_liq->co[i+1][r][c]=0.0;
-                                  snow->S->Dzl->co[i+1][r][c]=0.0;
+                                  (*snow->S->Dzl)(i+1,r,c)=0.0;
                                   (*snow->S->lnum)(r,c)-=1;
                                 }
                             }
 
-                          snow->S->Dzl->co[i][r][c]*=(snow->S->w_ice->co[i][r][c]
+                          (*snow->S->Dzl)(i,r,c)*=(snow->S->w_ice->co[i][r][c]
                                                       +DW)/snow->S->w_ice->co[i][r][c];
                           snow->S->w_ice->co[i][r][c]+=DW;        //kg/m2
                           snow->S->w_liq->co[i][r][c]+=DWl;       //kg/m2
@@ -611,7 +611,7 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
                       if (i==0 && snow->S->w_ice->co[i+1][r][c]<0)
                         {
                           snow->S->w_ice->co[i+1][r][c]=0.0;        //kg/m2
-                          snow->S->Dzl->co[i+1][r][c]=0.0;  //mm
+                          (*snow->S->Dzl)(i+1,r,c)=0.0;  //mm
                           (*snow->S->lnum)(r,c)=0;
                         }
 
@@ -621,7 +621,7 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
 
                       i = (*snow->S->lnum)(r,c);
                       snow->S->w_ice->co[i][r][c]+=DW;
-                      snow->S->Dzl->co[(*snow->S->lnum)(r,c)][r][c] +=
+                      (*snow->S->Dzl)((*snow->S->lnum)(r,c),r,c) +=
                         1.0E+3*DW/rho_wind_transported_snow;
 
                     }
@@ -634,7 +634,7 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
                     {
 
                       snow->S->w_ice->co[1][r][c]+=DW;
-                      snow->S->Dzl->co[1][r][c]+=1.0E+3*DW/rho_wind_transported_snow;
+                      (*snow->S->Dzl)(1,r,c)+=1.0E+3*DW/rho_wind_transported_snow;
                       (*snow->S->T)(1,r,c)=Fmin(-1.,(*met->Vgrid)(r,c));
 
                     }
@@ -733,12 +733,12 @@ void wind_packing(SNOW *snow, PAR *par, long r, long c, double Dt)
           //decrease due to oberburden
           CR *= exp( -D4*g*overburden );
 
-          snow->S->Dzl->co[l][r][c] *= exp(CR*Dt);
+          (*snow->S->Dzl)(l,r,c) *= exp(CR*Dt);
 
-          if (snow->S->w_ice->co[l][r][c]/(rho_w*snow->S->Dzl->co[l][r][c]*1.E-3) >
+          if (snow->S->w_ice->co[l][r][c]/(rho_w*(*snow->S->Dzl)(l,r,c)*1.E-3) >
               par->snow_maxpor)
             {
-              snow->S->Dzl->co[l][r][c] = 1.E3*snow->S->w_ice->co[l][r][c]/
+              (*snow->S->Dzl)(l,r,c) = 1.E3*snow->S->w_ice->co[l][r][c]/
                                           (rho_w*par->snow_maxpor);
             }
 
