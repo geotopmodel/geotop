@@ -211,27 +211,3 @@ TEST(Tensor, out_of_range_zero){
   EXPECT_ANY_THROW( t.at(5000,5000,500) );
   
 }
-
-
-  // // print to check the resulting tensor
-  // std::cout << "Original Tensor (t)" << std::endl;
-  // for(int k=1; k<=2; k++){
-  //   for(int i=1; i<=2; i++){
-  //     for(int j=1; j<=2; j++){
-  // 	std::cout << t(i,j,k) << " ";
-  //     }
-  //     std::cout << std::endl;
-  //   }
-  //   std::cout << std::endl;
-  // }
-
-  //  std::cout << "derived Tensor (t1)" << std::endl;
-  // for(int k=1; k<=2; k++){
-  //   for(int i=1; i<=2; i++){
-  //     for(int j=1; j<=2; j++){
-  // 	std::cout << t1(i,j,k) << " ";
-  //     }
-  //     std::cout << std::endl;
-  //   }
-  //   std::cout << std::endl;
-  // }
