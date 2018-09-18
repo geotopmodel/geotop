@@ -25,8 +25,6 @@
 #include "tensor3D.h"
 #include <memory>
 
-#include <tensor.h> // WHY DO I NEED TO INCLUDE tensor.h AND NOT vector.h and matrix.h?
-
 /*---------------------------------------------------------------------------*/
 typedef struct {
 
