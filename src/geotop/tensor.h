@@ -9,6 +9,7 @@
 #include <exception>
 #include <memory> // to use std::unique_ptr
 #include "matrix.h"
+#include "matrixview.h"
 
 template <class T> class RowView;
 template <class T> class MatrixView;
@@ -153,12 +154,12 @@ public:
     RowView<T> row(const std::size_t k, const std::size_t i) {
         GEO_ASSERT_IN_RANGE(k, ndl, ndh);
         GEO_ASSERT_IN_RANGE(i, nrl, nrh);
-        return RowView<T> { &co[(i-nrl)*n_col + (k-ndl)*(n_row*n_col)], nch, ncl}; // intialization
+        return RowView<T> { &co[(i-nrl)*n_col + (k-ndl)*(n_row*n_col)], nch, ncl}; // initialization
     };
 
     MatrixView<T> matrix(const std::size_t k) {
         GEO_ASSERT_IN_RANGE(k, ndl, ndh);
-        return MatrixView<T> { &co[(k-ndl)*(n_row*n_col)], nrh, nrl, nch, ncl}; // intialization
+        return MatrixView<T> { &co[(k-ndl)*(n_row*n_col)], nrh, nrl, nch, ncl}; // initialization
     };
 
 };

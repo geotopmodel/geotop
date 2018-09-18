@@ -6,11 +6,6 @@
 #define GEOTOP_MATRIXVIEW_H
 
 #include "geotop_asserts.h"
-#include <cassert>
-#include <exception>
-#include <memory>
-#include <sstream>
-
 #include "rowview.h"
 
 template <class T> class MatrixView {

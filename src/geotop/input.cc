@@ -704,7 +704,7 @@ keyword LinearInterpolation at 1.\n");
     do
     {
         l++;
-        z += sl->pa->co[1][jdz][l];
+        z += (*sl->pa)(1,jdz,l);
     }
     while (l<Nl && z < z_transp);
 
@@ -1245,7 +1245,7 @@ land cover %ld, meteo station %ld\n",
     // z boundary condition
     for (l=1; l<=Nl; l++)
     {
-        par->Zboundary -= sl->pa->co[1][jdz][l];
+        par->Zboundary -= (*sl->pa)(1,jdz,l);
     }
 
     if (par->Zboundary < 0)
@@ -1441,7 +1441,7 @@ land cover %ld, meteo station %ld\n",
     do
     {
         l++;
-        z += sl->pa->co[1][jdz][l];
+        z += (*sl->pa)(1,jdz,l);
     }
     while (l<Nl && z < z_evap);
     egy->soil_evap_layer_bare.reset(new Vector<double> {l});
@@ -3641,7 +3641,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
     z = 0.;
     for (l=1; l<=Nl; l++)
     {
-        z += sl->pa->co[1][jdz][l];
+        z += (*sl->pa)(1,jdz,l);
     }
     for (i=1; i<=par->total_pixel; i++)
     {

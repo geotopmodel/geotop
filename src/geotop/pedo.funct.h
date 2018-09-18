@@ -38,7 +38,7 @@ double Mean(short a, double D1, double D2, double K1, double K2);
 
 double Psif(double T);
 
-double theta_from_psi(double psi, double ice, long l, double **pa, double pmin);
+double theta_from_psi(double psi, double ice, long l, MatrixView<double> &&pa, double pmin);
 
 double psi_from_theta(double th, double ice, long l, double **pa, double pmin);
 
