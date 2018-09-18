@@ -28,8 +28,14 @@ TEST(Tensor, initialization){
   EXPECT_EQ( 0, t(2,1,2) );
   EXPECT_EQ( 0, t(2,2,1) );
   EXPECT_EQ( 0, t(2,2,2) );
-  // EXPECT_EQ( 0, t(0,0,0)); // => expected to fail => OK
-  // EXPECT_EQ( 0, t(3,3,3)); // => expected to fail => OK
+
+#ifndef NDEBUG
+  EXPECT_ANY_THROW( t(0,0,0)); 
+  EXPECT_ANY_THROW( t(3,3,3));
+#else
+  EXPECT_NO_THROW( t(0,0,0) );
+  EXPECT_NO_THROW( t(3,3,3) );
+#endif
 }
 
 TEST(Tensor, begin){
