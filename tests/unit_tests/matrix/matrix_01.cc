@@ -2,6 +2,7 @@
 #include <matrix.h>
 #include <iterator> // std::prev
 
+// matrix(r,c) => r=row; c=column
 TEST(Matrix, constructor_4args){
   Matrix<int> m{3,1,3,0}; // 3x4 matrix
   EXPECT_EQ( std::size_t{3}, m.n_row );
@@ -20,6 +21,14 @@ TEST(Matrix, initialization){
   EXPECT_EQ( 0, m(1,2) );
   EXPECT_EQ( 0, m(2,1) );
   EXPECT_EQ( 0, m(2,2) );
+
+  #ifndef NDEBUG
+  EXPECT_ANY_THROW( m(0,0)); 
+  EXPECT_ANY_THROW( m(3,3));
+ #else
+  EXPECT_NO_THROW( m(0,0) );
+  EXPECT_NO_THROW( m(3,3) );
+  #endif
 }
 
 TEST(Matrix, begin){
