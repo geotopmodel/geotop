@@ -196,7 +196,7 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
                         &dhdT, Ts, Qs, Qv, ruc,
                         std::forward<RowView<double>>(froot), theta, soil_transp_layer, chgsgn, Lobukhov, par, n, rm, rh, rv, rc, rb,
                         u_top, decay, Locc,
-                        LWup_above_v, psi, soil, &alpha, &beta, T, soil_evap_layer);
+                        LWup_above_v, psi, std::forward<MatrixView<double>>(soil), &alpha, &beta, T, soil_evap_layer);
 
           err1=fabs(C*(T11-T00)/par->Dt - SWv - A*h1 - (1.0-A)*h0 );
 

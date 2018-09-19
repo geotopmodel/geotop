@@ -3741,7 +3741,6 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
                 z += 0.5*(*sl->pa)(synew,jdz,l);
             }
         }
-        free_doubletensor(T);
     }
 }
 

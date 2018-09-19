@@ -273,16 +273,16 @@ double psi_from_theta(double th, double ice, long l, MatrixView<double> &&pa, do
 
 /******************************************************************************************************************************************/
 
-double dtheta_dpsi_from_psi(double psi, double ice, long l, double **pa,
+double dtheta_dpsi_from_psi(double psi, double ice, long l, MatrixView<double> &&pa,
                             double pmin)
 {
 
-  double s=pa[jsat][l];
-  double res=pa[jres][l];
-  double a=pa[ja][l];
-  double n=pa[jns][l];
-  double m=1.-1./n;
-  double Ss=pa[jss][l];
+  double s = pa(jsat,l);
+  double res = pa(jres,l);
+  double a = pa(ja,l);
+  double n = pa(jns,l);
+  double m = 1.-1./n;
+  double Ss = pa(jss,l);
 
   return dteta_dpsi(psi, ice, s, res, a, n, m, pmin, Ss);
 
@@ -291,16 +291,16 @@ double dtheta_dpsi_from_psi(double psi, double ice, long l, double **pa,
 
 /******************************************************************************************************************************************/
 double k_from_psi(long jK, double psi, double ice, double T, long l,
-                  double **pa, double imp, double ratio)
+                  MatrixView<double> &&pa, double imp, double ratio)
 {
 
-  double kmax=pa[jK][l];
-  double s=pa[jsat][l];
-  double res=pa[jres][l];
-  double a=pa[ja][l];
-  double n=pa[jns][l];
-  double m=1.-1./n;
-  double v=pa[jv][l];
+  double kmax = pa(jK,l);
+  double s = pa(jsat,l);
+  double res = pa(jres,l);
+  double a = pa(ja,l);
+  double n = pa(jns,l);
+  double m = 1.-1./n;
+  double v = pa(jv,l);
 
   return k_hydr_soil(psi, kmax, imp, ice, s, res, a, n, m, v, T, ratio);
 
@@ -308,14 +308,14 @@ double k_from_psi(long jK, double psi, double ice, double T, long l,
 
 /******************************************************************************************************************************************/
 
-double psisat_from(double ice, long l, double **pa)
+double psisat_from(double ice, long l, MatrixView<double> &&pa)
 {
 
-  double s=pa[jsat][l];
-  double res=pa[jres][l];
-  double a=pa[ja][l];
-  double n=pa[jns][l];
-  double m=1.-1./n;
+  double s =pa(jsat,l);
+  double res =pa(jres,l);
+  double a = pa(ja,l);
+  double n = pa(jns,l);
+  double m = 1.-1./n;
 
   return psi_saturation(ice, s, res, a, n, m);
 

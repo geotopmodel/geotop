@@ -1123,7 +1123,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[fT], 0, par->format_out, sl->SS->T.get(),
                                         par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
-                                        sl->pa->co[1][jdz], top->slope.get(),
+                                        sl->pa->row(1,jdz), top->slope.get(),
                                         par->output_vertical_distances);
             }
             else
@@ -1153,7 +1153,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[fTav], 0, par->format_out,
                                         sl->T_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
-                                        top->rc_cont.get(), sl->pa->co[1][jdz], top->slope.get(),
+                                        top->rc_cont.get(), sl->pa->row(1,jdz), top->slope.get(),
                                         par->output_vertical_distances);
             }
             else
@@ -1187,7 +1187,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[fice], 0, par->format_out, sl->SS->thi.get(),
                                         par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
-                                        sl->pa->co[1][jdz], top->slope.get(),
+                                        sl->pa->row(1,jdz), top->slope.get(),
                                         par->output_vertical_distances);
             }
             else
@@ -1218,7 +1218,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[ficeav], 0, par->format_out,
                                         sl->thi_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
-                                        top->rc_cont.get(), sl->pa->co[1][jdz], top->slope.get(),
+                                        top->rc_cont.get(), sl->pa->row(1,jdz), top->slope.get(),
                                         par->output_vertical_distances);
             }
             else
@@ -1239,7 +1239,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[fpsitot], 0, par->format_out, sl->Ptot.get(),
                                         par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
-                                        sl->pa->co[1][jdz], top->slope.get(), par->output_vertical_distances);
+                                        sl->pa->row(1,jdz), top->slope.get(), par->output_vertical_distances);
             }
             else
             {
@@ -1254,7 +1254,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 write_tensorseries_soil(1, s2, files[fpsiliq], 0, par->format_out, sl->SS->P.get(),
                                         par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
-                                        sl->pa->co[1][jdz], top->slope.get(), par->output_vertical_distances);
+                                        sl->pa->row(1,jdz), top->slope.get(), par->output_vertical_distances);
             }
             else
             {
@@ -2740,7 +2740,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             }
 
             ffT=fopen(name,"w");
-            write_soil_header(ffT, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+            write_soil_header(ffT, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
             free(name);
         }
 
@@ -2765,7 +2765,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             }
 
             ffTav=fopen(name,"w");
-            write_soil_header(ffTav, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+            write_soil_header(ffTav, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
             free(name);
         }
 
@@ -2790,7 +2790,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             }
 
             ffpsitot=fopen(name,"w");
-            write_soil_header(ffpsitot, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+            write_soil_header(ffpsitot, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
             free(name);
         }
 
@@ -2814,7 +2814,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             }
 
             ffpsi=fopen(name,"w");
-            write_soil_header(ffpsi, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+            write_soil_header(ffpsi, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
             free(name);
         }
 
@@ -2839,7 +2839,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             }
 
             ffliq=fopen(name,"w");
-            write_soil_header(ffliq, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+            write_soil_header(ffliq, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
             free(name);
         }
 
@@ -2864,7 +2864,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             }
 
             ffliqav=fopen(name,"w");
-            write_soil_header(ffliqav, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+            write_soil_header(ffliqav, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
             free(name);
         }
 
@@ -2889,7 +2889,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             }
 
             ffice=fopen(name,"w");
-            write_soil_header(ffice, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+            write_soil_header(ffice, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
             free(name);
         }
 
@@ -2914,7 +2914,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             }
 
             fficeav=fopen(name,"w");
-            write_soil_header(fficeav, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+            write_soil_header(fficeav, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
             free(name);
         }
 
@@ -3273,7 +3273,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 free(temp);
 
                 f=t_fopen(name,"w");
-                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
                 t_fclose(f);
                 free(name);
             }
@@ -3303,7 +3303,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 free(temp);
 
                 f=t_fopen(name,"w");
-                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
                 t_fclose(f);
                 free(name);
             }
@@ -3333,7 +3333,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 free(temp);
 
                 f=t_fopen(name,"w");
-                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
                 t_fclose(f);
                 free(name);
             }
@@ -3363,7 +3363,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 free(temp);
 
                 f=t_fopen(name,"w");
-                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
                 t_fclose(f);
                 free(name);
             }
@@ -3393,7 +3393,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 free(temp);
 
                 f=t_fopen(name,"w");
-                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
                 t_fclose(f);
                 free(name);
             }
@@ -3423,7 +3423,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 free(temp);
 
                 f=t_fopen(name,"w");
-                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
                 t_fclose(f);
                 free(name);
             }
@@ -3453,7 +3453,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 free(temp);
 
                 f=t_fopen(name,"w");
-                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
                 t_fclose(f);
                 free(name);
             }
@@ -3483,7 +3483,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 free(temp);
 
                 f=t_fopen(name,"w");
-                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
                 t_fclose(f);
                 free(name);
             }
@@ -3513,7 +3513,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 free(temp);
 
                 f=t_fopen(name,"w");
-                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->co[1][jdz]);
+                write_soil_header(f, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
                 t_fclose(f);
                 free(name);
             }
@@ -3828,7 +3828,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Tzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Tzplot->row(i), n, sl->pa->row(1,jdz), cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -3837,7 +3837,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[fTzwriteend], string_novalue) != 0)
     {
         write_soil_file(1, iname, ffT, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Tzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Tzplot->row(i), n, sl->pa->row(1,jdz), cosslope);
     }
 
     if (strcmp(files[fTzav], string_novalue) != 0)
@@ -3863,7 +3863,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Tzavplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Tzavplot->row(i), n, sl->pa->row(1,jdz), cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -3872,7 +3872,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[fTzavwriteend], string_novalue) != 0)
     {
         write_soil_file(1, iname, ffTav, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Tzavplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Tzavplot->row(i), n, sl->pa->row(1,jdz), cosslope);
     }
 
     if (strcmp(files[fpsiztot], string_novalue) != 0)
@@ -3898,7 +3898,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Ptotzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Ptotzplot->row(i), n, sl->pa->row(1,jdz), cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -3907,7 +3907,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[fpsiztotwriteend], string_novalue) != 0)
     {
         write_soil_file(1, iname, ffpsitot, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Ptotzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Ptotzplot->row(i), n, sl->pa->row(1,jdz), cosslope);
     }
 
     if (strcmp(files[fpsiz], string_novalue) != 0)
@@ -3933,7 +3933,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(0, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Pzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Pzplot->row(i), n, sl->pa->row(1,jdz), cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -3942,7 +3942,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[fpsizwriteend], string_novalue) != 0)
     {
         write_soil_file(0, iname, ffpsi, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->Pzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->Pzplot->row(i), n, sl->pa->row(1,jdz), cosslope);
     }
 
     if (strcmp(files[fliqz], string_novalue) != 0)
@@ -3968,7 +3968,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thzplot->row(i), n, sl->pa->row(1,jdz), cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -3977,7 +3977,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[fliqzwriteend], string_novalue) != 0)
     {
         write_soil_file(1, iname, ffliq, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thzplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thzplot->row(i), n, sl->pa->row(1,jdz), cosslope);
     }
 
     if (strcmp(files[fliqzav], string_novalue) != 0)
@@ -4003,7 +4003,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thzavplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thzavplot->row(i), n, sl->pa->row(1,jdz), cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -4012,7 +4012,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[fliqzavwriteend], string_novalue) != 0)
     {
         write_soil_file(1, iname, ffliqav, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thzavplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thzavplot->row(i), n, sl->pa->row(1,jdz), cosslope);
     }
 
     if (strcmp(files[ficez], string_novalue) != 0)
@@ -4038,7 +4038,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thizplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thizplot->row(i), n, sl->pa->row(1,jdz), cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -4047,7 +4047,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[ficezwriteend], string_novalue) != 0)
     {
         write_soil_file(1, iname, ffice, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thizplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thizplot->row(i), n, sl->pa->row(1,jdz), cosslope);
     }
 
     if (strcmp(files[ficezav], string_novalue) != 0)
@@ -4073,7 +4073,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thizavplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thizavplot->row(i), n, sl->pa->row(1,jdz), cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -4082,7 +4082,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
     if (strcmp(files[ficezavwriteend], string_novalue) != 0)
     {
         write_soil_file(1, iname, fficeav, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->thizavplot->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->thizavplot->row(i), n, sl->pa->row(1,jdz), cosslope);
     }
 
     if (strcmp(files[fsatz], string_novalue) != 0)
@@ -4108,7 +4108,7 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 
         f=fopen(name,"a");
         write_soil_file(1, iname, f, day, month, year, hour, minute, JDfrom0,
-                        init_date, end_date, sl->satratio->row(i), n, sl->pa->co[1][jdz], cosslope);
+                        init_date, end_date, sl->satratio->row(i), n, sl->pa->row(1,jdz), cosslope);
         fclose(f);
         free(name);
         free(temp);
@@ -4308,7 +4308,7 @@ void write_snow_output(long i, long iname, long r, long c, double init_date,
 
 void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
                      long h, long mi, double JDfrom0, double JDfrom0init,
-                     double JDfrom0end, RowView<double> &&var, Vector<double> *n, double *dz, double cosslope)
+                     double JDfrom0end, RowView<double> &&var, Vector<double> *n, RowView<double> &&dz, double cosslope)
 {
 
     short first_column=1;
@@ -4362,7 +4362,7 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
     {
         for (l=1; l<=n->nh; l++)
         {
-            fprintf(f, ",%f",interpolate_soil(lmin, n->co[l]*cosslope, Nl, dz, std::forward<RowView<double>>(var)));
+            fprintf(f, ",%f",interpolate_soil(lmin, n->co[l]*cosslope, Nl, std::forward<RowView<double>>(dz), std::forward<RowView<double>>(var)));
         }
     }
     else
@@ -4486,7 +4486,7 @@ void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void write_soil_header(FILE *f, Vector<double>* n, double *dz)
+void write_soil_header(FILE *f, Vector<double> *n, RowView<double> &&dz)
 {
 
     short first_column=1;
@@ -4524,8 +4524,8 @@ void write_soil_header(FILE *f, Vector<double>* n, double *dz)
     {
         for (l=1; l<=Nl; l++)
         {
-            z += dz[l];
-            fprintf(f,",%f ",z-0.5*dz[l]);
+            z += dz(l);
+            fprintf(f,",%f ",z-0.5*dz(l));
         }
     }
 
@@ -4612,7 +4612,7 @@ void plot(char *name, long i_plot, Vector<double>* V, short format, long **J)
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-double interpolate_soil(long lmin, double h, long max, double *Dz, RowView<double> &&Q)
+double interpolate_soil(long lmin, double h, long max, RowView<double> &&Dz, RowView<double> &&Q)
 {
 
     double q, z, z0=0.;
@@ -4627,12 +4627,12 @@ double interpolate_soil(long lmin, double h, long max, double *Dz, RowView<doubl
         if (l == lmin)
         {
             z = z0;
-            if (l>0) z += Dz[l]/2.;
+            if (l>0) z += Dz(l)/2.;
         }
         else if (l <= max)
         {
-            z = z0 + Dz[l]/2;
-            if (l>1) z += Dz[l-1]/2.;
+            z = z0 + Dz(l)/2;
+            if (l>1) z += Dz(l-1)/2.;
         }
         else
         {
