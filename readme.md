@@ -51,6 +51,11 @@ make -j4
 mkdir meson-build
 cd meson-build
 ```
+- Configure the current directory as a Meson build directory:
+```
+meson
+```
+
 - Check the default values for the options, opening the file meson.build
 in the upper directory or typing:
 ```
@@ -83,5 +88,4 @@ drwxrwxr-x 3 elisa elisa  4096 giu 15 14:39 tests
 - Compile: 
 ```
 ninja
-```
 ```
