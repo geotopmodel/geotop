@@ -51,27 +51,12 @@ make -j4
 mkdir meson-build
 cd meson-build
 ```
-- Configure the current directory as a Meson build directory:
-```
-meson
-```
-
-- Check the default values for the options, opening the file meson.build
-in the upper directory or typing:
-```
-meson configure
-```
-
-- If you want to modify some of them, add -Doption=value: for example
-to set the build type to debug type write:
-```
-meson configure -Dbuildtype=debug
-```
 
 - Create the build file:
 ```
 meson
 ```
+
 - Now the current directory will have the following files and folders:
 ```
 elisa@elisa-N552VW ~/Scrivania/MHPC/geotop_3.0/meson-build[v3.0*] $ ls -l
@@ -85,6 +70,18 @@ drwxrwxr-x 4 elisa elisa  4096 giu 15 14:39 src
 drwxrwxr-x 3 elisa elisa  4096 giu 15 14:39 subprojects
 drwxrwxr-x 3 elisa elisa  4096 giu 15 14:39 tests
 ```
+- Check the default values for the options, opening the file meson.build
+in the upper directory or typing:
+```
+meson configure
+```
+
+- If you want to modify some of them, add -Doption=value: for example
+to set the build type to debug type write:
+```
+meson configure -Dbuildtype=debug
+```
+
 - Compile: 
 ```
 ninja
