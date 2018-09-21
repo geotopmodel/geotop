@@ -51,18 +51,6 @@ make -j4
 mkdir meson-build
 cd meson-build
 ```
-- Check the default values for the options, opening the file meson.build
-in the upper directory or typing:
-```
-meson configure
-```
-
-- If you want to modify some of them, add -Doption=value: for example
-to set the build type to debug type write:
-```
-meson configure -Dbuildtype=debug
-```
-
 - Create the build file:
 ```
 meson
@@ -80,8 +68,20 @@ drwxrwxr-x 4 elisa elisa  4096 giu 15 14:39 src
 drwxrwxr-x 3 elisa elisa  4096 giu 15 14:39 subprojects
 drwxrwxr-x 3 elisa elisa  4096 giu 15 14:39 tests
 ```
+
+- Check the default values for the options, opening the file meson.build
+in the upper directory or typing:
+```
+meson configure
+```
+
+- If you want to modify some of them, add -Doption=value: for example
+to set the build type to debug type write:
+```
+meson configure -Dbuildtype=debug
+```
+
 - Compile: 
 ```
 ninja
-```
 ```
