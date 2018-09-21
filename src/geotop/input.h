@@ -36,7 +36,7 @@ struct INIT_TOOLS
     char **lapserates_col_names;
     char **meteostations_col_names;
     std::unique_ptr<Matrix<double>> bed;
-    DOUBLETENSOR *pa_bed;
+    std::unique_ptr<Tensor<double>> pa_bed;
     std::unique_ptr<Vector<double>> init_water_table_depth;
 };
 

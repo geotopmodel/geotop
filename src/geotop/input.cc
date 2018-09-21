@@ -2368,7 +2368,6 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
     /**************************************************************************************************/
     // Free the struct allocated in this subroutine:
-    free_doubletensor(IT->pa_bed);
 
     for (i=0; i<nmet; i++)
     {
@@ -3736,7 +3735,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
                 {
                     for (j=1; j<=nsoilprop; j++)
                     {
-                        sl->pa->co[synew][j][l] = IT->pa_bed->co[sy][j][l] ;
+                        sl->pa->co[synew][j][l] = (*IT->pa_bed)(sy,j,l) ;
                     }
                 }
                 z += 0.5*sl->pa->co[synew][jdz][l];

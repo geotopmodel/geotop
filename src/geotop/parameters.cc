@@ -1720,16 +1720,16 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
     }
 
   cod = 185;
-  itools->pa_bed = new_doubletensor(1, nsoilprop, nsoillayers);
+  itools->pa_bed.reset(new Tensor<double>{1, nsoilprop, nsoillayers});
   for (i=1; i<=nsoillayers; i++)
     {
-      itools->pa_bed->co[1][jdz][i] = sl->pa->co[1][jdz][i];
+      (*itools->pa_bed)(1,jdz,i) = sl->pa->co[1][jdz][i];
     }
   for (j=1; j<=nsoilprop; j++)
     {
       if (j != jdz)
         {
-          itools->pa_bed->co[1][j][1] = assignation_number(cod + j - 2, 0, keyword, num_param, num_param_components,
+          (*itools->pa_bed)(1,j,1) = assignation_number(cod + j - 2, 0, keyword, num_param, num_param_components,
                                                            (double) number_novalue, 0);
         }
     }
@@ -1737,35 +1737,35 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
     {
       for (j=1; j<=nsoilprop; j++)
         {
-          if (j != jdz) itools->pa_bed->co[1][j][i] = assignation_number(cod + j - 2, i - 1, keyword, num_param,
+          if (j != jdz) (*itools->pa_bed)(1,j,i) = assignation_number(cod + j - 2, i - 1, keyword, num_param,
                                                                          num_param_components,
-                                                                         itools->pa_bed->co[1][j][i - 1], 0);
+                                                                         (*itools->pa_bed)(1,j,i-1), 0);
         }
     }
   //field capacity (-0.333 bar) and wilting point (-15 bar)
   for (i=1; i<=sl->pa->nch; i++)
     {
-      if ( (long)itools->pa_bed->co[1][jsat][i] != number_novalue
-           && (long)itools->pa_bed->co[1][jres][i] != number_novalue &&
-           (long)itools->pa_bed->co[1][ja][i] != number_novalue
-           && (long)itools->pa_bed->co[1][jns][i] != number_novalue &&
-           (long)itools->pa_bed->co[1][jss][i] )
+      if ( (long)(*itools->pa_bed)(1,jsat,i) != number_novalue
+           && (long)(*itools->pa_bed)(1,jres,i) != number_novalue &&
+           (long)(*itools->pa_bed)(1,ja,i) != number_novalue
+           && (long)(*itools->pa_bed)(1,jns,i) != number_novalue &&
+           (long)(*itools->pa_bed)(1,jss,i) )
         {
-          if ( (long)itools->pa_bed->co[1][jfc][i] == number_novalue)
+          if ( (long)(*itools->pa_bed)(1,jfc,i) == number_novalue)
             {
-              itools->pa_bed->co[1][jfc][i] = teta_psi( (-1./3.)*1.E5/g, 0.,
-                                                        itools->pa_bed->co[1][jsat][i], itools->pa_bed->co[1][jres][i],
-                                                        itools->pa_bed->co[1][ja][i],
-                                                        itools->pa_bed->co[1][jns][i], 1.-1./itools->pa_bed->co[1][jns][i], PsiMin,
-                                                        itools->pa_bed->co[1][jss][i]);
+              (*itools->pa_bed)(1,jfc,i) = teta_psi( (-1./3.)*1.E5/g, 0.,
+                                                        (*itools->pa_bed)(1,jsat,i), (*itools->pa_bed)(1,jres,i),
+                                                        (*itools->pa_bed)(1,ja,i),
+                                                        (*itools->pa_bed)(1,jns,i), 1.-1./(*itools->pa_bed)(1,jns,i), PsiMin,
+                                                        (*itools->pa_bed)(1,jss,i));
             }
-          if ( (long)itools->pa_bed->co[1][jwp][i] == number_novalue)
+          if ( (long)(*itools->pa_bed)(1,jwp,i) == number_novalue)
             {
-              itools->pa_bed->co[1][jwp][i] = teta_psi( -15.*1.E5/g, 0.,
-                                                        itools->pa_bed->co[1][jsat][i], itools->pa_bed->co[1][jres][i],
-                                                        itools->pa_bed->co[1][ja][i],
-                                                        itools->pa_bed->co[1][jns][i], 1.-1./itools->pa_bed->co[1][jns][i], PsiMin,
-                                                        itools->pa_bed->co[1][jss][i]);
+              (*itools->pa_bed)(1,jwp,i) = teta_psi( -15.*1.E5/g, 0.,
+                                                        (*itools->pa_bed)(1,jsat,i), (*itools->pa_bed)(1,jres,i),
+                                                        (*itools->pa_bed)(1,ja,i),
+                                                        (*itools->pa_bed)(1,jns,i), 1.-1./(*itools->pa_bed)(1,jns,i), PsiMin,
+                                                        (*itools->pa_bed)(1,jss,i));
             }
         }
     }
@@ -2366,7 +2366,7 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
   long i, j, k, n, nlines, nlinesprev;
   char *temp;
   double **soildata;
-  DOUBLETENSOR *old_sl_par;
+  std::unique_ptr<Tensor<double>> old_sl_par;
   FILE *f;
 
   //look if there is at least 1 soil file
@@ -2413,14 +2413,14 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
     {
 
       //save sl->pa in a new doubletensor and deallocate
-      old_sl_par = new_doubletensor(sl->pa->ndh, sl->pa->nrh, sl->pa->nch);
+      old_sl_par.reset(new Tensor<double>{sl->pa->ndh, sl->pa->nrh, sl->pa->nch});
       for (i=1; i<=sl->pa->ndh; i++)
         {
           for (n=1; n<=sl->pa->nrh; n++)
             {
               for (j=1; j<=sl->pa->nch; j++)
                 {
-                  old_sl_par->co[i][n][j] = sl->pa->co[i][n][j];
+                  (*old_sl_par)(i,n,j) = sl->pa->co[i][n][j];
                 }
             }
         }
@@ -2491,7 +2491,7 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
                 {
                   if (j <= old_sl_par->nch)
                     {
-                      sl->pa->co[i][n][j] = old_sl_par->co[i][n][j];
+                      sl->pa->co[i][n][j] = (*old_sl_par)(i,n,j);
                     }
                   else
                     {
@@ -2516,7 +2516,7 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
                         {
                           if (j <= old_sl_par->nch)
                             {
-                              sl->pa->co[i][n][j] = old_sl_par->co[i][n][j];
+                              sl->pa->co[i][n][j] = (*old_sl_par)(i,n,j);
                             }
                           else
                             {
@@ -2555,9 +2555,6 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
             }
           if (ok == 1) IT->init_water_table_depth->co[i] = (double)number_novalue;
         }
-
-      free_doubletensor(old_sl_par);
-
     }
 
   //write on the screen the soil paramater
@@ -2580,17 +2577,16 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
     }
 
   //bedrock
-  old_sl_par = new_doubletensor(1, IT->pa_bed->nrh, IT->pa_bed->nch);
+  old_sl_par.reset(new Tensor<double>{1, IT->pa_bed->nrh, IT->pa_bed->nch});
   for (n=1; n<=IT->pa_bed->nrh; n++)
     {
       for (j=1; j<=IT->pa_bed->nch; j++)
         {
-          old_sl_par->co[1][n][j] = IT->pa_bed->co[1][n][j];
+          (*old_sl_par)(1,n,j) = (*IT->pa_bed)(1,n,j);
         }
     }
-  free_doubletensor(IT->pa_bed);
 
-  IT->pa_bed = new_doubletensor(sl->pa->ndh, sl->pa->nrh, sl->pa->nch);
+  IT->pa_bed.reset(new Tensor<double>{sl->pa->ndh, sl->pa->nrh, sl->pa->nch});
   for (i=1; i<=IT->pa_bed->ndh; i++)
     {
       for (n=1; n<=IT->pa_bed->nrh; n++)
@@ -2599,7 +2595,7 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
             {
               for (j=1; j<=IT->pa_bed->nch; j++)
                 {
-                  IT->pa_bed->co[i][n][j] = sl->pa->co[1][n][j];
+                  (*IT->pa_bed)(i,n,j) = sl->pa->co[1][n][j];
                 }
             }
           else
@@ -2608,22 +2604,21 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
                 {
                   if (j <= old_sl_par->nch)
                     {
-                      IT->pa_bed->co[i][n][j] = old_sl_par->co[1][n][j];
+                      (*IT->pa_bed)(i,n,j) = (*old_sl_par)(1,n,j);
                     }
                   else
                     {
-                      IT->pa_bed->co[i][n][j] = IT->pa_bed->co[i][n][j-1];
+                      (*IT->pa_bed)(i,n,j) = (*IT->pa_bed)(i,n,j-1);
                     }
                 }
               for (j=1; j<=IT->pa_bed->nch; j++)
                 {
-                  if ( (long)IT->pa_bed->co[i][n][j] == number_novalue ) IT->pa_bed->co[i][n][j]
+                  if ( (long)(*IT->pa_bed)(i,n,j) == number_novalue ) (*IT->pa_bed)(i,n,j)
                       = sl->pa->co[bed][n][j];
                 }
             }
         }
     }
-  free_doubletensor(old_sl_par);
 
   k = (long)nmet;
   geolog << "Soil Bedrock Layers: " << sl->pa->nch  << std::endl;
@@ -2635,7 +2630,7 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
 	  geolog << keywords_char[k+n-1]  << ": ";
           for (j=1; j<=sl->pa->nch; j++)
             {
-              geolog << IT->pa_bed->co[i][n][j]  << "(" << IT->pa_bed->co[i][n][j]  << ")";
+              geolog << (*IT->pa_bed)(i,n,j)  << "(" << (*IT->pa_bed)(i,n,j)  << ")";
               if (j<sl->pa->nch) geolog << ", ";
             }
           geolog << std::endl;
