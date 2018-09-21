@@ -136,11 +136,10 @@ void assign_recovered_map_long(short old, long n, char *name,
 /******************************************************************************************************************************************/
 
 void assign_recovered_tensor(short old, long n, char *name,
-                             DOUBLETENSOR *assign, PAR *par, Matrix<double> *Zdistr)
+                             Tensor<double> *assign, PAR *par, Matrix<double> *Zdistr)
 {
 
   long r, c, l;
-  //long i;
   std::unique_ptr<Matrix<double>> M;
   char *temp1, *temp2, *temp3;
 
@@ -164,7 +163,7 @@ void assign_recovered_tensor(short old, long n, char *name,
         {
           for (c=1; c<=M->nch; c++)
             {
-              assign->co[l][r][c] = (*M)(r,c);
+              (*assign)(l,r,c) = (*M)(r,c);
             }
         }
         free(temp2);

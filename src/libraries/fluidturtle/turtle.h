@@ -10,6 +10,7 @@
 
 #include "vector.h"
 #include "matrix.h"
+#include "tensor.h"
 
 #define isDynamic 1         /*This number will be used to mark a dynamic allocates
                               quantity */
@@ -51,7 +52,7 @@
                fluid turtle library restrict this freedom by setting
                  their  lower value to NL  */
 
-#define TEST 1
+//#define TEST 1
 
 #define NOTEST 0
 
@@ -70,9 +71,10 @@ typedef struct
 
     double ***co;
 
+
 } DOUBLETENSOR;
 
-
+#define PROVA_TURTLE 10
 
 /*
 

@@ -97,6 +97,7 @@ double elapsed_time, elapsed_time_start, cum_time, max_time;
 int main(int argc,char *argv[])
 {
   std::string wd;
+
   if (!argv[1])
   {
     std::cerr << "Wrong number of arguments. Abort.\n"
@@ -105,8 +106,17 @@ int main(int argc,char *argv[])
     exit(9);
   }
   else
-  {
+  { 
     wd = argv[1];
+
+    if (wd == "-v"){
+      std::cout << std::endl;
+      std::cout << "Version: " << PACKAGE_STRING << std::endl;
+      std::cout << "Commit :  " << GEOtop_BUILD_VERSION << std::endl;
+      std::cout << std::endl;
+      exit(10);
+    }
+    
     if (wd.back() != '/')
       wd.append("/");
   }
@@ -400,29 +410,29 @@ void time_loop(ALLDATA *A)
 
                 th = theta_from_psi((*A->S->SS->P)(l,A->T->j_cont[r][c]),
                                     (*A->S->SS->thi)(l,A->T->j_cont[r][c]), l,
-                                    A->S->pa->co[sy], PsiMin);
+                                    A->S->pa->matrix(sy), PsiMin);
 
-                if (th > A->S->pa->co[sy][jsat][l] - (*A->S->SS->thi)(l,A->T->j_cont[r][c]))
-                  th = A->S->pa->co[sy][jsat][l] - (*A->S->SS->thi)(l,A->T->j_cont[r][c]);
+                if (th > (*A->S->pa)(sy,jsat,l) - (*A->S->SS->thi)(l,A->T->j_cont[r][c]))
+                  th = (*A->S->pa)(sy,jsat,l) - (*A->S->SS->thi)(l,A->T->j_cont[r][c]);
 
-                C0 = A->S->pa->co[sy][jct][l] * (1. - A->S->pa->co[sy][jsat][l])
-                     * A->S->pa->co[sy][jdz][l] + c_ice*(*A->S->SS->thi)(l,A->T->j_cont[r][c]) + c_liq*th;
+                C0 = (*A->S->pa)(sy,jct,l) * (1. - (*A->S->pa)(sy,jsat,l))
+                     * (*A->S->pa)(sy,jdz,l) + c_ice*(*A->S->SS->thi)(l,A->T->j_cont[r][c]) + c_liq*th;
 
                 th0 = th;
 
                 th = theta_from_psi((*L->P)(l,A->T->j_cont[r][c]),
                                     (*L->thi)(l,A->T->j_cont[r][c]), l,
-                                    A->S->pa->co[sy], PsiMin);
+                                    A->S->pa->matrix(sy), PsiMin);
 
-                if (th > A->S->pa->co[sy][jsat][l]-(*L->thi)(l,A->T->j_cont[r][c]))
-                  th = A->S->pa->co[sy][jsat][l]-(*L->thi)(l,A->T->j_cont[r][c]);
+                if (th > (*A->S->pa)(sy,jsat,l)-(*L->thi)(l,A->T->j_cont[r][c]))
+                  th = (*A->S->pa)(sy,jsat,l)-(*L->thi)(l,A->T->j_cont[r][c]);
 
-                C1 = A->S->pa->co[sy][jct][l] * (1. - A->S->pa->co[sy][jsat][l])
-                     * A->S->pa->co[sy][jdz][l] + c_ice*(*L->thi)(l,A->T->j_cont[r][c]) + c_liq*th;
+                C1 = (*A->S->pa)(sy,jct,l) * (1. - (*A->S->pa)(sy,jsat,l))
+                     * (*A->S->pa)(sy,jdz,l) + c_ice*(*L->thi)(l,A->T->j_cont[r][c]) + c_liq*th;
 
                 (*A->S->dUzrun)(j,l) += 1.E-6
                                           * (0.5*(C0+C1) * ((*L->T)(l,A->T->j_cont[r][c]) - (*A->S->SS->T)(l,A->T->j_cont[r][c]))
-                                             + Lf *(th-th0) *A->S->pa->co[sy][jdz][l] );
+                                             + Lf *(th-th0) *(*A->S->pa)(sy,jdz,l) );
               }
             }
           }
