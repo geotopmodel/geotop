@@ -38,7 +38,7 @@ TEST(Tensor, TENSOR_value){
   std::cout << "PROVA_TURTLE = " << PROVA_TURTLE << std::endl;
   std::cout << "PROVA_T_ALLOC = " << PROVA_T_ALLOC << std::endl;
   
-  pa = new_doubletensor(2,2,2); // NOT working 
+  // pa = new_doubletensor(2,2,2); // NOT working 
 
   // const char* c1 = "a";
   // const char* c2 = "b";
