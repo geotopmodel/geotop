@@ -53,6 +53,6 @@ src_files += [files(['PBSM.cc',
     'vegetation.h',
     'warnings.h',
     'water.balance.cc',
-    'water.balance.h',])]
+    'water.balance.h'])]
 
 _config = files('config.meson.h.in')
