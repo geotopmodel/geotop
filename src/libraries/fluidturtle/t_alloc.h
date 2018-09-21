@@ -16,3 +16,6 @@ void free_d3tensor(double ***t, long nrl, long ncl, long ndl);
 
 void free_doubletensor( DOUBLETENSOR *m);
 
+
+#define PROVA_T_ALLOC 20
+

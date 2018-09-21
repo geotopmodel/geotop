@@ -24,8 +24,7 @@ double ***d3tensor(long nrl, long nrh, long ncl, long nch, long ndl, long ndh)
   t[nrl] -= ncl;
 
   /* allocate rows and set pointers to them */
-  t[nrl][ncl]=(double *) malloc((size_t)((nrow*ncol*ndep+NR_END)*sizeof(
-                                           double)));
+  t[nrl][ncl]=(double *) malloc((size_t)((nrow*ncol*ndep+NR_END)*sizeof(double)));
   if (!t[nrl][ncl]) t_error("allocation failure 3 in d3tensor()");
   t[nrl][ncl] += NR_END;
   t[nrl][ncl] -= ndl;

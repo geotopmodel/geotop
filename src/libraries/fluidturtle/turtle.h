@@ -71,6 +71,7 @@ typedef struct
 
     double ***co;
 
+
 } DOUBLETENSOR;
 
 #define PROVA_TURTLE 10
