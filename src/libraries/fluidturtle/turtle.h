@@ -74,8 +74,6 @@ typedef struct
 
 } DOUBLETENSOR;
 
-#define PROVA_TURTLE 10
-
 /*
 
 t_keywords T_KEYWORDS={{"2","ascii","binary"},
