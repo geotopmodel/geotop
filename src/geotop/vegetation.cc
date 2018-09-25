@@ -730,13 +730,13 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa,
   for (l=1; l<=fl->nh; l++)
     {
       //water content [Wigmosta et al., (1994); Feddes et al.(1978)]
-      if (theta[l] >= soil[jfc][l])
+      if (theta[l] >= soil(jfc,l))
         {
           fl->co[l] = 1.0;
         }
       else if (theta[l] > soil(jwp,l))
         {
-          fl->co[l] = (theta[l]-soil(jwp,l))/(soil[jfc][l]-soil(jwp,l));
+          fl->co[l] = (theta[l]-soil(jwp,l))/(soil(jfc,l)-soil(jwp,l));
         }
       else
         {

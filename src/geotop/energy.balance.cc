@@ -2218,8 +2218,8 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
       //water pressure and contents
       psisat = psi_saturation(Fmax(0.,
                                    egy->ice->co[l+n])/(rho_w*egy->Dlayer->co[l+n]), pa(jsat,l), pa(jres,l),
-                              pa[ja][l], pa[jns][l], 1.-1./pa[jns][l]);
-      th_oversat = Fmax( (*S->P)(l,i) - psisat, 0.0 ) * pa[jss][l];
+                              pa(ja,l), pa(jns,l), 1.-1./pa(jns,l));
+      th_oversat = Fmax( (*S->P)(l,i) - psisat, 0.0 ) *pa(jss,l);
 
       (*th)(l,i) = Fmax(0.,egy->liq->co[l+n]+egy->deltaw->co[l+n])/
                      (rho_w*egy->Dlayer->co[l+n]);
@@ -2227,8 +2227,8 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
                               egy->ice->co[l+n]-egy->deltaw->co[l+n])/(rho_w*egy->Dlayer->co[l+n]);
 
       (*S->P)(l,i) = psi_teta((*th)(l,i)+th_oversat, (*S->thi)(l,i),
-                                pa(jsat,l), pa(jres,l), pa[ja][l], pa[jns][l], 1.-1./pa[jns][l], PsiMin,
-                                pa[jss][l]);
+                                pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l), PsiMin,
+                               pa(jss,l));
 
       //temperature
         (*S->T)(l,i) = egy->Temp->co[l+n];
@@ -2266,15 +2266,15 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
 
       //water pressure and contents
       psisat = psi_saturation((*S->thi)(l,ch), pa(jsat,l), pa(jres,l),
-                              pa[ja][l], pa[jns][l], 1.-1./pa[jns][l]);
-      th_oversat = Fmax( (*S->P)(l,ch) - psisat, 0.0 ) * pa[jss][l];
+                              pa(ja,l), pa(jns,l), 1.-1./pa(jns,l));
+      th_oversat = Fmax( (*S->P)(l,ch) - psisat, 0.0 ) *pa(jss,l);
 
       (*th)(l,ch) = Fmax(0., egy->liq->co[l+n]+egy->deltaw->co[l+n])/(rho_w*egy->Dlayer->co[l+n]);
       (*S->thi)(l,ch) = Fmax(0., egy->ice->co[l+n]-egy->deltaw->co[l+n])/(rho_w*egy->Dlayer->co[l+n]);
 
       (*S->P)(l,ch) = psi_teta((*th)(l,ch)+th_oversat, (*S->thi)(l,ch),
-                                 pa(jsat,l), pa(jres,l), pa[ja][l], pa[jns][l], 1.-1./pa[jns][l], PsiMin,
-                                 pa[jss][l]);
+                                 pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l), PsiMin,
+                                pa(jss,l));
 
       //temperature
         (*S->T)(l,ch) = egy->Temp->co[l+n];
