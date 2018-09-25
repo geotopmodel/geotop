@@ -1,4 +1,4 @@
-_tests = ['tensor-debug_01.cc']
+_tests = ['tensor-debug_02.cc']
 
 _src = ['../../../src/geotop/tensor.h',
 	'../../../src/libraries/fluidturtle/turtle.h',
