@@ -27,7 +27,7 @@ public:
     std::size_t n_col;
 
     /** the actual data */
-    std::unique_ptr<T[]> co; // it has to be written after the lower and upper limits (otherwise: sigfault)
+    std::unique_ptr<T[]> co;
 
     /** pointer to the first accessible element (needed by an iterator) */
     T *begin() noexcept { return &co[0]; }
@@ -91,7 +91,11 @@ public:
     * access operator. When the code is compiled in debug mode, it performes
     * a range check. No check is done when the code is compiled in release mode.
     */
-    T& operator()(const std::size_t k, const std::size_t i, const std::size_t j) {
+    T& operator()(const std::size_t k, const std::size_t i, const std::size_t j)
+#ifdef NDEBUG
+    noexcept
+#endif
+    {
 #ifndef NDEBUG
         return at(k,i,j);
 #else
@@ -131,9 +135,9 @@ public:
        */
     Tensor(const Tensor<T> &t)
             : ndl{t.ndl}, ndh{t.ndh}, nrl{t.nrl}, nrh{t.nrh}, ncl{t.ncl}, nch{t.nch},
-              n_dep{ndh-ndl+1}, n_row{nrh-nrl+1}, n_col{nch-ncl+1},
-              co{new T[(ndh-ndl+1)*(nrh-nrl+1)*(nch-ncl+1)]} {
-        for (std::size_t i=0; i<(ndh-ndl+1)*(nrh-nrl+1)*(nch-ncl+1); ++i)
+              n_dep{t.n_dep}, n_row{t.n_row}, n_col{t.n_col},
+              co{new T[n_dep*n_row*n_col]} {
+        for (std::size_t i=0; i<n_dep*n_row*n_col; ++i)
             (*this)[i] = t[i];
     }
 
