@@ -25,7 +25,6 @@ TEST(Tensor, TensorElement){
   EXPECT_EQ( 6, t[5] );
   EXPECT_EQ( 7, t[6] );
   EXPECT_EQ( 8, t[7] );
- 
 }
 
 TEST(Tensor, RowView){
@@ -48,7 +47,6 @@ TEST(Tensor, RowView){
   EXPECT_EQ( 6, t.row(2,1)[2] );
   EXPECT_EQ( 7, t.row(2,2)[1] );
   EXPECT_EQ( 8, t.row(2,2)[2] );
- 
 }
 
 TEST(Tensor, RowView_CheckIndex){
@@ -70,7 +68,6 @@ TEST(Tensor, RowView_CheckIndex){
   EXPECT_NO_THROW( t.row(0,0) );
   EXPECT_NO_THROW( t.row(3,3) );
 #endif
-    
 }
 
 
@@ -94,7 +91,6 @@ TEST(Tensor, MatrixView){
   EXPECT_EQ( 6, t.matrix(2)(1,2) );
   EXPECT_EQ( 7, t.matrix(2)(2,1) );
   EXPECT_EQ( 8, t.matrix(2)(2,2) );
- 
 }
 
 
@@ -115,17 +111,4 @@ TEST(Tensor, TensorMatrix_CheckIndex){
   EXPECT_NO_THROW( t.matrix(0) );
   EXPECT_NO_THROW( t.matrix(3) );
 #endif
-    
 }
-
-// // print to check the resulting tensor
-  // std::cout << "Original Tensor (t)" << std::endl;
-  // for(int k=1; k<=2; k++){
-  //   for(int i=1; i<=2; i++){
-  //     for(int j=1; j<=2; j++){
-  // 	std::cout << t(k,i,j) << " ";
-  //     }
-  //     std::cout << std::endl;
-  //   }
-  //   std::cout << std::endl;
-  // }

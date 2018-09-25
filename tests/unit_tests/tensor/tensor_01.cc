@@ -104,7 +104,6 @@ TEST(Tensor, range_for_zero){
   EXPECT_DOUBLE_EQ( 6.0, t(1,0,1) );
   EXPECT_DOUBLE_EQ( 7.0, t(1,1,0) );
   EXPECT_DOUBLE_EQ( 8.0, t(1,1,1) );
-  
 }
 
 TEST(Tensor, set_value){
@@ -148,7 +147,6 @@ TEST(Tensor, copy_constructor){
   EXPECT_DOUBLE_EQ( t1(2,1,2), 6 );
   EXPECT_DOUBLE_EQ( t1(2,2,1), 7 );
   EXPECT_DOUBLE_EQ( t1(2,2,2), 8 );
- 
 }
 
 TEST(Tensor, out_of_range){
@@ -209,5 +207,4 @@ TEST(Tensor, out_of_range_zero){
   EXPECT_ANY_THROW( t.at(-3,-3,-3) );
   EXPECT_ANY_THROW( t.at(4,4,4) );
   EXPECT_ANY_THROW( t.at(5000,5000,500) );
-  
 }
