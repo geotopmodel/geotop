@@ -25,10 +25,11 @@ public:
 
     T &operator()(const std::size_t i, const std::size_t j) noexcept {
         return elem[(i-nrl)*(nch-ncl+1) + (j-ncl)];
+        // return (*this)[(i-nrl)*(nch-ncl+1) + (j-ncl)];
     }
 
     const T &operator()(const std::size_t i, const std::size_t j) const noexcept {
-        return elem[(i-nrl)*(nch-ncl+1) + (j-ncl)];
+        return (*this)[(i-nrl)*(nch-ncl+1) + (j-ncl)];
     }
 };
 
