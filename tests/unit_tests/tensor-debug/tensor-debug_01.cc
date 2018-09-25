@@ -8,7 +8,9 @@
 
 #include <typeinfo>
 #include <ostream>
+
 // tensor(d,r,c) => d = depth; r=row; c=column
+
 TEST(Tensor, Tensor_value){
   Tensor<double>* t = new Tensor<double>{2,2,2}; // 2x2x2 tensor
 
@@ -43,7 +45,8 @@ TEST(Tensor, TENSOR_value){
   pa = new_doubletensor(2,2,2); 
 
   int idx = 1;
-  
+
+  // initialize tensor
   for(int k=1; k<=pa->ndh; k++){
     for(int i=1; i<=pa->nrh; i++){
       for(int j=1; j<=pa->nch; j++){
@@ -52,7 +55,8 @@ TEST(Tensor, TENSOR_value){
       }
     }
   }
-  
+
+  // print tensor
   for(int k=1; k<=pa->ndh; k++){
     for(int i=1; i<=pa->nrh; i++){
       for(int j=1; j<=pa->nch; j++){
@@ -72,40 +76,4 @@ TEST(Tensor, TENSOR_value){
   EXPECT_DOUBLE_EQ( 6.0, pa->co[2][1][2] );
   EXPECT_DOUBLE_EQ( 7.0, pa->co[2][2][1] );
   EXPECT_DOUBLE_EQ( 8.0, pa->co[2][2][2] );
-}
-
-TEST(Tensor, Compare_types){
-  Tensor<double>* t = new Tensor<double>{2,2,2}; // 2x2x2 tensor
-
-  DOUBLETENSOR *pa; // 2x2x2 tensor
-  pa = new_doubletensor(2,2,2); 
-
-  std::cout << std::endl;
-  std::cout << "pa->co[1] is a " << typeid(pa->co[1]).name() << std::endl;
-  std::cout << "pa->co[1] = " << pa->co[1] << std::endl;
-  std::cout << "t->matrix(1) is a " << typeid(t->matrix(1)).name() << std::endl;
-  std::cout << std::endl;
-  std::cout << "pa->co[1][1] is a " << typeid(pa->co[1][1]).name() << std::endl;
-  std::cout << "pa->co[1][1] = " << pa->co[1][1] << std::endl;
-  std::cout << "t->row(1,1) is a " << typeid(t->row(1,1)).name() << std::endl;
-  std::cout << std::endl;
-
-  //std::cout << "t->matrix(1) = " << t->matrix(1) << std::endl;
-  std::cout << std::endl;
-  //std::cout << "t->row(1,1) = " << t->row(1,1) << std::endl;
-  std::cout << std::endl;
-}
-
-
-TEST(Tensor, damny_references){
-    Tensor<double>* t = new Tensor<double>{2,2,2}; // 2x2x2 tensor
-    MatrixView<double> &&tr = t->matrix(1);
-    tr(1,1) = 5;
-    std::cout << tr(1,1) << std::endl;
-
-    // DOUBLETENSOR *pa; // 2x2x2 tensor
-    // pa = new_doubletensor(2,2,2);
-    // double **par = pa->co[1];
-    // par->co[1][1] = 5;
-    // std::cout << par->co[1][1] << std::endl;
 }
