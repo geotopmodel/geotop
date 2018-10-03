@@ -48,20 +48,15 @@ public:
     /** default constructor is deleted */
     Tensor() = delete;
 
-/**
-   * constructor
-   * @param _nrl,_nrh lower and upper bound for rows
-   * @param _ncl,_nch lower and upper bound for columns
-   * @param _ndl,_ndh lower and upper bound for depth
-   */
+    /** subscripting operator (non-checked) */
+    T& operator[](const std::size_t i) noexcept {
+        return co[i];
+    }
 
-    Tensor(const std::size_t _ndh,  const std::size_t _ndl,
-           const std::size_t _nrh, const std::size_t _nrl, const std::size_t _nch,  const std::size_t _ncl):
-            ndh{_ndh}, ndl{_ndl}, nrh{_nrh}, nrl{_nrl}, nch{_nch}, ncl{_ncl},
-            n_dep{ndh-ndl+1}, n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co { new T[(ndh-ndl+1)*(nrh-nrl+1)*(nch-ncl+1)]{} } {}
-    // .................................................................................|-->initialize all elements to 0
-
-    Tensor(const std::size_t d, const std::size_t r, const std::size_t c): Tensor{d,1,r,1,c,1} {}
+    /** subscripting operator (non-checked) */
+    const T& operator[](const std::size_t i) const noexcept {
+        return co[i];
+    }
 
     /** range-checked access operator */
     T &at(const std::size_t k, const std::size_t i, const std::size_t j) {
@@ -77,14 +72,6 @@ public:
         GEO_ERROR_IN_RANGE(i, nrl, nrh);
         GEO_ERROR_IN_RANGE(j, ncl, nch);
         return (*this)[(i-nrl)*n_col + (j-ncl) + (k-ndl)*(n_row*n_col)];
-    }
-
-    T& operator[](const std::size_t i) noexcept {
-        return co[i];
-    }
-
-    const T& operator[](const std::size_t i) const noexcept {
-        return co[i];
     }
 
     /**
@@ -120,15 +107,19 @@ public:
 #endif
     }
 
-    /** set all elements of the vector to @p v
-        * this is useful to reinizialize all the elements of the vector to zero
-        * my_Tensor = 0
-        */
-    Tensor<T> &operator=(const T v) {
-        for (auto &x : *this)
-            x = v;
-        return *this;
-    }
+    /**
+   * constructor
+   * @param _nrl,_nrh lower and upper bound for rows
+   * @param _ncl,_nch lower and upper bound for columns
+   * @param _ndl,_ndh lower and upper bound for depth
+   */
+
+    Tensor(const std::size_t _ndh,  const std::size_t _ndl,
+           const std::size_t _nrh, const std::size_t _nrl, const std::size_t _nch,  const std::size_t _ncl):
+            ndh{_ndh}, ndl{_ndl}, nrh{_nrh}, nrl{_nrl}, nch{_nch}, ncl{_ncl},
+            n_dep{ndh-ndl+1}, n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co { new T[(ndh-ndl+1)*(nrh-nrl+1)*(nch-ncl+1)]{} } {} // initialize all elements to 0
+
+    Tensor(const std::size_t d, const std::size_t r, const std::size_t c): Tensor{d,1,r,1,c,1} {}
 
     /**
        * Copy constructor
@@ -151,6 +142,16 @@ public:
     Tensor<T> &operator=(const Tensor<T> &t) {
         co.reset(); // release acquired memory
         *this = Tensor<T>{t}; // use move assignment and copy constructor
+        return *this;
+    }
+
+    /** set all elements of the vector to @p v
+      * this is useful to reinizialize all the elements of the vector to zero
+      * my_Tensor = 0
+      */
+    Tensor<T> &operator=(const T v) {
+        for (auto &x : *this)
+            x = v;
         return *this;
     }
 

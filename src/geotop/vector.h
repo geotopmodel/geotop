@@ -143,7 +143,6 @@ public:
      * Component-wise summation
      */
     Vector<T> &operator+=(const Vector<T> &v) {
-
         GEO_ASSERT_EQ(nl, v.nl) << "vector length mismatch\n";
         GEO_ASSERT_EQ(nh, v.nh) << "vector length mismatch\n";
 
@@ -151,7 +150,6 @@ public:
             (*this)[i] += v[i];
         return *this;
     }
-
 
 };
 

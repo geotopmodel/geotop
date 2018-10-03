@@ -17,6 +17,16 @@ public:
     std::size_t nch;
     std::size_t ncl;
 
+    /** subscripting operator (non-checked) */
+    T &operator[](const std::size_t j) noexcept {
+        return elem[j - ncl];
+    }
+
+    /** subscripting operator (non-checked) */
+    const T &operator[](const std::size_t j) const noexcept {
+        return elem[j - ncl];
+    }
+
     /** range-checked access operator */
     T &at(const std::size_t j) {
         GEO_ERROR_IN_RANGE(j, ncl, nch);
@@ -27,14 +37,6 @@ public:
     const T &at(const std::size_t j) const {
         GEO_ERROR_IN_RANGE(j, ncl, nch);
         return (*this)[j];
-    }
-
-    T &operator[](const std::size_t j) noexcept {
-        return elem[j - ncl];
-    }
-
-    const T &operator[](const std::size_t j) const noexcept {
-        return elem[j - ncl];
     }
 
     /**

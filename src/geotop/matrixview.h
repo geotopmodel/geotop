@@ -20,13 +20,16 @@ public:
     std::size_t nch;
     std::size_t ncl;
 
-   RowView<T> operator[](const std::size_t i) noexcept {
+    /** subscripting operator (non-checked) */
+    RowView<T> operator[](const std::size_t i) noexcept {
        return RowView<T>{elem, nch, ncl};
    }
-   const RowView<T> operator[](const std::size_t i) const noexcept {
+
+    /** subscripting operator (non-checked) */
+    const RowView<T> operator[](const std::size_t i) const noexcept {
        return RowView<T>{elem, nch, ncl};
    }
-   
+
     T &operator()(const std::size_t i, const std::size_t j) noexcept {
         return elem[(i-nrl)*(nch-ncl+1) + (j-ncl)];
         // return (*this)[(i-nrl)*(nch-ncl+1) + (j-ncl)];
