@@ -73,4 +73,5 @@ public:
     }
 
 };
+
 #endif // GEOTOP_ROWVIEW_H

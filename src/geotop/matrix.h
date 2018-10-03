@@ -26,15 +26,13 @@ public:
     T *begin() noexcept { return &co[0]; }
 
     /** pointer to the one-past the last element (needed by an iterator)*/
-    T *end() noexcept { return &co[(nrh-nrl+1)*(nch-ncl+1)]; }
+    T *end() noexcept { return &co[n_row*n_col]; }
 
     /** const pointer to the first element accessible element */
     const T *begin() const noexcept { return &co[0]; }
 
     /** const pointer to the one-past the last element */
-    const T *end() const noexcept { return &co[(nrh-nrl+1)*(nch-ncl+1)]; }
-
-    Matrix(const std::size_t r, const std::size_t c): Matrix{r,1,c,1} {}
+    const T *end() const noexcept { return &co[n_row*n_col]; }
 
     /** subscripting operator (non-checked) */
     T& operator[](const std::size_t i) noexcept {
@@ -73,7 +71,6 @@ public:
         return at(i,j);
 #else
         return (*this)[(i-nrl)*n_col+(j-ncl)];
-
 #endif
     }
 
@@ -107,14 +104,18 @@ public:
 
     Matrix(const std::size_t _nrh, const std::size_t _nrl, const std::size_t _nch,  const std::size_t _ncl):
             nrh{_nrh}, nrl{_nrl}, nch{_nch}, ncl{_ncl},
-            n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co { new T[(nrh-nrl+1)*(nch-ncl+1)]{} } {} // initialize all elements to 0
+            n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co { new T[n_row*n_col]{} } {} // initialize all elements to 0
+
+    Matrix(const std::size_t r, const std::size_t c): Matrix{r,1,c,1} {}
 
     /**
        * Copy constructor
        */
-    Matrix(const Matrix<T> &m)
-            : nrl{m.nrl}, nrh{m.nrh}, ncl{m.ncl}, nch{m.nch}, n_col{nch-ncl+1}, co{new T[(nrh-nrl+1)*(nch-ncl+1)]} {
-        for (std::size_t i=0; i<(nrh-nrl+1)*(nch-ncl+1); ++i)
+    Matrix(const Matrix<T> &m):
+            nrh{m.nrh}, nrl{m.nrl}, nch{m.nch}, ncl{m.ncl},
+            n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co{new T[n_row*n_col]} {
+
+        for (std::size_t i=0; i<n_row*n_col; ++i)
             (*this)[i] = m[i];
     }
 

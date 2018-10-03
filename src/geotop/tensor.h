@@ -33,14 +33,13 @@ public:
     T *begin() noexcept { return &co[0]; }
 
     /** pointer to the one-past the last element (needed by an iterator)*/
-    T *end() noexcept { return &co[(ndh-ndl+1)*(nrh-nrl+1)*(nch-ncl+1)]; }
+    T *end() noexcept { return &co[n_dep*n_row*n_col]; }
 
     /** const pointer to the first element accessible element */
     const T *begin() const noexcept { return &co[0]; }
 
     /** const pointer to the one-past the last element */
-    const T *end() const noexcept { return &co[(ndh-ndl+1)*(nrh-nrl+1)*(nch-ncl+1)]; }
-
+    const T *end() const noexcept { return &co[n_dep*n_row*n_col]; }
 
     /** destructor. default is fine */
     ~Tensor() = default;
@@ -124,10 +123,11 @@ public:
     /**
        * Copy constructor
        */
-    Tensor(const Tensor<T> &t)
-            : ndl{t.ndl}, ndh{t.ndh}, nrl{t.nrl}, nrh{t.nrh}, ncl{t.ncl}, nch{t.nch},
-              n_dep{t.n_dep}, n_row{t.n_row}, n_col{t.n_col},
-              co{new T[n_dep*n_row*n_col]} {
+    Tensor(const Tensor<T> &t):
+            ndh{t.ndh}, ndl{t.ndl}, nrh{t.nrh}, nrl{t.nrl}, nch{t.nch}, ncl{t.ncl},
+            n_dep{t.n_dep}, n_row{t.n_row}, n_col{t.n_col},
+            co{new T[n_dep*n_row*n_col]} {
+
         for (std::size_t i=0; i<n_dep*n_row*n_col; ++i)
             (*this)[i] = t[i];
     }
