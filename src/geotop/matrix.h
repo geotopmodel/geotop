@@ -10,8 +10,6 @@
 #include "rowview.h"
 
 template <class T> class Matrix {
-    //private:
-    // ...
 
 public:
     /** lower and upper bounds */
@@ -149,5 +147,5 @@ public:
     };
 
 };
-// ----------------------------------------------------------------------------------------------------------------
+
 #endif // GEOTOP_MATRIX_H

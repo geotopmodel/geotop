@@ -8,9 +8,8 @@
 #include "geotop_asserts.h"
 
 template <class T> class RowView {
-    /** This class is used to access a row of a Matrix<T> */
+    /** class used to access a row of a Matrix<T> or of a Tensor<T> */
 public:
-
     /** the actual data */
     T *elem;
 
