@@ -4,7 +4,6 @@
 #include <matrixview.h>
 
 // tensor(d,r,c) => d = depth; r=row; c=column
-
 TEST(Tensor, TensorElement){
   Tensor<int> t{2,2,2}; // 2x2x2 tensor
   int c{0};
