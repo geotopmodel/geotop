@@ -32,15 +32,3 @@ TEST(Matrix, RowView_CheckIndex){
 #endif
     
 }
-
-// // print to check the resulting matrix
-//   for(int i=1; i<=2; i++){
-//     for(int j=1; j<=2; j++){
-//       std::cout << m(i,j) << " ";
-//     }
-//     std::cout << std::endl;
-//   }	    
-
-
-// std::vector<int> a{1,2};  
-// EXPECT_EQ(a, (std::vector<int>{1,2}));
