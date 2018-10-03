@@ -100,7 +100,6 @@ TEST(Vector, copy_semantic){
 
 TEST(Vector, out_of_range){
   Vector<double> v{3};
-  double c{1.0};
   
   EXPECT_NO_THROW(v.at(1));
   EXPECT_NO_THROW(v.at(2));
@@ -132,7 +131,6 @@ TEST(Vector, out_of_range){
 
 TEST(Vector, out_of_range_zero){
   Vector<double> v{3,0};
-  double c{1.0};
 
   EXPECT_NO_THROW(v.at(0));
   EXPECT_NO_THROW(v.at(1));
