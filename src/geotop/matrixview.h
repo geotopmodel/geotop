@@ -18,15 +18,15 @@ public:
     std::size_t nrh, nrl; // rows
     std::size_t nch, ncl; // columns
 
-    /** subscripting operator (non-checked) */
-    RowView<T> operator[](const std::size_t i) noexcept {
-        return RowView<T>{elem, nch, ncl};
-    }
-
-    /** subscripting operator (non-checked) */
-    const RowView<T> operator[](const std::size_t i) const noexcept {
-        return RowView<T>{elem, nch, ncl};
-    }
+//    /** subscripting operator (non-checked) */
+//    RowView<T> operator[](const std::size_t i) noexcept {
+//        return RowView<T>{elem, nch, ncl};
+//    }
+//
+//    /** subscripting operator (non-checked) */
+//    const RowView<T> operator[](const std::size_t i) const noexcept {
+//        return RowView<T>{elem, nch, ncl};
+//    }
 
     /** range-checked access operator */
     T &at(const std::size_t i, const std::size_t j) {

@@ -53,19 +53,37 @@ TEST(Tensor, RowView_CheckIndex){
 
    testing::internal::CaptureStdout();
   EXPECT_EQ("", testing::internal::GetCapturedStdout());
+
+// testing "at" 
+  EXPECT_NO_THROW( t.row(1,1).at(1) );
+  EXPECT_NO_THROW( t.row(1,2).at(1) );
+  EXPECT_ANY_THROW( t.row(2,1).at(0) );
+  EXPECT_ANY_THROW( t.row(2,2).at(0) );
   
+  // testing "()"
   EXPECT_NO_THROW( t.row(1,1) );
   EXPECT_NO_THROW( t.row(1,2) );
   EXPECT_NO_THROW( t.row(2,1) );
   EXPECT_NO_THROW( t.row(2,2) );
+  
+  EXPECT_NO_THROW( t.row(1,1)(1) );
+  EXPECT_NO_THROW( t.row(1,2)(1) );
+  EXPECT_NO_THROW( t.row(2,1)(1) );
+  EXPECT_NO_THROW( t.row(2,2)(1) );
 
 #ifndef NDEBUG
   EXPECT_ANY_THROW( t.row(0,0) );
   EXPECT_ANY_THROW( t.row(3,3) );
 
+  EXPECT_ANY_THROW( t.row(0,0)(1) );
+  EXPECT_ANY_THROW( t.row(3,3)(1) );
+
 #else
   EXPECT_NO_THROW( t.row(0,0) );
   EXPECT_NO_THROW( t.row(3,3) );
+
+  EXPECT_NO_THROW( t.row(0,0)(1) );
+  EXPECT_NO_THROW( t.row(3,3)(1) );
 #endif
 }
 
@@ -92,22 +110,52 @@ TEST(Tensor, MatrixView){
   EXPECT_EQ( 8, t.matrix(2)(2,2) );
 }
 
+TEST(Tensor, MatrixView_out_of_range){
+ Tensor<int> t{2,2,2}; // 2x2x2 tensor
 
-TEST(Tensor, TensorMatrix_CheckIndex){
-  Tensor<int> t{2,2,2}; // 2x2x2 tensor
-
-   testing::internal::CaptureStdout();
+  testing::internal::CaptureStdout();
   EXPECT_EQ("", testing::internal::GetCapturedStdout());
   
+  // testing "at" 
+  EXPECT_NO_THROW( t.matrix(1).at(1,1) );
+  EXPECT_NO_THROW( t.matrix(2).at(1,1) );
+  EXPECT_ANY_THROW( t.matrix(1).at(0,0) );
+  EXPECT_ANY_THROW( t.matrix(2).at(0,0) );
+
+   // testing "()"
   EXPECT_NO_THROW( t.matrix(1) );
   EXPECT_NO_THROW( t.matrix(2) );
+
+  EXPECT_NO_THROW( t.matrix(1)(1,1) );
+  EXPECT_NO_THROW( t.matrix(2)(1,1) );
 
 #ifndef NDEBUG
   EXPECT_ANY_THROW( t.matrix(0) );
   EXPECT_ANY_THROW( t.matrix(3) );
 
+  EXPECT_ANY_THROW( t.matrix(0)(1,1) );
+  EXPECT_ANY_THROW( t.matrix(3)(1,1) );
+
 #else
   EXPECT_NO_THROW( t.matrix(0) );
   EXPECT_NO_THROW( t.matrix(3) );
+
+  EXPECT_NO_THROW( t.matrix(0)(1,1) );
+  EXPECT_NO_THROW( t.matrix(3)(1,1) );
 #endif
+  
+}
+
+TEST(Tensor, MatrixView_out_of_range_zero){
+Tensor<int> t{2,0,2,0,2,0}; // 2x2x2 tensor
+
+// testing "at" 
+  EXPECT_NO_THROW( t.matrix(1).at(0,0) );
+  EXPECT_NO_THROW( t.matrix(1).at(1,1) );
+  EXPECT_NO_THROW( t.matrix(1).at(2,2) );
+  
+  EXPECT_ANY_THROW( t.matrix(1).at(-3,-3) );
+  EXPECT_ANY_THROW( t.matrix(1).at(4,4) );
+  EXPECT_ANY_THROW( t.matrix(1).at(5000,5000) );
+  
 }
