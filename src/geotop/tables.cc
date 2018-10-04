@@ -46,7 +46,7 @@ double find_activelayerdepth_up(long i, long ty, SOIL *sl)
     {
         for (l=1; l<=n; l++)
         {
-            table += sl->pa->co[ty][jdz][l];
+            table += (*sl->pa)(ty,jdz,l);
         }
 
     }
@@ -66,10 +66,11 @@ double find_activelayerdepth_up(long i, long ty, SOIL *sl)
         {
             for (l=1; l<=n; l++)
             {
-                table += sl->pa->co[ty][jdz][l];
+                table += (*sl->pa)(ty,jdz,l);
             }
 
-            table += (1.-(*sl->SS->thi)(n+1,i)/((*sl->SS->thi)(n+1,i)+ (*sl->th)(n+1,i)-sl->pa->co[ty][jres][n+1]))*sl->pa->co[ty][jdz][n+1];
+            table += (1.-(*sl->SS->thi)(n+1,i)/((*sl->SS->thi)(n+1,i)+ (*sl->th)(n+1,i) 
+                    - (*sl->pa)(ty,jres,n+1))) * (*sl->pa)(ty,jdz,n+1);
         }
     }
 
@@ -107,13 +108,13 @@ double find_activelayerdepth_dw(long i, long ty, SOIL *sl)
 
         for (l=1; l<n-1; l++)
         {
-            table += sl->pa->co[ty][jdz][l];
+            table += (*sl->pa)(ty,jdz,l);
         }
 
         if (out==1)
         {
             table += ((*sl->SS->thi)(n-1,i)/((*sl->SS->thi)(n-1,i) + (*sl->th)(n-1,i)
-                                               -sl->pa->co[ty][jres][n-1]))*sl->pa->co[ty][jdz][n-1];
+                                               - (*sl->pa)(ty,jres,n-1)))*(*sl->pa)(ty,jdz,n-1);
         }
         else
         {
@@ -139,7 +140,7 @@ double find_watertabledepth_up(double Z, long i, long ty, SOIL *sl)
     long l;//counter
     short out=0;
 
-    n = nlayer(Z, sl->pa->co[ty][jdz], sl->pa->nch, -1);
+    n = nlayer(Z, sl->pa->row(ty,jdz), sl->pa->nch, -1);
  //   std::cout << "nlayer = " << n << std::endl;
 
     if (n>1)
@@ -150,7 +151,7 @@ double find_watertabledepth_up(double Z, long i, long ty, SOIL *sl)
 
             for (l=1; l<=n; l++)
             {
-                table += sl->pa->co[ty][jdz][l];
+                table += (*sl->pa)(ty,jdz,l);
             }
 
         }
@@ -170,11 +171,11 @@ double find_watertabledepth_up(double Z, long i, long ty, SOIL *sl)
 
                 for (l=1; l<=n; l++)
                 {
-                    table += sl->pa->co[ty][jdz][l];
+                    table += (*sl->pa)(ty,jdz,l);
                 }
 
-                table += 0.5 * sl->pa->co[ty][jdz][n+1];
-                table -= 0.5 * (sl->pa->co[ty][jdz][n]+sl->pa->co[ty][jdz][n+1]) *
+                table += 0.5 * (*sl->pa)(ty,jdz,n+1);
+                table -= 0.5 * ((*sl->pa)(ty,jdz,n)+(*sl->pa)(ty,jdz,n+1)) *
                          ((*sl->Ptot)(n+1,i)-thresh) / ((*sl->Ptot)(n+1,i)-(*sl->Ptot)(n,i));
 
             }
@@ -221,18 +222,18 @@ double find_watertabledepth_dw(double Z, long i, long ty, SOIL *sl)
 
         for (l=1; l<n; l++)
         {
-            table += sl->pa->co[ty][jdz][l];
+            table += (*sl->pa)(ty,jdz,l);
         }
 
         if (out==1)
         {
-            table += ( 0.5*sl->pa->co[ty][jdz][n] - ((*sl->Ptot)(n,i)-thresh)*0.5*
-                                                    (sl->pa->co[ty][jdz][n-1]+sl->pa->co[ty][jdz][n])/((*sl->Ptot)(n,i)
+            table += ( 0.5 * (*sl->pa)(ty,jdz,n) - ((*sl->Ptot)(n,i)-thresh)*0.5*
+                                                    ((*sl->pa)(ty,jdz,n-1)+(*sl->pa)(ty,jdz,n))/((*sl->Ptot)(n,i)
                                                                                                        -(*sl->Ptot)(n-1,i)) );
         }
         else
         {
-            table += sl->pa->co[ty][jdz][n];
+            table += (*sl->pa)(ty,jdz,n);
         }
     }
 
@@ -247,7 +248,7 @@ double find_watertabledepth_dw(double Z, long i, long ty, SOIL *sl)
 //----------------------------------------------------------------------------------------------
 
 //if d=1 finds the layer up, if d=-1 the layer down
-long nlayer(double D, double *dz, long max, short d)
+long nlayer(double D, RowView<double> &&dz, long max, short d)
 {
 
     double z=0.;
@@ -255,8 +256,8 @@ long nlayer(double D, double *dz, long max, short d)
 
     do
     {
-        if (l>1) z += dz[l-1]/2.;
-        z += dz[l]/2.;
+        if (l>1) z += dz(l-1)/2.;
+        z += dz(l)/2.;
         l++;
     }
     while (z<D && l<=max);

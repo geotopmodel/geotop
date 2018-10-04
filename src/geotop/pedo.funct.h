@@ -38,13 +38,13 @@ double Mean(short a, double D1, double D2, double K1, double K2);
 
 double Psif(double T);
 
-double theta_from_psi(double psi, double ice, long l, double **pa, double pmin);
+double theta_from_psi(double psi, double ice, long l, MatrixView<double> &&pa, double pmin);
 
-double psi_from_theta(double th, double ice, long l, double **pa, double pmin);
+double psi_from_theta(double th, double ice, long l, MatrixView<double> &&pa, double pmin);
 
-double dtheta_dpsi_from_psi(double psi, double ice, long l, double **pa, double pmin);
+double dtheta_dpsi_from_psi(double psi, double ice, long l, MatrixView<double> &&pa, double pmin);
 
-double k_from_psi(long jK, double psi, double ice, double T, long l, double **pa, double imp, double ratio);
+double k_from_psi(long jK, double psi, double ice, double T, long l, MatrixView<double> &&pa, double imp, double ratio);
 
-double psisat_from(double ice, long l, double **pa);
+double psisat_from(double ice, long l, MatrixView<double> &&pa);
 

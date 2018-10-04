@@ -2,6 +2,7 @@
 #include <matrix.h>
 #include <iterator> // std::prev
 
+// matrix(r,c) => r=row; c=column
 TEST(Matrix, constructor_4args){
   Matrix<int> m{3,1,3,0}; // 3x4 matrix
   EXPECT_EQ( std::size_t{3}, m.n_row );
@@ -20,8 +21,14 @@ TEST(Matrix, initialization){
   EXPECT_EQ( 0, m(1,2) );
   EXPECT_EQ( 0, m(2,1) );
   EXPECT_EQ( 0, m(2,2) );
-  // EXPECT_EQ( 0, m(0,0)); // => expected to fail => OK
-  // EXPECT_EQ( 0, m(3,3)); // => expected to fail => OK
+
+  #ifndef NDEBUG
+  EXPECT_ANY_THROW( m(0,0)); 
+  EXPECT_ANY_THROW( m(3,3));
+ #else
+  EXPECT_NO_THROW( m(0,0) );
+  EXPECT_NO_THROW( m(3,3) );
+  #endif
 }
 
 TEST(Matrix, begin){
@@ -103,42 +110,6 @@ TEST(Matrix, copy_constructor){
  
 }
 
-// TEST(Matrix, copy_assignment){
-//   Matrix<double> m1{2,2};
-//   double c{0.0};
-//   for (auto &x : m)
-//     x = ++c;
-
-//   // print to check the resulting matrix
-//   for(int i=1; i<=2; i++){
-//     for(int j=1; j<=2; j++){
-//       std::cout << m1(i,j) << " ";
-//     }
-//     std::cout << std::endl;
-//   }
-
-//   Matrix<double> m2{2,2};
-//   double c{1.0};
-//   for (auto &x : m)
-//     x = ++c;
-
-//   // print to check the resulting matrix
-//   for(int i=1; i<=2; i++){
-//     for(int j=1; j<=2; j++){
-//       std::cout << m2(i,j) << " ";
-//     }
-//     std::cout << std::endl;
-//   }
-
-//   // Matrix<double> m1{m};
-
-//   // EXPECT_DOUBLE_EQ( m1(1,1), 1 );
-//   // EXPECT_DOUBLE_EQ( m1(1,2), 2 );
-//   // EXPECT_DOUBLE_EQ( m1(2,1), 3 );
-//   // EXPECT_DOUBLE_EQ( m1(2,2), 4 );
- 
-// }
-
 TEST(Matrix, out_of_range){
   Matrix<double> m{3,3};
 
@@ -183,24 +154,3 @@ TEST(Matrix, out_of_range_zero){
   EXPECT_ANY_THROW( m.at(5000,5000) );
   
 }
-
-// TEST(Matrix, end){
-//   Matrix<int> m(2,1,2,1); // 2x2 matrix
-//   int c=0;
-//   for (int i=0; i <3 ; ++i)
-//     for (int j=0; j<3; ++j)
-//       m[i][j]=c++;
-//   testing::internal::CaptureStdout();
-//   for (auto x : m)
-//     std::cout << x << std::endl;
-//   EXPECT_EQ("", testing::internal::GetCapturedStdout());
-// }
-
-
-// // print to check the resulting matrix
-  // for(int i=1; i<=2; i++){
-  //   for(int j=1; j<=2; j++){
-  //     std::cout << m(i,j) << " ";
-  //   }
-  //   std::cout << std::endl;
-  // }

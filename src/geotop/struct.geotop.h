@@ -134,14 +134,14 @@ struct STATE_VEG {
 
 struct SOIL {
     std::unique_ptr<Matrix<long>> type;
-    DOUBLETENSOR *pa;
+    std::unique_ptr<Tensor<double>> pa;
     std::unique_ptr<Matrix<double>> T_av_tensor;
     std::unique_ptr<Matrix<double>> thw_av_tensor;
     std::unique_ptr<Matrix<double>> thi_av_tensor;
     std::unique_ptr<Matrix<double>> Ptot;
     std::unique_ptr<Matrix<double>> th;
 
-    DOUBLETENSOR *ET;
+    std::unique_ptr<Tensor<double>> ET;
 
     std::unique_ptr<Matrix<double>> Tzplot;
     std::unique_ptr<Matrix<double>> Tzavplot;
@@ -174,7 +174,7 @@ struct SOIL {
 /*---------------------------------------------------------------------------*/
 typedef struct {
     std::unique_ptr<Matrix<double>> Z0;         //elevation of each pixel (DEM)
-    DOUBLETENSOR *Z;
+    std::unique_ptr<Tensor<double>> Z;
 
     std::unique_ptr<Matrix<double>> sky;        //view factor (of the sky) for each pixel
     std::unique_ptr<Matrix<short>> pixel_type;
@@ -639,10 +639,10 @@ struct STATEVAR_3D {
 
     std::unique_ptr<Matrix<short>> type;
     std::unique_ptr<Matrix<long>> lnum;
-    DOUBLETENSOR *Dzl;
-    DOUBLETENSOR *w_liq;
-    DOUBLETENSOR *w_ice;
-    DOUBLETENSOR *T;
+    std::unique_ptr<Tensor<double>> Dzl;
+    std::unique_ptr<Tensor<double>> w_liq;
+    std::unique_ptr<Tensor<double>> w_ice;
+    std::unique_ptr<Tensor<double>> T;
 };
 
 

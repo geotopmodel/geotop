@@ -59,7 +59,7 @@ public:
     }
 
     /**
-     * access operator. When the code is compiled in debug mode, it performes
+     * access operator. When the code is compiled in debug mode, it performs
      * a range check. No check is done when the code is compiled in release mode.
      */
     T &operator()(const std::size_t i)
@@ -103,14 +103,14 @@ public:
      *
      * you can access elements in the range [l,n] boundaries included
      */
-    explicit Vector(const std::size_t ub, const std::size_t lb = 1)
-            : _size{ub - lb + 1}, nl{lb}, nh{ub}, co{new T[nh + 1]{}} {} // initialize all elements to 0
+    explicit Vector(const std::size_t ub, const std::size_t lb = 1):
+            _size{ub - lb + 1}, nl{lb}, nh{ub}, co{new T[nh + 1]{}} {} // initialize all elements to 0
 
     /**
      * Copy constructor
      */
-    Vector(const Vector<T> &v)
-            : _size{v._size}, nl{v.nl}, nh{v.nh}, co{new T[nh + 1]} {
+    Vector(const Vector<T> &v):
+            _size{v._size}, nl{v.nl}, nh{v.nh}, co{new T[nh + 1]} {
         for (auto i = nl; i <= nh; ++i)
             (*this)[i] = v[i];
     }
@@ -143,7 +143,6 @@ public:
      * Component-wise summation
      */
     Vector<T> &operator+=(const Vector<T> &v) {
-
         GEO_ASSERT_EQ(nl, v.nl) << "vector length mismatch\n";
         GEO_ASSERT_EQ(nh, v.nh) << "vector length mismatch\n";
 
@@ -151,7 +150,6 @@ public:
             (*this)[i] += v[i];
         return *this;
     }
-
 
 };
 
