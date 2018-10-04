@@ -6,14 +6,19 @@ Date: 28-06-2018
 
 Name: Borden05m
 
-Description: Bored Experiment (initial waterdepth 20cm below ditch outlet -
-rainfall intensity 20 mm/hr duration 50 min). Inspired by the Burden Case
-(WRR, Kollet at al, submitted, Abdul and Gillham, 1989)
+Description: Coarse spatial scale simulatio for the Mazia Catchment LTER (South Tyrol, Italy) http://lter.eurac.edu/en 
+
+Provided by Giacomo Bertoldi: giacomo.bertoldi@eurac.edu
+
+Input:
+Dem with patial resolution 1000 m, area about 70 km2.
+37 different meteo stations
+11 different land cover types
 
 Time:
-- 01/06/2000 12:00
-- 01/06/2000 12:10
+InitDateDDMMYYYYhhmm = 16/10/2010 12:00
+EndDateDDMMYYYYhhmm =  16/10/2010 16:00
 
 Output:
-- tabs (6): every 1 min (basin,discharge,point,soiltemp,soilwater)
-- maps (66): every 6 min (Prec,psiliq,thetaliq,waterchan,watersurf,watertable)
+- tabs (13 differen output points): every 1 hour (DischargeFile PointOutputFile SnowTempProfileFile SnowLiqContentProfileFile SnowIceContentProfileFile SnowDepthLayersFile SnowCoveredAreaFile BasinOutputFile SoilTempProfileFile SoilLiqContentProfileFile SoilIceContentProfileFile )
+- maps: every 1 hour (SoilAveragedTempTensorFile SurfaceTempMapFile SoilLiqContentTensorFile  SoilTotWaterPressTensorFile  LandSurfaceWaterDepthMapFile  WaterTableDepthMapFile  SWEMapFile  SnowDepthMapFile  NetShortwaveRadiationMapFile  InShortwaveRadiationMapFile NetLongwaveRadiationMapFile  InLongwaveRadiationMapFile NetRadiationMapFile SurfaceHeatFluxMapFile  SurfaceSensibleHeatFluxMapFile  SurfaceLatentHeatFluxMapFile  EvapotranspirationFromSoilMapFile  PrecipitationMapFile NetPrecipitationFile AirTempMapFile")

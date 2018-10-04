@@ -6,16 +6,21 @@ Date: 28-06-2018
 
 Name: WG1_2.0_001
 
-Description: Distributed simulation Mazia / Muntatschini basin 1
-Used Maps resolution: 500m
-provided by Giacomo Bertoldi, Institute for Alpine Environment
+Description: Distributed simulation Mazia / Muntatschini basin 1 in Mazia LTER (South Tyrol, Italy) http://lter.eurac.edu/en
 
+provided by Giacomo Bertoldi, Eurac Research, Institute for Alpine Environment, giacomo.bertoldi@eurac.edu
+
+Inputs:
+DEM for the upper Saldur catchment, about 70 km2, closed at Province Water Gauge 
+Used Maps resolution: 500m
+10 land cover types
+11 input meteo stations
 
 Time:
 - 04/10/2009 00:00
 - 04/10/2009 11:00
 
 Output:
-- tabs (23): every 1 hour (basin,discharge,point,psiz,snowDepth,snowIceCont,
+- tabs (23, in 13 locations): every 1 hour (basin,discharge,point,psiz,snowDepth,snowIceCont,
        	    	    	 snowLiqCont,snowTemp,soilTz,thetaice,thetaliq)
 - maps (44): every 1 day (PrecSNOW,PrecTOTAL,SWEDENSITY,Ta,Ts,watertable)
