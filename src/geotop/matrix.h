@@ -10,8 +10,6 @@
 #include "rowview.h"
 
 template <class T> class Matrix {
-    //private:
-    // ...
 
 public:
     /** lower and upper bounds */
@@ -28,32 +26,23 @@ public:
     T *begin() noexcept { return &co[0]; }
 
     /** pointer to the one-past the last element (needed by an iterator)*/
-    T *end() noexcept { return &co[(nrh-nrl+1)*(nch-ncl+1)]; }
+    T *end() noexcept { return &co[n_row*n_col]; }
 
     /** const pointer to the first element accessible element */
     const T *begin() const noexcept { return &co[0]; }
 
     /** const pointer to the one-past the last element */
-    const T *end() const noexcept { return &co[(nrh-nrl+1)*(nch-ncl+1)]; }
+    const T *end() const noexcept { return &co[n_row*n_col]; }
 
-    /** destructor. default is fine */
-    ~Matrix() = default;
+    /** subscripting operator (non-checked) */
+    T& operator[](const std::size_t i) noexcept {
+        return co[i];
+    }
 
-    /** default constructor is deleted */
-    Matrix() = delete;
-
-/**
-   * constructor
-   * @param _nrl,_nrh lower and upper bound for rows
-   * @param _ncl,_nch lower and upper bound for columns
-   */
-
-    Matrix(const std::size_t _nrh, const std::size_t _nrl, const std::size_t _nch,  const std::size_t _ncl):
-            nrh{_nrh}, nrl{_nrl}, nch{_nch}, ncl{_ncl},
-            n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co { new T[(nrh-nrl+1)*(nch-ncl+1)]{} } {}
-    // ............................................................................|-->initialize all elements to 0
-
-    Matrix(const std::size_t r, const std::size_t c): Matrix{r,1,c,1} {}
+    /** subscripting operator (non-checked) */
+    const T& operator[](const std::size_t i) const noexcept {
+        return co[i];
+    }
 
     /** range-checked access operator */
     T &at(const std::size_t i, const std::size_t j) {
@@ -69,14 +58,6 @@ public:
         return (*this)[(i-nrl)*n_col+(j-ncl)];
     }
 
-    T& operator[](const std::size_t i) noexcept {
-        return co[i];
-    }
-
-    const T& operator[](const std::size_t i) const noexcept {
-        return co[i];
-    }
-
     /**
     * access operator. When the code is compiled in debug mode, it performs
     * a range check. No check is done when the code is compiled in release mode.
@@ -90,7 +71,6 @@ public:
         return at(i,j);
 #else
         return (*this)[(i-nrl)*n_col+(j-ncl)];
-
 #endif
     }
 
@@ -110,22 +90,32 @@ public:
 #endif
     }
 
-    /** set all elements of the vector to @p v
-        * this is useful to reinizialize all the elements of the vector to zero
-        * my_matrix = 0
-        */
-    Matrix<T> &operator=(const T v) {
-        for (auto &x : *this)
-            x = v;
-        return *this;
-    }
+    /** destructor. default is fine */
+    ~Matrix() = default;
+
+    /** default constructor is deleted */
+    Matrix() = delete;
+
+/**
+   * constructor
+   * @param _nrl,_nrh lower and upper bound for rows
+   * @param _ncl,_nch lower and upper bound for columns
+   */
+
+    Matrix(const std::size_t _nrh, const std::size_t _nrl, const std::size_t _nch,  const std::size_t _ncl):
+            nrh{_nrh}, nrl{_nrl}, nch{_nch}, ncl{_ncl},
+            n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co { new T[n_row*n_col]{} } {} // initialize all elements to 0
+
+    Matrix(const std::size_t r, const std::size_t c): Matrix{r,1,c,1} {}
 
     /**
        * Copy constructor
        */
-    Matrix(const Matrix<T> &m)
-            : nrl{m.nrl}, nrh{m.nrh}, ncl{m.ncl}, nch{m.nch}, n_col{nch-ncl+1}, co{new T[(nrh-nrl+1)*(nch-ncl+1)]} {
-        for (std::size_t i=0; i<(nrh-nrl+1)*(nch-ncl+1); ++i)
+    Matrix(const Matrix<T> &m):
+            nrh{m.nrh}, nrl{m.nrl}, nch{m.nch}, ncl{m.ncl},
+            n_row{nrh-nrl+1}, n_col{nch-ncl+1}, co{new T[n_row*n_col]} {
+
+        for (std::size_t i=0; i<n_row*n_col; ++i)
             (*this)[i] = m[i];
     }
 
@@ -142,12 +132,21 @@ public:
         return *this;
     }
 
-
     RowView<T> row(const std::size_t i) {
         GEO_ASSERT_IN_RANGE(i, nrl, nrh);
         return RowView<T> { &co[(i-nrl)*n_col], nch, ncl }; // RowView<T> is constructed with the passed nch and ncl
     };
 
+    /** set all elements of the vector to @p v
+       * this is useful to reinizialize all the elements of the vector to zero
+       * my_matrix = 0
+       */
+    Matrix<T> &operator=(const T v) {
+        for (auto &x : *this)
+            x = v;
+        return *this;
+    }
+
 };
-// ----------------------------------------------------------------------------------------------------------------
+
 #endif // GEOTOP_MATRIX_H

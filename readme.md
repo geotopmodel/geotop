@@ -51,10 +51,12 @@ make -j4
 mkdir meson-build
 cd meson-build
 ```
+
 - Create the build file:
 ```
 meson
 ```
+
 - Now the current directory will have the following files and folders:
 ```
 elisa@elisa-N552VW ~/Scrivania/MHPC/geotop_3.0/meson-build[v3.0*] $ ls -l

@@ -10,6 +10,7 @@
 
 #include "vector.h"
 #include "matrix.h"
+#include "tensor.h"
 
 #define isDynamic 1         /*This number will be used to mark a dynamic allocates
                               quantity */

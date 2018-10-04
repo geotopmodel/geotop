@@ -38,28 +38,28 @@ void write_snow_output(long i, long iname, long r, long c, double init_date,
 
 void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
                      long h, long mi, double JDfrom0, double JDfrom0init,
-                     double JDfrom0end, RowView<double> &&var, Vector<double> *n, double *dz, double cosslope);
+                     double JDfrom0end, RowView<double> &&var, Vector<double> *n, RowView<double> &&dz, double cosslope);
 
 void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
                      long d, long m, long y, long h, long mi, double JDfrom0,
-                     double JDfrom0init, double JDfrom0end, Vector<double>* n, DOUBLETENSOR *snowDz,
-                     DOUBLETENSOR *var, double cosslope);
+                     double JDfrom0init, double JDfrom0end, Vector<double> *n, Tensor<double> *snowDz,
+                     Tensor<double> *var, double cosslope);
 
-void write_soil_header(FILE *f, Vector<double>* n, double *dz);
+void write_soil_header(FILE *f, Vector<double> *n, RowView<double> &&dz);
 
-void write_snow_header(short a, long r, long c, FILE *f, Vector<double>* n,
-                       DOUBLETENSOR *Dz);
+void write_snow_header(short a, long r, long c, FILE *f, Vector<double> *n,
+                       Tensor<double> *Dz);
 
 void plot(char *name, long i_plot, Vector<double>* V, short format, long **J);
 
-double interpolate_soil(long lmin, double h, long max, double *Dz, RowView<double> &&Q);
+double interpolate_soil(long lmin, double h, long max, RowView<double> &&Dz, RowView<double> &&Q);
 
-double interpolate_soil2(long lmin, double h, long max, double *Dz,
+double interpolate_soil2(long lmin, double h, long max, RowView<double> &&Dz,
                          Matrix<double> *Q, long i);
 
 void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
                              short format, Matrix<double> *T, Vector<double> *n, long **J,
-                             Matrix<long> *RC, double *dz, Matrix<double> *slope, short vertical);
+                             Matrix<long> *RC, RowView<double> &&dz, Matrix<double> *slope, short vertical);
 
 void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                          GLACIER *glac, WATER *wat, METEO *met, PAR *par, TIMES *time, TOPO *top,
