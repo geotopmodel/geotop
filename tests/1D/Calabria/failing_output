@@ -1,0 +1,48 @@
+Comparing output-tabs/point0001.txt and output-tabs-SE27XX/point0001.txt
+----------------
+          <==
+##2       ==> 17/06/2014 19:05,735767.795139,0.003472,1,1,1,0.000000,0.000000,0.000000,0.000000,0.000000,0.603689,254.217358,0.642512,956.857500,20.872018,13.872856,14.474564,14.000000,-9999.000000,2.229762,2.229762,2.025833,0.010855,2.014978,336.293044,329.596559,335.729126,1.620667,-2.208968,-2.818063,0.000000,0.000000,0.600000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,-2.818063,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,-9999.000000,0.010825,0.010408,-9999.000000,0.000000,0.000000,-9999.000000,0.000000,0.405167,385.979090,0.000000,0.000000,0.000000,0.000000,-9999.000000,-9999.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,0.000000,7000.000000,0.000000,0.000000,0.000000
+
+
+***  End of file "output-tabs/point0001.txt" reached while trying to read line 2.
+***  File "output-tabs-SE27XX/point0001.txt" has more lines than file "output-tabs/point0001.txt",
+***  line 2 is the last one read from file "output-tabs-SE27XX/point0001.txt"
+
+
++++  File "output-tabs/point0001.txt" differs from file "output-tabs-SE27XX/point0001.txt"
+Comparing output-tabs/soilpsi0001.txt and output-tabs-SE27XX/soilpsi0001.txt
+----------------
+          <==
+##3       ==> 17/06/2014 19:05,735767.795139,0.003472,1,1,1,125.834859,540.860462,949.079367,1349.510598,1936.132427,2667.332777,3314.270576,3818.483803,4078.891580 
+
+
+***  End of file "output-tabs/soilpsi0001.txt" reached while trying to read line 3.
+***  File "output-tabs-SE27XX/soilpsi0001.txt" has more lines than file "output-tabs/soilpsi0001.txt",
+***  line 3 is the last one read from file "output-tabs-SE27XX/soilpsi0001.txt"
+
+
++++  File "output-tabs/soilpsi0001.txt" differs from file "output-tabs-SE27XX/soilpsi0001.txt"
+Comparing output-tabs/soiltemp0001.txt and output-tabs-SE27XX/soiltemp0001.txt
+----------------
+          <==
+##3       ==> 17/06/2014 19:05,735767.795139,0.003472,1,1,1,14.000390,14.000000,14.000000,14.000000,14.000000,14.000000,14.000000,14.000000,14.000000 
+
+
+***  End of file "output-tabs/soiltemp0001.txt" reached while trying to read line 3.
+***  File "output-tabs-SE27XX/soiltemp0001.txt" has more lines than file "output-tabs/soiltemp0001.txt",
+***  line 3 is the last one read from file "output-tabs-SE27XX/soiltemp0001.txt"
+
+
++++  File "output-tabs/soiltemp0001.txt" differs from file "output-tabs-SE27XX/soiltemp0001.txt"
+Comparing output-tabs/thetaliq0001.txt and output-tabs-SE27XX/thetaliq0001.txt
+----------------
+          <==
+##3       ==> 17/06/2014 19:05,735767.795139,0.003472,1,1,1,0.600000,0.600000,0.600000,0.600000,0.600000,0.600000,0.600000,0.600000,0.600000 
+
+
+***  End of file "output-tabs/thetaliq0001.txt" reached while trying to read line 3.
+***  File "output-tabs-SE27XX/thetaliq0001.txt" has more lines than file "output-tabs/thetaliq0001.txt",
+***  line 3 is the last one read from file "output-tabs-SE27XX/thetaliq0001.txt"
+
+
++++  File "output-tabs/thetaliq0001.txt" differs from file "output-tabs-SE27XX/thetaliq0001.txt"

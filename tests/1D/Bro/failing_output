@@ -1,0 +1,36 @@
+Comparing output-tabs/discharge.txt and output-tabs-SE27XX/discharge.txt
+----------------
+          <==
+##2       ==> 23/12/2002 22:00,75.000000,731573.916667,356.916667,0.000000e+00,0.000000e+00,0.000000e+00,0.000000e+00,0.000000e+00,0.000000e+00,0.000000e+00
+
+
+***  End of file "output-tabs/discharge.txt" reached while trying to read line 2.
+***  File "output-tabs-SE27XX/discharge.txt" has more lines than file "output-tabs/discharge.txt",
+***  line 2 is the last one read from file "output-tabs-SE27XX/discharge.txt"
+
+
++++  File "output-tabs/discharge.txt" differs from file "output-tabs-SE27XX/discharge.txt"
+Comparing output-tabs/water_content0001.txt and output-tabs-SE27XX/water_content0001.txt
+----------------
+          <==
+##3       ==> 09/10/2002 22:30,731498.937500,0.020833,1,1,1,0.288981,0.291943,0.039746,0.221032,0.112975,0.093181,0.193313,0.094807,0.124485,0.243546 
+
+
+***  End of file "output-tabs/water_content0001.txt" reached while trying to read line 3.
+***  File "output-tabs-SE27XX/water_content0001.txt" has more lines than file "output-tabs/water_content0001.txt",
+***  line 3 is the last one read from file "output-tabs-SE27XX/water_content0001.txt"
+
+
++++  File "output-tabs/water_content0001.txt" differs from file "output-tabs-SE27XX/water_content0001.txt"
+Comparing output-tabs/water_press0001.txt and output-tabs-SE27XX/water_press0001.txt
+----------------
+          <==
+##3       ==> 09/10/2002 22:30,731498.937500,0.020833,1,1,1,-4760.109178,-4514.742726,-4318.449564,-4122.156402,-3827.716659,-3435.130335,-3042.544011,-2600.884396,-2110.151491,-1619.418586 
+
+
+***  End of file "output-tabs/water_press0001.txt" reached while trying to read line 3.
+***  File "output-tabs-SE27XX/water_press0001.txt" has more lines than file "output-tabs/water_press0001.txt",
+***  line 3 is the last one read from file "output-tabs-SE27XX/water_press0001.txt"
+
+
++++  File "output-tabs/water_press0001.txt" differs from file "output-tabs-SE27XX/water_press0001.txt"
