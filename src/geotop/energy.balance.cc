@@ -918,17 +918,17 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
 
           if (A->P->output_surfenergy->co[i_sim]>0)
             {
-              if (strcmp(files[fradnet], string_novalue) != 0) A->E->Rn->co[j] = (SW+LW);
-              if (strcmp(files[fradLWin], string_novalue) != 0) A->E->LWin->co[j] = LWin;
-              if (strcmp(files[fradLW], string_novalue) != 0) A->E->LW->co[j] = LW;
-              if (strcmp(files[fradSW], string_novalue) != 0)  A->E->SW->co[j] = SW;
-              if (strcmp(files[fradSWin], string_novalue) != 0) A->E->SWin->co[j] = SWin;
-              if (strcmp(files[fradSWinbeam], string_novalue) != 0) A->E->SWinb->co[j] = SWbeam;
+              if (strcmp(files[fradnet], string_novalue) != 0)(*A->E->Rn)(j)= (SW+LW);
+              if (strcmp(files[fradLWin], string_novalue) != 0)(*A->E->LWin)(j)= LWin;
+              if (strcmp(files[fradLW], string_novalue) != 0)(*A->E->LW)(j)= LW;
+              if (strcmp(files[fradSW], string_novalue) != 0) (*A->E->SW)(j)= SW;
+              if (strcmp(files[fradSWin], string_novalue) != 0)(*A->E->SWin)(j)= SWin;
+              if (strcmp(files[fradSWinbeam], string_novalue) != 0)(*A->E->SWinb)(j)= SWbeam;
               if (strcmp(files[fshadow], string_novalue) != 0) (*A->E->shad)(j) = SWb_yes;
-              if (strcmp(files[fG], string_novalue) != 0) A->E->G->co[j] = surfEB;
-              if (strcmp(files[fH], string_novalue) != 0)  A->E->H->co[j] = H;
-              if (strcmp(files[fLE], string_novalue) != 0)  A->E->LE->co[j] = LE;
-              if (strcmp(files[fTs], string_novalue) != 0) A->E->Ts->co[j] = (*Tgskin);
+              if (strcmp(files[fG], string_novalue) != 0)(*A->E->G)(j)= surfEB;
+              if (strcmp(files[fH], string_novalue) != 0) (*A->E->H)(j)= H;
+              if (strcmp(files[fLE], string_novalue) != 0) (*A->E->LE)(j)= LE;
+              if (strcmp(files[fTs], string_novalue) != 0)(*A->E->Ts)(j)= (*Tgskin);
             }
 
           if ((*A->P->output_meteo)(i_sim)>0)
@@ -944,25 +944,25 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
             {
               if (strcmp(files[pH], string_novalue) != 0
                   || strcmp(files[pHg], string_novalue) != 0
-                  || strcmp(files[pG], string_novalue) != 0) A->E->Hgp->co[j] = W*H;
+                  || strcmp(files[pG], string_novalue) != 0) (*A->E->Hgp)(j) = W*H;
               if (strcmp(files[pH], string_novalue) != 0
-                  || strcmp(files[pHv], string_novalue) != 0) A->E->Hvp->co[j] = W*fc*Hv;
+                  || strcmp(files[pHv], string_novalue) != 0) (*A->E->Hvp)(j) = W*fc*Hv;
               if (strcmp(files[pLE], string_novalue) != 0
                   || strcmp(files[pLEg], string_novalue) != 0
-                  || strcmp(files[pG], string_novalue) != 0) A->E->LEgp->co[j] = W*LE;
+                  || strcmp(files[pG], string_novalue) != 0) (*A->E->LEgp)(j) = W*LE;
               if (strcmp(files[pLE], string_novalue) != 0
-                  || strcmp(files[pLEv], string_novalue) != 0) A->E->LEvp->co[j] = W*fc*LEv;
-              if (strcmp(files[pSWin], string_novalue) != 0) A->E->SWinp->co[j] = W*SWin;
+                  || strcmp(files[pLEv], string_novalue) != 0) (*A->E->LEvp)(j) = W*fc*LEv;
+              if (strcmp(files[pSWin], string_novalue) != 0) (*A->E->SWinp)(j) = W*SWin;
               if (strcmp(files[pSWg], string_novalue) != 0
-                  || strcmp(files[pG], string_novalue) != 0) A->E->SWgp->co[j] = W*SW;
-              if (strcmp(files[pSWv], string_novalue) != 0) A->E->SWvp->co[j] = W*fc*
+                  || strcmp(files[pG], string_novalue) != 0) (*A->E->SWgp)(j) = W*SW;
+              if (strcmp(files[pSWv], string_novalue) != 0) (*A->E->SWvp)(j) = W*fc*
                     (SWv_vis+SWv_nir);
-              if (strcmp(files[pLWin], string_novalue) != 0) A->E->LWinp->co[j] = W*LWin;
+              if (strcmp(files[pLWin], string_novalue) != 0) (*A->E->LWinp)(j) = W*LWin;
               if (strcmp(files[pLWg], string_novalue) != 0
-                  || strcmp(files[pG], string_novalue) != 0) A->E->LWgp->co[j] = W*LW;
-              if (strcmp(files[pLWv], string_novalue) != 0) A->E->LWvp->co[j] = W*fc*LWv;
-              if (strcmp(files[pTs], string_novalue) != 0) A->E->Tsp->co[j] = W*Ts;
-              if (strcmp(files[pTg], string_novalue) != 0) A->E->Tgp->co[j] = W*(*Tgskin);
+                  || strcmp(files[pG], string_novalue) != 0) (*A->E->LWgp)(j) = W*LW;
+              if (strcmp(files[pLWv], string_novalue) != 0) (*A->E->LWvp)(j) = W*fc*LWv;
+              if (strcmp(files[pTs], string_novalue) != 0) (*A->E->Tsp)(j) = W*Ts;
+              if (strcmp(files[pTg], string_novalue) != 0) (*A->E->Tgp)(j) = W*(*Tgskin);
             }
 
           if (A->P->state_pixel == 1)
