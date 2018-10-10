@@ -367,8 +367,8 @@ void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac, EN
         if(strcmp(files[fradSWin] , string_novalue) != 0) *(egy->Rswdown_mean) = 0;
         if(strcmp(files[fradSWinbeam] , string_novalue) != 0) *(egy->Rswbeam_mean) = 0;
         if(strcmp(files[fshadow] , string_novalue) != 0){
-            (*egy->nDt_shadow) = 0;
-            (*egy->nDt_sun) = 0;
+            *(egy->nDt_shadow) = 0;
+            *(egy->nDt_sun) = 0;
         }
 
         if(strcmp(files[fG] , string_novalue) != 0) *(egy->SEB_mean) = 0;

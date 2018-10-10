@@ -1668,7 +1668,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             name=join_strings(files[fradSWinbeam],s2);
             write_map_vector(name, 0, par->format_out, egy->Rswbeam_mean.get(), UV,
                              number_novalue, top->j_cont, Nr, Nc);
-            (*egy->Rswbeam_mean) = 0.0;
+            *(egy->Rswbeam_mean) = 0.0;
             free(name);
         }
 
