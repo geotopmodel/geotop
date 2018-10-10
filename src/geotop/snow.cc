@@ -1064,11 +1064,11 @@ void WBsnow(double Dt, long ns, long r, long c, STATEVAR_3D *snow,
       m = ns - l + 1;
 
       //assign
-      if (Edt > E->ice->co[m] - E->deltaw->co[m])
+      if (Edt > (*E->ice)(m) - E->deltaw->co[m])
       {
 
-        Edt -= (E->ice->co[m] - E->deltaw->co[m]);
-        Wdt += (E->liq->co[m] + E->deltaw->co[m]);
+        Edt -= ((*E->ice)(m) - E->deltaw->co[m]);
+        Wdt += ((*E->liq)(m) + E->deltaw->co[m]);
         (*snow->w_ice)(l,r,c) = 0.;
         (*snow->w_liq)(l,r,c) = 0.;
         (*snow->Dzl)(l,r,c) = 0;
@@ -1078,8 +1078,8 @@ void WBsnow(double Dt, long ns, long r, long c, STATEVAR_3D *snow,
       {
 
         (*snow->T)(l,r,c) = E->Temp->co[m];
-        (*snow->w_ice)(l,r,c) = Fmax(0., E->ice->co[m] - E->deltaw->co[m] - Edt);
-        (*snow->w_liq)(l,r,c) = Fmax(0., E->liq->co[m] + E->deltaw->co[m] + Wdt);
+        (*snow->w_ice)(l,r,c) = Fmax(0., (*E->ice)(m) - E->deltaw->co[m] - Edt);
+        (*snow->w_liq)(l,r,c) = Fmax(0., (*E->liq)(m) + E->deltaw->co[m] + Wdt);
         (*snow->Dzl)(l,r,c) = 1.E3 * (*E->Dlayer)(m);
 
         Edt = 0.;
@@ -1093,8 +1093,8 @@ void WBsnow(double Dt, long ns, long r, long c, STATEVAR_3D *snow,
           snow_compactation(Dt, r, c, l, snow, slope, par);
 
           //b)melting: snow depth decreases maintaining the same density
-          if ((*snow->w_ice)(l,r,c)/E->ice->co[m] < 1) (*snow->Dzl)(l,r,c) *=
-                                                                  ((*snow->w_ice)(l,r,c)/E->ice->co[m]);
+          if ((*snow->w_ice)(l,r,c)/(*E->ice)(m) < 1) (*snow->Dzl)(l,r,c) *=
+                                                                  ((*snow->w_ice)(l,r,c)/(*E->ice)(m));
 
           //limit on max porosity
           if ((*snow->w_ice)(l,r,c) / (1.E-3*(*snow->Dzl)(l,r,c)*rho_w) >
@@ -1212,11 +1212,11 @@ void WBglacier(long ns, long ng, long r, long c, STATEVAR_3D *glac,
       m = ns + ng - l + 1;
 
       //assign
-      if (Edt > E->ice->co[m] - E->deltaw->co[m])
+      if (Edt > (*E->ice)(m) - E->deltaw->co[m])
       {
 
-        Edt -= (E->ice->co[m] - E->deltaw->co[m]);
-        *Melt = *Melt +  (E->liq->co[m] + E->deltaw->co[m]);
+        Edt -= ((*E->ice)(m) - E->deltaw->co[m]);
+        *Melt = *Melt +  ((*E->liq)(m) + E->deltaw->co[m]);
 
        (*glac->w_ice)(l,r,c) = 0.;
         (*glac->w_liq)(l,r,c) = 0.;
@@ -1227,8 +1227,8 @@ void WBglacier(long ns, long ng, long r, long c, STATEVAR_3D *glac,
       {
 
         (*glac->T)(l,r,c) = E->Temp->co[m];
-       (*glac->w_ice)(l,r,c) = Fmax(0., E->ice->co[m] - E->deltaw->co[m] - Edt);
-        (*glac->w_liq)(l,r,c) = Fmax(0., E->liq->co[m] + E->deltaw->co[m]);
+       (*glac->w_ice)(l,r,c) = Fmax(0., (*E->ice)(m) - E->deltaw->co[m] - Edt);
+        (*glac->w_liq)(l,r,c) = Fmax(0., (*E->liq)(m) + E->deltaw->co[m]);
         (*glac->Dzl)(l,r,c) = 1.E3 * (*E->Dlayer)(m);
 
         Edt = 0.;
@@ -1238,8 +1238,8 @@ void WBglacier(long ns, long ng, long r, long c, STATEVAR_3D *glac,
 
           //COMPACTION
           //melting: snow depth decreases maintaining the same density
-          if ((*glac->w_ice)(l,r,c)/E->ice->co[m] < 1)(*glac->Dzl)(l,r,c) *=
-                                                                 ((*glac->w_ice)(l,r,c)/E->ice->co[m]);
+          if ((*glac->w_ice)(l,r,c)/(*E->ice)(m) < 1)(*glac->Dzl)(l,r,c) *=
+                                                                 ((*glac->w_ice)(l,r,c)/(*E->ice)(m));
 
           //limit on max porosity
           if ((*glac->w_ice)(l,r,c) / (1.E-3*(*glac->Dzl)(l,r,c)*rho_w) > 0.95)
