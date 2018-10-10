@@ -2359,8 +2359,7 @@ double calc_C(long l, long nsng, double a, double *wi, double *wl, double *dw,
     }
   else    //soil
     {
-      C = pa(jct,l-nsng)*(1.-pa(jsat,l-nsng)) + (c_ice*(wi[l]-a*dw[l]) + c_liq*
-                                                   (wl[l]+a*dw[l]))/D[l];
+      C = pa(jct,l-nsng)*(1.-pa(jsat,l-nsng)) + (c_ice*(wi[l]-a*dw[l]) + c_liq* (wl[l]+a*dw[l]))/D[l];
     }
 
   return (C);
