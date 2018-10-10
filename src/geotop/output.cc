@@ -1889,7 +1889,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (i=1; i<=par->total_pixel; i++)
                 {
-                    V->co[i] = egy->Hgplot->co[i] + egy->Hvplot->co[i];
+                    V->co[i] = (*egy->Hgplot)(i) + (*egy->Hvplot)(i);
                 }
                 plot(files[pH], i, V.get(), par->format_out, top->j_cont);
             }
@@ -1898,7 +1898,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (i=1; i<=par->total_pixel; i++)
                 {
-                    V->co[i] = egy->LEgplot->co[i] + egy->LEvplot->co[i];
+                    V->co[i] = (*egy->LEgplot)(i) + (*egy->LEvplot)(i);
                 }
 
                 plot(files[pLE], i, V.get(), par->format_out, top->j_cont);
@@ -1908,8 +1908,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (i=1; i<=par->total_pixel; i++)
                 {
-                    V->co[i] = egy->SWgplot->co[i]+egy->LWgplot->co[i]-egy->Hgplot->co[i]
-                               -egy->LEgplot->co[i];
+                    V->co[i] = (*egy->SWgplot)(i) + (*egy->LWgplot)(i)-(*egy->Hgplot)(i) - (*egy->LEgplot)(i);
                 }
                 plot(files[pG], i, V.get(), par->format_out, top->j_cont);
             }
@@ -4815,32 +4814,35 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
 
         if (par->output_surfenergy->co[i_sim]>0)
         {
-            if (strcmp(files[fradnet],
-                       string_novalue) != 0) egy->Rn_mean->co[j] += (egy->SW->co[j]+egy->LW->co[j])
-                                                                    *Dt/(par->output_surfenergy->co[i_sim]*3600.);
-            if (strcmp(files[fradLWin],
-                       string_novalue) != 0) egy->LWin_mean->co[j] += (egy->LWin->co[j])*Dt/
-                                                                      (par->output_surfenergy->co[i_sim]*3600.);
-            if (strcmp(files[fradLW],
-                       string_novalue) != 0) egy->LW_mean->co[j] += (egy->LW->co[j])*Dt/
-                                                                    (par->output_surfenergy->co[i_sim]*3600.);
-            if (strcmp(files[fradSW],
-                       string_novalue) != 0)  egy->SW_mean->co[j] += (egy->SW->co[j])*Dt/
-                                                                     (par->output_surfenergy->co[i_sim]*3600.);
-            if (strcmp(files[fradSWin],
-                       string_novalue) != 0) egy->Rswdown_mean->co[j] += (egy->SWin->co[j])*Dt/
-                                                                         (par->output_surfenergy->co[i_sim]*3600.);
-            if (strcmp(files[fradSWinbeam],
-                       string_novalue) != 0) egy->Rswbeam_mean->co[j] += (egy->SWinb->co[j])*Dt/
-                                                                         (par->output_surfenergy->co[i_sim]*3600.);
-            if (strcmp(files[fG], string_novalue) != 0) egy->SEB_mean->co[j] +=
-                                                                (egy->G->co[j])*Dt/(par->output_surfenergy->co[i_sim]*3600.);
-            if (strcmp(files[fH], string_novalue) != 0) egy->H_mean->co[j] +=
-                                                                (egy->H->co[j])*Dt/(par->output_surfenergy->co[i_sim]*3600.);
-            if (strcmp(files[fLE], string_novalue) != 0) egy->ET_mean->co[j] +=
-                                                                 (egy->LE->co[j])*Dt/(par->output_surfenergy->co[i_sim]*3600.);
-            if (strcmp(files[fTs], string_novalue) != 0) egy->Ts_mean->co[j] +=
-                                                                 (egy->Ts->co[j])*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+            if (strcmp(files[fradnet],string_novalue) != 0)
+                (*egy->Rn_mean)(j) += ((*egy->SW)(j) + (*egy->LW)(j)) *Dt/(par->output_surfenergy->co[i_sim]*3600.);
+
+            if (strcmp(files[fradLWin],string_novalue) != 0)
+                (*egy->LWin_mean)(j) += ((*egy->LWin)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+
+            if (strcmp(files[fradLW], string_novalue) != 0)
+                (*egy->LW_mean)(j) += ((*egy->LW)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+
+            if (strcmp(files[fradSW],string_novalue) != 0)
+                (*egy->SW_mean)(j) += ((*egy->SW)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+
+            if (strcmp(files[fradSWin],string_novalue) != 0)
+                (*egy->Rswdown_mean)(j) += ((*egy->SWin)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+
+            if (strcmp(files[fradSWinbeam],string_novalue) != 0)
+                (*egy->Rswbeam_mean)(j) += ((*egy->SWinb)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+
+            if (strcmp(files[fG], string_novalue) != 0)
+                (*egy->SEB_mean)(j) += ((*egy->G)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+
+            if (strcmp(files[fH], string_novalue) != 0)
+                (*egy->H_mean)(j) += ((*egy->H)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+            
+            if (strcmp(files[fLE], string_novalue) != 0) 
+                (*egy->ET_mean)(j) += ((*egy->LE)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+            
+            if (strcmp(files[fTs], string_novalue) != 0) 
+                (*egy->Ts_mean)(j) += ((*egy->Ts)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
 
             if (strcmp(files[fshadow], string_novalue) != 0)
             {
@@ -4862,46 +4864,46 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
             if (strcmp(files[pH], string_novalue) != 0
                 || strcmp(files[pHg], string_novalue) != 0
                 || strcmp(files[pG], string_novalue) != 0) 
-                egy->Hgplot->co[j] += egy->Hgp->co[j];
+                (*egy->Hgplot)(j) += (*egy->Hgp)(j);
             
             if (strcmp(files[pH], string_novalue) != 0
                 || strcmp(files[pHv], string_novalue) != 0) 
-                egy->Hvplot->co[j] += egy->Hvp->co[j];
+                (*egy->Hvplot)(j) += (*egy->Hvp)(j);
             
             if (strcmp(files[pLE], string_novalue) != 0
                 || strcmp(files[pLEg], string_novalue) != 0
                 || strcmp(files[pG], string_novalue) != 0) 
-                egy->LEgplot->co[j] += egy->LEgp->co[j];
+                (*egy->LEgplot)(j) += (*egy->LEgp)(j);
             
             if (strcmp(files[pLE], string_novalue) != 0
                 || strcmp(files[pLEv], string_novalue) != 0) 
-                egy->LEvplot->co[j] += egy->LEvp->co[j];
+                (*egy->LEvplot)(j) += (*egy->LEvp)(j);
             
             if (strcmp(files[pSWin], string_novalue) != 0) 
-                egy->SWinplot->co[j] += egy->SWinp->co[j];
+                (*egy->SWinplot)(j) += (*egy->SWinp)(j);
             
             if (strcmp(files[pSWg], string_novalue) != 0
                 || strcmp(files[pG], string_novalue) != 0) 
-                egy->SWgplot->co[j] += egy->SWgp->co[j];
+                (*egy->SWgplot)(j) += (*egy->SWgp)(j);
             
             if (strcmp(files[pSWv], string_novalue) != 0) 
-                egy->SWvplot->co[j] += egy->SWvp->co[j];
+                (*egy->SWvplot)(j) += (*egy->SWvp)(j);
             
             if (strcmp(files[pLWin], string_novalue) != 0) 
-                egy->LWinplot->co[j] += egy->LWinp->co[j];
+                (*egy->LWinplot)(j) += (*egy->LWinp)(j);
             
             if (strcmp(files[pLWg], string_novalue) != 0
                 || strcmp(files[pG], string_novalue) != 0) 
-                egy->LWgplot->co[j] += egy->LWgp->co[j];
+                (*egy->LWgplot)(j) += (*egy->LWgp)(j);
             
             if (strcmp(files[pLWv], string_novalue) != 0) 
-                egy->LWvplot->co[j] += egy->LWvp->co[j];
+                (*egy->LWvplot)(j) += (*egy->LWvp)(j);
             
             if (strcmp(files[pTs], string_novalue) != 0) 
-                egy->Tsplot->co[j] += egy->Tsp->co[j];
+                (*egy->Tsplot)(j) += (*egy->Tsp)(j);
             
             if (strcmp(files[pTg], string_novalue) != 0) 
-                egy->Tgplot->co[j] += egy->Tgp->co[j];
+                (*egy->Tgplot)(j) += (*egy->Tgp)(j);
             
             if (strcmp(files[pD], string_novalue) != 0) 
                 (*snow->Dplot)(j) += W * DEPTH((*top->rc_cont)(j,1), (*top->rc_cont)(j,2), snow->S->lnum.get(), snow->S->Dzl.get());

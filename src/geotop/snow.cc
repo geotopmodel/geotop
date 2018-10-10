@@ -1080,7 +1080,7 @@ void WBsnow(double Dt, long ns, long r, long c, STATEVAR_3D *snow,
         (*snow->T)(l,r,c) = E->Temp->co[m];
         (*snow->w_ice)(l,r,c) = Fmax(0., E->ice->co[m] - E->deltaw->co[m] - Edt);
         (*snow->w_liq)(l,r,c) = Fmax(0., E->liq->co[m] + E->deltaw->co[m] + Wdt);
-        (*snow->Dzl)(l,r,c) = 1.E3 * E->Dlayer->co[m];
+        (*snow->Dzl)(l,r,c) = 1.E3 * (*E->Dlayer)(m);
 
         Edt = 0.;
         Wdt = 0.;
@@ -1229,7 +1229,7 @@ void WBglacier(long ns, long ng, long r, long c, STATEVAR_3D *glac,
         (*glac->T)(l,r,c) = E->Temp->co[m];
        (*glac->w_ice)(l,r,c) = Fmax(0., E->ice->co[m] - E->deltaw->co[m] - Edt);
         (*glac->w_liq)(l,r,c) = Fmax(0., E->liq->co[m] + E->deltaw->co[m]);
-        (*glac->Dzl)(l,r,c) = 1.E3 * E->Dlayer->co[m];
+        (*glac->Dzl)(l,r,c) = 1.E3 * (*E->Dlayer)(m);
 
         Edt = 0.;
 
