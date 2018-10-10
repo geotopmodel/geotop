@@ -1592,9 +1592,9 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
       //diagonal part of F due to heat capacity and boundary condition (except conduction)
       C0 = calc_C(l, ns+ng, 0.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
-                  &egy->Dlayer->co[0], sl->pa->matrix(sy));
+                  *egy->Dlayer, sl->pa->matrix(sy));
       C1 = calc_C(l, ns+ng, 1.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
-                  &egy->Dlayer->co[0], sl->pa->matrix(sy));
+                  *egy->Dlayer, sl->pa->matrix(sy));
       if (l<=ns+ng
           && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
       egy->Fenergy->co[l] += ( Lf*(*egy->deltaw)(l) +
@@ -1669,7 +1669,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
           //real thermal capacity
           C1 = calc_C(l, ns+ng, 1.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
-                      &egy->Dlayer->co[0], sl->pa->matrix(sy));
+                      *egy->Dlayer, sl->pa->matrix(sy));
           if (l<=ns+ng
               && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
           //adds apparent thermal conductivity (due to phase change) for both snow and soil
@@ -1988,9 +1988,9 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
               //diagonal part of F due to heat capacity and boundary condition (except conduction)
               C0 = calc_C(l, ns+ng, 0.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
-                          &egy->Dlayer->co[0], sl->pa->matrix(sy));
+                          *egy->Dlayer, sl->pa->matrix(sy));
               C1 = calc_C(l, ns+ng, 1.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
-                          &egy->Dlayer->co[0], sl->pa->matrix(sy));
+                          *egy->Dlayer, sl->pa->matrix(sy));
               if (l<=ns+ng
                   && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
               egy->Fenergy->co[l] += ( Lf*(*egy->deltaw)(l) +
@@ -2348,18 +2348,18 @@ void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w,
 /******************************************************************************************************************************************/
 
 double calc_C(long l, long nsng, double a, double *wi, double *wl, double *dw,
-              double *D, MatrixView<double> &&pa)
+              Vector<double> &D, MatrixView<double> &&pa)
 {
 
   double C;
 
   if (l<=nsng)  //snow
     {
-      C = (c_ice*(wi[l]-a*dw[l]) + c_liq*(wl[l]+a*dw[l]))/D[l];
+      C = (c_ice*(wi[l]-a*dw[l]) + c_liq*(wl[l]+a*dw[l]))/D(l);
     }
   else    //soil
     {
-      C = pa(jct,l-nsng)*(1.-pa(jsat,l-nsng)) + (c_ice*(wi[l]-a*dw[l]) + c_liq* (wl[l]+a*dw[l]))/D[l];
+      C = pa(jct,l-nsng)*(1.-pa(jsat,l-nsng)) + (c_ice*(wi[l]-a*dw[l]) + c_liq* (wl[l]+a*dw[l]))/D(l);
     }
 
   return (C);

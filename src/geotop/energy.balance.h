@@ -62,7 +62,7 @@ void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w,
                            Vector<double> *K);
 
 double calc_C(long l, long nsng, double a, double *wi, double *wl, double *dw,
-              double *D, MatrixView<double> &&pa);
+              Vector<double> &D, MatrixView<double> &&pa);
 
 void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
                   double Tg0, double Qg0, double Tv0, double zmu, double zmT, // 5 parameters
