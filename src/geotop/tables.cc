@@ -203,6 +203,7 @@ double find_watertabledepth_dw(double Z, long i, long ty, SOIL *sl)
     long l;//counter
     short out=0;
 
+    // The computation starts from the 3rd layer (since the first 2 are usually very thin).
     n = 3;
  //   std::cout << "(*sl->Ptot)(n,i) = " << (*sl->Ptot)(n,i) << std::endl;
     if ((*sl->Ptot)(n,i) < thresh)
@@ -227,9 +228,8 @@ double find_watertabledepth_dw(double Z, long i, long ty, SOIL *sl)
 
         if (out==1)
         {
-            table += ( 0.5 * (*sl->pa)(ty,jdz,n) - ((*sl->Ptot)(n,i)-thresh)*0.5*
-                                                    ((*sl->pa)(ty,jdz,n-1)+(*sl->pa)(ty,jdz,n))/((*sl->Ptot)(n,i)
-                                                                                                       -(*sl->Ptot)(n-1,i)) );
+            table += 0.5 * (*sl->pa)(ty,jdz,n) - ((*sl->Ptot)(n,i)-thresh) * 0.5 * ((*sl->pa)(ty,jdz,n-1) +(*sl->pa)(ty,jdz,n))/
+                                                   ((*sl->Ptot)(n,i) -(*sl->Ptot)(n-1,i)) ;
         }
         else
         {
