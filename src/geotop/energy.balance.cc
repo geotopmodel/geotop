@@ -1650,7 +1650,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
       for (l=sur; l<=n; l++)
         {
-          egy->T1->co[l] = (*egy->Temp)(l);
+          (*egy->T1)(l) = (*egy->Temp)(l);
         }
 
       //Calculates F'(x) referred to as Jacobian matrix
@@ -1778,7 +1778,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
           for (l=sur; l<=n; l++)
             {
 
-              (*egy->Temp)(l) = egy->T1->co[l] + lambda[0] * (*egy->Newton_dir)(l);
+              (*egy->Temp)(l) = (*egy->T1)(l) + lambda[0] * (*egy->Newton_dir)(l);
 
 
               //soil
