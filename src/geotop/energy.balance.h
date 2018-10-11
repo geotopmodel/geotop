@@ -80,7 +80,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
                   double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Lobukhov, // 5 parameters
                   double *rh, double *rv, double *rc, double *rb, double *ruc, // 5 parameters
                   double *rh_g, double *rv_g, double *Qg, double *u_top, double *decay, // 5 parameters
-                  double *Locc, double *LWup_above_v, double *T, Vector<double> *soil_evap_layer_bare,
+                  double *Locc, double *LWup_above_v, Vector<double> &T, Vector<double> *soil_evap_layer_bare,
                   Vector<double> *soil_evap_layer_veg, // 5 parameters
                   double sky); // 1 => TOT = 5*15+1 = 76 parameters
 
@@ -101,7 +101,8 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
                                     double *Hg1, double *Eg0, double *Eg1, double *Lobukhov, // 10
                                     double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g,
                                     double *rv_g, double *Qg, double *u_top, double *decay, // 10
-                                    double *Locc, double *LWup_above_v, double *T, Vector<double> *soil_evap_layer_bare,
+                                    double *Locc, double *LWup_above_v, Vector<double> &T,
+                                    Vector<double> *soil_evap_layer_bare,
                                     Vector<double> *soil_evap_layer_veg, // 5
                                     double sky, short flagTmin, long cont); // 3
 

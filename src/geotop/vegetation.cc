@@ -52,7 +52,7 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
              double *Lobukhov, PAR *par, long n, double *rm, // 10
              double *rh, double *rv, double *rc, double *rb, double *ruc, double *u_top, double *Etrans, double *Tv,
              double *Qv, double *decay, // 10
-             double *Locc, double *LWup_above_v, double psi, MatrixView<double> &&soil, double *T,
+             double *Locc, double *LWup_above_v, double psi, MatrixView<double> &&soil, Vector<double> &T,
              Vector<double> *soil_evap_layer) // 6 => TOT = 66 parameters
 {
 
@@ -255,7 +255,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
                    double *rv, double *rc, double *rb,
                    double *u_top, double *decay, double *Locc, double *LWup_above_v, double psi,
                    MatrixView<double> &&soil, double *alpha,
-                   double *beta, double *T, Vector<double> *soil_evap_layer)
+                   double *beta, Vector<double> &T, Vector<double> *soil_evap_layer)
 {
 
   double u_star, ft=0.0, fw, fwliq, fwice;

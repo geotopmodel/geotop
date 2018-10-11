@@ -1482,7 +1482,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                    H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans,
                    &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, rh, rv, rc, rb, ruc,
                    &rh_g, &rv_g, Qg, u_top, decay, Locc, LWup_ab_v,
-                   &((*egy->Temp)(0)), egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(),
+                   *egy->Temp, egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(),
                    (*top->sky)(r,c));
 
       if (micro == 1)
@@ -1883,7 +1883,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                                                  LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, // 10 parameters
                                                  Etrans, &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, // 10 parameters
                                                  rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, // 10 parameters
-                                                 Locc, LWup_ab_v, &((*egy->Temp)(0)), egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(), // 5 parameters
+                                                 Locc, LWup_ab_v, *egy->Temp, egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(), // 5 parameters
                                                  (*top->sky)(r,c), flagTmin, cont); // 3 parameters => TOT = 78 parameters
 
                   if (micro == 1)
@@ -2382,7 +2382,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
                   double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Lobukhov, // 5 parameters
                   double *rh, double *rv, double *rc, double *rb, double *ruc, // 5 parameters
                   double *rh_g, double *rv_g, double *Qg, double *u_top, double *decay, // 5 parameters
-                  double *Locc, double *LWup_above_v, double *T, Vector<double> *soil_evap_layer_bare,
+                  double *Locc, double *LWup_above_v, Vector<double> &T, Vector<double> *soil_evap_layer_bare,
                   Vector<double> *soil_evap_layer_veg, // 5 parameters
                   double sky) // 1 parameters
 {
@@ -2583,7 +2583,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
                                     double *Eg0, double *Eg1, double *Lobukhov,
                                     double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g,
                                     double *rv_g, double *Qg,
-                                    double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T,
+                                    double *u_top, double *decay, double *Locc, double *LWup_above_v, Vector<double> &T,
                                     Vector<double> *soil_evap_layer_bare,
                                     Vector<double> *soil_evap_layer_veg, double sky, short flagTmin, long cont)
 {

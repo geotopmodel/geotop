@@ -548,7 +548,7 @@ double latent(double Ts, double Le)
 
 void find_actual_evaporation_parameters(long R, long C, double *alpha,
                                         double *beta, Vector<double> *evap_layer, Vector<double> &theta,
-                                        MatrixView<double> &&soil, double *T, double psi, double P, double rv,
+                                        MatrixView<double> &&soil, Vector<double> &T, double psi, double P, double rv,
                                         double Ta,
                                         double Qa, double Qgsat, long nsnow)
 {
@@ -568,7 +568,7 @@ void find_actual_evaporation_parameters(long R, long C, double *alpha,
   else
     {
 
-      rho = air_density(0.5*(Ta+T[1]), Qa, P);
+      rho = air_density(0.5*(Ta+T(1)), Qa, P);
 
       //from Ye and Pielke, 1993 - bare soil evaporation
 
