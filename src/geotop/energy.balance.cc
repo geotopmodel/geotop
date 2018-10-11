@@ -1487,7 +1487,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
       if (micro == 1)
         {
-          EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Eadd + egy->SWlayer->co[0];
+          EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Eadd + (*egy->SWlayer)(0);
           dEB_dT = -eps*(*top->sky)(r,c)*dSB_dT(Tg) - dH_dT - latent(Tg,
                    Levap(Tg))*dE_dT;//changed
         }
@@ -1601,7 +1601,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                                C0*(*egy->Dlayer)(l)*egy->T0->co[l] ) / Dt;
 
       //shortwave radiation penetrating under the surface
-      if (micro == 1 && l<=ns+1) egy->Fenergy->co[l] -= egy->SWlayer->co[l];
+      if (micro == 1 && l<=ns+1) egy->Fenergy->co[l] -= (*egy->SWlayer)(l);
 
     }
 
@@ -1889,7 +1889,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
                   if (micro == 1)
                     {
-                      EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Eadd + egy->SWlayer->co[0];
+                      EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Eadd + (*egy->SWlayer)(0);
                       dEB_dT = -eps*(*top->sky)(r,c)*dSB_dT(Tg) - dH_dT - latent(Tg,
                                Levap(Tg))*dE_dT;//changed
                     }
@@ -1997,7 +1997,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                                        C0*(*egy->Dlayer)(l)*egy->T0->co[l] ) / Dt;
 
               //shortwave radiation penetrating under the surface
-              if (micro == 1 && l<=ns+1) egy->Fenergy->co[l] -= egy->SWlayer->co[l];
+              if (micro == 1 && l<=ns+1) egy->Fenergy->co[l] -= (*egy->SWlayer)(l);
 
               //store soil internal energy
               if (l>ns+ng) *dUsl = *dUsl + Lf*(*egy->deltaw)(l) +
@@ -2039,7 +2039,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
           update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &egy->T0->co[0]);
           res = norm_2(egy->Fenergy.get(), sur, n);
 
-          //printf("Dt:%.2f res:%e cont:%ld cont2:%ld T0:%f T1:%f EB:%f SW:%f Ta:%f Tg:%f LW:%.2f H:%.2f ET:%.2f dw:%f liq:%f ice:%f \n",Dt,res,cont,cont2,(*egy->Temp)(sur),egy->Temp->co[1],EB,egy->SWlayer->co[0],Ta,Tg,*LW,(*H),latent(Tg,Levap(Tg))*(*E),egy->deltaw->co[1],egy->liq->co[1]+egy->deltaw->co[1],egy->ice->co[1]-egy->deltaw->co[1]);
+          //printf("Dt:%.2f res:%e cont:%ld cont2:%ld T0:%f T1:%f EB:%f SW:%f Ta:%f Tg:%f LW:%.2f H:%.2f ET:%.2f dw:%f liq:%f ice:%f \n",Dt,res,cont,cont2,(*egy->Temp)(sur),egy->Temp->co[1],EB,(*egy->SWlayer)(0),Ta,Tg,*LW,(*H),latent(Tg,Levap(Tg))*(*E),egy->deltaw->co[1],egy->liq->co[1]+egy->deltaw->co[1],egy->ice->co[1]-egy->deltaw->co[1]);
           //printf("res:%e sur:%ld\n",res,sur);
 
           if (res <= res_av*(1.0 - ni*lambda[0])) iter_close2=1;
