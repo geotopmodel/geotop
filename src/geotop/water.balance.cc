@@ -2631,8 +2631,7 @@ void channel_flow(double Dt, double t, short DDcomplex, RowView<double> &&h, Vec
           }
           else
           {
-            if ( dV[ch] > 0) h((*cnet->ch_down)(ch)) = (1.E3*dV[ch]/
-                                                        (dn*cnet->length->co[(*cnet->ch_down)(ch)])) * cos(
+            if ( dV[ch] > 0) h((*cnet->ch_down)(ch)) = (1.E3*dV[ch]/ (dn*(*cnet->length)((*cnet->ch_down)(ch)))) * cos(
                       (*top->slope)(R,C)*Pi/180.);  //mm;
           }
         }
