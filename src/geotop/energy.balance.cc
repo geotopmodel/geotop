@@ -1778,7 +1778,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
           for (l=sur; l<=n; l++)
             {
 
-              (*egy->Temp)(l) = egy->T1->co[l] + lambda[0] * egy->Newton_dir->co[l];
+              (*egy->Temp)(l) = egy->T1->co[l] + lambda[0] * (*egy->Newton_dir)(l);
 
 
               //soil
