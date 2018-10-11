@@ -1864,7 +1864,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                           if ((*egy->THETA)(m) > (*sl->pa)(sy,jres,1) + 1.E-3
                               && l <= egy->soil_evap_layer_bare->nh )
                             {
-                              (*egy->THETA)(m) -= Fmax( Dt*(1.-fc)*egy->soil_evap_layer_bare->co[m]/
+                              (*egy->THETA)(m) -= Fmax( Dt*(1.-fc)*(*egy->soil_evap_layer_bare)(m)/
                                                          (rho_w*(*egy->Dlayer)(l)), 0.0 );
                               (*egy->THETA)(m) -= Fmax( Dt*fc*egy->soil_evap_layer_veg->co[m]/
                                                          (rho_w*(*egy->Dlayer)(l)), 0.0 );
@@ -2209,7 +2209,7 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
       //soil evaporation
       if (l <= egy->soil_evap_layer_bare->nh)
         {
-          (*ET)(l,r,c) += (1.-fc)*egy->soil_evap_layer_bare->co[l]*Dt;
+          (*ET)(l,r,c) += (1.-fc)*(*egy->soil_evap_layer_bare)(l)*Dt;
           (*ET)(l,r,c) += fc*egy->soil_evap_layer_veg->co[l]*Dt;
         }
 
@@ -2255,7 +2255,7 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
       //soil evaporation
       if (l <= egy->soil_evap_layer_bare->nh)
         {
-          (*ET)(l,ch) += (1.-fc)*egy->soil_evap_layer_bare->co[l]*Dt;
+          (*ET)(l,ch) += (1.-fc)*(*egy->soil_evap_layer_bare)(l)*Dt;
           (*ET)(l,ch) += fc*egy->soil_evap_layer_veg->co[l]*Dt;
         }
 
