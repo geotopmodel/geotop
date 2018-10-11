@@ -3902,7 +3902,7 @@ void copy_veg_state(STATE_VEG *from, STATE_VEG *to)
     long i, n=from->Tv->nh;
     for (i=1; i<=n; i++)
     {
-        to->Tv->co[i] = from->Tv->co[i];
+        (*to->Tv)(i) = (*from->Tv)(i);
         to->wrain->co[i] = from->wrain->co[i];
         to->wsnow->co[i] = from->wsnow->co[i];
     }

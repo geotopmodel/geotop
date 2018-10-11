@@ -420,7 +420,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                                A->L->vegpar->co[jdLSAI], Prain_over, &max_wcan_rain,
                                &(V->wrain->co[j]), &drip_rain);
       canopy_snow_interception(ratio_max_storage_SNOW_over_canopy_to_LSAI,
-                               A->L->vegpar->co[jdLSAI], Psnow_over, V->Tv->co[j],
+                               A->L->vegpar->co[jdLSAI], Psnow_over, (*V->Tv)(j),
                                Vpoint, Dt, &max_wcan_snow, &(V->wsnow->co[j]), &drip_snow);
 
       //precipitation at the surface in the vegetated fraction
@@ -876,7 +876,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
               else if (fc<fc0)
                 {
                   new_snow(A->P->alpha_snow, r, c, S, V->wsnow->co[j]*(fc0-fc),
-                           V->wsnow->co[j]*(fc0-fc)*1000./300, V->Tv->co[j]);
+                           V->wsnow->co[j]*(fc0-fc)*1000./300, (*V->Tv)(j));
                   (*A->W->Pnet)(r,c) +=  V->wrain->co[j]*(fc0-fc);
                 }
 
@@ -1027,7 +1027,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                               else if (opnt[l] == oTv)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] =
-                                    V->Tv->co[j]*Dt/(*A->P->Dtplot_point)(i_sim);
+                                    (*V->Tv)(j)*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oTs)
                                 {
@@ -1250,7 +1250,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                             }
                           else if (obsn[l] == ooTv)
                             {
-                              odb[obsn[l]] += V->Tv->co[j]*(Dt/(*A->P->Dtplot_basin)(i_sim))/
+                              odb[obsn[l]] += (*V->Tv)(j)*(Dt/(*A->P->Dtplot_basin)(i_sim))/
                                               (double)A->P->total_pixel;
                             }
                           else if (obsn[l] == ooevapsur)
@@ -1454,7 +1454,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
       Qg0 = SpecHumidity(SatVapPressure(Tg0, P), P);
 
       //canopy temperature at the beginning of the time step
-      Tv0 = V->Tv->co[j];
+      Tv0 = (*V->Tv)(j);
 
       /*calculates all the surface energy fluxes, includes the calculation of vegetation temperature (solving the vegetation energy balance)
        Returns:
@@ -1480,7 +1480,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                    sl->pa->matrix(sy), land->ty->row(lu),
                    land->root_fraction->row(lu), par, egy->soil_transp_layer.get(), SWin, LWin, SWv, LW,
                    H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans,
-                   &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, rh, rv, rc, rb, ruc,
+                   &((*V->Tv)(j)), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, rh, rv, rc, rb, ruc,
                    &rh_g, &rv_g, Qg, u_top, decay, Locc, LWup_ab_v,
                    *egy->Temp, egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(),
                    (*top->sky)(r,c));
@@ -1881,7 +1881,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                                                  Wcsnmax, &dWcrn, &dWcsn, *egy->THETA, sl->pa->matrix(sy), // 5 parameters
                                                  land->ty->row(lu), land->root_fraction->row(lu), par, egy->soil_transp_layer.get(), SWin, // 5 parameters
                                                  LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, // 10 parameters
-                                                 Etrans, &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, // 10 parameters
+                                                 Etrans, &((*V->Tv)(j)), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, // 10 parameters
                                                  rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, // 10 parameters
                                                  Locc, LWup_ab_v, *egy->Temp, egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(), // 5 parameters
                                                  (*top->sky)(r,c), flagTmin, cont); // 3 parameters => TOT = 78 parameters

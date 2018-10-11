@@ -2109,7 +2109,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
                 for (i=1; i<=par->total_pixel; i++)
                 {
-                    if ((long)sl->VS->Tv->co[i] == number_novalue) sl->VS->Tv->co[i] = 0.;
+                    if ((long)(*sl->VS->Tv)(i) == number_novalue)
+                        (*sl->VS->Tv)(i) = 0.;
                 }
 
                 if (strcmp(files[rTv], string_novalue) != 0)
@@ -2327,7 +2328,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
             for (i=1; i<=par->total_pixel; i++)
             {
-                if ((long)sl->VS->Tv->co[i] == number_novalue) sl->VS->Tv->co[i] = 0.;
+                if ((long)(*sl->VS->Tv)(i) == number_novalue) (*sl->VS->Tv)(i) = 0.;
             }
 
             if (strcmp(files[rTv], string_novalue) != 0)
