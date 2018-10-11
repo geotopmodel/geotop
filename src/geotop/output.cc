@@ -1594,11 +1594,11 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     // SURFACE ENERGY BALANCE
 
     // RADIATION
-    if (par->output_surfenergy->co[i_sim]>0
-        && fmod(times->time+par->Dt,par->output_surfenergy->co[i_sim]*3600.0)<1.E-5)
+    if ((*par->output_surfenergy)(i_sim)>0
+        && fmod(times->time+par->Dt,(*par->output_surfenergy)(i_sim)*3600.0)<1.E-5)
     {
         n_file=(long)((times->time+par->Dt)/
-                      (par->output_surfenergy->co[i_sim]*3600.0));
+                      ((*par->output_surfenergy)(i_sim)*3600.0));
         write_suffix(NNNNN, n_file, 1);
         if ((*par->run_times)(i_sim) == 1)
         {
@@ -4813,37 +4813,37 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                 (*glac->SUBL)(j) += (*glac->subl)(j);
         }
 
-        if (par->output_surfenergy->co[i_sim]>0)
+        if ((*par->output_surfenergy)(i_sim)>0)
         {
             if (strcmp(files[fradnet],string_novalue) != 0)
-                (*egy->Rn_mean)(j) += ((*egy->SW)(j) + (*egy->LW)(j)) *Dt/(par->output_surfenergy->co[i_sim]*3600.);
+                (*egy->Rn_mean)(j) += ((*egy->SW)(j) + (*egy->LW)(j)) *Dt/((*par->output_surfenergy)(i_sim)*3600.);
 
             if (strcmp(files[fradLWin],string_novalue) != 0)
-                (*egy->LWin_mean)(j) += ((*egy->LWin)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+                (*egy->LWin_mean)(j) += ((*egy->LWin)(j))*Dt/((*par->output_surfenergy)(i_sim)*3600.);
 
             if (strcmp(files[fradLW], string_novalue) != 0)
-                (*egy->LW_mean)(j) += ((*egy->LW)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+                (*egy->LW_mean)(j) += ((*egy->LW)(j))*Dt/((*par->output_surfenergy)(i_sim)*3600.);
 
             if (strcmp(files[fradSW],string_novalue) != 0)
-                (*egy->SW_mean)(j) += ((*egy->SW)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+                (*egy->SW_mean)(j) += ((*egy->SW)(j))*Dt/((*par->output_surfenergy)(i_sim)*3600.);
 
             if (strcmp(files[fradSWin],string_novalue) != 0)
-                (*egy->Rswdown_mean)(j) += ((*egy->SWin)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+                (*egy->Rswdown_mean)(j) += ((*egy->SWin)(j))*Dt/((*par->output_surfenergy)(i_sim)*3600.);
 
             if (strcmp(files[fradSWinbeam],string_novalue) != 0)
-                (*egy->Rswbeam_mean)(j) += ((*egy->SWinb)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+                (*egy->Rswbeam_mean)(j) += ((*egy->SWinb)(j))*Dt/((*par->output_surfenergy)(i_sim)*3600.);
 
             if (strcmp(files[fG], string_novalue) != 0)
-                (*egy->SEB_mean)(j) += ((*egy->G)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+                (*egy->SEB_mean)(j) += ((*egy->G)(j))*Dt/((*par->output_surfenergy)(i_sim)*3600.);
 
             if (strcmp(files[fH], string_novalue) != 0)
-                (*egy->H_mean)(j) += ((*egy->H)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+                (*egy->H_mean)(j) += ((*egy->H)(j))*Dt/((*par->output_surfenergy)(i_sim)*3600.);
             
             if (strcmp(files[fLE], string_novalue) != 0) 
-                (*egy->ET_mean)(j) += ((*egy->LE)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+                (*egy->ET_mean)(j) += ((*egy->LE)(j))*Dt/((*par->output_surfenergy)(i_sim)*3600.);
             
             if (strcmp(files[fTs], string_novalue) != 0) 
-                (*egy->Ts_mean)(j) += ((*egy->Ts)(j))*Dt/(par->output_surfenergy->co[i_sim]*3600.);
+                (*egy->Ts_mean)(j) += ((*egy->Ts)(j))*Dt/((*par->output_surfenergy)(i_sim)*3600.);
 
             if (strcmp(files[fshadow], string_novalue) != 0)
             {

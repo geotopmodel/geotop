@@ -916,7 +916,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                          string_novalue) != 0) (*A->G->subl)(j) = Evap_glac;
             }
 
-          if (A->P->output_surfenergy->co[i_sim]>0)
+          if ((*A->P->output_surfenergy)(i_sim)>0)
             {
               if (strcmp(files[fradnet], string_novalue) != 0)(*A->E->Rn)(j)= (SW+LW);
               if (strcmp(files[fradLWin], string_novalue) != 0)(*A->E->LWin)(j)= LWin;
