@@ -723,7 +723,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         }
 
       //skin temperature
-      A->E->Temp->co[0] = A->E->Temp->co[1];
+     (*A->E->Temp)(0) =(*A->E->Temp)(1);
 
       //ENERGY BALANCE
       sux=SolvePointEnergyBalance(surface, Tdirichlet, Tdirichlet_bottom, A->P->EB,
@@ -746,7 +746,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
     {
 
       //skin temperature
-      *Tgskin = A->E->Temp->co[A->P->nsurface];
+      *Tgskin = (*A->E->Temp)(A->P->nsurface);
 
       //snow melting issue
       if (ic > 0)
@@ -766,7 +766,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         {
 
           //surface energy balance
-          LE = E*latent(A->E->Temp->co[1],Levap(A->E->Temp->co[1]));
+          LE = E*latent((*A->E->Temp)(1),Levap((*A->E->Temp)(1)));
           surfEB = SW + LW - H - LE;
 
           if (ns==0)
@@ -786,8 +786,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                                               (*A->S->pa)(sy,jsat,1)),
                               Arithmetic_Mean((*A->E->Dlayer)(ns), (*A->E->Dlayer)(ns+1), 0.,
                                               (*A->S->pa)(sy,jkt,1)) );
-              GEF = k*(A->E->Temp->co[ns]-(*A->E->Temp)(ns+1))/(0.5*(*A->E->Dlayer)(ns)
-                                                                 +0.5*(*A->E->Dlayer)(ns+1));
+              GEF = k*((*A->E->Temp)(ns)-(*A->E->Temp)(ns+1))/(0.5*(*A->E->Dlayer)(ns) +0.5*(*A->E->Dlayer)(ns+1));
             }
 
           //assign evaporation
@@ -1397,13 +1396,13 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
   if (dirichlet == 1)
     {
       sur = 1;
-      egy->Temp->co[0] = Tgd;
+      (*egy->Temp)(0) = Tgd;
     }
 
   //Initializes vectors
   for (l=sur; l<=n; l++)
     {
-      egy->T0->co[l] = egy->Temp->co[l];
+      egy->T0->co[l] = (*egy->Temp)(l);
     }
 
   //Initialize soil properties
@@ -1448,7 +1447,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
     {
 
       //Surface skin temperature used to compute the surface energy fluxes
-      Tg = egy->Temp->co[sur];
+      Tg =(*egy->Temp)(sur);
       Tg0 = Tg;
 
       //Qg0 is the specific humidity at the soil surface at the beginning of the time step (assumed saturated)
@@ -1483,7 +1482,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                    H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans,
                    &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, rh, rv, rc, rb, ruc,
                    &rh_g, &rv_g, Qg, u_top, decay, Locc, LWup_ab_v,
-                   &egy->Temp->co[0], egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(),
+                   &((*egy->Temp)(0)), egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(),
                    (*top->sky)(r,c));
 
       if (micro == 1)
@@ -1494,7 +1493,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
         }
     }
 
-  if (micro_sempl == 1)  EB = Convd * (Ta - egy->Temp->co[sur]);
+  if (micro_sempl == 1)  EB = Convd * (Ta -(*egy->Temp)(sur));
 
   EB0 = EB;
 
@@ -1598,7 +1597,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
       if (l<=ns+ng
           && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
       egy->Fenergy->co[l] += ( Lf*(*egy->deltaw)(l) +
-                               C1*(*egy->Dlayer)(l)*egy->Temp->co[l] -
+                               C1*(*egy->Dlayer)(l)*(*egy->Temp)(l) -
                                C0*(*egy->Dlayer)(l)*egy->T0->co[l] ) / Dt;
 
       //shortwave radiation penetrating under the surface
@@ -1608,7 +1607,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
   //top boundary condition
   egy->Fenergy->co[sur] -= ( (1.-KNe)*EB + KNe*EB0 );
-  if (dirichlet == 1) egy->Fenergy->co[sur] -= ( (Tgd-egy->Temp->co[sur])*
+  if (dirichlet == 1) egy->Fenergy->co[sur] -= ( (Tgd-(*egy->Temp)(sur))*
                                                    (1.-KNe)*kub1 + (Tgd-egy->T0->co[sur])*KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
 
   //bottom boundary condition (treated as sink)
@@ -1626,18 +1625,18 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
   if (dirichlet_bottom == 1)
     {
-      egy->Fenergy->co[n] -= ( (Tbottom-egy->Temp->co[n])*(1.-KNe)*kbb1 +
+      egy->Fenergy->co[n] -= ( (Tbottom-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
                                (Tbottom-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
     }
   else
     {
-      egy->Fenergy->co[n] -= ( (par->Tboundary-egy->Temp->co[n])*(1.-KNe)*kbb1 +
+      egy->Fenergy->co[n] -= ( (par->Tboundary-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
                                (par->Tboundary-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
                                    +par->Zboundary);
     }
 
   //include conduction in F(x0)
-  update_F_energy(sur, n, egy->Fenergy.get(), 1.-KNe, egy->Kth1.get(), &egy->Temp->co[0]);
+  update_F_energy(sur, n, egy->Fenergy.get(), 1.-KNe, egy->Kth1.get(), &(*egy->Temp)(0));
   update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &egy->T0->co[0]);
 
   //calculate the norm
@@ -1651,7 +1650,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
       for (l=sur; l<=n; l++)
         {
-          egy->T1->co[l] = egy->Temp->co[l];
+          egy->T1->co[l] = (*egy->Temp)(l);
         }
 
       //Calculates F'(x) referred to as Jacobian matrix
@@ -1676,13 +1675,13 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
           if (l<=ns+ng) //snow
             {
               C1 += Lf*((*egy->ice)(l)+(*egy->liq)(l))*dtheta_snow(par->alpha_snow, 1.,
-                                                                     egy->Temp->co[l])/(*egy->Dlayer)(l);
+                                                                     (*egy->Temp)(l))/(*egy->Dlayer)(l);
             }
           else    //soil
             {
               m=l-ns-ng;
-              if (egy->Temp->co[l]<=egy->Tstar->co[m]) C1 += rho_w * Lf * (Lf/(g*tk)*1.E3) 
-                      * dteta_dpsi(Psif(egy->Temp->co[l]), 0.0, (*sl->pa)(sy,jsat,m),
+              if ((*egy->Temp)(l)<=egy->Tstar->co[m]) C1 += rho_w * Lf * (Lf/(g*tk)*1.E3) 
+                      * dteta_dpsi(Psif((*egy->Temp)(l)), 0.0, (*sl->pa)(sy,jsat,m),
                                   (*sl->pa)(sy,jres,m), (*sl->pa)(sy,ja,m), (*sl->pa)(sy,jns,m),
                                   1-1/(*sl->pa)(sy,jns,m), PsiMin, 0.0);
             }
@@ -1780,7 +1779,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
           for (l=sur; l<=n; l++)
             {
 
-              egy->Temp->co[l] = egy->T1->co[l] + lambda[0] * egy->Newton_dir->co[l];
+              (*egy->Temp)(l) = egy->T1->co[l] + lambda[0] * egy->Newton_dir->co[l];
 
 
               //soil
@@ -1791,7 +1790,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                   if (i<=par->total_channel)
                     {
                       th0 = (*cnet->th)(m,j);
-                      th1 = teta_psi(Psif(Fmin(egy->Tstar->co[m],egy->Temp->co[l])), 0.0,
+                      th1 = teta_psi(Psif(Fmin(egy->Tstar->co[m],(*egy->Temp)(l))), 0.0,
                                      (*sl->pa)(sy,jsat,m),
                                      (*sl->pa)(sy,jres,m), (*sl->pa)(sy,ja,m), (*sl->pa)(sy,jns,m),
                                      1-1/(*sl->pa)(sy,jns,m), PsiMin, (*sl->pa)(sy,jss,m));
@@ -1801,7 +1800,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                   else
                     {
                       th0 = (*sl->th)(m,j);
-                      th1 = teta_psi(Psif(Fmin(egy->Tstar->co[m],egy->Temp->co[l])), 0.0,
+                      th1 = teta_psi(Psif(Fmin(egy->Tstar->co[m],(*egy->Temp)(l))), 0.0,
                                      (*sl->pa)(sy,jsat,m),
                                      (*sl->pa)(sy,jres,m), (*sl->pa)(sy,ja,m), (*sl->pa)(sy,jns,m),
                                      1-1/(*sl->pa)(sy,jns,m), PsiMin, (*sl->pa)(sy,jss,m));
@@ -1818,7 +1817,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                 {
 
                   th0=(*egy->liq)(l)/((*egy->ice)(l)+(*egy->liq)(l));
-                  th1=theta_snow(par->alpha_snow, 1., egy->Temp->co[l]);
+                  th1=theta_snow(par->alpha_snow, 1., (*egy->Temp)(l));
 
                   (*egy->deltaw)(l)=(th1-th0)*((*egy->ice)(l)+(*egy->liq)(l));
 
@@ -1826,7 +1825,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
             }
 
-          Tg=egy->Temp->co[sur];
+          Tg=(*egy->Temp)(sur);
           if (Tg < Tmin_surface_below_which_surfenergy_balance_recalculated) flagTmin++;
 
           if (surfacebalance == 1)
@@ -1885,7 +1884,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                                                  LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, // 10 parameters
                                                  Etrans, &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, // 10 parameters
                                                  rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, // 10 parameters
-                                                 Locc, LWup_ab_v, &egy->Temp->co[0], egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(), // 5 parameters
+                                                 Locc, LWup_ab_v, &((*egy->Temp)(0)), egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(), // 5 parameters
                                                  (*top->sky)(r,c), flagTmin, cont); // 3 parameters => TOT = 78 parameters
 
                   if (micro == 1)
@@ -1898,7 +1897,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                 }
             }
 
-          if (micro_sempl == 1)  EB = Convd * (Ta - egy->Temp->co[sur]);
+          if (micro_sempl == 1)  EB = Convd * (Ta -(*egy->Temp)(sur));
 
           //F(T) = diag(egy->Fenergy(T)) + K(T)*T
           for (l=sur; l<=n; l++)
@@ -1994,7 +1993,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
               if (l<=ns+ng
                   && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
               egy->Fenergy->co[l] += ( Lf*(*egy->deltaw)(l) +
-                                       C1*(*egy->Dlayer)(l)*egy->Temp->co[l] -
+                                       C1*(*egy->Dlayer)(l)*(*egy->Temp)(l) -
                                        C0*(*egy->Dlayer)(l)*egy->T0->co[l] ) / Dt;
 
               //shortwave radiation penetrating under the surface
@@ -2002,14 +2001,14 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
               //store soil internal energy
               if (l>ns+ng) *dUsl = *dUsl + Lf*(*egy->deltaw)(l) +
-                                     C1*(*egy->Dlayer)(l)*egy->Temp->co[l] - C0*(*egy->Dlayer)(l)*egy->T0->co[l];
+                                     C1*(*egy->Dlayer)(l)*(*egy->Temp)(l) - C0*(*egy->Dlayer)(l)*egy->T0->co[l];
 
             }
 
 
           //top boundary condition
           egy->Fenergy->co[sur] -= ( (1.-KNe)*EB + KNe*EB0 );
-          if (dirichlet == 1) egy->Fenergy->co[sur] -= ( (Tgd-egy->Temp->co[sur])*
+          if (dirichlet == 1) egy->Fenergy->co[sur] -= ( (Tgd-(*egy->Temp)(sur))*
                                                            (1.-KNe)*kub1 + (Tgd-egy->T0->co[sur])*KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
 
           //bottom boundary condition (treated as sink)
@@ -2026,21 +2025,21 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
           if (dirichlet_bottom == 1)
             {
-              egy->Fenergy->co[n] -= ( (Tbottom-egy->Temp->co[n])*(1.-KNe)*kbb1 +
+              egy->Fenergy->co[n] -= ( (Tbottom-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
                                        (Tbottom-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
             }
           else
             {
-              egy->Fenergy->co[n] -= ( (par->Tboundary-egy->Temp->co[n])*(1.-KNe)*kbb1 +
+              egy->Fenergy->co[n] -= ( (par->Tboundary-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
                                        (par->Tboundary-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
                                            +par->Zboundary);
             }
 
-          update_F_energy(sur, n, egy->Fenergy.get(), 1.-KNe, egy->Kth1.get(), &egy->Temp->co[0]);
+          update_F_energy(sur, n, egy->Fenergy.get(), 1.-KNe, egy->Kth1.get(), &(*egy->Temp)(0));
           update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &egy->T0->co[0]);
           res = norm_2(egy->Fenergy.get(), sur, n);
 
-          //printf("Dt:%.2f res:%e cont:%ld cont2:%ld T0:%f T1:%f EB:%f SW:%f Ta:%f Tg:%f LW:%.2f H:%.2f ET:%.2f dw:%f liq:%f ice:%f \n",Dt,res,cont,cont2,egy->Temp->co[sur],egy->Temp->co[1],EB,egy->SWlayer->co[0],Ta,Tg,*LW,(*H),latent(Tg,Levap(Tg))*(*E),egy->deltaw->co[1],egy->liq->co[1]+egy->deltaw->co[1],egy->ice->co[1]-egy->deltaw->co[1]);
+          //printf("Dt:%.2f res:%e cont:%ld cont2:%ld T0:%f T1:%f EB:%f SW:%f Ta:%f Tg:%f LW:%.2f H:%.2f ET:%.2f dw:%f liq:%f ice:%f \n",Dt,res,cont,cont2,(*egy->Temp)(sur),egy->Temp->co[1],EB,egy->SWlayer->co[0],Ta,Tg,*LW,(*H),latent(Tg,Levap(Tg))*(*E),egy->deltaw->co[1],egy->liq->co[1]+egy->deltaw->co[1],egy->ice->co[1]-egy->deltaw->co[1]);
           //printf("res:%e sur:%ld\n",res,sur);
 
           if (res <= res_av*(1.0 - ni*lambda[0])) iter_close2=1;
@@ -2092,10 +2091,10 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
   //skin temperature
   if (sur == 1
-      && par->nsurface == 0) egy->Temp->co[par->nsurface] = egy->Temp->co[sur];
+      && par->nsurface == 0) (*egy->Temp)(par->nsurface) =(*egy->Temp)(sur);
 
   //it is not admitted that the skin layer temperature goes > 0 when snow or glacier are present
-  if (sur == 0 && ns+ng > 0 && egy->Temp->co[sur] > 0) return -1;
+  if (sur == 0 && ns+ng > 0 &&(*egy->Temp)(sur) > 0) return -1;
 
   //it is not admitted that a snow/glacier layer melts completely
   for (l=1; l<=ns+ng; l++)
@@ -2143,7 +2142,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
   for (l=sur; l<=Nl+ns+ng; l++)
     {
 
-      if (egy->Temp->co[l] != egy->Temp->co[l])
+      if ((*egy->Temp)(l) != (*egy->Temp)(l))
         {
           f = fopen(FailedRunFile, "w");
           fprintf(f, "Simulation Period:%ld\n",i_sim);
@@ -2154,10 +2153,10 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
           t_error("Fatal Error! Geotop is closed. See failing report.");
         }
 
-      if (egy->Temp->co[l] < Tmin || egy->Temp->co[l] > Tmax)
+      if ((*egy->Temp)(l) < Tmin || (*egy->Temp)(l) > Tmax)
         {
           printf("Warning, T outside of range, PointEnergyBalance, l:%ld r:%ld c:%ld T:%f LW:%f H:%f LE:%f Ta:%f\n",
-                 l,r,c,egy->Temp->co[l],*LW,*H,latent(Tg,Levap(Tg))*(*E),Ta);
+                 l,r,c,(*egy->Temp)(l),*LW,*H,latent(Tg,Levap(Tg))*(*E),Ta);
         }
     }
 
@@ -2228,7 +2227,7 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
                               pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l), PsiMin, pa(jss,l));
 
       //temperature
-        (*S->T)(l,i) = egy->Temp->co[l+n];
+        (*S->T)(l,i) = (*egy->Temp)(l+n);
 
     }
 
@@ -2274,7 +2273,7 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
                                 pa(jss,l));
 
       //temperature
-        (*S->T)(l,ch) = egy->Temp->co[l+n];
+        (*S->T)(l,ch) = (*egy->Temp)(l+n);
 
     }
 }
@@ -2929,13 +2928,13 @@ void sux_minus6_condition(double ic, double wa, double rho, double D1, ENERGY *E
       (*E->ice)(l+1) = (*E->ice)(l);
       (*E->liq)(l+1) = (*E->liq)(l);
       E->deltaw->co[l+1] = E->deltaw->co[l];
-      E->Temp->co[l+1] = E->Temp->co[l];
+      (*E->Temp)(l+1) = (*E->Temp)(l);
       (*E->Dlayer)(l+1) = (*E->Dlayer)(l);
     }
 
   (*E->ice)(1) = ic;
   (*E->liq)(1) = wa;
-  E->Temp->co[1] = Fmin(E->Temp->co[2], -0.1);
+  (*E->Temp)(1) = Fmin((*E->Temp)(2), -0.1);
   (*E->Dlayer)(1)= ic/rho;
 
   if (E->deltaw->co[2] > ic)
