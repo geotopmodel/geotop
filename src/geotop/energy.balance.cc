@@ -1402,7 +1402,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
   //Initializes vectors
   for (l=sur; l<=n; l++)
     {
-      egy->T0->co[l] = (*egy->Temp)(l);
+      (*egy->T0)(l) = (*egy->Temp)(l);
     }
 
   //Initialize soil properties
@@ -1598,7 +1598,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
           && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
       (*egy->Fenergy)(l) += ( Lf*(*egy->deltaw)(l) +
                                C1*(*egy->Dlayer)(l)*(*egy->Temp)(l) -
-                               C0*(*egy->Dlayer)(l)*egy->T0->co[l] ) / Dt;
+                               C0*(*egy->Dlayer)(l)*(*egy->T0)(l) ) / Dt;
 
       //shortwave radiation penetrating under the surface
       if (micro == 1 && l<=ns+1) (*egy->Fenergy)(l) -= (*egy->SWlayer)(l);
@@ -1608,7 +1608,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
   //top boundary condition
   (*egy->Fenergy)(sur) -= ( (1.-KNe)*EB + KNe*EB0 );
   if (dirichlet == 1) (*egy->Fenergy)(sur) -= ( (Tgd-(*egy->Temp)(sur))*
-                                                   (1.-KNe)*kub1 + (Tgd-egy->T0->co[sur])*KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
+                                                   (1.-KNe)*kub1 + (Tgd-(*egy->T0)(sur))*KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
 
   //bottom boundary condition (treated as sink)
   (*egy->Fenergy)(n) -= par->Fboundary;
@@ -1626,18 +1626,18 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
   if (dirichlet_bottom == 1)
     {
       (*egy->Fenergy)(n) -= ( (Tbottom-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
-                               (Tbottom-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
+                               (Tbottom-(*egy->T0)(n))*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
     }
   else
     {
       (*egy->Fenergy)(n) -= ( (par->Tboundary-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
-                               (par->Tboundary-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
+                               (par->Tboundary-(*egy->T0)(n))*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
                                    +par->Zboundary);
     }
 
   //include conduction in F(x0)
   update_F_energy(sur, n, egy->Fenergy.get(), 1.-KNe, egy->Kth1.get(), &(*egy->Temp)(0));
-  update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &egy->T0->co[0]);
+  update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &(*egy->T0)(0));
 
   //calculate the norm
   res = norm_2(egy->Fenergy.get(), sur, n);
@@ -1875,7 +1875,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                     }
 
                   //surface energy balance
-                  EnergyFluxes_no_rec_turbulence(t, Tg, r, c, ns+ng, egy->T0->co[1], Qg0, Tv0, zmu, zmT, // 10 parameters
+                  EnergyFluxes_no_rec_turbulence(t, Tg, r, c, ns+ng, (*egy->T0)(1), Qg0, Tv0, zmu, zmT, // 10 parameters
                                                  z0s, d0s, rz0s, z0v, d0v, rz0v, hveg, v, Ta, Qa, // 10 parameters
                                                  P, LR, (*SL->P)(0,j), eps, fc, LSAI, decaycoeff0, *Wcrn, Wcrnmax, *Wcsn,  // 10 parameters
                                                  Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0], sl->pa->matrix(sy), // 5 parameters
@@ -1993,14 +1993,14 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                   && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
               (*egy->Fenergy)(l) += ( Lf*(*egy->deltaw)(l) +
                                        C1*(*egy->Dlayer)(l)*(*egy->Temp)(l) -
-                                       C0*(*egy->Dlayer)(l)*egy->T0->co[l] ) / Dt;
+                                       C0*(*egy->Dlayer)(l)*(*egy->T0)(l) ) / Dt;
 
               //shortwave radiation penetrating under the surface
               if (micro == 1 && l<=ns+1) (*egy->Fenergy)(l) -= (*egy->SWlayer)(l);
 
               //store soil internal energy
               if (l>ns+ng) *dUsl = *dUsl + Lf*(*egy->deltaw)(l) +
-                                     C1*(*egy->Dlayer)(l)*(*egy->Temp)(l) - C0*(*egy->Dlayer)(l)*egy->T0->co[l];
+                                     C1*(*egy->Dlayer)(l)*(*egy->Temp)(l) - C0*(*egy->Dlayer)(l)*(*egy->T0)(l);
 
             }
 
@@ -2008,7 +2008,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
           //top boundary condition
           (*egy->Fenergy)(sur) -= ( (1.-KNe)*EB + KNe*EB0 );
           if (dirichlet == 1) (*egy->Fenergy)(sur) -= ( (Tgd-(*egy->Temp)(sur))*
-                                                           (1.-KNe)*kub1 + (Tgd-egy->T0->co[sur])*KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
+                                                           (1.-KNe)*kub1 + (Tgd-(*egy->T0)(sur))*KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
 
           //bottom boundary condition (treated as sink)
           (*egy->Fenergy)(n) -= par->Fboundary;
@@ -2025,17 +2025,17 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
           if (dirichlet_bottom == 1)
             {
               (*egy->Fenergy)(n) -= ( (Tbottom-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
-                                       (Tbottom-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
+                                       (Tbottom-(*egy->T0)(n))*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
             }
           else
             {
               (*egy->Fenergy)(n) -= ( (par->Tboundary-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
-                                       (par->Tboundary-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
+                                       (par->Tboundary-(*egy->T0)(n))*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
                                            +par->Zboundary);
             }
 
           update_F_energy(sur, n, egy->Fenergy.get(), 1.-KNe, egy->Kth1.get(), &(*egy->Temp)(0));
-          update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &egy->T0->co[0]);
+          update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &(*egy->T0)(0));
           res = norm_2(egy->Fenergy.get(), sur, n);
 
           //printf("Dt:%.2f res:%e cont:%ld cont2:%ld T0:%f T1:%f EB:%f SW:%f Ta:%f Tg:%f LW:%.2f H:%.2f ET:%.2f dw:%f liq:%f ice:%f \n",Dt,res,cont,cont2,(*egy->Temp)(sur),egy->Temp->co[1],EB,(*egy->SWlayer)(0),Ta,Tg,*LW,(*H),latent(Tg,Levap(Tg))*(*E),egy->deltaw->co[1],egy->liq->co[1]+egy->deltaw->co[1],egy->ice->co[1]-egy->deltaw->co[1]);
