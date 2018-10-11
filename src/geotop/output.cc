@@ -813,11 +813,11 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     //BASIN DATA
     //*************************************************************************************************
     //*************************************************************************************************
-    if (par->Dtplot_basin->co[i_sim] > 1.E-5 && par->state_basin == 1)
+    if ((*par->Dtplot_basin)(i_sim) > 1.E-5 && par->state_basin == 1)
     {
         t_basin += par->Dt;
 
-        if (fabs(t_basin - par->Dtplot_basin->co[i_sim])<1.E-5)
+        if (fabs(t_basin - (*par->Dtplot_basin)(i_sim))<1.E-5)
         {
 
             if (strcmp(files[fbas], string_novalue) != 0)
@@ -951,7 +951,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                    << odbsn[oosnowover] << " mm" << std::endl;
 
             geolog << " Max Error Richards="
-                   << odbsn[oomasserror]*3600.0/par->Dtplot_basin->co[i_sim] << " mm/h" <<std::endl;
+                   << odbsn[oomasserror]*3600.0/(*par->Dtplot_basin)(i_sim) << " mm/h" <<std::endl;
             geolog << " Tot Error Richards=" <<  mass_error_tot << " mm Mean Time Step="
                    << odbsn[ootimestep] <<" s" << std::endl;
 
@@ -4986,7 +4986,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
 
     if (par->state_basin==1)
     {
-        if (par->Dtplot_basin->co[i_sim]>0)
+        if ((*par->Dtplot_basin)(i_sim)>0)
         {
             for (i=0; i<ootot; i++)
             {
