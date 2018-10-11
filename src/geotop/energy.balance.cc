@@ -1561,12 +1561,12 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
           if (l <= ns+ng)
             {
-              egy->Kth1->co[l-1] = - 2. * k_thermal(1, par->snow_conductivity, thwn, thin,
+              (*egy->Kth1)(l-1) = - 2. * k_thermal(1, par->snow_conductivity, thwn, thin,
                                                     satn, ktn) / ( (*egy->Dlayer)(l-1) + (*egy->Dlayer)(l) );
             }
           else
             {
-              egy->Kth1->co[l-1] = - 2. * k_thermal(0, 1, thwn, thin, satn,
+              (*egy->Kth1)(l-1) = - 2. * k_thermal(0, 1, thwn, thin, satn,
                                                     ktn) / ( (*egy->Dlayer)(l-1) + (*egy->Dlayer)(l) );
             }
 
@@ -1576,18 +1576,18 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
           if (l <= ns+ng)
             {
-              egy->Kth1->co[l-1] = - k_thermal(1, par->snow_conductivity, thw, thi, sat,
+              (*egy->Kth1)(l-1) = - k_thermal(1, par->snow_conductivity, thw, thi, sat,
                                                kt) / ( (*egy->Dlayer)(l)/2. );
             }
           else
             {
-              egy->Kth1->co[l-1] = - k_thermal(0, 1, thw, thi, sat,
+              (*egy->Kth1)(l-1) = - k_thermal(0, 1, thw, thi, sat,
                                                kt) / ( (*egy->Dlayer)(l)/2. );
             }
 
         }
 
-      (*egy->Kth0)(l-1) = egy->Kth1->co[l-1];
+      (*egy->Kth0)(l-1) = (*egy->Kth1)(l-1);
 
       //diagonal part of F due to heat capacity and boundary condition (except conduction)
       C0 = calc_C(l, ns+ng, 0.0, *egy->ice, *egy->liq, *egy->deltaw,
@@ -1958,12 +1958,12 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
                   if (l <= ns+ng)
                     {
-                      egy->Kth1->co[l-1] = - 2. * k_thermal(1, par->snow_conductivity, thwn, thin,
+                      (*egy->Kth1)(l-1) = - 2. * k_thermal(1, par->snow_conductivity, thwn, thin,
                                                             satn, ktn) / ( (*egy->Dlayer)(l-1) + (*egy->Dlayer)(l) );
                     }
                   else
                     {
-                      egy->Kth1->co[l-1] = - 2. * k_thermal(0, 1, thwn, thin, satn,
+                      (*egy->Kth1)(l-1) = - 2. * k_thermal(0, 1, thwn, thin, satn,
                                                             ktn) / ( (*egy->Dlayer)(l-1) + (*egy->Dlayer)(l) );
                     }
 
@@ -1973,12 +1973,12 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
                   if (l <= ns+ng)
                     {
-                      egy->Kth1->co[l-1] = - k_thermal(1, par->snow_conductivity, thw, thi, sat,
+                      (*egy->Kth1)(l-1) = - k_thermal(1, par->snow_conductivity, thw, thi, sat,
                                                        kt) / ( (*egy->Dlayer)(l)/2. );
                     }
                   else
                     {
-                      egy->Kth1->co[l-1] = - k_thermal(0, 1, thw, thi, sat,
+                      (*egy->Kth1)(l-1) = - k_thermal(0, 1, thw, thi, sat,
                                                        kt) / ( (*egy->Dlayer)(l)/2. );
                     }
 
