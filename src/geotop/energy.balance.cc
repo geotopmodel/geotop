@@ -421,15 +421,16 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                                &(*V->wrain)(j), &drip_rain);
       canopy_snow_interception(ratio_max_storage_SNOW_over_canopy_to_LSAI,
                                A->L->vegpar->co[jdLSAI], Psnow_over, (*V->Tv)(j),
-                               Vpoint, Dt, &max_wcan_snow, &(V->wsnow->co[j]), &drip_snow);
+                               Vpoint, Dt, &max_wcan_snow, &(*V->wsnow)(j), &drip_snow);
 
       //precipitation at the surface in the vegetated fraction
       Prain+=fc*drip_rain;
       Psnow+=fc*drip_snow;
 
-      if (V->wsnow->co[j]<0) printf("Error 1 wcansnow:%f %ld %ld\n",V->wsnow->co[j],
-                                      r,c);
-      if (V->wsnow->co[j]<0) V->wsnow->co[j]=0.0;
+      if ((*V->wsnow)(j)<0) 
+          printf("Error 1 wcansnow:%f %ld %ld\n",(*V->wsnow)(j),r,c);
+      if ((*V->wsnow)(j)<0) 
+          (*V->wsnow)(j)=0.0;
     }
 
   //SHORTWAVE RADIATION
@@ -537,10 +538,10 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
     {
       if (A->E->hsun>0)
         {
-          if (V->wsnow->co[j]<0) printf("Error wcansnow:%f %ld %ld\n",V->wsnow->co[j],r,
+          if ((*V->wsnow)(j)<0) printf("Error wcansnow:%f %ld %ld\n",(*V->wsnow)(j),r,
                                           c);
-          if (V->wsnow->co[j]<0) V->wsnow->co[j]=0.0;
-          fsnowcan=pow(V->wsnow->co[j]/max_wcan_snow, 2./3.);
+          if ((*V->wsnow)(j)<0) (*V->wsnow)(j)=0.0;
+          fsnowcan=pow((*V->wsnow)(j)/max_wcan_snow, 2./3.);
           shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, wsn_vis,
                                Bsnd_vis, Bsnb_vis, avis_d, avis_b, (*A->L->ty)(lu,jvCh),
                                (*A->L->ty)(lu,jvR_vis), (*A->L->ty)(lu,jvT_vis),
@@ -732,7 +733,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                                   A->S.get(), A->C.get(), A->T.get(), A->P.get(), ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg,
                                   1.0, hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa],
                                   eps, fc, A->L->vegpar->co[jdLSAI], A->L->vegpar->co[jddecay0],
-                                  &(*V->wrain)(j), max_wcan_rain, &(V->wsnow->co[j]), max_wcan_snow,
+                                  &(*V->wrain)(j), max_wcan_rain, &((*V->wsnow)(j)), max_wcan_snow,
                                   SWin, LWin, SWv_vis+SWv_nir, &LW, &H, &E, &LWv, &Hv, &LEv, &Etrans, &Ts, &Qs,
                                   Hadv, &Hg0, &Hg1, &Eg0, &Eg1, &Qv, &Qg, &Lobukhov,
                                   &rh, &rv, &rb, &rc, &ruc, &u_top, &decaycoeff, &Locc, &LWupabove_v, &lpb,
@@ -869,21 +870,21 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
               if (fc>fc0)
                 {
                   (*V->wrain)(j)*=(fc0/fc);
-                  V->wsnow->co[j]*=(fc0/fc);
+                  (*V->wsnow)(j)*=(fc0/fc);
 
                   //b) fc decreases
                 }
               else if (fc<fc0)
                 {
-                  new_snow(A->P->alpha_snow, r, c, S, V->wsnow->co[j]*(fc0-fc),
-                           V->wsnow->co[j]*(fc0-fc)*1000./300, (*V->Tv)(j));
+                  new_snow(A->P->alpha_snow, r, c, S, (*V->wsnow)(j)*(fc0-fc),
+                           (*V->wsnow)(j)*(fc0-fc)*1000./300, (*V->Tv)(j));
                   (*A->W->Pnet)(r,c) +=  (*V->wrain)(j)*(fc0-fc);
                 }
 
               if (fc<1.E-6)
                 {
                   (*V->wrain)(j)=0.0;
-                  V->wsnow->co[j]=0.0;
+                  (*V->wsnow)(j)=0.0;
                 }
             }
 
