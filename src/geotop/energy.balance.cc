@@ -1855,7 +1855,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                           if (egy->THETA->co[m] > (*sl->pa)(sy,jres,1) + 1.E-3
                               && l <= egy->soil_transp_layer->nh )
                             {
-                              egy->THETA->co[m] -= Fmax( Dt*fc*egy->soil_transp_layer->co[m]/
+                              egy->THETA->co[m] -= Fmax( Dt*fc*(*egy->soil_transp_layer)(m)/
                                                          (rho_w*(*egy->Dlayer)(l)), 0.0 );
                               if (egy->THETA->co[m] < (*sl->pa)(sy,jres,m)+1.E-3) egy->THETA->co[m] =
                                   (*sl->pa)(sy,jres,m)+1.E-3;
@@ -2205,7 +2205,7 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
 
       //canopy transpiration
       if (l <= egy->soil_transp_layer->nh)
-        (*ET)(l,r,c) +=  fc*egy->soil_transp_layer->co[l]*Dt;
+        (*ET)(l,r,c) +=  fc*(*egy->soil_transp_layer)(l)*Dt;
 
       //soil evaporation
       if (l <= egy->soil_evap_layer_bare->nh)
@@ -2251,7 +2251,7 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
 
       //canopy transpiration
       if (l <= egy->soil_transp_layer->nh) (*ET)(l,ch) +=
-          fc*egy->soil_transp_layer->co[l]*Dt;
+          fc*(*egy->soil_transp_layer)(l)*Dt;
 
       //soil evaporation
       if (l <= egy->soil_evap_layer_bare->nh)
