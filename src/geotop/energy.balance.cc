@@ -1590,9 +1590,9 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
       egy->Kth0->co[l-1] = egy->Kth1->co[l-1];
 
       //diagonal part of F due to heat capacity and boundary condition (except conduction)
-      C0 = calc_C(l, ns+ng, 0.0, *egy->ice, *egy->liq, &egy->deltaw->co[0],
+      C0 = calc_C(l, ns+ng, 0.0, *egy->ice, *egy->liq, *egy->deltaw,
                   *egy->Dlayer, sl->pa->matrix(sy));
-      C1 = calc_C(l, ns+ng, 1.0, *egy->ice, *egy->liq, &egy->deltaw->co[0],
+      C1 = calc_C(l, ns+ng, 1.0, *egy->ice, *egy->liq, *egy->deltaw,
                   *egy->Dlayer, sl->pa->matrix(sy));
       if (l<=ns+ng
           && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
@@ -1667,7 +1667,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
         {
 
           //real thermal capacity
-          C1 = calc_C(l, ns+ng, 1.0, *egy->ice, *egy->liq, &egy->deltaw->co[0],
+          C1 = calc_C(l, ns+ng, 1.0, *egy->ice, *egy->liq, *egy->deltaw,
                       *egy->Dlayer, sl->pa->matrix(sy));
           if (l<=ns+ng
               && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
@@ -1986,9 +1986,9 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                 }
 
               //diagonal part of F due to heat capacity and boundary condition (except conduction)
-              C0 = calc_C(l, ns+ng, 0.0, *egy->ice, *egy->liq, &egy->deltaw->co[0],
+              C0 = calc_C(l, ns+ng, 0.0, *egy->ice, *egy->liq, *egy->deltaw,
                           *egy->Dlayer, sl->pa->matrix(sy));
-              C1 = calc_C(l, ns+ng, 1.0, *egy->ice, *egy->liq, &egy->deltaw->co[0],
+              C1 = calc_C(l, ns+ng, 1.0, *egy->ice, *egy->liq, *egy->deltaw,
                           *egy->Dlayer, sl->pa->matrix(sy));
               if (l<=ns+ng
                   && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
@@ -2219,9 +2219,9 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
                               pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l));
       th_oversat = Fmax( (*S->P)(l,i) - psisat, 0.0 ) * pa(jss,l);
 
-      (*th)(l,i) = Fmax(0.,(*egy->liq)(l+n)+egy->deltaw->co[l+n])/(rho_w * (*egy->Dlayer)(l+n));
+      (*th)(l,i) = Fmax(0.,(*egy->liq)(l+n)+(*egy->deltaw)(l+n))/(rho_w * (*egy->Dlayer)(l+n));
 
-      (*S->thi)(l,i) = Fmax(0., (*egy->ice)(l+n)-egy->deltaw->co[l+n])/(rho_w*(*egy->Dlayer)(l+n));
+      (*S->thi)(l,i) = Fmax(0., (*egy->ice)(l+n)-(*egy->deltaw)(l+n))/(rho_w*(*egy->Dlayer)(l+n));
 
       (*S->P)(l,i) = psi_teta((*th)(l,i)+th_oversat, (*S->thi)(l,i),
                               pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l), PsiMin, pa(jss,l));
@@ -2265,8 +2265,8 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
                               pa(ja,l), pa(jns,l), 1.-1./pa(jns,l));
       th_oversat = Fmax( (*S->P)(l,ch) - psisat, 0.0 ) *pa(jss,l);
 
-      (*th)(l,ch) = Fmax(0., (*egy->liq)(l+n)+egy->deltaw->co[l+n])/(rho_w*(*egy->Dlayer)(l+n));
-      (*S->thi)(l,ch) = Fmax(0., (*egy->ice)(l+n)-egy->deltaw->co[l+n])/(rho_w*(*egy->Dlayer)(l+n));
+      (*th)(l,ch) = Fmax(0., (*egy->liq)(l+n)+(*egy->deltaw)(l+n))/(rho_w*(*egy->Dlayer)(l+n));
+      (*S->thi)(l,ch) = Fmax(0., (*egy->ice)(l+n)-(*egy->deltaw)(l+n))/(rho_w*(*egy->Dlayer)(l+n));
 
       (*S->P)(l,ch) = psi_teta((*th)(l,ch)+th_oversat, (*S->thi)(l,ch),
                                  pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l), PsiMin,
@@ -2343,7 +2343,7 @@ void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double calc_C(long l, long nsng, double a, Vector<double> &wi, Vector<double> &wl, double *dw,
+double calc_C(long l, long nsng, double a, Vector<double> &wi, Vector<double> &wl, Vector<double> &dw,
               Vector<double> &D, MatrixView<double> &&pa)
 {
 
@@ -2351,11 +2351,11 @@ double calc_C(long l, long nsng, double a, Vector<double> &wi, Vector<double> &w
 
   if (l<=nsng)  //snow
     {
-      C = (c_ice*(wi(l)-a*dw[l]) + c_liq*(wl(l)+a*dw[l]))/D(l);
+      C = (c_ice*(wi(l)-a*dw(l)) + c_liq*(wl(l)+a*dw(l)))/D(l);
     }
   else    //soil
     {
-      C = pa(jct,l-nsng)*(1.-pa(jsat,l-nsng)) + (c_ice*(wi(l)-a*dw[l]) + c_liq* (wl(l)+a*dw[l]))/D(l);
+      C = pa(jct,l-nsng)*(1.-pa(jsat,l-nsng)) + (c_ice*(wi(l)-a*dw(l)) + c_liq* (wl(l)+a*dw(l)))/D(l);
     }
 
   return (C);
@@ -2927,7 +2927,7 @@ void sux_minus6_condition(double ic, double wa, double rho, double D1, ENERGY *E
     {
       (*E->ice)(l+1) = (*E->ice)(l);
       (*E->liq)(l+1) = (*E->liq)(l);
-      E->deltaw->co[l+1] = E->deltaw->co[l];
+      (*E->deltaw)(l+1) = (*E->deltaw)(l);
       (*E->Temp)(l+1) = (*E->Temp)(l);
       (*E->Dlayer)(l+1) = (*E->Dlayer)(l);
     }
@@ -2937,15 +2937,15 @@ void sux_minus6_condition(double ic, double wa, double rho, double D1, ENERGY *E
   (*E->Temp)(1) = Fmin((*E->Temp)(2), -0.1);
   (*E->Dlayer)(1)= ic/rho;
 
-  if (E->deltaw->co[2] > ic)
+  if ((*E->deltaw)(2) > ic)
     {
-      E->deltaw->co[1] = ic;
-      E->deltaw->co[2] -= ic;
+      (*E->deltaw)(1) = ic;
+      (*E->deltaw)(2) -= ic;
     }
-  else if (E->deltaw->co[2] > 0)
+  else if ((*E->deltaw)(2) > 0)
     {
-      E->deltaw->co[1] = E->deltaw->co[2];
-      E->deltaw->co[2] = 0.;
+      (*E->deltaw)(1) = (*E->deltaw)(2);
+      (*E->deltaw)(2) = 0.;
     }
 
   (*E->ice)(2) -= ic;

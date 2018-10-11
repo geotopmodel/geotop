@@ -61,7 +61,7 @@ void update_F_energy(long nbeg, long nend, Vector<double> *F, double w,
 void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w,
                            Vector<double> *K);
 
-double calc_C(long l, long nsng, double a, Vector<double> &wi, Vector<double> &wl, double *dw,
+double calc_C(long l, long nsng, double a, Vector<double> &wi, Vector<double> &wl, Vector<double> &dw,
               Vector<double> &D, MatrixView<double> &&pa);
 
 void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
