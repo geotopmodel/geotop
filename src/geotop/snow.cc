@@ -281,20 +281,20 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
         Dmin = 9.E99;
         for (n=1; n<=inf->nh; n++)
         {
-          if (inf->co[n]>0 && inf->co[n]<max)
+          if ((*inf)(n)>0 && (*inf)(n)<max)
           {
-            if (Dmin > (*snow->w_ice)(inf->co[n],r,c) + (*snow->w_ice)(inf->co[n] +1,r,c))
+            if (Dmin > (*snow->w_ice)((*inf)(n),r,c) + (*snow->w_ice)((*inf)(n) +1,r,c))
             {
-              Dmin = (*snow->w_ice)(inf->co[n],r,c) + (*snow->w_ice)(inf->co[n]+1,r,c);
-              linf = inf->co[n];
+              Dmin = (*snow->w_ice)((*inf)(n),r,c) + (*snow->w_ice)((*inf)(n)+1,r,c);
+              linf = (*inf)(n);
             }
           }
-          else if (inf->co[n]>1 && inf->co[n]<=max)
+          else if ((*inf)(n)>1 && (*inf)(n)<=max)
           {
-            if (Dmin > (*snow->w_ice)(inf->co[n],r,c) + (*snow->w_ice)(inf->co[n]-1,r,c))
+            if (Dmin > (*snow->w_ice)((*inf)(n),r,c) + (*snow->w_ice)((*inf)(n)-1,r,c))
             {
-              Dmin = (*snow->w_ice)(inf->co[n],r,c) + (*snow->w_ice)(inf->co[n]-1,r,c);
-              linf = -inf->co[n];
+              Dmin = (*snow->w_ice)((*inf)(n),r,c) + (*snow->w_ice)((*inf)(n)-1,r,c);
+              linf = -(*inf)(n);
             }
           }
         }
@@ -781,8 +781,8 @@ void min_max_layer(long n, Vector<double>* Dmin, Vector<double>* Dmax,
 
     for (l=1; l<=n; l++)
     {
-      Dmin2->co[l]=Dmin->co[l];
-      Dmax2->co[l]=Dmax->co[l];
+      (*Dmin2)(l)=Dmin->co[l];
+      (*Dmax2)(l)=Dmax->co[l];
     }
 
   }
@@ -805,14 +805,14 @@ void min_max_layer(long n, Vector<double>* Dmin, Vector<double>* Dmax,
 
     for (l=1; l<=mdw; l++)
     {
-      Dmin2->co[l]=Dmin->co[l];
-      Dmax2->co[l]=Dmax->co[l];
+      (*Dmin2)(l)=Dmin->co[l];
+      (*Dmax2)(l)=Dmax->co[l];
     }
 
     for (l=n; l>n-mup; l--)
     {
-      Dmin2->co[l]=Dmin->co[N+l-n];
-      Dmax2->co[l]=Dmax->co[N+l-n];
+      (*Dmin2)(l) = (*Dmin)(N+l-n);
+      (*Dmax2)(l) = (*Dmax)(N+l-n);
     }
 
   }
