@@ -318,34 +318,34 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         {
           if ( (long)A->L->vegparv[lu-1][l] != number_novalue )
             {
-              A->L->vegpar->co[l] = A->L->vegparv[lu-1][l];
+              (*A->L->vegpar)(l) = A->L->vegparv[lu-1][l];
               if (l==jdroot)
-                root(A->L->root_fraction->nch, A->L->vegpar->co[jdroot], 0.0, A->S->pa->row(1,jdz), A->L->root_fraction->row(lu));
+                root(A->L->root_fraction->nch, (*A->L->vegpar)(jdroot), 0.0, A->S->pa->row(1,jdz), A->L->root_fraction->row(lu));
             }
           else
             {
-              A->L->vegpar->co[l] = (*A->L->ty)(lu,l+jHveg-1);
+              (*A->L->vegpar)(l) = (*A->L->ty)(lu,l+jHveg-1);
             }
         }
 
-      if (snowD > A->L->vegpar->co[jdz0thresveg])
+      if (snowD > (*A->L->vegpar)(jdz0thresveg))
         {
           fsnow=1.0;
         }
-      else if (snowD > A->L->vegpar->co[jdz0thresveg2])
+      else if (snowD > (*A->L->vegpar)(jdz0thresveg2))
         {
-          fsnow=(snowD-A->L->vegpar->co[jdz0thresveg2])/(A->L->vegpar->co[jdz0thresveg]
-                                                         -A->L->vegpar->co[jdz0thresveg2]);
+          fsnow=(snowD-(*A->L->vegpar)(jdz0thresveg2))/((*A->L->vegpar)(jdz0thresveg)
+                                                         -(*A->L->vegpar)(jdz0thresveg2));
         }
       else
         {
           fsnow=0.0;
         }
 
-      fc = A->L->vegpar->co[jdcf] * pow(1.0-fsnow,A->L->vegpar->co[jdexpveg]);
+      fc = (*A->L->vegpar)(jdcf) * pow(1.0-fsnow, (*A->L->vegpar)(jdexpveg));
 
       //control if LSAI is too low (in order to prevent numerical problems)
-      if (A->L->vegpar->co[jdLSAI]<LSAIthres) fc=0.0;
+      if ((*A->L->vegpar)(jdLSAI) < LSAIthres) fc=0.0;
 
       //glacier
       if (A->P->max_glac_layers>0)
@@ -353,7 +353,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
           ng=(*G->lnum)(r,c);
           if (ng>0)
             {
-              A->L->vegpar->co[jdLSAI]=0.0;
+              (*A->L->vegpar)(jdLSAI)=0.0;
               fc=0.0;
             }
         }
@@ -417,10 +417,10 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
   if (fc>0)
     {
       canopy_rain_interception(ratio_max_storage_RAIN_over_canopy_to_LSAI,
-                               A->L->vegpar->co[jdLSAI], Prain_over, &max_wcan_rain,
+                               (*A->L->vegpar)(jdLSAI), Prain_over, &max_wcan_rain,
                                &(*V->wrain)(j), &drip_rain);
       canopy_snow_interception(ratio_max_storage_SNOW_over_canopy_to_LSAI,
-                               A->L->vegpar->co[jdLSAI], Psnow_over, (*V->Tv)(j),
+                               (*A->L->vegpar)(jdLSAI), Psnow_over, (*V->Tv)(j),
                                Vpoint, Dt, &max_wcan_snow, &(*V->wsnow)(j), &drip_snow);
 
       //precipitation at the surface in the vegetated fraction
@@ -545,11 +545,11 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
           shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, wsn_vis,
                                Bsnd_vis, Bsnb_vis, avis_d, avis_b, (*A->L->ty)(lu,jvCh),
                                (*A->L->ty)(lu,jvR_vis), (*A->L->ty)(lu,jvT_vis),
-                               A->L->vegpar->co[jdLSAI], &SWv_vis, &SWg_vis, &SWupabove_v_vis);
+                               (*A->L->vegpar)(jdLSAI), &SWv_vis, &SWg_vis, &SWupabove_v_vis);
           shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, wsn_nir,
                                Bsnd_nir, Bsnb_nir, anir_d, anir_b, (*A->L->ty)(lu,jvCh),
                                (*A->L->ty)(lu,jvR_nir), (*A->L->ty)(lu,jvT_nir),
-                               A->L->vegpar->co[jdLSAI], &SWv_nir, &SWg_nir, &SWupabove_v_nir);
+                               (*A->L->vegpar)(jdLSAI), &SWv_nir, &SWg_nir, &SWupabove_v_nir);
 
         }
       else
@@ -603,8 +603,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
   //roughness lengths
   update_roughness_soil((*A->L->ty)(lu,jz0), 0.0, 0.0, snowD,
                         (*A->L->ty)(lu,jz0thressoil), A->P->z0_snow, &z0, &d0, &z0_z0t);
-  if (fc>0) update_roughness_veg(A->L->vegpar->co[jdHveg], snowD, zmeas_u,
-                                   zmeas_T, &z0veg, &d0veg, &hveg);
+  if (fc>0) 
+      update_roughness_veg((*A->L->vegpar)(jdHveg), snowD, zmeas_u, zmeas_T, &z0veg, &d0veg, &hveg);
 
   //variables used in the point_surface_balance
   for (l=1; l<=Nl+ns+ng; l++)
@@ -732,7 +732,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                                   V, A->E.get(), A->L.get(),
                                   A->S.get(), A->C.get(), A->T.get(), A->P.get(), ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg,
                                   1.0, hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa],
-                                  eps, fc, A->L->vegpar->co[jdLSAI], A->L->vegpar->co[jddecay0],
+                                  eps, fc, (*A->L->vegpar)(jdLSAI), (*A->L->vegpar)(jddecay0),
                                   &(*V->wrain)(j), max_wcan_rain, &((*V->wsnow)(j)), max_wcan_snow,
                                   SWin, LWin, SWv_vis+SWv_nir, &LW, &H, &E, &LWv, &Hv, &LEv, &Etrans, &Ts, &Qs,
                                   Hadv, &Hg0, &Hg1, &Eg0, &Eg1, &Qv, &Qg, &Lobukhov,
@@ -843,28 +843,28 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
           (*A->W->Pnet)(r,c) += (Melt_snow + Melt_glac + Prain);
 
           //VEGETATION
-          if ( A->L->vegpar->co[jdLSAI]>=LSAIthres && ng==0 )
+          if ( (*A->L->vegpar)(jdLSAI)>=LSAIthres && ng==0 )
             {
 
               snowD = DEPTH(r, c, S->lnum.get(), S->Dzl.get());
 
               fc0=fc;
 
-              if (snowD > A->L->vegpar->co[jdz0thresveg])
+              if (snowD > (*A->L->vegpar)(jdz0thresveg))
                 {
                   fsnownew=1.0;
                 }
-              else if (snowD > A->L->vegpar->co[jdz0thresveg2])
+              else if (snowD > (*A->L->vegpar)(jdz0thresveg2))
                 {
-                  fsnownew=(snowD-A->L->vegpar->co[jdz0thresveg2])/
-                           (A->L->vegpar->co[jdz0thresveg]-A->L->vegpar->co[jdz0thresveg2]);
+                  fsnownew=(snowD-(*A->L->vegpar)(jdz0thresveg2))/
+                           ((*A->L->vegpar)(jdz0thresveg)-(*A->L->vegpar)(jdz0thresveg2));
                 }
               else
                 {
                   fsnownew=0.0;
                 }
 
-              fc = A->L->vegpar->co[jdcf]*pow(1.0-fsnownew,A->L->vegpar->co[jdexpveg]);
+              fc = (*A->L->vegpar)(jdcf)*pow(1.0-fsnownew,(*A->L->vegpar)(jdexpveg));
 
               //a) fc increases
               if (fc>fc0)
@@ -1091,7 +1091,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                               else if (opnt[l] == oLSAI)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] =
-                                    A->L->vegpar->co[jdLSAI]*Dt/(*A->P->Dtplot_point)(i_sim);
+                                    (*A->L->vegpar)(jdLSAI)*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oz0v)
                                 {
