@@ -1659,7 +1659,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
       for (l=sur; l<=n; l++)
         {
-          egy->dFenergy->co[l] = 0.0;
+         (*egy->dFenergy)(l) = 0.0;
         }
 
       //Heat capacity part
@@ -1686,20 +1686,19 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                                   1-1/(*sl->pa)(sy,jns,m), PsiMin, 0.0);
             }
 
-          egy->dFenergy->co[l] += C1*(*egy->Dlayer)(l) / Dt;
+         (*egy->dFenergy)(l) += C1*(*egy->Dlayer)(l) / Dt;
 
         }
 
       //Upper Boundary Condition: Neumann
-      egy->dFenergy->co[sur] -= (1.-KNe)*dEB_dT;
+      (*egy->dFenergy)(sur) -= (1.-KNe)*dEB_dT;
 
       //Upper Boundary Condition: Dirichlet
-      if (dirichlet == 1) egy->dFenergy->co[sur] += (1.-KNe)*kub1 /
-                                                      ((*egy->Dlayer)(1)/2.);
+      if (dirichlet == 1) 
+          (*egy->dFenergy)(sur) += (1.-KNe)*kub1 /((*egy->Dlayer)(1)/2.);
 
       //Bottom Boundary Condition
-      egy->dFenergy->co[n] += (1.-KNe)*kbb1 / ((*egy->Dlayer)(n)/2.
-                                               +par->Zboundary);
+      (*egy->dFenergy)(n) += (1.-KNe)*kbb1 / ((*egy->Dlayer)(n)/2.+par->Zboundary);
 
       //Update the part of Jacobian due to conduction is included in Kth1 and Kth0
       update_diag_dF_energy(sur, n, egy->dFenergy.get(), 1.-KNe, egy->Kth1.get());
