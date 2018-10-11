@@ -4783,7 +4783,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
             r = (*top->rc_cont)(j,1);
             c = (*top->rc_cont)(j,2);
             if (strcmp(files[fpnet], string_novalue) != 0) 
-                sl->Pnetcum->co[j] += (*wat->Pnet)(r,c);
+                (*sl->Pnetcum)(j) += (*wat->Pnet)(r,c);
             if (strcmp(files[fevap], string_novalue) != 0)
             {
                 for (i=1; i<=Nl; i++)
