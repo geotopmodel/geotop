@@ -1587,7 +1587,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
         }
 
-      egy->Kth0->co[l-1] = egy->Kth1->co[l-1];
+      (*egy->Kth0)(l-1) = egy->Kth1->co[l-1];
 
       //diagonal part of F due to heat capacity and boundary condition (except conduction)
       C0 = calc_C(l, ns+ng, 0.0, *egy->ice, *egy->liq, *egy->deltaw,
