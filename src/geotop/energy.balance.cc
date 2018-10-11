@@ -1502,7 +1502,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
   for (l=sur; l<=n; l++)
     {
-      egy->Fenergy->co[l] = 0.0;
+      (*egy->Fenergy)(l) = 0.0;
       if (l>0)(*egy->deltaw)(l) = 0.0;
     }
 
@@ -1596,22 +1596,22 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                   *egy->Dlayer, sl->pa->matrix(sy));
       if (l<=ns+ng
           && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
-      egy->Fenergy->co[l] += ( Lf*(*egy->deltaw)(l) +
+      (*egy->Fenergy)(l) += ( Lf*(*egy->deltaw)(l) +
                                C1*(*egy->Dlayer)(l)*(*egy->Temp)(l) -
                                C0*(*egy->Dlayer)(l)*egy->T0->co[l] ) / Dt;
 
       //shortwave radiation penetrating under the surface
-      if (micro == 1 && l<=ns+1) egy->Fenergy->co[l] -= (*egy->SWlayer)(l);
+      if (micro == 1 && l<=ns+1) (*egy->Fenergy)(l) -= (*egy->SWlayer)(l);
 
     }
 
   //top boundary condition
-  egy->Fenergy->co[sur] -= ( (1.-KNe)*EB + KNe*EB0 );
-  if (dirichlet == 1) egy->Fenergy->co[sur] -= ( (Tgd-(*egy->Temp)(sur))*
+  (*egy->Fenergy)(sur) -= ( (1.-KNe)*EB + KNe*EB0 );
+  if (dirichlet == 1) (*egy->Fenergy)(sur) -= ( (Tgd-(*egy->Temp)(sur))*
                                                    (1.-KNe)*kub1 + (Tgd-egy->T0->co[sur])*KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
 
   //bottom boundary condition (treated as sink)
-  egy->Fenergy->co[n] -= par->Fboundary;
+  (*egy->Fenergy)(n) -= par->Fboundary;
 
   if (n <= ns+ng)
     {
@@ -1625,12 +1625,12 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
   if (dirichlet_bottom == 1)
     {
-      egy->Fenergy->co[n] -= ( (Tbottom-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
+      (*egy->Fenergy)(n) -= ( (Tbottom-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
                                (Tbottom-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
     }
   else
     {
-      egy->Fenergy->co[n] -= ( (par->Tboundary-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
+      (*egy->Fenergy)(n) -= ( (par->Tboundary-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
                                (par->Tboundary-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
                                    +par->Zboundary);
     }
@@ -1901,7 +1901,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
           //F(T) = diag(egy->Fenergy(T)) + K(T)*T
           for (l=sur; l<=n; l++)
             {
-              egy->Fenergy->co[l] = 0.0;
+              (*egy->Fenergy)(l) = 0.0;
             }
 
           *dUsl = 0.;
@@ -1991,12 +1991,12 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                           *egy->Dlayer, sl->pa->matrix(sy));
               if (l<=ns+ng
                   && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
-              egy->Fenergy->co[l] += ( Lf*(*egy->deltaw)(l) +
+              (*egy->Fenergy)(l) += ( Lf*(*egy->deltaw)(l) +
                                        C1*(*egy->Dlayer)(l)*(*egy->Temp)(l) -
                                        C0*(*egy->Dlayer)(l)*egy->T0->co[l] ) / Dt;
 
               //shortwave radiation penetrating under the surface
-              if (micro == 1 && l<=ns+1) egy->Fenergy->co[l] -= (*egy->SWlayer)(l);
+              if (micro == 1 && l<=ns+1) (*egy->Fenergy)(l) -= (*egy->SWlayer)(l);
 
               //store soil internal energy
               if (l>ns+ng) *dUsl = *dUsl + Lf*(*egy->deltaw)(l) +
@@ -2006,12 +2006,12 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
 
           //top boundary condition
-          egy->Fenergy->co[sur] -= ( (1.-KNe)*EB + KNe*EB0 );
-          if (dirichlet == 1) egy->Fenergy->co[sur] -= ( (Tgd-(*egy->Temp)(sur))*
+          (*egy->Fenergy)(sur) -= ( (1.-KNe)*EB + KNe*EB0 );
+          if (dirichlet == 1) (*egy->Fenergy)(sur) -= ( (Tgd-(*egy->Temp)(sur))*
                                                            (1.-KNe)*kub1 + (Tgd-egy->T0->co[sur])*KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
 
           //bottom boundary condition (treated as sink)
-          egy->Fenergy->co[n] -= par->Fboundary;
+          (*egy->Fenergy)(n) -= par->Fboundary;
 
           if (n <= ns+ng)
             {
@@ -2024,12 +2024,12 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
           if (dirichlet_bottom == 1)
             {
-              egy->Fenergy->co[n] -= ( (Tbottom-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
+              (*egy->Fenergy)(n) -= ( (Tbottom-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
                                        (Tbottom-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
             }
           else
             {
-              egy->Fenergy->co[n] -= ( (par->Tboundary-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
+              (*egy->Fenergy)(n) -= ( (par->Tboundary-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
                                        (par->Tboundary-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
                                            +par->Zboundary);
             }
