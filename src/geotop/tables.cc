@@ -69,8 +69,8 @@ double find_activelayerdepth_up(long i, long ty, SOIL *sl)
                 table += (*sl->pa)(ty,jdz,l);
             }
 
-            table += (1.-(*sl->SS->thi)(n+1,i)/((*sl->SS->thi)(n+1,i)+ (*sl->th)(n+1,i) 
-                    - (*sl->pa)(ty,jres,n+1))) * (*sl->pa)(ty,jdz,n+1);
+            table += (1.-(*sl->SS->thi)(n+1,i)/((*sl->SS->thi)(n+1,i)+ (*sl->th)(n+1,i)
+                                                - (*sl->pa)(ty,jres,n+1))) * (*sl->pa)(ty,jdz,n+1);
         }
     }
 
@@ -114,7 +114,7 @@ double find_activelayerdepth_dw(long i, long ty, SOIL *sl)
         if (out==1)
         {
             table += ((*sl->SS->thi)(n-1,i)/((*sl->SS->thi)(n-1,i) + (*sl->th)(n-1,i)
-                                               - (*sl->pa)(ty,jres,n-1)))*(*sl->pa)(ty,jdz,n-1);
+                                             - (*sl->pa)(ty,jres,n-1)))*(*sl->pa)(ty,jdz,n-1);
         }
         else
         {
@@ -141,7 +141,7 @@ double find_watertabledepth_up(double Z, long i, long ty, SOIL *sl)
     short out=0;
 
     n = nlayer(Z, sl->pa->row(ty,jdz), sl->pa->nch, -1);
- //   std::cout << "nlayer = " << n << std::endl;
+    //   std::cout << "nlayer = " << n << std::endl;
 
     if (n>1)
     {
@@ -196,24 +196,33 @@ double find_watertabledepth_dw(double Z, long i, long ty, SOIL *sl)
 
 {
     double table=0.0;
-    double thresh=0.0;
-    long n;// number of layer below the threshold
+    double thresh=0.0; /** water pressure at the water table (usual value) */
+    long n; /** layer after which we can find the water table.
+ * We introduce this parameter to avoid that after a rainfall event
+ * that slightly saturates only the very first layers
+ * GEOtop tells us that the water table is near the surface,
+ * while it is deeper in soil.
+ *
+ */
     long nmax=sl->pa->nch;
 
     long l;//counter
     short out=0;
 
-    // The computation starts from the 3rd layer (since the first 2 are usually very thin).
-    n = 3;
- //   std::cout << "(*sl->Ptot)(n,i) = " << (*sl->Ptot)(n,i) << std::endl;
+    if (nmax <= 3){
+        n = 1;
+    }else{
+        n = 3;
+    }
+
     if ((*sl->Ptot)(n,i) < thresh)
     {
 
         do
         {
             n++;
-          if (n>=nmax) out=-1;
-          if (n<=nmax && (*sl->Ptot)(n,i) >= thresh && (*sl->Ptot)(n-1,i) < thresh) out=1;
+            if (n>=nmax) out=-1;
+            if (n<=nmax && (*sl->Ptot)(n,i) >= thresh && (*sl->Ptot)(n-1,i) < thresh) out=1;
 //            Previosuly written:
 //            if (n==nmax) out=-1;
 //            if ((*sl->Ptot)(n,i) >= thresh && (*sl->Ptot)(n-1,i) < thresh) out=1; // look here!
@@ -229,7 +238,7 @@ double find_watertabledepth_dw(double Z, long i, long ty, SOIL *sl)
         if (out==1)
         {
             table += 0.5 * (*sl->pa)(ty,jdz,n) - ((*sl->Ptot)(n,i)-thresh) * 0.5 * ((*sl->pa)(ty,jdz,n-1) +(*sl->pa)(ty,jdz,n))/
-                                                   ((*sl->Ptot)(n,i) -(*sl->Ptot)(n-1,i)) ;
+                                                 ((*sl->Ptot)(n,i) -(*sl->Ptot)(n-1,i)) ;
         }
         else
         {
