@@ -1706,7 +1706,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
       //Extradiagonal part of the Jacobian
       for (l=sur; l<=n-1; l++)
         {
-          egy->udFenergy->co[l] = (1.-KNe)*egy->Kth1->co[l];
+          (*egy->udFenergy)(l) = (1.-KNe)*egy->Kth1->co[l];
         }
 
       //Solve tridiagonal system
