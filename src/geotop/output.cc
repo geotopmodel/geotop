@@ -4788,7 +4788,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
             {
                 for (i=1; i<=Nl; i++)
                 {
-                    sl->ETcum->co[j] += (*sl->ET)(i,r,c);
+                    (*sl->ETcum)(j) += (*sl->ET)(i,r,c);
                 }
             }
         }
