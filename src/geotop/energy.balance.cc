@@ -418,7 +418,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
     {
       canopy_rain_interception(ratio_max_storage_RAIN_over_canopy_to_LSAI,
                                A->L->vegpar->co[jdLSAI], Prain_over, &max_wcan_rain,
-                               &(V->wrain->co[j]), &drip_rain);
+                               &(*V->wrain)(j), &drip_rain);
       canopy_snow_interception(ratio_max_storage_SNOW_over_canopy_to_LSAI,
                                A->L->vegpar->co[jdLSAI], Psnow_over, (*V->Tv)(j),
                                Vpoint, Dt, &max_wcan_snow, &(V->wsnow->co[j]), &drip_snow);
@@ -732,7 +732,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                                   A->S.get(), A->C.get(), A->T.get(), A->P.get(), ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg,
                                   1.0, hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa],
                                   eps, fc, A->L->vegpar->co[jdLSAI], A->L->vegpar->co[jddecay0],
-                                  &(V->wrain->co[j]), max_wcan_rain, &(V->wsnow->co[j]), max_wcan_snow,
+                                  &(*V->wrain)(j), max_wcan_rain, &(V->wsnow->co[j]), max_wcan_snow,
                                   SWin, LWin, SWv_vis+SWv_nir, &LW, &H, &E, &LWv, &Hv, &LEv, &Etrans, &Ts, &Qs,
                                   Hadv, &Hg0, &Hg1, &Eg0, &Eg1, &Qv, &Qg, &Lobukhov,
                                   &rh, &rv, &rb, &rc, &ruc, &u_top, &decaycoeff, &Locc, &LWupabove_v, &lpb,
@@ -868,7 +868,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
               //a) fc increases
               if (fc>fc0)
                 {
-                  V->wrain->co[j]*=(fc0/fc);
+                  (*V->wrain)(j)*=(fc0/fc);
                   V->wsnow->co[j]*=(fc0/fc);
 
                   //b) fc decreases
@@ -877,12 +877,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                 {
                   new_snow(A->P->alpha_snow, r, c, S, V->wsnow->co[j]*(fc0-fc),
                            V->wsnow->co[j]*(fc0-fc)*1000./300, (*V->Tv)(j));
-                  (*A->W->Pnet)(r,c) +=  V->wrain->co[j]*(fc0-fc);
+                  (*A->W->Pnet)(r,c) +=  (*V->wrain)(j)*(fc0-fc);
                 }
 
               if (fc<1.E-6)
                 {
-                  V->wrain->co[j]=0.0;
+                  (*V->wrain)(j)=0.0;
                   V->wsnow->co[j]=0.0;
                 }
             }
