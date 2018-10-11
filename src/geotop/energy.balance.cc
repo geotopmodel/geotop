@@ -1420,7 +1420,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                          (*sl->pa)(sy,ja,l), (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l),
                          PsiMin, (*sl->pa)(sy,jss,l));
           //max temperature at which the first particle of ice comes up
-          egy->Tstar->co[l]=Fmin(psim0/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
+         (*egy->Tstar)(l) = Fmin(psim0/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
         }
     }
   else
@@ -1437,7 +1437,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                          (*sl->pa)(sy,ja,l), (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l),
                          PsiMin, (*sl->pa)(sy,jss,l));
           //max temperature at which the first particle of ice comes up
-          egy->Tstar->co[l]=Fmin(psim0/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
+         (*egy->Tstar)(l)=Fmin(psim0/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
         }
 
     }
@@ -1680,8 +1680,8 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
           else    //soil
             {
               m=l-ns-ng;
-              if ((*egy->Temp)(l)<=egy->Tstar->co[m]) C1 += rho_w * Lf * (Lf/(g*tk)*1.E3) 
-                      * dteta_dpsi(Psif((*egy->Temp)(l)), 0.0, (*sl->pa)(sy,jsat,m),
+              if ((*egy->Temp)(l) <= (*egy->Tstar)(m)) 
+                  C1 += rho_w * Lf * (Lf/(g*tk)*1.E3) * dteta_dpsi(Psif((*egy->Temp)(l)), 0.0, (*sl->pa)(sy,jsat,m),
                                   (*sl->pa)(sy,jres,m), (*sl->pa)(sy,ja,m), (*sl->pa)(sy,jns,m),
                                   1-1/(*sl->pa)(sy,jns,m), PsiMin, 0.0);
             }
@@ -1789,7 +1789,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                   if (i<=par->total_channel)
                     {
                       th0 = (*cnet->th)(m,j);
-                      th1 = teta_psi(Psif(Fmin(egy->Tstar->co[m],(*egy->Temp)(l))), 0.0,
+                      th1 = teta_psi(Psif(Fmin((*egy->Tstar)(m),(*egy->Temp)(l))), 0.0,
                                      (*sl->pa)(sy,jsat,m),
                                      (*sl->pa)(sy,jres,m), (*sl->pa)(sy,ja,m), (*sl->pa)(sy,jns,m),
                                      1-1/(*sl->pa)(sy,jns,m), PsiMin, (*sl->pa)(sy,jss,m));
@@ -1799,7 +1799,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                   else
                     {
                       th0 = (*sl->th)(m,j);
-                      th1 = teta_psi(Psif(Fmin(egy->Tstar->co[m],(*egy->Temp)(l))), 0.0,
+                      th1 = teta_psi(Psif(Fmin((*egy->Tstar)(m),(*egy->Temp)(l))), 0.0,
                                      (*sl->pa)(sy,jsat,m),
                                      (*sl->pa)(sy,jres,m), (*sl->pa)(sy,ja,m), (*sl->pa)(sy,jns,m),
                                      1-1/(*sl->pa)(sy,jns,m), PsiMin, (*sl->pa)(sy,jss,m));
