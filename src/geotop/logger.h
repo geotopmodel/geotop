@@ -85,9 +85,13 @@ public:
    * etc.
    */
   Logger &operator<<(std::ostream &(*basic_manipulator)(std::ostream &)) {
+    /* #ifndef NDEBUG */
     std::ostringstream os;
     os << basic_manipulator;
     return *this << os.str();
+    /* #else */
+    /*     return *this; */
+    /* #endif */
   }
 
   /**
@@ -164,6 +168,7 @@ private:
 extern Logger geolog;
 
 template <typename T> inline Logger &operator<<(Logger &l, const T &t) {
+  /* #ifndef NDEBUG */
   std::ostringstream os;
   if (l._at_new_line)
     os << l.prefix();
@@ -175,6 +180,10 @@ template <typename T> inline Logger &operator<<(Logger &l, const T &t) {
     *(l.ofile) << s;
   l._at_new_line = (s == "\n");
   return l;
+/* #else */
+/*   (void)t; */
+/*   return l; */
+/* #endif */
 }
 
 class Logger::ScopedPrefix {
