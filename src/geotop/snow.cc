@@ -369,7 +369,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
         do
         {
 
-          l = inf->co[k];
+          l = (*inf)(k);
 
           if ((*snow->w_ice)(l,r,c) > SWEmax_layer*2.)
           {
@@ -664,7 +664,6 @@ short set_snowice_min(double a, long r, long c, STATEVAR_1D *snow, long l1,
                       long l2, double wicemin)
 {
 
-  //double h;
   double f, dwl, dwi, dd;
 
   if ((*snow->w_ice)(l1) < wicemin
@@ -672,7 +671,6 @@ short set_snowice_min(double a, long r, long c, STATEVAR_1D *snow, long l1,
   {
     f = Fmin(wicemin - (*snow->w_ice)(l1),
              (*snow->w_ice)(l2))/(*snow->w_ice)(l2);
-    //h = internal_energy((*snow->w_ice)(l1), snow->w_liq->co[l1], snow->T->co[l1]);
     dd = f * (*snow->Dzl)(l2);
     (*snow->Dzl)(l1) += dd;
     (*snow->Dzl)(l2) -= dd;
@@ -682,8 +680,6 @@ short set_snowice_min(double a, long r, long c, STATEVAR_1D *snow, long l1,
     dwi = f*(*snow->w_ice)(l2);
     (*snow->w_ice)(l1) += dwi;
     (*snow->w_ice)(l2)-= dwi;
-    //h += internal_energy(dwi, dwl, snow->T->co[l2]);
-    //from_internal_energy(a, r+1000, c+1000, h, &(snow->w_ice->co[l1]), &(snow->w_liq->co[l1]), &(snow->T->co[l1]));
     return 1;
   }
   else
@@ -781,8 +777,8 @@ void min_max_layer(long n, Vector<double>* Dmin, Vector<double>* Dmax,
 
     for (l=1; l<=n; l++)
     {
-      (*Dmin2)(l)=Dmin->co[l];
-      (*Dmax2)(l)=Dmax->co[l];
+      (*Dmin2)(l)=(*Dmin)(l);
+      (*Dmax2)(l)=(*Dmax)(l);
     }
 
   }
@@ -805,8 +801,8 @@ void min_max_layer(long n, Vector<double>* Dmin, Vector<double>* Dmax,
 
     for (l=1; l<=mdw; l++)
     {
-      (*Dmin2)(l)=Dmin->co[l];
-      (*Dmax2)(l)=Dmax->co[l];
+      (*Dmin2)(l) = (*Dmin)(l);
+      (*Dmax2)(l) = (*Dmax)(l);
     }
 
     for (l=n; l>n-mup; l--)
