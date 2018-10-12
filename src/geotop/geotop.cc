@@ -290,13 +290,6 @@ void time_loop(ALLDATA *A)
             copy_soil_state(A->C->SS, C.get());
             copy_veg_state(A->S->VS.get(), V.get());
 
-            /* for (j=1; j<=A->W->H1->nh; j++) {
-   l=A->T->lrc_cont->co[j][1];
-   r=A->T->lrc_cont->co[j][2];
-   c=A->T->lrc_cont->co[j][3];
-   geolog << "START " << l << " " << r << " " << c << " " << (*A->S->SS->P)(l,A->T->j_cont[r][c]) << std::endl;
-   } */
-
             // init
             Vout = 0.;
             Voutsub = 0.;
