@@ -445,23 +445,23 @@ Matrix<double>* read_map(short a, char *filename, Matrix<double> *Mref,
     if (a==1 || a==2)
     {
       //Check header
-      if (Dxmap!=UVref->U->co[2])
+      if (Dxmap != (*UVref->U)(2))
       {
         printf("Dx in %s file is different from Dx in DTM file! \n",filename);
         t_error("Inconsistent map");
       }
-      if (Dymap!=UVref->U->co[1])
+      if (Dymap!=(*UVref->U)(1))
       {
         printf("Dy:%f in %s file is different from Dy:%f in DTM file! \n",Dymap,
-               filename,UVref->U->co[1]);
+               filename,(*UVref->U)(1));
         t_error("Inconsistent map");
       }
-      if (X0map!=UVref->U->co[4])
+      if (X0map != (*UVref->U)(4))
       {
         printf("X0 in %s file is different from X0 in DTM file! \n",filename);
         t_error("Inconsistent map");
       }
-      if (Y0map!=UVref->U->co[3])
+      if (Y0map != (*UVref->U)(3))
       {
         printf("Y0 in %s file is different from Y0 in DTM file! \n",filename);
         t_error("Inconsistent map");
@@ -485,19 +485,19 @@ Matrix<double>* read_map(short a, char *filename, Matrix<double> *Mref,
 
       UVref->U.reset(new Vector<double>{4});
       UVref->V.reset(new Vector<double>{2});
-      UVref->U->co[2]=Dxmap;
-      UVref->U->co[1]=Dymap;
-      UVref->U->co[4]=X0map;
-      UVref->U->co[3]=Y0map;
+      (*UVref->U)(2) = Dxmap;
+      (*UVref->U)(1) = Dymap;
+      (*UVref->U)(4) = X0map;
+      (*UVref->U)(3) = Y0map;
 
-      UVref->V->co[2]=no_value;
+      (*UVref->V)(2) = no_value;
       if (no_value<0)
       {
-        UVref->V->co[1]=-1;
+        (*UVref->V)(1)=-1;
       }
       else
       {
-        UVref->V->co[1]=1;
+        (*UVref->V)(1)=1;
       }
     }
 

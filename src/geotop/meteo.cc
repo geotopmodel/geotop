@@ -84,7 +84,7 @@ void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top,
     }
 
   //DISTRIBUTION OF METEROLOGICAL VARIABLES FROM MEASUREMENTS IN SOME STATIONS
-  Meteodistr(UV->U->co[2], UV->U->co[1], top->East.get(), top->North.get(), top->Z0.get(), top->curvature1.get(), top->curvature2.get(),
+  Meteodistr((*UV->U)(2), (*UV->U)(1), top->East.get(), top->North.get(), top->Z0.get(), top->curvature1.get(), top->curvature2.get(),
              top->curvature3.get(), top->curvature4.get(), top->slope.get(), top->aspect.get(), met, par->slopewtD, par->curvewtD,
              par->slopewtI, par->curvewtI,
              par->Vmin, par->RHmin, par->dn, par->iobsint, iT, iTdew, iWsx, iWsy, iWs, iPrecInt, met->Tgrid.get(),

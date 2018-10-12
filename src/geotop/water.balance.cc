@@ -103,7 +103,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
     //subsurface flow with time step Dt0 (decreasing if not converging)
     start = clock();
 
-    /*ds=sqrt(UV->U->co[1]*UV->U->co[2]);
+    /*ds=sqrt((*UV->U)(1)*(*UV->U)(2));
     for (j=1; j<=adt->W->H1->nh; j++) {
       l=adt->T->lrc_cont->co[j][1];
       r=adt->T->lrc_cont->co[j][2];
@@ -129,7 +129,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
       return 1;
     }
 
-    /*ds=sqrt(UV->U->co[1]*UV->U->co[2]);
+    /*ds=sqrt((*UV->U)(1)*(*UV->U)(2));
     for (j=1; j<=adt->W->H1->nh; j++) {
       l=adt->T->lrc_cont->co[j][1];
       r=adt->T->lrc_cont->co[j][2];
@@ -231,7 +231,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
 
   double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon,
           mu=0., hnew, hold=0.;
-  double ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, dz, dn, dD;
+  double ds=sqrt((*UV->U)(1) * (*UV->U)(2)), area, dz, dn, dD;
   long i, j, ch, l, r, c, m, bc, sy, cont, cont2, iter;
   long n=adt->T->lrc_cont->nrh;
   long N=adt->W->H0->nh;
@@ -635,7 +635,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
 
   double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon,
           mu=0.;
-  double ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, dz, dn, dD;
+  double ds=sqrt((*UV->U)(1)*(*UV->U)(2)), area, dz, dn, dD;
 
   long i, l, r=1, m, bc, sy, cont, cont2, iter;
   long N = adt->W->H0->nh;
@@ -943,7 +943,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
   long i, l, r, c, j, I, R, C, J, sy, syn, ch, cnt=0;
   long n=(Nl+1)*adt->P->total_pixel;
   double dz=0.0, dzn=0.0, dD=0.0, k=0.0, kn=0.0, kmax=0.0, kmaxn=0.0;
-  double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]), dn;
+  double area, ds=sqrt((*UV->U)(1)*(*UV->U)(2)), dn;
   //double psi, ice, a, ns, res, sat, ss, Temp;
 
   for (i=1; i<=H->nh; i++)
@@ -1454,7 +1454,7 @@ int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *Lx,
 
   long i, l, r=1, I, sy, cnt=0;
   double dz=0.0, dzn=0.0, dD=0.0, kn=0.0, kmax=0.0, kmaxn=0.0;
-  double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
+  double area, ds=sqrt((*UV->U)(1)*(*UV->U)(2));
   //double psi, ice, a, ns, res, sat, ss, Temp, k;
 
   for (i=1; i<=H->nh; i++)
@@ -1578,7 +1578,7 @@ int find_dfdH_3D(double Dt, Vector<double> *df, ALLDATA *adt, SOIL_STATE *L,
   long i, l, r, c, j, sy, ch, bc;
   long n=(Nl+1)*adt->P->total_pixel;
   double dz, dn, dD, psi1, ice=0.0;
-  double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
+  double area, ds=sqrt((*UV->U)(1)*(*UV->U)(2));
 
   for (i=1; i<=H->nh; i++)
   {
@@ -1678,7 +1678,7 @@ int find_dfdH_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *df,
 
   long i, r=1, l, sy, bc;
   double dz, dn, dD, psi1, ice=0.0;
-  double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
+  double area, ds=sqrt((*UV->U)(1)*(*UV->U)(2));
 
   for (i=1; i<=H->nh; i++)
   {
@@ -1742,7 +1742,7 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
   long i, l, r, c, j, sy, ch, bc;
   long n=(Nl+1)*adt->P->total_pixel;
   double dz, dn, dD, V0, V1, psi1, psi0, ice=0.0;
-  double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
+  double area, ds=sqrt((*UV->U)(1)*(*UV->U)(2));
 
   for (i=1; i<=H->nh; i++)
   {
@@ -1894,7 +1894,7 @@ int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
 
   long i, l, r=1, sy, bc;
   double dz, dn, dD, V0, V1, psi1, psi0, ice=0.0;
-  double area, ds=sqrt(UV->U->co[1]*UV->U->co[2]);
+  double area, ds=sqrt((*UV->U)(1)*(*UV->U)(2));
 
   for (i=1; i<=H->nh; i++)
   {
@@ -1988,7 +1988,7 @@ void find_dt_max(short DD, double Courant, RowView<double> &&h, LAND *land, TOPO
                  CHANNEL *cnet, PAR *par, METEO *met, double t, double *dt)
 {
 
-  double q, ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, Vmax, H;
+  double q, ds=sqrt((*UV->U)(1)*(*UV->U)(2)), area, Vmax, H;
   short d;
   long r, c, j, ch;
 
@@ -2053,7 +2053,7 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
 
 
   long d, r, c, j, R, C, ch;
-  double ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, Vmax, H;
+  double ds=sqrt((*UV->U)(1)*(*UV->U)(2)), area, Vmax, H;
   double q, q0, tb, te=0.0, dt;
   long cnt=0,cnt2=0,cnt3=0;
 
@@ -2231,7 +2231,7 @@ void find_dt_max_chla(double Courant, RowView<double> &&h, RowView<double> &&hch
                       CHANNEL *cnet, PAR *par, double t, double *dt)
 {
 
-  double q, ds=sqrt(UV->U->co[1]*UV->U->co[2]), area, areach, Vmax, H, Hch, DH;
+  double q, ds=sqrt((*UV->U)(1)*(*UV->U)(2)), area, areach, Vmax, H, Hch, DH;
   long r, c, ch;
 
   for (ch=1; ch<=par->total_channel; ch++)
@@ -2312,7 +2312,7 @@ void supflow_chla(double Dt, double t, RowView<double> &&h, RowView<double> &&hc
 {
 
   long ch, r, c;
-  double ds=sqrt(UV->U->co[1]*UV->U->co[2]);
+  double ds=sqrt((*UV->U)(1)*(*UV->U)(2));
   double H, Hch, DH, area, areach, q, tb, te=0., dt, Vmax;
 
   do
@@ -2437,7 +2437,7 @@ void find_dt_max_channel(short DDcomplex, double Courant, RowView<double> &&h,
   long r, c, ch, R, C;
   double Ks, q, Vmax, i, H, dn, dD, ds;
 
-  ds = sqrt(UV->U->co[1]*UV->U->co[2]);
+  ds = sqrt((*UV->U)(1)*(*UV->U)(2));
   dn = par->w_dx*ds;
 
   for (ch=1; ch<=par->total_channel; ch++)
@@ -2528,14 +2528,14 @@ void channel_flow(double Dt, double t, short DDcomplex, RowView<double> &&h, Vec
   double i;                       // hydraulic gradient
   double q,tb,te,dt,H;
 
-  ds = sqrt(UV->U->co[1]*UV->U->co[2]);
+  ds = sqrt((*UV->U)(1)*(*UV->U)(2));
   dn = par->w_dx*ds;
 
   if ( par->point_sim==0
        && (*cnet->r)(1)!=0 ) //if it is not point simulation and there are channels
   {
 
-    dn = par->w_dx * UV->U->co[1];    //transversal length [m]
+    dn = par->w_dx * (*UV->U)(1);    //transversal length [m]
 
     te=0.0;
 
@@ -2652,7 +2652,7 @@ void draining_land(double alpha, long i, TOPO *T, LAND *L, PAR *P,
 {
 
   double H, p, pn, dD, dn, Ks;
-  double ds=sqrt(UV->U->co[1]*UV->U->co[2]);
+  double ds=sqrt((*UV->U)(1)*(*UV->U)(2));
 
   long d, r, c;
   long ir[5] = {0, -1, 1, 0,  0};

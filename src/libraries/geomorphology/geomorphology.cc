@@ -510,7 +510,7 @@ long row(double N, long nrows, T_INIT *UV, long novalue)
 
     long cnt;
 
-    if (N<UV->U->co[3] || N>UV->U->co[3]+nrows*UV->U->co[1])
+    if (N<(*UV->U)(3) || N>(*UV->U)(3)+nrows*(*UV->U)(1))
     {
         return novalue;
 
@@ -522,7 +522,7 @@ long row(double N, long nrows, T_INIT *UV, long novalue)
         {
             cnt++;
         }
-        while (UV->U->co[3]+(nrows-cnt)*UV->U->co[1]>N);
+        while ((*UV->U)(3)+(nrows-cnt)*(*UV->U)(1)>N);
         return cnt;
     }
 }
@@ -537,7 +537,7 @@ long col(double E, long ncols, T_INIT *UV, long novalue)
 
     long cnt;
 
-    if (E<UV->U->co[4] || E>UV->U->co[4]+ncols*UV->U->co[2])
+    if (E<(*UV->U)(4) || E>(*UV->U)(4)+ncols*(*UV->U)(2))
     {
         return novalue;
     }
@@ -548,7 +548,7 @@ long col(double E, long ncols, T_INIT *UV, long novalue)
         {
             cnt++;
         }
-        while (UV->U->co[4]+cnt*UV->U->co[2]<E);
+        while ((*UV->U)(4)+cnt*(*UV->U)(2)<E);
         return cnt;
     }
 }
@@ -590,11 +590,11 @@ double interp_value(double E, double N, Matrix<double> *M, Matrix<double> *Z,
     else
     {
 
-        dN=UV->U->co[1];
-        dE=UV->U->co[2];
+        dN=(*UV->U)(1);
+        dE=(*UV->U)(2);
 
-        N0=UV->U->co[3] + (Z->nrh-r+0.5)*dN;
-        E0=UV->U->co[4] + (c-0.5)*dE;
+        N0=(*UV->U)(3) + (Z->nrh-r+0.5)*dN;
+        E0=(*UV->U)(4) + (c-0.5)*dE;
 
         DN=(N-N0)/(0.5*dN);
         DE=(E-E0)/(0.5*dE);

@@ -152,7 +152,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 r = (*cnet->r)(l);
                 c = (*cnet->c)(l);
                 Vchannel += 1.E-3 * Fmax((*cnet->SS->P)(0,l), 0.) / cos((*top->slope)(r,c)*Pi/180.) *
-                            UV->U->co[1] * par->w_dx * (*cnet->length)(l);
+                            (*UV->U)(1) * par->w_dx * (*cnet->length)(l);
                 Vsub += (*cnet->Vsub)(l);
                 Vsup += (*cnet->Vsup)(l);
             }

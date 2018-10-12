@@ -260,8 +260,8 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
   double Qtrans=0.0;
   double Qup, Qdown, Sup, Sdown, k_snowred;
 
-  dx=UV->U->co[1];
-  dy=UV->U->co[2];
+  dx = (*UV->U)(1);
+  dy = (*UV->U)(2);
 
   F1=par->fetch_up/3.;
   F2=par->fetch_down/3.;
