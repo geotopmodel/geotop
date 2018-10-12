@@ -399,7 +399,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
   *Etrans=E-(*Esubl);
   for (l=1; l<=soil_transp_layer->nh; l++)
     {
-      soil_transp_layer->co[l] = soil_transp_layer->co[l] * (*Etrans);
+      (*soil_transp_layer)(l) = (*soil_transp_layer)(l) * (*Etrans);
     }
 
   *LE=Lt*(*Etrans) + Lv*(*Esubl);
@@ -732,38 +732,38 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa,
       //water content [Wigmosta et al., (1994); Feddes et al.(1978)]
       if (theta(l) >= soil(jfc,l))
         {
-          fl->co[l] = 1.0;
+          (*fl)(l) = 1.0;
         }
       else if (theta(l) > soil(jwp,l))
         {
-          fl->co[l] = (theta(l)-soil(jwp,l))/(soil(jfc,l)-soil(jwp,l));
+          (*fl)(l) = (theta(l)-soil(jwp,l))/(soil(jfc,l)-soil(jwp,l));
         }
       else
         {
-          fl->co[l] = 0.0;
+          (*fl)(l) = 0.0;
         }
 
       //stomata resistance for each layer
-      if (fS*fe*fTemp*fl->co[l]<6.0E-11)
+      if (fS*fe*fTemp*(*fl)(l)<6.0E-11)
         {
-          fl->co[l]=1.0E12;
+          (*fl)(l)=1.0E12;
         }
       else
         {
           Rsmin=land[jrs];
-          fl->co[l]=Rsmin/(fS*fe*fTemp*fl->co[l]);
+          (*fl)(l)=Rsmin/(fS*fe*fTemp*(*fl)(l));
         }
 
       //transpiration fraction for each layer
-      fl->co[l]=root[l]*(rbv/(rbv+fl->co[l]));
+      (*fl)(l)=root[l]*(rbv/(rbv+(*fl)(l)));
 
       //transpiration for all the column (as a fraction of Epc)
-      *f+=fl->co[l];
+      *f+=(*fl)(l);
     }
 
   for (l=1; l<=fl->nh; l++)
     {
-      if (*f!=0) fl->co[l]/=(*f);
+      if (*f!=0) (*fl)(l)/=(*f);
     }
 
 }
