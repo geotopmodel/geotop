@@ -292,11 +292,11 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
                 par->total_pixel++;
                 if (par->point_sim != 1)
                 {
-                    par->total_area += (UV->U->co[1]*UV->U->co[2])/cos((*top->slope)(r,c)*Pi/180.);
+                    par->total_area += ((*UV->U)(1) * (*UV->U)(2))/cos((*top->slope)(r,c)*Pi/180.);
                 }
                 else
                 {
-                    par->total_area += (UV->U->co[1]*UV->U->co[2]);
+                    par->total_area += ((*UV->U)(1)*(*UV->U)(2));
                 }
             }
         }
@@ -318,7 +318,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
     geolog << "Valid pixels: " << par->total_pixel << std::endl;
     geolog << "Number of nodes: " << (Nl+1)*par->total_pixel << std::endl;
     geolog << "Novalue pixels: " << (Nr*Nc-par->total_pixel) << std::endl;
-    geolog << "Basin area: " << (double)par->total_pixel*UV->U->co[1]*UV->U->co[2]/1.E6 << " km2" << std::endl;
+    geolog << "Basin area: " << (double)par->total_pixel*(*UV->U)(1)*(*UV->U)(2)/1.E6 << " km2" << std::endl;
 
 
     /**************************************************************************************************/
@@ -970,10 +970,10 @@ land cover %ld, meteo station %ld\n",
 
             sy=(*sl->type)(r,c);
 
-            if ((long)IT->init_water_table_depth->co[sy] != number_novalue)
+            if ((long)(*IT->init_water_table_depth)(sy) != number_novalue)
             {
                 z = 0.;
-                (*sl->SS->P)(0,i) = -IT->init_water_table_depth->co[sy] *
+                (*sl->SS->P)(0,i) = -(*IT->init_water_table_depth)(sy) *
                                     cos((*top->slope)(r,c)*Pi/180.);
                 for (l=1; l<=Nl; l++)
                 {
@@ -2480,8 +2480,8 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
         {
             for (c=1; c<=top->Z0->nch; c++)
             {
-                (*top->East)(r,c) = UV->U->co[4] + (c-0.5)*UV->U->co[2];
-                (*top->North)(r,c) = UV->U->co[3] + (top->Z0->nrh-(r-0.5))*UV->U->co[1];
+                (*top->East)(r,c) = (*UV->U)(4) + (c-0.5)*(*UV->U)(2);
+                (*top->North)(r,c) = (*UV->U)(3) + (top->Z0->nrh-(r-0.5))*(*UV->U)(1);
             }
         }
 
@@ -2686,7 +2686,7 @@ to the soil type map");
     // SLOPE
     top->dzdE.reset(new Matrix<double>{land->LC->nrh, land->LC->nch});
     top->dzdN.reset(new Matrix<double>{land->LC->nrh, land->LC->nch});
-    find_slope(UV->U->co[1], UV->U->co[2], top->Z0.get(), top->dzdE.get(), top->dzdN.get(), (double)number_novalue);
+    find_slope((*UV->U)(1), (*UV->U)(2), top->Z0.get(), top->dzdE.get(), top->dzdN.get(), (double)number_novalue);
 
     flag = file_exists(fslp);
     if (flag == 1)
@@ -2728,7 +2728,7 @@ to the soil type map");
     // filtering
     M.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
     multipass_topofilter(par->lowpass_curvatures, top->Z0.get(), M.get(), (double)number_novalue, 1);
-    curvature(UV->U->co[1], UV->U->co[2], M.get(), top->curvature1.get(), top->curvature2.get(),
+    curvature((*UV->U)(1), (*UV->U)(2), M.get(), top->curvature1.get(), top->curvature2.get(),
               top->curvature3.get(), top->curvature4.get(), (double)number_novalue);
 
     if (strcmp(files[fcurv], string_novalue) != 0)
@@ -2865,7 +2865,7 @@ to the soil type map");
                     {
                         cont ++;
                         (*top->BC_counter)(r,c) = cont;
-                        top->BC_DepthFreeSurface->co[cont] = par->DepthFreeSurface; //[mm]
+                        (*top->BC_DepthFreeSurface)(cont) = par->DepthFreeSurface; //[mm]
                     }
                 }
             }
@@ -3103,7 +3103,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             {
                 Q.reset(new Matrix<double>{Z->nrh,Z->nch});
                 R.reset(new Matrix<double>{Z->nrh,Z->nch});
-                find_slope(UV->U->co[1], UV->U->co[2], Z.get(), Q.get(), R.get(), (double)number_novalue);
+                find_slope((*UV->U)(1), (*UV->U)(2), Z.get(), Q.get(), R.get(), (double)number_novalue);
                 P.reset(find_max_slope(Z.get(), Q.get(), R.get(), (double)number_novalue));
 
                 if (flag==0)
@@ -3164,7 +3164,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             {
                 Q.reset(new Matrix<double>{Z->nrh,Z->nch});
                 R.reset(new Matrix<double>{Z->nrh,Z->nch});
-                find_slope(UV->U->co[1], UV->U->co[2], Z.get(), Q.get(), R.get(), (double)number_novalue);
+                find_slope((*UV->U)(1), (*UV->U)(2), Z.get(), Q.get(), R.get(), (double)number_novalue);
                 P.reset(find_aspect(Z.get(), Q.get(), R.get(), (double)number_novalue));
 
                 if (flag==0)
@@ -3312,7 +3312,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *ti
             T.reset(new Matrix<double>{Z->nrh,Z->nch});
 
             multipass_topofilter(par->lowpass_curvatures, Z.get(), Q.get(), (double)number_novalue, 1);
-            curvature(UV->U->co[1], UV->U->co[2], Q.get(), P.get(), R.get(), S.get(), T.get(), (double)number_novalue);
+            curvature((*UV->U)(1), (*UV->U)(2), Q.get(), P.get(), R.get(), S.get(), T.get(), (double)number_novalue);
 
             if (strcmp(files[fcurv],string_novalue) != 0)
             {
@@ -3440,18 +3440,19 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
         UV->U.reset(new Vector<double>{4});
         UV->V.reset(new Vector<double>{2});
     }
-    UV->U->co[2]=1.0;
-    UV->U->co[1]=1.0;
-    UV->U->co[4]=0.0;
-    UV->U->co[3]=0.0;
-    UV->V->co[2]=(double)number_novalue;
-    if (UV->V->co[2]<0)
+    (*UV->U)(2) = 1.0;
+    (*UV->U)(1) = 1.0;
+    (*UV->U)(4) = 0.0;
+    (*UV->U)(3) = 0.0;
+    (*UV->V)(2) = (double)number_novalue;
+    
+    if ((*UV->V)(2)<0)
     {
-        UV->V->co[1] = -1.;
+        (*UV->V)(1) = -1.;
     }
     else
     {
-        UV->V->co[1] = 1.;
+        (*UV->V)(1) = 1.;
     }
 
     // ---------------------- (n) Deallocation ----------------------
@@ -3531,7 +3532,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
 
         (*top->pixel_type)(1,i)=1;
         (*top->BC_counter)(1,i)=i;
-        top->BC_DepthFreeSurface->co[i] = (*par->chkpt)(i,ptDrDEPTH);
+        (*top->BC_DepthFreeSurface)(i) = (*par->chkpt)(i,ptDrDEPTH);
         (*top->horizon_point)(1,i)=(long)(*par->chkpt)(i,ptHOR);
         (*top->dzdE)(1,i)=0.;
         (*top->dzdN)(1,i)=0.;
@@ -3678,10 +3679,9 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
         WT.reset(new Vector<double>{IT->init_water_table_depth->nh});
         for (i=1; i<=IT->init_water_table_depth->nh; i++)
         {
-            WT->co[i]=IT->init_water_table_depth->co[i];
+           (*WT)(i) = (*IT->init_water_table_depth)(i);
         }
-        IT->init_water_table_depth.reset(new Vector<double>{par->total_pixel
-                                                            +par->total_channel});
+        IT->init_water_table_depth.reset(new Vector<double>{par->total_pixel +par->total_channel});
 
         // assign jdz (is needed later)
         for (i=1; i<=sl->pa->ndh; i++)
@@ -3714,7 +3714,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
                 z = par->depr_channel;
             }
 
-            IT->init_water_table_depth->co[synew] = WT->co[sy];
+            (*IT->init_water_table_depth)(synew) = (*WT)(sy);
 
             zlim = (*IT->bed)(r,c);
 
