@@ -88,8 +88,7 @@ void initialize_snow(long r, long c, long l, STATEVAR_3D *snow);
 void show_Dminmax(long r, long c, double *Dmin, double *Dmax, long n);
 
 /*----------------------------------------------------------------------------------------------------------*/
-void update_snow_age(double Psnow, double Ts, double Dt, double Prestore,
-                     double *tsnow_nondim);
+void update_snow_age(double Psnow, double Ts, double Dt, double Prestore, double *tsnow_nondim);
 
 /*----------------------------------------------------------------------------------------------------------*/
 double snow_albedo(double ground_alb, double snowD, double AEP,

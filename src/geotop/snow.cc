@@ -852,8 +852,7 @@ void show_Dminmax(long r, long c, double *Dmin, double *Dmax, long n)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void update_snow_age(double Psnow, double Ts, double Dt, double Prestore,
-                     double *tsnow_nondim)
+void update_snow_age(double Psnow, double Ts, double Dt, double Prestore, double *tsnow_nondim)
 {
 
   double r1, r2, r3;
@@ -869,9 +868,8 @@ void update_snow_age(double Psnow, double Ts, double Dt, double Prestore,
   r3=0.3;
 
   //non-dimensional snow age: 10 mm of snow precipitation restore snow age Dt(s)
-  *tsnow_nondim=Fmax( 0.0,
-                      (*tsnow_nondim+(r1+r2+r3)*Dt*1.0E-6)*(1.0-Psnow/Prestore) );
-  if ((*tsnow_nondim)!=(*tsnow_nondim))
+  *tsnow_nondim = Fmax( 0.0, (*tsnow_nondim+(r1+r2+r3)*Dt*1.0E-6)*(1.0-Psnow/Prestore) );
+  if ((*tsnow_nondim) != (*tsnow_nondim))
     printf("tsnow no value - tausn:%f P:%f Ts:%f r1:%f r2:%f r3:%f\n",
            *tsnow_nondim,Psnow,Ts,r1,r2,r3);
 
@@ -886,8 +884,8 @@ double snow_albedo(double ground_alb, double snowD, double AEP,
                    double ( *F)(double x))
 {
   double A, Fage=1.0-1.0/(1.0+tsnow), w;
-  A=freshsnow_alb*(1.0-C*Fage);
-  A+=0.4*(1.0-A)*(*F)(cosinc);
+  A = freshsnow_alb*(1.0-C*Fage);
+  A += 0.4*(1.0-A)*(*F)(cosinc);
   if (snowD<AEP)  //if snow is shallow (<AEP), interpolate between snow and ground albedo
   {
     w=(1.0-snowD/AEP)*exp(-snowD*0.5/AEP);

@@ -449,13 +449,13 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
   //albedo
   if (snowD>0)
     {
-      if (i>A->P->total_channel) update_snow_age(Psnow_over, (*S->T)(ns,r,c), Dt,
-                                                   A->P->minP_torestore_A, &(snowage->co[j]));
+      if (i>A->P->total_channel)
+          update_snow_age(Psnow_over, (*S->T)(ns,r,c), Dt, A->P->minP_torestore_A, &((*snowage)(j)));
       avis_d=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo,
-                         A->P->snow_aging_vis, snowage->co[j], 0., (*Zero));
+                         A->P->snow_aging_vis, (*snowage)(j), 0., (*Zero));
       avis_b=avis_d;//approx
       anir_d=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo,
-                         A->P->snow_aging_nir, snowage->co[j], 0., (*Zero));
+                         A->P->snow_aging_nir, (*snowage)(j), 0., (*Zero));
       anir_b=anir_d;//approx
     }
   else
@@ -522,9 +522,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
   if (snowD>0)
     {
       avis_b=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo,
-                         A->P->snow_aging_vis, snowage->co[j], cosinc, (*Fzen));
+                         A->P->snow_aging_vis, (*snowage)(j), cosinc, (*Fzen));
       anir_b=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo,
-                         A->P->snow_aging_nir, snowage->co[j], cosinc, (*Fzen));
+                         A->P->snow_aging_nir, (*snowage)(j), cosinc, (*Fzen));
     }
 
   //shortwave absorbed by soil (when vegetation is not present)
@@ -1707,7 +1707,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
       //Extradiagonal part of the Jacobian
       for (l=sur; l<=n-1; l++)
         {
-          (*egy->udFenergy)(l) = (1.-KNe)*egy->Kth1->co[l];
+          (*egy->udFenergy)(l) = (1.-KNe)*(*egy->Kth1)(l);
         }
 
       //Solve tridiagonal system
@@ -2039,9 +2039,6 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
           update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &(*egy->T0)(0));
           res = norm_2(egy->Fenergy.get(), sur, n);
 
-          //printf("Dt:%.2f res:%e cont:%ld cont2:%ld T0:%f T1:%f EB:%f SW:%f Ta:%f Tg:%f LW:%.2f H:%.2f ET:%.2f dw:%f liq:%f ice:%f \n",Dt,res,cont,cont2,(*egy->Temp)(sur),egy->Temp->co[1],EB,(*egy->SWlayer)(0),Ta,Tg,*LW,(*H),latent(Tg,Levap(Tg))*(*E),egy->deltaw->co[1],egy->liq->co[1]+egy->deltaw->co[1],egy->ice->co[1]-egy->deltaw->co[1]);
-          //printf("res:%e sur:%ld\n",res,sur);
-
           if (res <= res_av*(1.0 - ni*lambda[0])) iter_close2=1;
           if (lambda[0] <= par->min_lambda_en) cont_lambda_min++;
           if (cont_lambda_min > par->max_times_min_lambda_en)
@@ -2294,15 +2291,15 @@ void update_F_energy(long nbeg, long nend, Vector<double> *F, double w,
 
       if (l==nbeg)
         {
-          F->co[l] += w*(-K->co[l]*T[l] + K->co[l]*T[l+1]);
+          (*F)(l) += w*(-(*K)(l)*T[l] + (*K)(l)*T[l+1]);
         }
       else if (l<nend)
         {
-          F->co[l] += w*(K->co[l-1]*T[l-1] - (K->co[l]+K->co[l-1])*T[l] + K->co[l]*T[l+1]);
+          (*F)(l) += w*((*K)(l-1)*T[l-1] - ((*K)(l)+(*K)(l-1))*T[l] + (*K)(l)*T[l+1]);
         }
       else
         {
-          F->co[l] += w*(K->co[l-1]*T[l-1] - K->co[l-1]*T[l]);
+          (*F)(l) += w*((*K)(l-1) * T[l-1] - (*K)(l-1)*T[l]);
         }
 
     }
@@ -2313,8 +2310,7 @@ void update_F_energy(long nbeg, long nend, Vector<double> *F, double w,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w,
-                           Vector<double> *K)
+void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w, Vector<double> *K)
 {
 
   long l;
@@ -2324,15 +2320,15 @@ void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w,
 
       if (l==nbeg)
         {
-          dF->co[l] -= w*K->co[l];
+          (*dF)(l) -= w*(*K)(l);
         }
       else if (l<nend)
         {
-          dF->co[l] -= w*(K->co[l]+K->co[l-1]);
+          (*dF)(l) -= w*((*K)(l)+(*K)(l-1));
         }
       else
         {
-          dF->co[l] -= w*K->co[l-1];
+          (*dF)(l) -= w*(*K)(l-1);
         }
 
     }
@@ -2875,7 +2871,7 @@ void merge(double a, Vector<double> *ice, Vector<double> *liq, Vector<double> *T
     }
   else if (l < ldw)
     {
-      if (ice->co[l+1] < ice->co[l-1])
+      if ((*ice)(l+1) < (*ice)(l-1))
         {
           m = l+1;
           n = l;
@@ -2892,22 +2888,21 @@ void merge(double a, Vector<double> *ice, Vector<double> *liq, Vector<double> *T
       n = l-1;
     }
 
-  h = internal_energy(ice->co[m], liq->co[m],
-                      Temp->co[m]) + internal_energy(ice->co[n], liq->co[n], Temp->co[n]);
+  h = internal_energy((*ice)(m), (*liq)(m),
+                      (*Temp)(m)) + internal_energy((*ice)(n), (*liq)(n), (*Temp)(n));
 
-  ice->co[n] += ice->co[m];
-  liq->co[n] += liq->co[m];
-  D->co[n] += D->co[m];
+  (*ice)(n) += (*ice)(m);
+  (*liq)(n) += (*liq)(m);
+  (*D)(n) += (*D)(m);
 
-  from_internal_energy(a, 0, 0, h, &(ice->co[n]), &(liq->co[n]),
-                       &(Temp->co[n]));
+  from_internal_energy(a, 0, 0, h, &((*ice)(n)), &((*liq)(n)), &((*Temp)(n)));
 
   for (i=m+1; i<=tot; i++)
     {
-      ice->co[i-1] = ice->co[i];
-      liq->co[i-1] = liq->co[i];
-      Temp->co[i-1] = Temp->co[i];
-      D->co[i-1] = D->co[i];
+      (*ice)(i-1) = (*ice)(i);
+      (*liq)(i-1) = (*liq)(i);
+      (*Temp)(i-1) = (*Temp)(i);
+      (*D)(i-1) = (*D)(i);
     }
 }
 
