@@ -318,34 +318,34 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         {
           if ( (long)A->L->vegparv[lu-1][l] != number_novalue )
             {
-              A->L->vegpar->co[l] = A->L->vegparv[lu-1][l];
+              (*A->L->vegpar)(l) = A->L->vegparv[lu-1][l];
               if (l==jdroot)
-                root(A->L->root_fraction->nch, A->L->vegpar->co[jdroot], 0.0, A->S->pa->row(1,jdz), A->L->root_fraction->row(lu));
+                root(A->L->root_fraction->nch, (*A->L->vegpar)(jdroot), 0.0, A->S->pa->row(1,jdz), A->L->root_fraction->row(lu));
             }
           else
             {
-              A->L->vegpar->co[l] = (*A->L->ty)(lu,l+jHveg-1);
+              (*A->L->vegpar)(l) = (*A->L->ty)(lu,l+jHveg-1);
             }
         }
 
-      if (snowD > A->L->vegpar->co[jdz0thresveg])
+      if (snowD > (*A->L->vegpar)(jdz0thresveg))
         {
           fsnow=1.0;
         }
-      else if (snowD > A->L->vegpar->co[jdz0thresveg2])
+      else if (snowD > (*A->L->vegpar)(jdz0thresveg2))
         {
-          fsnow=(snowD-A->L->vegpar->co[jdz0thresveg2])/(A->L->vegpar->co[jdz0thresveg]
-                                                         -A->L->vegpar->co[jdz0thresveg2]);
+          fsnow=(snowD-(*A->L->vegpar)(jdz0thresveg2))/((*A->L->vegpar)(jdz0thresveg)
+                                                         -(*A->L->vegpar)(jdz0thresveg2));
         }
       else
         {
           fsnow=0.0;
         }
 
-      fc = A->L->vegpar->co[jdcf] * pow(1.0-fsnow,A->L->vegpar->co[jdexpveg]);
+      fc = (*A->L->vegpar)(jdcf) * pow(1.0-fsnow, (*A->L->vegpar)(jdexpveg));
 
       //control if LSAI is too low (in order to prevent numerical problems)
-      if (A->L->vegpar->co[jdLSAI]<LSAIthres) fc=0.0;
+      if ((*A->L->vegpar)(jdLSAI) < LSAIthres) fc=0.0;
 
       //glacier
       if (A->P->max_glac_layers>0)
@@ -353,7 +353,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
           ng=(*G->lnum)(r,c);
           if (ng>0)
             {
-              A->L->vegpar->co[jdLSAI]=0.0;
+              (*A->L->vegpar)(jdLSAI)=0.0;
               fc=0.0;
             }
         }
@@ -417,19 +417,20 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
   if (fc>0)
     {
       canopy_rain_interception(ratio_max_storage_RAIN_over_canopy_to_LSAI,
-                               A->L->vegpar->co[jdLSAI], Prain_over, &max_wcan_rain,
-                               &(V->wrain->co[j]), &drip_rain);
+                               (*A->L->vegpar)(jdLSAI), Prain_over, &max_wcan_rain,
+                               &(*V->wrain)(j), &drip_rain);
       canopy_snow_interception(ratio_max_storage_SNOW_over_canopy_to_LSAI,
-                               A->L->vegpar->co[jdLSAI], Psnow_over, V->Tv->co[j],
-                               Vpoint, Dt, &max_wcan_snow, &(V->wsnow->co[j]), &drip_snow);
+                               (*A->L->vegpar)(jdLSAI), Psnow_over, (*V->Tv)(j),
+                               Vpoint, Dt, &max_wcan_snow, &(*V->wsnow)(j), &drip_snow);
 
       //precipitation at the surface in the vegetated fraction
       Prain+=fc*drip_rain;
       Psnow+=fc*drip_snow;
 
-      if (V->wsnow->co[j]<0) printf("Error 1 wcansnow:%f %ld %ld\n",V->wsnow->co[j],
-                                      r,c);
-      if (V->wsnow->co[j]<0) V->wsnow->co[j]=0.0;
+      if ((*V->wsnow)(j)<0) 
+          printf("Error 1 wcansnow:%f %ld %ld\n",(*V->wsnow)(j),r,c);
+      if ((*V->wsnow)(j)<0) 
+          (*V->wsnow)(j)=0.0;
     }
 
   //SHORTWAVE RADIATION
@@ -448,13 +449,13 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
   //albedo
   if (snowD>0)
     {
-      if (i>A->P->total_channel) update_snow_age(Psnow_over, (*S->T)(ns,r,c), Dt,
-                                                   A->P->minP_torestore_A, &(snowage->co[j]));
+      if (i>A->P->total_channel)
+          update_snow_age(Psnow_over, (*S->T)(ns,r,c), Dt, A->P->minP_torestore_A, &((*snowage)(j)));
       avis_d=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo,
-                         A->P->snow_aging_vis, snowage->co[j], 0., (*Zero));
+                         A->P->snow_aging_vis, (*snowage)(j), 0., (*Zero));
       avis_b=avis_d;//approx
       anir_d=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo,
-                         A->P->snow_aging_nir, snowage->co[j], 0., (*Zero));
+                         A->P->snow_aging_nir, (*snowage)(j), 0., (*Zero));
       anir_b=anir_d;//approx
     }
   else
@@ -521,9 +522,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
   if (snowD>0)
     {
       avis_b=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo,
-                         A->P->snow_aging_vis, snowage->co[j], cosinc, (*Fzen));
+                         A->P->snow_aging_vis, (*snowage)(j), cosinc, (*Fzen));
       anir_b=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo,
-                         A->P->snow_aging_nir, snowage->co[j], cosinc, (*Fzen));
+                         A->P->snow_aging_nir, (*snowage)(j), cosinc, (*Fzen));
     }
 
   //shortwave absorbed by soil (when vegetation is not present)
@@ -537,18 +538,18 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
     {
       if (A->E->hsun>0)
         {
-          if (V->wsnow->co[j]<0) printf("Error wcansnow:%f %ld %ld\n",V->wsnow->co[j],r,
+          if ((*V->wsnow)(j)<0) printf("Error wcansnow:%f %ld %ld\n",(*V->wsnow)(j),r,
                                           c);
-          if (V->wsnow->co[j]<0) V->wsnow->co[j]=0.0;
-          fsnowcan=pow(V->wsnow->co[j]/max_wcan_snow, 2./3.);
+          if ((*V->wsnow)(j)<0) (*V->wsnow)(j)=0.0;
+          fsnowcan=pow((*V->wsnow)(j)/max_wcan_snow, 2./3.);
           shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, wsn_vis,
                                Bsnd_vis, Bsnb_vis, avis_d, avis_b, (*A->L->ty)(lu,jvCh),
                                (*A->L->ty)(lu,jvR_vis), (*A->L->ty)(lu,jvT_vis),
-                               A->L->vegpar->co[jdLSAI], &SWv_vis, &SWg_vis, &SWupabove_v_vis);
+                               (*A->L->vegpar)(jdLSAI), &SWv_vis, &SWg_vis, &SWupabove_v_vis);
           shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, wsn_nir,
                                Bsnd_nir, Bsnb_nir, anir_d, anir_b, (*A->L->ty)(lu,jvCh),
                                (*A->L->ty)(lu,jvR_nir), (*A->L->ty)(lu,jvT_nir),
-                               A->L->vegpar->co[jdLSAI], &SWv_nir, &SWg_nir, &SWupabove_v_nir);
+                               (*A->L->vegpar)(jdLSAI), &SWv_nir, &SWg_nir, &SWupabove_v_nir);
 
         }
       else
@@ -602,8 +603,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
   //roughness lengths
   update_roughness_soil((*A->L->ty)(lu,jz0), 0.0, 0.0, snowD,
                         (*A->L->ty)(lu,jz0thressoil), A->P->z0_snow, &z0, &d0, &z0_z0t);
-  if (fc>0) update_roughness_veg(A->L->vegpar->co[jdHveg], snowD, zmeas_u,
-                                   zmeas_T, &z0veg, &d0veg, &hveg);
+  if (fc>0) 
+      update_roughness_veg((*A->L->vegpar)(jdHveg), snowD, zmeas_u, zmeas_T, &z0veg, &d0veg, &hveg);
 
   //variables used in the point_surface_balance
   for (l=1; l<=Nl+ns+ng; l++)
@@ -723,7 +724,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         }
 
       //skin temperature
-      A->E->Temp->co[0] = A->E->Temp->co[1];
+     (*A->E->Temp)(0) =(*A->E->Temp)(1);
 
       //ENERGY BALANCE
       sux=SolvePointEnergyBalance(surface, Tdirichlet, Tdirichlet_bottom, A->P->EB,
@@ -731,8 +732,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                                   V, A->E.get(), A->L.get(),
                                   A->S.get(), A->C.get(), A->T.get(), A->P.get(), ns, ng, zmeas_u, zmeas_T, z0, 0.0, 0.0, z0veg, d0veg,
                                   1.0, hveg, Vpoint, Tpoint, Qa, Ppoint, A->M->LRv[ilsTa],
-                                  eps, fc, A->L->vegpar->co[jdLSAI], A->L->vegpar->co[jddecay0],
-                                  &(V->wrain->co[j]), max_wcan_rain, &(V->wsnow->co[j]), max_wcan_snow,
+                                  eps, fc, (*A->L->vegpar)(jdLSAI), (*A->L->vegpar)(jddecay0),
+                                  &(*V->wrain)(j), max_wcan_rain, &((*V->wsnow)(j)), max_wcan_snow,
                                   SWin, LWin, SWv_vis+SWv_nir, &LW, &H, &E, &LWv, &Hv, &LEv, &Etrans, &Ts, &Qs,
                                   Hadv, &Hg0, &Hg1, &Eg0, &Eg1, &Qv, &Qg, &Lobukhov,
                                   &rh, &rv, &rb, &rc, &ruc, &u_top, &decaycoeff, &Locc, &LWupabove_v, &lpb,
@@ -746,7 +747,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
     {
 
       //skin temperature
-      *Tgskin = A->E->Temp->co[A->P->nsurface];
+      *Tgskin = (*A->E->Temp)(A->P->nsurface);
 
       //snow melting issue
       if (ic > 0)
@@ -766,7 +767,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         {
 
           //surface energy balance
-          LE = E*latent(A->E->Temp->co[1],Levap(A->E->Temp->co[1]));
+          LE = E*latent((*A->E->Temp)(1),Levap((*A->E->Temp)(1)));
           surfEB = SW + LW - H - LE;
 
           if (ns==0)
@@ -780,14 +781,13 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                                               (*A->E->liq)(ns)/(rho_w*(*A->E->Dlayer)(ns)),
                                               (*A->E->liq)(ns+1)/(rho_w*(*A->E->Dlayer)(ns+1))),
                               Arithmetic_Mean((*A->E->Dlayer)(ns), (*A->E->Dlayer)(ns+1),
-                                              A->E->ice->co[ns]/(rho_w*(*A->E->Dlayer)(ns)),
+                                              (*A->E->ice)(ns)/(rho_w*(*A->E->Dlayer)(ns)),
                                               (*A->E->ice)(ns+1)/(rho_w*(*A->E->Dlayer)(ns+1))),
                               Arithmetic_Mean((*A->E->Dlayer)(ns), (*A->E->Dlayer)(ns+1), 1.,
                                               (*A->S->pa)(sy,jsat,1)),
                               Arithmetic_Mean((*A->E->Dlayer)(ns), (*A->E->Dlayer)(ns+1), 0.,
                                               (*A->S->pa)(sy,jkt,1)) );
-              GEF = k*(A->E->Temp->co[ns]-(*A->E->Temp)(ns+1))/(0.5*(*A->E->Dlayer)(ns)
-                                                                 +0.5*(*A->E->Dlayer)(ns+1));
+              GEF = k*((*A->E->Temp)(ns)-(*A->E->Temp)(ns+1))/(0.5*(*A->E->Dlayer)(ns) +0.5*(*A->E->Dlayer)(ns+1));
             }
 
           //assign evaporation
@@ -843,48 +843,48 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
           (*A->W->Pnet)(r,c) += (Melt_snow + Melt_glac + Prain);
 
           //VEGETATION
-          if ( A->L->vegpar->co[jdLSAI]>=LSAIthres && ng==0 )
+          if ( (*A->L->vegpar)(jdLSAI)>=LSAIthres && ng==0 )
             {
 
               snowD = DEPTH(r, c, S->lnum.get(), S->Dzl.get());
 
               fc0=fc;
 
-              if (snowD > A->L->vegpar->co[jdz0thresveg])
+              if (snowD > (*A->L->vegpar)(jdz0thresveg))
                 {
                   fsnownew=1.0;
                 }
-              else if (snowD > A->L->vegpar->co[jdz0thresveg2])
+              else if (snowD > (*A->L->vegpar)(jdz0thresveg2))
                 {
-                  fsnownew=(snowD-A->L->vegpar->co[jdz0thresveg2])/
-                           (A->L->vegpar->co[jdz0thresveg]-A->L->vegpar->co[jdz0thresveg2]);
+                  fsnownew=(snowD-(*A->L->vegpar)(jdz0thresveg2))/
+                           ((*A->L->vegpar)(jdz0thresveg)-(*A->L->vegpar)(jdz0thresveg2));
                 }
               else
                 {
                   fsnownew=0.0;
                 }
 
-              fc = A->L->vegpar->co[jdcf]*pow(1.0-fsnownew,A->L->vegpar->co[jdexpveg]);
+              fc = (*A->L->vegpar)(jdcf)*pow(1.0-fsnownew,(*A->L->vegpar)(jdexpveg));
 
               //a) fc increases
               if (fc>fc0)
                 {
-                  V->wrain->co[j]*=(fc0/fc);
-                  V->wsnow->co[j]*=(fc0/fc);
+                  (*V->wrain)(j)*=(fc0/fc);
+                  (*V->wsnow)(j)*=(fc0/fc);
 
                   //b) fc decreases
                 }
               else if (fc<fc0)
                 {
-                  new_snow(A->P->alpha_snow, r, c, S, V->wsnow->co[j]*(fc0-fc),
-                           V->wsnow->co[j]*(fc0-fc)*1000./300, V->Tv->co[j]);
-                  (*A->W->Pnet)(r,c) +=  V->wrain->co[j]*(fc0-fc);
+                  new_snow(A->P->alpha_snow, r, c, S, (*V->wsnow)(j)*(fc0-fc),
+                           (*V->wsnow)(j)*(fc0-fc)*1000./300, (*V->Tv)(j));
+                  (*A->W->Pnet)(r,c) +=  (*V->wrain)(j)*(fc0-fc);
                 }
 
               if (fc<1.E-6)
                 {
-                  V->wrain->co[j]=0.0;
-                  V->wsnow->co[j]=0.0;
+                  (*V->wrain)(j)=0.0;
+                  (*V->wsnow)(j)=0.0;
                 }
             }
 
@@ -916,7 +916,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                          string_novalue) != 0) (*A->G->subl)(j) = Evap_glac;
             }
 
-          if (A->P->output_surfenergy->co[i_sim]>0)
+          if ((*A->P->output_surfenergy)(i_sim)>0)
             {
               if (strcmp(files[fradnet], string_novalue) != 0)(*A->E->Rn)(j)= (SW+LW);
               if (strcmp(files[fradLWin], string_novalue) != 0)(*A->E->LWin)(j)= LWin;
@@ -1028,7 +1028,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                               else if (opnt[l] == oTv)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] =
-                                    V->Tv->co[j]*Dt/(*A->P->Dtplot_point)(i_sim);
+                                    (*V->Tv)(j)*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oTs)
                                 {
@@ -1091,7 +1091,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                               else if (opnt[l] == oLSAI)
                                 {
                                   odp[opnt[l]][(*A->P->jplot)(j)-1] =
-                                    A->L->vegpar->co[jdLSAI]*Dt/(*A->P->Dtplot_point)(i_sim);
+                                    (*A->L->vegpar)(jdLSAI)*Dt/(*A->P->Dtplot_point)(i_sim);
                                 }
                               else if (opnt[l] == oz0v)
                                 {
@@ -1251,7 +1251,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                             }
                           else if (obsn[l] == ooTv)
                             {
-                              odb[obsn[l]] += V->Tv->co[j]*(Dt/(*A->P->Dtplot_basin)(i_sim))/
+                              odb[obsn[l]] += (*V->Tv)(j)*(Dt/(*A->P->Dtplot_basin)(i_sim))/
                                               (double)A->P->total_pixel;
                             }
                           else if (obsn[l] == ooevapsur)
@@ -1397,13 +1397,13 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
   if (dirichlet == 1)
     {
       sur = 1;
-      egy->Temp->co[0] = Tgd;
+      (*egy->Temp)(0) = Tgd;
     }
 
   //Initializes vectors
   for (l=sur; l<=n; l++)
     {
-      egy->T0->co[l] = egy->Temp->co[l];
+      (*egy->T0)(l) = (*egy->Temp)(l);
     }
 
   //Initialize soil properties
@@ -1414,14 +1414,14 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
       for (l=1; l<=Nl; l++)
         {
           //water content to be modified at each iteration
-          egy->THETA->co[l] = (*cnet->th)(l,j);
+          (*egy->THETA)(l) = (*cnet->th)(l,j);
           //total pressure (=pressure of the water would have if it was all in liquid state)
           psim0=psi_teta((*cnet->th)(l,j)+(*SC->thi)(l,j), 0.0,
                          (*sl->pa)(sy,jsat,l), (*sl->pa)(sy,jres,l),
                          (*sl->pa)(sy,ja,l), (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l),
                          PsiMin, (*sl->pa)(sy,jss,l));
           //max temperature at which the first particle of ice comes up
-          egy->Tstar->co[l]=Fmin(psim0/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
+         (*egy->Tstar)(l) = Fmin(psim0/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
         }
     }
   else
@@ -1431,14 +1431,14 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
       for (l=1; l<=Nl; l++)
         {
           //water content to be modified at each iteration
-          egy->THETA->co[l] = (*sl->th)(l,j);
+          (*egy->THETA)(l) = (*sl->th)(l,j);
           //total pressure (=pressure of the water would have if it was all in liquid state)
           psim0=psi_teta((*sl->th)(l,j)+(*SL->thi)(l,j), 0.0,
                          (*sl->pa)(sy,jsat,l), (*sl->pa)(sy,jres,l),
                          (*sl->pa)(sy,ja,l), (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l),
                          PsiMin, (*sl->pa)(sy,jss,l));
           //max temperature at which the first particle of ice comes up
-          egy->Tstar->co[l]=Fmin(psim0/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
+         (*egy->Tstar)(l)=Fmin(psim0/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
         }
 
     }
@@ -1448,14 +1448,14 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
     {
 
       //Surface skin temperature used to compute the surface energy fluxes
-      Tg = egy->Temp->co[sur];
+      Tg =(*egy->Temp)(sur);
       Tg0 = Tg;
 
       //Qg0 is the specific humidity at the soil surface at the beginning of the time step (assumed saturated)
       Qg0 = SpecHumidity(SatVapPressure(Tg0, P), P);
 
       //canopy temperature at the beginning of the time step
-      Tv0 = V->Tv->co[j];
+      Tv0 = (*V->Tv)(j);
 
       /*calculates all the surface energy fluxes, includes the calculation of vegetation temperature (solving the vegetation energy balance)
        Returns:
@@ -1477,24 +1477,24 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
       //surface energy balance
       EnergyFluxes(t, Tg, r, c, ns+ng, Tg0, Qg0, Tv0, zmu, zmT, z0s, d0s, rz0s, z0v,
                    d0v, rz0v, hveg, v, Ta, Qa, P, LR, psi0, eps, fc, LSAI,
-                   decaycoeff0, *Wcrn, Wcrnmax, *Wcsn, Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0],
+                   decaycoeff0, *Wcrn, Wcrnmax, *Wcsn, Wcsnmax, &dWcrn, &dWcsn, *egy->THETA,
                    sl->pa->matrix(sy), land->ty->row(lu),
                    land->root_fraction->row(lu), par, egy->soil_transp_layer.get(), SWin, LWin, SWv, LW,
                    H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, Etrans,
-                   &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, rh, rv, rc, rb, ruc,
+                   &((*V->Tv)(j)), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, rh, rv, rc, rb, ruc,
                    &rh_g, &rv_g, Qg, u_top, decay, Locc, LWup_ab_v,
-                   &egy->Temp->co[0], egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(),
+                   *egy->Temp, egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(),
                    (*top->sky)(r,c));
 
       if (micro == 1)
         {
-          EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Eadd + egy->SWlayer->co[0];
+          EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Eadd + (*egy->SWlayer)(0);
           dEB_dT = -eps*(*top->sky)(r,c)*dSB_dT(Tg) - dH_dT - latent(Tg,
                    Levap(Tg))*dE_dT;//changed
         }
     }
 
-  if (micro_sempl == 1)  EB = Convd * (Ta - egy->Temp->co[sur]);
+  if (micro_sempl == 1)  EB = Convd * (Ta -(*egy->Temp)(sur));
 
   EB0 = EB;
 
@@ -1503,7 +1503,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
   for (l=sur; l<=n; l++)
     {
-      egy->Fenergy->co[l] = 0.0;
+      (*egy->Fenergy)(l) = 0.0;
       if (l>0)(*egy->deltaw)(l) = 0.0;
     }
 
@@ -1562,12 +1562,12 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
           if (l <= ns+ng)
             {
-              egy->Kth1->co[l-1] = - 2. * k_thermal(1, par->snow_conductivity, thwn, thin,
+              (*egy->Kth1)(l-1) = - 2. * k_thermal(1, par->snow_conductivity, thwn, thin,
                                                     satn, ktn) / ( (*egy->Dlayer)(l-1) + (*egy->Dlayer)(l) );
             }
           else
             {
-              egy->Kth1->co[l-1] = - 2. * k_thermal(0, 1, thwn, thin, satn,
+              (*egy->Kth1)(l-1) = - 2. * k_thermal(0, 1, thwn, thin, satn,
                                                     ktn) / ( (*egy->Dlayer)(l-1) + (*egy->Dlayer)(l) );
             }
 
@@ -1577,42 +1577,42 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
           if (l <= ns+ng)
             {
-              egy->Kth1->co[l-1] = - k_thermal(1, par->snow_conductivity, thw, thi, sat,
+              (*egy->Kth1)(l-1) = - k_thermal(1, par->snow_conductivity, thw, thi, sat,
                                                kt) / ( (*egy->Dlayer)(l)/2. );
             }
           else
             {
-              egy->Kth1->co[l-1] = - k_thermal(0, 1, thw, thi, sat,
+              (*egy->Kth1)(l-1) = - k_thermal(0, 1, thw, thi, sat,
                                                kt) / ( (*egy->Dlayer)(l)/2. );
             }
 
         }
 
-      egy->Kth0->co[l-1] = egy->Kth1->co[l-1];
+      (*egy->Kth0)(l-1) = (*egy->Kth1)(l-1);
 
       //diagonal part of F due to heat capacity and boundary condition (except conduction)
-      C0 = calc_C(l, ns+ng, 0.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
+      C0 = calc_C(l, ns+ng, 0.0, *egy->ice, *egy->liq, *egy->deltaw,
                   *egy->Dlayer, sl->pa->matrix(sy));
-      C1 = calc_C(l, ns+ng, 1.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
+      C1 = calc_C(l, ns+ng, 1.0, *egy->ice, *egy->liq, *egy->deltaw,
                   *egy->Dlayer, sl->pa->matrix(sy));
       if (l<=ns+ng
           && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
-      egy->Fenergy->co[l] += ( Lf*(*egy->deltaw)(l) +
-                               C1*(*egy->Dlayer)(l)*egy->Temp->co[l] -
-                               C0*(*egy->Dlayer)(l)*egy->T0->co[l] ) / Dt;
+      (*egy->Fenergy)(l) += ( Lf*(*egy->deltaw)(l) +
+                               C1*(*egy->Dlayer)(l)*(*egy->Temp)(l) -
+                               C0*(*egy->Dlayer)(l)*(*egy->T0)(l) ) / Dt;
 
       //shortwave radiation penetrating under the surface
-      if (micro == 1 && l<=ns+1) egy->Fenergy->co[l] -= egy->SWlayer->co[l];
+      if (micro == 1 && l<=ns+1) (*egy->Fenergy)(l) -= (*egy->SWlayer)(l);
 
     }
 
   //top boundary condition
-  egy->Fenergy->co[sur] -= ( (1.-KNe)*EB + KNe*EB0 );
-  if (dirichlet == 1) egy->Fenergy->co[sur] -= ( (Tgd-egy->Temp->co[sur])*
-                                                   (1.-KNe)*kub1 + (Tgd-egy->T0->co[sur])*KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
+  (*egy->Fenergy)(sur) -= ( (1.-KNe)*EB + KNe*EB0 );
+  if (dirichlet == 1) (*egy->Fenergy)(sur) -= ( (Tgd-(*egy->Temp)(sur))*
+                                                   (1.-KNe)*kub1 + (Tgd-(*egy->T0)(sur))*KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
 
   //bottom boundary condition (treated as sink)
-  egy->Fenergy->co[n] -= par->Fboundary;
+  (*egy->Fenergy)(n) -= par->Fboundary;
 
   if (n <= ns+ng)
     {
@@ -1626,19 +1626,19 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
   if (dirichlet_bottom == 1)
     {
-      egy->Fenergy->co[n] -= ( (Tbottom-egy->Temp->co[n])*(1.-KNe)*kbb1 +
-                               (Tbottom-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
+      (*egy->Fenergy)(n) -= ( (Tbottom-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
+                               (Tbottom-(*egy->T0)(n))*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
     }
   else
     {
-      egy->Fenergy->co[n] -= ( (par->Tboundary-egy->Temp->co[n])*(1.-KNe)*kbb1 +
-                               (par->Tboundary-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
+      (*egy->Fenergy)(n) -= ( (par->Tboundary-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
+                               (par->Tboundary-(*egy->T0)(n))*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
                                    +par->Zboundary);
     }
 
   //include conduction in F(x0)
-  update_F_energy(sur, n, egy->Fenergy.get(), 1.-KNe, egy->Kth1.get(), &egy->Temp->co[0]);
-  update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &egy->T0->co[0]);
+  update_F_energy(sur, n, egy->Fenergy.get(), 1.-KNe, egy->Kth1.get(), &(*egy->Temp)(0));
+  update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &(*egy->T0)(0));
 
   //calculate the norm
   res = norm_2(egy->Fenergy.get(), sur, n);
@@ -1651,7 +1651,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
       for (l=sur; l<=n; l++)
         {
-          egy->T1->co[l] = egy->Temp->co[l];
+          (*egy->T1)(l) = (*egy->Temp)(l);
         }
 
       //Calculates F'(x) referred to as Jacobian matrix
@@ -1660,7 +1660,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
       for (l=sur; l<=n; l++)
         {
-          egy->dFenergy->co[l] = 0.0;
+         (*egy->dFenergy)(l) = 0.0;
         }
 
       //Heat capacity part
@@ -1668,7 +1668,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
         {
 
           //real thermal capacity
-          C1 = calc_C(l, ns+ng, 1.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
+          C1 = calc_C(l, ns+ng, 1.0, *egy->ice, *egy->liq, *egy->deltaw,
                       *egy->Dlayer, sl->pa->matrix(sy));
           if (l<=ns+ng
               && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
@@ -1676,31 +1676,30 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
           if (l<=ns+ng) //snow
             {
               C1 += Lf*((*egy->ice)(l)+(*egy->liq)(l))*dtheta_snow(par->alpha_snow, 1.,
-                                                                     egy->Temp->co[l])/(*egy->Dlayer)(l);
+                                                                     (*egy->Temp)(l))/(*egy->Dlayer)(l);
             }
           else    //soil
             {
               m=l-ns-ng;
-              if (egy->Temp->co[l]<=egy->Tstar->co[m]) C1 += rho_w * Lf * (Lf/(g*tk)*1.E3) 
-                      * dteta_dpsi(Psif(egy->Temp->co[l]), 0.0, (*sl->pa)(sy,jsat,m),
+              if ((*egy->Temp)(l) <= (*egy->Tstar)(m)) 
+                  C1 += rho_w * Lf * (Lf/(g*tk)*1.E3) * dteta_dpsi(Psif((*egy->Temp)(l)), 0.0, (*sl->pa)(sy,jsat,m),
                                   (*sl->pa)(sy,jres,m), (*sl->pa)(sy,ja,m), (*sl->pa)(sy,jns,m),
                                   1-1/(*sl->pa)(sy,jns,m), PsiMin, 0.0);
             }
 
-          egy->dFenergy->co[l] += C1*(*egy->Dlayer)(l) / Dt;
+         (*egy->dFenergy)(l) += C1*(*egy->Dlayer)(l) / Dt;
 
         }
 
       //Upper Boundary Condition: Neumann
-      egy->dFenergy->co[sur] -= (1.-KNe)*dEB_dT;
+      (*egy->dFenergy)(sur) -= (1.-KNe)*dEB_dT;
 
       //Upper Boundary Condition: Dirichlet
-      if (dirichlet == 1) egy->dFenergy->co[sur] += (1.-KNe)*kub1 /
-                                                      ((*egy->Dlayer)(1)/2.);
+      if (dirichlet == 1) 
+          (*egy->dFenergy)(sur) += (1.-KNe)*kub1 /((*egy->Dlayer)(1)/2.);
 
       //Bottom Boundary Condition
-      egy->dFenergy->co[n] += (1.-KNe)*kbb1 / ((*egy->Dlayer)(n)/2.
-                                               +par->Zboundary);
+      (*egy->dFenergy)(n) += (1.-KNe)*kbb1 / ((*egy->Dlayer)(n)/2.+par->Zboundary);
 
       //Update the part of Jacobian due to conduction is included in Kth1 and Kth0
       update_diag_dF_energy(sur, n, egy->dFenergy.get(), 1.-KNe, egy->Kth1.get());
@@ -1708,7 +1707,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
       //Extradiagonal part of the Jacobian
       for (l=sur; l<=n-1; l++)
         {
-          egy->udFenergy->co[l] = (1.-KNe)*egy->Kth1->co[l];
+          (*egy->udFenergy)(l) = (1.-KNe)*(*egy->Kth1)(l);
         }
 
       //Solve tridiagonal system
@@ -1780,7 +1779,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
           for (l=sur; l<=n; l++)
             {
 
-              egy->Temp->co[l] = egy->T1->co[l] + lambda[0] * egy->Newton_dir->co[l];
+              (*egy->Temp)(l) = (*egy->T1)(l) + lambda[0] * (*egy->Newton_dir)(l);
 
 
               //soil
@@ -1791,7 +1790,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                   if (i<=par->total_channel)
                     {
                       th0 = (*cnet->th)(m,j);
-                      th1 = teta_psi(Psif(Fmin(egy->Tstar->co[m],egy->Temp->co[l])), 0.0,
+                      th1 = teta_psi(Psif(Fmin((*egy->Tstar)(m),(*egy->Temp)(l))), 0.0,
                                      (*sl->pa)(sy,jsat,m),
                                      (*sl->pa)(sy,jres,m), (*sl->pa)(sy,ja,m), (*sl->pa)(sy,jns,m),
                                      1-1/(*sl->pa)(sy,jns,m), PsiMin, (*sl->pa)(sy,jss,m));
@@ -1801,7 +1800,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                   else
                     {
                       th0 = (*sl->th)(m,j);
-                      th1 = teta_psi(Psif(Fmin(egy->Tstar->co[m],egy->Temp->co[l])), 0.0,
+                      th1 = teta_psi(Psif(Fmin((*egy->Tstar)(m),(*egy->Temp)(l))), 0.0,
                                      (*sl->pa)(sy,jsat,m),
                                      (*sl->pa)(sy,jres,m), (*sl->pa)(sy,ja,m), (*sl->pa)(sy,jns,m),
                                      1-1/(*sl->pa)(sy,jns,m), PsiMin, (*sl->pa)(sy,jss,m));
@@ -1818,7 +1817,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                 {
 
                   th0=(*egy->liq)(l)/((*egy->ice)(l)+(*egy->liq)(l));
-                  th1=theta_snow(par->alpha_snow, 1., egy->Temp->co[l]);
+                  th1=theta_snow(par->alpha_snow, 1., (*egy->Temp)(l));
 
                   (*egy->deltaw)(l)=(th1-th0)*((*egy->ice)(l)+(*egy->liq)(l));
 
@@ -1826,7 +1825,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
             }
 
-          Tg=egy->Temp->co[sur];
+          Tg=(*egy->Temp)(sur);
           if (Tg < Tmin_surface_below_which_surfenergy_balance_recalculated) flagTmin++;
 
           if (surfacebalance == 1)
@@ -1845,52 +1844,52 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
                           if (i<=par->total_channel)
                             {
-                              egy->THETA->co[m] = (*cnet->th)(m,j) + (*egy->deltaw)(l)/(rho_w*(*egy->Dlayer)(l));
+                              (*egy->THETA)(m) = (*cnet->th)(m,j) + (*egy->deltaw)(l)/(rho_w*(*egy->Dlayer)(l));
                             }
                           else
                             {
-                              egy->THETA->co[m] = (*sl->th)(m,j) + (*egy->deltaw)(l)/(rho_w*(*egy->Dlayer)(l));
+                              (*egy->THETA)(m) = (*sl->th)(m,j) + (*egy->deltaw)(l)/(rho_w*(*egy->Dlayer)(l));
                             }
 
                           //add canopy transpiration
-                          if (egy->THETA->co[m] > (*sl->pa)(sy,jres,1) + 1.E-3
+                          if ((*egy->THETA)(m) > (*sl->pa)(sy,jres,1) + 1.E-3
                               && l <= egy->soil_transp_layer->nh )
                             {
-                              egy->THETA->co[m] -= Fmax( Dt*fc*egy->soil_transp_layer->co[m]/
+                              (*egy->THETA)(m) -= Fmax( Dt*fc*(*egy->soil_transp_layer)(m)/
                                                          (rho_w*(*egy->Dlayer)(l)), 0.0 );
-                              if (egy->THETA->co[m] < (*sl->pa)(sy,jres,m)+1.E-3) egy->THETA->co[m] =
+                              if ((*egy->THETA)(m) < (*sl->pa)(sy,jres,m)+1.E-3) (*egy->THETA)(m) =
                                   (*sl->pa)(sy,jres,m)+1.E-3;
                             }
 
                           //add soil evaporation
-                          if (egy->THETA->co[m] > (*sl->pa)(sy,jres,1) + 1.E-3
+                          if ((*egy->THETA)(m) > (*sl->pa)(sy,jres,1) + 1.E-3
                               && l <= egy->soil_evap_layer_bare->nh )
                             {
-                              egy->THETA->co[m] -= Fmax( Dt*(1.-fc)*egy->soil_evap_layer_bare->co[m]/
+                              (*egy->THETA)(m) -= Fmax( Dt*(1.-fc)*(*egy->soil_evap_layer_bare)(m)/
                                                          (rho_w*(*egy->Dlayer)(l)), 0.0 );
-                              egy->THETA->co[m] -= Fmax( Dt*fc*egy->soil_evap_layer_veg->co[m]/
+                              (*egy->THETA)(m) -= Fmax( Dt*fc*(*egy->soil_evap_layer_veg)(m)/
                                                          (rho_w*(*egy->Dlayer)(l)), 0.0 );
-                              if (egy->THETA->co[m] < (*sl->pa)(sy,jres,m)+1.E-3) egy->THETA->co[m] =
+                              if ((*egy->THETA)(m) < (*sl->pa)(sy,jres,m)+1.E-3) (*egy->THETA)(m) =
                                   (*sl->pa)(sy,jres,m)+1.E-3;
                             }
                         }
                     }
 
                   //surface energy balance
-                  EnergyFluxes_no_rec_turbulence(t, Tg, r, c, ns+ng, egy->T0->co[1], Qg0, Tv0, zmu, zmT, // 10 parameters
+                  EnergyFluxes_no_rec_turbulence(t, Tg, r, c, ns+ng, (*egy->T0)(1), Qg0, Tv0, zmu, zmT, // 10 parameters
                                                  z0s, d0s, rz0s, z0v, d0v, rz0v, hveg, v, Ta, Qa, // 10 parameters
                                                  P, LR, (*SL->P)(0,j), eps, fc, LSAI, decaycoeff0, *Wcrn, Wcrnmax, *Wcsn,  // 10 parameters
-                                                 Wcsnmax, &dWcrn, &dWcsn, &egy->THETA->co[0], sl->pa->matrix(sy), // 5 parameters
+                                                 Wcsnmax, &dWcrn, &dWcsn, *egy->THETA, sl->pa->matrix(sy), // 5 parameters
                                                  land->ty->row(lu), land->root_fraction->row(lu), par, egy->soil_transp_layer.get(), SWin, // 5 parameters
                                                  LWin, SWv, LW, H, &dH_dT, E, &dE_dT, LWv, Hv, LEv, // 10 parameters
-                                                 Etrans, &(V->Tv->co[j]), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, // 10 parameters
+                                                 Etrans, &((*V->Tv)(j)), Qv, Ts, Qs, Hg0, Hg1, Eg0, Eg1, Lob, // 10 parameters
                                                  rh, rv, rc, rb, ruc, &rh_g, &rv_g, Qg, u_top, decay, // 10 parameters
-                                                 Locc, LWup_ab_v, &egy->Temp->co[0], egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(), // 5 parameters
+                                                 Locc, LWup_ab_v, *egy->Temp, egy->soil_evap_layer_bare.get(), egy->soil_evap_layer_veg.get(), // 5 parameters
                                                  (*top->sky)(r,c), flagTmin, cont); // 3 parameters => TOT = 78 parameters
 
                   if (micro == 1)
                     {
-                      EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Eadd + egy->SWlayer->co[0];
+                      EB = *LW - (*H) - latent(Tg,Levap(Tg))*(*E) + Eadd + (*egy->SWlayer)(0);
                       dEB_dT = -eps*(*top->sky)(r,c)*dSB_dT(Tg) - dH_dT - latent(Tg,
                                Levap(Tg))*dE_dT;//changed
                     }
@@ -1898,12 +1897,12 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                 }
             }
 
-          if (micro_sempl == 1)  EB = Convd * (Ta - egy->Temp->co[sur]);
+          if (micro_sempl == 1)  EB = Convd * (Ta -(*egy->Temp)(sur));
 
           //F(T) = diag(egy->Fenergy(T)) + K(T)*T
           for (l=sur; l<=n; l++)
             {
-              egy->Fenergy->co[l] = 0.0;
+              (*egy->Fenergy)(l) = 0.0;
             }
 
           *dUsl = 0.;
@@ -1960,12 +1959,12 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
                   if (l <= ns+ng)
                     {
-                      egy->Kth1->co[l-1] = - 2. * k_thermal(1, par->snow_conductivity, thwn, thin,
+                      (*egy->Kth1)(l-1) = - 2. * k_thermal(1, par->snow_conductivity, thwn, thin,
                                                             satn, ktn) / ( (*egy->Dlayer)(l-1) + (*egy->Dlayer)(l) );
                     }
                   else
                     {
-                      egy->Kth1->co[l-1] = - 2. * k_thermal(0, 1, thwn, thin, satn,
+                      (*egy->Kth1)(l-1) = - 2. * k_thermal(0, 1, thwn, thin, satn,
                                                             ktn) / ( (*egy->Dlayer)(l-1) + (*egy->Dlayer)(l) );
                     }
 
@@ -1975,45 +1974,45 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
                   if (l <= ns+ng)
                     {
-                      egy->Kth1->co[l-1] = - k_thermal(1, par->snow_conductivity, thw, thi, sat,
+                      (*egy->Kth1)(l-1) = - k_thermal(1, par->snow_conductivity, thw, thi, sat,
                                                        kt) / ( (*egy->Dlayer)(l)/2. );
                     }
                   else
                     {
-                      egy->Kth1->co[l-1] = - k_thermal(0, 1, thw, thi, sat,
+                      (*egy->Kth1)(l-1) = - k_thermal(0, 1, thw, thi, sat,
                                                        kt) / ( (*egy->Dlayer)(l)/2. );
                     }
 
                 }
 
               //diagonal part of F due to heat capacity and boundary condition (except conduction)
-              C0 = calc_C(l, ns+ng, 0.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
+              C0 = calc_C(l, ns+ng, 0.0, *egy->ice, *egy->liq, *egy->deltaw,
                           *egy->Dlayer, sl->pa->matrix(sy));
-              C1 = calc_C(l, ns+ng, 1.0, &egy->ice->co[0], &egy->liq->co[0], &egy->deltaw->co[0],
+              C1 = calc_C(l, ns+ng, 1.0, *egy->ice, *egy->liq, *egy->deltaw,
                           *egy->Dlayer, sl->pa->matrix(sy));
               if (l<=ns+ng
                   && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
-              egy->Fenergy->co[l] += ( Lf*(*egy->deltaw)(l) +
-                                       C1*(*egy->Dlayer)(l)*egy->Temp->co[l] -
-                                       C0*(*egy->Dlayer)(l)*egy->T0->co[l] ) / Dt;
+              (*egy->Fenergy)(l) += ( Lf*(*egy->deltaw)(l) +
+                                       C1*(*egy->Dlayer)(l)*(*egy->Temp)(l) -
+                                       C0*(*egy->Dlayer)(l)*(*egy->T0)(l) ) / Dt;
 
               //shortwave radiation penetrating under the surface
-              if (micro == 1 && l<=ns+1) egy->Fenergy->co[l] -= egy->SWlayer->co[l];
+              if (micro == 1 && l<=ns+1) (*egy->Fenergy)(l) -= (*egy->SWlayer)(l);
 
               //store soil internal energy
               if (l>ns+ng) *dUsl = *dUsl + Lf*(*egy->deltaw)(l) +
-                                     C1*(*egy->Dlayer)(l)*egy->Temp->co[l] - C0*(*egy->Dlayer)(l)*egy->T0->co[l];
+                                     C1*(*egy->Dlayer)(l)*(*egy->Temp)(l) - C0*(*egy->Dlayer)(l)*(*egy->T0)(l);
 
             }
 
 
           //top boundary condition
-          egy->Fenergy->co[sur] -= ( (1.-KNe)*EB + KNe*EB0 );
-          if (dirichlet == 1) egy->Fenergy->co[sur] -= ( (Tgd-egy->Temp->co[sur])*
-                                                           (1.-KNe)*kub1 + (Tgd-egy->T0->co[sur])*KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
+          (*egy->Fenergy)(sur) -= ( (1.-KNe)*EB + KNe*EB0 );
+          if (dirichlet == 1) (*egy->Fenergy)(sur) -= ( (Tgd-(*egy->Temp)(sur))*
+                                                           (1.-KNe)*kub1 + (Tgd-(*egy->T0)(sur))*KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
 
           //bottom boundary condition (treated as sink)
-          egy->Fenergy->co[n] -= par->Fboundary;
+          (*egy->Fenergy)(n) -= par->Fboundary;
 
           if (n <= ns+ng)
             {
@@ -2026,22 +2025,19 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
           if (dirichlet_bottom == 1)
             {
-              egy->Fenergy->co[n] -= ( (Tbottom-egy->Temp->co[n])*(1.-KNe)*kbb1 +
-                                       (Tbottom-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
+              (*egy->Fenergy)(n) -= ( (Tbottom-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
+                                       (Tbottom-(*egy->T0)(n))*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
             }
           else
             {
-              egy->Fenergy->co[n] -= ( (par->Tboundary-egy->Temp->co[n])*(1.-KNe)*kbb1 +
-                                       (par->Tboundary-egy->T0->co[n])*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
+              (*egy->Fenergy)(n) -= ( (par->Tboundary-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
+                                       (par->Tboundary-(*egy->T0)(n))*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
                                            +par->Zboundary);
             }
 
-          update_F_energy(sur, n, egy->Fenergy.get(), 1.-KNe, egy->Kth1.get(), &egy->Temp->co[0]);
-          update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &egy->T0->co[0]);
+          update_F_energy(sur, n, egy->Fenergy.get(), 1.-KNe, egy->Kth1.get(), &(*egy->Temp)(0));
+          update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &(*egy->T0)(0));
           res = norm_2(egy->Fenergy.get(), sur, n);
-
-          //printf("Dt:%.2f res:%e cont:%ld cont2:%ld T0:%f T1:%f EB:%f SW:%f Ta:%f Tg:%f LW:%.2f H:%.2f ET:%.2f dw:%f liq:%f ice:%f \n",Dt,res,cont,cont2,egy->Temp->co[sur],egy->Temp->co[1],EB,egy->SWlayer->co[0],Ta,Tg,*LW,(*H),latent(Tg,Levap(Tg))*(*E),egy->deltaw->co[1],egy->liq->co[1]+egy->deltaw->co[1],egy->ice->co[1]-egy->deltaw->co[1]);
-          //printf("res:%e sur:%ld\n",res,sur);
 
           if (res <= res_av*(1.0 - ni*lambda[0])) iter_close2=1;
           if (lambda[0] <= par->min_lambda_en) cont_lambda_min++;
@@ -2092,10 +2088,10 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
   //skin temperature
   if (sur == 1
-      && par->nsurface == 0) egy->Temp->co[par->nsurface] = egy->Temp->co[sur];
+      && par->nsurface == 0) (*egy->Temp)(par->nsurface) =(*egy->Temp)(sur);
 
   //it is not admitted that the skin layer temperature goes > 0 when snow or glacier are present
-  if (sur == 0 && ns+ng > 0 && egy->Temp->co[sur] > 0) return -1;
+  if (sur == 0 && ns+ng > 0 &&(*egy->Temp)(sur) > 0) return -1;
 
   //it is not admitted that a snow/glacier layer melts completely
   for (l=1; l<=ns+ng; l++)
@@ -2143,7 +2139,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
   for (l=sur; l<=Nl+ns+ng; l++)
     {
 
-      if (egy->Temp->co[l] != egy->Temp->co[l])
+      if ((*egy->Temp)(l) != (*egy->Temp)(l))
         {
           f = fopen(FailedRunFile, "w");
           fprintf(f, "Simulation Period:%ld\n",i_sim);
@@ -2154,10 +2150,10 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
           t_error("Fatal Error! Geotop is closed. See failing report.");
         }
 
-      if (egy->Temp->co[l] < Tmin || egy->Temp->co[l] > Tmax)
+      if ((*egy->Temp)(l) < Tmin || (*egy->Temp)(l) > Tmax)
         {
           printf("Warning, T outside of range, PointEnergyBalance, l:%ld r:%ld c:%ld T:%f LW:%f H:%f LE:%f Ta:%f\n",
-                 l,r,c,egy->Temp->co[l],*LW,*H,latent(Tg,Levap(Tg))*(*E),Ta);
+                 l,r,c,(*egy->Temp)(l),*LW,*H,latent(Tg,Levap(Tg))*(*E),Ta);
         }
     }
 
@@ -2206,32 +2202,29 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
 
       //canopy transpiration
       if (l <= egy->soil_transp_layer->nh)
-        (*ET)(l,r,c) +=  fc*egy->soil_transp_layer->co[l]*Dt;
+        (*ET)(l,r,c) +=  fc*(*egy->soil_transp_layer)(l)*Dt;
 
       //soil evaporation
       if (l <= egy->soil_evap_layer_bare->nh)
         {
-          (*ET)(l,r,c) += (1.-fc)*egy->soil_evap_layer_bare->co[l]*Dt;
-          (*ET)(l,r,c) += fc*egy->soil_evap_layer_veg->co[l]*Dt;
+          (*ET)(l,r,c) += (1.-fc)*(*egy->soil_evap_layer_bare)(l)*Dt;
+          (*ET)(l,r,c) += fc*(*egy->soil_evap_layer_veg)(l)*Dt;
         }
 
       //water pressure and contents
-      psisat = psi_saturation(Fmax(0.,
-                                   egy->ice->co[l+n])/(rho_w*(*egy->Dlayer)(l+n)), pa(jsat,l), pa(jres,l),
-                              pa(ja,l), pa(jns,l), 1.-1./pa(jns,l));
-      th_oversat = Fmax( (*S->P)(l,i) - psisat, 0.0 ) *pa(jss,l);
+      psisat = psi_saturation(Fmax(0., (*egy->ice)(l+n))/(rho_w*(*egy->Dlayer)(l+n)), 
+                              pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l));
+      th_oversat = Fmax( (*S->P)(l,i) - psisat, 0.0 ) * pa(jss,l);
 
-      (*th)(l,i) = Fmax(0.,egy->liq->co[l+n]+egy->deltaw->co[l+n])/
-                     (rho_w * (*egy->Dlayer)(l+n));
-      (*S->thi)(l,i) = Fmax(0.,
-                              egy->ice->co[l+n]-egy->deltaw->co[l+n])/(rho_w*(*egy->Dlayer)(l+n));
+      (*th)(l,i) = Fmax(0.,(*egy->liq)(l+n)+(*egy->deltaw)(l+n))/(rho_w * (*egy->Dlayer)(l+n));
+
+      (*S->thi)(l,i) = Fmax(0., (*egy->ice)(l+n)-(*egy->deltaw)(l+n))/(rho_w*(*egy->Dlayer)(l+n));
 
       (*S->P)(l,i) = psi_teta((*th)(l,i)+th_oversat, (*S->thi)(l,i),
-                                pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l), PsiMin,
-                               pa(jss,l));
+                              pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l), PsiMin, pa(jss,l));
 
       //temperature
-        (*S->T)(l,i) = egy->Temp->co[l+n];
+        (*S->T)(l,i) = (*egy->Temp)(l+n);
 
     }
 
@@ -2255,13 +2248,13 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
 
       //canopy transpiration
       if (l <= egy->soil_transp_layer->nh) (*ET)(l,ch) +=
-          fc*egy->soil_transp_layer->co[l]*Dt;
+          fc*(*egy->soil_transp_layer)(l)*Dt;
 
       //soil evaporation
       if (l <= egy->soil_evap_layer_bare->nh)
         {
-          (*ET)(l,ch) += (1.-fc)*egy->soil_evap_layer_bare->co[l]*Dt;
-          (*ET)(l,ch) += fc*egy->soil_evap_layer_veg->co[l]*Dt;
+          (*ET)(l,ch) += (1.-fc)*(*egy->soil_evap_layer_bare)(l)*Dt;
+          (*ET)(l,ch) += fc*(*egy->soil_evap_layer_veg)(l)*Dt;
         }
 
       //water pressure and contents
@@ -2269,15 +2262,15 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
                               pa(ja,l), pa(jns,l), 1.-1./pa(jns,l));
       th_oversat = Fmax( (*S->P)(l,ch) - psisat, 0.0 ) *pa(jss,l);
 
-      (*th)(l,ch) = Fmax(0., egy->liq->co[l+n]+egy->deltaw->co[l+n])/(rho_w*(*egy->Dlayer)(l+n));
-      (*S->thi)(l,ch) = Fmax(0., egy->ice->co[l+n]-egy->deltaw->co[l+n])/(rho_w*(*egy->Dlayer)(l+n));
+      (*th)(l,ch) = Fmax(0., (*egy->liq)(l+n)+(*egy->deltaw)(l+n))/(rho_w*(*egy->Dlayer)(l+n));
+      (*S->thi)(l,ch) = Fmax(0., (*egy->ice)(l+n)-(*egy->deltaw)(l+n))/(rho_w*(*egy->Dlayer)(l+n));
 
       (*S->P)(l,ch) = psi_teta((*th)(l,ch)+th_oversat, (*S->thi)(l,ch),
                                  pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l), PsiMin,
                                 pa(jss,l));
 
       //temperature
-        (*S->T)(l,ch) = egy->Temp->co[l+n];
+        (*S->T)(l,ch) = (*egy->Temp)(l+n);
 
     }
 }
@@ -2298,15 +2291,15 @@ void update_F_energy(long nbeg, long nend, Vector<double> *F, double w,
 
       if (l==nbeg)
         {
-          F->co[l] += w*(-K->co[l]*T[l] + K->co[l]*T[l+1]);
+          (*F)(l) += w*(-(*K)(l)*T[l] + (*K)(l)*T[l+1]);
         }
       else if (l<nend)
         {
-          F->co[l] += w*(K->co[l-1]*T[l-1] - (K->co[l]+K->co[l-1])*T[l] + K->co[l]*T[l+1]);
+          (*F)(l) += w*((*K)(l-1)*T[l-1] - ((*K)(l)+(*K)(l-1))*T[l] + (*K)(l)*T[l+1]);
         }
       else
         {
-          F->co[l] += w*(K->co[l-1]*T[l-1] - K->co[l-1]*T[l]);
+          (*F)(l) += w*((*K)(l-1) * T[l-1] - (*K)(l-1)*T[l]);
         }
 
     }
@@ -2317,8 +2310,7 @@ void update_F_energy(long nbeg, long nend, Vector<double> *F, double w,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w,
-                           Vector<double> *K)
+void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w, Vector<double> *K)
 {
 
   long l;
@@ -2328,15 +2320,15 @@ void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w,
 
       if (l==nbeg)
         {
-          dF->co[l] -= w*K->co[l];
+          (*dF)(l) -= w*(*K)(l);
         }
       else if (l<nend)
         {
-          dF->co[l] -= w*(K->co[l]+K->co[l-1]);
+          (*dF)(l) -= w*((*K)(l)+(*K)(l-1));
         }
       else
         {
-          dF->co[l] -= w*K->co[l-1];
+          (*dF)(l) -= w*(*K)(l-1);
         }
 
     }
@@ -2347,7 +2339,7 @@ void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double calc_C(long l, long nsng, double a, double *wi, double *wl, double *dw,
+double calc_C(long l, long nsng, double a, Vector<double> &wi, Vector<double> &wl, Vector<double> &dw,
               Vector<double> &D, MatrixView<double> &&pa)
 {
 
@@ -2355,11 +2347,11 @@ double calc_C(long l, long nsng, double a, double *wi, double *wl, double *dw,
 
   if (l<=nsng)  //snow
     {
-      C = (c_ice*(wi[l]-a*dw[l]) + c_liq*(wl[l]+a*dw[l]))/D(l);
+      C = (c_ice*(wi(l)-a*dw(l)) + c_liq*(wl(l)+a*dw(l)))/D(l);
     }
   else    //soil
     {
-      C = pa(jct,l-nsng)*(1.-pa(jsat,l-nsng)) + (c_ice*(wi[l]-a*dw[l]) + c_liq* (wl[l]+a*dw[l]))/D(l);
+      C = pa(jct,l-nsng)*(1.-pa(jsat,l-nsng)) + (c_ice*(wi(l)-a*dw(l)) + c_liq* (wl(l)+a*dw(l)))/D(l);
     }
 
   return (C);
@@ -2377,7 +2369,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
                   double rz0v, double hveg, double v, double Ta, double Qa, // 5 parameters
                   double P, double LR, double psi, double e, double fc, // 5 parameters
                   double LSAI, double decaycoeff0, double Wcrn, double Wcrnmax, double Wcsn, // 5 parameters
-                  double Wcsnmax, double *dWcrn, double *dWcsn, double *theta,
+                  double Wcsnmax, double *dWcrn, double *dWcsn, Vector<double> &theta,
                   MatrixView<double> &&soil, // 5 parameters
                   RowView<double> &&land, RowView<double> &&root, PAR *par, Vector<double> *soil_transp_layer,
                   double SWin, // 5 parameters
@@ -2387,7 +2379,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
                   double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Lobukhov, // 5 parameters
                   double *rh, double *rv, double *rc, double *rb, double *ruc, // 5 parameters
                   double *rh_g, double *rv_g, double *Qg, double *u_top, double *decay, // 5 parameters
-                  double *Locc, double *LWup_above_v, double *T, Vector<double> *soil_evap_layer_bare,
+                  double *Locc, double *LWup_above_v, Vector<double> &T, Vector<double> *soil_evap_layer_bare,
                   Vector<double> *soil_evap_layer_veg, // 5 parameters
                   double sky) // 1 parameters
 {
@@ -2578,7 +2570,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
                                     double P, double LR, double psi, double e, double fc, double LSAI,
                                     double decaycoeff0, double Wcrn,
                                     double Wcrnmax, double Wcsn, double Wcsnmax, double *dWcrn, double *dWcsn,
-                                    double *theta, MatrixView<double> &&soil,
+                                    Vector<double> &theta, MatrixView<double> &&soil,
                                     RowView<double> &&land, RowView<double> &&root, PAR *par,
                                     Vector<double> *soil_transp_layer,
                                     double SWin, double LWin, double SWv, double *LW,
@@ -2588,7 +2580,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
                                     double *Eg0, double *Eg1, double *Lobukhov,
                                     double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g,
                                     double *rv_g, double *Qg,
-                                    double *u_top, double *decay, double *Locc, double *LWup_above_v, double *T,
+                                    double *u_top, double *decay, double *Locc, double *LWup_above_v, Vector<double> &T,
                                     Vector<double> *soil_evap_layer_bare,
                                     Vector<double> *soil_evap_layer_veg, double sky, short flagTmin, long cont)
 {
@@ -2879,7 +2871,7 @@ void merge(double a, Vector<double> *ice, Vector<double> *liq, Vector<double> *T
     }
   else if (l < ldw)
     {
-      if (ice->co[l+1] < ice->co[l-1])
+      if ((*ice)(l+1) < (*ice)(l-1))
         {
           m = l+1;
           n = l;
@@ -2896,22 +2888,21 @@ void merge(double a, Vector<double> *ice, Vector<double> *liq, Vector<double> *T
       n = l-1;
     }
 
-  h = internal_energy(ice->co[m], liq->co[m],
-                      Temp->co[m]) + internal_energy(ice->co[n], liq->co[n], Temp->co[n]);
+  h = internal_energy((*ice)(m), (*liq)(m),
+                      (*Temp)(m)) + internal_energy((*ice)(n), (*liq)(n), (*Temp)(n));
 
-  ice->co[n] += ice->co[m];
-  liq->co[n] += liq->co[m];
-  D->co[n] += D->co[m];
+  (*ice)(n) += (*ice)(m);
+  (*liq)(n) += (*liq)(m);
+  (*D)(n) += (*D)(m);
 
-  from_internal_energy(a, 0, 0, h, &(ice->co[n]), &(liq->co[n]),
-                       &(Temp->co[n]));
+  from_internal_energy(a, 0, 0, h, &((*ice)(n)), &((*liq)(n)), &((*Temp)(n)));
 
   for (i=m+1; i<=tot; i++)
     {
-      ice->co[i-1] = ice->co[i];
-      liq->co[i-1] = liq->co[i];
-      Temp->co[i-1] = Temp->co[i];
-      D->co[i-1] = D->co[i];
+      (*ice)(i-1) = (*ice)(i);
+      (*liq)(i-1) = (*liq)(i);
+      (*Temp)(i-1) = (*Temp)(i);
+      (*D)(i-1) = (*D)(i);
     }
 }
 
@@ -2920,8 +2911,7 @@ void merge(double a, Vector<double> *ice, Vector<double> *liq, Vector<double> *T
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void sux_minus6_condition(double ic, double wa, double rho, double D1,
-                          ENERGY *E)
+void sux_minus6_condition(double ic, double wa, double rho, double D1, ENERGY *E)
 {
 
   long l;
@@ -2930,30 +2920,30 @@ void sux_minus6_condition(double ic, double wa, double rho, double D1,
 
   for (l=Nl; l>=1; l--)
     {
-      E->ice->co[l+1] = E->ice->co[l];
-      E->liq->co[l+1] = E->liq->co[l];
-      E->deltaw->co[l+1] = E->deltaw->co[l];
-      E->Temp->co[l+1] = E->Temp->co[l];
+      (*E->ice)(l+1) = (*E->ice)(l);
+      (*E->liq)(l+1) = (*E->liq)(l);
+      (*E->deltaw)(l+1) = (*E->deltaw)(l);
+      (*E->Temp)(l+1) = (*E->Temp)(l);
       (*E->Dlayer)(l+1) = (*E->Dlayer)(l);
     }
 
-  E->ice->co[1] = ic;
-  E->liq->co[1] = wa;
-  E->Temp->co[1] = Fmin(E->Temp->co[2], -0.1);
+  (*E->ice)(1) = ic;
+  (*E->liq)(1) = wa;
+  (*E->Temp)(1) = Fmin((*E->Temp)(2), -0.1);
   (*E->Dlayer)(1)= ic/rho;
 
-  if (E->deltaw->co[2] > ic)
+  if ((*E->deltaw)(2) > ic)
     {
-      E->deltaw->co[1] = ic;
-      E->deltaw->co[2] -= ic;
+      (*E->deltaw)(1) = ic;
+      (*E->deltaw)(2) -= ic;
     }
-  else if (E->deltaw->co[2] > 0)
+  else if ((*E->deltaw)(2) > 0)
     {
-      E->deltaw->co[1] = E->deltaw->co[2];
-      E->deltaw->co[2] = 0.;
+      (*E->deltaw)(1) = (*E->deltaw)(2);
+      (*E->deltaw)(2) = 0.;
     }
 
-  E->ice->co[2] -= ic;
+  (*E->ice)(2) -= ic;
 
 }
 

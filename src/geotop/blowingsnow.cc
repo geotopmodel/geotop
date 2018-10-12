@@ -126,32 +126,32 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                         {
                           if ( (long)land->vegparv[lu-1][j-1+1] != number_novalue )
                             {
-                              land->vegpar->co[j] = land->vegparv[lu-1][j-1+1];
+                              (*land->vegpar)(j) = land->vegparv[lu-1][j-1+1];
                             }
                           else
                             {
-                              land->vegpar->co[j] = (*land->ty)(lu,j+jHveg-1);
+                              (*land->vegpar)(j) = (*land->ty)(lu,j+jHveg-1);
                             }
                         }
 
-                      if (D > land->vegpar->co[jdz0thresveg])
+                      if (D > (*land->vegpar)(jdz0thresveg))
                         {
                           fsnow=1.0;
                         }
-                      else if (D > land->vegpar->co[jdz0thresveg2])
+                      else if (D > (*land->vegpar)(jdz0thresveg2))
                         {
-                          fsnow=(D-land->vegpar->co[jdz0thresveg2])/(land->vegpar->co[jdz0thresveg]
-                                                                     -land->vegpar->co[jdz0thresveg2]);
+                          fsnow=(D-(*land->vegpar)(jdz0thresveg2))/((*land->vegpar)(jdz0thresveg)
+                                                                     -(*land->vegpar)(jdz0thresveg2));
                         }
                       else
                         {
                           fsnow=0.0;
                         }
-                      fc = land->vegpar->co[jdcf] * pow(1.0-fsnow,
-                                                        land->vegpar->co[jdexpveg]);//canopy fraction
-                      if (land->vegpar->co[jdLSAI]<LSAIthres) fc=0.0;
-                      if (fc>0) canopy_height_over_snow += fc*Fmax(land->vegpar->co[jdHveg]-D,
-                                                                     0.)*1.E-3;
+                      fc = (*land->vegpar)(jdcf) * pow(1.0-fsnow, (*land->vegpar)(jdexpveg));//canopy fraction
+                      if ((*land->vegpar)(jdLSAI)<LSAIthres) 
+                        fc=0.0;
+                      if (fc>0) 
+                        canopy_height_over_snow += fc*Fmax((*land->vegpar)(jdHveg)-D, 0.)*1.E-3;
 
                       //rearrange snow layers
                       ns = (*snow->S->lnum)(r,c);
@@ -163,8 +163,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                           do
                             {
                               l--;
-                              sux = set_snowice_min(par->alpha_snow, r, c, snow->S_for_BS, ns, l,
-                                                    par->Wice_PBSM);
+                              sux = set_snowice_min(par->alpha_snow, r, c, snow->S_for_BS, ns, l, par->Wice_PBSM);
                             }
                           while ( l > 1 && (*snow->S_for_BS->w_ice)(ns) < par->Wice_PBSM );
                         }
@@ -261,8 +260,8 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
   double Qtrans=0.0;
   double Qup, Qdown, Sup, Sdown, k_snowred;
 
-  dx=UV->U->co[1];
-  dy=UV->U->co[2];
+  dx = (*UV->U)(1);
+  dy = (*UV->U)(2);
 
   F1=par->fetch_up/3.;
   F2=par->fetch_down/3.;

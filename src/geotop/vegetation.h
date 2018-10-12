@@ -28,12 +28,12 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
              double Wcrn0, double Wcrnmax, double Wcsn0, // 10
              double Wcsnmax, double *dWcrn, double *dWcsn, double *LWv, double *LWg, double *Hv, double *Hg,
              double *dHgdT, double *LEv, double *Eg, // 10
-             double *dEgdT, double *Ts, double *Qs, RowView<double> &&froot, double *theta,
+             double *dEgdT, double *Ts, double *Qs, RowView<double> &&froot, Vector<double> &theta,
              Vector<double> *soil_transp_layer,
              double *Lobukhov, PAR *par, long n, double *rm, // 10
              double *rh, double *rv, double *rc, double *rb, double *ruc, double *u_top, double *Etrans, double *Tv,
              double *Qv, double *decay, // 10
-             double *Locc, double *LWup_above_v, double psi, MatrixView<double> &&soil, double *T,
+             double *Locc, double *LWup_above_v, double psi, MatrixView<double> &&soil, Vector<double> &T,
              Vector<double> *soil_evap_layer); // 6 => TOT = 66 parameters
 
 void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
@@ -44,11 +44,11 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
                    double Wcsnmax, double *Esubl, double *Etrans,
                    double *LWv, double *LWg, double *H, double *LE, double *h, double *dhdT,
                    double *Ts, double *Qs, double *Qv, double *ruc,
-                   RowView<double> &&froot, double *theta, Vector<double> *soil_transp_layer, long chgsgn,
+                   RowView<double> &&froot, Vector<double> &theta, Vector<double> *soil_transp_layer, long chgsgn,
                    double *Lobukhov, PAR *par, long n, double *rm,
                    double *rh, double *rv, double *rc, double *rb, double *u_top, double *decay,
                    double *Locc, double *LWup_above_v, double psi,
-                   MatrixView<double> &&soil, double *alpha, double *beta, double *T,
+                   MatrixView<double> &&soil, double *alpha, double *beta, Vector<double> &T,
                    Vector<double> *soil_evap_layer);
 
 void shortwave_vegetation(double Sd, double Sb, double x, double fwsn,
@@ -72,7 +72,7 @@ void update_roughness_veg(double hc, double snowD, double zmu, double zmt,
 void root(long n, double d, double slope, RowView<double> &&D, RowView<double> &&root_fraction);
 
 void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa,
-                               double SWin, double *theta, RowView<double> &&land, MatrixView<double> &&soil,
+                               double SWin, Vector<double> &theta, RowView<double> &&land, MatrixView<double> &&soil,
                                RowView<double> &&root, double *f, Vector<double> *fl);
 
 void veg_transmittance(short stabcorr_incanopy, double v, double u_star,

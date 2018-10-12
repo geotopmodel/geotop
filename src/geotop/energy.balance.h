@@ -61,7 +61,7 @@ void update_F_energy(long nbeg, long nend, Vector<double> *F, double w,
 void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w,
                            Vector<double> *K);
 
-double calc_C(long l, long nsng, double a, double *wi, double *wl, double *dw,
+double calc_C(long l, long nsng, double a, Vector<double> &wi, Vector<double> &wl, Vector<double> &dw,
               Vector<double> &D, MatrixView<double> &&pa);
 
 void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
@@ -70,7 +70,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
                   double rz0v, double hveg, double v, double Ta, double Qa, // 5 parameters
                   double P, double LR, double psi, double e, double fc, // 5 parameters
                   double LSAI, double decaycoeff0, double Wcrn, double Wcrnmax, double Wcsn, // 5 parameters
-                  double Wcsnmax, double *dWcrn, double *dWcsn, double *theta,
+                  double Wcsnmax, double *dWcrn, double *dWcsn, Vector<double> &theta,
                   MatrixView<double> &&soil, // 5 parameters
                   RowView<double> &&land, RowView<double> &&root, PAR *par, Vector<double> *soil_transp_layer,
                   double SWin, // 5 parameters
@@ -80,7 +80,7 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
                   double *Hg0, double *Hg1, double *Eg0, double *Eg1, double *Lobukhov, // 5 parameters
                   double *rh, double *rv, double *rc, double *rb, double *ruc, // 5 parameters
                   double *rh_g, double *rv_g, double *Qg, double *u_top, double *decay, // 5 parameters
-                  double *Locc, double *LWup_above_v, double *T, Vector<double> *soil_evap_layer_bare,
+                  double *Locc, double *LWup_above_v, Vector<double> &T, Vector<double> *soil_evap_layer_bare,
                   Vector<double> *soil_evap_layer_veg, // 5 parameters
                   double sky); // 1 => TOT = 5*15+1 = 76 parameters
 
@@ -90,7 +90,7 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
                                     double hveg, double v, double Ta, double Qa, // 10
                                     double P, double LR, double psi, double e, double fc, double LSAI,
                                     double decaycoeff0, double Wcrn, double Wcrnmax, double Wcsn, // 10
-                                    double Wcsnmax, double *dWcrn, double *dWcsn, double *theta,
+                                    double Wcsnmax, double *dWcrn, double *dWcsn, Vector<double> &theta,
                                     MatrixView<double> &&soil, // 5
                                     RowView<double> &&land, RowView<double> &&root, PAR *par,
                                     Vector<double> *soil_transp_layer,
@@ -101,7 +101,8 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
                                     double *Hg1, double *Eg0, double *Eg1, double *Lobukhov, // 10
                                     double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g,
                                     double *rv_g, double *Qg, double *u_top, double *decay, // 10
-                                    double *Locc, double *LWup_above_v, double *T, Vector<double> *soil_evap_layer_bare,
+                                    double *Locc, double *LWup_above_v, Vector<double> &T,
+                                    Vector<double> *soil_evap_layer_bare,
                                     Vector<double> *soil_evap_layer_veg, // 5
                                     double sky, short flagTmin, long cont); // 3
 

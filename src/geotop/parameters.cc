@@ -1586,11 +1586,11 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 
   cod = 166;
   itools->init_water_table_depth.reset(new Vector<double>{par->nsoiltypes});
-  itools->init_water_table_depth->co[1] = assignation_number(cod, 0, keyword, num_param, num_param_components, 5000., 0);
+  (*itools->init_water_table_depth)(1) = assignation_number(cod, 0, keyword, num_param, num_param_components, 5000., 0);
   for (k=2; k<=par->nsoiltypes; k++)
     {
-      itools->init_water_table_depth->co[k] = assignation_number(cod, k - 1, keyword, num_param, num_param_components,
-                                                                 itools->init_water_table_depth->co[k - 1], 0);
+      (*itools->init_water_table_depth)(k) = assignation_number(cod, k - 1, keyword, num_param, num_param_components,
+                                                                 (*itools->init_water_table_depth)(k-1), 0);
     }
 
   //soil properties and discretization
@@ -1714,7 +1714,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
         {
           if ( (long)(*sl->pa)(k,jpsi,i) == number_novalue) occurring = 1;
         }
-      if (occurring == 0) itools->init_water_table_depth->co[k] =
+      if (occurring == 0) (*itools->init_water_table_depth)(k) =
           (double)number_novalue;
     }
 
@@ -2549,9 +2549,11 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
           ok = 1;
           for (j=1; j<=sl->pa->nch; j++)
             {
-              if ( (long)(*sl->pa)(i,jpsi,j) == number_novalue) ok = 0;
+              if ( (long)(*sl->pa)(i,jpsi,j) == number_novalue) 
+                ok = 0;
             }
-          if (ok == 1) IT->init_water_table_depth->co[i] = (double)number_novalue;
+          if (ok == 1) 
+            (*IT->init_water_table_depth)(i) = (double)number_novalue;
         }
     }
 
@@ -2739,7 +2741,7 @@ short read_meteostations_file(Vector<long> *i, METEO_STATIONS *S, char *name, ch
         {
           for (n=1; n<=nlines; n++)
             {
-              if ((long)M[n-1][0] == i->co[j])
+              if ((long)M[n-1][0] == (*i)(j))
                 {
                   for (k=1; k<8; k++)
                     {

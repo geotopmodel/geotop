@@ -45,23 +45,22 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
         {
           if (i<=input->nrh && j<input->nch)
             {
-              (*alfa)(i,j)=3.0/2.0*Pi+atan(((input->nrh-i)*UV->U->co[1])/
-                                             ((input->nch-j)*UV->U->co[1]));
+              (*alfa)(i,j)=3.0/2.0*Pi+atan(((input->nrh-i)*  (*UV->U)(1))/ ((input->nch-j)*(*UV->U)(1)));
             }
           if (i>input->nrh && j<=input->nch)
             {
-              (*alfa)(i,j)=Pi+atan(((input->nch-j)*UV->U->co[1])/
-                                     ((i-input->nrh)*UV->U->co[1]));
+              (*alfa)(i,j)=Pi+atan(((input->nch-j)*(*UV->U)(1))/
+                                     ((i-input->nrh)*(*UV->U)(1)));
             }
           if (i>=input->nrh && j>input->nch)
             {
-              (*alfa)(i,j)=Pi/2.0+atan(((i-input->nrh)*UV->U->co[1])/
-                                         ((j-input->nch)*UV->U->co[1]));
+              (*alfa)(i,j)=Pi/2.0+atan(((i-input->nrh)*(*UV->U)(1))/
+                                         ((j-input->nch)*(*UV->U)(1)));
             }
           if (i<input->nrh && j>=input->nch)
             {
-              (*alfa)(i,j)=atan(((j-input->nch)*UV->U->co[1])/
-                                  ((input->nrh-i)*UV->U->co[1]));
+              (*alfa)(i,j)=atan(((j-input->nch)*(*UV->U)(1))/
+                                  ((input->nrh-i)*(*UV->U)(1)));
             }
         }
     }
@@ -106,7 +105,7 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
                               if ((*convess)(r,s)==1 && sqrt(pow((r-i),2)+pow((s-j),2))!=0)
                                 {
                                   vv->co[t]=1-sin(atan(((*input)(r,s)-(*input)(i,j))
-                                                       /(sqrt(pow((r-i),2)+pow((s-j),2))*UV->U->co[1])));
+                                                       /(sqrt(pow((r-i),2)+pow((s-j),2))*(*UV->U)(1))));
                                   if (vv->co[t]<v->co[t])
                                     {
                                       v->co[t]=vv->co[t];

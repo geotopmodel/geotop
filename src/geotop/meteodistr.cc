@@ -582,9 +582,9 @@ short interpolate_meteo(short flag, double dX, double dY,
         if ((long) value[n - 1][metcod] != number_absent
             && (long) value[n - 1][metcod] != number_novalue) {
             nstn++;
-            var->co[nstn] = value[n - 1][metcod];
-            xst->co[nstn] = Xst->co[n];
-            yst->co[nstn] = Yst->co[n];
+            (*var)(nstn) = value[n - 1][metcod];
+            (*xst)(nstn) = (*Xst)(n);
+            (*yst)(nstn) = (*Yst)(n);
         }
     }
 
@@ -599,7 +599,7 @@ short interpolate_meteo(short flag, double dX, double dY,
     } else {
         for (r = 1; r <= Xpoint->nrh; r++) {
             for (c = 1; c <= Xpoint->nch; c++) {
-                (*grid)(r,c) = var->co[nstn];
+                (*grid)(r,c) = (*var)(nstn);
             }
         }
     }
@@ -688,16 +688,16 @@ void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
     for (nn = 1; nn <= nstns; nn++) //222
     {
 
-        xa = xstn->co[nn];
-        ya = ystn->co[nn];
+        xa = (*xstn)(nn);
+        ya = (*ystn)(nn);
         wtot1 = 0.0;
         ftot1 = 0.0;
 
         for (mm = 1; mm <= nstns; mm++) //111
         {
 
-            xb = xstn->co[mm];
-            yb = ystn->co[mm];
+            xb = (*xstn)(mm);
+            yb = (*ystn)(mm);
             dsq = pow(xb - xa, 2.0) + pow(yb - ya, 2.0);
 
             if (dsq <= rmax_1) {
@@ -708,12 +708,12 @@ void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
             }
 
             wtot1 = wtot1 + w1;
-            ftot1 = ftot1 + w1 * var->co[mm];
+            ftot1 = ftot1 + w1 * (*var)(mm);
         } //end 111
 
         if (wtot1 == 0.0) printf("stn wt totals zero\n");
 
-        dvar->co[nn] = var->co[nn] - ftot1 / wtot1;
+        (*dvar)(nn) = (*var)(nn) - ftot1 / wtot1;
 
     } //end 222
 
@@ -738,8 +738,8 @@ void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
             for (nn = 1; nn <= nstns; nn++) //333
             {
 
-                xa = xstn->co[nn];
-                ya = ystn->co[nn];
+                xa = (*xstn)(nn);
+                ya = (*ystn)(nn);
                 dsq = pow(xg - xa, 2.0) + pow(yg - ya, 2.0);
 
                 if (dsq <= rmax_2) {
@@ -757,8 +757,8 @@ void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
 
                 wtot1 = wtot1 + w1;
                 wtot2 = wtot2 + w2;
-                ftot1 = ftot1 + w1 * var->co[nn];
-                ftot2 = ftot2 + w2 * dvar->co[nn];
+                ftot1 = ftot1 + w1 * (*var)(nn);
+                ftot2 = ftot2 + w2 * (*dvar)(nn);
 
             } //end 333
 
@@ -775,8 +775,8 @@ void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
         for (c = 1; c <= nstnsall; c++) //666
         {
 
-            xg = xstnall->co[c];
-            yg = ystnall->co[c];
+            xg = (*xstnall)(c);
+            yg = (*ystnall)(c);
 
             // Scan each input data point.
             ftot1 = 0.0;
@@ -787,8 +787,8 @@ void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
             for (nn = 1; nn <= nstns; nn++) //333
             {
 
-                xa = xstn->co[nn];
-                ya = ystn->co[nn];
+                xa = (*xstn)(nn);
+                ya = (*ystn)(nn);
                 dsq = pow(xg - xa, 2.0) + pow(yg - ya, 2.0);
 
                 if (dsq <= rmax_2) {
@@ -806,8 +806,8 @@ void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
 
                 wtot1 = wtot1 + w1;
                 wtot2 = wtot2 + w2;
-                ftot1 = ftot1 + w1 * var->co[nn];
-                ftot2 = ftot2 + w2 * dvar->co[nn];
+                ftot1 = ftot1 + w1 * (*var)(nn);
+                ftot2 = ftot2 + w2 * (*dvar)(nn);
 
             } //end 333
 

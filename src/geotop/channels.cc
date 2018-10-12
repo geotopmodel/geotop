@@ -100,7 +100,7 @@ void enumerate_channels(CHANNEL *cnet, Matrix<double> *LC,
     {
         r = (*cnet->r)(i);
         c = (*cnet->c)(i);
-        (*cnet->length)(i) *= (UV->U->co[1]/cos((*slope)(r,c)*Pi/180.));
+        (*cnet->length)(i) *= ((*UV->U)(1)/cos((*slope)(r,c)*Pi/180.));
     }
 
 }

@@ -41,12 +41,12 @@ void write_grassascii(char *name, short type, Matrix<double> *DTM, T_INIT *UV,
   temp = join_strings(name,ascii_grass);
   f=fopen(temp,"w");
 
-  fprintf(f,"north:%f\n",UV->U->co[3]+DTM->nrh*UV->U->co[1]);
-  fprintf(f,"south:%f\n",UV->U->co[3]);
-  fprintf(f,"east:%f\n",UV->U->co[4]+DTM->nch*UV->U->co[2]);
-  fprintf(f,"west:%f\n",UV->U->co[4]);
-  fprintf(f,"rows:%ld\n",DTM->nrh);
-  fprintf(f,"cols:%ld\n",DTM->nch);
+  fprintf(f,"north:%f\n", (*UV->U)(3) + DTM->nrh * (*UV->U)(1));
+  fprintf(f,"south:%f\n", (*UV->U)(3));
+  fprintf(f,"east:%f\n", (*UV->U)(4) + DTM->nch * (*UV->U)(2));
+  fprintf(f,"west:%f\n", (*UV->U)(4));
+  fprintf(f,"rows:%ld\n", DTM->nrh);
+  fprintf(f,"cols:%ld\n", DTM->nch);
 
   for (r=1; r<=DTM->nrh; r++)
     {
@@ -95,10 +95,10 @@ void write_grassascii_vector(char *name, short type, Vector<double> *DTM,
   temp = join_strings(name,ascii_grass);
   f=fopen(temp,"w");
 
-  fprintf(f,"north:%f\n",UV->U->co[3]+nr*UV->U->co[1]);
-  fprintf(f,"south:%f\n",UV->U->co[3]);
-  fprintf(f,"east:%f\n",UV->U->co[4]+nc*UV->U->co[2]);
-  fprintf(f,"west:%f\n",UV->U->co[4]);
+  fprintf(f,"north:%f\n",(*UV->U)(3)+nr*(*UV->U)(1));
+  fprintf(f,"south:%f\n",(*UV->U)(3));
+  fprintf(f,"east:%f\n",(*UV->U)(4)+nc*(*UV->U)(2));
+  fprintf(f,"west:%f\n",(*UV->U)(4));
   fprintf(f,"rows:%ld\n",nr);
   fprintf(f,"cols:%ld\n",nc);
 
@@ -146,10 +146,10 @@ void write_esriascii(char *name, short type, Matrix<double> *DTM, T_INIT *UV,
   long r,c;
   char *temp;
 
-  if (UV->U->co[1]!=UV->U->co[2])
+  if ((*UV->U)(1)!=(*UV->U)(2))
     {
       printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",
-             UV->U->co[2],UV->U->co[1]);
+             (*UV->U)(2),(*UV->U)(1));
       t_error("Fatal error");
     }
 
@@ -158,9 +158,9 @@ void write_esriascii(char *name, short type, Matrix<double> *DTM, T_INIT *UV,
 
   fprintf(f,"ncols         %ld\n",DTM->nch);
   fprintf(f,"nrows         %ld\n",DTM->nrh);
-  fprintf(f,"xllcorner     %f\n",UV->U->co[4]);
-  fprintf(f,"yllcorner     %f\n",UV->U->co[3]);
-  fprintf(f,"cellsize      %f\n",UV->U->co[1]);
+  fprintf(f,"xllcorner     %f\n",(*UV->U)(4));
+  fprintf(f,"yllcorner     %f\n",(*UV->U)(3));
+  fprintf(f,"cellsize      %f\n",(*UV->U)(1));
   fprintf(f,"NODATA_value  %ld.0\n",novalue);
 
   for (r=1; r<=DTM->nrh; r++)
@@ -206,10 +206,10 @@ void write_esriascii_vector(char *name, short type, Vector<double> *DTM,
   long r,c;
   char *temp;
 
-  if (UV->U->co[1]!=UV->U->co[2])
+  if ((*UV->U)(1)!=(*UV->U)(2))
     {
       printf("\nCannot export in esriascii, grid not square, Dx=%f Dy=%f \n",
-             UV->U->co[2],UV->U->co[1]);
+             (*UV->U)(2),(*UV->U)(1));
       t_error("Fatal error");
     }
 
@@ -218,9 +218,9 @@ void write_esriascii_vector(char *name, short type, Vector<double> *DTM,
 
   fprintf(f,"ncols         %ld\n",nc);
   fprintf(f,"nrows         %ld\n",nr);
-  fprintf(f,"xllcorner     %f\n",UV->U->co[4]);
-  fprintf(f,"yllcorner     %f\n",UV->U->co[3]);
-  fprintf(f,"cellsize      %f\n",UV->U->co[1]);
+  fprintf(f,"xllcorner     %f\n",(*UV->U)(4));
+  fprintf(f,"yllcorner     %f\n",(*UV->U)(3));
+  fprintf(f,"cellsize      %f\n",(*UV->U)(1));
   fprintf(f,"NODATA_value  %ld.0\n",novalue);
 
   for (r=1; r<=nr; r++)

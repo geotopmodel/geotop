@@ -206,13 +206,13 @@ void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
 
       //the cell itself
       //cnt++;
-      //Li->co[cnt] = j;
+      //(*Li)(cnt) = j;
 
       //the cell below
       if (l<nl)
         {
           cnt++;
-          Li->co[cnt] = j+1;
+          (*Li)(cnt) = j+1;
         }
 
       if (j<=N)
@@ -222,7 +222,7 @@ void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
               if (i[l][r-1][c]>j)
                 {
                   cnt++;
-                  Li->co[cnt] = i[l][r-1][c];
+                  (*Li)(cnt) = i[l][r-1][c];
                 }
             }
 
@@ -231,7 +231,7 @@ void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
               if (i[l][r+1][c]>j)
                 {
                   cnt++;
-                  Li->co[cnt] = i[l][r+1][c];
+                  (*Li)(cnt) = i[l][r+1][c];
                 }
             }
 
@@ -240,7 +240,7 @@ void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
               if (i[l][r][c-1]>j)
                 {
                   cnt++;
-                  Li->co[cnt] = i[l][r][c-1];
+                  (*Li)(cnt) = i[l][r][c-1];
                 }
             }
 
@@ -249,14 +249,14 @@ void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
               if (i[l][r][c+1]>j)
                 {
                   cnt++;
-                  Li->co[cnt] = i[l][r][c+1];
+                  (*Li)(cnt) = i[l][r][c+1];
                 }
             }
 
           if (l>0 && (*cnet->ch)(r,c)>0)
             {
               cnt++;
-              Li->co[cnt] = N + cnet->ch3[l][(*cnet->ch)(r,c)];
+              (*Li)(cnt) = N + cnet->ch3[l][(*cnet->ch)(r,c)];
             }
 
         }

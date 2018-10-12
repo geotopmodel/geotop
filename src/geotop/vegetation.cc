@@ -47,12 +47,12 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
              double Wcrn0, double Wcrnmax, double Wcsn0, // 10
              double Wcsnmax, double *dWcrn, double *dWcsn, double *LWv, double *LWg, double *Hv, double *Hg,
              double *dHgdT, double *LEv, double *Eg, // 10
-             double *dEgdT, double *Ts, double *Qs, RowView<double> &&froot, double *theta,
+             double *dEgdT, double *Ts, double *Qs, RowView<double> &&froot, Vector<double> &theta,
              Vector<double> *soil_transp_layer,
              double *Lobukhov, PAR *par, long n, double *rm, // 10
              double *rh, double *rv, double *rc, double *rb, double *ruc, double *u_top, double *Etrans, double *Tv,
              double *Qv, double *decay, // 10
-             double *Locc, double *LWup_above_v, double psi, MatrixView<double> &&soil, double *T,
+             double *Locc, double *LWup_above_v, double psi, MatrixView<double> &&soil, Vector<double> &T,
              Vector<double> *soil_evap_layer) // 6 => TOT = 66 parameters
 {
 
@@ -249,13 +249,13 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
                    double Wcsn, double Wcsnmax,
                    double *Esubl, double *Etrans, double *LWv, double *LWg, double *H,
                    double *LE, double *h, double *dhdT,
-                   double *Ts, double *Qs, double *Qv, double *ruc, RowView<double> &&froot, double *theta,
+                   double *Ts, double *Qs, double *Qv, double *ruc, RowView<double> &&froot, Vector<double> &theta,
                    Vector<double> *soil_transp_layer,
                    long chgsgn, double *Lobukhov, PAR *par, long n, double *rm, double *rh,
                    double *rv, double *rc, double *rb,
                    double *u_top, double *decay, double *Locc, double *LWup_above_v, double psi,
                    MatrixView<double> &&soil, double *alpha,
-                   double *beta, double *T, Vector<double> *soil_evap_layer)
+                   double *beta, Vector<double> &T, Vector<double> *soil_evap_layer)
 {
 
   double u_star, ft=0.0, fw, fwliq, fwice;
@@ -399,7 +399,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
   *Etrans=E-(*Esubl);
   for (l=1; l<=soil_transp_layer->nh; l++)
     {
-      soil_transp_layer->co[l] = soil_transp_layer->co[l] * (*Etrans);
+      (*soil_transp_layer)(l) = (*soil_transp_layer)(l) * (*Etrans);
     }
 
   *LE=Lt*(*Etrans) + Lv*(*Esubl);
@@ -696,7 +696,7 @@ void root(long n, double d, double slope, RowView<double> &&D, RowView<double> &
 /******************************************************************************************************************************************/
 
 void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa,
-                               double SWin, double *theta, RowView<double> &&land,
+                               double SWin, Vector<double> &theta, RowView<double> &&land,
                                MatrixView<double> &&soil, RowView<double> &&root, double *f, Vector<double> *fl)
 {
 
@@ -730,40 +730,40 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa,
   for (l=1; l<=fl->nh; l++)
     {
       //water content [Wigmosta et al., (1994); Feddes et al.(1978)]
-      if (theta[l] >= soil(jfc,l))
+      if (theta(l) >= soil(jfc,l))
         {
-          fl->co[l] = 1.0;
+          (*fl)(l) = 1.0;
         }
-      else if (theta[l] > soil(jwp,l))
+      else if (theta(l) > soil(jwp,l))
         {
-          fl->co[l] = (theta[l]-soil(jwp,l))/(soil(jfc,l)-soil(jwp,l));
+          (*fl)(l) = (theta(l)-soil(jwp,l))/(soil(jfc,l)-soil(jwp,l));
         }
       else
         {
-          fl->co[l] = 0.0;
+          (*fl)(l) = 0.0;
         }
 
       //stomata resistance for each layer
-      if (fS*fe*fTemp*fl->co[l]<6.0E-11)
+      if (fS*fe*fTemp*(*fl)(l)<6.0E-11)
         {
-          fl->co[l]=1.0E12;
+          (*fl)(l)=1.0E12;
         }
       else
         {
           Rsmin=land[jrs];
-          fl->co[l]=Rsmin/(fS*fe*fTemp*fl->co[l]);
+          (*fl)(l)=Rsmin/(fS*fe*fTemp*(*fl)(l));
         }
 
       //transpiration fraction for each layer
-      fl->co[l]=root[l]*(rbv/(rbv+fl->co[l]));
+      (*fl)(l)=root[l]*(rbv/(rbv+(*fl)(l)));
 
       //transpiration for all the column (as a fraction of Epc)
-      *f+=fl->co[l];
+      *f+=(*fl)(l);
     }
 
   for (l=1; l<=fl->nh; l++)
     {
-      if (*f!=0) fl->co[l]/=(*f);
+      if (*f!=0) (*fl)(l)/=(*f);
     }
 
 }
