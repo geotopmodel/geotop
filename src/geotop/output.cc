@@ -1087,7 +1087,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                V->co[i] = (*sl->th)(1,i);
+                (*V)(i) = (*sl->th)(1,i);
             }
 
             temp1=join_strings(files[fliqsup],s2);
@@ -1138,7 +1138,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                V->co[i] = (*sl->SS->T)(1,i);
+                (*V)(i) = (*sl->SS->T)(1,i);
             }
 
             temp1=join_strings(files[fTsup],s2);
@@ -1168,7 +1168,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                V->co[i] = (*sl->T_av_tensor)(1,i);
+                (*V)(i) = (*sl->T_av_tensor)(1,i);
             }
 
             temp1=join_strings(files[fTavsup],s2);
@@ -1202,7 +1202,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
         {
             for (i=1; i<=par->total_pixel; i++)
             {
-                V->co[i] = (*sl->SS->thi)(1,i);
+                (*V)(i) = (*sl->SS->thi)(1,i);
             }
 
             temp1=join_strings(files[ficesup],s2);
@@ -1270,7 +1270,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*top->rc_cont)(i,1);
                 c = (*top->rc_cont)(i,2);
-                V->co[i] = find_watertabledepth_up(find_activelayerdepth_up(i, (*sl->type)(r,c), sl),
+                (*V)(i) = find_watertabledepth_up(find_activelayerdepth_up(i, (*sl->type)(r,c), sl),
                                                    i, (*sl->type)(r,c), sl); // normal
             }
             temp1=join_strings(files[fwtable_up],s2);
@@ -1285,7 +1285,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*top->rc_cont)(i,1);
                 c = (*top->rc_cont)(i,2);
-                V->co[i] = find_watertabledepth_dw(find_activelayerdepth_up(i, (*sl->type)(r,c), sl),
+                (*V)(i) = find_watertabledepth_dw(find_activelayerdepth_up(i, (*sl->type)(r,c), sl),
                                                    i, (*sl->type)(r,c), sl); // normal
 
             }
@@ -1302,7 +1302,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*top->rc_cont)(i,1);
                 c = (*top->rc_cont)(i,2);
-                V->co[i] = find_activelayerdepth_up(i, (*sl->type)(r,c), sl); // normal
+                (*V)(i) = find_activelayerdepth_up(i, (*sl->type)(r,c), sl); // normal
             }
             temp1=join_strings(files[fthawed_up],s2);
             write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
@@ -1316,7 +1316,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*top->rc_cont)(i,1);
                 c = (*top->rc_cont)(i,2);
-                V->co[i] = find_activelayerdepth_dw(i, (*sl->type)(r,c), sl); // normal
+                (*V)(i) = find_activelayerdepth_dw(i, (*sl->type)(r,c), sl); // normal
             }
             temp1=join_strings(files[fthawed_dw],s2);
             write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
@@ -1331,7 +1331,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*top->rc_cont)(i,1);
                 c = (*top->rc_cont)(i,2);
-                V->co[i] = Fmax(0, (*sl->SS->P)(0,i)) / cos((*top->slope)(r,c) * Pi/180.);
+                (*V)(i) = Fmax(0, (*sl->SS->P)(0,i)) / cos((*top->slope)(r,c) * Pi/180.);
             }
             temp1 = join_strings(files[fhsupland], s2);
             write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
@@ -1347,11 +1347,11 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 c = (*top->rc_cont)(i,2);
                 if ((*cnet->ch)(r,c)!=0)
                 {
-                    V->co[i] = (*cnet->SS->P)(0,(*cnet->ch)(r,c)) / cos((*top->slope)(r,c) *Pi/180.);
+                    (*V)(i) = (*cnet->SS->P)(0,(*cnet->ch)(r,c)) / cos((*top->slope)(r,c) *Pi/180.);
                 }
                 else
                 {
-                    V->co[i] = (double)number_novalue;
+                    (*V)(i) = (double)number_novalue;
                 }
             }
 
@@ -1411,10 +1411,10 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*top->rc_cont)(i,1);
                 c = (*top->rc_cont)(i,2);
-                V->co[i] = 0.;
+                (*V)(i) = 0.;
                 for (l=1; l<=(*snow->S->lnum)(r,c); l++)
                 {
-                    V->co[i] += (*snow->S->Dzl)(l,r,c);
+                    (*V)(i) += (*snow->S->Dzl)(l,r,c);
                 }
             }
 
@@ -1448,10 +1448,10 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*top->rc_cont)(i,1);
                 c = (*top->rc_cont)(i,2);
-                V->co[i] = 0.;
+                (*V)(i) = 0.;
                 for (l=1; l<=(*snow->S->lnum)(r,c); l++)
                 {
-                    V->co[i] += ((*snow->S->w_liq)(l,r,c)+(*snow->S->w_ice)(l,r,c));
+                    (*V)(i) += ((*snow->S->w_liq)(l,r,c)+(*snow->S->w_ice)(l,r,c));
                 }
             }
             temp1=join_strings(files[fswe],s2);
@@ -1463,14 +1463,14 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*top->rc_cont)(i,1);
                 c = (*top->rc_cont)(i,2);
-                V->co[i] = 0.;
+                (*V)(i) = 0.;
                 D = 0.;
                 for (l=1; l<=(*snow->S->lnum)(r,c); l++)
                 {
-                    V->co[i] += ((*snow->S->w_liq)(l,r,c)+(*snow->S->w_ice)(l,r,c));
+                    (*V)(i) += ((*snow->S->w_liq)(l,r,c)+(*snow->S->w_ice)(l,r,c));
                     D += (*snow->S->Dzl)(l,r,c);
                 }
-                V->co[i] /= (1.E-3*D);
+                (*V)(i) /= (1.E-3*D);
             }
             temp1=join_strings(files[fswe], "DENSITY");
             temp2=join_strings(temp1,s2);
@@ -1540,10 +1540,10 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*top->rc_cont)(i,1);
                 c = (*top->rc_cont)(i,2);
-                V->co[i] = 0.;
+                (*V)(i) = 0.;
                 for (l=1; l<=(*glac->G->lnum)(r,c); l++)
                 {
-                    V->co[i] += ((*glac->G->w_liq)(l,r,c)+(*glac->G->w_ice)(l,r,c));
+                    (*V)(i) += ((*glac->G->w_liq)(l,r,c)+(*glac->G->w_ice)(l,r,c));
                 }
             }
             temp1=join_strings(files[fglacdepth],s2);
@@ -1576,10 +1576,10 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*top->rc_cont)(i,1);
                 c = (*top->rc_cont)(i,2);
-                V->co[i] = 0.;
+                (*V)(i) = 0.;
                 for (l=1; l<=(*glac->G->lnum)(r,c); l++)
                 {
-                    V->co[i] += ((*glac->G->w_liq)(l,r,c)+(*glac->G->w_ice)(l,r,c));
+                    (*V)(i) += ((*glac->G->w_liq)(l,r,c)+(*glac->G->w_ice)(l,r,c));
                 }
             }
             temp1=join_strings(files[fgwe],s2);
@@ -1678,11 +1678,11 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 if ((*egy->nDt_sun)(i)>0)
                 {
-                    V->co[i] = (*egy->nDt_shadow)(i)/(double)((*egy->nDt_sun)(i));
+                    (*V)(i) = (*egy->nDt_shadow)(i)/(double)((*egy->nDt_sun)(i));
                 }
                 else
                 {
-                    V->co[i] = -1.;
+                    (*V)(i) = -1.;
                 }
             }
 
@@ -1889,7 +1889,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (i=1; i<=par->total_pixel; i++)
                 {
-                    V->co[i] = (*egy->Hgplot)(i) + (*egy->Hvplot)(i);
+                    (*V)(i) = (*egy->Hgplot)(i) + (*egy->Hvplot)(i);
                 }
                 plot(files[pH], i, V.get(), par->format_out, top->j_cont);
             }
@@ -1898,7 +1898,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (i=1; i<=par->total_pixel; i++)
                 {
-                    V->co[i] = (*egy->LEgplot)(i) + (*egy->LEvplot)(i);
+                    (*V)(i) = (*egy->LEgplot)(i) + (*egy->LEvplot)(i);
                 }
 
                 plot(files[pLE], i, V.get(), par->format_out, top->j_cont);
@@ -1908,7 +1908,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (i=1; i<=par->total_pixel; i++)
                 {
-                    V->co[i] = (*egy->SWgplot)(i) + (*egy->LWgplot)(i)-(*egy->Hgplot)(i) - (*egy->LEgplot)(i);
+                    (*V)(i) = (*egy->SWgplot)(i) + (*egy->LWgplot)(i)-(*egy->Hgplot)(i) - (*egy->LEgplot)(i);
                 }
                 plot(files[pG], i, V.get(), par->format_out, top->j_cont);
             }
@@ -1917,7 +1917,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (i=1; i<=par->total_pixel; i++)
                 {
-                    V->co[i] = (*sl->th)(1,i);
+                    (*V)(i) = (*sl->th)(1,i);
                 }
                 plot(files[pth], i, V.get(), par->format_out, top->j_cont);
             }
@@ -1926,7 +1926,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (i=1; i<=par->total_pixel; i++)
                 {
-                    V->co[i] = (*sl->th)(1,i);
+                    (*V)(i) = (*sl->th)(1,i);
                 }
                 plot(files[pth], i, V.get(), par->format_out, top->j_cont);
             }
@@ -1935,7 +1935,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (i=1; i<=par->total_pixel; i++)
                 {
-                    V->co[i] = sqrt(pow((*met->Vxplot)(i), 2.0) + pow((*met->Vyplot)(i), 2.0));
+                    (*V)(i) = sqrt(pow((*met->Vxplot)(i), 2.0) + pow((*met->Vyplot)(i), 2.0));
                 }
                 plot(files[pVspd], i, V.get(), par->format_out, top->j_cont);
             }
@@ -1944,8 +1944,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (i=1; i<=par->total_pixel; i++)
                 {
-                    V->co[i] = 270.0 - (180./Pi)*atan2((*met->Vyplot)(i),(*met->Vxplot)(i));
-                    if (V->co[i] >= 360.0) V->co[i] -= 360.0;
+                    (*V)(i) = 270.0 - (180./Pi)*atan2((*met->Vyplot)(i),(*met->Vxplot)(i));
+                    if ((*V)(i) >= 360.0) (*V)(i) -= 360.0;
                 }
                 plot(files[pVdir], i, V.get(), par->format_out, top->j_cont);
             }
@@ -4358,11 +4358,11 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
         }
     }
 
-    if ((long)n->co[1] != number_novalue)
+    if ((long)(*n)(1) != number_novalue)
     {
         for (l=1; l<=n->nh; l++)
         {
-            fprintf(f, ",%f",interpolate_soil(lmin, n->co[l]*cosslope, Nl, std::forward<RowView<double>>(dz), std::forward<RowView<double>>(var)));
+            fprintf(f, ",%f",interpolate_soil(lmin, (*n)(l)*cosslope, Nl, std::forward<RowView<double>>(dz), std::forward<RowView<double>>(var)));
         }
     }
     else
@@ -4439,11 +4439,11 @@ void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
         }
     }
 
-    if ( (a==0 || a==1) && (long)n->co[1] != number_novalue )
+    if ( (a==0 || a==1) && (long)(*n)(1) != number_novalue )
     {
         for (l=1; l<=n->nh; l++)
         {
-            fprintf(f, ",%f",interpolate_snow(r, c, n->co[l]*cosslope, lmax, snowDz, var, a));
+            fprintf(f, ",%f",interpolate_snow(r, c, (*n)(l)*cosslope, lmax, snowDz, var, a));
         }
     }
     else
@@ -4513,11 +4513,11 @@ void write_soil_header(FILE *f, Vector<double> *n, RowView<double> &&dz)
         }
     }
 
-    if ((long)n->co[1] != number_novalue )
+    if ((long)(*n)(1) != number_novalue )
     {
         for (l=1; l<=n->nh; l++)
         {
-            fprintf(f, ",%f",n->co[l]);
+            fprintf(f, ",%f",(*n)(l));
         }
     }
     else
@@ -4571,11 +4571,11 @@ void write_snow_header(short a, long r, long c, FILE *f, Vector<double> *n,
         }
     }
 
-    if ((a==0 || a==1) && (long)n->co[1] != number_novalue )
+    if ((a==0 || a==1) && (long)(*n)(1) != number_novalue )
     {
         for (l=1; l<=n->nh; l++)
         {
-            fprintf(f, ",%f",n->co[l]);
+            fprintf(f, ",%f",(*n)(l));
         }
     }
     else
@@ -4751,7 +4751,7 @@ void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
         for (i=1; i<=npoints; i++)
         {
             if (vertical == 1) cosslope = cos( Fmin(max_slope, (*slope)((*RC)(i,1),(*RC)(i,2))) * Pi/180. );
-            V->co[i] = interpolate_soil2(lmin, n->co[l]*cosslope, Nl, std::forward<RowView<double>>(dz), T, i);
+            (*V)(i) = interpolate_soil2(lmin, (*n)(l)*cosslope, Nl, std::forward<RowView<double>>(dz), T, i);
         }
 
         temp2 = join_strings(filename, temp1);
@@ -5393,13 +5393,13 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
             z += (*sl->pa)(sy,jdz,l);
 
             //above the weir set equal to the value of the deepest node of the spinned up soil portion, below the weir assumed saturation
-            if (z<top->BC_DepthFreeSurface->co[j])
+            if (z < (*top->BC_DepthFreeSurface)(j))
             {
                 (*sl->Ptot)(l,j) = Ptlow;
             }
             else
             {
-                (*sl->Ptot)(l,j) = z - top->BC_DepthFreeSurface->co[j];
+                (*sl->Ptot)(l,j) = z - (*top->BC_DepthFreeSurface)(j);
             }
 
             //thermal conductivity of layer above
