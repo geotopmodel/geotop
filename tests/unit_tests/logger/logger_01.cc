@@ -30,11 +30,7 @@ TEST(ScopedPrefix, basic_test) {
   
   {
     Logger::ScopedPrefix p{__func__}; // let us use the function name
-#ifndef NDEBUG
     EXPECT_EQ(geolog.prefix(), "geotop:TestBody:");
-#else
-    EXPECT_EQ(geolog.prefix(), "geotop:");
-#endif
   }
   
   // do the same using the macro
