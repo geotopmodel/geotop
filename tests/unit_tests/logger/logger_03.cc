@@ -18,10 +18,10 @@ TEST(Logger, ScopedConsoleLevel) {
   }
   l << "this should not appear" << std::endl;
   
-#ifndef MUTE_GEOLOG
-  EXPECT_EQ("geotop:second:third:only this should be printed\n",testing::internal::GetCapturedStdout());
+#ifdef MUTE_GEOLOG
+    EXPECT_EQ("", testing::internal::GetCapturedStdout());
 #else
-  EXPECT_EQ("", testing::internal::GetCapturedStdout());
+    EXPECT_EQ("geotop:second:third:only this should be printed\n",testing::internal::GetCapturedStdout());
 #endif
 }
 
@@ -44,10 +44,10 @@ TEST(Logger, ScopedFileLevel) {
   }
   l << "this should not appear" << std::endl;
   
-#ifndef MUTE_GEOLOG  
-  EXPECT_EQ("geotop:second:third:only this should be printed\n",testing::internal::GetCapturedStderr());
-#else
+#ifdef MUTE_GEOLOG
   EXPECT_EQ("", testing::internal::GetCapturedStderr());
+#else
+  EXPECT_EQ("geotop:second:third:only this should be printed\n",testing::internal::GetCapturedStderr());
 #endif
 }
 
@@ -92,11 +92,12 @@ TEST(Logger, ScopedLevels_mixed_01){
   }
   log << "this should appear on stdout" << std::endl;
 
-#ifndef MUTE_GEOLOG  
-  EXPECT_EQ("geotop:this should appear on stdout\ngeotop:second:this should appear on stdout\ngeotop:second:this should appear on stdout\ngeotop:this should appear on stdout\n", testing::internal::GetCapturedStdout());
+#ifdef MUTE_GEOLOG
+    EXPECT_EQ("", testing::internal::GetCapturedStdout());
 #else
-  EXPECT_EQ("", testing::internal::GetCapturedStdout());
+    EXPECT_EQ("geotop:this should appear on stdout\ngeotop:second:this should appear on stdout\ngeotop:second:this should appear on stdout\ngeotop:this should appear on stdout\n", testing::internal::GetCapturedStdout());
 #endif
+    
   EXPECT_EQ("", testing::internal::GetCapturedStderr());
   
 }
@@ -121,12 +122,12 @@ TEST(Logger, ScopedLevels_mixed_02){
   }
   log << "this should appear on stdout and stderr" << std::endl;
 
-#ifndef MUTE_GEOLOG  
+#ifdef MUTE_GEOLOG
+   EXPECT_EQ("", testing::internal::GetCapturedStdout());
+  EXPECT_EQ("", testing::internal::GetCapturedStderr());
+#else
   EXPECT_EQ("geotop:this should appear on stdout and stderr\ngeotop:second:this should appear on stdout\ngeotop:second:this should appear on stdout\ngeotop:this should appear on stdout and stderr\n", testing::internal::GetCapturedStdout());
   EXPECT_EQ("geotop:this should appear on stdout and stderr\ngeotop:this should appear on stdout and stderr\n", testing::internal::GetCapturedStderr());
-#else
-  EXPECT_EQ("", testing::internal::GetCapturedStdout());
-  EXPECT_EQ("", testing::internal::GetCapturedStderr());
 #endif
 }
 
@@ -152,12 +153,12 @@ TEST(ScopedLevels, ScopedLevels_mixed_03){
   }
   log << "this should not appear" << std::endl;
 
-#ifndef MUTE_GEOLOG  
-  EXPECT_EQ("geotop:second:this should appear on stdout\ngeotop:second:this should appear on stdout again\n", testing::internal::GetCapturedStdout());
-  EXPECT_EQ("geotop:second:third:this should appear on stderr\n", testing::internal::GetCapturedStderr());
-#else
+#ifdef MUTE_GEOLOG
   EXPECT_EQ("", testing::internal::GetCapturedStdout());
   EXPECT_EQ("", testing::internal::GetCapturedStderr());
+#else 
+  EXPECT_EQ("geotop:second:this should appear on stdout\ngeotop:second:this should appear on stdout again\n", testing::internal::GetCapturedStdout());
+  EXPECT_EQ("geotop:second:third:this should appear on stderr\n", testing::internal::GetCapturedStderr());
 #endif
 }
 
@@ -182,11 +183,11 @@ TEST(ScopedLevels, mixed_geolog){
   }
   geolog << "this should not appear" << std::endl;
   
-#ifndef MUTE_GEOLOG  
-  EXPECT_EQ("geotop:second:this should appear on stdout\ngeotop:second:this should appear on stdout again\n", testing::internal::GetCapturedStdout());
-  EXPECT_EQ("geotop:second:third:this should appear on stderr\n", testing::internal::GetCapturedStderr());
-#else
+#ifdef MUTE_GEOLOG
   EXPECT_EQ("", testing::internal::GetCapturedStdout());
   EXPECT_EQ("", testing::internal::GetCapturedStderr());
+#else
+  EXPECT_EQ("geotop:second:this should appear on stdout\ngeotop:second:this should appear on stdout again\n", testing::internal::GetCapturedStdout());
+  EXPECT_EQ("geotop:second:third:this should appear on stderr\n", testing::internal::GetCapturedStderr());
 #endif
 }

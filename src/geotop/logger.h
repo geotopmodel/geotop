@@ -85,14 +85,13 @@ class Logger {
    * etc.
    */
   Logger &operator<<(std::ostream &(*basic_manipulator)(std::ostream &)) {
-# ifndef MUTE_GEOTOP
+#ifdef MUTE_GEOLOG
+    return *this;
+#else
     std::ostringstream os;
     os << basic_manipulator;
     return *this << os.str();
-#else
-    return *this;
 #endif
-    
   }
 
   /**
@@ -169,7 +168,10 @@ class Logger {
 extern Logger geolog;
 
 template <typename T> inline Logger &operator<<(Logger &l, const T &t) {
-#ifndef MUTE_GEOTOP
+#ifdef MUTE_GEOLOG
+   (void)t;
+  return l;
+#else
   std::ostringstream os;
   if (l._at_new_line)
     os << l.prefix();
@@ -180,9 +182,6 @@ template <typename T> inline Logger &operator<<(Logger &l, const T &t) {
   if (l.ofile && (l.prefix_depth_level() <= l.file_level()))
     *(l.ofile) << s;
   l._at_new_line = (s == "\n");
-  return l;
-#else
-  (void)t;
   return l;
 #endif
 }
