@@ -85,13 +85,14 @@ class Logger {
    * etc.
    */
   Logger &operator<<(std::ostream &(*basic_manipulator)(std::ostream &)) {
-#ifndef NDEBUG
+# ifndef MUTE_GEOTOP
     std::ostringstream os;
     os << basic_manipulator;
     return *this << os.str();
 #else
     return *this;
 #endif
+    
   }
 
   /**
@@ -168,7 +169,7 @@ class Logger {
 extern Logger geolog;
 
 template <typename T> inline Logger &operator<<(Logger &l, const T &t) {
-#ifndef NDEBUG 
+#ifndef MUTE_GEOTOP
   std::ostringstream os;
   if (l._at_new_line)
     os << l.prefix();
@@ -296,6 +297,10 @@ class Logger::ScopedLevels {
   ScopedConsoleLevel _cl;
 };
 
-#define GEOLOG_PREFIX(string) Logger::ScopedPrefix __geolog_prefix__{string};
+#ifndef NDEBUG
+# define GEOLOG_PREFIX(string) Logger::ScopedPrefix __geolog_prefix__{string};
+#else
+# define GEOLOG_PREFIX(dummy)
+#endif
 
 #endif // GEOTOP_LOGGER_H
