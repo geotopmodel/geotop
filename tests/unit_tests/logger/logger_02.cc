@@ -57,6 +57,7 @@ TEST(ScopedPrefix, console_depth_level_default) {
     l << "back to second" << std::endl;
   }
   l << "back to first" << std::endl;
+  
 #ifndef NDEBUG
   EXPECT_EQ(testing::internal::GetCapturedStdout(), "geotop:first level\ngeotop:second:second level\ngeotop:second:third:third level\ngeotop:second:back to second\ngeotop:back to first\n");
 #else
@@ -103,6 +104,7 @@ TEST(ScopedPrefix, console_depth_level_1) {
     l << "nor this one" << std::endl;
   }
   l << "back to first" << std::endl;
+  
 #ifndef NDEBUG
   EXPECT_EQ("geotop:first level\ngeotop:back to first\n", testing::internal::GetCapturedStdout());
   #else
@@ -127,6 +129,7 @@ TEST(ScopedPrefix, console_depth_level_2) {
     l << "back to second" << std::endl;
   }
   l << "back to first" << std::endl;
+  
 #ifndef NDEBUG
   EXPECT_EQ("geotop:first level\ngeotop:second:second level\ngeotop:second:back to second\ngeotop:back to first\n",
 	    testing::internal::GetCapturedStdout());
@@ -153,6 +156,7 @@ TEST(ScopedPrefix, console_depth_level_changed) {
     l << "you should never read this" << std::endl;
   }
   l << "nor this" << std::endl;
+  
 #ifndef NDEBUG
   EXPECT_EQ("geotop:first level\ngeotop:second:second level\ngeotop:second:third:third level\n", testing::internal::GetCapturedStdout());
   #else
