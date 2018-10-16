@@ -44,6 +44,27 @@ drwxrwxr-x 3 elisa elisa  4096 giu 15 14:23 tests
 make -j4
 ```
 
+### Testing
+- Know which tests are available:
+```
+ ctest -N
+ ```
+
+- Run a single test (i.e. Mazia):
+```
+ctest -R Mazia
+```
+
+- Run a group of tests (i.e. all 1D tests, using 4 processes):
+```
+ctest -R 1D -j4
+```
+
+- Run all tests
+```
+ctest
+```
+
 ## Meson
 - Create the build directory and go inside it:
 ```
@@ -90,7 +111,7 @@ ninja
 ```
  meson test --list
  ```
- 
+
 - Run a single test (i.e. Mazia):
 ```
 meson test --suite geotop:Mazia
