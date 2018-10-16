@@ -77,14 +77,8 @@ meson configure
 ```
 
 - If you want to modify some of them, add -Doption=value: for example
-    -  set the build type to debug type:
-```
-meson configure -Dbuildtype=debug
-```
-    - add compiler and linker options (i.e., add ```-pg```)
-```
- meson configure -Dcpp_args=-pg -Dcpp_link_args=-pg
-```
+    - set the build type to debug type: ``` meson configure -Dbuildtype=debug ```
+    - add compiler and linker options (i.e., add ```-pg```): ``` meson configure -Dcpp_args=-pg -Dcpp_link_args=-pg```
 
 - Compile:
 ```
