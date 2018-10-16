@@ -78,9 +78,30 @@ meson configure
 
 - If you want to modify some of them, add -Doption=value: for example
     - set the build type to debug type: ``` meson configure -Dbuildtype=debug ```
-    - add compiler and linker options (i.e., add ```-pg```): ``` meson configure -Dcpp_args=-pg -Dcpp_link_args=-pg```
+    - add compiler and linker options (i.e. add ```-pg```): ``` meson configure -Dcpp_args=-pg -Dcpp_link_args=-pg```
 
 - Compile:
 ```
 ninja
+```
+
+### Testing
+- Know which tests are available:
+```
+ meson test --list
+ ```
+ 
+- Run a single test (i.e. Mazia):
+```
+meson test --suite geotop:Mazia
+```
+
+- Run a group of tests (i.e. all 1D tests):
+```
+meson test --suite geotop:1D
+```
+
+- Run all tests
+```
+ninja test
 ```
