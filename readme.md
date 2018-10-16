@@ -81,7 +81,7 @@ meson configure
 ```
 meson configure -Dbuildtype=debug
 ```
-    - add compiler and linker options (i.e., add ```-pg```)
+   - add compiler and linker options (i.e., add ```-pg```)
 ```
  meson configure -Dcpp_args=-pg -Dcpp_link_args=-pg
 ```
