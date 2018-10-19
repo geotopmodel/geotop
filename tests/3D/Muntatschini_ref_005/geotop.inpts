@@ -13,8 +13,7 @@ PointSim = 0
 TimeStepEnergyAndWater = 3600
 MinTimeStep = 10
 InitDateDDMMYYYYhhmm = 02/10/2009 00:00
-EndDateDDMMYYYYhhmm =  02/10/2009 23:00
-!EndDateDDMMYYYYhhmm =  31/12/2015 23:00
+EndDateDDMMYYYYhhmm =  02/10/2009 05:00
 
 ! Catchment centroid (for Sun position) 
 Latitude  = 46.684
@@ -282,42 +281,50 @@ SoilIceContentProfileFile	=	"output-tabs/thetaice"
 SoilLiqWaterPressProfileFile	=	"output-tabs/psiz" 
 SoilAll = 1
 
-! ---------- Maps  ---------- 
+!=============================================================================
+!  OUTPUT MAPS
+!=============================================================================
+
+! Output maps Dt in hours 
+OutputSoilMaps=2	  
+OutputSurfEBALMaps=2
+OutputMeteoMaps = 2
+
 ! soil moisture & temperature  ---------- 
 ! SoilAveragedTempTensorFile 			= 	"output-maps/T"
 ! SurfaceTempMapFile				= 	"output-maps/Ts"
 
 SoilLiqContentTensorFile 			= 	"output-maps/thetaliq"
-SoilIceContentTensorFile 			= 	"output-maps/thetaice"
-SoilTotWaterPressTensorFile			= 	"output-maps/psi"
+! SoilIceContentTensorFile 			= 	"output-maps/thetaice"
+! SoilTotWaterPressTensorFile			= 	"output-maps/psi"
 ! SoilLiqWaterPressTensorFile			= 	"output-maps/psiliq"
 
 LandSurfaceWaterDepthMapFile			= 	"output-maps/hsup"
-WaterTableDepthMapFile 				= 	"output-maps/watertable"
+! WaterTableDepthMapFile 				= 	"output-maps/watertable"
 
 ! snow & ice  ---------- 
-SWEMapFile					= 	"output-maps/SWE"
-SnowDepthMapFile				= 	"output-maps/snowdepth"
+! SWEMapFile					= 	"output-maps/SWE"
+! SnowDepthMapFile				= 	"output-maps/snowdepth"
 ! SnowDurationMapFile				=	"output-maps/snowduration"
 
 ! meteo  ---------- 
 ! AirTempMapFile				= 	"output-maps/Ta"
 
-NetRadiationMapFile 				= 	"output-maps/Rn" 
+! NetRadiationMapFile 				= 	"output-maps/Rn" 
 ! NetLongwaveRadiationMapFile			=	"output-maps/Netlw"
 ! NetShortwaveRadiationMapFile			=	"output-maps/Netsw"
-InShortwaveRadiationMapFile			= 	"output-maps/Rswin"
+! InShortwaveRadiationMapFile			= 	"output-maps/Rswin"
 ! InLongwaveRadiationMapFile			= 	"output-maps/Rlwin"
-SurfaceHeatFluxMapFile 				= 	"output-maps/EB"
+! SurfaceHeatFluxMapFile 				= 	"output-maps/EB"
 SurfaceSensibleHeatFluxMapFile			= 	"output-maps/H"
 SurfaceLatentHeatFluxMapFile			= 	"output-maps/LE"
 ! DirectInShortwaveRadiationMapFile		= 	"output-maps/DRswin"
 
-PrecipitationMapFile 				= 	"output-maps/Prec"
+! PrecipitationMapFile 				= 	"output-maps/Prec"
 ! CanopyInterceptedWaterMapFile 		= 	"output-maps/Int"
-NetPrecipitationFile 				= 	"output-maps/Pnet"
+! NetPrecipitationFile 				= 	"output-maps/Pnet"
 
-EvapotranspirationFromSoilMapFile		= 	"output-maps/ETsoil"
+! EvapotranspirationFromSoilMapFile		= 	"output-maps/ETsoil"
 
 ! RelHumMapFile					= 	"output-maps/RH"
 
