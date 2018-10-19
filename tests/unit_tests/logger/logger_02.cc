@@ -57,7 +57,13 @@ TEST(ScopedPrefix, console_depth_level_default) {
     l << "back to second" << std::endl;
   }
   l << "back to first" << std::endl;
+  
+#ifdef MUTE_GEOLOG
+  EXPECT_EQ(testing::internal::GetCapturedStdout(), "");
+#else
   EXPECT_EQ(testing::internal::GetCapturedStdout(), "geotop:first level\ngeotop:second:second level\ngeotop:second:third:third level\ngeotop:second:back to second\ngeotop:back to first\n");
+#endif
+  
 }
 
 
@@ -98,7 +104,12 @@ TEST(ScopedPrefix, console_depth_level_1) {
     l << "nor this one" << std::endl;
   }
   l << "back to first" << std::endl;
+  
+#ifdef MUTE_GEOLOG
+  EXPECT_EQ(testing::internal::GetCapturedStdout(), "");
+#else
   EXPECT_EQ("geotop:first level\ngeotop:back to first\n", testing::internal::GetCapturedStdout());
+#endif
 }
 
 TEST(ScopedPrefix, console_depth_level_2) {
@@ -118,8 +129,13 @@ TEST(ScopedPrefix, console_depth_level_2) {
     l << "back to second" << std::endl;
   }
   l << "back to first" << std::endl;
-  EXPECT_EQ("geotop:first level\ngeotop:second:second level\ngeotop:second:back to second\ngeotop:back to first\n",
-	    testing::internal::GetCapturedStdout());
+  
+#ifdef MUTE_GEOLOG
+    EXPECT_EQ(testing::internal::GetCapturedStdout(), "");
+#else
+    EXPECT_EQ("geotop:first level\ngeotop:second:second level\ngeotop:second:back to second\ngeotop:back to first\n",
+	      testing::internal::GetCapturedStdout());
+#endif
 }
 
 
@@ -140,7 +156,12 @@ TEST(ScopedPrefix, console_depth_level_changed) {
     l << "you should never read this" << std::endl;
   }
   l << "nor this" << std::endl;
-  EXPECT_EQ("geotop:first level\ngeotop:second:second level\ngeotop:second:third:third level\n", testing::internal::GetCapturedStdout());
+  
+#ifdef MUTE_GEOLOG
+    EXPECT_EQ(testing::internal::GetCapturedStdout(), "");
+#else
+    EXPECT_EQ("geotop:first level\ngeotop:second:second level\ngeotop:second:third:third level\n", testing::internal::GetCapturedStdout());
+#endif
 }
 
 
@@ -164,7 +185,13 @@ TEST(ScopedPrefix, console_and_file_levels) {
   }
   l << "this should appear on screen and in file again" << std::endl;
 
-  EXPECT_EQ("geotop:this should appear on screen and in file\ngeotop:this should appear on screen and in file again\n", testing::internal::GetCapturedStdout());
-  EXPECT_EQ("geotop:this should appear on screen and in file\ngeotop:second:this is only in file\ngeotop:second:this is only in file again\ngeotop:this should appear on screen and in file again\n", testing::internal::GetCapturedStderr());
+#ifdef MUTE_GEOLOG
+  EXPECT_EQ(testing::internal::GetCapturedStdout(), "");
+  EXPECT_EQ(testing::internal::GetCapturedStderr(), "");
+#else
+   EXPECT_EQ("geotop:this should appear on screen and in file\ngeotop:this should appear on screen and in file again\n", testing::internal::GetCapturedStdout());
+  EXPECT_EQ("geotop:this should appear on screen and in file\ngeotop:second:this is only in file\ngeotop:second:this is only in file again\ngeotop:this should appear on screen and in file again\n",
+	    testing::internal::GetCapturedStderr());
+#endif
 }
 

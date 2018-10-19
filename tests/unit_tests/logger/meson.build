@@ -1,6 +1,6 @@
 _tests = ['logger_01.cc',
-          'logger_02.cc',
-          'logger_03.cc']
+       	  'logger_02.cc',
+	  'logger_03.cc']
 
 _src = ['../../../src/geotop/logger.cc']
 

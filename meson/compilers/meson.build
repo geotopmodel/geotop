@@ -1,12 +1,14 @@
 # to do: other options
 
 
-_bt = get_option('buildtype') 
+_bt = get_option('buildtype')
+
 if _bt == 'debugoptimized' or _bt == 'release'
   add_global_arguments(['-funroll-loops',
                         '-fstrict-aliasing',
                         '-O2',
-                        '-DNDEBUG'],
+                        '-DNDEBUG',
+                        '-DMUTE_GEOLOG'],
                        language : ['cpp','c'])
 endif
 

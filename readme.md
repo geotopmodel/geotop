@@ -23,8 +23,8 @@ ccmake ..
 - Press [t] to toggle the advanced mode; several options will appear.
 Select the build type, writing RELEASE or DEBUG after ```CMAKE_BUILD_TYPE```,
 and modify the other flags as you prefer, knowing that a flag like:
-    - *_RELEASE: will be applied only when compiling in RELEASE mode
-    - *_DEBUG: will be applied only when compiling in DEBUG mode.
+    - **RELEASE**: will be applied only when compiling in RELEASE mode
+    - **DEBUG**: will be applied only when compiling in DEBUG mode.
 
 - Press again [c] and [e] to configure; then press [g] to generate and exit.
 Now the current directory will have the following files and folders:
@@ -38,11 +38,31 @@ drwxrwxr-x 5 elisa elisa  4096 giu 15 14:23 CMakeFiles
 -rw-rw-r-- 1 elisa elisa 51860 giu 15 14:23 Makefile
 drwxrwxr-x 3 elisa elisa  4096 giu 15 14:22 src
 drwxrwxr-x 3 elisa elisa  4096 giu 15 14:23 tests
-
 ```
 - Compile (-j4 allows the usage of 4 processes):
 ```
 make -j4
+```
+
+### Testing
+- Know which tests are available:
+```
+ ctest -N
+ ```
+
+- Run a single test (i.e. Mazia):
+```
+ctest -R Mazia
+```
+
+- Run a group of tests (i.e. all 1D tests, using 4 processes):
+```
+ctest -R 1D -j4
+```
+
+- Run all tests
+```
+ctest
 ```
 
 ## Meson
@@ -78,12 +98,31 @@ meson configure
 ```
 
 - If you want to modify some of them, add -Doption=value: for example
-to set the build type to debug type write:
-```
-meson configure -Dbuildtype=debug
-```
+    - set the build type to debug type: ``` meson configure -Dbuildtype=debug ```
+    - add compiler and linker options (i.e. add ```-pg```): ``` meson configure -Dcpp_args=-pg -Dcpp_link_args=-pg```
 
-- Compile: 
+- Compile:
 ```
 ninja
+```
+
+### Testing
+- Know which tests are available:
+```
+ meson test --list
+ ```
+
+- Run a single test (i.e. Mazia):
+```
+meson test --suite geotop:Mazia
+```
+
+- Run a group of tests (i.e. all 1D tests):
+```
+meson test --suite geotop:1D
+```
+
+- Run all tests
+```
+ninja test
 ```
