@@ -15,9 +15,9 @@ public:
     std::map<std::string, std::pair<int,duration<double>>> times;
     ~ Timer() {
         for (const auto& x:times){
-            std::cout << " --------------------------------------------------- " << std::endl;
-            std::cout << x.first << "       " /** function name **/
-                      << x.second.first << "        " /** n° of times the function is called **/
+            std::cerr << " --------------------------------------------------- " << std::endl;
+            std::cerr << x.first << "\t\t" /** function name **/
+                      << x.second.first << "\t\t" /** n° of times the function is called **/
                       << x.second.second.count() << std::endl; /** time passed inside the function **/
         }
     }
@@ -43,10 +43,10 @@ public:
 };
 
 
-#ifndef NDEBUG
-#define GEOTIMER_PREFIX(string) Timer::ScopedTimer __geotimer_prefix__ {string}
+#ifdef MUTE_GEOTIMER
+#define GEOTIMER_PREFIX(dummy)
 #else
-# define GEOTIMER_PREFIX(dummy)
+# define GEOTIMER_PREFIX(string) Timer::ScopedTimer __geotimer_prefix__ {string}
 #endif
 
 #endif // GEOTOP_TIMER_H
