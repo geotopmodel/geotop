@@ -29,7 +29,7 @@
 #include "meteodata.h"
 #include "logger.h"
 #include "timer.h"
-#include <time.h>
+#include <ctime>
 
 extern long number_novalue;
 

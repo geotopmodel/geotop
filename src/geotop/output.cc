@@ -44,7 +44,7 @@ development of the Geotop model. Any feedback will be highly appreciated.
 #include "logger.h"
 #include "timer.h"
 
-#include <time.h>
+#include <ctime>
 #include <iostream>
 #include <iomanip>
 
@@ -2539,7 +2539,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par,
                           TOPO *top, LAND *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac)
 {
-
+    GEOLOG_PREFIX(__func__);
     /* internal auxiliary variables: */
     long i,l,m,j,r,c;
     char *name,*temp,*temp2,NNNN[ ]= {"NNNN"},rec[ ]= {"_recNNNN"},crec[ ]= {"_crecNNNN"};

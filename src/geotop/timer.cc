@@ -4,5 +4,5 @@
 
 #include "timer.h"
 
-// the default logger
+// the default timer
 Timer geotimer;
