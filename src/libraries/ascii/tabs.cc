@@ -830,6 +830,7 @@ double **read_datamatrix(FILE *f, char *filename, long comment_char,
 double **read_txt_matrix(char *filename, long comment_char, long sep_char, char **Col_Descr, long ncolsCol_Descr, long *nlines)
 {
   GEOLOG_PREFIX(__func__);
+
   /*Read header, and create a **double with the same columns as the header. Then fill with number_absent the columns
    missing with respect to Col_Descr*/
 
