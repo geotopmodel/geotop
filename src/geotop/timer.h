@@ -15,7 +15,7 @@ public:
     std::map<std::string, std::pair<int,duration<double>>> times;
     ~ Timer() {
         for (const auto& x:times){
-            std::cerr << " --------------------------------------------------- " << std::endl;
+            std::cerr << "---------------------------------------------------" << std::endl;
             std::cerr << x.first << "\t\t" /** function name **/
                       << x.second.first << "\t\t" /** n° of times the function is called **/
                       << x.second.second.count() << std::endl; /** time passed inside the function **/
