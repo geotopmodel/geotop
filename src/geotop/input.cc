@@ -43,6 +43,7 @@
 #include "recovering.h"
 #include "logger.h"
 #include <iostream>
+#include "timer.h"
 
 extern long number_novalue, number_absent;
 extern char *string_novalue;
@@ -68,6 +69,7 @@ void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
 
 {
     GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     FILE *f; /** failed run file*/
     Matrix<double> *M;
@@ -2452,6 +2454,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
 {
     GEOLOG_PREFIX(__func__);
+
     long r, c, i, cont;
     std::unique_ptr<Matrix<double>> M;
     short flag;
@@ -2900,6 +2903,7 @@ to the soil type map");
 void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT)
 {
     GEOLOG_PREFIX(__func__);
+
     long i, r, c, num_lines;
     std::unique_ptr<Matrix<double>> Q=nullptr, P=nullptr, R=nullptr, S=nullptr, T=nullptr, Z=nullptr, LU=nullptr; // ec 2012 08 22
     short read_dem, read_lu, read_soil, read_sl, read_as, read_sk, read_bed, read_curv, flag, coordinates;
@@ -3630,6 +3634,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
 void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, Matrix<double> *LC)
 {
     GEOLOG_PREFIX(__func__);
+
     std::unique_ptr<Tensor<double>> T;
     std::unique_ptr<Vector<double>> WT;
     long i, j, l, r, c, sy, synew;
@@ -3753,6 +3758,7 @@ std::unique_ptr<Tensor<double>> find_Z_of_any_layer(Matrix<double> *Zsurface, Ma
 {
 
     GEOLOG_PREFIX(__func__);
+
     std::unique_ptr<Tensor<double>> Z;
     double Zaverage=0., z, cosine;
     long l, r, c, n, sy;
@@ -3821,6 +3827,7 @@ std::unique_ptr<Tensor<double>> find_Z_of_any_layer(Matrix<double> *Zsurface, Ma
 short file_exists(short key)
 {
     GEOLOG_PREFIX(__func__);
+
     //no keyword -> -1
     //keyword but does not exist -> 0
     //keyword and exists -> 1
@@ -3863,6 +3870,7 @@ short file_exists(short key)
 void copy_soil_state(SOIL_STATE *from, SOIL_STATE *to)
 {
     GEOLOG_PREFIX(__func__);
+
     long l,i;
     long nl=from->T->nrh,n=from->T->nch;
 
@@ -3886,6 +3894,7 @@ void copy_soil_state(SOIL_STATE *from, SOIL_STATE *to)
 void initialize_veg_state(STATE_VEG *V, long n)
 {
     GEOLOG_PREFIX(__func__);
+
     V->Tv.reset(new Vector<double>{n});
     V->wsnow.reset(new Vector<double>{n});
     V->wrain.reset(new Vector<double>{n});
@@ -3899,6 +3908,7 @@ void initialize_veg_state(STATE_VEG *V, long n)
 void copy_veg_state(STATE_VEG *from, STATE_VEG *to)
 {
     GEOLOG_PREFIX(__func__);
+
     long i, n=from->Tv->nh;
     for (i=1; i<=n; i++)
     {
