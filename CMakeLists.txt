@@ -104,7 +104,9 @@ add_executable(geotop
         src/libraries/ascii/rw_maps.h
         src/libraries/ascii/init.h
         src/libraries/ascii/tabs.h
-        src/libraries/ascii/extensions.h src/geotop/logger.cc src/geotop/logger.h
+        src/libraries/ascii/extensions.h
+	src/geotop/logger.cc src/geotop/logger.h
+	src/geotop/timer.cc src/geotop/timer.h
 	src/geotop/vector.h src/geotop/matrix.h src/geotop/tensor.h
 	src/geotop/rowview.h src/geotop/matrixview.h
 	src/geotop/geotop_asserts.h)
