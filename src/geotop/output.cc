@@ -42,7 +42,7 @@ development of the Geotop model. Any feedback will be highly appreciated.
 #include "indices.h"
 #include "recovering.h"
 #include "logger.h"
-
+#include "timer.h"
 
 #include <time.h>
 #include <iostream>
@@ -82,6 +82,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
 {
     GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
+
     /* internal auxiliary variables: */
     long i,j,r=0,c=0,l,m,sy; /*counters*/
     long n_file;      /*number of file of the type "TETAxySSSlZZ"(i.e. number of the basin-time-step)*/
@@ -2538,6 +2540,8 @@ void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par,
                           TOPO *top, LAND *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac)
 {
     GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
+
     /* internal auxiliary variables: */
     long i,l,m,j,r,c;
     char *name,*temp,*temp2,NNNN[ ]= {"NNNN"},rec[ ]= {"_recNNNN"},crec[ ]= {"_crecNNNN"};
@@ -3793,6 +3797,8 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
                        long minute, Vector<double> *n, SOIL *sl, PAR *par, double psimin,
                        double cosslope)
 {
+    GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     char *name,*temp,*temp2,NNNN[ ]= {"NNNN"};
     char rec[ ]= {"_recNNNN"},crec[ ]= {"_crecNNNN"};
@@ -4138,6 +4144,8 @@ void write_snow_output(long i, long iname, long r, long c, double init_date,
                        long day, long month, long year, long hour, long minute, Vector<double> *n,
                        STATEVAR_3D *snow, PAR *par, double cosslope)
 {
+    GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     char *name,*temp,*temp2,NNNN[ ]= {"NNNN"};
     char rec[ ]= {"_recNNNN"},crec[ ]= {"_crecNNNN"};
@@ -4310,6 +4318,8 @@ void write_soil_file(long lmin, long i, FILE *f, long d, long m, long y,
                      long h, long mi, double JDfrom0, double JDfrom0init,
                      double JDfrom0end, RowView<double> &&var, Vector<double> *n, RowView<double> &&dz, double cosslope)
 {
+    GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     short first_column=1;
     long j, l;
@@ -4391,6 +4401,8 @@ void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
                      double JDfrom0init, double JDfrom0end, Vector<double> *n, Tensor<double> *snowDz,
                      Tensor<double> *var, double cosslope)
 {
+    GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     short first_column=1;
     long j, l;
@@ -4488,6 +4500,8 @@ void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
 
 void write_soil_header(FILE *f, Vector<double> *n, RowView<double> &&dz)
 {
+    GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     short first_column=1;
     long j, l;
@@ -4548,6 +4562,9 @@ void write_snow_header(short a, long r, long c, FILE *f, Vector<double> *n,
                        Tensor<double> *Dz)
 {
 
+    GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
+
     short first_column=1;
     long j, l;
 
@@ -4597,6 +4614,8 @@ void write_snow_header(short a, long r, long c, FILE *f, Vector<double> *n,
 
 void plot(char *name, long i_plot, Vector<double>* V, short format, long **J)
 {
+    GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     char ADS[ ]= {"iiii"};
     char *temp;
@@ -4614,6 +4633,8 @@ void plot(char *name, long i_plot, Vector<double>* V, short format, long **J)
 
 double interpolate_soil(long lmin, double h, long max, RowView<double> &&Dz, RowView<double> &&Q)
 {
+    GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     double q, z, z0=0.;
     long l;
@@ -4673,6 +4694,8 @@ double interpolate_soil(long lmin, double h, long max, RowView<double> &&Dz, Row
 
 double interpolate_soil2(long lmin, double h, long max, RowView<double> &&Dz, Matrix<double> *Q, long i)
 {
+    GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     double q, z, z0=0.;
     long l;
@@ -4734,6 +4757,8 @@ void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
                              short format, Matrix<double> *T, Vector<double> *n, long **J, Matrix<long> *RC,
                              RowView<double> &&dz, Matrix<double> *slope, short vertical)
 {
+    GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     char LLLLL[ ]= {"LLLLL"};
     char *temp1, *temp2;
@@ -4772,6 +4797,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                          SOIL *sl)
 {
     GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
     long i, j, r=0, c=0;
     double w;
 
@@ -5004,6 +5030,8 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
 
 void print_run_average(SOIL *sl, TOPO *top, PAR *par)
 {
+    GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     long r,c,j,l,n;
     FILE *f;
@@ -5310,6 +5338,8 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
 
 void init_run(SOIL *sl, PAR *par)
 {
+    GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     long j, l;
 
@@ -5345,6 +5375,8 @@ void init_run(SOIL *sl, PAR *par)
 
 void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
 {
+    GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     long j, l, sy, n, m;
     double k, kn, thwn, thin, psin, Tn, T0n, z, T;
@@ -5464,6 +5496,8 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
 void change_grid(long previous_sim, long next_sim, PAR *par, TOPO *top,
                  LAND *land, WATER *wat, CHANNEL *cnet)
 {
+    GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     long n_previous, n_next, l, r, i, j;
 
