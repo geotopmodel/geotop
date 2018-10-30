@@ -8,6 +8,7 @@ if _bt == 'debugoptimized' or _bt == 'release'
                         '-fstrict-aliasing',
                         '-O2',
                         '-DNDEBUG',
+			'-DMUTE_GEOTIMER',
                         '-DMUTE_GEOLOG'],
                        language : ['cpp','c'])
 endif
