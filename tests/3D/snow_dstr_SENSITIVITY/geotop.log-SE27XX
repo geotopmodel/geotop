@@ -1365,22 +1365,26 @@ WARNING: NO Bottom temperature measurements available
 Channel pixels: 593
 Soil water evaporates from the first 4 layers
 Soil water transpires from the first 12 layers
-6/10/2009 0:00 96.00% - Time elapsed (h:m:s)  0:01:38 Time remaining (h:m)  0:00  
+6/10/2009 0:00 96.00% - Time elapsed (h:m:s)  0:01:37 Time remaining (h:m)  0:00  
 
 6/10/2009 0:00 JD:278.000000 (1^ simulation day) 96.00% completed! 
- t_meteo:  0.01 s, t_energy:  4.64 s, t_blowingsnow:  0.00 s, t_water: 93.42 s, t_sub:  1.68 s, t_sup: 91.74 s, t_out:  0.00 s
+ t_meteo:  0.01 s, t_energy:  4.72 s, t_blowingsnow:  0.00 s, t_water: 91.00 s, t_sub:  1.70 s, t_sup: 89.31 s, t_out:  0.00 s
  SW= 51.03 W/m2  LW:-40.73 W/m2  H=  1.43 W/m2  LE=  0.40 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=5.851988e-10 mm/h 
  Tot Error Richards=1.404477e-08 mm Mean Time Step=86400.000000 s
 
-7/10/2009 0:00 192.00% - Time elapsed (h:m:s)  0:04:10 Time remaining (h:m) -1:58  
+No temperature measurements, used the value of the previous time step
+No RH measurements, used the value of the previous time step
+No wind measurements, used the value of the previous time step
+No precipitation measurements, considered it 0.0
+7/10/2009 0:00 192.00% - Time elapsed (h:m:s)  0:04:43 Time remaining (h:m) -1:57  
 
 7/10/2009 0:00 JD:279.000000 (2^ simulation day) 192.00% completed! 
- t_meteo:  0.01 s, t_energy:  9.71 s, t_blowingsnow:  0.00 s, t_water:238.23 s, t_sub:  5.82 s, t_sup:232.41 s, t_out:  0.01 s
- SW= 55.73 W/m2  LW:-36.47 W/m2  H=  4.68 W/m2  LE=  3.04 W/m2 
+ t_meteo:  0.01 s, t_energy:  9.69 s, t_blowingsnow:  0.00 s, t_water:270.97 s, t_sub:  5.52 s, t_sup:265.46 s, t_out:  0.01 s
+ SW= 44.73 W/m2  LW:-41.11 W/m2  H=  4.11 W/m2  LE=  3.55 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.079297e-09 mm/h 
- Tot Error Richards=3.994789e-08 mm Mean Time Step=86400.000000 s
+ Max Error Richards=9.101630e-10 mm/h 
+ Tot Error Richards=3.588868e-08 mm Mean Time Step=86400.000000 s
 
 Number of times the simulation #1 has been run: 1
