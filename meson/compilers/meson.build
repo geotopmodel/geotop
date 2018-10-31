@@ -7,9 +7,7 @@ if _bt == 'debugoptimized' or _bt == 'release'
   add_global_arguments(['-funroll-loops',
                         '-fstrict-aliasing',
                         '-O2',
-                        '-DNDEBUG',
-			'-DMUTE_GEOTIMER',
-                        '-DMUTE_GEOLOG'],
+                        '-DNDEBUG'],
                        language : ['cpp','c'])
 endif
 
