@@ -280,65 +280,14 @@ cnt:11 res:3.694850e-02 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
 cnt:11 res:9.891540e-03 lambda:5.000000e-02 Dt:86400.000000 P:0.000000
 cnt:12 res:3.013384e-04 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
 cnt:13 res:2.938903e-07 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-6/10/2009 0:00 96.00% - Times: Elapsed (h:m:s)  0:01:38 Remaining (h:m)  0:00  
+6/10/2009 0:00 100.00% - Times: Elapsed (h:m:s)  0:01:38 Remaining (h:m)  0:00  
 
-6/10/2009 0:00 JD:278.000000 (1^ simulation day) 96.00% completed! 
- t_meteo:  0.01 s, t_energy:  4.64 s, t_blowingsnow:  0.00 s, t_water: 93.42 s, t_sub:  1.68 s, t_sup: 91.74 s, t_out:  0.00 s
+6/10/2009 0:00 JD:278.000000 (1^ simulation day) 100.00% completed! 
+ t_meteo:  0.01 s, t_energy:  4.59 s, t_blowingsnow:  0.00 s, t_water: 93.80 s, t_sub:  1.69 s, t_sup: 92.12 s, t_out:  0.00 s
  SW= 51.03 W/m2  LW:-40.73 W/m2  H=  1.43 W/m2  LE=  0.40 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=5.851988e-10 mm/h 
  Tot Error Richards=1.404477e-08 mm Mean Time Step=86400.000000 s
-
-cnt:1 res:6.443476e+02 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:2 res:3.060527e+03 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:2 res:1.530263e+03 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
-cnt:2 res:6.121302e+02 lambda:5.000000e-02 Dt:86400.000000 P:0.000000
-cnt:3 res:3.982473e+02 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:4 res:4.320883e+03 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:4 res:2.160441e+03 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
-cnt:4 res:3.783349e+02 lambda:5.000000e-02 Dt:86400.000000 P:0.000000
-cnt:5 res:3.440949e+03 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:5 res:2.024180e+02 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
-cnt:6 res:1.205668e+02 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:7 res:2.037415e+03 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:7 res:1.018707e+03 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
-cnt:7 res:1.142184e+02 lambda:5.000000e-02 Dt:86400.000000 P:0.000000
-cnt:8 res:3.642536e+02 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:8 res:1.904265e+02 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
-cnt:8 res:1.081623e+02 lambda:5.000000e-02 Dt:86400.000000 P:0.000000
-cnt:9 res:3.387820e+02 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:9 res:1.863821e+02 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
-cnt:9 res:1.023947e+02 lambda:5.000000e-02 Dt:86400.000000 P:0.000000
-cnt:10 res:3.322165e+02 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:10 res:1.907193e+02 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
-cnt:10 res:9.691386e+01 lambda:5.000000e-02 Dt:86400.000000 P:0.000000
-cnt:11 res:2.985953e+02 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:11 res:1.809836e+02 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
-cnt:11 res:9.171761e+01 lambda:5.000000e-02 Dt:86400.000000 P:0.000000
-cnt:12 res:2.388570e+02 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:12 res:1.569950e+02 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
-cnt:12 res:8.680134e+01 lambda:5.000000e-02 Dt:86400.000000 P:0.000000
-cnt:13 res:8.174598e+01 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:14 res:1.206618e+02 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:14 res:6.459826e+01 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
-cnt:15 res:7.941546e+02 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:15 res:3.970773e+02 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
-cnt:15 res:6.121015e+01 lambda:5.000000e-02 Dt:86400.000000 P:0.000000
-cnt:16 res:1.366703e+02 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:16 res:2.130308e+01 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
-cnt:17 res:4.779373e+00 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:18 res:1.910566e+00 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:19 res:1.130555e-01 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:20 res:2.056060e-02 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-cnt:21 res:9.141370e-07 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
-7/10/2009 0:00 192.00% - Times: Elapsed (h:m:s)  0:04:10 Remaining (h:m) -1:58  
-
-7/10/2009 0:00 JD:279.000000 (2^ simulation day) 192.00% completed! 
- t_meteo:  0.01 s, t_energy:  9.71 s, t_blowingsnow:  0.00 s, t_water:238.23 s, t_sub:  5.82 s, t_sup:232.41 s, t_out:  0.01 s
- SW= 55.73 W/m2  LW:-36.47 W/m2  H=  4.68 W/m2  LE=  3.04 W/m2 
- Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=1.079297e-09 mm/h 
- Tot Error Richards=3.994789e-08 mm Mean Time Step=86400.000000 s
 
 Number of times the simulation #1 has been run: 1
 Close files

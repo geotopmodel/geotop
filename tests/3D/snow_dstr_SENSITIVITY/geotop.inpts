@@ -4,11 +4,8 @@
 Latitude               = 46.75604
 Longitude              = 10.70311
 TimeStepEnergyAndWater = 86400
-!old: TimeStepEnergyAndWater = 84600
-InitDateDDMMYYYYhhmm = 05/10/2009 00:00
-EndDateDDMMYYYYhhmm = 06/10/2009 01:00
-!EndDateDDMMYYYYhhmm =  24/11/2013 23:00
-!NumSimulationTimes     = 5
+InitDateDDMMYYYYhhmm   = 05/10/2009 00:00
+EndDateDDMMYYYYhhmm    = 06/10/2009 00:00
 NumSimulationTimes     = 1
 DtPlotPoint            = 1
 DtPlotDischarge        = 1

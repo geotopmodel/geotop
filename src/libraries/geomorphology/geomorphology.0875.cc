@@ -124,8 +124,8 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
               (*sky)(i,j)=(1.0/N*vvv);
             }
         }
-      printf("Percentage of the calculation of the sky view factor matrix: %5.2f%%\n",
-             100.0*(double)i/(double)sky->nrh);
+//      printf("Percentage of the calculation of the sky view factor matrix: %5.2f%%\n",
+//             100.0*(double)i/(double)sky->nrh);
     }
 }
 
