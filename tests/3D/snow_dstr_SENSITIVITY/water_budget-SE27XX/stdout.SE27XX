@@ -260,14 +260,41 @@ WARNING: NO Surface temperature measurements available
 WARNING: NO Bottom temperature measurements available
 Soil water evaporates from the first 4 layers
 Soil water transpires from the first 12 layers
-27/3/2010 17:00 100.00% - Times: Elapsed (h:m:s)  0:00:06 Remaining (h:m)  0:00  
+cnt:1 res:3.440470e+03 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
+cnt:2 res:3.978524e+03 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
+cnt:2 res:1.921611e+03 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
+cnt:3 res:3.692349e+03 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
+cnt:3 res:1.740699e+03 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
+cnt:4 res:4.263076e+03 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
+cnt:4 res:1.875341e+03 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
+cnt:4 res:1.357535e+03 lambda:2.201206e-01 Dt:86400.000000 P:0.000000
+cnt:5 res:3.854310e+03 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
+cnt:5 res:1.766636e+03 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
+cnt:5 res:1.183580e+03 lambda:1.281403e-01 Dt:86400.000000 P:0.000000
+cnt:6 res:3.343341e+03 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
+cnt:6 res:1.460168e+03 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
+cnt:6 res:9.895671e+02 lambda:1.639207e-01 Dt:86400.000000 P:0.000000
+cnt:7 res:2.875838e+03 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
+cnt:7 res:1.331543e+03 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
+cnt:7 res:8.829067e+02 lambda:1.077849e-01 Dt:86400.000000 P:0.000000
+cnt:8 res:2.148002e+03 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
+cnt:8 res:1.060477e+03 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
+cnt:8 res:7.483261e+02 lambda:1.524290e-01 Dt:86400.000000 P:0.000000
+cnt:9 res:1.365746e+03 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
+cnt:9 res:6.692153e+02 lambda:5.000000e-01 Dt:86400.000000 P:0.000000
+cnt:10 res:6.608412e+02 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
+cnt:11 res:1.488283e+02 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
+cnt:12 res:2.472753e-02 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
+cnt:13 res:2.665548e-05 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
+cnt:14 res:9.453794e-08 lambda:1.000000e+00 Dt:86400.000000 P:0.000000
+27/3/2010 17:00 100.00% - Times: Elapsed (h:m:s)  0:01:38 Remaining (h:m)  0:00  
 
 27/3/2010 17:00 JD:85.708333 (1^ simulation day) 100.00% completed! 
- t_meteo:  0.00 s, t_energy:  5.00 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  5.09 s, t_blowingsnow:  0.00 s, t_water: 91.66 s, t_sub:  1.91 s, t_sup: 89.75 s, t_out:  0.00 s
  SW= 59.72 W/m2  LW:-43.61 W/m2  H=  1.25 W/m2  LE=  0.00 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=0.000000e+00 mm/h 
- Tot Error Richards=0.000000e+00 mm Mean Time Step=86400.000000 s
+ Max Error Richards=8.467898e-10 mm/h 
+ Tot Error Richards=2.032296e-08 mm Mean Time Step=86400.000000 s
 
 Number of times the simulation #1 has been run: 1
 Close files
