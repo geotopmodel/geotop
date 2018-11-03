@@ -38,77 +38,124 @@ pmin=psi min
 Ss=specific storativity
 */
 
+// PADÈ MODIFIED
+//static const double pad_exp_p2[] = {
+//        2.30933477057345225087e-2, // a0
+//        1.00000000000000000000e0, // 1
+//        2.02020656693165307700e+1, // a1
+//        2.33184211722314911771e+2, // b1
+//        1.51390680115615096133e+3, // a2
+//        4.36821166879210612817e+3, // b2
+//};
+//
+//static const double log2E = 1.4426950408889634;
+//
+//double pad_exp2(double x)
+//{
+//    double  px, qx, yi, yf;
+//    double xif = x*log2E;
+//
+//    /* Using cast */
+//    int xi = (int)(xif+0.5); // since floor() return a double
+//    double xf = xif-xi;
+//
+//    yi = xi>=0 ? 1<<xi: 1.0/(1<<-xi);
+//
+//    // ALGORITHM 1
+//    // ---------------------------
+//    px = pad_exp_p2[0];
+//    qx = 0;
+//    // ---------------------------
+//    px = px*xf;
+//    qx = qx + pad_exp_p2[1];
+//    // ---------------------------
+//    px = px*xf + pad_exp_p2[2];
+//    qx = qx*xf;
+//    // ---------------------------
+//    px = px*xf;
+//    qx = qx*xf + pad_exp_p2[3];
+//    // ---------------------------
+//    px = px*xf + pad_exp_p2[4];
+//    qx = qx*xf;
+//    // ---------------------------
+//    px = px*xf;
+//    qx = qx*xf + pad_exp_p2[5];
+//    // --------------------------
+//    yf = 1.0 + 2.0*px/(qx-px);
+//    return yi*yf;
+//}
+
+double power(double a, double b){
+    return exp(b*log(a));
+}
 /*--------------------------------------------*/
 double psi_teta(double w, double i, double s, double r, double a, double n,
                 double m, double pmin, double Ss )
 
 {
 
-  double psi,TETA,TETAsat,TETAmin;
-  short sat;
+    double psi,TETA,TETAsat,TETAmin;
+    short sat;
 
-  TETAsat=1.0-i/(s-r);
-  TETAmin=1.0/pow((1.0+pow(a*(-pmin),n)),m);
+    TETAsat=1.0-i/(s-r);
+    TETAmin=1.0/pow((1.0+pow(a*(-pmin),n)),m);
 
-  if (w>s-i)
+    if (w>s-i)
     {
-      TETA=TETAsat;
-      sat=1;
+        TETA=TETAsat;
+        sat=1;
     }
-  else
+    else
     {
-      TETA=(w-r)/(s-r);
-      sat=0;
+        TETA=(w-r)/(s-r);
+        sat=0;
     }
 
-  if (TETA<TETAmin) TETA=TETAmin;
+    if (TETA<TETAmin) TETA=TETAmin;
 
-  if (TETA>1.0-1.E-6)
+    if (TETA>1.0-1.E-6)
     {
-      psi=0.0;
+        psi=0.0;
     }
-  else
+    else
     {
-      psi=(pow((pow(TETA,-1.0/m)-1.0),1.0/n))*(-1.0/a);
+        psi=(pow((pow(TETA,-1.0/m)-1.0),1.0/n))*(-1.0/a);
     }
-  if (sat==1) psi += (w-(s-i))/Ss;
+    if (sat==1) psi += (w-(s-i))/Ss;
 
-  return psi;
+    return psi;
 }
-
-
-
 
 /*--------------------------------------------*/
 double teta_psi(double psi, double i, double s, double r, double a, double n,
                 double m, double pmin, double Ss)
 {
-  double teta,TETA,psisat;
-  short sat=0;
+    double teta,TETA,psisat;
+    short sat=0;
 
-  psisat=(pow((pow(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a);
-  if (psi>psisat) sat=1;
+    psisat = (power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // (3) YES power() BUT NO pad_exp2() instead of pow()
+    if (psi>psisat) sat=1;
 
-  if (psi<pmin) psi=pmin;
+    if (psi<pmin) psi=pmin;
 
-  if (sat==0)
+    if (sat==0)
     {
-      if (psi>-1.E-6)
+        if (psi>-1.E-6)
         {
-          TETA=1.0;
+            TETA=1.0;
         }
-      else
+        else
         {
-          TETA=1.0/pow((1.0+pow(a*(-psi),n)),m);
+            TETA=1.0/pow((1.0+pow(a*(-psi),n)),m);
         }
-      teta=r+TETA*(s-r);
+        teta=r+TETA*(s-r);
     }
-  else
+    else
     {
-      teta= s-i + Ss * (psi-psisat);
+        teta= s-i + Ss * (psi-psisat);
     }
 
-  return teta;
+    return teta;
 }
 
 /*--------------------------------------------*/
@@ -116,20 +163,20 @@ double dteta_dpsi(double psi, double i, double s, double r, double a,
                   double n, double m, double pmin, double Ss )
 //it is the derivative of teta with respect to psi [mm^-1]
 {
-  double dteta,psisat;
+    double dteta,psisat;
 
-  psisat=(pow((pow(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a);
+    psisat = (power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // (3) YES pow() BUT NO pad_exp2() instead of pow()
 
-  if (psi>=psisat)
+    if (psi>=psisat)
     {
-      dteta=Ss;
+        dteta=Ss;
     }
-  else
+    else
     {
-      dteta=(s-r)*(a*m*n)*(pow(-a*psi,n-1.0))*pow(1.0+pow(-a*psi,n),-m-1.0);
+        dteta=(s-r)*(a*m*n)*(pow(-a*psi,n-1.0))*pow(1.0+pow(-a*psi,n),-m-1.0);
     }
 
-  return dteta;
+    return dteta;
 }
 
 /*--------------------------------------------*/
@@ -138,29 +185,88 @@ double k_hydr_soil(double psi, double ksat, double imp, double i, double s,
 
 {
 
-  double k,TETA,psisat;
+    double k,TETA,psisat;
 
-  psisat = (pow((pow(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a);
-  TETA = 1.0/pow((1.0+pow(a*(-Fmin(psisat,psi)),n)),m);
+    /** a^b = e^(b*log(a)) = e^x; **/
+//    double eA = (-1.0/m)*log(1.0-i/(s-r));
+//    double rA = pad_exp2(eA);
+//
+//    double eB = (1.0/n)*log(rA-1.0);
+//    double rB = pad_exp2(eB);
+//
+//    psisat = rB*(-1.0/a);
+    psisat = (power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // (3) YES pow() BUT NO pad_exp2() instead of pow()
 
-  k = ksat * pow(TETA,v)*(pow((1-pow((1-pow(TETA,(1.0/m))),m)),2.0));
+    TETA = 1.0/pow((1.0+pow(a*(-Fmin(psisat,psi)),n)),m); // (2) NO pow() instead of pow()
 
-  if (k/ksat < ratio) k = ratio * ksat;
+    // 3rd substitution
+//    double eB = (1.0/m)*log(TETA);
+//    double rB = pad_exp2(eB);
+//    k = 1-pow(1-rB,m);
 
-  if (T>=0)
+    // 0th sosbtitution
+//          k = (1-pow((1-pow(TETA,(1.0/m))),m));
+//          k *= k;
+//          k = k * ksat * pow(TETA,v);
+    k = ksat * pow(TETA,v) * pow((1-pow((1-pow(TETA,(1.0/m))),m)),2.0); // (0) NO pow() instead of pow()
+
+    // 2nd substitution
+//    double eA = v*log(TETA);
+//    double rA = pad_exp2(eA);
+//    k = k * ksat * rA;
+
+    if (k/ksat < ratio)
+        k = ratio * ksat;
+
+    if (T>=0)
     {
-      k *= (0.000158685828*T*T+0.025263459766*T+0.731495819);
+        k *= (0.000158685828*T*T+0.025263459766*T+0.731495819);
     }
-  else
+    else
     {
-      k *= 0.731495819;
+        k *= 0.731495819;
     }
 
-  k *= (pow(10.0, -imp*i/(s-r)));
+// 1st substitution
+//    double B = -imp*i/(s-r)*log(10.0);
+//    k *= pad_exp2(B);
+   k *= (pow(10.0, -imp*i/(s-r))); // (1) NO pow() instead of pow()
 
-  return k;
+    return k;
 
 }
+
+//double k_hydr_soil(double psi, double ksat, double imp, double i, double s,
+//                   double r, double a, double n, double m, double v, double T, double ratio)
+//
+//{
+//
+//    double k,TETA,psisat;
+//
+//    psisat = (pow((pow(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a);
+//    TETA = 1.0/pow((1.0+pow(a*(-Fmin(psisat,psi)),n)),m);
+//
+//    k = 1-pow((1-pow(TETA,(1.0/m))),m);
+//    k *= k;
+//    k = k * ksat * pow(TETA,v);
+//
+//    if (k/ksat < ratio)
+//        k = ratio * ksat;
+//
+//    if (T>=0)
+//    {
+//        k *= (0.000158685828*T*T+0.025263459766*T+0.731495819);
+//    }
+//    else
+//    {
+//        k *= 0.731495819;
+//    }
+//
+//    k *= (pow(10.0, -imp*i/(s-r)));
+//
+//    return k;
+//
+//}
 
 /*--------------------------------------------*/
 
@@ -168,19 +274,19 @@ double psi_saturation(double i, double s, double r, double a, double n,
                       double m)
 {
 
-  double psisat;
+    double psisat;
 
-  if (i<0) i=0.;
-  if (1.0-i/(s-r)>1.E-6)
+    if (i<0) i=0.;
+    if (1.0-i/(s-r)>1.E-6)
     {
-      psisat=(pow((pow(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a);
+       psisat=(power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a);
     }
-  else
+    else
     {
-      psisat=0.0;
+        psisat=0.0;
     }
 
-  return (psisat);
+    return (psisat);
 
 }
 /*------------------------------------------------------------------------------------------------------*/
@@ -191,13 +297,13 @@ double Harmonic_Mean(double D1, double D2, double K1, double K2)
  *  mean=(D1+D2)/(D1/K1+D2/K2)
  * Author: Matteo Dall'Amico, Sept 2011 */
 {
-  return ((D1+D2)/(D1/K1+D2/K2));
+    return ((D1+D2)/(D1/K1+D2/K2));
 }
 
 
 double Arithmetic_Mean(double D1, double D2, double K1, double K2)
 {
-  return ((D1*K2+D2*K1)/(D1+D2));
+    return ((D1*K2+D2*K1)/(D1+D2));
 }
 
 /*------------------------------------------------------------------------------------------------------*/
@@ -206,17 +312,17 @@ double Mean(short a, double D1, double D2, double K1, double K2)
 
 {
 
-  if (a==0)
+    if (a==0)
     {
-      return (Harmonic_Mean(D1,D2,K1,K2));
+        return (Harmonic_Mean(D1,D2,K1,K2));
     }
-  else if (a==1)
+    else if (a==1)
     {
-      return (Arithmetic_Mean(D1,D2,K1,K2));
+        return (Arithmetic_Mean(D1,D2,K1,K2));
     }
-  else
+    else
     {
-      return (0.0);
+        return (0.0);
     }
 }
 
@@ -226,18 +332,18 @@ double Mean(short a, double D1, double D2, double K1, double K2)
 double Psif(double T)
 {
 
-  double psi;
+    double psi;
 
-  if (T<0)
+    if (T<0)
     {
-      psi=T*(1000.0*Lf)/(g*(Tfreezing+tk));
+        psi=T*(1000.0*Lf)/(g*(Tfreezing+tk));
     }
-  else
+    else
     {
-      psi=0;
+        psi=0;
     }
 
-  return (psi);
+    return (psi);
 }
 
 /******************************************************************************************************************************************/
@@ -245,14 +351,14 @@ double theta_from_psi(double psi, double ice, long l, MatrixView<double> &&pa,
                       double pmin)
 {
 
-  double s = pa(jsat,l);
-  double res = pa(jres,l);
-  double a = pa(ja,l);
-  double n = pa(jns,l);
-  double m = 1.-1./n;
-  double Ss = pa(jss,l);
+    double s = pa(jsat,l);
+    double res = pa(jres,l);
+    double a = pa(ja,l);
+    double n = pa(jns,l);
+    double m = 1.-1./n;
+    double Ss = pa(jss,l);
 
-  return teta_psi(psi, ice, s, res, a, n, m, pmin, Ss);
+    return teta_psi(psi, ice, s, res, a, n, m, pmin, Ss);
 
 }
 
@@ -260,14 +366,14 @@ double theta_from_psi(double psi, double ice, long l, MatrixView<double> &&pa,
 double psi_from_theta(double th, double ice, long l, MatrixView<double> &&pa, double pmin)
 {
 
-  double s=pa(jsat,l);
-  double res=pa(jres,l);
-  double a=pa(ja,l);
-  double n=pa(jns,l);
-  double m=1.-1./n;
-  double Ss=pa(jss,l);
+    double s=pa(jsat,l);
+    double res=pa(jres,l);
+    double a=pa(ja,l);
+    double n=pa(jns,l);
+    double m=1.-1./n;
+    double Ss=pa(jss,l);
 
-  return psi_teta(th, ice, s, res, a, n, m, pmin, Ss);
+    return psi_teta(th, ice, s, res, a, n, m, pmin, Ss);
 
 }
 
@@ -277,14 +383,14 @@ double dtheta_dpsi_from_psi(double psi, double ice, long l, MatrixView<double> &
                             double pmin)
 {
 
-  double s = pa(jsat,l);
-  double res = pa(jres,l);
-  double a = pa(ja,l);
-  double n = pa(jns,l);
-  double m = 1.-1./n;
-  double Ss = pa(jss,l);
+    double s = pa(jsat,l);
+    double res = pa(jres,l);
+    double a = pa(ja,l);
+    double n = pa(jns,l);
+    double m = 1.-1./n;
+    double Ss = pa(jss,l);
 
-  return dteta_dpsi(psi, ice, s, res, a, n, m, pmin, Ss);
+    return dteta_dpsi(psi, ice, s, res, a, n, m, pmin, Ss);
 
 }
 
@@ -294,15 +400,15 @@ double k_from_psi(long jK, double psi, double ice, double T, long l,
                   MatrixView<double> &&pa, double imp, double ratio)
 {
 
-  double kmax = pa(jK,l);
-  double s = pa(jsat,l);
-  double res = pa(jres,l);
-  double a = pa(ja,l);
-  double n = pa(jns,l);
-  double m = 1.-1./n;
-  double v = pa(jv,l);
+    double kmax = pa(jK,l);
+    double s = pa(jsat,l);
+    double res = pa(jres,l);
+    double a = pa(ja,l);
+    double n = pa(jns,l);
+    double m = 1.-1./n;
+    double v = pa(jv,l);
 
-  return k_hydr_soil(psi, kmax, imp, ice, s, res, a, n, m, v, T, ratio);
+    return k_hydr_soil(psi, kmax, imp, ice, s, res, a, n, m, v, T, ratio);
 
 }
 
@@ -311,13 +417,13 @@ double k_from_psi(long jK, double psi, double ice, double T, long l,
 double psisat_from(double ice, long l, MatrixView<double> &&pa)
 {
 
-  double s =pa(jsat,l);
-  double res =pa(jres,l);
-  double a = pa(ja,l);
-  double n = pa(jns,l);
-  double m = 1.-1./n;
+    double s =pa(jsat,l);
+    double res =pa(jres,l);
+    double a = pa(ja,l);
+    double n = pa(jns,l);
+    double m = 1.-1./n;
 
-  return psi_saturation(ice, s, res, a, n, m);
+    return psi_saturation(ice, s, res, a, n, m);
 
 }
 /******************************************************************************************************************************************/
