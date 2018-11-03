@@ -57,7 +57,6 @@ extern double MM1, MM2, MMR, MMo, MS1, MS2;
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-
 short water_balance(double Dt, double JD0, double JD1, double JD2,
                     SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, Vector<double> *Vsub,
                     Vector<double> *Vsup,
@@ -2005,8 +2004,7 @@ void find_dt_max(short DD, double Courant, RowView<double> &&h, LAND *land, TOPO
         r = (*top->rc_cont)(j,1);
         c = (*top->rc_cont)(j,2);
 
-        H = Fmax(0.0, h(j)) / cos(
-                (*top->slope)(r,c)*Pi/180.); //h[i] is the pressure at the surface, H is the depth of water normal to the surface
+        H = Fmax(0.0, h(j)) / cos((*top->slope)(r,c)*Pi/180.); //h[i] is the pressure at the surface, H is the depth of water normal to the surface
 
         if (H > par->min_hsup_land)
         {
