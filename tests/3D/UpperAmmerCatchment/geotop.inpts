@@ -1,11 +1,10 @@
-!==================================
+==================================
 !    INPUT FOR GEOTOP V2.0
 !    Run for UpperAmmer_Catchment
 !==================================
 TimeStepEnergyAndWater			=	3600
 InitDateDDMMYYYYhhmm 			= 	15/04/2013 00:00
-EndDateDDMMYYYYhhmm 			=  	16/04/2013 23:00
-!EndDateDDMMYYYYhhmm 			=  	31/07/2013 23:00
+EndDateDDMMYYYYhhmm 			=  	16/04/2013 03:00
 
 ! Catchment centroid (for Sun position)
 Latitude				=	47.68
