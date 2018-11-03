@@ -1,0 +1,28 @@
+Model: GEOtop
+Compiler: c++ (gcc 5.4.0 "c++ (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609")
+Processor: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+Author:  Elisa Bortoli (elisa.bortoli3@gmail.com)
+Date: 28-06-2018
+
+Name: snow_dstr_SENSITIVITY
+
+Description: The study area is in Trentino Alto-Adige in the Mazia LTER research area http://lter.eurac.edu/en
+Simulation provided by Giacomo Bertoldi, Eurac Research, Institute for Alpine Environment, giacomo.bertoldi@eurac.edu
+and Michael Engel, University of Bolzano, Engel Michael <Michael.Engel@unibz.it> 
+Simulation used only for snow energy balance. 
+Results for version GEOtop 2.0 (branch se27xx) published in: Engel, M., Notarnicola, C., Endrizzi, S., Bertoldi, G., 2017. Snow model sensitivity analysis to understand spatial and temporal snow dynamics in a high-elevation catchment. Hydrol. Process. 31, 4151–4168. https://doi.org/10.1002/hyp.11314 
+
+Inputs:
+DEM for the upper Saldur catchment, about 70 km2, closed at Province Water Gauge 
+Used Maps resolution: 500m
+9 land cover types
+7 input meteo stations
+
+
+Time:
+- 05/10/2009 00:00
+- 06/10/2009 01:00
+
+Output:
+- tabs (for 3 output locations): every 1 hour (DischargeFile PointOutputFile SnowTempProfileFile SnowLiqContentProfileFile SnowIceContentProfileFile SnowDepthLayersFile SnowCoveredAreaFile BasinOutputFile SoilAveragedTempProfileFile SoilLiqContentProfileFile SoilIceContentProfileFile )
+- maps (20): every 1 day (AirTempMapFile EvapotranspirationFromSoilMapFile NetLongwaveRadiationMapFile NetPrecipitationMapFile NetRadiationMapFile NetShortwaveRadiationMapFile PrecipitationMapFile RelHumMapFile SWEMapFile SnowDepthMapFile SnowDurationMapFile SnowMeltedMapFile SnowSublMapFile GlacierDepthMapFile GlacierMeltedMapFile GlacierSublimatedMapFile SurfaceTempMapFile  ThawedSoilDepthMapFile WaterTableDepthMapFile)

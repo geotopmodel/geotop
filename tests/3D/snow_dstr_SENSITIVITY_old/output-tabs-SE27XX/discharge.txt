@@ -1,0 +1,2 @@
+DATE[day/month/year hour:min],t[days],JDfrom0,JD,Qtot[m3/s],Vsup/Dt[m3/s],Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]
+06/10/2009 00:00,1.000000,734052.000000,278.000000,1.904307e+02,1.369080e+02,5.364423e+01,2.019823e+05,0.000000e+00,0.000000e+00,0.000000e+00
