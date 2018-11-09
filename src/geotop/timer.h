@@ -57,7 +57,7 @@ class Timer::ScopedTimer {
   const std::string _s;
   Timer& _timer;
   ScopedTimer(const std::string& s, Timer& t = geotimer)
-      : t{high_resolution_clock::now()}, _s{s}, _timer{t} {
+    : t{high_resolution_clock::now()}, _s{s}, _timer(t) {
     _timer.times[s].number_of_calls += 1;
   }
 
