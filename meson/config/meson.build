@@ -1,4 +1,4 @@
-include_dirs = [include_dirs, include_directories('.')]
+include_dirs += include_directories('.')
 
 code = '''_Pragma("GCC diagnostic push")
   _Pragma("GCC diagnostic ignored \"-Wextra\"")
@@ -11,6 +11,12 @@ code = '''_Pragma("GCC diagnostic push")
 _pragma = _cxx.compiles(code, name: 'pragma check')
 
 _cdata = configuration_data()
+
+_cdata.set('COMPILER_HAS_DIAGNOSTIC_PRAGMA', _pragma)
+
+foreach _opt : ['MUTE_GEOLOG', 'MUTE_GEOTIMER']
+    _cdata.set(_opt, get_option(_opt))
+endforeach
 
 configure_file(output: 'config.h',
                input: _config,
