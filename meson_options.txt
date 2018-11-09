@@ -1,0 +1,3 @@
+option('MUTE_GEOLOG', type: 'boolean', value: false)
+option('MUTE_GEOTIMER', type: 'boolean', value: false)
+
