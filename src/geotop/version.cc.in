@@ -1,0 +1,9 @@
+#include "version.h"
+
+const char* version(){
+  return "@VERSION@";
+}
+
+const char* commit(){
+  return "XXX";
+}

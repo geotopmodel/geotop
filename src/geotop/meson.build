@@ -58,3 +58,4 @@ src_files += [files(['PBSM.cc',
     'water.balance.h',])]
 
 _config = files('config.meson.h.in')
+_vcs    = files('version.cc.in')

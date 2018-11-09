@@ -34,7 +34,7 @@ subdir('meson')
 
 main = files('src/geotop/geotop.cc')
 
-geotop = executable('geotop', main, src_files,
+geotop = executable('geotop', main, src_files, tag,
                     include_directories: include_dirs,
                     dependencies: deps,
                     install:true,

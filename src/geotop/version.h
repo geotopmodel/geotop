@@ -17,26 +17,16 @@ Any feedback will be highly appreciated.
 
 */
 
-/* @brief: Version file to define some variables: variables are set bt CMAKE
-To add other variable please edit version_cmake.h.in file
-*/
+/** 
+ * @brief: Version file to define version and commit. 
+ * 
+ * The functions are implemented in a separate .cc file to avoid
+ * recompilations
+ */
 
 #ifndef __VERSION_H__
 #define __VERSION_H__
 
-/* Name of package */
-#define PACKAGE "${PACKAGE}"
-
-/* Git version */ 
-#define GEOtop_BUILD_VERSION "${GEOtop_BUILD_VERSION}"
-
-/* Define to the full name of this package. */
-#define PACKAGE_NAME "${PACKAGE}"
-
-/* Define to the full name and version of this package. */
-#define PACKAGE_STRING "${PACKAGE_STRING}"
-
-/* Define to the version of this package. */
-#define PACKAGE_VERSION "${PACKAGE_VERSION}"
-
+const char * version();
+const char * commit();
 #endif // __VERSION_H__
