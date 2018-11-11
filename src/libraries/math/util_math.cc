@@ -23,6 +23,7 @@
 #include "util_math.h"
 #include "t_utilities.h"
 #include "constants.h"
+#include "timer.h"
 
 /*----------------------------------------------------------------------------------------------------------*/
 
@@ -30,7 +31,7 @@ short tridiag(short a, long r, long c, long nx, Vector<double> *diag_inf,
               Vector<double> *diag, Vector<double> *diag_sup, Vector<double> *b, Vector<double> *e)
 
 {
-
+  GEOTIMER_PREFIX(__func__);
   long j;
   double bet;
   std::unique_ptr<Vector<double>> gam {new Vector<double>{nx}};
@@ -85,7 +86,9 @@ short tridiag2(short a, long r, long c, long nbeg, long nend,
 //solve A(ld,d,ud) * e + b = 0
 
 {
-  long j;
+    GEOTIMER_PREFIX(__func__);
+
+    long j;
   double bet;
   std::unique_ptr<Vector<double>> gam{new Vector<double>{nend}};
 

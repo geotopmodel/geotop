@@ -4,6 +4,7 @@
 #include "t_random.h"
 #include "networks.h"
 #include <logger.h>
+#include <timer.h>
 
 #define Pi 3.14159265358979     /* P greco */
 
@@ -23,6 +24,7 @@
 void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *input, Matrix<short> *convess,
                      long novalue)
 {
+    GEOTIMER_PREFIX(__func__);
     long i,j,t,m,n,p,q,h,k,r,s; //counter
     double deltateta; //amplitude of the angles in which the horizon is divided
     std::unique_ptr<Matrix<double>> alfa; //matrices with the angles of the direction
