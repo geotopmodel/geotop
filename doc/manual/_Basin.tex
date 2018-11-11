@@ -1,0 +1,127 @@
+\chapter{Basin synthetic outputs}
+
+\section{Output}
+\subsection{Files}
+
+\begin{center}
+\begin{longtable}{|p {3.5 cm}|p {8 cm}|p {3 cm}|p {2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description}  \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description}  \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+BasinOutputFile \index{BasinOutputFile} & name of the output file providing the Basin values  \\ \hline
+BasinOutputFileWriteEnd \index{BasinOutputFileWriteEnd} & name of the output file providing the Basin values written just once at the end \\ \hline
+\caption{Keywords of file name for the synthetic basin outputs}
+\label{basin_file}
+\end{longtable}
+\end{center}
+
+
+\subsection{Parameters}
+
+\begin{center}
+\begin{longtable}{|p {3.6 cm}|p {4.4 cm}|p {1 cm}|p{1 cm}|p{1.1 cm}|p{1.1 cm}|p{1 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Sca / Vec} & \textbf{Log / Num} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Sca / Vec} & \textbf{Log / Num} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+DefaultBasin \index{DefaultBasin} & 0: use personal setting, 1:use default & - & 0, 1 & 1 & sca & opt \\ \hline
+DtPlotBasin \index{DtPlotBasin} & Plotting Time step (in hour) of THE basin averaged output (0 means the it is not plotted) & h & 0, inf & 0 & vec & num \\ \hline
+DateBasin \index{DateBasin} & column in which one would like to visualize the Date12 [DDMMYYYYhhmm]    	 & - & 1, 24 & -1 & sca & num \\ \hline
+JulianDayFromYear0Basin \index{JulianDayFromYear0Basin} & column in which one would like to visualize the JulianDayFromYear0[days]   	 & - & 1, 24 & -1 & sca & num \\ \hline
+TimeFromStartBasin \index{TimeFromStartBasin} & column in which one would like to visualize the TimeFromStart[days]     & - & 1, 24 & -1 & sca & num \\ \hline
+PeriodBasin \index{PeriodBasin} & column in which one would like to visualize the Simulation\_Period & - & 1, 24 & -1 & sca & num \\ \hline
+RunBasin \index{RunBasin} & column in which one would like to visualize the Run	 & - & 1, 24 & -1 & sca & num \\ \hline
+PRainNetBasin \index{PRainNetBasin} & column in which one would like to visualize the Prain\_below\_canopy[mm]      & - & 1, 24 & -1 & sca & num \\ \hline
+PSnowNetBasin \index{PSnowNetBasin} & column in which one would like to visualize the Psnow\_below\_canopy[mm]      & - & 1, 24 & -1 & sca & num \\ \hline
+PRainBasin \index{PRainBasin} & column in which one would like to visualize the Prain\_above\_canopy[mm]      & - & 1, 24 & -1 & sca & num \\ \hline
+PSnowBasin \index{PSnowBasin} & column in which one would like to visualize the Prain\_above\_canopy[mm]      & - & 1, 24 & -1 & sca & num \\ \hline
+AirTempBasin \index{AirTempBasin} & column in which one would like to visualize the Tair[\textcelsius]      & - & 1, 24 & -1 & sca & num \\ \hline
+TSurfBasin \index{TSurfBasin} & column in which one would like to visualize the Tsurface[\textcelsius]      & - & 1, 24 & -1 & sca & num \\ \hline
+TvegBasin \index{TvegBasin} & column in which one would like to visualize the Tvegetation[\textcelsius]      & - & 1, 24 & -1 & sca & num \\ \hline
+EvapSurfaceBasin \index{EvapSurfaceBasin} & column in which one would like to visualize the Evap\_surface[mm]      & - & 1, 24 & -1 & sca & num \\ \hline
+TraspCanopyBasin \index{TraspCanopyBasin} & column in which one would like to visualize the Transpiration\_canopy[mm]      & - & 1, 24 & -1 & sca & num \\ \hline
+LEBasin \index{LEBasin} & column in which one would like to visualize the LE[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+HBasin \index{HBasin} & column in which one would like to visualize the H[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+SWNetBasin \index{SWNetBasin} & column in which one would like to visualize the SW[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+LWNetBasin \index{LWNetBasin} & column in which one would like to visualize the LW[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+LEvBasin \index{LEvBasin} & column in which one would like to visualize the LEv[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+HvBasin \index{HvBasin} & column in which one would like to visualize the Hv[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+SWvBasin \index{SWvBasin} & column in which one would like to visualize the SWv[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+LWvBasin \index{LWvBasin} & column in which one would like to visualize the LWv[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+SWinBasin \index{SWinBasin} & column in which one would like to visualize the SWin[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+LWinBasin \index{LWinBasin} & column in which one would like to visualize the LWin[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+MassErrorBasin \index{MassErrorBasin} & column in which one would like to visualize the Mass\_balance\_error[mm]      & - & 1, 24 & -1 & sca & num \\ \hline
+\caption{Keywords of print parameters to personalize the BasinOutputFile}
+\label{basin_out_par}
+\end{longtable}
+\end{center}
+
+
+\subsection{Headers}
+
+\begin{center}
+\begin{longtable}{|p {4.2 cm}|p {6.4 cm}|p {3 cm}|p {2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file}  \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file}  \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+HeaderDateBasin \index{HeaderDateBasin} & column name in the file BasinOutputFile for the variable DateBasin & BasinOutputFile  \\ \hline
+HeaderJulianDayFromYear0Basin \index{HeaderJulianDayFromYear0Basin} & column name in the file BasinOutputFile for the variable JulianDayFromYear0Basin & BasinOutputFile  \\ \hline
+HeaderTimeFromStartBasin \index{HeaderTimeFromStartBasin} & column name in the file BasinOutputFile for the variable TimeFromStartBasin & BasinOutputFile  \\ \hline
+HeaderPeriodBasin \index{HeaderPeriodBasin} & column name in the file BasinOutputFile for the variable PeriodBasin & BasinOutputFile  \\ \hline
+HeaderRunBasin \index{HeaderRunBasin} & column name in the file BasinOutputFile for the variable RunBasin & BasinOutputFile  \\ \hline
+HeaderPRainNetBasin \index{HeaderPRainNetBasin} & column name in the file BasinOutputFile for the variable PRainNetBasin & BasinOutputFile  \\ \hline
+HeaderPSnowNetBasin \index{HeaderPSnowNetBasin} & column name in the file BasinOutputFile for the variable PSnowNetBasin & BasinOutputFile  \\ \hline
+HeaderPRainBasin \index{HeaderPRainBasin} & column name in the file BasinOutputFile for the variable PRainBasin & BasinOutputFile  \\ \hline
+HeaderPSnowBasin \index{HeaderPSnowBasin} & column name in the file BasinOutputFile for the variable PSnowBasin & BasinOutputFile  \\ \hline
+HeaderAirTempBasin \index{HeaderAirTempBasin} & column name in the file BasinOutputFile for the variable AirTempBasin & BasinOutputFile  \\ \hline
+HeaderTSurfBasin \index{HeaderTSurfBasin} & column name in the file BasinOutputFile for the variable TSurfBasin & BasinOutputFile  \\ \hline
+HeaderTvegBasin \index{HeaderTvegBasin} & column name in the file BasinOutputFile for the variable TvegBasin & BasinOutputFile  \\ \hline
+HeaderEvapSurfaceBasin \index{HeaderEvapSurfaceBasin} & column name in the file BasinOutputFile for the variable EvapSurfaceBasin & BasinOutputFile  \\ \hline
+HeaderTraspCanopyBasin \index{HeaderTraspCanopyBasin} & column name in the file BasinOutputFile for the variable TraspCanopyBasin & BasinOutputFile  \\ \hline
+HeaderLEBasin \index{HeaderLEBasin} & column name in the file BasinOutputFile for the variable LEBasin & BasinOutputFile  \\ \hline
+HeaderHBasin \index{HeaderHBasin} & column name in the file BasinOutputFile for the variable HBasin & BasinOutputFile  \\ \hline
+HeaderSWNetBasin \index{HeaderSWNetBasin} & column name in the file BasinOutputFile for the variable SWNetBasin & BasinOutputFile  \\ \hline
+HeaderLWNetBasin \index{HeaderLWNetBasin} & column name in the file BasinOutputFile for the variable LWNetBasin & BasinOutputFile  \\ \hline
+HeaderLEvBasin \index{HeaderLEvBasin} & column name in the file BasinOutputFile for the variable LEvBasin & BasinOutputFile  \\ \hline
+HeaderHvBasin \index{HeaderHvBasin} & column name in the file BasinOutputFile for the variable HvBasin & BasinOutputFile  \\ \hline
+HeaderSWvBasin \index{HeaderSWvBasin} & column name in the file BasinOutputFile for the variable SWvBasin & BasinOutputFile  \\ \hline
+HeaderLWvBasin \index{HeaderLWvBasin} & column name in the file BasinOutputFile for the variable LWvBasin & BasinOutputFile  \\ \hline
+HeaderSWinBasin \index{HeaderSWinBasin} & column name in the file BasinOutputFile for the variable SWinBasin & BasinOutputFile  \\ \hline
+HeaderLWinBasin \index{HeaderLWinBasin} & column name in the file BasinOutputFile for the variable LWinBasin & BasinOutputFile  \\ \hline
+HeaderMassErrorBasin \index{HeaderMassErrorBasin} & column name in the file BasinOutputFile for the variable MassErrorBasin & BasinOutputFile  \\ \hline
+\caption{Keywords of headers to personalize the column names of the BasinOutputFile}
+\label{basin3d_head}
+\end{longtable}
+\end{center}
