@@ -119,3 +119,5 @@ add_executable(geotop
 enable_testing()
 subdirs(tests)
 
+
+subdirs(cmake/final_message)
