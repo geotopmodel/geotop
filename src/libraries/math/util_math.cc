@@ -21,7 +21,6 @@
 
 #include "turtle.h"
 #include "util_math.h"
-#include "t_utilities.h"
 #include "constants.h"
 
 /*----------------------------------------------------------------------------------------------------------*/

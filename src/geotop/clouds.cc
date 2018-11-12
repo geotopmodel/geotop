@@ -274,7 +274,7 @@ double find_cloudiness(long n, double **meteo, long meteolines, double lat,
           (float)m, (float)y, (float)h,(float)mi,
           height_sun*180./Pi, rotation + (SolarAzimuth(meteo[n][iJDfrom0], lat, Delta,
                                                        (lon-ST*Pi/12.+Et)/omega)) * 180./Pi,
-          Fmax(sin(height_sun), 0.05), meteo[n][iSW], Isc*E0*Fmax(sin(height_sun),
+          std::max<double>(sin(height_sun), 0.05), meteo[n][iSW], Isc*E0*std::max<double>(sin(height_sun),
               0.05)*tau_atm,tau_atm,tau_cloud);
   fclose(f);
   free(temp);

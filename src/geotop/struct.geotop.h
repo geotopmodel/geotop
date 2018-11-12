@@ -21,9 +21,9 @@
 
 #include "turtle.h"
 #include "t_datamanipulation.h"
-#include "t_utilities.h"
 #include "tensor3D.h"
 #include <memory>
+#include <algorithm>
 
 /*---------------------------------------------------------------------------*/
 typedef struct {

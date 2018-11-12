@@ -119,7 +119,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                       //find canopy_height_over_snow
                       lu = (short)(*land->LC)(r,c);
                       canopy_height_over_snow = 0.0;
-                      //zmeas = Fmax(0.1, (*met->st->Vheight)(1)-1.E-3*D);
+                      //zmeas = std::max<double>(0.1, (*met->st->Vheight)(1)-1.E-3*D);
                       zmeas = (*met->st->Vheight)(1);
 
                       for (j=1; j<=jdvegprop; j++)
@@ -151,7 +151,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                       if ((*land->vegpar)(jdLSAI)<LSAIthres) 
                         fc=0.0;
                       if (fc>0) 
-                        canopy_height_over_snow += fc*Fmax((*land->vegpar)(jdHveg)-D, 0.)*1.E-3;
+                        canopy_height_over_snow += fc*std::max<double>((*land->vegpar)(jdHveg)-D, 0.)*1.E-3;
 
                       //rearrange snow layers
                       ns = (*snow->S->lnum)(r,c);
@@ -214,7 +214,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                     }
                 }
 
-              Dt=Fmin(Dt,Dt0);
+              Dt=std::min<double>(Dt,Dt0);
               set_windtrans_snow(Dt, t0+t, snow, met, land, par, f);
               print_windtrans_snow(Dt, snow, par, top, met, land->LC.get());
             }
@@ -633,7 +633,7 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
 
                       (*snow->S->w_ice)(1,r,c)+=DW;
                       (*snow->S->Dzl)(1,r,c)+=1.0E+3*DW/rho_wind_transported_snow;
-                      (*snow->S->T)(1,r,c)=Fmin(-1.,(*met->Vgrid)(r,c));
+                      (*snow->S->T)(1,r,c)=std::min<double>(-1.,(*met->Vgrid)(r,c));
 
                     }
 
