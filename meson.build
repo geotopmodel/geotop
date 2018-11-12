@@ -5,7 +5,7 @@ project('geotop','cpp',
         default_options : ['cpp_std=c++11',
 			   'buildtype=release',
 			   'warning_level=3' ],
-        version: '3.0.0')
+        version: '3.0')
 
 
 # the following lists will be populated through the inclusion of the
@@ -34,7 +34,7 @@ subdir('meson')
 
 main = files('src/geotop/geotop.cc')
 
-geotop = executable('geotop', main, src_files,
+geotop = executable('geotop', main, src_files, tag,
                     include_directories: include_dirs,
                     dependencies: deps,
                     install:true,

@@ -5,6 +5,8 @@
 #ifndef GEOTOP_LOGGER_H
 #define GEOTOP_LOGGER_H
 
+#include "config.h"
+
 #include <functional>
 #include <iomanip>
 #include <iostream>

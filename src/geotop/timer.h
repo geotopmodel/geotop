@@ -4,6 +4,8 @@
 #ifndef GEOTOP_TIMER_H
 #define GEOTOP_TIMER_H
 
+#include "config.h"
+
 #include <chrono>
 #include <iostream>
 #include <map>
