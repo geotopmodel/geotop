@@ -5,7 +5,7 @@ project('geotop','cpp',
         default_options : ['cpp_std=c++11',
 			   'buildtype=release',
 			   'warning_level=3' ],
-        version: '3.0.0')
+        version: '3.0')
 
 
 # the following lists will be populated through the inclusion of the
