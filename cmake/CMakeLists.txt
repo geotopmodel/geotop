@@ -1,0 +1,2 @@
+subdirs(config)
+subdirs(compilers)

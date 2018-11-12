@@ -1,0 +1,12 @@
+#include "version.h"
+
+#cmakedefine VERSION "@VERSION@"
+#cmakedefine COMMIT  "@COMMIT@"
+
+const char* version(){
+  return VERSION;
+}
+
+const char* commit(){
+  return COMMIT;
+}

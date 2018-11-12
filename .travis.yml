@@ -30,7 +30,7 @@ before_install:
   - export PATH="$PWD/_meson:$PATH"
 
 install:
-  - meson.py build
+  - meson.py -DMUTE_GEOLOG=true -DMUTE_GEOTIMER=true build
   - cd build
   - ninja -j2
 

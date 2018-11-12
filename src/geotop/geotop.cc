@@ -41,10 +41,10 @@
 #include "pedo.funct.h"
 #include <string>
 #include <iostream>
-#include <version.h>
-#include <logger.h>
+#include "version.h"
+#include "logger.h"
 #include <fstream>
-#include <timer.h>
+#include "timer.h"
 
 void time_loop(ALLDATA *A);
 
@@ -112,8 +112,8 @@ int main(int argc,char *argv[])
 
         if (wd == "-v"){
             std::cout << std::endl;
-            std::cout << "Version: " << PACKAGE_STRING << std::endl;
-            std::cout << "Commit :  " << GEOtop_BUILD_VERSION << std::endl;
+            std::cout << "Version: " << version() << std::endl;
+            std::cout << "Commit : " << commit() << std::endl;
             std::cout << std::endl;
             exit(10);
         }
