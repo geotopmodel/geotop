@@ -130,7 +130,7 @@ void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
 
     }
 
-    n = Fminlong((*par->Nl_spinup)(par->init_date->nh),Nl);
+    n = std::min<long>((*par->Nl_spinup)(par->init_date->nh),Nl);
     for (l=0; l<=n; l++)
     {
         for (r=1; r<=Nr; r++)

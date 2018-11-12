@@ -862,7 +862,7 @@ land cover %ld, meteo station %ld\n",
 
     /**************************************************************************************************/
     // Cont for Richards 3D
-    n = Fminlong((*par->Nl_spinup)(i_sim0),Nl);
+    n = std::min<long>((*par->Nl_spinup)(i_sim0),Nl);
 
     // 3D
     top->i_cont=(long ***)malloc((n+1)*sizeof(long **));
@@ -1033,7 +1033,7 @@ land cover %ld, meteo station %ld\n",
                                       (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l), PsiMin,
                                       (*sl->pa)(sy,jss,l));
 
-            th_oversat = Fmax( (*sl->SS->P)(l,i), 0.0 ) * (*sl->pa)(sy,jss,l);
+            th_oversat = std::max<double>( (*sl->SS->P)(l,i), 0.0 ) * (*sl->pa)(sy,jss,l);
             (*sl->th)(l,i) -= th_oversat;
 
             if ((*sl->SS->T)(l,i) <=Tfreezing)
@@ -1176,7 +1176,7 @@ land cover %ld, meteo station %ld\n",
                                         1.-1./(*sl->pa)(sy,jns,l),
                                         PsiMin, (*sl->pa)(sy,jss,l));
 
-            th_oversat = Fmax( (*cnet->SS->P)(l,j), 0.0 ) * (*sl->pa)(sy,jss,l);
+            th_oversat = std::max<double>( (*cnet->SS->P)(l,j), 0.0 ) * (*sl->pa)(sy,jss,l);
             (*cnet->th)(l,j) -= th_oversat;
 
             if ((*cnet->SS->T)(l,j) <=Tfreezing)
@@ -1225,7 +1225,7 @@ land cover %ld, meteo station %ld\n",
             for (l=1; l<=Nl; l++)
             {
                 sy = (*cnet->soil_type)(i);
-                (*cnet->th)(l,i) = teta_psi(Fmin((*cnet->SS->P)(l,i),
+                (*cnet->th)(l,i) = teta_psi(std::min<double>((*cnet->SS->P)(l,i),
                                                  psi_saturation((*cnet->SS->thi)(l,i),
                                                                 (*sl->pa)(sy,jsat,l),
                                                                 (*sl->pa)(sy,jres,l),
@@ -1598,7 +1598,7 @@ land cover %ld, meteo station %ld\n",
         allocate_and_initialize_statevar_1D(snow->S_for_BS, (double)number_novalue,
                                             par->max_snow_layers);
 
-        snow->change_dir_wind.reset(new Vector<long>{Fmaxlong(Nr,Nc)});
+        snow->change_dir_wind.reset(new Vector<long>{std::max<long>(Nr,Nc)});
 
         snow->Qtrans.reset(new Matrix<double>{Nr,Nc});
         snow->Qsub.reset(new Matrix<double>{Nr,Nc});
@@ -2352,7 +2352,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
             if (par->output_vertical_distances == 1)
             {
-                cosslope = cos( Fmin(max_slope,(*top->slope)(r,c)) * Pi/180. );
+                cosslope = cos( std::min<double>(max_slope,(*top->slope)(r,c)) * Pi/180. );
             }
             else
             {
@@ -2407,7 +2407,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     }
     free(IT->meteostations_col_names);
 
-    n = Fminlong((*par->Nl_spinup)(i_sim0),Nl);
+    n = std::min<long>((*par->Nl_spinup)(i_sim0),Nl);
 
     if (par->point_sim != 1)
     {

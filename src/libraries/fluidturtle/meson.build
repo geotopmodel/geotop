@@ -9,8 +9,6 @@ src_files += [files(['alloc.cc',
                      't_io.h',
                      't_list.h',
                      't_random.h',
-                     't_utilities.h',
                      'tensor3D.h',
                      'tensors3D.cc',
-                     'turtle.h',
-                     'utilities.cc',])]
+                     'turtle.h',])]

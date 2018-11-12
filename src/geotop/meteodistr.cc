@@ -39,7 +39,6 @@
 #include "constants.h"
 #include "struct.geotop.h"
 #include "meteodistr.h"
-#include "t_utilities.h"
 #include "rw_maps.h"
 #include "meteo.h"
 #include "logger.h"
@@ -297,7 +296,7 @@ void topo_mod_winds(Matrix<double> *winddir_grid, Matrix<double> *windspd_grid,
 
                 //Modify the wind direction according to Ryan (1977).
                 dirdiff = (*slope_az)(r,c) - (*winddir_grid)(r,c);
-                (*winddir_grid)(r,c) = (*winddir_grid)(r,c) - 22.5 * Fmin(fabs(
+                (*winddir_grid)(r,c) = (*winddir_grid)(r,c) - 22.5 * std::min<double>(fabs(
                         (*wind_slope)(r,c)), 1.) * sin(deg2rad * (2.0 * dirdiff));
                 if ((*winddir_grid)(r,c) > 360.0) {
                     (*winddir_grid)(r,c) = (*winddir_grid)(r,c) - 360.0;
@@ -531,7 +530,7 @@ double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate,
     f_1 = f_max * (press_ratio - 0.1) / 0.6 / 100.0;
 
     //Convert the gridded topo-surface RH to Td.
-    Td = Tdew(Tair, Fmax(0.1, RH), Z);
+    Td = Tdew(Tair, std::max<double>(0.1, RH), Z);
 
     //Convert the topo-surface temperature values to 700 mb values.
     Td_700 = temperature(Z_ref, Z, Td, Td_lapse_rate);
@@ -542,8 +541,8 @@ double find_cloudfactor(double Tair, double RH, double Z, double T_lapse_rate,
 
     //Use this RH at 700 mb to define the cloud fraction (0-1).
     fcloud = f_1 * exp((rh_700 - 1.0) / one_minus_RHe);
-    fcloud = Fmin(1.0, fcloud);
-    fcloud = Fmax(0.0, fcloud);
+    fcloud = std::min<double>(1.0, fcloud);
+    fcloud = std::max<double>(0.0, fcloud);
 
     return (fcloud);
 

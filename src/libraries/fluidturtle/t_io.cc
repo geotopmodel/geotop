@@ -1,5 +1,4 @@
 #include "turtle.h"
-#include "t_utilities.h"
 
 #include <sys/stat.h>
 #include <libgen.h>

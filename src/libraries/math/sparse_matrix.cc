@@ -21,7 +21,6 @@
 
 #include "turtle.h"
 #include "sparse_matrix.h"
-#include "t_utilities.h"
 #include "util_math.h"
 
 #define MAX_VALUE_DIAG 1e-8
@@ -46,7 +45,7 @@ int get_diagonal(Vector<double> *diagonal, Vector<double> *x0, double dt,
   for (i=x_v->nl; i<=x_v->nh; i++)
     {
       x_v->co[i]=1.0;
-      diagonal->co[i]=Fmax( (*Matrix)(i,x_v.get(),x0,dt,data), MAX_VALUE_DIAG );
+      diagonal->co[i]=std::max<double>( (*Matrix)(i,x_v.get(),x0,dt,data), MAX_VALUE_DIAG );
       x_v->co[i]=0.0;
     }
 
@@ -180,7 +179,7 @@ long CG(double tol_rel, double tol_min, double tol_max, Vector<double> *x,
   norm_r0 = norm_2(r.get(), r->nl, r->nh);
 
   while ( icnt<=icnt_max
-          && norm_2(r.get(), r->nl, r->nh) > Fmax( tol_min, Fmin( tol_max,
+          && norm_2(r.get(), r->nl, r->nh) > std::max<double>( tol_min, std::min<double>( tol_max,
                                                             tol_rel*norm_r0) ) )
     {
 
@@ -288,7 +287,7 @@ long BiCGSTAB(double tol_rel, double tol_min, double tol_max, Vector<double> *x,
   omeg = 1.;
 
   while ( i<=x->nh
-          && norm_2(r.get(), r->nl, r->nh) > Fmax( tol_min, Fmin( tol_max,
+          && norm_2(r.get(), r->nl, r->nh) > std::max<double>( tol_min, std::min<double>( tol_max,
                                                             tol_rel*norm_r0) ) )
     {
 
@@ -533,7 +532,7 @@ long BiCGSTAB_unpreconditioned(double tol_rel, double tol_min, double tol_max,
   omeg = 1.;
 
   while ( i<=x->nh
-          && norm_2(r.get(), r->nl, r->nh) > Fmax( tol_min, Fmin( tol_max,
+          && norm_2(r.get(), r->nl, r->nh) > std::max<double>( tol_min, std::min<double>( tol_max,
                                                             tol_rel*norm_r0) ) )
     {
 
@@ -633,7 +632,7 @@ long BiCGSTAB_diag(double tol_rel, double tol_min, double tol_max,
   omeg = 1.;
 
   while ( i<=x->nh
-          && norm_2(r.get(), r->nl, r->nh) > Fmax( tol_min, Fmin( tol_max,
+          && norm_2(r.get(), r->nl, r->nh) > std::max<double>( tol_min, std::min<double>( tol_max,
                                                             tol_rel*norm_r0) ) )
     {
 
@@ -796,7 +795,7 @@ long BiCGSTAB_lower(double tol_rel, double tol_min, double tol_max,
   omeg = 1.;
 
   while ( i<=x->nh
-          && norm_2(r.get(), r->nl, r->nh) > Fmax( tol_min, Fmin( tol_max,
+          && norm_2(r.get(), r->nl, r->nh) > std::max<double>( tol_min, std::min<double>( tol_max,
                                                             tol_rel*norm_r0) ) )
     {
 
@@ -889,7 +888,7 @@ long BiCGSTAB_upper(double tol_rel, double tol_min, double tol_max,
   omeg = 1.;
 
   while ( i<=x->nh
-          && norm_2(r.get(), r->nl, r->nh) > Fmax( tol_min, Fmin( tol_max,
+          && norm_2(r.get(), r->nl, r->nh) > std::max<double>( tol_min, std::min<double>( tol_max,
                                                             tol_rel*norm_r0) ) )
     {
 
@@ -1108,7 +1107,7 @@ long BiCGSTAB_LU_SSOR(double w, double tol_rel, double tol_min,
   omeg = 1.;
 
   while ( i<=x->nh
-          && norm_2(r.get(), r->nl, r->nh) > Fmax( tol_min, Fmin( tol_max,
+          && norm_2(r.get(), r->nl, r->nh) > std::max<double>( tol_min, std::min<double>( tol_max,
                                                             tol_rel*norm_r0) ) )
     {
 
@@ -1342,7 +1341,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel,
   if (maxiter < 100) maxiter = 100;
 
   while ( i<=maxiter
-          && norm_2(r.get(), r->nl, r->nh) > Fmax( tol_min, Fmin( tol_max,
+          && norm_2(r.get(), r->nl, r->nh) > std::max<double>( tol_min, std::min<double>( tol_max,
                                                             tol_rel*norm_r0) ) )
     {
 

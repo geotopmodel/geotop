@@ -141,7 +141,7 @@ double k_hydr_soil(double psi, double ksat, double imp, double i, double s,
   double k,TETA,psisat;
 
   psisat = (pow((pow(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a);
-  TETA = 1.0/pow((1.0+pow(a*(-Fmin(psisat,psi)),n)),m);
+  TETA = 1.0/pow((1.0+pow(a*(-std::min<double>(psisat,psi)),n)),m);
 
   k = ksat * pow(TETA,v)*(pow((1-pow((1-pow(TETA,(1.0/m))),m)),2.0));
 
