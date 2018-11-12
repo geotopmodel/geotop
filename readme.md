@@ -100,7 +100,13 @@ meson configure
 - If you want to modify some of them, add -Doption=value: for example
     - set the build type to debug type: ``` meson configure -Dbuildtype=debug ```
     - add compiler and linker options (i.e. add ```-pg```): ``` meson configure -Dcpp_args=-pg -Dcpp_link_args=-pg```
-    - define multiple compiler options: ```meson configure -Dcpp_args=-DOPTION_1,-DOPTION_2``` => NOT WORKING !!!
+    - define multiple compiler options: ```meson configure -Dcpp_args=" -OPTION_1 -OPTION_2"```
+
+- To check if the desired flags were activated you can look at their current values
+(```true``` or ```false```) again typing inside the build folder:
+```
+meson configure
+```
 
 - Compile:
 ```
@@ -127,3 +133,11 @@ meson test --suite geotop:1D
 ```
 ninja test
 ```
+
+### Problems
+If for some reasons at a certain point after typing ```ninja``` you get a message like:
+```
+Something went terribly wrong. Please file a bug.
+FAILED: build.ninja
+```
+try to remove the build folder and create it again.
