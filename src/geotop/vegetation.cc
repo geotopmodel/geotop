@@ -168,7 +168,7 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
 
           if (T11>0 && Wcsn>0)  //melting
             {
-              melt_can=Fmin(Wcsn, c_ice*Wcsn*(T11-0.0)/Lf);
+              melt_can=std::min<double>(Wcsn, c_ice*Wcsn*(T11-0.0)/Lf);
               T11p=T11 - Lf*melt_can/C;
               Wcsn-=melt_can;
               Wcrn+=melt_can;
@@ -176,7 +176,7 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
             }
           else if (T11<0 && Wcrn>0)   //freezing
             {
-              melt_can=-Fmin(Wcrn, c_liq*Wcrn*(0.0-T11)/Lf);
+              melt_can=-std::min<double>(Wcrn, c_liq*Wcrn*(0.0-T11)/Lf);
               T11p=T11 - Lf*melt_can/C;
               Wcsn-=melt_can;
               Wcrn+=melt_can;
@@ -268,7 +268,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
   //CANOPY FRACTION SET AT THE MAX OF SNOW AND LIQUID WATER FRACTION ON CANOPY
   fwliq=pow(Wcrn/Wcrnmax,2./3.);
   fwice=pow(Wcsn/Wcsnmax,2./3.);
-  fw=Fmax(fwliq, fwice);
+  fw=std::max<double>(fwliq, fwice);
   if (fw<0) fw=0.0;
   if (fw>1) fw=1.0;
 
@@ -586,7 +586,7 @@ void canopy_snow_interception(double snow_max_loading, double LSAI,
       *storage = (*max_storage);
     }
 
-  unload = Fmin(*storage, (*storage)*(Fmax(0.0, Tc+3.0)/CT + v/CV)*Dt);
+  unload = std::min<double>(*storage, (*storage)*(std::max<double>(0.0, Tc+3.0)/CT + v/CV)*Dt);
   if (unload<0.1) unload=0.0; //prevents very low snowfalls
 
   *drip = *drip + unload;
@@ -812,7 +812,7 @@ void veg_transmittance(short stabcorr_incanopy, double v, double u_star,
   //adjust decay coefficient in accordance with stability under canopy
   if (stabcorr_incanopy == 1)
     {
-      *decay = Fmin(1.E5, decaycoeff0*sqrt(phi_below));
+      *decay = std::min<double>(1.E5, decaycoeff0*sqrt(phi_below));
     }
   else
     {
@@ -823,10 +823,10 @@ void veg_transmittance(short stabcorr_incanopy, double v, double u_star,
   //after Zeng
   //u_veg = u_star;
   //after Huntingford
-  u_veg = Fmax(0.001, u_top*exp((*decay)*(zm/Hveg-1.0)));
+  u_veg = std::max<double>(0.001, u_top*exp((*decay)*(zm/Hveg-1.0)));
 
   //canopy resistance (see Huntingsford)
-  *rb = Fmin(1.E20, 70.0*sqrt(Lc/u_veg))/LSAI;
+  *rb = std::min<double>(1.E20, 70.0*sqrt(Lc/u_veg))/LSAI;
 
   //ground resistance
   //Zeng
@@ -840,7 +840,7 @@ void veg_transmittance(short stabcorr_incanopy, double v, double u_star,
   r = (Hveg*exp(*decay)/(d0veg*(*decay))) * (exp(-(*decay)*z0soil/Hveg)-exp(-
                                              (*decay)*zm/Hveg));
   Ktop = ka*u_star*(Hveg-d0veg)/phi_above;
-  *rh = Fmin(1.E20, r*d0veg/Ktop + 2.0*pow(r,
+  *rh = std::min<double>(1.E20, r*d0veg/Ktop + 2.0*pow(r,
                                            0.45)/(ka*u_star)); //2.0 comes from ln(z0/z0h)
 
 }

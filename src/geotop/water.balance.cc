@@ -113,7 +113,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
           sy=(*adt->S->type)(r,c);
           area=ds*ds/cos((*adt->T->slope)(r,c)*Pi/180.);
           if(l==0){
-            m1 += area * 1.E-3*Fmax(0.0, L->P->co[l][adt->T->j_cont[r][c]]) / cos((*adt->T->slope)(r,c)*Pi/180.);
+            m1 += area * 1.E-3*std::max<double>(0.0, L->P->co[l][adt->T->j_cont[r][c]]) / cos((*adt->T->slope)(r,c)*Pi/180.);
           }else {
             dz = (*adt->S->pa)(sy,jdz,l);
             m1 += area*1.E-3*dz * theta_from_psi(L->P->co[l][adt->T->j_cont[r][c]], 0, l, adt->S->pa->matrix(sy), PsiMin);
@@ -139,7 +139,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
           sy=(*adt->S->type)(r,c);
           area=ds*ds/cos((*adt->T->slope)(r,c)*Pi/180.);
           if(l==0){
-            m2 += area * 1.E-3*Fmax(0.0, L->P->co[l][adt->T->j_cont[r][c]]) / cos((*adt->T->slope)(r,c)*Pi/180.);
+            m2 += area * 1.E-3*std::max<double>(0.0, L->P->co[l][adt->T->j_cont[r][c]]) / cos((*adt->T->slope)(r,c)*Pi/180.);
           }else {
             dz = (*adt->S->pa)(sy,jdz,l);
             m2 += area*1.E-3*dz * theta_from_psi(L->P->co[l][adt->T->j_cont[r][c]], 0, l, adt->S->pa->matrix(sy), PsiMin);
@@ -179,7 +179,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
                 return 1;
             }
             if ( (*L->P)(0,j) > 0 )
-                (*L->P)(0,j) = Fmin( (*L->P)(0,j), Fmax(0.,-adt->T->BC_DepthFreeSurface->co[j])*cos((*adt->T->slope)(1,j)*Pi/180.) );
+                (*L->P)(0,j) = std::min<double>( (*L->P)(0,j), std::max<double>(0.,-adt->T->BC_DepthFreeSurface->co[j])*cos((*adt->T->slope)(1,j)*Pi/180.) );
         }
         end=clock();
         t_sub += (end-start)/(double)CLOCKS_PER_SEC;
@@ -283,7 +283,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
             //solution guess
             if ((*adt->W->Pnet)(r,c) > 0 && l == 0)
             {
-                (*adt->W->H1)(i) = Fmax(0., (*L->P)(l,j)) + ((*adt->W->Pnet)(r,c)/cos((*adt->T->slope)(r,c)*Pi/180.))
+                (*adt->W->H1)(i) = std::max<double>(0., (*L->P)(l,j)) + ((*adt->W->Pnet)(r,c)/cos((*adt->T->slope)(r,c)*Pi/180.))
                                    + (*adt->T->Z)(l,r,c);
             }
             else
@@ -303,7 +303,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
             //solution guess
             if ((*adt->W->Pnet)(r,c) > 0 && l == 0)
             {
-                (*adt->W->H1)(i) = Fmax(0.,
+                (*adt->W->H1)(i) = std::max<double>(0.,
                                         (*C->P)(l,ch)) + ((*adt->W->Pnet)(r,c)/cos(
                         (*adt->T->slope)(r,c)*Pi/180.)) + ( (*adt->T->Z)(l,r,c) -
                                                             adt->P->depr_channel );
@@ -329,14 +329,14 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
     res = norm_inf(adt->W->B.get(), 1, N);
 
     res00 = res; //initial norm of the residual
-    epsilon = adt->P->TolVWb + adt->P->RelTolVWb * Fmin( res00, sqrt((double)N) );
+    epsilon = adt->P->TolVWb + adt->P->RelTolVWb * std::min<double>( res00, sqrt((double)N) );
 
     cont=0;
     out=0;
 
     //printf("res:%e\n",res);
     //The condition to go out from the Newton cycle is made on the norm of the residual < Absolute tolerance + Relative tolerance * res00
-    if ( res <= Fmin( epsilon, max_res_adm ) ) out=1;
+    if ( res <= std::min<double>( epsilon, max_res_adm ) ) out=1;
 
     //Max iteration number
     if ( cont >= adt->P->MaxiterTol ) out=1;
@@ -359,7 +359,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
         }
         else
         {
-            mu *= Fmin( 1.0, res/res0[0] );
+            mu *= std::min<double>( 1.0, res/res0[0] );
             if (mu < 0.5*epsilon/res) mu = 0.5*epsilon/res;
         }
 
@@ -374,16 +374,16 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
         if (iter==-1) return 1; //does not converge
 
         //non-monotonic line search (it is monotonic if M==1)
-        for (m=Fminlong(cont,MM); m>1; m--)
+        for (m=std::min<long>(cont,MM); m>1; m--)
         {
             res_prev[m-1]=res_prev[m-2];
         }
         res_prev[0]=res;
 
         res_av=0.0;
-        for (m=1; m<=Fminlong(cont,MM); m++)
+        for (m=1; m<=std::min<long>(cont,MM); m++)
         {
-            res_av=Fmax(res_prev[m-1],res_av);
+            res_av=std::max<double>(res_prev[m-1],res_av);
         }
         cont2 = 0.0;
         res0[0] = res;
@@ -466,7 +466,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
 
         out=0;
         //The condition to go out from the Newton cycle is made on the norm of the residual < Absolute tolerance + Relative tolerance * res00
-        if ( res <= Fmin( epsilon, max_res_adm ) ) out=1;
+        if ( res <= std::min<double>( epsilon, max_res_adm ) ) out=1;
         //Max iteration number
         if ( cont >= adt->P->MaxiterTol ) out=1;
 
@@ -501,7 +501,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
                                                     adt->S->pa->matrix(sy), PsiMin);
                 (*adt->S->Ptot)(l,j) = psi_from_theta((*adt->S->th)(l,j)+(*L->thi)(l,j),
                                                       0., l, adt->S->pa->matrix(sy), PsiMin);
-                (*adt->S->th)(l,j) = Fmin( (*adt->S->th)(l,j),
+                (*adt->S->th)(l,j) = std::min<double>( (*adt->S->th)(l,j),
                                            (*adt->S->pa)(sy,jsat,l)-(*L->thi)(l,j) );
             }
 
@@ -592,7 +592,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
             if (l==0)
             {
                 //hold and hnew are normal
-                hold = Fmax(0., (*C->P)(l,ch)) / cos((*adt->T->slope)(r,c) * Pi/180.);
+                hold = std::max<double>(0., (*C->P)(l,ch)) / cos((*adt->T->slope)(r,c) * Pi/180.);
             }
 
             //depr channel is defined vertical
@@ -603,14 +603,14 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
             {
                 (*adt->C->th)(l,ch) = theta_from_psi((*C->P)(l,ch), (*C->thi)(l,ch), l,
                                                      adt->S->pa->matrix(sy), PsiMin);
-                (*adt->C->th)(l,ch) = Fmin( (*adt->C->th)(l,ch),
+                (*adt->C->th)(l,ch) = std::min<double>( (*adt->C->th)(l,ch),
                                             (*adt->S->pa)(sy,jsat,l)-(*C->thi)(l,ch) );
             }
 
             if (l==0)
             {
                 //hold and hnew are normal
-                hnew = Fmax(0., (*C->P)(l,ch)) / cos((*adt->T->slope)(r,c) * Pi/180.);
+                hnew = std::max<double>(0., (*C->P)(l,ch)) / cos((*adt->T->slope)(r,c) * Pi/180.);
                 Vsub->co[ch] += 1.E-3 * ( hnew - hold ) * (*adt->C->length)(ch) *
                                 adt->P->w_dx * ds;
             }
@@ -666,14 +666,14 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
 
         if (l == 0 && (*adt->W->Pnet)(r,c) > 0)
         {
-            *Total_Pnet = *Total_Pnet + ((*adt->W->Pnet)(r,c)/cos(Fmin(max_slope,
+            *Total_Pnet = *Total_Pnet + ((*adt->W->Pnet)(r,c)/cos(std::min<double>(max_slope,
                                                                        (*adt->T->slope)(r,c))*Pi/180.)) / (double)adt->P->total_pixel;
         }
 
         //solution guess
         if ((*adt->W->Pnet)(r,c) > 0 && l == 0)
         {
-            (*adt->W->H1)(i) = Fmax(0., (*L->P)(l,c)) + ((*adt->W->Pnet)(r,c)/cos(Fmin(max_slope,(*adt->T->slope)(r,c))*Pi/180.))
+            (*adt->W->H1)(i) = std::max<double>(0., (*L->P)(l,c)) + ((*adt->W->Pnet)(r,c)/cos(std::min<double>(max_slope,(*adt->T->slope)(r,c))*Pi/180.))
                                + (*adt->T->Z)(l,r,c);
         }
         else
@@ -694,13 +694,13 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
     res = norm_inf(adt->W->B.get(), 1, N);
 
     res00 = res; //initial norm of the residual
-    epsilon = adt->P->TolVWb + adt->P->RelTolVWb * Fmin( res00, sqrt((double)N) );
+    epsilon = adt->P->TolVWb + adt->P->RelTolVWb * std::min<double>( res00, sqrt((double)N) );
 
     cont=0;
 
     out=0;
     //The condition to go out from the Newton cycle is made on the norm of the residual < Absolute tolerance + Relative tolerance * res00
-    if ( res <= Fmin( epsilon, max_res_adm ) ) out=1;
+    if ( res <= std::min<double>( epsilon, max_res_adm ) ) out=1;
     //Max iteration number
     if ( cont >= adt->P->MaxiterTol ) out=1;
 
@@ -722,7 +722,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
         }
         else
         {
-            mu *= Fmin( 1.0, res/res0[0] );
+            mu *= std::min<double>( 1.0, res/res0[0] );
             if (mu < 0.5*epsilon/res) mu = 0.5*epsilon/res;
         }
 
@@ -740,16 +740,16 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
         }
 
         //non-monotonic line search (it is monotonic if M==1)
-        for (m=Fminlong(cont,MM); m>1; m--)
+        for (m=std::min<long>(cont,MM); m>1; m--)
         {
             res_prev[m-1]=res_prev[m-2];
         }
         res_prev[0]=res;
 
         res_av=0.0;
-        for (m=1; m<=Fminlong(cont,MM); m++)
+        for (m=1; m<=std::min<long>(cont,MM); m++)
         {
-            res_av=Fmax(res_prev[m-1],res_av);
+            res_av=std::max<double>(res_prev[m-1],res_av);
         }
         cont2 = 0.0;
         res0[0] = res;
@@ -840,7 +840,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
 
         out=0;
         //The condition to go out from the Newton cycle is made on the norm of the residual < Absolute tolerance + Relative tolerance * res00
-        if ( res <= Fmin( epsilon, max_res_adm ) ) out=1;
+        if ( res <= std::min<double>( epsilon, max_res_adm ) ) out=1;
         //Max iteration number
         if ( cont >= adt->P->MaxiterTol ) out=1;
 
@@ -873,12 +873,12 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
                                                 adt->S->pa->matrix(sy), PsiMin);
             (*adt->S->Ptot)(l,c) = psi_from_theta((*adt->S->th)(l,c)+(*L->thi)(l,c),
                                                   0., l, adt->S->pa->matrix(sy), PsiMin);
-            (*adt->S->th)(l,c) = Fmin( (*adt->S->th)(l,c),
+            (*adt->S->th)(l,c) = std::min<double>( (*adt->S->th)(l,c),
                                        (*adt->S->pa)(sy,jsat,l)-(*L->thi)(l,c) );
         }
 
         //volume lost at the bottom
-        if (l==Fminlong((*adt->P->Nl_spinup)(i_sim),Nl))
+        if (l==std::min<long>((*adt->P->Nl_spinup)(i_sim),Nl))
         {
             area = ds*ds;
             *Vbottom = *Vbottom + area * (*adt->W->Kbottom)(r,c) * 1.E-3 * Dt;
@@ -1039,9 +1039,9 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
                                        (*SL->thi)(l,j), (*SL->T)(l,j), l, adt->S->pa->matrix(sy), adt->P->imp, adt->P->k_to_ksat);
                     kmaxn = k_from_psi( jKn,  psisat_from( (*SL->thi)(l+1,j), l+1, adt->S->pa->matrix(sy)),
                                         (*SL->thi)(l+1,j), (*SL->T)(l+1,j), l+1, adt->S->pa->matrix(sy), adt->P->imp, adt->P->k_to_ksat);
-                    kmaxn = Fmin(kmax, kmaxn);
+                    kmaxn = std::min<double>(kmax, kmaxn);
 
-                    kn = Fmin(kn, kmaxn);
+                    kn = std::min<double>(kn, kmaxn);
 
                 }
                 cnt++;
@@ -1130,9 +1130,9 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
                                       adt->P->k_to_ksat);
                     kmaxn = k_from_psi(jKn, psisat_from((*SC->thi)(l+1,ch), l+1, adt->S->pa->matrix(sy)), (*SC->thi)(l+1,ch),
                                        (*SC->T)(l+1,ch), l+1, adt->S->pa->matrix(sy), adt->P->imp, adt->P->k_to_ksat);
-                    kmaxn = Fmin(kmax, kmaxn);
+                    kmaxn = std::min<double>(kmax, kmaxn);
 
-                    kn = Fmin(kn, kmaxn);
+                    kn = std::min<double>(kn, kmaxn);
                 }
                 cnt++;
                 Lx->co[cnt] = -area*kn/dD;  //Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
@@ -1192,8 +1192,8 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
 
                         kmaxn = k_from_psi(jKl, psisat_from((*SL->thi)(l,J), l, adt->S->pa->matrix(syn)), (*SL->thi)(l,J),
                                            (*SL->T)(l,J), l, adt->S->pa->matrix(syn), adt->P->imp, adt->P->k_to_ksat);
-                        kmaxn = Fmin(kmax, kmaxn);
-                        kn = Fmin(kn, kmaxn);
+                        kmaxn = std::min<double>(kmax, kmaxn);
+                        kn = std::min<double>(kn, kmaxn);
 
                         cnt++;
                         Lx->co[cnt] = -(dn*1.E-3*dz) *kn/dD; //Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
@@ -1206,12 +1206,12 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
                         if (H->co[I] > H->co[i])
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = Fmax(0., H->co[I] - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*Pi/180.);
+                            dz = std::max<double>(0., H->co[I] - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*Pi/180.);
                         }
                         else
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = Fmax(0., H->co[i] - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*Pi/180.);
+                            dz = std::max<double>(0., H->co[i] - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*Pi/180.);
                         }
 
                         if (dz < adt->P->thres_hsup_1) kn = 0.;
@@ -1254,8 +1254,8 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
 
                         kmaxn = k_from_psi(jKl, psisat_from((*SL->thi)(l,J), l,adt->S->pa->matrix(syn)), (*SL->thi)(l,J),
                                            (*SL->T)(l,J), l, adt->S->pa->matrix(syn), adt->P->imp, adt->P->k_to_ksat);
-                        kmaxn = Fmin(kmax, kmaxn);
-                        kn = Fmin(kn, kmaxn);
+                        kmaxn = std::min<double>(kmax, kmaxn);
+                        kn = std::min<double>(kn, kmaxn);
 
                         cnt++;
                         Lx->co[cnt] = -(dn*1.E-3*dz) *kn/dD; //Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
@@ -1267,12 +1267,12 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
                         if (H->co[I] > H->co[i])
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = Fmax(0., H->co[I] - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*Pi/180.);
+                            dz = std::max<double>(0., H->co[I] - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*Pi/180.);
                         }
                         else
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = Fmax(0., H->co[i] - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*Pi/180.);
+                            dz = std::max<double>(0., H->co[i] - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*Pi/180.);
                         }
 
                         if (dz < adt->P->thres_hsup_1) kn = 0.;
@@ -1316,8 +1316,8 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
 
                         kmaxn = k_from_psi(jKl, psisat_from((*SL->thi)(l,J), l, adt->S->pa->matrix(syn)), (*SL->thi)(l,J),
                                            (*SL->T)(l,J), l, adt->S->pa->matrix(syn), adt->P->imp, adt->P->k_to_ksat);
-                        kmaxn = Fmin(kmax, kmaxn);
-                        kn = Fmin(kn, kmaxn);
+                        kmaxn = std::min<double>(kmax, kmaxn);
+                        kn = std::min<double>(kn, kmaxn);
 
                         cnt++;
                         Lx->co[cnt] = -(dn*1.E-3*dz) *kn/dD; //Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
@@ -1329,12 +1329,12 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
                         if (H->co[I] > H->co[i])
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = Fmax(0., H->co[I] - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*Pi/180.);
+                            dz = std::max<double>(0., H->co[I] - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*Pi/180.);
                         }
                         else
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = Fmax(0., H->co[i] - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*Pi/180.);
+                            dz = std::max<double>(0., H->co[i] - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*Pi/180.);
                         }
 
                         if (dz < adt->P->thres_hsup_1) kn = 0.;
@@ -1377,8 +1377,8 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
 
                         kmaxn = k_from_psi(jKl, psisat_from((*SL->thi)(l,J), l,adt->S->pa->matrix(syn)), (*SL->thi)(l,J),
                                            (*SL->T)(l,J), l, adt->S->pa->matrix(syn), adt->P->imp, adt->P->k_to_ksat);
-                        kmaxn = Fmin(kmax, kmaxn);
-                        kn = Fmin(kn, kmaxn);
+                        kmaxn = std::min<double>(kmax, kmaxn);
+                        kn = std::min<double>(kn, kmaxn);
 
                         cnt++;
                         Lx->co[cnt] = -(dn*1.E-3*dz)*kn/dD; //Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
@@ -1390,12 +1390,12 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
                         if (H->co[I] > H->co[i])
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = Fmax(0., H->co[I] - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*Pi/180.);
+                            dz = std::max<double>(0., H->co[I] - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*Pi/180.);
                         }
                         else
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = Fmax(0., H->co[i] - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*Pi/180.);
+                            dz = std::max<double>(0., H->co[i] - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*Pi/180.);
                         }
 
                         if (dz < adt->P->thres_hsup_1) kn = 0.;
@@ -1428,8 +1428,8 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
 
                 kmaxn = k_from_psi(jKl, psisat_from((*SC->thi)(l,ch), l, adt->S->pa->matrix(syn)), (*SC->thi)(l,ch),
                                    (*SC->T)(l,ch), l, adt->S->pa->matrix(syn), adt->P->imp, adt->P->k_to_ksat);
-                kmaxn = Fmin(kmax, kmaxn);
-                kn = Fmin(kn, kmaxn);
+                kmaxn = std::min<double>(kmax, kmaxn);
+                kn = std::min<double>(kn, kmaxn);
 
                 //Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
                 //Area[m2] = 2 * channel length * layer thickness = 2 * length[m] * dz[mm] * 1.E-3[m/mm]
@@ -1475,13 +1475,13 @@ int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *Lx,
         if (l>0)
         {
             dz = (*adt->S->pa)(sy,jdz,l);
-            if (l==Fminlong((*adt->P->Nl_spinup)(i_sim),Nl) && adt->P->free_drainage_bottom>0)
+            if (l==std::min<long>((*adt->P->Nl_spinup)(i_sim),Nl) && adt->P->free_drainage_bottom>0)
                 (*Kbottom)(r,c) = k_from_psi(jKn, H->co[i] - (*adt->T->Z)(l,r,c), (*L->thi)(l,c),
                                              (*L->T)(l,c), l, adt->S->pa->matrix(sy), adt->P->imp, adt->P->k_to_ksat);
         }
 
         //flux from cell below
-        if (l<Fminlong((*adt->P->Nl_spinup)(i_sim),Nl))
+        if (l<std::min<long>((*adt->P->Nl_spinup)(i_sim),Nl))
         {
 
             I = i+1;
@@ -1545,9 +1545,9 @@ int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *Lx,
                 kmaxn = k_from_psi( jKn,  psisat_from( (*L->thi)(l+1,c), l+1,
                                                        adt->S->pa->matrix(sy)), (*L->thi)(l+1,c), (*L->T)(l+1,c), l+1,
                                     adt->S->pa->matrix(sy), adt->P->imp, adt->P->k_to_ksat);
-                kmaxn = Fmin(kmax, kmaxn);
+                kmaxn = std::min<double>(kmax, kmaxn);
 
-                kn = Fmin(kn, kmaxn);
+                kn = std::min<double>(kn, kmaxn);
 
             }
 
@@ -1701,7 +1701,7 @@ int find_dfdH_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *df,
         //hydraulic capacity (diagonal term) = (dV/dH)/(Ah*Dt)
         if (l==0)
         {
-            if (psi1>0) df->co[i] += ( area / cos( Fmin(max_slope,
+            if (psi1>0) df->co[i] += ( area / cos( std::min<double>(max_slope,
                                                         (*adt->T->slope)(r,c))*Pi/180.) ) / Dt;
         }
         else
@@ -1787,8 +1787,8 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
         //hydraulic capacity (diagonal term)
         if (l==0)
         {
-            V1 = area * Fmax(0.0, psi1) / cos((*adt->T->slope)(r,c)*Pi/180.);
-            V0 = area * Fmax(0.0, psi0) / cos((*adt->T->slope)(r,c)*Pi/180.);
+            V1 = area * std::max<double>(0.0, psi1) / cos((*adt->T->slope)(r,c)*Pi/180.);
+            V0 = area * std::max<double>(0.0, psi0) / cos((*adt->T->slope)(r,c)*Pi/180.);
         }
         else
         {
@@ -1916,9 +1916,9 @@ int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
         //hydraulic capacity (diagonal term)
         if (l==0)
         {
-            V1 = area * Fmax(0.0, psi1) / cos( Fmin(max_slope,
+            V1 = area * std::max<double>(0.0, psi1) / cos( std::min<double>(max_slope,
                                                     (*adt->T->slope)(r,c))*Pi/180.);
-            V0 = area * Fmax(0.0, psi0) / cos( Fmin(max_slope,
+            V0 = area * std::max<double>(0.0, psi0) / cos( std::min<double>(max_slope,
                                                     (*adt->T->slope)(r,c))*Pi/180.);
 
         }
@@ -1934,7 +1934,7 @@ int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
         f->co[i] = (V1-V0)/Dt;
 
         //drainage at the bottom
-        if (l==Fminlong((*adt->P->Nl_spinup)(i_sim),Nl))
+        if (l==std::min<long>((*adt->P->Nl_spinup)(i_sim),Nl))
         {
             f->co[i] += area*(*Kbottom)(r,c);
         }
@@ -2004,7 +2004,7 @@ void find_dt_max(short DD, double Courant, RowView<double> &&h, LAND *land, TOPO
         r = (*top->rc_cont)(j,1);
         c = (*top->rc_cont)(j,2);
 
-        H = Fmax(0.0, h(j)) / cos((*top->slope)(r,c)*Pi/180.); //h[i] is the pressure at the surface, H is the depth of water normal to the surface
+        H =  std::max<double>(0.0, h(j)) / cos((*top->slope)(r,c)*Pi/180.); //h[i] is the pressure at the surface, H is the depth of water normal to the surface
 
         if (H > par->min_hsup_land)
         {
@@ -2032,8 +2032,8 @@ void find_dt_max(short DD, double Courant, RowView<double> &&h, LAND *land, TOPO
                 q += (*top->Qdown)(j,d);  //outgoing discharge
             }
 
-            Vmax = Fmax(Vmax, 1.E-10);
-            q = Fmax(q, 1.E-30);
+            Vmax = std::max<double>(Vmax, 1.E-10);
+            q = std::max<double>(q, 1.E-30);
 
             if (Courant*Vmax/q < (*dt)) *dt = Courant*Vmax/q;
 
@@ -2068,7 +2068,7 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
     {
         r = (*top->rc_cont)(j,1);
         c = (*top->rc_cont)(j,2);
-        H = Fmax(0., h(j)) / cos((*top->slope)(r,c)*Pi/180.);
+        H = std::max<double>(0., h(j)) / cos((*top->slope)(r,c)*Pi/180.);
         area = ds*ds;
         area /= cos((*top->slope)(r,c)*Pi/180.);
         m1 += H*1.E-3*area;
@@ -2095,7 +2095,7 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
             r = (*top->rc_cont)(j,1);
             c = (*top->rc_cont)(j,2);
 
-            H = Fmax(0., h(j)) / cos((*top->slope)(r,c)*Pi/180.);
+            H = std::max<double>(0., h(j)) / cos((*top->slope)(r,c)*Pi/180.);
 
             dV[j] = 0.0;
 
@@ -2213,7 +2213,7 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
     {
         r = (*top->rc_cont)(j,1);
         c = (*top->rc_cont)(j,2);
-        H = Fmax(0., h(j)) / cos((*top->slope)(r,c)*Pi/180.);
+        H = std::max<double>(0., h(j)) / cos((*top->slope)(r,c)*Pi/180.);
         area = ds*ds;
         area /= cos((*top->slope)(r,c)*Pi/180.);
         m2 += H*1.E-3*area;
@@ -2245,12 +2245,12 @@ void find_dt_max_chla(double Courant, RowView<double> &&h, RowView<double> &&hch
         r = (*cnet->r)(ch);
         c = (*cnet->c)(ch);
 
-        H = Fmax(0.0, h(ch)) / cos(
+        H = std::max<double>(0.0, h(ch)) / cos(
                 (*top->slope)(r,c)*Pi/180.); //h(i) is the pressure at the surface, H is the depth of water normal to the surface
         area = ds*ds/cos((*top->slope)(r,c)*Pi/180.) - (*cnet->length)(ch) *
                                                        par->w_dx * ds;
 
-        Hch = Fmax(0., hch(ch) ) / cos((*top->slope)(r,c)*Pi/180.) -
+        Hch = std::max<double>(0., hch(ch) ) / cos((*top->slope)(r,c)*Pi/180.) -
               par->depr_channel * cos((*top->slope)(r,c)*Pi/180.);
         areach = (*cnet->length)(ch) * par->w_dx * ds;
 
@@ -2262,10 +2262,10 @@ void find_dt_max_chla(double Courant, RowView<double> &&h, RowView<double> &&hch
 
                 DH = H;
                 q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*(*cnet->length)(ch))*1.E-3*H;//m3/s
-                Vmax = Fmin( areach*1.E-3*(-Hch), area*1.E-3*H );
+                Vmax = std::min<double>( areach*1.E-3*(-Hch), area*1.E-3*H );
 
-                Vmax = Fmax(Vmax, 1.E-10);
-                q = Fmax(q, 1.E-30);
+                Vmax = std::max<double>(Vmax, 1.E-10);
+                q = std::max<double>(q, 1.E-30);
 
                 if (Courant*Vmax/q < (*dt)) *dt = Courant*Vmax/q;
 
@@ -2278,8 +2278,8 @@ void find_dt_max_chla(double Courant, RowView<double> &&h, RowView<double> &&hch
                 q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*(*cnet->length)(ch))*1.E-3*H;//m3/s
                 Vmax = 1.E-3*DH / (1./area + 1./areach);
 
-                Vmax = Fmax(Vmax, 1.E-10);
-                q = Fmax(q, 1.E-30);
+                Vmax = std::max<double>(Vmax, 1.E-10);
+                q = std::max<double>(q, 1.E-30);
 
                 if (Courant*Vmax/q < (*dt)) *dt = Courant*Vmax/q;
 
@@ -2294,8 +2294,8 @@ void find_dt_max_chla(double Courant, RowView<double> &&h, RowView<double> &&hch
 
             Vmax = 1.E-3*DH / (1./area + 1./areach);
 
-            Vmax = Fmax(Vmax, 1.E-10);
-            q = Fmax(q, 1.E-30);
+            Vmax = std::max<double>(Vmax, 1.E-10);
+            q = std::max<double>(q, 1.E-30);
 
             if (Courant*Vmax/q < (*dt)) *dt = Courant*Vmax/q;
 
@@ -2343,8 +2343,8 @@ void supflow_chla(double Dt, double t, RowView<double> &&h, RowView<double> &&hc
             r = (*cnet->r)(ch);
             c = (*cnet->c)(ch);
 
-            H = Fmax(0., h(top->j_cont[r][c])) / cos((*top->slope)(r,c)*Pi/180.);
-            Hch = Fmax(0., hch(ch) ) / cos((*top->slope)(r,c)*Pi/180.) -
+            H = std::max<double>(0., h(top->j_cont[r][c])) / cos((*top->slope)(r,c)*Pi/180.);
+            Hch = std::max<double>(0., hch(ch) ) / cos((*top->slope)(r,c)*Pi/180.) -
                   par->depr_channel * cos((*top->slope)(r,c)*Pi/180.);
 
             area = ds*ds/cos((*top->slope)(r,c)*Pi/180.) - (*cnet->length)(ch) *
@@ -2360,7 +2360,7 @@ void supflow_chla(double Dt, double t, RowView<double> &&h, RowView<double> &&hc
                     DH = H;
                     q = Cd*(2./3.)*sqrt(2.*g*1.E-3*DH)*(2.*(*cnet->length)(ch))*1.E-3*H;//m3/s
 
-                    Vmax = Fmin( areach*1.E-3*(-Hch), area*1.E-3*H );
+                    Vmax = std::min<double>( areach*1.E-3*(-Hch), area*1.E-3*H );
                     if (q*dt > Vmax) q = Vmax/dt;
 
                     Vsup->co[ch] += q*dt;
@@ -2452,7 +2452,7 @@ void find_dt_max_channel(short DDcomplex, double Courant, RowView<double> &&h,
 
         r = (*cnet->r)(ch);
         c = (*cnet->c)(ch);
-        H = Fmax(0., h(ch)) / cos((*top->slope)(r,c)*Pi/180.);
+        H = std::max<double>(0., h(ch)) / cos((*top->slope)(r,c)*Pi/180.);
 
         if (H > par->min_hsup_channel)
         {
@@ -2492,8 +2492,8 @@ void find_dt_max_channel(short DDcomplex, double Courant, RowView<double> &&h,
 
                 Ks = cm_h(par->Ks_channel, H, 1., par->thres_hchannel);
 
-                i = ( ((*top->Z0)(r,c) - (*top->Z0)(R,C) ) + 1.E-3*(Fmax(0.0,
-                                                                         h(ch)) - Fmax(0.0, h((*cnet->ch_down)(ch)))) ) / dD;
+                i = ( ((*top->Z0)(r,c) - (*top->Z0)(R,C) ) + 1.E-3*(std::max<double>(0.0,
+                                                                         h(ch)) - std::max<double>(0.0, h((*cnet->ch_down)(ch)))) ) / dD;
 
                 if (i<0) i=0.;
 
@@ -2501,8 +2501,8 @@ void find_dt_max_channel(short DDcomplex, double Courant, RowView<double> &&h,
 
             }
 
-            Vmax = Fmax(Vmax, 1.E-10);
-            q = Fmax(q, 1.E-10);
+            Vmax = std::max<double>(Vmax, 1.E-10);
+            q = std::max<double>(q, 1.E-10);
             if (Courant*Vmax/q<(*dt)) *dt=Courant*Vmax/q;
             if (*dt<par->dtmin_sup) *dt=par->dtmin_sup;
 
@@ -2568,7 +2568,7 @@ void channel_flow(double Dt, double t, short DDcomplex, RowView<double> &&h, Vec
 
                 dV[ch] = 0.0;
 
-                H = Fmax(0., h(ch)) / cos((*top->slope)(r,c)*Pi/180.);
+                H = std::max<double>(0., h(ch)) / cos((*top->slope)(r,c)*Pi/180.);
 
                 if (H > par->min_hsup_channel)
                 {
@@ -2597,8 +2597,8 @@ void channel_flow(double Dt, double t, short DDcomplex, RowView<double> &&h, Vec
 
                         Ks = cm_h(par->Ks_channel, H, 1., par->thres_hchannel);
 
-                        i= ( ((*top->Z0)(r,c) - (*top->Z0)(R,C) ) + 1.E-3*(Fmax(0.0,
-                                                                                h(ch)) - Fmax(0.0, h((*cnet->ch_down)(ch)))) ) / dD;
+                        i= ( ((*top->Z0)(r,c) - (*top->Z0)(R,C) ) + 1.E-3*(std::max<double>(0.0,
+                                                                                h(ch)) - std::max<double>(0.0, h((*cnet->ch_down)(ch)))) ) / dD;
 
                         if (i<0) i=0.;
 
@@ -2606,7 +2606,7 @@ void channel_flow(double Dt, double t, short DDcomplex, RowView<double> &&h, Vec
 
                     }
 
-                    dV[ch] = Fmin( q*dt, 1.E-3*H*dn*(*cnet->length)(ch) );   //m3
+                    dV[ch] = std::min<double>( q*dt, 1.E-3*H*dn*(*cnet->length)(ch) );   //m3
 
                 }
             }
@@ -2668,8 +2668,8 @@ void draining_land(double alpha, long i, TOPO *T, LAND *L, PAR *P,
 
         r = (*T->rc_cont)(i,1);
         c = (*T->rc_cont)(i,2);
-        H = Fmax(h(i), 0.)/cos((*T->slope)(r,c)*Pi/180.);
-        p = (*T->Z0)(r,c) + alpha*1.E-3*Fmax(h(i), 0.);
+        H = std::max<double>(h(i), 0.)/cos((*T->slope)(r,c)*Pi/180.);
+        p = (*T->Z0)(r,c) + alpha*1.E-3*std::max<double>(h(i), 0.);
         Ks = cm_h((*L->ty)((short)(*L->LC)(r,c),jcm), H, P->thres_hsup_1,
                   P->thres_hsup_2);
 
@@ -2700,7 +2700,7 @@ void draining_land(double alpha, long i, TOPO *T, LAND *L, PAR *P,
                     dn /= cos(0.5*atan((*T->dzdN)(r,c))+0.5*atan( (*T->dzdN)(r+ir[d],c+ic[d]) ) );
                 }
 
-                pn = (*T->Z0)(r+ir[d],c+ic[d]) + alpha*1.E-3*Fmax(h(I(d)), 0.);
+                pn = (*T->Z0)(r+ir[d],c+ic[d]) + alpha*1.E-3*std::max<double>(h(I(d)), 0.);
 
                 if (pn < p)
                 {
@@ -2771,7 +2771,7 @@ void draining_channel(double alpha, long ch, Matrix<double> *Z, RowView<double> 
 
     r = (*cnet->r)(ch);
     c = (*cnet->c)(ch);
-    elev = (*Z)(r,c)+ alpha*1.E-3*Fmax(h(ch), 0.);
+    elev = (*Z)(r,c)+ alpha*1.E-3*std::max<double>(h(ch), 0.);
 
     for (d=1; d<=8; d++)
     {
@@ -2779,7 +2779,7 @@ void draining_channel(double alpha, long ch, Matrix<double> *Z, RowView<double> 
         {
             if ((*cnet->ch)(r+ir[d],c+ic[d]) > 0)
             {
-                elev1 = (*Z)(r+ir[d],c+ic[d]) + alpha*1.E-3*Fmax(h((*cnet->ch)(r+ir[d],c+ic[d])), 0.);
+                elev1 = (*Z)(r+ir[d],c+ic[d]) + alpha*1.E-3*std::max<double>(h((*cnet->ch)(r+ir[d],c+ic[d])), 0.);
                 if ( elev1 < elev)
                 {
                     elev = elev1;

@@ -800,7 +800,7 @@ short fill_Tdew(long imeteo, Vector<double> *Z, double **data, long nlines,
             if ( (long)data[i][RH] != number_novalue
                  && (long)data[i][Tair] != number_novalue )
             {
-                data[i][Tairdew] = Tdew(data[i][Tair], Fmax(RHmin, data[i][RH])/100.,
+                data[i][Tairdew] = Tdew(data[i][Tair], std::max<double>(RHmin, data[i][RH])/100.,
                                         Z->co[imeteo]);
             }
             else

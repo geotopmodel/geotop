@@ -153,7 +153,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*cnet->r)(l);
                 c = (*cnet->c)(l);
-                Vchannel += 1.E-3 * Fmax((*cnet->SS->P)(0,l), 0.) / cos((*top->slope)(r,c)*Pi/180.) *
+                Vchannel += 1.E-3 * std::max<double>((*cnet->SS->P)(0,l), 0.) / cos((*top->slope)(r,c)*Pi/180.) *
                             (*UV->U)(1) * par->w_dx * (*cnet->length)(l);
                 Vsub += (*cnet->Vsub)(l);
                 Vsup += (*cnet->Vsup)(l);
@@ -273,7 +273,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
                     if (par->output_vertical_distances == 1)
                     {
-                        cosslope = cos( Fmin(max_slope, (*top->slope)(r,c)) * Pi/180. );
+                        cosslope = cos( std::min<double>(max_slope, (*top->slope)(r,c)) * Pi/180. );
                     }
                     else
                     {
@@ -1333,7 +1333,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*top->rc_cont)(i,1);
                 c = (*top->rc_cont)(i,2);
-                (*V)(i) = Fmax(0, (*sl->SS->P)(0,i)) / cos((*top->slope)(r,c) * Pi/180.);
+                (*V)(i) = std::max<double>(0, (*sl->SS->P)(0,i)) / cos((*top->slope)(r,c) * Pi/180.);
             }
             temp1 = join_strings(files[fhsupland], s2);
             write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
@@ -4763,7 +4763,7 @@ void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
 
         for (i=1; i<=npoints; i++)
         {
-            if (vertical == 1) cosslope = cos( Fmin(max_slope, (*slope)((*RC)(i,1),(*RC)(i,2))) * Pi/180. );
+            if (vertical == 1) cosslope = cos( std::min<double>(max_slope, (*slope)((*RC)(i,1),(*RC)(i,2))) * Pi/180. );
             (*V)(i) = interpolate_soil2(lmin, (*n)(l)*cosslope, Nl, std::forward<RowView<double>>(dz), T, i);
         }
 
@@ -5024,7 +5024,7 @@ void print_run_average(SOIL *sl, TOPO *top, PAR *par)
     char *temp, *name;
     char rec[ ]= {"_recNNNN"},crec[ ]= {"_crecNNNN"};
 
-    n = Fminlong((*par->Nl_spinup)(i_sim),Nl);
+    n = std::min<long>((*par->Nl_spinup)(i_sim),Nl);
 
     if (par->recover > 0) write_suffix(rec, par->recover, 4);
     if (par->n_ContRecovery > 0) write_suffix(crec, par->n_ContRecovery, 5);
@@ -5367,7 +5367,7 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
     double Ptlow=0., thwlow=0., thilow=0., Tlow=0.;
     FILE *f;
 
-    n = Fminlong((*par->Nl_spinup)(i_sim),Nl);
+    n = std::min<long>((*par->Nl_spinup)(i_sim),Nl);
 
     for (j=1; j<=par->total_pixel; j++)
     {
@@ -5380,7 +5380,7 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
             {
                 (*sl->SS->T)(l,j) = (*sl->Tzrun)(j,l);
                 (*sl->Ptot)(l,j) = psi_from_theta( (*sl->wzrun)(j,l)/(*sl->pa)(sy,jdz,l), 0., l, sl->pa->matrix(sy), PsiMin );
-                (*sl->SS->P)(l,j) = Fmin(Psif((*sl->Tzrun)(j,l)),(*sl->Ptot)(l,j));
+                (*sl->SS->P)(l,j) = std::min<double>(Psif((*sl->Tzrun)(j,l)),(*sl->Ptot)(l,j));
                 (*sl->th)(l,j) = theta_from_psi((*sl->SS->P)(l,j), 0., l, sl->pa->matrix(sy), PsiMin);
                 (*sl->SS->thi)(l,j) = (*sl->wzrun)(j,l)/(*sl->pa)(sy,jdz,l) - (*sl->th)(l,j);
             }
@@ -5393,7 +5393,7 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
         {
             Tlow = (*sl->Tzrun)(j,n);
             Ptlow = psi_from_theta((*sl->wzrun)(j,n)/(*sl->pa)(sy,jdz,n), 0., n, sl->pa->matrix(sy), PsiMin);
-            thwlow = theta_from_psi(Fmin(Psif(Tlow),Ptlow), 0., n, sl->pa->matrix(sy),PsiMin);
+            thwlow = theta_from_psi(std::min<double>(Psif(Tlow),Ptlow), 0., n, sl->pa->matrix(sy),PsiMin);
             thilow = (*sl->wzrun)(j,n)/(*sl->pa)(sy,jdz,n) - thwlow;
         }
 
@@ -5438,7 +5438,7 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
 
             do
             {
-                psin = Fmin(Psif(Tn), (*sl->Ptot)(l,j));
+                psin = std::min<double>(Psif(Tn), (*sl->Ptot)(l,j));
                 thwn = theta_from_psi(psin, 0., l, sl->pa->matrix(sy), PsiMin);
                 thin = theta_from_psi((*sl->Ptot)(l,j), 0., l, sl->pa->matrix(sy),
                                       PsiMin) - thwn;
@@ -5484,8 +5484,8 @@ void change_grid(long previous_sim, long next_sim, PAR *par, TOPO *top,
 
     long n_previous, n_next, l, r, i, j;
 
-    n_previous = Fminlong((*par->Nl_spinup)(previous_sim),Nl);
-    n_next = Fminlong((*par->Nl_spinup)(next_sim),Nl);
+    n_previous = std::min<long>((*par->Nl_spinup)(previous_sim),Nl);
+    n_next = std::min<long>((*par->Nl_spinup)(next_sim),Nl);
 
     if (n_previous != n_next)
     {

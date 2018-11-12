@@ -99,8 +99,8 @@ void turbulent_fluxes(double rh, double rv, double P, double Ta, double T,
   //sensible heat flux [W/m2]
   /*a maximum value of the resistance for the sensible heat flux was introduced according to Jordan et el., 1999
   (HEAT BUDGET OF SNOW-COVERED SEA ICE AT NORTH POLE 4) as Cwindless=0.5 W m^2 K^-1, rh=rho*cp/C=1300/0.5=2600*/
-  *H=cp*rho*pot*(T-Ta)/Fmin(rh,2.6E3);
-  *dHdT=cp*rho*pot/Fmin(rh,2.6E3);
+  *H=cp*rho*pot*(T-Ta)/std::min<double>(rh,2.6E3);
+  *dHdT=cp*rho*pot/std::min<double>(rh,2.6E3);
   //*H=cp*rho*pot*(T-Ta)/rh;
   //*dHdT=cp*rho*pot/rh;
 

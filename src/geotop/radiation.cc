@@ -79,7 +79,7 @@ double SolarHeight(double JD, double latitude, double Delta, double dh)
   if (sine>1) sine = 1.;
   if (sine<-1) sine = -1.;
 
-  return Fmax(asin(sine), 0.0);
+  return std::max<double>(asin(sine), 0.0);
 }
 
 double SolarHeight_(double JD, double *others)
@@ -179,8 +179,8 @@ double TauatmCosinc(double JD, double *others)
   if (height>0)
     {
       dir = SolarAzimuth_(JD, others);
-      return atm_transmittance(Fmax(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,
-                               albedo)*Fmax(0.0,cos(slope)*sin(height)+sin(slope)*cos(height)*cos(
+      return atm_transmittance(std::max<double>(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,
+                               albedo)*std::max<double>(0.0,cos(slope)*sin(height)+sin(slope)*cos(height)*cos(
                                               -aspect+dir));
     }
   else
@@ -216,8 +216,8 @@ double TauatmSinalpha(double JD, double *others)
   height = SolarHeight_(JD, others);
   if (height>0)
     {
-      return atm_transmittance(Fmax(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,
-                               albedo) * Fmax(sin(height),0.05);
+      return atm_transmittance(std::max<double>(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,
+                               albedo) * std::max<double>(sin(height),0.05);
     }
   else
     {
@@ -247,7 +247,7 @@ double Cosinc(double JD, double *others)
   direction = SolarAzimuth_(JD, others);
   if (alpha>0)
     {
-      return Fmax(0.0,cos(slope)*sin(alpha)+sin(slope)*cos(alpha)*cos(
+      return std::max<double>(0.0,cos(slope)*sin(alpha)+sin(slope)*cos(alpha)*cos(
                     -aspect+direction));
     }
   else
@@ -275,7 +275,7 @@ double Sinalpha(double JD, double *others)
   alpha = SolarHeight_(JD, others);
   if (alpha>0)
     {
-      return Fmax(sin(alpha), 0.05);
+      return std::max<double>(sin(alpha), 0.05);
     }
   else
     {
@@ -655,7 +655,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat,
         {
           if ( SWb+SWd > 0 && SWd > 0)
             {
-              kd = SWd / (Fmax(0.,SWb)+SWd);
+              kd = SWd / (std::max<double>(0.,SWb)+SWd);
               tau = ( SWd - (1.-sky)*SWrefl_surr ) / ( Isc*E0*tau_atm_sin_alpha*sky*kd );
             }
 

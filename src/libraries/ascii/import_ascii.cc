@@ -22,7 +22,6 @@
 #include "turtle.h"
 #include "import_ascii.h"
 #include "extensions.h"
-#include "t_utilities.h"
 
 #define max_figures 30
 

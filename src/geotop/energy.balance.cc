@@ -271,7 +271,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         {
             (*A->C->ET)(l,j) = 0.0;
             (*A->C->th)(l,j) = theta_from_psi((*C->P)(l,j), (*C->thi)(l,j), l, A->S->pa->matrix(sy), PsiMin);
-            (*A->C->th)(l,j) = Fmin( (*A->C->th)(l,j), (*A->S->pa)(sy,jsat,l)-(*C->thi)(l,j) );
+            (*A->C->th)(l,j) = std::min<double>( (*A->C->th)(l,j), (*A->S->pa)(sy,jsat,l)-(*C->thi)(l,j) );
         }
 
     }
@@ -286,7 +286,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         {
             (*A->S->ET)(l,r,c) = 0.0;
             (*A->S->th)(l,j) = theta_from_psi((*L->P)(l,j), (*L->thi)(l,j), l, A->S->pa->matrix(sy), PsiMin);
-            (*A->S->th)(l,j) = Fmin( (*A->S->th)(l,j),(*A->S->pa)(sy,jsat,l)-(*L->thi)(l,j) );
+            (*A->S->th)(l,j) = std::min<double>( (*A->S->th)(l,j),(*A->S->pa)(sy,jsat,l)-(*L->thi)(l,j) );
         }
     }
 
@@ -1393,7 +1393,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
     if ((long)Tbottom != number_novalue) dirichlet_bottom = 1;
 
     //Soil layer
-    n = Fminlong((*par->Nl_spinup)(i_sim),Nl) + ns + ng;
+    n = std::min<long>((*par->Nl_spinup)(i_sim),Nl) + ns + ng;
 
     //Surface conditions
     sur = par->nsurface;
@@ -1428,7 +1428,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                            (*sl->pa)(sy,ja,l), (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l),
                            PsiMin, (*sl->pa)(sy,jss,l));
             //max temperature at which the first particle of ice comes up
-            (*egy->Tstar)(l) = Fmin(psim0/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
+            (*egy->Tstar)(l) = std::min<double>(psim0/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
         }
     }
     else
@@ -1445,7 +1445,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                            (*sl->pa)(sy,ja,l), (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l),
                            PsiMin, (*sl->pa)(sy,jss,l));
             //max temperature at which the first particle of ice comes up
-            (*egy->Tstar)(l)=Fmin(psim0/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
+            (*egy->Tstar)(l)=std::min<double>(psim0/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
         }
 
     }
@@ -1742,16 +1742,16 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
         res0[0]=res;
 
         //non-monotonic line search (it is monotonic if M==1)
-        for (m=Fminlong(cont,MM); m>1; m--)
+        for (m=std::min<long>(cont,MM); m>1; m--)
         {
             res_prev[m-1]=res_prev[m-2];
         }
         res_prev[0]=res;
 
         res_av=0.0;
-        for (m=1; m<=Fminlong(cont,MM); m++)
+        for (m=1; m<=std::min<long>(cont,MM); m++)
         {
-            res_av=Fmax(res_prev[m-1],res_av);
+            res_av=std::max<double>(res_prev[m-1],res_av);
         }
 
         do
@@ -1797,7 +1797,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                     if (i<=par->total_channel)
                     {
                         th0 = (*cnet->th)(m,j);
-                        th1 = teta_psi(Psif(Fmin((*egy->Tstar)(m),(*egy->Temp)(l))), 0.0,
+                        th1 = teta_psi(Psif(std::min<double>((*egy->Tstar)(m),(*egy->Temp)(l))), 0.0,
                                        (*sl->pa)(sy,jsat,m),
                                        (*sl->pa)(sy,jres,m), (*sl->pa)(sy,ja,m), (*sl->pa)(sy,jns,m),
                                        1-1/(*sl->pa)(sy,jns,m), PsiMin, (*sl->pa)(sy,jss,m));
@@ -1807,7 +1807,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                     else
                     {
                         th0 = (*sl->th)(m,j);
-                        th1 = teta_psi(Psif(Fmin((*egy->Tstar)(m),(*egy->Temp)(l))), 0.0,
+                        th1 = teta_psi(Psif(std::min<double>((*egy->Tstar)(m),(*egy->Temp)(l))), 0.0,
                                        (*sl->pa)(sy,jsat,m),
                                        (*sl->pa)(sy,jres,m), (*sl->pa)(sy,ja,m), (*sl->pa)(sy,jns,m),
                                        1-1/(*sl->pa)(sy,jns,m), PsiMin, (*sl->pa)(sy,jss,m));
@@ -1862,7 +1862,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                             if ((*egy->THETA)(m) > (*sl->pa)(sy,jres,1) + 1.E-3
                                 && l <= egy->soil_transp_layer->nh )
                             {
-                                (*egy->THETA)(m) -= Fmax( Dt*fc*(*egy->soil_transp_layer)(m)/
+                                (*egy->THETA)(m) -= std::max<double>( Dt*fc*(*egy->soil_transp_layer)(m)/
                                                           (rho_w*(*egy->Dlayer)(l)), 0.0 );
                                 if ((*egy->THETA)(m) < (*sl->pa)(sy,jres,m)+1.E-3) (*egy->THETA)(m) =
                                                                                            (*sl->pa)(sy,jres,m)+1.E-3;
@@ -1872,9 +1872,9 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                             if ((*egy->THETA)(m) > (*sl->pa)(sy,jres,1) + 1.E-3
                                 && l <= egy->soil_evap_layer_bare->nh )
                             {
-                                (*egy->THETA)(m) -= Fmax( Dt*(1.-fc)*(*egy->soil_evap_layer_bare)(m)/
+                                (*egy->THETA)(m) -= std::max<double>( Dt*(1.-fc)*(*egy->soil_evap_layer_bare)(m)/
                                                           (rho_w*(*egy->Dlayer)(l)), 0.0 );
-                                (*egy->THETA)(m) -= Fmax( Dt*fc*(*egy->soil_evap_layer_veg)(m)/
+                                (*egy->THETA)(m) -= std::max<double>( Dt*fc*(*egy->soil_evap_layer_veg)(m)/
                                                           (rho_w*(*egy->Dlayer)(l)), 0.0 );
                                 if ((*egy->THETA)(m) < (*sl->pa)(sy,jres,m)+1.E-3) (*egy->THETA)(m) =
                                                                                            (*sl->pa)(sy,jres,m)+1.E-3;
@@ -2219,13 +2219,13 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
         }
 
         //water pressure and contents
-        psisat = psi_saturation(Fmax(0., (*egy->ice)(l+n))/(rho_w*(*egy->Dlayer)(l+n)),
+        psisat = psi_saturation(std::max<double>(0., (*egy->ice)(l+n))/(rho_w*(*egy->Dlayer)(l+n)),
                                 pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l));
-        th_oversat = Fmax( (*S->P)(l,i) - psisat, 0.0 ) * pa(jss,l);
+        th_oversat = std::max<double>( (*S->P)(l,i) - psisat, 0.0 ) * pa(jss,l);
 
-        (*th)(l,i) = Fmax(0.,(*egy->liq)(l+n)+(*egy->deltaw)(l+n))/(rho_w * (*egy->Dlayer)(l+n));
+        (*th)(l,i) = std::max<double>(0.,(*egy->liq)(l+n)+(*egy->deltaw)(l+n))/(rho_w * (*egy->Dlayer)(l+n));
 
-        (*S->thi)(l,i) = Fmax(0., (*egy->ice)(l+n)-(*egy->deltaw)(l+n))/(rho_w*(*egy->Dlayer)(l+n));
+        (*S->thi)(l,i) = std::max<double>(0., (*egy->ice)(l+n)-(*egy->deltaw)(l+n))/(rho_w*(*egy->Dlayer)(l+n));
 
         (*S->P)(l,i) = psi_teta((*th)(l,i)+th_oversat, (*S->thi)(l,i),
                                 pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l), PsiMin, pa(jss,l));
@@ -2267,10 +2267,10 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
         //water pressure and contents
         psisat = psi_saturation((*S->thi)(l,ch), pa(jsat,l), pa(jres,l),
                                 pa(ja,l), pa(jns,l), 1.-1./pa(jns,l));
-        th_oversat = Fmax( (*S->P)(l,ch) - psisat, 0.0 ) *pa(jss,l);
+        th_oversat = std::max<double>( (*S->P)(l,ch) - psisat, 0.0 ) *pa(jss,l);
 
-        (*th)(l,ch) = Fmax(0., (*egy->liq)(l+n)+(*egy->deltaw)(l+n))/(rho_w*(*egy->Dlayer)(l+n));
-        (*S->thi)(l,ch) = Fmax(0., (*egy->ice)(l+n)-(*egy->deltaw)(l+n))/(rho_w*(*egy->Dlayer)(l+n));
+        (*th)(l,ch) = std::max<double>(0., (*egy->liq)(l+n)+(*egy->deltaw)(l+n))/(rho_w*(*egy->Dlayer)(l+n));
+        (*S->thi)(l,ch) = std::max<double>(0., (*egy->ice)(l+n)-(*egy->deltaw)(l+n))/(rho_w*(*egy->Dlayer)(l+n));
 
         (*S->P)(l,ch) = psi_teta((*th)(l,ch)+th_oversat, (*S->thi)(l,ch),
                                  pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l), PsiMin,
@@ -2936,7 +2936,7 @@ void sux_minus6_condition(double ic, double wa, double rho, double D1, ENERGY *E
 
     (*E->ice)(1) = ic;
     (*E->liq)(1) = wa;
-    (*E->Temp)(1) = Fmin((*E->Temp)(2), -0.1);
+    (*E->Temp)(1) = std::min<double>((*E->Temp)(2), -0.1);
     (*E->Dlayer)(1)= ic/rho;
 
     if ((*E->deltaw)(2) > ic)

@@ -27,7 +27,6 @@
 #include <ctype.h>
 
 #include "tabs.h"
-#include "t_utilities.h"
 
 #include "constants.h"
 #include "logger.h"

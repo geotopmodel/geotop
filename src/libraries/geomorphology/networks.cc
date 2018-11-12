@@ -1,7 +1,6 @@
 #include "turtle.h"
 #include "math.h"
 #include "networks.h"
-#include "t_utilities.h"
 #include "t_datamanipulation.h"
 #include "t_random.h"
 

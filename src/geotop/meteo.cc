@@ -231,7 +231,7 @@ double Tdew(double T, double RH, double Z)
   double e, P;
   P = pressure(Z);
   e = SatVapPressure(T, P);
-  return TfromSatVapPressure(e*Fmin(RH,1.0), P);
+  return TfromSatVapPressure(e*std::min<double>(RH,1.0), P);
 }
 
 double RHfromTdew(double T, double Tdew, double Z)
