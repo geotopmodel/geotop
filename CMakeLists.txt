@@ -50,7 +50,6 @@ add_executable(geotop
         src/libraries/fluidturtle/random.cc
         src/libraries/fluidturtle/t_io.cc
         src/libraries/fluidturtle/tensors3D.cc
-        src/libraries/fluidturtle/utilities.cc
         src/libraries/geomorphology/dtm_resolution.cc
         src/libraries/geomorphology/geomorphology.0875.cc
         src/libraries/geomorphology/geomorphology.cc
@@ -92,7 +91,6 @@ add_executable(geotop
         src/libraries/fluidturtle/t_list.h
         src/libraries/fluidturtle/turtle.h
         src/libraries/fluidturtle/tensor3D.h
-        src/libraries/fluidturtle/t_utilities.h
         src/libraries/fluidturtle/t_io.h
         src/libraries/geomorphology/networks.h
         src/libraries/geomorphology/dtm_resolution.h
