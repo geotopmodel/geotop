@@ -17,11 +17,6 @@ set(MUTE_GEOTIMER OFF CACHE BOOL "Silence the default timer geotimer. You may wa
 
 
 CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/src/geotop/config.cmake.h.in ${CMAKE_BINARY_DIR}/src/geotop/config.h)
-# of course we need to inform the compiler where to look for the above header
-INCLUDE_DIRECTORIES(${CMAKE_BINARY_DIR}/src/geotop)
-
-
-
 
 set(VERSION ${PROJECT_VERSION})
 

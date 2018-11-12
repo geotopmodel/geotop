@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.0)
 SET( CMAKE_BUILD_TYPE RELEASE CACHE STRING "A variable which controls the type of build" )
 SET( CMAKE_CXX_FLAGS " -std=c++11 " CACHE STRING "")
 SET( CMAKE_CXX_FLAGS_DEBUG " -Wextra -Wall -g -Wshadow -Wpointer-arith -Wcast-qual -Wcast-align -Wwrite-strings -O0 " CACHE STRING "" )
-SET( CMAKE_CXX_FLAGS_RELEASE " -Wextra -Wall -O2 -funroll-loops -fstrict-aliasing -Wno-narrowing -Wno-writable-strings -Wno-c++11-narrowing -DNDEBUG" CACHE STRING "" )
+SET( CMAKE_CXX_FLAGS_RELEASE " -Wextra -Wall -O2 -funroll-loops -fstrict-aliasing -DNDEBUG" CACHE STRING "" )
 SET( CMAKE_CXX_FLAGS_MINSIZEREL " -Wextra -Wall -O2 " CACHE STRING "" )
 
 project(geotop LANGUAGES CXX C
@@ -15,6 +15,10 @@ include_directories(src/libraries/geomorphology)
 include_directories(src/libraries/math)
 
 subdirs(cmake)
+# of course we need to inform the compiler where to look for
+# the config.h file
+include_directories(${CMAKE_BINARY_DIR}/src/geotop)
+
 
 add_executable(geotop
         src/geotop/blowingsnow.cc
