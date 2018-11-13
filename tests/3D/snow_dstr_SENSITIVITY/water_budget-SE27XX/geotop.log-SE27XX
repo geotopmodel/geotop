@@ -348,7 +348,7 @@ Infinite Glac layer numbers are numbers: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 
 LWinParameterization[1] = 9.000000e+00 (default) 
 MoninObukhov[1] = 1.000000e+00 
 Surroundings[1] = 0.000000e+00 (default) 
-WaterBalance[1] = 0.000000e+00 
+WaterBalance[1] = 1.000000e+00 
 EnergyBalance[1] = 1.000000e+00 
 BlowingSnow[1] = 0.000000e+00 (default) 
 MinIceContentForBlowingSnow[1] = 8.000000e+00 (default) 
@@ -1369,13 +1369,13 @@ No temperature measurements, used the value of the previous time step
 No RH measurements, used the value of the previous time step
 No wind measurements, used the value of the previous time step
 No precipitation measurements, considered it 0.0
-27/3/2010 17:00 100.00% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
+27/3/2010 17:00 100.00% - Time elapsed (h:m:s)  0:01:38 Time remaining (h:m)  0:00  
 
 27/3/2010 17:00 JD:85.708333 (1^ simulation day) 100.00% completed! 
- t_meteo:  0.00 s, t_energy:  5.00 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  5.09 s, t_blowingsnow:  0.00 s, t_water: 91.66 s, t_sub:  1.91 s, t_sup: 89.75 s, t_out:  0.00 s
  SW= 59.72 W/m2  LW:-43.61 W/m2  H=  1.25 W/m2  LE=  0.00 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
- Max Error Richards=0.000000e+00 mm/h 
- Tot Error Richards=0.000000e+00 mm Mean Time Step=86400.000000 s
+ Max Error Richards=8.467898e-10 mm/h 
+ Tot Error Richards=2.032296e-08 mm Mean Time Step=86400.000000 s
 
 Number of times the simulation #1 has been run: 1

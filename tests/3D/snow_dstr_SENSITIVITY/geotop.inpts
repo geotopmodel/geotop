@@ -4,8 +4,8 @@
 Latitude               = 46.75604
 Longitude              = 10.70311
 TimeStepEnergyAndWater = 86400
-InitDateDDMMYYYYhhmm   = 05/10/2009 00:00
-EndDateDDMMYYYYhhmm    = 06/10/2009 00:00
+InitDateDDMMYYYYhhmm   = 26/03/2010 17:00
+EndDateDDMMYYYYhhmm    = 27/03/2010 17:00
 NumSimulationTimes     = 1
 DtPlotPoint            = 1
 DtPlotDischarge        = 1
@@ -31,7 +31,7 @@ SubfolderRecoveryFiles = "rec"
 !  MODEL SETTINGS
 !=============================================================================
 PointSim      = 0
-WaterBalance  = 1
+WaterBalance  = 0
 EnergyBalance = 1
 StandardTimeSimulation = 0
 FlagSkyViewFactor      = 1
