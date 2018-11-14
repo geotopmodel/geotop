@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/PR-SVG-20010719/DTD/svg10.dtd">
+<svg width="22cm" height="5cm" viewBox="63 29 440 90" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <g>
+    <rect style="fill: #ffffff" x="64.3" y="44.6" width="185" height="60"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="64.3" y="44.6" width="185" height="60"/>
+    <text style="fill: #000000;text-anchor:middle;font-size:12.8;font-family:sanserif;font-style:normal;font-weight:normal" x="156.8" y="78.5">
+      <tspan x="156.8" y="78.5">Additional Maps</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="337.1" y="30.9" width="163.2" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="337.1" y="30.9" width="163.2" height="38"/>
+    <text style="fill: #000000;text-anchor:middle;font-size:12.8;font-family:sanserif;font-style:normal;font-weight:normal" x="418.7" y="53.8">
+      <tspan x="418.7" y="53.8">Land cover</tspan>
+    </text>
+  </g>
+  <g>
+    <rect style="fill: #ffffff" x="336.1" y="80.9" width="166.2" height="38"/>
+    <rect style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x="336.1" y="80.9" width="166.2" height="38"/>
+    <text style="fill: #000000;text-anchor:middle;font-size:12.8;font-family:sanserif;font-style:normal;font-weight:normal" x="419.2" y="103.8">
+      <tspan x="419.2" y="103.8">Soil stratigraphy</tspan>
+    </text>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="249.3" y1="74.6" x2="327.728" y2="52.5366"/>
+    <polygon style="fill: #000000" points="334.947,50.5055 326.675,58.0268 327.728,52.5366 323.967,48.4005 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="334.947,50.5055 326.675,58.0268 327.728,52.5366 323.967,48.4005 "/>
+  </g>
+  <g>
+    <line style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" x1="249.3" y1="74.6" x2="326.753" y2="97.1756"/>
+    <polygon style="fill: #000000" points="333.953,99.2743 322.954,101.276 326.753,97.1756 325.752,91.6757 "/>
+    <polygon style="fill: none; fill-opacity:0; stroke-width: 2; stroke: #000000" points="333.953,99.2743 322.954,101.276 326.753,97.1756 325.752,91.6757 "/>
+  </g>
+  <text style="fill: #000000;text-anchor:start;font-size:12.7998;font-family:sanserif;font-style:normal;font-weight:normal" x="418.7" y="49.9">
+    <tspan x="418.7" y="49.9"></tspan>
+  </text>
+</svg>
