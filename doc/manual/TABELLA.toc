@@ -1,0 +1,9 @@
+\contentsline {section}{\numberline {1}1D INPUT NUMERIC}{1}
+\contentsline {section}{\numberline {2}3D OUTPUT NUMERIC}{12}
+\contentsline {section}{\numberline {3}1D OUTPUT NUMERIC}{28}
+\contentsline {section}{\numberline {4}1D INPUT CHARACTER}{32}
+\contentsline {section}{\numberline {5}3D INPUT CHARACTER}{38}
+\contentsline {section}{\numberline {6}3D INPUT CHARACTER}{39}
+\contentsline {section}{\numberline {7}1D OUTPUT CHARACTER}{43}
+\contentsline {section}{\numberline {8}3D OUTPUT CHARACTER}{53}
+\contentsline {section}{\numberline {9}RECOVERY 3D CHARACTER}{61}

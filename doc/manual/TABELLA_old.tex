@@ -1,0 +1,3080 @@
+%*******************Dichiarazione della classe di documento e pacchetti usati***********
+\documentclass[11pt, a4paper, landscape]{article}  %uso carta a3 e dimnesione font: 11 punti,  tipo di documento
+\usepackage[latin1]{inputenc}
+%\usepackage[utf8x]{inputenc}                    %
+%\usepackage[italian]{babel}
+\usepackage{fancyhdr}
+\usepackage{longtable}
+\usepackage{caption}
+\usepackage[usenames]{color}
+\usepackage{times}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{textcomp}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{float}
+\usepackage{natbib}
+\usepackage{rotating}
+\usepackage{graphicx}
+%
+\usepackage[babel]{csquotes}                    %
+\usepackage[T1]{fontenc}                        %
+\usepackage{indentfirst}                        %
+\usepackage{lmodern}                            %
+%\usepackage[hang,  footnotesize,  it]{caption}    % 
+%\usepackage{tikz}                               %
+%\usepackage{vmargin}                            %
+%\usepackage{booktabs}                           %
+%\usepackage{cite}                         
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newif\ifpdf
+\ifx\pdfoutput\undefined
+\pdffalse % we are not running PDFLaTeX
+\else
+\pdfoutput=1 % we are running PDFLaTeX
+\pdftrue
+\fi
+
+%\ifpdf
+%\usepackage[pdftex]{graphicx}
+%\else
+%\usepackage{graphicx}
+%\usepackage{graphicx}
+%\fi
+
+%*****************Tutta una serie di comandi di formattazione**************************
+\textwidth=25cm %larghezza corpo testo (l'intero paragrafo,  non le parole singole)
+\textheight=15cm %altezza del corpo del testo (spazio occupato)
+\headsep=1cm %distanza del testo dall'intestazione in alto
+\topmargin=1.5cm %distanza dell'intestazione dal limite superiore (che non e' il margine)*
+\footskip=1cm %distanza tra il testo e il piede di pagina inferiore
+\voffset=-2cm %zona tra il limite superiore e il margine del foglio (vedi manuale)
+\evensidemargin=-0.50cm
+\oddsidemargin=0cm
+
+
+%\providecommand{\geotop}{\lower-.25em\hbox{G}E\lower.25em\hbox{O}\lower-.25em\hbox{T}O\lower-.25em\hbox{P}\@}
+\providecommand{\geotop}{\lower-.25em\hbox{GEO}\lower-.25em\hbox{top}\@}
+
+%*****************Inizio descrizione del testo: indice,  capitoli,  elenchi**************
+
+\begin{document}
+%%% TITOLO%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{titlepage}
+\thispagestyle{empty}
+\topmargin=0cm
+
+%\begin{figure}[htbp]
+%\begin{center}
+%\includegraphics[width=5cm]{./pic/logoPATgeologico.png}\\
+%\vspace{0.2cm}
+%\end{center}
+%\end{figure}
+
+%\begin{figure}
+%\begin{minipage}[htp]{0.5\linewidth} % A minipage that covers half the page
+%\centering
+%\includegraphics[height=2.5cm]{./pic/logopermanet.pdf}
+%\end{minipage}
+%\hspace{0.1 cm} % To get a little bit of space between the figures
+%\begin{minipage}[!tbp]{0.5\linewidth}
+%\centering
+%\includegraphics[height=2.5cm]{./pic/logoAlpineSpace.png}
+%\vspace{0.5cm}
+%\end{minipage}
+%{\it The PermaNET project is part of the European Territorial Cooperation and co-funded by the European Regional Development Fund (ERDF) in the scope of the Alpine Space Programme www.alpine-space.eu}
+%%\label{U_psi}
+%\end{figure}
+
+
+%\vspace{0.2cm}
+%\begin{center}
+%{\LARGE Report on the activity on permafrost modeling in the Autonomous Province of Trento}\\
+%\end{center}
+%\vspace{0.2 cm}
+%\begin{center}
+%{ \large Realized by} \\
+%\vspace{0.5cm}
+%{\LARGE \bf{Mountain-eering S.r.l.} }\\
+%\vspace{1cm}
+% ing. Filippo Zambon\\
+% \vspace{0.1cm}
+% Dr. Matteo Dall'Amico,  PhD\\
+%\begin{figure}[t, b]
+%\includegraphics[width=0.2\textwidth]{./firma_matteo.png}
+%\end{figure}
+%\end{center}
+
+
+%\noindent{\large Report on the determination of the thermal parameters of the Cime Bianche borehole through physically based hydroL modeling}
+
+\vspace{0.2cm}
+\hfill{May 2011}\\
+
+
+%\newpage
+\mbox{}
+\clearpage
+
+%\thispagestyle{empty}
+%\vspace{17cm}
+%%\begin{figure}[H]
+%%\includegraphics[width=8cm]{./pic/logo_R.pdf}\\
+%%\end{figure}
+%\noindent {\bf Mountain-eering S.r.l.} Societ\`a di Ingegneria \\
+%Spin Off Universit\`a degli Studi di Trento \\
+%Start Up del Technology Innovation Suedtirol (TIS) di Bolzano \\
+%Sede legale: Siemens str. 19 via Siemens,  Bozen 39100 Bolzano - Italy \\
+%Tel: 0471 068226 Fax: 0471 068229 \\
+%Ufficio Tecnico: Via Giusti 10,  38100 Trento - Italy \\
+
+
+\mbox{ } \thispagestyle{empty}
+
+\end{titlepage}
+
+
+%*********************Fine modifica titolo******************************************
+
+\baselineskip=5.5mm %formattazione distanza tra le linee del testo
+
+%\newpage
+%\mbox{}
+%\clearpage
+
+%\pagenumbering{roman} \setcounter{page}{1}
+%\tableofcontents %questo genera l'indice
+%\clearpage
+
+
+%**************************NUOVA FORMATTAZIONE TITOLI E PARAGRAFI E SPAZIATURA TRA PARAGRAFI*****
+%\makeatletter %setto la @ come font comando
+
+%\renewcommand{\chapter}{\@startsection  %formattazione titolo capitolo
+ %      {chapter}                            %nome
+%       {0}                                  %livello
+%       {0mm}                                %rientro
+%       {10cm}                               %spazio prima
+%       {1cm}                              %spazio dopo
+%       {\normalfont\huge\bfseries\upshape}} %formattazione carattere
+
+%\renewcommand{\section}{\@startsection  %formattazione titolo sezione
+%       {section}                            %nome
+%       {1}                                  %livello
+%       {0mm}                                %rientro
+%       {2cm}                                %spazio prima
+%       {1cm}                                %spazio dopo
+%       {\normalfont\LARGE\bfseries\upshape}}%formattazione carattere
+
+%\renewcommand{\subsection}{\@startsection  %formattazione titolo subsezione
+%       {subsection}                           %nome
+%       {2}                                         %livello
+%       {0mm}                                  %rientro
+%      {1.5cm}                                %spazio prima
+%       {0.5cm}                                %spazio dopo
+ %      {\normalfont\Large\bfseries\upshape}}  %formattazione carattere
+
+%\renewcommand{\subsubsection}{\@startsection  %formattazione titolo subsubsezione
+%       {subsubsection}                        %nome
+%       {3}                                    %livello
+%       {0mm}                                  %rientro
+%       {1.5cm}                                %spazio prima
+%       {0.5cm}                                %spazio dopo
+%       {\normalfont\large\bfseries\upshape}}  %formattazione carattere
+
+%\renewcommand{\paragraph}{\@startsection      %formattazione titolo paragraph
+%       {paragraph}                            %nome
+%       {4}                                    %livello
+%       {0mm}                                  %rientro
+%       {1cm}                                  %spazio prima
+%       {0.7cm}                                %spazio dopo
+%       {\normalfont\normalsize\itshape}}      %formattazione carattere
+
+%\makeatother %riporto la @ a font normale
+%**************************FINE FORMATTAZIONE TITOLI E PARAGRAFI E SPAZIATURA TRA PARAGRAFI*****
+
+\parindent=0.5cm %formattaz. rientro dell'inizio paragrafo
+%\newpage
+%\mbox{ }  \thispagestyle{empty}
+\pagenumbering{arabic} \setcounter{page}{0} %numerazioni pagine (testo)
+
+%\clearpage
+%\newpage
+\pagestyle{fancy} %stile di formattazione di pagina (per l'intestazione eil piè del documento)
+\fancyhead[LE, RO]{\footnotesize \slshape {}} %formattazione intestazione (vedi man.)
+\fancyhead[LO, RE]{\footnotesize \slshape \leftmark} %come sopra (vedi manuale)
+%\renewcommand{\chaptermark}[1]{\markboth{\thechapter.\ #1}{}} %come sopra
+\renewcommand{\sectionmark}[1]{\markright{\thesection.\ #1}}
+\renewcommand{\captionfont}{\footnotesize} %formattazione didascalie foto e tabelle
+\renewcommand{\headrulewidth}{0.2pt}
+
+%\part{Relazione}
+\tableofcontents %questo genera l'indice
+\clearpage
+
+\section{1D INPUT NUMERIC}
+
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+PointHorizon & ID number to which corresponds the horizon file & - &  & NA & vec & num \\ \hline
+\caption{Table of topographic parameters  (numeric)}
+\label{topo1d_parameters}
+\end{longtable}
+\end{center}
+
+\clearpage
+
+
+
+
+
+
+
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+FreeDrainageAtBottom & Boundary condition on Richards' equation at the bottom border (1: free drainage, 0: no flux) & - & 0,1 & 0 & sca & num \\ \hline
+ZeroTempAmplitDepth & Depth [mm] at which the annual temperature remains constant. It is used as the bottom boundary condition of the heat equation. The Zero flux condition can be assigned setting this parameter at a very high value & mm &  & 1.00E+20 & sca & num \\ \hline
+ZeroTempAmplitTemp & Temperature at the depth assigned above & $^\circ$C &  & 20 & sca & num \\ \hline
+BottomBoundaryHeatFlux & Incoming heat flux at the bottom boundary of the soil domain (geothermal heat flux) & W m$^{-2}$ &  & 0 & sca & num \\ \hline
+\caption{Table of boundary condition  (numeric)}
+\label{BC1d}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+InitDateDDMMYYYYhhmm & Date and time of the simulation start in date12 format (MANDATORY) & format DDMMYYhhmm & 01/01/1800 00:00, 01/01/2500 00:00 & NA & vec & str \\ \hline
+EndDateDDMMYYYYhhmm & Date and time of the simulation start in date12 format (MANDATORY) & format DDMMYYhhmm & 01/01/1800 00:00, 01/01/2500 00:00 & NA & vec & str \\ \hline
+NumSimulationTimes & How many times the simulation is run (if >1, it uses the final condition as initial conditions of the new simulation) & - & 0, inf & 1 & vec & num \\ \hline
+StandardTimeSimulation & Standard time to which all the output data are referred (difference respect UMT, in hours): GMT + x [h] & h & 0, 12 & 0 & sca & num \\ \hline
+PointSim & Point simulation (=1), distributed simulation (=0) & - & 0, 1 & 0 & sca & opt \\ \hline
+RecoverSim & Simulation recovered (=number of saving point you want to start from), otherwise (=0) & - & 0, 1 & 0 & sca & opt \\ \hline
+WaterBalance & Activate water balance (Yes=1, No=0) & - &  & 0 & sca & opt \\ \hline
+EnergyBalance & Activate energy balance (Yes=1, No=0) &  &  & 0 & sca & opt \\ \hline
+PixelCoordinates & Write 1 IF ALL point COORDINATES ARE IN FORMAT (EAST,NORTH) in meters, Or 0 IF IN FORMAT ROW AND COLUMS (r,c) of the dem map & - &  & 1 & sca & opt \\ \hline
+SavingPoints &  & - &  & NA & vec & num \\ \hline
+SoilLayerTypes & Number of types of soil types, corresponding to different soil stratigraphies & - &  & 1 & sca & num \\ \hline
+DefaultSoilTypeLand & given a multiple number of type of soil, this relates to the default given to the land type type & - &  & 1 & sca & num \\ \hline
+DefaultSoilTypeChannel & given a multiple number of type of soil, this relates to the default given to the channel type & - &  & 1 & sca & num \\ \hline
+\caption{Table of general parameters  (numeric)}
+\label{general1d_numeric}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+IrriducibleWatSatGlacier & IRREDUCIBLE WATER SATURATION FOR GLACIER & - &  & 0.02 & sca & num \\ \hline
+MaxWaterEqGlacLayerContent & maximum water equivalent admitted in a snow layer &  &  & 5 & sca & num \\ \hline
+MaxGlacLayerNumber & maximum layers of snow to use (suggested $>$5) &  &  & 0 & sca & num \\ \hline
+ThickerGlacLayers & Layer numbers that can become thicker than admitted by the threshold given by MaxGlacLayerNumber (from the bottom up). They can be more than one &  &  & Max Glac Layer Number/2 & vec & num \\ \hline
+\caption{Table of glacier parameters  (numeric)}
+\label{glacier1d_numeric}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+InitSWE & Initial snow water equivalent (SWE) - used if no snow map is given & kg m$^{-2}$ &  & 0 & sca & num \\ \hline
+InitSnowDensity & INITIAL SNOW DENSITY - uniform with depth & kg m$^{-3}$ &  & 200 & sca & num \\ \hline
+InitSnowTemp & INITIAL SNOW TEMPERATURE - uniform with depth & $^\circ$C &  & -3 & sca & num \\ \hline
+InitSnowAge & INITIAL SNOW AGE & days &  & 0 & sca & num \\ \hline
+InitGlacierDepth & GLACIER DEPTH - used if no snow map is given & mm &  & 0 & sca & num \\ \hline
+InitGlacierDensity & INITIAL GLACIER DENSITY - uniform with depth & kg m$^{-3}$ &  & 800 & sca & num \\ \hline
+InitGlacierTemp & INITIAL GLACIER TEMPERATURE - uniform with depth & $^\circ$C &  & -3 & sca & num \\ \hline
+InitWaterTableHeightOverTopoSurface & initial condition on water table depth (positive downwards from ground surface). Used if InitSoilPressure is void & mm &  & 0 & sca & num \\ \hline
+InitSoilPressure &  & mm &  & NA & vec & num \\ \hline
+InitSoilTemp &  & $^\circ$C &  & 5 & vec & num \\ \hline
+InitSoilPressureBedrock &  & mm &  & NA & vec & num \\ \hline
+InitSoilTempBedrock &  & $^\circ$C &  & 5 & vec & num \\ \hline
+\caption{Table of initial condition  (numeric)}
+\label{IC1d_numeric}
+\end{longtable}
+\end{center}
+
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+TimeStepEnergyAndWater & THE INTEGRATION time step [s] for energy and water balance equation (MANDATORY) & s & 0, inf & NA & vec & num \\ \hline
+RichardTol & Absolute Tolerance for the integration of Richards' equation (on the Euclidean norm of residuals)  & mm & 1E-20, inf & 1.00E-08 & sca & num \\ \hline
+RichardMaxIter & Max iterations for the integration of Richards' equation & - & 1, inf & 100 & sca & num \\ \hline
+RichardInitForc & Initial forcing term of Newton method  & - &  & 0.01 & sca & num \\ \hline
+MinTimeStepSupFlow & minimum integration time step for the integration of the surface runoff equation &  &  & 0.01 & sca & num \\ \hline
+HeatEqTol & Max norm of the residuals for heat equation & J m$^{-2}$ &  & 1.00E-04 & sca & num \\ \hline
+HeatEqMaxIter & Max number of iterations for heat equation & - &  & 500 & sca & num \\ \hline
+CanopyMaxIter & Max number of iterations for canopy (heat) equation &  &  & 3 & sca & num \\ \hline
+BusingerMaxIter & Max number of iterations for Monin-Obulhov stability algorithm (Businger parameterization) & - &  & 5 & sca & num \\ \hline
+TsMaxIter & Max number of iterations for the calculation of canopy air temperature & - &  & 2 & sca & num \\ \hline
+LocMaxIter & Max number of iterations for the calculation of the within-canopy Monin-Obukhov length & - &  & 3 & sca & num \\ \hline
+CanopyStabCorrection & Use of the stability corrections within canopy (=1), otherwise (=0) & - &  & 1 & sca & num \\ \hline
+\caption{Table of numeric parameters  (numeric)}
+\label{numeric1d_numeric}
+\end{longtable}
+\end{center}
+
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+ThetaResBedrock &  & - &  & 0.05 & vec & num \\ \hline
+WiltingPointBedrock &  & - &  & 0.15 & vec & num \\ \hline
+FieldCapacityBedrock &  & - &  & 0.25 & vec & num \\ \hline
+ThetaSatBedrock &  & - &  & 0.5 & vec & num \\ \hline
+AlphaVanGenuchtenBedrock &  & mm$^{-1}$ &  & 0.004 & vec & num \\ \hline
+NVanGenuchtenBedrock &  & - &  & 1.3 & vec & num \\ \hline
+VMualemBedrock &  & - &  & 0.5 & vec & num \\ \hline
+ThermalConductivitySoilSolidsBedrock & thermal conductivity of the bedrock & W m$^{-1}$ K$^{-1}$ &  & 2.5 & vec & num \\ \hline
+ThermalCapacitySoilSolidsBedrock & thermal capacity of the bedrock & J m$^{-3}$ K$^{-1}$ &  & 1.00E+06 & vec & num \\ \hline
+SpecificStorativityBedrock &  & mm$^{-1}$ &  & 1.00E-07 & vec & num \\ \hline
+\caption{Table of rock parameters  (numeric)}
+\label{rock1d_numeric}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+ThresSnowSoilRough & Threshold on snow depth to change roughness to snow roughness values with d0 set at 0, for bare soil fraction & mm & 0, 1000 & 10 & sca & num \\ \hline
+ThresSnowVegUp & Threshold on snow depth above which the roughness is snow roughness, for vegetation fraction & mm & 0, 20000 & 1000 & sca & num \\ \hline
+ThresSnowVegDown & Threshold on snow depth below which the roughness is vegetation roughness, for vegetation fraction & mm & 0, 20000 & 1000 & sca & num \\ \hline
+RoughElemXUnitArea & Number of roughness elements (=vegetation) per unit area - used only for blowing snow subroutines & Number m$^{-2}$ & 0, inf & 0 & sca & num \\ \hline
+RoughElemDiam & Diameter [mm] of the roughness elements (=vegetation) - used only for blowing snow subroutines & mm & 0, inf & 50 & sca & num \\ \hline
+AlphaSnow & Alpha (SNTHERM parameter) for the freezing characteristic soil for snow, the bigger, the steeper the curve around 0 degrees & - &  & 1.00E+05 & sca & num \\ \hline
+ThresTempRain & DEW or AIR TEMPERATURE ABOVE WHICH ALL PRECIPITATION IS RAIN & $^\circ$C &  & 3 & sca & num \\ \hline
+ThresTempSnow & DEW or AIR TEMPERATURE BELOW WHICH ALL PRECIPITATION IS SNOW & $^\circ$C &  & -1 & sca & num \\ \hline
+DewTempOrNormTemp & Use dew temperature (1) or air temperature (0) to discriminate between snowfall and rainfall & - & 1 or 0 & 0 & sca & opt \\ \hline
+AlbExtParSnow & ALBEDO EXTINCTION PARAMETER - if snow depth < aep, albedo is interpolated between soil and snow & mm &  & 10 & sca & num \\ \hline
+FreshSnowReflVis & VISIBLE BAND REFLECTANCE OF fresh SNOW  & - &  & 0.9 & sca & num \\ \hline
+FreshSnowReflNIR & near INFRARED BAND REFLECTANCE OF fresh SNOW & - &  & 0.65 & sca & num \\ \hline
+IrriducibleWatSatSnow & IRREDUCIBLE WATER SATURATION - from Colbeck (0.02 - 0.07). It is the ratio of the capillarity-hold water to ice content in the snow & - & 0.02 - 0.07 & 0.02 & sca & num \\ \hline
+SnowEmissiv & SNOW LONGWAVE EMISSIVITY [-] & - &  & 0.98 & sca & num \\ \hline
+SnowRoughness & Roughness length over snow (mm) & mm &  & 0.1 & sca & num \\ \hline
+SnowCorrFactor & correction factor on fresh snow accumulation &  &  & 1 & sca & num \\ \hline
+MaxSnowPorosity & MAXIMUM SNOW POROSITY ALLOWED (-). This parameter prevents excessive snow densification & - &  & 0.7 & sca & num \\ \hline
+DrySnowDefRate & SNOW COMPACTION (\% per hour) DUE TO DESTRUCTIVE METAMORPHISM for SNOW DENSITY<snow\_density\_ cutoff and DRY SNOW  & - &  & 1 & sca & num \\ \hline
+SnowDensityCutoff & SNOW DENSITY CUTOFF (kg m$^{-3}$) TO CHANGE SNOW DEFORMATION RATE & kg m$^{-3}$ &  & 100 & sca & num \\ \hline
+WetSnowDefRate & ENHANCEMENT FACTOR IN PRESENCE OF WET SNOW & - &  & 1.5 & sca & num \\ \hline
+SnowViscosity & SNOW VISCOSITY COEFFICIENT (kg s m$^{-2}$) at T=0 C and snow density=0 & N s m$^{-2}$ &  & 1.00E+06 & sca & num \\ \hline
+FetchUp & SCALING FETCH in case snow wind transport in increasing [m] & m &  & 1000 & sca & num \\ \hline
+FetchDown & SCALING FETCH in case snow wind transport in decreasing [m] & m &  & 100 & sca & num \\ \hline
+BlowingSnowSoftLayerIceContent & Snow depth (in ice water equivalent), the averaged density of which is used for blowing snow wind thresholds & kg m$^{-2}$ &  & 0 & sca & num \\ \hline
+TimeStepBlowingSnow & Time step [s] at which the Prairie Blowing Snow Model is run & s &  & TimeStep Energy AndWater & sca & num \\ \hline
+SnowSMIN & MINIMUM SLOPE [degree] TO ADJUST PRECIPITATION REDUCTION & degree &  & 30 & sca & num \\ \hline
+SnowSMAX & MAXIMUM SLOPE [degree] TO ADJUST PRECIPITATION REDUCTION & degree &  & 80 & sca & num \\ \hline
+SnowCURV & SHAPE PARAMETER FOR PRECIPITATION REDUCTION (if <0 the adjustment is not applied) & - &  & -200 & sca & num \\ \hline
+MaxWaterEqSnowLayerContent & maximum water equivalent admitted in a snow layer & kg m$^{-2}$ &  & 5 & sca & num \\ \hline
+MaxSnowLayerNumber & maximum layers of snow to use (suggested $>$10) &  &  & 10 & sca & num \\ \hline
+ThickerSnowLayers & Layer numbers that can become thicker than admitted by the threshold given by MaxSnowLayerNumber (from the bottom up). They can be more than one &  &  & Max Snow Layer Number/2 & vec & num \\ \hline
+BlowingSnow & Activate blowing snow module (yes=1, no=0) & - &  & 0 & sca & opt \\ \hline
+PointMaxSWE & Max snow water equivalent that can be reached in the simulation point & kg m$^{-2}$ &  & NA & vec & num \\ \hline
+SnowAgingCoeffVis & reflectance of the new snow in the visible wave length & - &  & 0.2 & sca & num \\ \hline
+SnowAgingCoeffNIR & reflectance of the new snow in the infrared wave length & - &  & 0.5 & sca & num \\ \hline
+\caption{Table of snow parameters  (numeric)}
+\label{snow1d_numeric}
+\end{longtable}
+\end{center}
+
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+FrozenSoilHydrCondReduction & Reduction factor of the hydraulic conductivity in partially frozen soil ($K=K_{no\_ice}*10^{impedence Q}$, where Q is the ice ratio & - & 0, 7 & 2 & sca & num \\ \hline
+PointSoilType & Soil type of the simulation point & - &  & NA & vec & num \\ \hline
+SoilLayerThicknesses & vector defining the thickness of the various soil layers. If not present, a column of 5 layers 100 mm thick will be assumed & mm &  & 100 & vec & num \\ \hline
+SoilLayerNumber & number of soil layers (is calculated after the number of components of the vector SoilLayerNumber) & - &  & 5 & sca & num \\ \hline
+NormalHydrConductivity &  & mm s$^{-1}$ &  & 1.00E-04 & vec & num \\ \hline
+LateralHydrConductivity &  & mm s$^{-1}$ &  & 1.00E-04 & vec & num \\ \hline
+ThetaRes &  & - &  & 0.05 & vec & num \\ \hline
+WiltingPoint &  & - &  & 0.15 & vec & num \\ \hline
+FieldCapacity &  & - &  & 0.25 & vec & num \\ \hline
+ThetaSat &  & - &  & 0.5 & vec & num \\ \hline
+AlphaVanGenuchten &  & mm$^{-1}$ &  & 0.004 & vec & num \\ \hline
+NVanGenuchten &  & - &  & 1.3 & vec & num \\ \hline
+VMualem &  & - &  & 0.5 & vec & num \\ \hline
+ThermalConductivitySoilSolids & thermal conductivity of the soil particles & W m$^{-1}$ K$^{-1}$ &  & 2.5 & vec & num \\ \hline
+ThermalCapacitySoilSolids & thermal capacity of the soil particles & J m$^{-3}$ K$^{-1}$ &  & 1.00E+06 & vec & num \\ \hline
+SpecificStorativity &  & mm$^{-1}$ &  & 1.00E-07 & vec & num \\ \hline
+NormalHydrConductivityBedrock &  & mm s$^{-1}$ &  & 1.00E-04 & vec & num \\ \hline
+LateralHydrConductivityBedrock &  & mm s$^{-1}$ &  & 1.00E-04 & vec & num \\ \hline
+\caption{Table of soil parameters  (numeric)}
+\label{soil1d_numeric}
+\end{longtable}
+\end{center}
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+NumLandCoverTypes & Number of Classes of land cover. Each land cover type corresponds to a particular land-cover state, described by a specific set of values of the parameters listed below. Each set of land cover parameters will be distributively assigned according to the land cover map, which relates each pixel with a land cover type number. This number corresponds to the number of component in the numerical vector that is assigned to any land cover parameters listed below. & - & 1, inf & 1 & sca & num \\ \hline
+SoilRoughness & Roughness length of soil surface & mm & 0, 1000 & 10 & sca & num \\ \hline
+SoilAlbVisDry & Ground albedo without snow in the visible Ð dry & - & 0, 1 & 0.2 & sca & num \\ \hline
+SoilAlbNIRDry & Ground albedo without snow in the near infrared Ð dry & - & 0, 1 & 0.2 & sca & num \\ \hline
+SoilAlbVisWet & Ground albedo without snow in the visible Ð saturated & - & 0, 1 & 0.2 & sca & num \\ \hline
+SoilAlbNIRWet & Ground albedo without snow in the near infrared Ð saturated & - & 0, 1 & 0.2 & sca & num \\ \hline
+SoilEmissiv & Soil emissivity & - & 0, 1 & 0.96 & sca & num \\ \hline
+PointLandCoverType & Land Cover type of the simulation point & - &  & NA & vec & num \\ \hline
+\caption{Table of soil surface parameters  (numeric)}
+\label{soilsurface1d_numeric}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+LWinParameterization & Which formula for incoming longwave radiation:  1 (Brutsaert, 1975), 2 (Satterlund, 1979), 3 (Idso, 1981), 4(Idso+Hodges),  5 (Koenig-Langlo \& Augstein, 1994), 6 (Andreas \& Ackley, 1982), 7 (Konzelmann, 1994), 8 (Prata, 1996), 9 (Dilley 1998) &  & 1, 2, .., 9 & 9 & sca & opt \\ \hline
+MoninObukhov & Atmospherical stability parameter: 1 stability and instability considered, 2 stability not considered, 3 instability not considered, 4 always neutrality &  &  & 1 & sca & num \\ \hline
+Surroundings & Yes(1), No(0) & - &  & 0 & sca & opt \\ \hline
+\caption{Table of surface energy flux parameters  (numeric)}
+\label{surfaceenergyfluxes1d_numeric}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+Latitude & Average latitude of the basin, positive means north, negative means south (MANDATORY) & degree & -90, 90 & 45 & sca & num \\ \hline
+Longitude & Average longitude of the basin, eastwards from 0 meridiane (MANDATORY) & degree & 0, 180 & 0 & sca & num \\ \hline
+PointID & identification code for the point of simulation &  &  & NA & sca & num \\ \hline
+CoordinatePointX & coordinate X if PixelCoordinates is 1, number of row of the matrix if PixelCoordinates is 0 & m (according to the geographical projection of the maps) &  & NA & vec & num \\ \hline
+CoordinatePointY & coordinate Y if PixelCoordinates is 1, number of column of the matrix if PixelCoordinates is 1 & m (according to the geographical projection of the maps) &  & NA & vec & num \\ \hline
+PointElevation & elevation of the point of simulation & m a.s.l. &  & NA & vec & num \\ \hline
+PointSlope & Slope steepness of the simulation point & degree &  & NA & vec & num \\ \hline
+PointAspect & Aspect of the simulation point & degree &  & NA & vec & num \\ \hline
+PointSkyViewFactor & Sky View Factor of the simulation point & - &  & NA & vec & num \\ \hline
+PointCurvatureNorthSouthDirection & N-S curvature of the simulation point & m$^{-1}$ &  & NA & vec & num \\ \hline
+PointCurvatureWestEastDirection & W-E curvature of the simulation point & m$^{-1}$ &  & NA & vec & num \\ \hline
+PointCurvatureNorthwest SoutheastDirection & N-W curvature of the simulation point & m$^{-1}$ &  & NA & vec & num \\ \hline
+PointCurvatureNortheast SouthwestDirection & N-E curvature of the simulation point & m$^{-1}$ &  & NA & vec & num \\ \hline
+PointDrainageLateralDistance & Lateral Drainage distance of the simulation point & m &  & NA & vec & num \\ \hline
+PointLatitude & Latitude of the simulation point & degree &  & NA & sca & num \\ \hline
+PointLongitude & Longitude of the simulation point & degree &  & NA & sca & num \\ \hline
+\caption{Table of topographic parameters  (numeric)}
+\label{topo1d_numeric}
+\end{longtable}
+\end{center}
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+VegHeight & vegetation height & mm & 0, 20000 & 1000 & sca & num \\ \hline
+LSAI & Leaf and Stem Area Index [$L^2/L^2$] & - & 0, 1 & 1 & sca & numeric \\ \hline
+CanopyFraction & Canopy fraction [0: no canopy in the pixel, 1: pixel fully covered by canopy] & - & 0, 1 & 0 & sca & numeric \\ \hline
+DecayCoeffCanopy & Decay coefficient of the eddy diffusivity profile in the canopy & - & 0, inf & 2.5 & sca & numeric \\ \hline
+VegSnowBurying & Coefficient of the exponential snow burying of vegetation & - & 0, inf & 1 & sca & numeric \\ \hline
+RootDepth & Root depth [mm] (it is used to calculate root\_fraction for each layer, it must be positive) & mm & 0, inf & 300 & sca & numeric \\ \hline
+MinStomatalRes & Minimum stomatal resistance & s $m^{-1}$ & 0, inf & 60 & sca & numeric \\ \hline
+VegReflectVis & Vegetation reflectivity in the visible & - & 0, 1 & 0.2 & sca & numeric \\ \hline
+VegReflNIR & Vegetation reflectivity in the near infrared & - & 0, 1 & 0.2 & sca & numeric \\ \hline
+VegTransVis & Vegetation transmissimity in the visible & - & 0, 1 & 0.2 & sca & numeric \\ \hline
+VegTransNIR & Vegetation transmissimity in the near infrared & - & 0, 1 & 0.2 & sca & numeric \\ \hline
+LeafAngles & Departure of leaf angles from a random distribution (1 horizontal, 0 random, -1 vertical) & - & -1, 0, 1 & 0 & sca & opt \\ \hline
+CanDensSurface & Surface density of canopy & kg m$^{-2}$ LSAI$^{-1}$ & 0, inf & 2 & sca & num \\ \hline
+\caption{Table of vegetation parameters  (numeric)}
+\label{vege1d_numeric}
+\end{longtable}
+\end{center}
+
+
+
+
+
+
+\section{3D INPUT NUMERIC}
+
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+Vmin & MINIMUM WIND VELOCITY (m/s) [wind speeds that are too low create numerical problems] & m s$^{-1}$ & 0, 100 & 0.5 & sca & num \\ \hline
+RHmin & MINIMUM RELATIVE HUMIDITY (\%) [relative humidities that are too low create numerical problems] & \% & 0, 100 & 10 & sca & num \\ \hline
+LapseRateTemp & Lapse rate of air temperature with elevation & $^\circ$C km$^{-1}$ &  & NA & vec & num \\ \hline
+LapseRateDewTemp & Lapse rate of dew temperature with elevation & $^\circ$C km$^{-1}$ &  & NA & vec & num \\ \hline
+LapseRatePrec & Lapse rate of precipitation with elevation & mm h$^{-1}$ km$^{-1}$ &  & NA & vec & num \\ \hline
+\caption{Table of meteorological forcing (meteo data - numeric)}
+\label{meteo_data}
+\end{longtable}
+\end{center}
+
+\clearpage
+
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+MeteoStationsID & Identification code for the meteo station & - &  & NA & vec & num \\ \hline
+NumberOfMeteoStations & number of soil Meteo Stations (is calculated after the number of components of the vector NumberOfMeteoStations) & - &  & 1 & sca & num \\ \hline
+MeteoStationCoordinateX & coordinate X of the meteo station & m &  & NA & vec & num \\ \hline
+MeteoStationCoordinateY & coordinate Y of the meteo station & m &  & NA & vec & num \\ \hline
+MeteoStationLatitude & Latitude of the meteo station & degree &  & Latitude & vec & num \\ \hline
+MeteoStationLongitude & Longitude of the meteo station & degree &  & Longitude & vec & num \\ \hline
+MeteoStationElevation & Latitude of the meteo station & m a.s.l. &  & 0 & vec & num \\ \hline
+MeteoStationSkyViewFactor & Sky view factor of the meteo station & - &  & 1 & vec & num \\ \hline
+MeteoStationStandardTime & Standard time to which the meteo records are referred to (difference respect UMT, in hours): GMT + x [h] & h &  & Standard Time Simulation & vec & num \\ \hline
+MeteoStationWindVelocitySensorHeight & Height of the wind velocity sensor of the meteo station & m a.g.l &  & 10 & vec & num \\ \hline
+MeteoStationTemperatureSensorHeight & Height of the air temperature sensor of the meteo station & m a.g.l &  & 2 & vec & num \\ \hline
+\caption{Table of meteorological forcing (meteo station - numeric)}
+\label{meteo_station}
+\end{longtable}
+\end{center}
+
+
+
+
+
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+FreeDrainageAtLateralBorder & Boundary condition on Richards' equation at the lateral border (1: free drainage, 0: no flux) & - & 0,1 & 1 & sca & num \\ \hline
+FreeDrainageAtBottom & Boundary condition on Richards' equation at the bottom border (1: free drainage, 0: no flux) & - & 0,1 & 0 & sca & num \\ \hline
+ZeroTempAmplitDepth & Depth [mm] at which the annual temperature remains constant. It is used as the bottom boundary condition of the heat equation. The Zero flux condition can be assigned setting this parameter at a very high value & mm &  & 1.00E+20 & sca & num \\ \hline
+ZeroTempAmplitTemp & Temperature at the depth assigned above & $^\circ$C &  & 20 & sca & num \\ \hline
+BottomBoundaryHeatFlux & Incoming heat flux at the bottom boundary of the soil domain (geothermal heat flux) & W m$^{-2}$ &  & 0 & sca & num \\ \hline
+\caption{Table of boundary condition  (numeric)}
+\label{BC}
+\end{longtable}
+\end{center}
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+RatioChannelWidthPixelWidth & Fraction of channel width in the pixel width & - &  & 0.1 & sca & num \\ \hline
+ChannelDepression & Depression of the channel bed with respect to the neighboring slopes [mm] - this is used to change between free and submerged weir flow model to represent to surface flow to the channel & mm &  & 500 & sca & num \\ \hline
+MinSupWaterDepthLand & minimum surface water depth on the earth below which the Courant condition is not applied & mm &  & 1 & sca & num \\ \hline
+MinSupWaterDepthChannel & minimum surface water depth on the channel below which the Courant condition is not applied & mm &  & 1 & sca & num \\ \hline
+\caption{Table of channel flow parameters  (numeric)}
+\label{channel_flow_numeric}
+\end{longtable}
+\end{center}
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+FlagSkyViewFactor & If not present, the sky view factor can be calculated (=1), or just be considered only equal to 1 (=0) & - & 0, 1 & 0 & sca & opt \\ \hline
+InitDateDDMMYYYYhhmm & Date and time of the simulation start in date12 format (MANDATORY) & format DDMMYYhhmm & 01/01/1800 00:00, 01/01/2500 00:00 & NA & vec & str \\ \hline
+EndDateDDMMYYYYhhmm & Date and time of the simulation start in date12 format (MANDATORY) & format DDMMYYhhmm & 01/01/1800 00:00, 01/01/2500 00:00 & NA & vec & str \\ \hline
+NumSimulationTimes & How many times the simulation is run (if >1, it uses the final condition as initial conditions of the new simulation) & - & 0, inf & 1 & vec & num \\ \hline
+StandardTimeSimulation & Standard time to which all the output data are referred (difference respect UMT, in hours): GMT + x [h] & h & 0, 12 & 0 & sca & num \\ \hline
+PointSim & Point simulation (=1), distributed simulation (=0) & - & 0, 1 & 0 & sca & opt \\ \hline
+RecoverSim & Simulation recovered (=number of saving point you want to start from), otherwise (=0) & - & 0, 1 & 0 & sca & opt \\ \hline
+WaterBalance & Activate water balance (Yes=1, No=0) & - &  & 0 & sca & opt \\ \hline
+EnergyBalance & Activate energy balance (Yes=1, No=0) &  &  & 0 & sca & opt \\ \hline
+PixelCoordinates & Write 1 IF ALL point COORDINATES ARE IN FORMAT (EAST,NORTH) in meters, Or 0 IF IN FORMAT ROW AND COLUMS (r,c) of the dem map & - &  & 1 & sca & opt \\ \hline
+SavingPoints &  & - &  & NA & vec & num \\ \hline
+SoilLayerTypes & Number of types of soil types, corresponding to different soil stratigraphies & - &  & 1 & sca & num \\ \hline
+DefaultSoilTypeLand & given a multiple number of type of soil, this relates to the default given to the land type type & - &  & 1 & sca & num \\ \hline
+DefaultSoilTypeChannel & given a multiple number of type of soil, this relates to the default given to the channel type & - &  & 1 & sca & num \\ \hline
+\caption{Table of general parameters  (numeric)}
+\label{general_numeric}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+IrriducibleWatSatGlacier & IRREDUCIBLE WATER SATURATION FOR GLACIER & - &  & 0.02 & sca & num \\ \hline
+MaxWaterEqGlacLayerContent & maximum water equivalent admitted in a snow layer &  &  & 5 & sca & num \\ \hline
+MaxGlacLayerNumber & maximum layers of snow to use (suggested $>$5) &  &  & 0 & sca & num \\ \hline
+ThickerGlacLayers & Layer numbers that can become thicker than admitted by the threshold given by MaxGlacLayerNumber (from the bottom up). They can be more than one &  &  & Max Glac Layer Number/2 & vec & num \\ \hline
+\caption{Table of glacier parameters  (numeric)}
+\label{glacier_numeric}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+InitSWE & Initial snow water equivalent (SWE) - used if no snow map is given & kg m$^{-2}$ &  & 0 & sca & num \\ \hline
+InitSnowDensity & INITIAL SNOW DENSITY - uniform with depth & kg m$^{-3}$ &  & 200 & sca & num \\ \hline
+InitSnowTemp & INITIAL SNOW TEMPERATURE - uniform with depth & $^\circ$C &  & -3 & sca & num \\ \hline
+InitSnowAge & INITIAL SNOW AGE & days &  & 0 & sca & num \\ \hline
+InitGlacierDepth & GLACIER DEPTH - used if no snow map is given & mm &  & 0 & sca & num \\ \hline
+InitGlacierDensity & INITIAL GLACIER DENSITY - uniform with depth & kg m$^{-3}$ &  & 800 & sca & num \\ \hline
+InitGlacierTemp & INITIAL GLACIER TEMPERATURE - uniform with depth & $^\circ$C &  & -3 & sca & num \\ \hline
+InitWaterTableHeightOverTopoSurface & initial condition on water table depth (positive downwards from ground surface). Used if InitSoilPressure is void & mm &  & 0 & sca & num \\ \hline
+InitSoilPressure &  & mm &  & NA & vec & num \\ \hline
+InitSoilTemp &  & $^\circ$C &  & 5 & vec & num \\ \hline
+InitSoilPressureBedrock &  & mm &  & NA & vec & num \\ \hline
+InitSoilTempBedrock &  & $^\circ$C &  & 5 & vec & num \\ \hline
+\caption{Table of initial condition  (numeric)}
+\label{IC_numeric}
+\end{longtable}
+\end{center}
+
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+Iobsint & Let Micromet determine an appropriate "radius of influence" (=0), or define the "radius of influence" you want the model to use (=1). 1=use obs interval below, 0=use model generated interval. & - &  & 1 & sca & num \\ \hline
+Dn & The "radius of influence" or "observation interval" you want the model to use for the interpolation.  In units of deltax, deltay. & - &  & 1 & sca & num \\ \hline
+SlopeWeight & Weight assigned to the slope (as tangent when it is < 1) in the spatial distribution of the wind speed & - &  & 0 & sca & num \\ \hline
+CurvatureWeight & Weight assigned to the curvature (as second derivative of the topographic surface) in the spatial distribution of the wind speed & - &  & 0 & sca & num \\ \hline
+SlopeWeightD &  &  &  & 0 & sca & num \\ \hline
+CurvatureWeightD &  &  &  & 0 & sca & num \\ \hline
+SlopeWeightI &  &  &  & 0 & sca & num \\ \hline
+CurvatureWeightI &  &  &  & 0 & sca & num \\ \hline
+\caption{Table of spatial distribution method parameters  (numeric)}
+\label{meteodistr_numeric}
+\end{longtable}
+\end{center}
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+TimeStepEnergyAndWater & THE INTEGRATION time step [s] for energy and water balance equation (MANDATORY) & s & 0, inf & NA & vec & num \\ \hline
+RichardTol & Absolute Tolerance for the integration of Richards' equation (on the Euclidean norm of residuals)  & mm & 1E-20, inf & 1.00E-08 & sca & num \\ \hline
+RichardMaxIter & Max iterations for the integration of Richards' equation & - & 1, inf & 100 & sca & num \\ \hline
+RichardInitForc & Initial forcing term of Newton method  & - &  & 0.01 & sca & num \\ \hline
+MinTimeStepSupFlow & minimum integration time step for the integration of the surface runoff equation &  &  & 0.01 & sca & num \\ \hline
+HeatEqTol & Max norm of the residuals for heat equation & J m$^{-2}$ &  & 1.00E-04 & sca & num \\ \hline
+HeatEqMaxIter & Max number of iterations for heat equation & - &  & 500 & sca & num \\ \hline
+CanopyMaxIter & Max number of iterations for canopy (heat) equation &  &  & 3 & sca & num \\ \hline
+BusingerMaxIter & Max number of iterations for Monin-Obulhov stability algorithm (Businger parameterization) & - &  & 5 & sca & num \\ \hline
+TsMaxIter & Max number of iterations for the calculation of canopy air temperature & - &  & 2 & sca & num \\ \hline
+LocMaxIter & Max number of iterations for the calculation of the within-canopy Monin-Obukhov length & - &  & 3 & sca & num \\ \hline
+CanopyStabCorrection & Use of the stability corrections within canopy (=1), otherwise (=0) & - &  & 1 & sca & num \\ \hline
+\caption{Table of numeric parameters  (numeric)}
+\label{numeric_numeric}
+\end{longtable}
+\end{center}
+
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+ThetaResBedrock &  & - &  & 0.05 & vec & num \\ \hline
+WiltingPointBedrock &  & - &  & 0.15 & vec & num \\ \hline
+FieldCapacityBedrock &  & - &  & 0.25 & vec & num \\ \hline
+ThetaSatBedrock &  & - &  & 0.5 & vec & num \\ \hline
+AlphaVanGenuchtenBedrock &  & mm$^{-1}$ &  & 0.004 & vec & num \\ \hline
+NVanGenuchtenBedrock &  & - &  & 1.3 & vec & num \\ \hline
+VMualemBedrock &  & - &  & 0.5 & vec & num \\ \hline
+ThermalConductivitySoilSolidsBedrock & thermal conductivity of the bedrock & W m$^{-1}$ K$^{-1}$ &  & 2.5 & vec & num \\ \hline
+ThermalCapacitySoilSolidsBedrock & thermal capacity of the bedrock & J m$^{-3}$ K$^{-1}$ &  & 1.00E+06 & vec & num \\ \hline
+SpecificStorativityBedrock &  & mm$^{-1}$ &  & 1.00E-07 & vec & num \\ \hline
+\caption{Table of rock parameters  (numeric)}
+\label{rock_numeric}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+SurFlowResLand & Coefficient ($C_m$) of of the law of uniform motion on the surface $(v_sup=C_m*h_sup^SurFlowResExp*i_{DD}^{0.5})$ [$m^{\frac{1-SurFlowResExp}{s}}$, SurFlowResExp defined later & m$^{\frac{1-SurFlowResExp}{s}}$ & 0.01, 5.0 & 0.5 & sca & num \\ \hline
+SurFlowResExp & Exponent (gamma) of the law of uniform motion on the surface $v=C_m (h_{sup}^{\gamma})  i^{0.5}$ & - &  & 0.67 & sca & num \\ \hline
+ThresWaterDepthLandDown & Threshold on $h_{sup}$ below which $C_m$ is 0 (water does not flow on the surface)  & mm &  & 0 & sca & num \\ \hline
+ThresWaterDepthLandUp & Threshold on $h_{sup}$ above which $C_m$ is independent from $h_{sup}$ (= fully developed turbulence) & mm &  & 50 & sca & num \\ \hline
+SurFlowResChannel & Resistance coefficient for the channel flow (the same gamma for land surface flow is used) & $m^{\frac{1-SurFlowResExp}{s}}$ &  & 20 & sca & num \\ \hline
+ThresWaterDepthChannelUp & Threshold on $h_{sup}$ [mm] above which $C_m$ is independent from $h_{sup}$ (= fully developed turbulence).  & mm &  & 50 & sca & num \\ \hline
+PointDepthFreeSurface & depth of the trench that simulates the drainage of a soil column through a weir. The deeper the trench, the higher the drainage. Valid in 1D simulations & mm &  & NA & vec & num \\ \hline
+\caption{Table of runoff parameters  (numeric)}
+\label{meteodistr_numeric}
+\end{longtable}
+\end{center}
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+ThresSnowSoilRough & Threshold on snow depth to change roughness to snow roughness values with d0 set at 0, for bare soil fraction & mm & 0, 1000 & 10 & sca & num \\ \hline
+ThresSnowVegUp & Threshold on snow depth above which the roughness is snow roughness, for vegetation fraction & mm & 0, 20000 & 1000 & sca & num \\ \hline
+ThresSnowVegDown & Threshold on snow depth below which the roughness is vegetation roughness, for vegetation fraction & mm & 0, 20000 & 1000 & sca & num \\ \hline
+RoughElemXUnitArea & Number of roughness elements (=vegetation) per unit area - used only for blowing snow subroutines & Number m$^{-2}$ & 0, inf & 0 & sca & num \\ \hline
+RoughElemDiam & Diameter [mm] of the roughness elements (=vegetation) - used only for blowing snow subroutines & mm & 0, inf & 50 & sca & num \\ \hline
+AlphaSnow & Alpha (SNTHERM parameter) for the freezing characteristic soil for snow, the bigger, the steeper the curve around 0 degrees & - &  & 1.00E+05 & sca & num \\ \hline
+ThresTempRain & DEW or AIR TEMPERATURE ABOVE WHICH ALL PRECIPITATION IS RAIN & $^\circ$C &  & 3 & sca & num \\ \hline
+ThresTempSnow & DEW or AIR TEMPERATURE BELOW WHICH ALL PRECIPITATION IS SNOW & $^\circ$C &  & -1 & sca & num \\ \hline
+DewTempOrNormTemp & Use dew temperature (1) or air temperature (0) to discriminate between snowfall and rainfall & - & 1 or 0 & 0 & sca & opt \\ \hline
+AlbExtParSnow & ALBEDO EXTINCTION PARAMETER - if snow depth < aep, albedo is interpolated between soil and snow & mm &  & 10 & sca & num \\ \hline
+FreshSnowReflVis & VISIBLE BAND REFLECTANCE OF fresh SNOW  & - &  & 0.9 & sca & num \\ \hline
+FreshSnowReflNIR & near INFRARED BAND REFLECTANCE OF fresh SNOW & - &  & 0.65 & sca & num \\ \hline
+IrriducibleWatSatSnow & IRREDUCIBLE WATER SATURATION - from Colbeck (0.02 - 0.07). It is the ratio of the capillarity-hold water to ice content in the snow & - & 0.02 Ð 0.07 & 0.02 & sca & num \\ \hline
+SnowEmissiv & SNOW LONGWAVE EMISSIVITY [-] & - &  & 0.98 & sca & num \\ \hline
+SnowRoughness & Roughness length over snow (mm) & mm &  & 0.1 & sca & num \\ \hline
+SnowCorrFactor & correction factor on fresh snow accumulation &  &  & 1 & sca & num \\ \hline
+RainCorrFactor & correction factor precipitated rain & - &  & 1 & sca & num \\ \hline
+MaxSnowPorosity & MAXIMUM SNOW POROSITY ALLOWED (-). This parameter prevents excessive snow densification & - &  & 0.7 & sca & num \\ \hline
+DrySnowDefRate & SNOW COMPACTION (\% per hour) DUE TO DESTRUCTIVE METAMORPHISM for SNOW DENSITY<snow\_density\_ cutoff and DRY SNOW  & - &  & 1 & sca & num \\ \hline
+SnowDensityCutoff & SNOW DENSITY CUTOFF (kg m$^{-3}$) TO CHANGE SNOW DEFORMATION RATE & kg m$^{-3}$ &  & 100 & sca & num \\ \hline
+WetSnowDefRate & ENHANCEMENT FACTOR IN PRESENCE OF WET SNOW & - &  & 1.5 & sca & num \\ \hline
+SnowViscosity & SNOW VISCOSITY COEFFICIENT (kg s m$^{-2}$) at T=0 C and snow density=0 & N s m$^{-2}$ &  & 1.00E+06 & sca & num \\ \hline
+FetchUp & SCALING FETCH in case snow wind transport in increasing [m] & m &  & 1000 & sca & num \\ \hline
+FetchDown & SCALING FETCH in case snow wind transport in decreasing [m] & m &  & 100 & sca & num \\ \hline
+BlowingSnowSoftLayerIceContent & Snow depth (in ice water equivalent), the averaged density of which is used for blowing snow wind thresholds & kg m$^{-2}$ &  & 0 & sca & num \\ \hline
+TimeStepBlowingSnow & Time step [s] at which the Prairie Blowing Snow Model is run & s &  & TimeStep Energy And Water & sca & num \\ \hline
+SnowSMIN & MINIMUM SLOPE [degree] TO ADJUST PRECIPITATION REDUCTION & degree &  & 30 & sca & num \\ \hline
+SnowSMAX & MAXIMUM SLOPE [degree] TO ADJUST PRECIPITATION REDUCTION & degree &  & 80 & sca & num \\ \hline
+SnowCURV & SHAPE PARAMETER FOR PRECIPITATION REDUCTION (if <0 the adjustment is not applied) & - &  & -200 & sca & num \\ \hline
+MaxWaterEqSnowLayerContent & maximum water equivalent admitted in a snow layer & kg m$^{-2}$ &  & 5 & sca & num \\ \hline
+MaxSnowLayerNumber & maximum layers of snow to use (suggested $>$10) &  &  & 10 & sca & num \\ \hline
+ThickerSnowLayers & Layer numbers that can become thicker than admitted by the threshold given by MaxSnow Layer Number (from the bottom up). They can be more than one &  &  & MaxSnow Layer Number/2 & vec & num \\ \hline
+BlowingSnow & Activate blowing snow module (yes=1, no=0) & - &  & 0 & sca & opt \\ \hline
+PointMaxSWE & Max snow water equivalent that can be reached in the simulation point & kg m$^{-2}$ &  & NA & vec & num \\ \hline
+SnowAgingCoeffVis & reflectance of the new snow in the visible wave length & - &  & 0.2 & sca & num \\ \hline
+SnowAgingCoeffNIR & reflectance of the new snow in the infrared wave length & - &  & 0.5 & sca & num \\ \hline
+\caption{Table of snow parameters  (numeric)}
+\label{snow_numeric}
+\end{longtable}
+\end{center}
+
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+FrozenSoilHydrCondReduction & Reduction factor of the hydraulic conductivity in partially frozen soil ($K=K_{no\_ice}*10^{impedence Q}$, where Q is the ice ratio & - & 0, 7 & 2 & sca & num \\ \hline
+PointSoilType & Soil type of the simulation point & - &  & NA & vec & num \\ \hline
+SoilLayerThicknesses & vector defining the thickness of the various soil layers. If not present, a column of 5 layers 100 mm thick will be assumed & mm &  & 100 & vec & num \\ \hline
+SoilLayerNumber & number of soil layers (is calculated after the number of components of the vector SoilLayerNumber) & - &  & 5 & sca & num \\ \hline
+NormalHydrConductivity &  & mm s$^{-1}$ &  & 1.00E-04 & vec & num \\ \hline
+LateralHydrConductivity &  & mm s$^{-1}$ &  & 1.00E-04 & vec & num \\ \hline
+ThetaRes &  & - &  & 0.05 & vec & num \\ \hline
+WiltingPoint &  & - &  & 0.15 & vec & num \\ \hline
+FieldCapacity &  & - &  & 0.25 & vec & num \\ \hline
+ThetaSat &  & - &  & 0.5 & vec & num \\ \hline
+AlphaVanGenuchten &  & mm$^{-1}$ &  & 0.004 & vec & num \\ \hline
+NVanGenuchten &  & - &  & 1.3 & vec & num \\ \hline
+VMualem &  & - &  & 0.5 & vec & num \\ \hline
+ThermalConductivitySoilSolids & thermal conductivity of the soil particles & W m$^{-1}$ K$^{-1}$ &  & 2.5 & vec & num \\ \hline
+ThermalCapacitySoilSolids & thermal capacity of the soil particles & J m$^{-3}$ K$^{-1}$ &  & 1.00E+06 & vec & num \\ \hline
+SpecificStorativity &  & mm$^{-1}$ &  & 1.00E-07 & vec & num \\ \hline
+NormalHydrConductivityBedrock &  & mm s$^{-1}$ &  & 1.00E-04 & vec & num \\ \hline
+LateralHydrConductivityBedrock &  & mm s$^{-1}$ &  & 1.00E-04 & vec & num \\ \hline
+\caption{Table of soil parameters  (numeric)}
+\label{soil_numeric}
+\end{longtable}
+\end{center}
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+NumLandCoverTypes & Number of Classes of land cover. Each land cover type corresponds to a particular land-cover state, described by a specific set of values of the parameters listed below. Each set of land cover parameters will be distributively assigned according to the land cover map, which relates each pixel with a land cover type number. This number corresponds to the number of component in the numerical vector that is assigned to any land cover parameters listed below. & - & 1, inf & 1 & sca & num \\ \hline
+SoilRoughness & Roughness length of soil surface & mm & 0, 1000 & 10 & sca & num \\ \hline
+SoilAlbVisDry & Ground albedo without snow in the visible - dry & - & 0, 1 & 0.2 & sca & num \\ \hline
+SoilAlbNIRDry & Ground albedo without snow in the near infrared - dry & - & 0, 1 & 0.2 & sca & num \\ \hline
+SoilAlbVisWet & Ground albedo without snow in the visible - saturated & - & 0, 1 & 0.2 & sca & num \\ \hline
+SoilAlbNIRWet & Ground albedo without snow in the near infrared - saturated & - & 0, 1 & 0.2 & sca & num \\ \hline
+SoilEmissiv & Soil emissivity & - & 0, 1 & 0.96 & sca & num \\ \hline
+PointLandCoverType & Land Cover type of the simulation point & - &  & NA & vec & num \\ \hline
+\caption{Table of soil surface parameters  (numeric)}
+\label{soilsurface_numeric}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+LWinParameterization & Which formula for incoming longwave radiation:  1 (Brutsaert, 1975), 2 (Satterlund, 1979), 3 (Idso, 1981), 4(Idso+Hodges),  5 (Koenig-Langlo \& Augstein, 1994), 6 (Andreas \& Ackley, 1982), 7 (Konzelmann, 1994), 8 (Prata, 1996), 9 (Dilley 1998) &  & 1, 2, .., 9 & 9 & sca & opt \\ \hline
+MoninObukhov & Atmospherical stability parameter: 1 stability and instability considered, 2 stability not considered, 3 instability not considered, 4 always neutrality &  &  & 1 & sca & num \\ \hline
+Surroundings & Yes(1), No(0) & - &  & 0 & sca & opt \\ \hline
+\caption{Table of surface energy flux parameters  (numeric)}
+\label{surfaceenergyfluxes_numeric}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+Latitude & Average latitude of the basin, positive means north, negative means south (MANDATORY) & degree & -90, 90 & 45 & sca & num \\ \hline
+Longitude & Average longitude of the basin, eastwards from 0 meridiane (MANDATORY) & degree & 0, 180 & 0 & sca & num \\ \hline
+PointID & identification code for the point of simulation &  &  & NA & sca & num \\ \hline
+CoordinatePointX & coordinate X if PixelCoordinates is 1, number of row of the matrix if PixelCoordinates is 0 & m (according to the geographical projection of the maps) &  & NA & vec & num \\ \hline
+CoordinatePointY & coordinate Y if PixelCoordinates is 1, number of column of the matrix if PixelCoordinates is 1 & m (according to the geographical projection of the maps) &  & NA & vec & num \\ \hline
+PointElevation & elevation of the point of simulation & m a.s.l. &  & NA & vec & num \\ \hline
+PointSlope & Slope steepness of the simulation point & degree &  & NA & vec & num \\ \hline
+PointAspect & Aspect of the simulation point & degree &  & NA & vec & num \\ \hline
+PointSkyViewFactor & Sky View Factor of the simulation point & - &  & NA & vec & num \\ \hline
+PointCurvatureNorthSouthDirection & N-S curvature of the simulation point & m$^{-1}$ &  & NA & vec & num \\ \hline
+PointCurvatureWestEastDirection & W-E curvature of the simulation point & m$^{-1}$ &  & NA & vec & num \\ \hline
+PointCurvatureNorthwest SoutheastDirection & N-W curvature of the simulation point & m$^{-1}$ &  & NA & vec & num \\ \hline
+PointCurvatureNortheast SouthwestDirection & N-E curvature of the simulation point & m$^{-1}$ &  & NA & vec & num \\ \hline
+PointDrainageLateralDistance & Lateral Drainage distance of the simulation point & m &  & NA & vec & num \\ \hline
+PointLatitude & Latitude of the simulation point & degree &  & NA & sca & num \\ \hline
+PointLongitude & Longitude of the simulation point & degree &  & NA & sca & num \\ \hline
+\caption{Table of topographic parameters  (numeric)}
+\label{topo3d_numeric}
+\end{longtable}
+\end{center}
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+VegHeight & vegetation height & mm & 0, 20000 & 1000 & sca & num \\ \hline
+LSAI & Leaf and Stem Area Index [$L^2/L^2$] & - & 0, 1 & 1 & sca & numeric \\ \hline
+CanopyFraction & Canopy fraction [0: no canopy in the pixel, 1: pixel fully covered by canopy] & - & 0, 1 & 0 & sca & numeric \\ \hline
+DecayCoeffCanopy & Decay coefficient of the eddy diffusivity profile in the canopy & - & 0, inf & 2.5 & sca & numeric \\ \hline
+VegSnowBurying & Coefficient of the exponential snow burying of vegetation & - & 0, inf & 1 & sca & numeric \\ \hline
+RootDepth & Root depth [mm] (it is used to calculate root\_fraction for each layer, it must be positive) & mm & 0, inf & 300 & sca & numeric \\ \hline
+MinStomatalRes & Minimum stomatal resistance & s $m^{-1}$ & 0, inf & 60 & sca & numeric \\ \hline
+VegReflectVis & Vegetation reflectivity in the visible & - & 0, 1 & 0.2 & sca & numeric \\ \hline
+VegReflNIR & Vegetation reflectivity in the near infrared & - & 0, 1 & 0.2 & sca & numeric \\ \hline
+VegTransVis & Vegetation transmissimity in the visible & - & 0, 1 & 0.2 & sca & numeric \\ \hline
+VegTransNIR & Vegetation transmissimity in the near infrared & - & 0, 1 & 0.2 & sca & numeric \\ \hline
+LeafAngles & Departure of leaf angles from a random distribution (1 horizontal, 0 random, -1 vertical) & - & -1, 0, 1 & 0 & sca & opt \\ \hline
+CanDensSurface & Surface density of canopy & kg m$^{-2}$ LSAI$^{-1}$ & 0, inf & 2 & sca & num \\ \hline
+\caption{Table of vegetation parameters  (numeric)}
+\label{vege_numeric}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\section{3D OUTPUT NUMERIC}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+DtPlotPoint & Plotting Time step (in hour) of THE OUTPUT FOR SPECIFIED PIXELS (0 means the it is not plotted) & h & 0, inf & 0 & vec & num \\ \hline
+DatePoint & column number in which one would like to visualize the Date12[DDMMYYYYhhmm]    	 & - & 1, 76 & -1 & sca & num \\ \hline
+JulianDayFromYear0Point & column number in which one would like to visualize the JulianDayFromYear0[days]   	 & - & 1, 76 & -1 & sca & num \\ \hline
+TimeFromStartPoint & column number in which one would like to visualize the TimeFromStart[days]  & - & 1, 76 & -1 & sca & num \\ \hline
+PeriodPoint & column number in which one would like to visualize the Simulation\_Period & - & 1, 76 & -1 & sca & num \\ \hline
+RunPoint & column number in which one would like to visualize the Run	 & - & 1, 76 & -1 & sca & num \\ \hline
+IDPointPoint & column number in which one would like to visualize the IDpoint  & - & 1, 76 & -1 & sca & num \\ \hline
+PsnowPoint & column number in which one would like to visualize the Psnow\_over\_canopy[mm]      & - & 1, 76 & -1 & sca & num \\ \hline
+PrainPoint & column number in which one would like to visualize the Prain\_over\_canopy[mm] 	 & - & 1, 76 & -1 & sca & num \\ \hline
+PsnowNetPoint & column number in which one would like to visualize the Psnow\_under\_canopy[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+PrainNetPoint & column number in which one would like to visualize the Prain\_under\_canopy[mm] 	 & - & 1, 76 & -1 & sca & num \\ \hline
+PrainOnSnowPoint & column number in which one would like to visualize the Prain\_rain\_on\_snow[mm] & - & 1, 76 & -1 & sca & num \\ \hline
+WindSpeedPoint & column number in which one would like to visualize the Wind\_speed[m/s]          & - & 1, 76 & -1 & sca & num \\ \hline
+WindDirPoint & column number in which one would like to visualize the Wind\_direction[deg]   & - & 1, 76 & -1 & sca & num \\ \hline
+RHPoint & column number in which one would like to visualize the Relative\_Humidity[-]     & - & 1, 76 & -1 & sca & num \\ \hline
+AirPressPoint & column number in which one would like to visualize the Pressure[mbar]     & - & 1, 76 & -1 & sca & num \\ \hline
+AirTempPoint & column number in which one would like to visualize the Tair[\textcelsius]     & - & 1, 76 & -1 & sca & num \\ \hline
+TDewPoint & column number in which one would like to visualize the Tdew[\textcelsius]   & - & 1, 76 & -1 & sca & num \\ \hline
+TsurfPoint & column number in which one would like to visualize the Tsurface[\textcelsius]     & - & 1, 76 & -1 & sca & num \\ \hline
+TvegPoint & column number in which one would like to visualize the Tvegetation[\textcelsius]     & - & 1, 76 & -1 & sca & num \\ \hline
+TCanopyAirPoint & column number in which one would like to visualize the Tcanopyair[\textcelsius]     & - & 1, 76 & -1 & sca & num \\ \hline
+SurfaceEBPoint & column number in which one would like to visualize the Surface\_Energy\_balance [W/m2]     & - & 1, 76 & -1 & sca & num \\ \hline
+SoilHeatFluxPoint & column number in which one would like to visualize the Soil\_heat\_flux[W/m2]      & - & 1, 76 & -1 & sca & num \\ \hline
+SWinPoint & column number in which one would like to visualize the SWin[W/m2]   & - & 1, 76 & -1 & sca & num \\ \hline
+SWbeamPoint & column number in which one would like to visualize the SWbeam[W/m2]    & - & 1, 76 & -1 & sca & num \\ \hline
+SWdiffPoint & column number in which one would like to visualize the SWdiff[W/m2]   & - & 1, 76 & -1 & sca & num \\ \hline
+LWinPoint & column number in which one would like to visualize the LWin[W/m2]  & - & 1, 76 & -1 & sca & num \\ \hline
+LWinMinPoint & column number in which one would like to visualize the LWin\_min[W/m2]  & - & 1, 76 & -1 & sca & num \\ \hline
+LWinMaxPoint & column number in which one would like to visualize the LWin\_max[W/m2] & - & 1, 76 & -1 & sca & num \\ \hline
+SWNetPoint & column number in which one would like to visualize the SWnet[W/m2]      & - & 1, 76 & -1 & sca & num \\ \hline
+LWNetPoint & column number in which one would like to visualize the LWnet[W/m2]      & - & 1, 76 & -1 & sca & num \\ \hline
+HPoint & column number in which one would like to visualize the H[W/m2]       & - & 1, 76 & -1 & sca & num \\ \hline
+LEPoint & column number in which one would like to visualize the LE[W/m2]      & - & 1, 76 & -1 & sca & num \\ \hline
+CanopyFractionPoint & column number in which one would like to visualize the Canopy\_fraction[-]      & - & 1, 76 & -1 & sca & num \\ \hline
+LSAIPoint & column number in which one would like to visualize the LSAI[m2/m2]    & - & 1, 76 & -1 & sca & num \\ \hline
+z0vegPoint & column number in which one would like to visualize the z0veg[m]     & - & 1, 76 & -1 & sca & num \\ \hline
+d0vegPoint & column number in which one would like to visualize the d0veg[m]     & - & 1, 76 & -1 & sca & num \\ \hline
+EstoredCanopyPoint & column number in which one would like to visualize the Estored\_canopy[W/m2]    & - & 1, 76 & -1 & sca & num \\ \hline
+SWvPoint & column number in which one would like to visualize the SWv[W/m2]     & - & 1, 76 & -1 & sca & num \\ \hline
+LWvPoint & column number in which one would like to visualize the LWv[W/m2]     & - & 1, 76 & -1 & sca & num \\ \hline
+HvPoint & column number in which one would like to visualize the Hv[W/m2]      & - & 1, 76 & -1 & sca & num \\ \hline
+LEvPoint & column number in which one would like to visualize the LEv[W/m2]     & - & 1, 76 & -1 & sca & num \\ \hline
+HgUnvegPoint & column number in which one would like to visualize the Hg\_unveg[W/m2]     & - & 1, 76 & -1 & sca & num \\ \hline
+LEgUnvegPoint & column number in which one would like to visualize the LEg\_unveg[W/m2]    & - & 1, 76 & -1 & sca & num \\ \hline
+HgVegPoint & column number in which one would like to visualize the Hg\_veg[W/m2]     & - & 1, 76 & -1 & sca & num \\ \hline
+LEgVegPoint & column number in which one would like to visualize the LEg\_veg[W/m2]    & - & 1, 76 & -1 & sca & num \\ \hline
+EvapSurfacePoint & column number in which one would like to visualize the Evap\_surface[mm]   & - & 1, 76 & -1 & sca & num \\ \hline
+TraspCanopyPoint & column number in which one would like to visualize the Trasp\_canopy[mm]     & - & 1, 76 & -1 & sca & num \\ \hline
+WaterOnCanopyPoint & column number in which one would like to visualize the Water\_on\_canopy[mm] & - & 1, 76 & -1 & sca & num \\ \hline
+SnowOnCanopyPoint & column number in which one would like to visualize the Snow\_on\_canopy[mm] & - & 1, 76 & -1 & sca & num \\ \hline
+QVegPoint & column number in which one would like to visualize the specific humidity near the vegetation (grams vapour/grams air)  & - & 1, 76 & -1 & sca & num \\ \hline
+QSurfPoint & column number in which one would like to visualize the specific humidity at the surface (grams vapour/grams air)  & - & 1, 76 & -1 & sca & num \\ \hline
+QAirPoint & column number in which one would like to visualize the specific humidity at air (grams vapour/grams air)  & - & 1, 76 & -1 & sca & num \\ \hline
+QCanopyAirPoint & column number in which one would like to visualize the specific humidity at the canopy-air interface (grams vapour/grams air)  & - & 1, 76 & -1 & sca & num \\ \hline
+LObukhovPoint & column number in which one would like to visualize the LObukhov[m] & - & 1, 76 & -1 & sca & num \\ \hline
+LObukhovCanopyPoint & column number in which one would like to visualize the LObukhovcanopy[m] & - & 1, 76 & -1 & sca & num \\ \hline
+WindSpeedTopCanopyPoint & column number in which one would like to visualize the Wind\_speed\_top\_canopy [m/s]     & - & 1, 76 & -1 & sca & num \\ \hline
+DecayKCanopyPoint & column number in which one would like to visualize the Decay\_of\_K\_in\_canopy[-]    & - & 1, 76 & -1 & sca & num \\ \hline
+SWupPoint & column number in which one would like to visualize the SWup[W/m$^{2}$]    & - & 1, 76 & -1 & sca & num \\ \hline
+LWupPoint & column number in which one would like to visualize the LWup[W/m$^{2}$]    & - & 1, 76 & -1 & sca & num \\ \hline
+HupPoint & column number in which one would like to visualize the Hup[W/m$^{2}$]     & - & 1, 76 & -1 & sca & num \\ \hline
+LEupPoint & column number in which one would like to visualize the LEup[W/m$^{2}$]    & - & 1, 76 & -1 & sca & num \\ \hline
+SnowDepthPoint & column number in which one would like to visualize the snow\_depth[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+SWEPoint & column number in which one would like to visualize the snow\_water\_equivalent [mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+SnowDensityPoint & column number in which one would like to visualize the snow\_density[kg/m$^{3}$]  & - & 1, 76 & -1 & sca & num \\ \hline
+SnowTempPoint & column number in which one would like to visualize the snow\_temperature[\textcelsius]  & - & 1, 76 & -1 & sca & num \\ \hline
+SnowMeltedPoint & column number in which one would like to visualize the snow\_melted[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+SnowSublPoint & column number in which one would like to visualize the snow\_subl[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+SWEBlownPoint & column number in which one would like to visualize the snow\_blown\_away[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+SWESublBlownPoint & column number in which one would like to visualize the snow\_subl\_while\_blown [mm] & - & 1, 76 & -1 & sca & num \\ \hline
+GlacDepthPoint & column number in which one would like to visualize the glac\_depth[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+GWEPoint & column number in which one would like to visualize the glac\_water\_equivalent[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+GlacDensityPoint & column number in which one would like to visualize the glac\_density[kg/m$^{3}$]  & - & 1, 76 & -1 & sca & num \\ \hline
+GlacTempPoint & column number in which one would like to visualize the glac\_temperature[\textcelsius]  & - & 1, 76 & -1 & sca & num \\ \hline
+GlacMeltedPoint & column number in which one would like to visualize the glac\_melted[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+GlacSublPoint & column number in which one would like to visualize the glac\_subl[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+ThawedSoilDepthPoint & column number in which one would like to visualize the thawed\_soil\_depth[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+WaterTableDepthPoint & column number in which one would like to visualize the water\_table\_depth[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+DefaultPoint & 0: use personal setting, 1:use default & - & 0, 1 & 1 & sca & opt \\ \hline
+\caption{Table of point output  (numeric)}
+\label{point3d_numeric}
+\end{longtable}
+\end{center}
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+DtPlotBasin & Plotting Time step (in hour) of THE basin averaged output (0 means the it is not plotted) & h & 0, inf & 0 & vec & num \\ \hline
+DateBasin & column in which one would like to visualize the Date12 [DDMMYYYYhhmm]    	 & - & 1, 24 & -1 & sca & num \\ \hline
+JulianDayFromYear0Basin & column in which one would like to visualize the JulianDayFromYear0[days]   	 & - & 1, 24 & -1 & sca & num \\ \hline
+TimeFromStartBasin & column in which one would like to visualize the TimeFromStart[days]     & - & 1, 24 & -1 & sca & num \\ \hline
+PeriodBasin & column in which one would like to visualize the Simulation\_Period & - & 1, 24 & -1 & sca & num \\ \hline
+RunBasin & column in which one would like to visualize the Run	 & - & 1, 24 & -1 & sca & num \\ \hline
+PRainNetBasin & column in which one would like to visualize the Prain\_below\_canopy[mm]      & - & 1, 24 & -1 & sca & num \\ \hline
+PSnowNetBasin & column in which one would like to visualize the Psnow\_below\_canopy[mm]      & - & 1, 24 & -1 & sca & num \\ \hline
+PRainBasin & column in which one would like to visualize the Prain\_above\_canopy[mm]      & - & 1, 24 & -1 & sca & num \\ \hline
+PSnowBasin & column in which one would like to visualize the Prain\_above\_canopy[mm]      & - & 1, 24 & -1 & sca & num \\ \hline
+AirTempBasin & column in which one would like to visualize the Tair[\textcelsius]      & - & 1, 24 & -1 & sca & num \\ \hline
+TSurfBasin & column in which one would like to visualize the Tsurface[\textcelsius]      & - & 1, 24 & -1 & sca & num \\ \hline
+TvegBasin & column in which one would like to visualize the Tvegetation[\textcelsius]      & - & 1, 24 & -1 & sca & num \\ \hline
+EvapSurfaceBasin & column in which one would like to visualize the Evap\_surface[mm]      & - & 1, 24 & -1 & sca & num \\ \hline
+TraspCanopyBasin & column in which one would like to visualize the Transpiration\_canopy[mm]      & - & 1, 24 & -1 & sca & num \\ \hline
+LEBasin & column in which one would like to visualize the LE[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+HBasin & column in which one would like to visualize the H[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+SWNetBasin & column in which one would like to visualize the SW[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+LWNetBasin & column in which one would like to visualize the LW[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+LEvBasin & column in which one would like to visualize the LEv[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+HvBasin & column in which one would like to visualize the Hv[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+SWvBasin & column in which one would like to visualize the SWv[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+LWvBasin & column in which one would like to visualize the LWv[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+SWinBasin & column in which one would like to visualize the SWin[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+LWinBasin & column in which one would like to visualize the LWin[W/m$^{2}$]      & - & 1, 24 & -1 & sca & num \\ \hline
+MassErrorBasin & column in which one would like to visualize the Mass\_balance\_error[mm]      & - & 1, 24 & -1 & sca & num \\ \hline
+DefaultBasin & 0: use personal setting, 1:use default & - & 0, 1 & 1 & sca & opt \\ \hline
+\caption{Table of basin output  (numeric)}
+\label{basin_numeric}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+DtPlotDischarge & Plotting Time step (in hour) of THE WATER DISCHARGE (0 means the it is not plotted) & h & 0, inf & 0 & vec & num \\ \hline
+\caption{Table of channel flow output  (numeric)}
+\label{channel_numeric}
+\end{longtable}
+\end{center}
+
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+FormatOutputMaps & Format of the output maps (=2 grass ascii, =3 esri ascii) & - & 2, 3 & 3 & sca & num \\ \hline
+\caption{Table of general output  (numeric)}
+\label{general_numeric}
+\end{longtable}
+\end{center}
+
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+OutputGlacierMaps & frequency (h) of printing of the results of the glacier maps & h &  & 0 & sca & num \\ \hline
+DateGlac & column number in which one would like to visualize the Date12 [DDMMYYYYhhmm]    	 & - &  & -1 & sca & num \\ \hline
+JulianDayFromYear0Glac & column number in which one would like to visualize the JulianDayFromYear0[days]   	 & - &  & -1 & sca & num \\ \hline
+TimeFromStartGlac & column in which one would like to visualize the TimeFromStart[days]     & - &  & -1 & sca & num \\ \hline
+PeriodGlac & Column number to write the period number & - &  & -1 & sca & num \\ \hline
+RunGlac & Column number to write the run number & - &  & -1 & sca & num \\ \hline
+IDPointGlac & column number in which one would like to visualize the IDpoint  & - &  & -1 & sca & num \\ \hline
+WaterEquivalentGlac & column number in which one would like the water equivalent of the glacier & - &  & -1 & sca & num \\ \hline
+DepthGlac & column number in which one would like to visualize the depth of the glacier & - &  & -1 & sca & num \\ \hline
+DensityGlac & column number in which one would like to visualize the density of the glacier & - &  & -1 & sca & num \\ \hline
+TempGlac & column number in which one would like to visualize the temperature of the glacier  & - &  & -1 & sca & num \\ \hline
+IceContentGlac & column number in which one would like to visualize the ice content of the glacier  & - &  & -1 & sca & num \\ \hline
+WatContentGlac & column number in which one would like to visualize the water content of the glacier  & - &  & -1 & sca & num \\ \hline
+DefaultGlac & 0: use personal setting, 1:use default & - & 0, 1 & 1 & sca & opt \\ \hline
+GlacPlotDepths & depths of the glacier where one wants to write the results & - &  & NA & vec & num \\ \hline
+\caption{Table of glacier output  (numeric)}
+\label{glacier_numeric}
+\end{longtable}
+\end{center}
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+OutputMeteoMaps & frequency (h) of printing of the results of the meteo maps & h &  & 0 & sca & num \\ \hline
+SpecialPlotBegin & date of begin of plotting of the special output & format DDMMYYhhmm & 01/01/1800 00:00, 01/01/2500 00:00 & 0 & vec & str \\ \hline
+SpecialPlotEnd & date of end of plotting of the special output & format DDMMYYhhmm & 01/01/1800 00:00, 01/01/2500 00:00 & 0 & vec & str \\ \hline
+\caption{Table of meteo output  (numeric)}
+\label{meteo_numeric}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+OutputSnowMaps & frequency (h) of printing of the results of the snow maps & h &  & 0 & sca & num \\ \hline
+DateSnow & column number in which one would like to visualize the Date12[DDMMYYYY hhmm]    	 & - &  & -1 & sca & num \\ \hline
+JulianDayFromYear0Snow & column number in which one would like to visualize the JulianDayFromYear0[days]   	 & - &  & -1 & sca & num \\ \hline
+TimeFromStartSnow & column in which one would like to visualize the TimeFromStart[days]     & - &  & -1 & sca & num \\ \hline
+PeriodSnow & Column number to write the period number & - &  & -1 & sca & num \\ \hline
+RunSnow & Column number to write the run number & - &  & -1 & sca & num \\ \hline
+IDPointSnow & column number in which one would like to visualize the IDpoint  & - &  & -1 & sca & num \\ \hline
+WaterEquivalentSnow & column number in which one would like the water equivalent of the snow & - &  & -1 & sca & num \\ \hline
+DepthSnow & column number in which one would like to visualize the depth of the snow & - &  & -1 & sca & num \\ \hline
+DensitySnow & column number in which one would like to visualize the density of the snow & - &  & -1 & sca & num \\ \hline
+TempSnow & column number in which one would like to visualize the temperature of the snow  & - &  & -1 & sca & num \\ \hline
+IceContentSnow & column number in which one would like to visualize the ice content of the snow  & - &  & -1 & sca & num \\ \hline
+WatContentSnow & column number in which one would like to visualize the water content of the snow  & - &  & -1 & sca & num \\ \hline
+DefaultSnow & 0: use personal setting, 1:use default & - & 0, 1 & 1 & sca & opt \\ \hline
+SnowPlotDepths & depth at which one wants the data on the snow to be plotted & - &  & NA & vec & num \\ \hline
+\caption{Table of snow output  (numeric)}
+\label{snow_numeric}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+OutputSoilMaps & frequency (h) of printing of the results of the soil maps & h &  & 0 & sca & num \\ \hline
+DateSoil & column number in which one would like to visualize the Date12[DDMMYYYY hhmm]    	 & - &  & -1 & sca & num \\ \hline
+JulianDayFromYear0Soil & column number in which one would like to visualize the JulianDayFromYear0[days]   	 & - &  & -1 & sca & num \\ \hline
+TimeFromStartSoil & column number in which one would like to visualize the time from the start of the soil & - &  & -1 & sca & num \\ \hline
+PeriodSoil & Column number to write the period number & - &  & -1 & sca & num \\ \hline
+RunSoil & Column number to write the run number & - &  & -1 & sca & num \\ \hline
+IDPointSoil & column number in which one would like to visualize the IDpoint  & - &  & -1 & sca & num \\ \hline
+DefaultSoil & 0: use personal setting, 1:use default & - & 0, 1 & 1 & sca & opt \\ \hline
+SoilPlotDepths & depth at which one wants the data on the snow to be plotted & m &  & NA & vec & num \\ \hline
+\caption{Table of soil output  (numeric)}
+\label{soil_numeric}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+OutputSurfEBALMaps & frequency (h) of printing of the results of the Surface energy balance maps & h &  & 0 & sca & num \\ \hline
+\caption{Table of soil surface output  (numeric)}
+\label{soilsurf_numeric}
+\end{longtable}
+\end{center}
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+OutputVegetationMaps & frequency (h) of printing of the results of the vegetation maps & h &  & 0 & sca & num \\ \hline
+\caption{Table of vegetation output  (numeric)}
+\label{vegetation_numeric}
+\end{longtable}
+\end{center}
+
+\clearpage
+\section{1D OUTPUT NUMERIC}
+
+
+
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+DateGlac & column number in which one would like to visualize the Date12[DDMMYYYY hhmm]    	 & - &  & -1 & sca & num \\ \hline
+JulianDayFromYear0Glac & column number in which one would like to visualize the JulianDayFromYear0[days]   	 & - &  & -1 & sca & num \\ \hline
+TimeFromStartGlac & column in which one would like to visualize the TimeFromStart[days]     & - &  & -1 & sca & num \\ \hline
+PeriodGlac & Column number to write the period number & - &  & -1 & sca & num \\ \hline
+RunGlac & Column number to write the run number & - &  & -1 & sca & num \\ \hline
+IDPointGlac & column number in which one would like to visualize the IDpoint  & - &  & -1 & sca & num \\ \hline
+WaterEquivalentGlac & column number in which one would like the water equivalent of the glacier & - &  & -1 & sca & num \\ \hline
+DepthGlac & column number in which one would like to visualize the depth of the glacier & - &  & -1 & sca & num \\ \hline
+DensityGlac & column number in which one would like to visualize the density of the glacier & - &  & -1 & sca & num \\ \hline
+TempGlac & column number in which one would like to visualize the temperature of the glacier  & - &  & -1 & sca & num \\ \hline
+IceContentGlac & column number in which one would like to visualize the ice content of the glacier  & - &  & -1 & sca & num \\ \hline
+WatContentGlac & column number in which one would like to visualize the water content of the glacier  & - &  & -1 & sca & num \\ \hline
+DefaultGlac & 0: use personal setting, 1:use default & - & 0, 1 & 1 & sca & opt \\ \hline
+GlacPlotDepths & depths of the glacier where one wants to write the results & - &  & NA & vec & num \\ \hline
+\caption{Table of glacier output  (numeric)}
+\label{glacier1d_numeric}
+\end{longtable}
+\end{center}
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+DtPlotPoint & Plotting Time step (in hour) of THE OUTPUT FOR SPECIFIED PIXELS (0 means the it is not plotted) & h & 0, inf & 0 & vec & num \\ \hline
+DatePoint & column number in which one would like to visualize the Date12[DDMMYYYY hhmm]    	 & - & 1, 76 & -1 & sca & num \\ \hline
+JulianDayFromYear0Point & column number in which one would like to visualize the JulianDayFromYear0[days]   	 & - & 1, 76 & -1 & sca & num \\ \hline
+TimeFromStartPoint & column number in which one would like to visualize the TimeFromStart[days]  & - & 1, 76 & -1 & sca & num \\ \hline
+PeriodPoint & column number in which one would like to visualize the Simulation\_Period & - & 1, 76 & -1 & sca & num \\ \hline
+RunPoint & column number in which one would like to visualize the Run	 & - & 1, 76 & -1 & sca & num \\ \hline
+IDPointPoint & column number in which one would like to visualize the IDpoint  & - & 1, 76 & -1 & sca & num \\ \hline
+PsnowPoint & column number in which one would like to visualize the Psnow\_over\_canopy[mm]      & - & 1, 76 & -1 & sca & num \\ \hline
+PrainPoint & column number in which one would like to visualize the Prain\_over\_canopy[mm] 	 & - & 1, 76 & -1 & sca & num \\ \hline
+PsnowNetPoint & column number in which one would like to visualize the Psnow\_under\_canopy[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+PrainNetPoint & column number in which one would like to visualize the Prain\_under\_canopy[mm] 	 & - & 1, 76 & -1 & sca & num \\ \hline
+PrainOnSnowPoint & column number in which one would like to visualize the Prain\_rain\_on\_snow[mm] & - & 1, 76 & -1 & sca & num \\ \hline
+WindSpeedPoint & column number in which one would like to visualize the Wind\_speed[m/s]          & - & 1, 76 & -1 & sca & num \\ \hline
+WindDirPoint & column number in which one would like to visualize the Wind\_direction[deg]   & - & 1, 76 & -1 & sca & num \\ \hline
+RHPoint & column number in which one would like to visualize the Relative\_Humidity[-]     & - & 1, 76 & -1 & sca & num \\ \hline
+AirPressPoint & column number in which one would like to visualize the Pressure[mbar]     & - & 1, 76 & -1 & sca & num \\ \hline
+AirTempPoint & column number in which one would like to visualize the Tair[\textcelsius]     & - & 1, 76 & -1 & sca & num \\ \hline
+TDewPoint & column number in which one would like to visualize the Tdew[\textcelsius]   & - & 1, 76 & -1 & sca & num \\ \hline
+TsurfPoint & column number in which one would like to visualize the Tsurface[\textcelsius]     & - & 1, 76 & -1 & sca & num \\ \hline
+TvegPoint & column number in which one would like to visualize the Tvegetation[\textcelsius]     & - & 1, 76 & -1 & sca & num \\ \hline
+TCanopyAirPoint & column number in which one would like to visualize the Tcanopyair[\textcelsius]     & - & 1, 76 & -1 & sca & num \\ \hline
+SurfaceEBPoint & column number in which one would like to visualize the Surface\_Energy\_balance [W/m$^{2}$]     & - & 1, 76 & -1 & sca & num \\ \hline
+SoilHeatFluxPoint & column number in which one would like to visualize the Soil\_heat\_flux[W/m$^{2}$]      & - & 1, 76 & -1 & sca & num \\ \hline
+SWinPoint & column number in which one would like to visualize the SWin[W/m$^{2}$]   & - & 1, 76 & -1 & sca & num \\ \hline
+SWbeamPoint & column number in which one would like to visualize the SWbeam[W/m$^{2}$]    & - & 1, 76 & -1 & sca & num \\ \hline
+SWdiffPoint & column number in which one would like to visualize the SWdiff[W/m$^{2}$]   & - & 1, 76 & -1 & sca & num \\ \hline
+LWinPoint & column number in which one would like to visualize the LWin[W/m$^{2}$]  & - & 1, 76 & -1 & sca & num \\ \hline
+LWinMinPoint & column number in which one would like to visualize the LWin\_min[W/m$^{2}$]  & - & 1, 76 & -1 & sca & num \\ \hline
+LWinMaxPoint & column number in which one would like to visualize the LWin\_max[W/m$^{2}$] & - & 1, 76 & -1 & sca & num \\ \hline
+SWNetPoint & column number in which one would like to visualize the SWnet[W/m$^{2}$]      & - & 1, 76 & -1 & sca & num \\ \hline
+LWNetPoint & column number in which one would like to visualize the LWnet[W/m$^{2}$]      & - & 1, 76 & -1 & sca & num \\ \hline
+HPoint & column number in which one would like to visualize the H[W/m$^{2}$]       & - & 1, 76 & -1 & sca & num \\ \hline
+LEPoint & column number in which one would like to visualize the LE[W/m$^{2}$]      & - & 1, 76 & -1 & sca & num \\ \hline
+CanopyFractionPoint & column number in which one would like to visualize the Canopy\_fraction[-]      & - & 1, 76 & -1 & sca & num \\ \hline
+LSAIPoint & column number in which one would like to visualize the LSAI[m$^{2}$/m$^{2}$]    & - & 1, 76 & -1 & sca & num \\ \hline
+z0vegPoint & column number in which one would like to visualize the z0veg[m]     & - & 1, 76 & -1 & sca & num \\ \hline
+d0vegPoint & column number in which one would like to visualize the d0veg[m]     & - & 1, 76 & -1 & sca & num \\ \hline
+EstoredCanopyPoint & column number in which one would like to visualize the Estored\_canopy[W/m2]    & - & 1, 76 & -1 & sca & num \\ \hline
+SWvPoint & column number in which one would like to visualize the SWv[W/m$^{2}$]     & - & 1, 76 & -1 & sca & num \\ \hline
+LWvPoint & column number in which one would like to visualize the LWv[W/m$^{2}$]     & - & 1, 76 & -1 & sca & num \\ \hline
+HvPoint & column number in which one would like to visualize the Hv[W/m$^{2}$]      & - & 1, 76 & -1 & sca & num \\ \hline
+LEvPoint & column number in which one would like to visualize the LEv[W/m$^{2}$]     & - & 1, 76 & -1 & sca & num \\ \hline
+HgUnvegPoint & column number in which one would like to visualize the Hg\_unveg[W/m$^{2}$]     & - & 1, 76 & -1 & sca & num \\ \hline
+LEgUnvegPoint & column number in which one would like to visualize the LEg\_unveg[W/m$^{2}$]    & - & 1, 76 & -1 & sca & num \\ \hline
+HgVegPoint & column number in which one would like to visualize the Hg\_veg[W/m$^{2}$]     & - & 1, 76 & -1 & sca & num \\ \hline
+LEgVegPoint & column number in which one would like to visualize the LEg\_veg[W/m$^{2}$]    & - & 1, 76 & -1 & sca & num \\ \hline
+EvapSurfacePoint & column number in which one would like to visualize the Evap\_surface[mm]   & - & 1, 76 & -1 & sca & num \\ \hline
+TraspCanopyPoint & column number in which one would like to visualize the Trasp\_canopy[mm]     & - & 1, 76 & -1 & sca & num \\ \hline
+WaterOnCanopyPoint & column number in which one would like to visualize the Water\_on\_canopy[mm] & - & 1, 76 & -1 & sca & num \\ \hline
+SnowOnCanopyPoint & column number in which one would like to visualize the Snow\_on\_canopy[mm] & - & 1, 76 & -1 & sca & num \\ \hline
+QVegPoint & column number in which one would like to visualize the specific humidity near the vegetation (grams vapour/grams air)  & - & 1, 76 & -1 & sca & num \\ \hline
+QSurfPoint & column number in which one would like to visualize the specific humidity at the surface (grams vapour/grams air)  & - & 1, 76 & -1 & sca & num \\ \hline
+QAirPoint & column number in which one would like to visualize the specific humidity at air (grams vapour/grams air)  & - & 1, 76 & -1 & sca & num \\ \hline
+QCanopyAirPoint & column number in which one would like to visualize the specific humidity at the canopy-air interface (grams vapour/grams air)  & - & 1, 76 & -1 & sca & num \\ \hline
+LObukhovPoint & column number in which one would like to visualize the LObukhov[m] & - & 1, 76 & -1 & sca & num \\ \hline
+LObukhovCanopyPoint & column number in which one would like to visualize the LObukhovcanopy[m] & - & 1, 76 & -1 & sca & num \\ \hline
+WindSpeedTopCanopyPoint & column number in which one would like to visualize the Wind\_speed\_top\_canopy [m/s]     & - & 1, 76 & -1 & sca & num \\ \hline
+DecayKCanopyPoint & column number in which one would like to visualize the Decay\_of\_K\_in\_canopy[-]    & - & 1, 76 & -1 & sca & num \\ \hline
+SWupPoint & column number in which one would like to visualize the SWup[W/m$^{2}$]    & - & 1, 76 & -1 & sca & num \\ \hline
+LWupPoint & column number in which one would like to visualize the LWup[W/m$^{2}$]    & - & 1, 76 & -1 & sca & num \\ \hline
+HupPoint & column number in which one would like to visualize the Hup[W/m$^{2}$]     & - & 1, 76 & -1 & sca & num \\ \hline
+LEupPoint & column number in which one would like to visualize the LEup[W/m$^{2}$]    & - & 1, 76 & -1 & sca & num \\ \hline
+SnowDepthPoint & column number in which one would like to visualize the snow\_depth[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+SWEPoint & column number in which one would like to visualize the snow\_water\_equivalent [mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+SnowDensityPoint & column number in which one would like to visualize the snow\_density[kg/$^{3}$]  & - & 1, 76 & -1 & sca & num \\ \hline
+SnowTempPoint & column number in which one would like to visualize the snow\_temperature[\textcelsius]  & - & 1, 76 & -1 & sca & num \\ \hline
+SnowMeltedPoint & column number in which one would like to visualize the snow\_melted[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+SnowSublPoint & column number in which one would like to visualize the snow\_subl[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+SWEBlownPoint & column number in which one would like to visualize the snow\_blown\_away[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+SWESublBlownPoint & column number in which one would like to visualize the snow\_subl\_while\_blown [mm] & - & 1, 76 & -1 & sca & num \\ \hline
+GlacDepthPoint & column number in which one would like to visualize the glac\_depth[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+GWEPoint & column number in which one would like to visualize the glac\_water\_equivalent[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+GlacDensityPoint & column number in which one would like to visualize the glac\_density[kg/m$^{3}$]  & - & 1, 76 & -1 & sca & num \\ \hline
+GlacTempPoint & column number in which one would like to visualize the glac\_temperature[\textcelsius]  & - & 1, 76 & -1 & sca & num \\ \hline
+GlacMeltedPoint & column number in which one would like to visualize the glac\_melted[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+GlacSublPoint & column number in which one would like to visualize the glac\_subl[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+ThawedSoilDepthPoint & column number in which one would like to visualize the thawed\_soil\_depth [mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+WaterTableDepthPoint & column number in which one would like to visualize the water\_table\_depth [mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+DefaultPoint & 0: use personal setting, 1:use default & - & 0, 1 & 1 & sca & opt \\ \hline
+\caption{Table of point output  (numeric)}
+\label{point1d_numeric}
+\end{longtable}
+\end{center}
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+DateSnow & column number in which one would like to visualize the Date12 [DDMMYYYYhhmm]    	 & - &  & -1 & sca & num \\ \hline
+JulianDayFromYear0Snow & column number in which one would like to visualize the JulianDayFromYear0[days]   	 & - &  & -1 & sca & num \\ \hline
+TimeFromStartSnow & column in which one would like to visualize the TimeFromStart[days]     & - &  & -1 & sca & num \\ \hline
+PeriodSnow & Column number to write the period number & - &  & -1 & sca & num \\ \hline
+RunSnow & Column number to write the run number & - &  & -1 & sca & num \\ \hline
+IDPointSnow & column number in which one would like to visualize the IDpoint  & - &  & -1 & sca & num \\ \hline
+WaterEquivalentSnow & column number in which one would like the water equivalent of the snow & - &  & -1 & sca & num \\ \hline
+DepthSnow & column number in which one would like to visualize the depth of the snow & - &  & -1 & sca & num \\ \hline
+DensitySnow & column number in which one would like to visualize the density of the snow & - &  & -1 & sca & num \\ \hline
+TempSnow & column number in which one would like to visualize the temperature of the snow  & - &  & -1 & sca & num \\ \hline
+IceContentSnow & column number in which one would like to visualize the ice content of the snow  & - &  & -1 & sca & num \\ \hline
+WatContentSnow & column number in which one would like to visualize the water content of the snow  & - &  & -1 & sca & num \\ \hline
+DefaultSnow & 0: use personal setting, 1:use default & - & 0, 1 & 1 & sca & opt \\ \hline
+SnowPlotDepths & depth at which one wants the data on the snow to be plotted & - &  & NA & vec & num \\ \hline
+\caption{Table of snow output  (numeric)}
+\label{snow1d_numeric}
+\end{longtable}
+\end{center}
+
+\clearpage
+\begin{center}
+\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Logical / Numeric} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+DateSoil & column number in which one would like to visualize the Date12 [DDMMYYYYhhmm]    	 & - &  & -1 & sca & num \\ \hline
+JulianDayFromYear0Soil & column number in which one would like to visualize the JulianDayFromYear0[days]   	 & - &  & -1 & sca & num \\ \hline
+TimeFromStartSoil & column number in which one would like to visualize the time from the start of the soil & - &  & -1 & sca & num \\ \hline
+PeriodSoil & Column number to write the period number & - &  & -1 & sca & num \\ \hline
+RunSoil & Column number to write the run number & - &  & -1 & sca & num \\ \hline
+IDPointSoil & column number in which one would like to visualize the IDpoint  & - &  & -1 & sca & num \\ \hline
+DefaultSoil & 0: use personal setting, 1:use default & - & 0, 1 & 1 & sca & opt \\ \hline
+SoilPlotDepths & depth at which one wants the data on the snow to be plotted & m &  & NA & vec & num \\ \hline
+\caption{Table of snow output  (numeric)}
+\label{soil1d_numeric}
+\end{longtable}
+\end{center}
+
+\section{1D INPUT CHARACTER}
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+HeaderSoilInitPres & column name in the file SoilParFile for the initial total pressure head & SoilParFile & header \\ \hline
+HeaderSoilInitTemp & column name in the file SoilParFile for the initial temperature & SoilParFile & header \\ \hline
+\caption{Table of initial conditions (character)}
+\label{IC1D_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+HeaderPointDepthFreeSurface & column name in the file PointFile for the depth of the free surface of the point & PointFile & header \\ \hline
+\caption{Table of runoff parameters (character)}
+\label{runoff1D_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+HeaderPointMaxSWE & column name in the file PointFile for the max SWE  of the point & PointFile & header  \\ \hline
+\caption{Table of snow parameters (character)}
+\label{snow1D_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+HeaderPointSoilType & column name in the file PointFile for the soil type of the point & PointFile & header \\ \hline
+HeaderSoilDz & column name in the file SoilParFile for the layers thickness & SoilParFile & header \\ \hline
+HeaderNormalHydrConductivity & column name in the file SoilParFile for the normal hydraulic conductivity & SoilParFile & header \\ \hline
+HeaderLateralHydrConductivity & column name in the file SoilParFile for the lateral hydraulic conductivity & SoilParFile & header \\ \hline
+HeaderThetaRes & column name in the file SoilParFile for the residual water content & SoilParFile & header \\ \hline
+HeaderWiltingPoint & column name in the file SoilParFile for the soil wilting point & SoilParFile & header \\ \hline
+HeaderFieldCapacity & column name in the file SoilParFile for the field capacity & SoilParFile & header \\ \hline
+HeaderThetaSat & column name in the file SoilParFile for the saturated water content & SoilParFile & header \\ \hline
+HeaderAlpha & column name in the file alpha parameter of Van Genuchten & SoilParFile & header \\ \hline
+HeaderN & column name in the file N parameter of Van Genuchten & SoilParFile & header \\ \hline
+HeaderV & column name in the file V parameter of Van Genuchten & SoilParFile & header \\ \hline
+HeaderKthSoilSolids & column name in the file thermal conductivity of the soil grains & SoilParFile & header \\ \hline
+HeaderCthSoilSolids & column name in the file thermal capacity of the soil grains & SoilParFile & header \\ \hline
+HeaderSpecificStorativity & column name in the file specific storativity & SoilParFile & header \\ \hline
+
+\caption{Table of soil parameters (character)}
+\label{soil1D_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+HeaderPointLandCoverType & column name in the file PointFile for the land cover of the point & PointFile & header \\ \hline
+\caption{Table of soil surface parameters (character)}
+\label{soilsur1D_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+PointFile & name of the file providing the properties for the simulation point & / & file \\ \hline
+HorizonPoint & name of the file providing the horizon of the simulation point & / & file \\ \hline
+HeaderHorizonAngle & String representing the header of the column HorizonAngle of the HorizonPoint and HorizonMeteoStation files & HorizonPoint / HorizonMeteoStation & header \\ \hline
+HeaderHorizonHeight & String representing the header of the column HorizonHeight of the HorizonPoint and HorizonMeteoStation files & HorizonPoint / HorizonMeteoStation & header \\ \hline
+HeaderPointElevation & column name in the file PointFile for the elevation of the point & PointFile & header \\ \hline
+HeaderPointSlope & column name in the file PointFile for the slope steepness of the point & PointFile & header \\ \hline
+HeaderPointAspect & column name in the file PointFile for the aspect of the point & PointFile & header \\ \hline
+HeaderPointSkyViewFactor & column name in the file PointFile for the sky view factor of the point & PointFile & header \\ \hline
+HeaderPointCurvatureNorthSouth Direction & column name in the file PointFile for the N-S curvature of the point & PointFile & header \\ \hline
+HeaderPointCurvatureWest EastDirection & column name in the file PointFile for the E-W curvature of the point & PointFile & header \\ \hline
+HeaderPointCurvatureNorthwest SoutheastDirection & column name in the file PointFile for the NW-SE curvature of the point & PointFile & header \\ \hline
+HeaderPointCurvatureNortheast SouthwestDirection & column name in the file PointFile for the NE-SW curvature of the point & PointFile & header \\ \hline
+HeaderPointDrainageLateral Distance & column name in the file PointFile for the distance of lateral drainage & PointFile & header \\ \hline
+HeaderPointHorizon & column name in the file PointFile for the horizon ID of the point & PointFile & header \\ \hline
+HeaderPointLatitude & column name in the file PointFile for the latitude of the point & PointFile & header \\ \hline
+HeaderPointLongitude & column name in the file PointFile for the longitude of the point & PointFile & header \\ \hline
+HeaderPointID & column name in the file PointFile for the identification ID of the point & PointFile & header \\ \hline
+HeaderCoordinatePointX & column name in the file PointFile for the x coordinate of the point & PointFile & header \\ \hline
+HeaderCoordinatePointY & column name in the file PointFile for the y coordinate of the point & PointFile & header \\ \hline
+
+
+\caption{Table of topographic parameters (character)}
+\label{topo1D_data}
+\end{longtable}
+\end{center}
+
+
+\clearpage
+
+\section{3D INPUT CHARACTER}
+
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+InitWaterTableHeightOverTopoSurface MapFile & name of the file providing the initial condition on the water table height map & / & map \\ \hline
+InitSnowDepthMapFile & name of the file providing the initial condition on the snow depth map & / & map \\ \hline
+InitSnowAgeMapFile & name of the file providing the initial condition on the snow age map & / & map \\ \hline
+InitGlacierDepthMapFile & name of the file providing the initial condition on the glacier depth map & / & map \\ \hline
+HeaderSoilInitPres & column name in the file SoilParFile for the initial total pressure head & SoilParFile & header \\ \hline
+HeaderSoilInitTemp & column name in the file SoilParFile for the initial temperature & SoilParFile & header \\ \hline
+
+
+\caption{Table of initial condition (character)}
+\label{init3d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+SoilMapFile & name of the file providing the soil map & / & map \\ \hline
+HeaderSoilDz & column name in the file SoilParFile for the layers thickness & SoilParFile & header \\ \hline
+HeaderNormalHydrConductivity & column name in the file SoilParFile for the normal hydraulic conductivity & SoilParFile & header \\ \hline
+HeaderLateralHydrConductivity & column name in the file SoilParFile for the lateral hydraulic conductivity & SoilParFile & header \\ \hline
+HeaderThetaRes & column name in the file SoilParFile for the residual water content & SoilParFile & header \\ \hline
+HeaderWiltingPoint & column name in the file SoilParFile for the soil wilting point & SoilParFile & header \\ \hline
+HeaderFieldCapacity & column name in the file SoilParFile for the field capacity & SoilParFile & header \\ \hline
+HeaderThetaSat & column name in the file SoilParFile for the saturated water content & SoilParFile & header \\ \hline
+HeaderAlpha & column name in the file alpha parameter of Van Genuchten & SoilParFile & header \\ \hline
+HeaderN & column name in the file N parameter of Van Genuchten & SoilParFile & header \\ \hline
+HeaderV & column name in the file V parameter of Van Genuchten & SoilParFile & header \\ \hline
+HeaderKthSoilSolids & column name in the file thermal conductivity of the soil grains & SoilParFile & header \\ \hline
+HeaderCthSoilSolids & column name in the file thermal capacity of the soil grains & SoilParFile & header \\ \hline
+HeaderSpecificStorativity & column name in the file specific storativity & SoilParFile & header \\ \hline
+\caption{Table of soil (character)}
+\label{soil3d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+LandCoverMapFile & name of the file providing the land cover map & / & map \\ \hline
+\caption{Table of soil surface (character)}
+\label{soilsur3d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+DemFile & name of the file providing the DEM map & / & map \\ \hline
+SkyViewFactorMapFile & name of the file providing the sky view factor map & / & map \\ \hline
+SlopeMapFile & name of the file providing the slope steepness map & / & map \\ \hline
+RiverNetwork & name of the file providing the river network map & / & map \\ \hline
+AspectMapFile & name of the file providing the aspect map & / & map \\ \hline
+CurvaturesMapFile & name of the file providing the curvature map & / & map \\ \hline
+BedrockDepthMapFile & name of the file providing the bedrock depth map & / & map \\ \hline
+HeaderPointID & column name in the file PointFile for the identification ID of the point & PointFile & header \\ \hline
+HeaderCoordinatePointX & column name in the file PointFile for the x coordinate of the point & PointFile & header \\ \hline
+HeaderCoordinatePointY & column name in the file PointFile for the y coordinate of the point & PointFile & header \\ \hline
+
+\caption{Table of topographic parameters (character)}
+\label{topo3d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+TimeStepsFile & name of the file providing the integration time steps & / & file \\ \hline
+SoilParFile & name of the file providing the soil parameters & / & file \\ \hline
+MeteoFile & name of the file providing the meteo forcing data & / & file \\ \hline
+MeteoStationsListFile & name of the file providing the Meteo Station list & / & file \\ \hline
+LapseRateFile & name of the file providing the Lapse rate & / & file \\ \hline
+HeaderDateDDMMYYYYhhmm LapseRates & column name in the file LapseRateFile for the variable Date & LapseRateFile & header \\ \hline
+HeaderLapseRateTemp & column name in the file LapseRateFile for the variable air temperature & LapseRateFile & header \\ \hline
+HeaderLapseRateDewTemp & column name in the file LapseRateFile for the variable dew temperature & LapseRateFile & header \\ \hline
+HeaderLapseRatePrec & column name in the file LapseRateFile for the variable precipitation & LapseRateFile & header \\ \hline
+\caption{Table of general parameters (character)}
+\label{gen3d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+HorizonMeteoStationFile & name of the file providing the horizon of the meteo station & / & file \\ \hline
+HeaderIDMeteoStation & column name in the file MeteoFile for the variable IDMeteoStation & MeteoFile & header \\ \hline
+HeaderMeteoStationCoordinateX & column name in the file MeteoFile for the variable MeteoStationCoordinateX & MeteoFile & header \\ \hline
+HeaderMeteoStationCoordinateY & column name in the file MeteoFile for the variable MeteoStationCoordinateY & MeteoFile & header \\ \hline
+HeaderMeteoStationLatitude & column name in the file MeteoFile for the variable MeteoStationLatitude & MeteoFile & header \\ \hline
+HeaderMeteoStationLongitude & column name in the file MeteoFile for the variable MeteoStationLongitude & MeteoFile & header \\ \hline
+HeaderMeteoStationElevation & column name in the file MeteoFile for the variable MeteoStationElevation & MeteoFile & header \\ \hline
+HeaderMeteoStationSkyViewFactor & column name in the file MeteoFile for the variable MeteoStationSkyViewFactor & MeteoFile & header \\ \hline
+HeaderMeteoStationStandardTime & column name in the file MeteoFile for the variable MeteoStationStandardTime & MeteoFile & header \\ \hline
+\caption{Table of meteo station (character)}
+\label{meteostation_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+TimeDependentVegetationParameterFile & name of the file providing the time dependent vegetation parameters & / & file \\ \hline
+\caption{Table of vegetation parameters (character)}
+\label{vegetation3d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+\section{1D OUTPUT CHARACTER}
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+SuccessfulRunFile & column name of the file that summarizes if the simulation has arrived to the end & / & file \\ \hline
+FailedRunFile & column name of the file that summarizes if the simulation has failed & / & file \\ \hline
+PointOutputFile & name of the output file providing the Point values & / & file \\ \hline
+PointOutputFileWriteEnd & name of the output file providing the Point values written just once at the end & / & file \\ \hline
+HeaderDatePoint & column name in the file PointOutputFile for the variable DatePoint & PointOutputFile & header \\ \hline
+HeaderJulianDayFromYear0Point & column name in the file PointOutputFile for the variable JulianDayFromYear0Point & PointOutputFile & header \\ \hline
+HeaderTimeFromStartPoint & column name in the file PointOutputFile for the variable TimeFromStartPoint & PointOutputFile & header \\ \hline
+HeaderPeriodPoint & column name in the file PointOutputFile for the variable PeriodPoint & PointOutputFile & header \\ \hline
+HeaderRunPoint & column name in the file PointOutputFile for the variable RunPoint & PointOutputFile & header \\ \hline
+HeaderIDPointPoint & column name in the file PointOutputFile for the variable IDPointPoint & PointOutputFile & header \\ \hline
+HeaderCanopyFractionPoint & column name in the file PointOutputFile for the variable CanopyFractionPoint & PointOutputFile & header \\ \hline
+\caption{Table of general parameters (character)}
+\label{general1d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+GlacierProfileFile & name of the output file providing the glacier instantaneous values at various depths & / & file \\ \hline
+GlacierProfileFileWriteEnd & name of the output file providing the glacier instantaneous values at various depths written just once at the end & / & file \\ \hline
+HeaderDateGlac & column name in the file GlacierProfileFile for the variable Date & GlacierProfileFile & header \\ \hline
+HeaderJulianDayFromYear0Glac & column name in the file GlacierProfileFile for the variable Julian Day from 0 & GlacierProfileFile & header \\ \hline
+HeaderTimeFromStartGlac & column name in the file GlacierProfileFile for the variable Time from start & GlacierProfileFile & header \\ \hline
+HeaderPeriodGlac & column name in the file GlacierProfileFile for the variable Simulation period & GlacierProfileFile & header \\ \hline
+HeaderRunGlac & column name in the file GlacierProfileFile for the variable Run & GlacierProfileFile & header \\ \hline
+HeaderIDPointGlac & column name in the file GlacierProfileFile for the variable IDPoint & GlacierProfileFile & header \\ \hline
+HeaderTempGlac & column name in the file GlacierProfileFile for the variable temperature & GlacierProfileFile & header \\ \hline
+HeaderIceContentGlac & column name in the file GlacierProfileFile for the variable ice content & GlacierProfileFile & header \\ \hline
+HeaderWatContentGlac & column name in the file GlacierProfileFile for the variable liquid content & GlacierProfileFile & header \\ \hline
+HeaderDepthGlac & column name in the file GlacierProfileFile for the variable Depth & GlacierProfileFile & header \\ \hline
+HeaderGlacDepthPoint & column name in the file PointOutputFile for the variable GlacDepthPoint & PointOutputFile & header \\ \hline
+HeaderGWEPoint & column name in the file PointOutputFile for the variable GWEPoint & PointOutputFile & header \\ \hline
+HeaderGlacDensityPoint & column name in the file PointOutputFile for the variable GlacDensityPoint & PointOutputFile & header \\ \hline
+HeaderGlacTempPoint & column name in the file PointOutputFile for the variable GlacTempPoint & PointOutputFile & header \\ \hline
+HeaderGlacMeltedPoint & column name in the file PointOutputFile for the variable GlacMeltedPoint & PointOutputFile & header \\ \hline
+HeaderGlacSublPoint & column name in the file PointOutputFile for the variable GlacSublPoint & PointOutputFile & header \\ \hline
+\caption{Table of glacier parameters (character)}
+\label{glacier1d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+HeaderPsnowPoint & column name in the file PointOutputFile for the variable PsnowPoint & PointOutputFile & header \\ \hline
+HeaderPrainPoint & column name in the file PointOutputFile for the variable PrainPoint & PointOutputFile & header \\ \hline
+HeaderPrainNetPoint & column name in the file PointOutputFile for the variable PrainNetPoint & PointOutputFile & header \\ \hline
+HeaderPrainOnSnowPoint & column name in the file PointOutputFile for the variable PrainOnSnowPoint & PointOutputFile & header \\ \hline
+HeaderWindSpeedPoint & column name in the file PointOutputFile for the variable WindSpeedPoint & PointOutputFile & header \\ \hline
+HeaderWindDirPoint & column name in the file PointOutputFile for the variable WindDirPoint & PointOutputFile & header \\ \hline
+HeaderRHPoint & column name in the file PointOutputFile for the variable RHPoint & PointOutputFile & header \\ \hline
+HeaderAirPressPoint & column name in the file PointOutputFile for the variable AirPressPoint & PointOutputFile & header \\ \hline
+HeaderAirTempPoint & column name in the file PointOutputFile for the variable AirTempPoint & PointOutputFile & header \\ \hline
+HeaderTDewPoint & column name in the file PointOutputFile for the variable TDewPoint & PointOutputFile & header \\ \hline
+HeaderTsurfPoint & column name in the file PointOutputFile for the variable TsurfPoint & PointOutputFile & header \\ \hline
+HeaderQCanopyAirPoint & column name in the file PointOutputFile for the variable specific humidity at the canopy-air interface & PointOutputFile & header \\ \hline
+\caption{Table of meteorological parameters (character)}
+\label{meteo1d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+SoilTempProfileFile & name of the output file providing the Soil/rock instantaneous temperature values at various depths & / & file \\ \hline
+SoilTempProfileFileWriteEnd & name of the output file providing the Soil/rock instantaneous temperature values at various depths written just once at the end & / & file \\ \hline
+SoilAveragedTempProfileFile & name of the output file providing the Soil/rock average (in DtPlotPoint) temperature values at various depths & / & file \\ \hline
+SoilAveragedTempProfileFileWriteEnd & name of the output file providing the Soil/rock average (in DtPlotPoint) temperature values at various depths written just once at the end & / & file \\ \hline
+SoilLiqWaterPressProfileFile & name of the output file providing the Soil/rock instantaneous liquid water pressure head values at various depths & / & file \\ \hline
+SoilLiqWaterPressProfileFileWriteEnd & name of the output file providing the Soil/rock instantaneous liquid water pressure head values at various depths written just once at the end & / & file \\ \hline
+SoilTotWaterPressProfileFile & name of the output file providing the Soil/rock instantaneous total (water+ice) pressure head values at various depths & / & file \\ \hline
+SoilTotWaterPressProfileFileWriteEnd & name of the output file providing the Soil/rock instantaneous total (water+ice) pressure head values at various depths written just once at the end & / & file \\ \hline
+SoilLiqContentProfileFile & name of the output file providing the Soil/rock instantaneous liquid water content values at various depths & / & file \\ \hline
+SoilLiqContentProfileFileWriteEnd & name of the output file providing the Soil/rock instantaneous liquid water content values at various depths written just once at the end & / & file \\ \hline
+SoilAveragedLiqContentProfileFile & name of the output file providing the Soil/rock average (in DtPlotPoint) liquid water content values at various depths & / & file \\ \hline
+SoilAveragedLiqContentProfileFile WriteEnd & name of the output file providing the Soil/rock average (in DtPlotPoint) liquid water content values at various depths written just once at the end & / & file \\ \hline
+SoilIceContentProfileFile & name of the output file providing the Soil/rock instantaneous ice content values at various depths & / & file \\ \hline
+SoilIceContentProfileFileWriteEnd & name of the output file providing the Soil/rock instantaneous ice content values at various depths written just once at the end & / & file \\ \hline
+SoilAveragedIceContentProfileFile & name of the output file providing the Soil/rock average (in DtPlotPoint) ice content values at various depths & / & file \\ \hline
+SoilAveragedIceContentProfile FileWriteEnd & name of the output file providing the Soil/rock average (in DtPlotPoint) ice content values at various depths written just once at the end & / & file \\ \hline
+HeaderDateSoil & column name in the file PointOutputFile for the variable Date &  & header \\ \hline
+HeaderJulianDayFromYear0Soil & column name in the file PointOutputFile for the variable Julian Day from 0 &  & header \\ \hline
+HeaderTimeFromStartSoil & column name in the file PointOutputFile for the variable Time from start &  & header \\ \hline
+HeaderPeriodSoil & column name in the file PointOutputFile for the variable Simulation period &  & header \\ \hline
+HeaderRunSoil & column name in the file PointOutputFile for the variable Run &  & header \\ \hline
+HeaderIDPointSoil & column name in the file PointOutputFile for the variable IDPoint &  & header \\ \hline
+HeaderThawedSoilDepthPoint & column name in the file PointOutputFile for the variable ThawedSoilDepthPoint & PointOutputFile & header \\ \hline
+HeaderWaterTableDepthPoint & column name in the file PointOutputFile for the variable WaterTableDepthPoint & PointOutputFile & header \\ \hline
+\caption{Table of meteorological parameters (character)}
+\label{soil1d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+
+
+
+
+
+
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+HeaderSurfaceEBPoint & column name in the file PointOutputFile for the variable SurfaceEBPoint & PointOutputFile & header \\ \hline
+HeaderSoilHeatFluxPoint & column name in the file PointOutputFile for the variable SoilHeatFluxPoint & PointOutputFile & header \\ \hline
+HeaderSWinPoint & column name in the file PointOutputFile for the variable SWinPoint & PointOutputFile & header \\ \hline
+HeaderSWbeamPoint & column name in the file PointOutputFile for the variable SWbeamPoint & PointOutputFile & header \\ \hline
+HeaderSWdiffPoint & column name in the file PointOutputFile for the variable SWdiffPoint & PointOutputFile & header \\ \hline
+HeaderLWinPoint & column name in the file PointOutputFile for the variable LWinPoint & PointOutputFile & header \\ \hline
+HeaderLWinMinPoint & column name in the file PointOutputFile for the variable LWinMinPoint & PointOutputFile & header \\ \hline
+HeaderLWinMaxPoint & column name in the file PointOutputFile for the variable LWinMaxPoint & PointOutputFile & header \\ \hline
+HeaderSWNetPoint & column name in the file PointOutputFile for the variable SWNetPoint & PointOutputFile & header \\ \hline
+HeaderLWNetPoint & column name in the file PointOutputFile for the variable LWNetPoint & PointOutputFile & header \\ \hline
+HeaderHPoint & column name in the file PointOutputFile for the variable HPoint & PointOutputFile & header \\ \hline
+HeaderLEPoint & column name in the file PointOutputFile for the variable LEPoint & PointOutputFile & header \\ \hline
+HeaderQSurfPoint & column name in the file PointOutputFile for the variable specific humidity near the soil surface & PointOutputFile & header \\ \hline
+HeaderQAirPoint & column name in the file PointOutputFile for the variable specific humidity of the air & PointOutputFile & header \\ \hline
+HeaderLObukhovPoint & column name in the file PointOutputFile for the variable LObukhovPoint & PointOutputFile & header \\ \hline
+HeaderSWupPoint & column name in the file PointOutputFile for the variable SWupPoint & PointOutputFile & header \\ \hline
+HeaderLWupPoint & column name in the file PointOutputFile for the variable LWupPoint & PointOutputFile & header \\ \hline
+HeaderHupPoint & column name in the file PointOutputFile for the variable HupPoint & PointOutputFile & header \\ \hline
+HeaderLEupPoint & column name in the file PointOutputFile for the variable LEupPoint & PointOutputFile & header \\ \hline
+\caption{Table of surface energy flux parameters (character)}
+\label{surfaceenergyflux1d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+HeaderTvegPoint & column name in the file PointOutputFile for the variable TvegPoint & PointOutputFile & header \\ \hline
+HeaderTCanopyAirPoint & column name in the file PointOutputFile for the variable TCanopyAirPoint & PointOutputFile & header \\ \hline
+HeaderLSAIPoint & column name in the file PointOutputFile for the variable LSAIPoint & PointOutputFile & header \\ \hline
+Headerz0vegPoint & column name in the file PointOutputFile for the variable z0vegPoint & PointOutputFile & header \\ \hline
+Headerd0vegPoint & column name in the file PointOutputFile for the variable d0vegPoint & PointOutputFile & header \\ \hline
+HeaderEstoredCanopyPoint & column name in the file PointOutputFile for the variable EstoredCanopyPoint & PointOutputFile & header \\ \hline
+HeaderSWvPoint & column name in the file PointOutputFile for the variable SWvPoint & PointOutputFile & header \\ \hline
+HeaderLWvPoint & column name in the file PointOutputFile for the variable LWvPoint & PointOutputFile & header \\ \hline
+HeaderHvPoint & column name in the file PointOutputFile for the variable HvPoint & PointOutputFile & header \\ \hline
+HeaderLEvPoint & column name in the file PointOutputFile for the variable LEvPoint & PointOutputFile & header \\ \hline
+HeaderHgUnvegPoint & column name in the file PointOutputFile for the variable HgUnvegPoint & PointOutputFile & header \\ \hline
+HeaderLEgUnvegPoint & column name in the file PointOutputFile for the variable LEgUnvegPoint & PointOutputFile & header \\ \hline
+HeaderHgVegPoint & column name in the file PointOutputFile for the variable HgVegPoint & PointOutputFile & header \\ \hline
+HeaderLEgVegPoint & column name in the file PointOutputFile for the variable LEgVegPoint & PointOutputFile & header \\ \hline
+HeaderEvapSurfacePoint & column name in the file PointOutputFile for the variable EvapSurfacePoint & PointOutputFile & header \\ \hline
+HeaderTraspCanopyPoint & column name in the file PointOutputFile for the variable TraspCanopyPoint & PointOutputFile & header \\ \hline
+HeaderWaterOnCanopyPoint & column name in the file PointOutputFile for the variable WaterOnCanopyPoint & PointOutputFile & header \\ \hline
+HeaderSnowOnCanopyPoint & column name in the file PointOutputFile for the variable SnowOnCanopyPoint & PointOutputFile & header \\ \hline
+HeaderQVegPoint & column name in the file PointOutputFile for the variable specific humidity near the vegetation & PointOutputFile & header \\ \hline
+HeaderLObukhovCanopyPoint & column name in the file PointOutputFile for the variable LObukhovCanopyPoint & PointOutputFile & header \\ \hline
+HeaderWindSpeedTopCanopyPoint & column name in the file PointOutputFile for the variable WindSpeedTopCanopyPoint & PointOutputFile & header \\ \hline
+HeaderDecayKCanopyPoint & column name in the file PointOutputFile for the variable DecayKCanopyPoint & PointOutputFile & header \\ \hline
+\caption{Table of vegetation parameters (character)}
+\label{vegetation1d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+
+\section{3D OUTPUT CHARACTER}
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+SuccessfulRunFile & column name of the file that summarizes if the simulation has arrived to the end & / & file \\ \hline
+FailedRunFile & column name of the file that summarizes if the simulation has failed & / & file \\ \hline
+PointOutputFile & name of the output file providing the Point values & / & file \\ \hline
+PointOutputFileWriteEnd & name of the output file providing the Point values written just once at the end & / & file \\ \hline
+HeaderDatePoint & column name in the file PointOutputFile for the variable DatePoint & PointOutputFile & header \\ \hline
+HeaderJulianDayFromYear0Point & column name in the file PointOutputFile for the variable JulianDayFromYear0Point & PointOutputFile & header \\ \hline
+HeaderTimeFromStartPoint & column name in the file PointOutputFile for the variable TimeFromStartPoint & PointOutputFile & header \\ \hline
+HeaderPeriodPoint & column name in the file PointOutputFile for the variable PeriodPoint & PointOutputFile & header \\ \hline
+HeaderRunPoint & column name in the file PointOutputFile for the variable RunPoint & PointOutputFile & header \\ \hline
+HeaderIDPointPoint & column name in the file PointOutputFile for the variable IDPointPoint & PointOutputFile & header \\ \hline
+HeaderCanopyFractionPoint & column name in the file PointOutputFile for the variable CanopyFractionPoint & PointOutputFile & header \\ \hline
+\caption{Table of general parameters (character)}
+\label{general1d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+BasinOutputFile & name of the output file providing the Basin values & / & file \\ \hline
+BasinOutputFileWriteEnd & name of the output file providing the Basin values written just once at the end & / & file \\ \hline
+HeaderDateBasin & column name in the file BasinOutputFile for the variable DateBasin & BasinOutputFile & header \\ \hline
+HeaderJulianDayFromYear0Basin & column name in the file BasinOutputFile for the variable JulianDayFromYear0Basin & BasinOutputFile & header \\ \hline
+HeaderTimeFromStartBasin & column name in the file BasinOutputFile for the variable TimeFromStartBasin & BasinOutputFile & header \\ \hline
+HeaderPeriodBasin & column name in the file BasinOutputFile for the variable PeriodBasin & BasinOutputFile & header \\ \hline
+HeaderRunBasin & column name in the file BasinOutputFile for the variable RunBasin & BasinOutputFile & header \\ \hline
+HeaderPRainNetBasin & column name in the file BasinOutputFile for the variable PRainNetBasin & BasinOutputFile & header \\ \hline
+HeaderPSnowNetBasin & column name in the file BasinOutputFile for the variable PSnowNetBasin & BasinOutputFile & header \\ \hline
+HeaderPRainBasin & column name in the file BasinOutputFile for the variable PRainBasin & BasinOutputFile & header \\ \hline
+HeaderPSnowBasin & column name in the file BasinOutputFile for the variable PSnowBasin & BasinOutputFile & header \\ \hline
+HeaderAirTempBasin & column name in the file BasinOutputFile for the variable AirTempBasin & BasinOutputFile & header \\ \hline
+HeaderTSurfBasin & column name in the file BasinOutputFile for the variable TSurfBasin & BasinOutputFile & header \\ \hline
+HeaderTvegBasin & column name in the file BasinOutputFile for the variable TvegBasin & BasinOutputFile & header \\ \hline
+HeaderEvapSurfaceBasin & column name in the file BasinOutputFile for the variable EvapSurfaceBasin & BasinOutputFile & header \\ \hline
+HeaderTraspCanopyBasin & column name in the file BasinOutputFile for the variable TraspCanopyBasin & BasinOutputFile & header \\ \hline
+HeaderLEBasin & column name in the file BasinOutputFile for the variable LEBasin & BasinOutputFile & header \\ \hline
+HeaderHBasin & column name in the file BasinOutputFile for the variable HBasin & BasinOutputFile & header \\ \hline
+HeaderSWNetBasin & column name in the file BasinOutputFile for the variable SWNetBasin & BasinOutputFile & header \\ \hline
+HeaderLWNetBasin & column name in the file BasinOutputFile for the variable LWNetBasin & BasinOutputFile & header \\ \hline
+HeaderLEvBasin & column name in the file BasinOutputFile for the variable LEvBasin & BasinOutputFile & header \\ \hline
+HeaderHvBasin & column name in the file BasinOutputFile for the variable HvBasin & BasinOutputFile & header \\ \hline
+HeaderSWvBasin & column name in the file BasinOutputFile for the variable SWvBasin & BasinOutputFile & header \\ \hline
+HeaderLWvBasin & column name in the file BasinOutputFile for the variable LWvBasin & BasinOutputFile & header \\ \hline
+HeaderSWinBasin & column name in the file BasinOutputFile for the variable SWinBasin & BasinOutputFile & header \\ \hline
+HeaderLWinBasin & column name in the file BasinOutputFile for the variable LWinBasin & BasinOutputFile & header \\ \hline
+HeaderMassErrorBasin & column name in the file BasinOutputFile for the variable MassErrorBasin & BasinOutputFile & header \\ \hline
+\caption{Table of basin parameters (character)}
+\label{basin3d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+DischargeFile & name of the output file providing the discharge values & / & file \\ \hline
+\caption{Table of channel flow parameters (character)}
+\label{channelflow3d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+GlacierDepthMapFile & name of the output file providing the Glacier depth map & / & map \\ \hline
+GlacierMeltedMapFile & name of the output file providing the Glacier melted map & / & map \\ \hline
+GlacierSublimatedMapFile & name of the output file providing the Glacier sublimated map & / & map \\ \hline
+GlacierWaterEqMapFile & name of the output file providing the Glacier water equivalent (GWE) map & / & map \\ \hline
+SnowDurationMapFile & name of the output file providing the Snow Duration map & / & map \\ \hline
+GlacierProfileFile & name of the output file providing the glacier instantaneous values at various depths & / & file \\ \hline
+GlacierProfileFileWriteEnd & name of the output file providing the glacier instantaneous values at various depths written just once at the end & / & file \\ \hline
+HeaderDateGlac & column name in the file GlacierProfileFile for the variable Date & GlacierProfileFile & header \\ \hline
+HeaderJulianDayFromYear0Glac & column name in the file GlacierProfileFile for the variable Julian Day from 0 & GlacierProfileFile & header \\ \hline
+HeaderTimeFromStartGlac & column name in the file GlacierProfileFile for the variable Time from start & GlacierProfileFile & header \\ \hline
+HeaderPeriodGlac & column name in the file GlacierProfileFile for the variable Simulation period & GlacierProfileFile & header \\ \hline
+HeaderRunGlac & column name in the file GlacierProfileFile for the variable Run & GlacierProfileFile & header \\ \hline
+HeaderIDPointGlac & column name in the file GlacierProfileFile for the variable IDPoint & GlacierProfileFile & header \\ \hline
+HeaderTempGlac & column name in the file GlacierProfileFile for the variable temperature & GlacierProfileFile & header \\ \hline
+HeaderIceContentGlac & column name in the file GlacierProfileFile for the variable ice content & GlacierProfileFile & header \\ \hline
+HeaderWatContentGlac & column name in the file GlacierProfileFile for the variable liquid content & GlacierProfileFile & header \\ \hline
+HeaderDepthGlac & column name in the file GlacierProfileFile for the variable Depth & GlacierProfileFile & header \\ \hline
+HeaderGlacDepthPoint & column name in the file PointOutputFile for the variable GlacDepthPoint & PointOutputFile & header \\ \hline
+HeaderGWEPoint & column name in the file PointOutputFile for the variable GWEPoint & PointOutputFile & header \\ \hline
+HeaderGlacDensityPoint & column name in the file PointOutputFile for the variable GlacDensityPoint & PointOutputFile & header \\ \hline
+HeaderGlacTempPoint & column name in the file PointOutputFile for the variable GlacTempPoint & PointOutputFile & header \\ \hline
+HeaderGlacMeltedPoint & column name in the file PointOutputFile for the variable GlacMeltedPoint & PointOutputFile & header \\ \hline
+HeaderGlacSublPoint & column name in the file PointOutputFile for the variable GlacSublPoint & PointOutputFile & header \\ \hline
+\caption{Table of glacier parameters (character)}
+\label{glacier3d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+SurfaceTempMapFile & name of the output file providing the surface temperature map & / & map \\ \hline
+PrecipitationMapFile & name of the output file providing the precipitation map & / & map \\ \hline
+AirTempMapFile & name of the output file providing the Air temperature map & / & map \\ \hline
+WindSpeedMapFile & name of the output file providing the Wind Speed map & / & map \\ \hline
+WindDirMapFile & name of the output file providing the Wind Direction map & / & map \\ \hline
+RelHumMapFile & name of the output file providing the Rel. Humidity map & / & map \\ \hline
+SpecificPlotSurfaceTempMapFile & name of the output file providing the surface air temperature map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotWindSpeedMapFile & name of the output file providing the wind speed map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotWindDirMapFile & name of the output file providing the wind direction map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotRelHumMapFile & name of the output file providing the relative humidity map at high temporal resolution during specific days & / & map \\ \hline
+HeaderPsnowPoint & column name in the file PointOutputFile for the variable PsnowPoint & PointOutputFile & header \\ \hline
+HeaderPrainPoint & column name in the file PointOutputFile for the variable PrainPoint & PointOutputFile & header \\ \hline
+HeaderPrainNetPoint & column name in the file PointOutputFile for the variable PrainNetPoint & PointOutputFile & header \\ \hline
+HeaderPrainOnSnowPoint & column name in the file PointOutputFile for the variable PrainOnSnowPoint & PointOutputFile & header \\ \hline
+HeaderWindSpeedPoint & column name in the file PointOutputFile for the variable WindSpeedPoint & PointOutputFile & header \\ \hline
+HeaderWindDirPoint & column name in the file PointOutputFile for the variable WindDirPoint & PointOutputFile & header \\ \hline
+HeaderRHPoint & column name in the file PointOutputFile for the variable RHPoint & PointOutputFile & header \\ \hline
+HeaderAirPressPoint & column name in the file PointOutputFile for the variable AirPressPoint & PointOutputFile & header \\ \hline
+HeaderAirTempPoint & column name in the file PointOutputFile for the variable AirTempPoint & PointOutputFile & header \\ \hline
+HeaderTDewPoint & column name in the file PointOutputFile for the variable TDewPoint & PointOutputFile & header \\ \hline
+HeaderTsurfPoint & column name in the file PointOutputFile for the variable TsurfPoint & PointOutputFile & header \\ \hline
+HeaderQCanopyAirPoint & column name in the file PointOutputFile for the variable specific humidity at the canopy-air interface & PointOutputFile & header \\ \hline
+\caption{Table of meteorological parameters (character)}
+\label{meteo3d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+SnowDepthMapFile & name of the output file providing the Snow depth map & / & map \\ \hline
+SnowMeltedMapFile & name of the output file providing the Snow melted map & / & map \\ \hline
+SnowSublMapFile & name of the output file providing the Snow sublimated map & / & map \\ \hline
+SWEMapFile & name of the output file providing the Snow water equivalent (SWE) map & / & map \\ \hline
+AveragedSnowDepthMapFile & name of the output file providing the Average snow depth map & / & map \\ \hline
+SpecificPlotSnowDepthMapFile & name of the output file providing the snow depth map at high temporal resolution during specific days & / & map \\ \hline
+SnowProfileFile & name of the output file providing the snow instantaneous values at various depths & / & file \\ \hline
+SnowProfileFileWriteEnd & name of the output file providing the snow instantaneous values at various depths written just once at the end & / & file \\ \hline
+SnowCoveredAreaFile & Name of the output file containing the percentage of the area covered by snow & / & file \\ \hline
+HeaderDateSnow & column name in the file SnowProfileFile for the variable Date & SnowProfileFile & header \\ \hline
+HeaderJulianDayFromYear0Snow & column name in the file SnowProfileFile for the variable Julian Day from 0 & SnowProfileFile & header \\ \hline
+HeaderTimeFromStartSnow & column name in the file SnowProfileFile for the variable Time from start & SnowProfileFile & header \\ \hline
+HeaderPeriodSnow & column name in the file SnowProfileFile for the variable Simulation period & SnowProfileFile & header \\ \hline
+HeaderRunSnow & column name in the file SnowProfileFile for the variable Run & SnowProfileFile & header \\ \hline
+HeaderIDPointSnow & column name in the file SnowProfileFile for the variable IDPoint & SnowProfileFile & header \\ \hline
+HeaderTempSnow & column name in the file SnowProfileFile for the variable temperature & SnowProfileFile & header \\ \hline
+HeaderIceContentSnow & column name in the file SnowProfileFile for the variable ice content & SnowProfileFile & header \\ \hline
+HeaderWatContentSnow & column name in the file SnowProfileFile for the variable liquid content & SnowProfileFile & header \\ \hline
+HeaderDepthSnow & column name in the file SnowProfileFile for the variable Depth & SnowProfileFile & header \\ \hline
+HeaderPsnowNetPoint & column name in the file PointOutputFile for the variable PsnowNetPoint & PointOutputFile & header \\ \hline
+HeaderSnowDepthPoint & column name in the file PointOutputFile for the variable SnowDepthPoint & PointOutputFile & header \\ \hline
+HeaderSWEPoint & column name in the file PointOutputFile for the variable SWEPoint & PointOutputFile & header \\ \hline
+HeaderSnowDensityPoint & column name in the file PointOutputFile for the variable SnowDensityPoint & PointOutputFile & header \\ \hline
+HeaderSnowTempPoint & column name in the file PointOutputFile for the variable SnowTempPoint & PointOutputFile & header \\ \hline
+HeaderSnowMeltedPoint & column name in the file PointOutputFile for the variable SnowMeltedPoint & PointOutputFile & header \\ \hline
+HeaderSnowSublPoint & column name in the file PointOutputFile for the variable SnowSublPoint & PointOutputFile & header \\ \hline
+HeaderSWEBlownPoint & column name in the file PointOutputFile for the variable SWEBlownPoint & PointOutputFile & header \\ \hline
+HeaderSWESublBlownPoint & column name in the file PointOutputFile for the variable SWESublBlownPoint & PointOutputFile & header \\ \hline
+\caption{Table of snow parameters (character)}
+\label{snow3d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+FirstSoilLayerTempMapFile & name of the map of the temperature of the first soil layer & / & map \\ \hline
+SoilAveragedTempTensorFile & Name of the ensamble of raster maps corresponding to the average temperature of each layer (if PlotSoilDepth$\neq$0 it writes the value at the corresponding depths) & / & map \\ \hline
+FirstSoilLayerAveragedTempMapFile & name of the map of the average temperature of the first soil layer & / & map \\ \hline
+SoilLiqContentTensorFile & Name of the ensamble of raster maps corresponding to the liquid water content of each layer (if PlotSoilDepth$\neq$0 it writes the value at the corresponding depths) & / & map \\ \hline
+FirstSoilLayerLiqContentMapFile & name of the map of the liquird water content of the first soil layer & / & map \\ \hline
+IceLiqContentTensorFile & Name of the ensamble of raster maps corresponding to the average ice content of each layer (if PlotSoilDepth$\neq$0 it writes the value at the corresponding depths) & / & map \\ \hline
+FirstSoilLayerIceContentMapFile & name of the map of the ice content of the first soil layer & / & map \\ \hline
+LandSurfaceWaterDepthMapFile & name of the map of the water height above the surface & / & map \\ \hline
+SoilLiqWaterPressTensorFile & Name of the ensamble of raster maps corresponding to the water pressure of each layer (if PlotSoilDepth$\neq$0 it writes the value at the corresponding depths) & / & map \\ \hline
+ThawedDepthMapFile & name of the output file providing the Thawed soil depth map & / & map \\ \hline
+WaterTableDepthMapFile & name of the output file providing the Water table depth map & / & map \\ \hline
+FrostTableDepthMapFile & name of the output file providing the Frost table depth map & / & map \\ \hline
+SpecificPlotSurfaceWaterContentMapFile & name of the output file providing the surface water content map at high temporal resolution during specific days & / & map \\ \hline
+SoilTempTensorFile & Name of the ensamble of raster maps corresponding to the temperature of each layer (if PlotSoilDepth$\neq$0 it writes the value at the corresponding depths) & / & map \\ \hline
+SoilTempProfileFile & name of the output file providing the Soil/rock instantaneous temperature values at various depths & / & file \\ \hline
+SoilTempProfileFileWriteEnd & name of the output file providing the Soil/rock instantaneous temperature values at various depths written just once at the end & / & file \\ \hline
+SoilAveragedTempProfileFile & name of the output file providing the Soil/rock average (in DtPlotPoint) temperature values at various depths & / & file \\ \hline
+SoilAveragedTempProfileFileWriteEnd & name of the output file providing the Soil/rock average (in DtPlotPoint) temperature values at various depths written just once at the end & / & file \\ \hline
+SoilLiqWaterPressProfileFile & name of the output file providing the Soil/rock instantaneous liquid water pressure head values at various depths & / & file \\ \hline
+SoilLiqWaterPressProfileFileWriteEnd & name of the output file providing the Soil/rock instantaneous liquid water pressure head values at various depths written just once at the end & / & file \\ \hline
+SoilTotWaterPressProfileFile & name of the output file providing the Soil/rock instantaneous total (water+ice) pressure head values at various depths & / & file \\ \hline
+SoilTotWaterPressProfileFileWriteEnd & name of the output file providing the Soil/rock instantaneous total (water+ice) pressure head values at various depths written just once at the end & / & file \\ \hline
+SoilLiqContentProfileFile & name of the output file providing the Soil/rock instantaneous liquid water content values at various depths & / & file \\ \hline
+SoilLiqContentProfileFileWriteEnd & name of the output file providing the Soil/rock instantaneous liquid water content values at various depths written just once at the end & / & file \\ \hline
+SoilAveragedLiqContentProfileFile & name of the output file providing the Soil/rock average (in DtPlotPoint) liquid water content values at various depths & / & file \\ \hline
+SoilAveragedLiqContentProfileFile WriteEnd & name of the output file providing the Soil/rock average (in DtPlotPoint) liquid water content values at various depths written just once at the end & / & file \\ \hline
+SoilIceContentProfileFile & name of the output file providing the Soil/rock instantaneous ice content values at various depths & / & file \\ \hline
+SoilIceContentProfileFileWriteEnd & name of the output file providing the Soil/rock instantaneous ice content values at various depths written just once at the end & / & file \\ \hline
+SoilAveragedIceContentProfileFile & name of the output file providing the Soil/rock average (in DtPlotPoint) ice content values at various depths & / & file \\ \hline
+SoilAveragedIceContentProfileFile WriteEnd & name of the output file providing the Soil/rock average (in DtPlotPoint) ice content values at various depths written just once at the end & / & file \\ \hline
+HeaderDateSoil & column name in the file PointOutputFile for the variable Date &  & header \\ \hline
+HeaderJulianDayFromYear0Soil & column name in the file PointOutputFile for the variable Julian Day from 0 &  & header \\ \hline
+HeaderTimeFromStartSoil & column name in the file PointOutputFile for the variable Time from start &  & header \\ \hline
+HeaderPeriodSoil & column name in the file PointOutputFile for the variable Simulation period &  & header \\ \hline
+HeaderRunSoil & column name in the file PointOutputFile for the variable Run &  & header \\ \hline
+HeaderIDPointSoil & column name in the file PointOutputFile for the variable IDPoint &  & header \\ \hline
+HeaderThawedSoilDepthPoint & column name in the file PointOutputFile for the variable ThawedSoilDepthPoint & PointOutputFile & header \\ \hline
+HeaderWaterTableDepthPoint & column name in the file PointOutputFile for the variable WaterTableDepthPoint & PointOutputFile & header \\ \hline
+\caption{Table of snow parameters (character)}
+\label{soil3d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+RadiationMapFile & name of the output file providing the Radiation map (all the type of radiations) & / & map \\ \hline
+NetRadiationMapFile & name of the output file providing the Net Radiation map & / & map \\ \hline
+InLongwaveRadiation MapFile & name of the output file providing the LW Radiation map & / & map \\ \hline
+NetLongwaveRadiation MapFile & name of the output file providing the Net LW  Radiation map & / & map \\ \hline
+NetShortwaveRadiation MapFile & name of the output file providing the Net SW  Radiation map & / & map \\ \hline
+InShortwaveRadiation MapFile & name of the output file providing the Swin  Radiation map & / & map \\ \hline
+DirectInShortwaveRadiation MapFile & name of the output file providing the Swdir  Radiation map & / & map \\ \hline
+ShadowFractionTime MapFile & name of the output file providing the map of the  fraction of Shadow in the time & / & map \\ \hline
+SurfaceHeatFluxMapFile & name of the output file providing the Surface heat flux  map & / & map \\ \hline
+SurfaceSensibleHeatFlux MapFile & name of the output file providing the Surface sensible heat flux  map & / & map \\ \hline
+SurfaceLatentHeatFlux MapFile & name of the output file providing the Surface latent  heat flux  map & / & map \\ \hline
+SpecificPlotSurfaceHeat FluxMapFile & name of the output file providing the surface heat flux map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotTotalSensibleHeatFlux MapFile & name of the output file providing the total sensible heat flux map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotTotalLatentHeatFlux MapFile & name of the output file providing the total latent heat flux map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotSurfaceSensibleHeatFlux MapFile & name of the output file providing the surface sensible heat flux map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotSurfaceLatentHeatFlux MapFile & name of the output file providing the surface latent heat flux map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotIncomingShortwaveRad MapFile & name of the output file providing the Swin flux map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotNetSurfaceShortwaveRad MapFile & name of the output file providing the surface Swnet flux map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotIncomingLongwaveRad MapFile & name of the output file providing the Lwin flux map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotNetSurfaceLongwaveRad MapFile & name of the output file providing the surface Lwnet map at high temporal resolution during specific days & / & map \\ \hline
+HeaderSurfaceEBPoint & column name in the file PointOutputFile for the variable SurfaceEBPoint & PointOutputFile & header \\ \hline
+HeaderSoilHeatFluxPoint & column name in the file PointOutputFile for the variable SoilHeatFluxPoint & PointOutputFile & header \\ \hline
+HeaderSWinPoint & column name in the file PointOutputFile for the variable SWinPoint & PointOutputFile & header \\ \hline
+HeaderSWbeamPoint & column name in the file PointOutputFile for the variable SWbeamPoint & PointOutputFile & header \\ \hline
+HeaderSWdiffPoint & column name in the file PointOutputFile for the variable SWdiffPoint & PointOutputFile & header \\ \hline
+HeaderLWinPoint & column name in the file PointOutputFile for the variable LWinPoint & PointOutputFile & header \\ \hline
+HeaderLWinMinPoint & column name in the file PointOutputFile for the variable LWinMinPoint & PointOutputFile & header \\ \hline
+HeaderLWinMaxPoint & column name in the file PointOutputFile for the variable LWinMaxPoint & PointOutputFile & header \\ \hline
+HeaderSWNetPoint & column name in the file PointOutputFile for the variable SWNetPoint & PointOutputFile & header \\ \hline
+HeaderLWNetPoint & column name in the file PointOutputFile for the variable LWNetPoint & PointOutputFile & header \\ \hline
+HeaderHPoint & column name in the file PointOutputFile for the variable HPoint & PointOutputFile & header \\ \hline
+HeaderLEPoint & column name in the file PointOutputFile for the variable LEPoint & PointOutputFile & header \\ \hline
+HeaderQSurfPoint & column name in the file PointOutputFile for the variable specific humidity near the soil surface & PointOutputFile & header \\ \hline
+HeaderQAirPoint & column name in the file PointOutputFile for the variable specific humidity of the air & PointOutputFile & header \\ \hline
+HeaderLObukhovPoint & column name in the file PointOutputFile for the variable LObukhovPoint & PointOutputFile & header \\ \hline
+HeaderSWupPoint & column name in the file PointOutputFile for the variable SWupPoint & PointOutputFile & header \\ \hline
+HeaderLWupPoint & column name in the file PointOutputFile for the variable LWupPoint & PointOutputFile & header \\ \hline
+HeaderHupPoint & column name in the file PointOutputFile for the variable HupPoint & PointOutputFile & header \\ \hline
+HeaderLEupPoint & column name in the file PointOutputFile for the variable LEupPoint & PointOutputFile & header \\ \hline
+\caption{Table of surface energy flux parameters (character)}
+\label{surenflux3d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+CanopyInterceptedWaterMapFile & name of the output file providing the canopy intercepted water map & / & map \\ \hline
+SpecificPlotVegSensibleHeatFluxMapFile & name of the output file providing the vegetation sensible heat flux map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotVegLatentHeatFluxMapFile & name of the output file providing the vegetation latent heat flux map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotNetVegShortwaveRadMapFile & name of the output file providing the vegetation Swnet flux map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotNetVegLongwaveRadMapFile & name of the output file providing the vegetation Lwnet map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotCanopyAirTempMapFile & name of the output file providing the canopy air temperature map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotVegTempMapFile & name of the output file providing the vegetation temperature map at high temporal resolution during specific days & / & map \\ \hline
+SpecificPlotAboveVegAirTempMapFile & name of the output file providing the above vegetation air temperature map at high temporal resolution during specific days & / & map \\ 
+HeaderTvegPoint & column name in the file PointOutputFile for the variable TvegPoint & PointOutputFile & header \\ \hline
+HeaderTCanopyAirPoint & column name in the file PointOutputFile for the variable TCanopyAirPoint & PointOutputFile & header \\ \hline
+HeaderLSAIPoint & column name in the file PointOutputFile for the variable LSAIPoint & PointOutputFile & header \\ \hline
+Headerz0vegPoint & column name in the file PointOutputFile for the variable z0vegPoint & PointOutputFile & header \\ \hline
+Headerd0vegPoint & column name in the file PointOutputFile for the variable d0vegPoint & PointOutputFile & header \\ \hline
+HeaderEstoredCanopyPoint & column name in the file PointOutputFile for the variable EstoredCanopyPoint & PointOutputFile & header \\ \hline
+HeaderSWvPoint & column name in the file PointOutputFile for the variable SWvPoint & PointOutputFile & header \\ \hline
+HeaderLWvPoint & column name in the file PointOutputFile for the variable LWvPoint & PointOutputFile & header \\ \hline
+HeaderHvPoint & column name in the file PointOutputFile for the variable HvPoint & PointOutputFile & header \\ \hline
+HeaderLEvPoint & column name in the file PointOutputFile for the variable LEvPoint & PointOutputFile & header \\ \hline
+HeaderHgUnvegPoint & column name in the file PointOutputFile for the variable HgUnvegPoint & PointOutputFile & header \\ \hline
+HeaderLEgUnvegPoint & column name in the file PointOutputFile for the variable LEgUnvegPoint & PointOutputFile & header \\ \hline
+HeaderHgVegPoint & column name in the file PointOutputFile for the variable HgVegPoint & PointOutputFile & header \\ \hline
+HeaderLEgVegPoint & column name in the file PointOutputFile for the variable LEgVegPoint & PointOutputFile & header \\ \hline
+HeaderEvapSurfacePoint & column name in the file PointOutputFile for the variable EvapSurfacePoint & PointOutputFile & header \\ \hline
+HeaderTraspCanopyPoint & column name in the file PointOutputFile for the variable TraspCanopyPoint & PointOutputFile & header \\ \hline
+HeaderWaterOnCanopyPoint & column name in the file PointOutputFile for the variable WaterOnCanopyPoint & PointOutputFile & header \\ \hline
+HeaderSnowOnCanopyPoint & column name in the file PointOutputFile for the variable SnowOnCanopyPoint & PointOutputFile & header \\ \hline
+HeaderQVegPoint & column name in the file PointOutputFile for the variable specific humidity near the vegetation & PointOutputFile & header \\ \hline
+HeaderLObukhovCanopyPoint & column name in the file PointOutputFile for the variable LObukhovCanopyPoint & PointOutputFile & header \\ \hline
+HeaderWindSpeedTopCanopyPoint & column name in the file PointOutputFile for the variable WindSpeedTopCanopyPoint & PointOutputFile & header \\ \hline
+HeaderDecayKCanopyPoint & column name in the file PointOutputFile for the variable DecayKCanopyPoint & PointOutputFile & header \\ \hline
+\caption{Table of vegetation parameters (character)}
+\label{vegetation3d_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+\section{RECOVERY 3D CHARACTER}
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+RecoverSoilWatPresChannel & name of the recovery file of SoiWatPresChannel & / & file  \\ \hline
+RecoverSoilIceContChannel & name of the recovery file of SoiIceContChannel & / & file  \\ \hline
+RecoverSoilTempChannel & name of the recovery file of SoilTempChannel & / & file  \\ \hline
+\caption{Table of recovery parameters for channel flow (character)}
+\label{recoverychannelflow_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+RecoverGlacierLayerThick & name of the recovery file of GlacierLayerThick & / & file  \\ \hline
+RecoverGlacierLiqMass & name of the recovery file of GlacieLiqMass & / & file \\ \hline
+RecoverGlacierIceMass & name of the recovery file of GlacieIceMass & / & file  \\ \hline
+RecoverGlacierTemp & name of the recovery file of GlacieTemp & / & file  \\ \hline
+RecoverGlacierLayerNumber & name of the recovery file of GacierLayerNumber & / & file  \\ \hline
+\caption{Table of recovery parameters for glacier (character)}
+\label{recoverychannelflow_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+RecoverLandSurfaceWaterDepth & name of the recovery file of LandSurfaceWaterDepth & / & file \\ \hline
+\caption{Table of recovery parameters for runoff (character)}
+\label{recoveryrunoff_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+RecoverSnowLiqMass & name of the recovery file of SnowLiqMass & / & file \\ \hline
+RecoverSnowIceMass & name of the recovery file of SnowIceMass & / & file \\ \hline
+RecoverSnowTemp & name of the recovery file of SnowTemp & / & file \\ \hline
+RecoverSnowLayerNumber & name of the recovery file of SnowLayerNumber & / & file \\ \hline
+RecoverNonDimensionalSnowAge & name of the recovery file of NonDimensionalSnowAge & / & file \\ \hline
+RecoverDimensionalSnowAge & name of the recovery file of DimensionalSnowAge & / & file \\ \hline
+\caption{Table of recovery parameters for snow (character)}
+\label{recoverysnow_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+RecoverSoilWatPres & name of the recovery file of SoilWatPres & / & file \\ \hline
+RecoverSoilIceCont & name of the recovery file of SoilIceCont & / & file \\ \hline
+RecoverSoilTemp & name of the recovery file of SoilTemp & / & file \\ \hline
+\caption{Table of recovery parameters for soil (character)}
+\label{recoverysoil_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+\begin{center}
+\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+RecoverLiqWaterOnCanopy & name of the recovery file of LiqWaterOnCanopy & / & file \\ \hline
+RecoverSnowOnCanopy & name of the recovery file of SnowOnCanopy & / & file \\ \hline
+RecoverVegTemp & name of the recovery file of VegetationTemperature & / & file \\ \hline
+\caption{Table of recovery parameters for vegetation (character)}
+\label{recoveryvegetation_data}
+\end{longtable}
+\end{center}
+\clearpage
+
+
+\end{document}  

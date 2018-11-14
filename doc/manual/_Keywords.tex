@@ -1,0 +1,330 @@
+\chapter{I/O scheme: the keywords}
+
+GEOtop Input/Output (I/O) scheme is based on the keyword concept. Each parameter, concerning physical processes, output personalization, domain discretization and initial/boundary condition, is described by a keyword. The keywords may be classified according to the dimension (scalar or vector), type (numerical or string) and meaning (physical or boolean), as described in the Table \ref{table_key1}.
+
+\begin{center}
+\begin{longtable}{|p {1.3 cm}|p {6 cm}|p {6. cm}|}
+\hline
+\textbf{} & \textbf{Scalar} & \textbf{Vector}  \\ \hline
+\endfirsthead
+\hline
+\multicolumn{3}{| c |}{continued from previous page} \\
+\hline
+\textbf{} & \textbf{Scalar} & \textbf{Vector}  \\ \hline
+\endhead
+\hline
+\multicolumn{3}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+{\bf Dimension} & it refers to a single value, valid for the whole basin and during the entire simulation & it refers to more classes, layers or simulations. The vectors are composed just by numerical values (not strings).  \\ \hline
+%\vspace{0.1cm} \\
+%\vspace{0.1cm} & \vspace{0.1cm}  & \vspace{0.1cm} \\
+\hline
+& {\bf Numerical} & {\bf String}\\
+\hline
+{\bf Type} & it is used to assign parameters & it is used to define maps, files or headers  \\ \hline
+\hline
+& {\bf Physical} & {\bf Boolean}\\
+\hline
+{\bf Meaning} & it is used to assign physical parameters & it is used to choose or reject an option in the parameterization process  \\ \hline
+\caption{Keywords classification}
+\label{table_key1}
+\end{longtable}
+\end{center}
+
+\noindent The keywords may be used to describe both the input data and the output personalization. In particular, the keywords identify the following types:
+\begin{enumerate}
+\item {\bf parameters}: they may be physical parameters, option parameters or output personalization;
+\item {\bf files}: they refer to input files, containing physical parameters, and output files containing the simulation results;
+\item {\bf maps}: they refer both to input maps, describing topographic features or soil characterization, and to output maps containing the simulation results;
+\item {\bf tensor}: they refer both to output maps containing the simulation results in each layer, or at specified depths, producing a 3D map;
+\item {\bf headers}: they refer to the column name of an input parameter or to the column name of an output result.
+\end{enumerate}
+
+\section{Keywords syntax}
+The main file where the keywords are defined is {\it geotop.inpts}. In this file, each line beginning with the character ``!'' is considered a comment, and therefore the following characters in the line won't be read.
+\footnotesize{
+\begin{verbatim}
+! THIS IS a comment
+\end{verbatim}
+}
+
+
+\noindent In order to assign a value to the keyword, it is necessary to use the (character ``=''):
+\footnotesize{
+\begin{verbatim}
+TimeStepEnergyAndWater = 3600
+\end{verbatim}
+}
+\noindent This instruction orders the model to assign 3600 to the keyword {\it TimeStepEnergyAndWater}. It is possible to assign a keyword a vector of numerical values by separating the components by the character ``,''. 
+\footnotesize{
+\begin{verbatim}
+SoilLayerThicknesses=10, 15, 30, 50
+\end{verbatim}
+}
+\noindent This instruction assigns the keyword {\it SoilLayerThicknesses} a vector composed by 4 elements, namely: 10, 15, 30 and 50. It is not possible to assign a keyword a vector of strings.\\
+
+\subsection{Keywords definition}
+
+\subsubsection{Readable characters}
+ The numbers, the lower and upper case letters, the characters ``.'', ``-'', ``$+$'', ``/'', ``:'', ``['', ``$\backslash$'', ``]'',  ``$\wedge$'', ``\_'', and the separator characters will be referred to as ``readable characters''. All the other characters, except for the assignation character (``$=$'') and the vector separator character (``,''), are not even read.\\
+
+\subsubsection{Strings or numerical keywords}
+The criterion used to distinguish whether an assignation is a string or numerical (be it single value or vector) is based on the {\bf first readable character} after the field separator ``='', as explained in Table \ref{table_key2}. 
+As a consequence, it is not possible to assign string parameters that begin with a number or ``$+$'', ``-'', ``.'' (except ``..''), because they will be considered numerical.
+Furthermore, the upper case letters are automatically converted in lower case, therefore all string keywords and parameters result to be case insensitive.
+
+\begin{center}
+\begin{longtable}{|p {4 cm}|p {4 cm}|}
+\hline
+\textbf{}  \textbf{First character indicating a string keyword} & \textbf{First character indicating a numerical keyword}  \\ \hline
+\endfirsthead
+\hline
+\multicolumn{2}{| c |}{continued from previous page} \\
+\hline
+\textbf{}  \textbf{Characters for string} & \textbf{Character for numerical}  \\ \hline
+\endhead
+\hline
+\multicolumn{2}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+%  ``/'', ``:'', ``['', ``$\backslash$'', ``]'',``$\wedge$'', ``\_'', ``..'' , the lower and upper case letter and the numbers & numbers and the characters "." (decimal separator),``-'', ``$+$'', ``E'', and ``e''   \\ \hline
+``/'' &``$+$'' \\ \hline
+``:'' & ``-'' \\ \hline
+``['' & ``E'' \\ \hline
+``$\backslash$'' & ``e'' \\ \hline
+``]'' & "." (decimal separator) \\ \hline
+``$\wedge$'' & numbers \\ \hline
+``\_'' &  \\ \hline
+``..'' & \\ \hline
+letters & \\ \hline
+numbers &   \\ \hline
+\caption{Character classification for strings and numerical}
+\label{table_key2}
+\end{longtable}
+\end{center}
+
+\noindent This means that the command lines:
+\footnotesize{
+\begin{verbatim}
+TimeStepEnergyAndWater = 3600
+\end{verbatim}
+}
+\noindent and:
+
+\footnotesize{
+\begin{verbatim}
+TimeStepEnergyAndWater = 3 this is the first figure 6 bla bla 0 micio bau 0 polenta
+\end{verbatim}
+}
+\noindent are actually equivalent, provided the first readable character is a number or ``$+$'', ``$-$'', ``$.$'' 
+In addition, since the string are actually case insensitive, the command lines:
+
+\footnotesize{
+\begin{verbatim}
+TimeStepEnergyAndWater = 3600
+Time step energy and water = 3600
+\end{verbatim}
+}
+\noindent are also equivalent.
+
+\subsection{Dates and time}
+The dates in GEOtop are considered numerical parameters and are expressed in the ``date12'' format, namely using 12 figures as DDMMYYYYhhmm, where D = day, M = month, Y = year, h = hour (in 24 hours format).
+ It is necessary to use 2 figures (not only one) for the minute, hours, month, and 4 figures for the year, otherwise the date will be misunderstood. An exception is made for the day which may also be represented by one figure.
+ Since within a numerical value parameter, the characters different from numbers, ``+'', ``-'', ``.'', and separators are not readable, provided they are not the first character, it is also possible to express the date12 format as DD/MM/YYYY hh:mm or DD MM YYYY hh mm, but not as DD-MM-YYYY hh:mm because "-" makes changes to the meaning of a numerical value.
+
+
+\section{Keywords properties}\label{Par_keyprop}
+
+The way the keyword are assigned is based on the following assumptions:
+
+\paragraph{self explanatory} The keyword is generally a ``composed word'' that aims at explaining its meaning just through the words that constitute it. \\
+For example the keyword: {\it TimeStepEnergyAndWater} describes the calculation time step for the energy and water balance equations. The keyword: {\it SoilLayerThicknesses} outlines the layer thickness of the soil discretization.
+
+\paragraph{tacit}If not displayed, the parameter the keyword refers to will be initialized by the default value.
+Few parameters are mandatory (it will be remarked when this is the case), while most of them are not necessary to be assigned, and the corresponding line can be skipped or commented.
+The mandatory parameters are:
+\begin{itemize}
+\item {\it Latitude}
+\item {\it Longitude}
+\item integration time step for energy and water balance equation {\it TimeStepEnergyAndWater}
+\item Date and time of the simulation start in date12 format {\it InitDateDDMMYYYYhhmm}
+\item Date and time of the simulation end in date12 format {\it EndDateDDMMYYYYhhmm}                        
+\end{itemize}
+
+\paragraph{conservative} The keywords allow to define the output files, maps and variables to be printed.\\
+Only the output variables, maps and files that have been declared by the proper keyword will be printed in order to save memory and to keep the output simple.\\
+For example, if one is interested in printing the incoming, outgoing and net shortwave radiation in a simulation point, may specify:
+
+\footnotesize{
+\begin{verbatim}
+!=============================================================================
+!   POINT OUTPUT COLUMN NUMBER
+!=============================================================================
+DatePoint = 1
+AirTempPoint = 2
+SurfaceEBPoint = 3
+SWupPoint = 4
+SWinPoint = 5
+SWNetPoint = 6
+SoilHeatFluxPoint = 7
+LWinPoint=8
+LWNetPoint=9
+LWupPoint=10
+\end{verbatim}
+}
+
+\noindent In this way two output files will be created: ``point.txt'' (associated to the keyword {\it PointOutputFileWriteEnd}) and the file ``soilTave.txt'' associated to the keyword {\it SoilAveragedTempProfileFileWriteEnd}. The file ``point.txt'' will contain the results associated to the desired keywords at the specified column, i.e. the variable associated to the keyword {\it SWupPoint} will be printed in the column n. 2. Eventually, in case one wants to personalize the name of a output variable, it is necessary to flag the keyowrd {\it DefaultPoint=0} and then to specify the output keywords headers:
+
+\footnotesize{
+\begin{verbatim}
+!=============================================================================
+!   POINT OUTPUT HEADER
+!=============================================================================
+DefaultPoint = 0
+HeaderDatePoint = "date"
+HeaderSWupPoint = "SW out"
+HeaderSWinPoint = "SW in"
+HeaderSWNetPoint = "SW net"
+\end{verbatim}
+}
+
+
+\noindent In case one wanted to print the average temperatures of the soil:
+
+\footnotesize{
+\begin{verbatim}
+!=============================================================================
+!  OUTPUT FILES
+!=============================================================================
+PointOutputFileWriteEnd = "point"
+SoilAveragedTempProfileFileWriteEnd = "soilTave"
+\end{verbatim}
+}
+
+\noindent In this case the file ``soilTave.txt'' will be produced, containing the temperatures at each layer. If one wanted to have the temperatures calculated at specified depths, one should write:
+\footnotesize{
+\begin{verbatim}
+!=============================================================================
+!  PERSONALIZED OUTPUT FILES
+!=============================================================================
+DefaultSoil = 0
+SoilPlotDepths = 0.1, 0.5, 1, 2
+\end{verbatim}
+}
+
+\indent In this case the file will contain the temperatures at 0.1, 0.5, 1.0 and 2.0 m.
+
+\paragraph{self learning} If the keyword represents a vector of length ``$l$'' and the input consists in a vector of length ``$m$'' with $m<l$, then the successive $l-m$ elements will be initialized equal to the element ``$l$''.
+For example, the keywords:
+
+\footnotesize{
+\begin{verbatim}
+SoilLayerNumber=10
+SoilLayerThicknesses=10, 15, 30, 50
+InitSoilTemp=2
+\end{verbatim}
+}
+
+\noindent are interpreted as:
+\footnotesize{
+\begin{verbatim}
+SoilLayerNumber=10
+SoilLayerThicknesses=10, 15, 30, 50, 50, 50, 50, 50, 50, 50
+InitSoilTemp=2, 2, 2, 2, 2, 2, 2, 2, 2, 2
+\end{verbatim}
+}
+
+
+\paragraph{organization} The keywords may be assigned in the {\it geotop.inpts} file or in external files defined by proper keywords, in order to ease the organization of input.  The keywords may also identify the name of files and headers to improve the output visualization.\\
+For example, let us assume to run a 1D simulation on eight points whose topographical and horizon (see Par. \ref{descr_horizon}) characteristics are defined in Table \ref{table_in_topochar}.
+
+\begin{center}
+\begin{longtable}{|p {1.5 cm}|p {1.5 cm}|p {1.5 cm}|p {1.8 cm}|p {1.8 cm}|}
+\hline
+\textbf{Point} & \textbf{Elevation (m a.s.l.)} & \textbf{Slope ($^\circ$)} & \textbf{Aspect ($^\circ$ N)} & \textbf{Horizon file} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{5}{| c |}{continued from previous page} \\
+\hline
+\textbf{Point} & \textbf{Elevation (m a.s.l.)} & \textbf{Slope ($^\circ$)} & \textbf{Aspect ($^\circ$ N)} \textbf{Horizon file} \\ \hline
+\endhead
+\hline
+\multicolumn{5}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+1 & 1600 & 10 & 0 & 1  \\ \hline
+2 & 2100 & 10 & 0 & 2  \\ \hline
+3 & 1600 & 30 & 0 & 1  \\ \hline
+4 & 2100 & 30 & 0 & 2  \\ \hline
+5 & 1600 & 10 & 180 & 1  \\ \hline
+6 & 2100 & 10 & 180 & 2  \\ \hline
+7 & 1600 & 30 & 180 & 1  \\ \hline
+8 & 2100 & 30 & 180 & 2  \\ \hline
+\caption{Topographical characteristics of the simulation points}
+\label{table_in_topochar}
+\end{longtable}
+\end{center}
+
+\noindent In order to provide these characteristics, one has two options. In the first option, one uses only the {\it geotop.inpts} file:
+\footnotesize{
+\begin{verbatim}
+HorizonPointFile= "horfile"
+HeaderHorizonAngle = "azi"
+HeaderHorizonHeight = "hang"
+PointElevation = 1600, 2100, 1600, 2100, 1600, 2100, 1600, 2100
+PointSlope = 10, 30, 10, 30, 10, 30, 10, 30
+PointAspect = 0, 180, 0, 180, 0, 180, 0, 180
+PointHorizon = 1, 2, 1, 2, 1, 2, 1, 2
+\end{verbatim}
+}
+
+\noindent where the {\it HorizonPointFile} becomes (see Table \ref{azh}):
+\footnotesize{
+\begin{verbatim}
+azi, hang
+45, 0
+135, 10
+225, 30
+315, 5
+\end{verbatim}
+}
+
+
+\noindent Alternatively, in order to ease the comprehension, especially when the number of simulation points is high, one could define an external file ({\it PointFile}) containing the features of the points, where the name of the columns has been defined in {\it geotop.inpts} in the proper ``header'' keywords. This would result in:
+
+\footnotesize{
+\begin{verbatim}
+HorizonPointFile = "horfile"
+PointFile = "listpoints"
+HeaderPointElevation = "ele"
+HeaderPointSlope = "slp"
+HeaderPointAspect = "asp"
+HeaderPointHorizon = "hor"
+HeaderHorizonAngle="azi"
+HeaderHorizonHeight="hang"
+\end{verbatim}
+}
+
+\noindent and the correspondent {\it PointFile} would result in:
+\footnotesize{
+\begin{verbatim}
+ID, ele, slp, asp, hor
+1, 1600, 10, 0, 1
+2, 2100, 30, 180, 2
+3, 1600, 10, 0, 1
+4, 2100, 30, 180, 2
+5, 1600, 10, 0, 1
+6, 2100, 30, 180, 2
+7, 1600, 10, 0, 1
+8, 2100, 30, 180, 2
+\end{verbatim}
+}
+
+

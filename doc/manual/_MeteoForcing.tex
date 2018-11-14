@@ -1,0 +1,491 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Meteo Forcing}\label{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Input}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\subsection{Files}
+
+\begin{center}
+\begin{longtable}{|p {4.2 cm}|p {8 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description}  \\ \hline
+\endfirsthead
+\hline
+\multicolumn{2}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description}  \\ \hline
+\endhead
+\hline
+\multicolumn{2}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+MeteoFile \index{MeteoFile} & name of the file providing the meteo forcing data  \\ \hline
+MeteoStationsListFile \index{MeteoStationsListFile} & name of the file providing the Meteo Station list  \\ \hline
+LapseRateFile \index{LapseRateFile} & name of the file providing the Lapse rate  \\ \hline
+HorizonMeteoStationFile \index{HorizonMeteoStationFile} & name of the file providing the horizon of the meteo station  \\ \hline
+\caption{Keywords of files related to meterological forcing}
+\label{gen3d_data}
+\end{longtable}
+\end{center}
+
+
+%=============================================================%
+\subsection{Parameters for meteo station}
+%=============================================================%
+
+
+\begin{center}
+%\begin{longtable}{|p {6.5 cm}|p {4.5 cm}|p {3 cm}|p{3 cm}|p{1.5 cm}|p{1.5 cm}|p{2 cm}|}
+\begin{longtable}{|p {5.0 cm}|p {2.4 cm}|p {0.8 cm}|p{0.8 cm}|p{1.2 cm}|p{0.6 cm}|p{2.8 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Sca /Vec} & \textbf{File} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Sca /Vec} & \textbf{File} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+MeteoStationsID \index{MeteoStationsID} & Identification code for the meteo station & - &  & NA & vec & MeteoStationsListFiles \\ \hline
+NumberOfMeteoStations \index{NumberOfMeteoStations} & MeteoStations ListFilesber of soil Meteo Stations (is calculated after the number of components of the vector NumberOfMeteoStations) & - &  & 1 & sca & MeteoStationsListFiles \\ \hline
+MeteoStationCoordinateX \index{MeteoStationCoordinateX} & coordinate X of the meteo station & m &  & NA & vec & MeteoStationsListFiles \\ \hline
+MeteoStationCoordinateY \index{MeteoStationCoordinateY} & coordinate Y of the meteo station & m &  & NA & vec & MeteoStationsListFiles \\ \hline
+MeteoStationLatitude \index{MeteoStationLatitude} & Latitude of the meteo station & degree &  & Latitude & vec & MeteoStationsListFiles \\ \hline
+MeteoStationLongitude \index{MeteoStationLongitude} & Longitude of the meteo station & degree &  & Longitude & vec & MeteoStationsListFiles \\ \hline
+MeteoStationElevation \index{MeteoStationElevation} & Latitude of the meteo station & m a.s.l. &  & 0 & vec & MeteoStationsListFiles \\ \hline
+MeteoStationSkyViewFactor \index{MeteoStationSkyViewFactor} & Sky view factor of the meteo station & - &  & 1 & vec & MeteoStationsListFiles \\ \hline
+MeteoStationStandardTime \index{MeteoStationStandardTime} & Time difference of the meteo records with respect to Greenwich Meridiam Time (GMT). Note that  the CET, Central European Time, is GMT+1 for Standard Time and GMT+2 for Summer Time & h &  & Standard Time Simulation & vec & MeteoStationsListFiles \\ \hline
+MeteoStationWindVelocitySensorHeight \index{MeteoStationWindVelocitySensorHeight} & Height of the wind velocity sensor of the meteo station & m a.g.l &  & 10 & vec & MeteoStationsListFiles \\ \hline
+MeteoStationTemperatureSensorHeight \index{MeteoStationTemperatureSensorHeight} & Height of the air temperature sensor of the meteo station & m a.g.l &  & 2 & vec & MeteoStationsListFiles \\ \hline
+\caption{Keywords for the description of the meteorological station. All values are numeric. Note that m a.s.l. stands for meters above the sea level and m a.g.l. stands for meters above the ground level.}
+\label{meteo1d_station}
+\end{longtable}
+\end{center}
+
+
+
+
+%\begin{table}[htb]
+%\begin{tabular}{| p{6 cm}   | p{6.2 cm}  | p{1.5 cm} | } 
+%\hline 
+%Author & Equilibrium formulation & Unit\\
+%\hline
+%% \citet{harlan1973ach}  & $\psi=\frac{R (T+273.15)}{M} \cdot \ln \sigma_v \hspace{0.5cm} \left[\frac{J}{Kg}\right]$  \\
+%& &\\
+%\citet{williams1964uwc}  & $\psi=\frac{L_f}{g \, T} \Delta T \hspace{0.5cm} $ & [m]\\
+%& & \\
+%\citet{guymon1974cha}, \citet{hansson2004wfa}, \citet{koren104parameterization}   & $d\psi=\frac{L_f}{(T+273.15) \, g} \cdot  dT $ & [m]\\
+% & & \\
+%\citet{fuchs1978asa}  & $\psi+\pi=\frac{L_f}{(T+273.15) \, g} \cdot (T-T_m) $ & [m]\\
+% & & \\
+% \citet{Christoffersen2003}  & $\psi-\phi_i=\frac{L_f}{273.15 \, g} \cdot T +\pi $& [m]\\
+% & & \\
+%\citet{spaans1996sfc} & $\psi+\pi=-712.38\ \ln \left(\frac{T}{T_m}\right)+\hspace{0.1cm}+5.545\ (T-T_m)-3.14$E-3$(T-T_m^2)$& [J Kg$^{-1}$]\\
+% & & \\
+%\citet{flerchinger2006usf}   & $d[\psi(T) + \pi(T)]=\frac{L_f}{(T+273.15) \, g}\cdot dT + d\phi_i  $& [m]\\  
+%& & \\
+%\citet{daanen2007alh}, \citet{zhang2007development}   & $\psi(T)=\frac{L_f}{273.15 \, g} \cdot T  $& [m]\\  
+%& & \\
+%\citet{watanabe2008whf}   & $\psi(T)=\frac{L_f}{g} \cdot \ln \frac{T}{T_m} $& [m]\\  
+%& & \\
+%{\it Luo et al.} (2009)& $\psi=\frac{L_f \ (T-T_m)}{g \ T}$& [m]\\
+%& &\\
+%\hline
+%\end{tabular} 
+%\\[1pt]
+%\caption [{\it Pressure-Temperature relation in bibliography}] {\emph{$\psi=\psi(T)$ relations from various authors. $\pi$ is the osmotic suction and $\phi_i $ is the ice pressure head.}}
+%\label{tabl_clap}
+%\end{table}
+
+
+
+
+%=============================================================%
+\subsection{Headers for meteo station}
+%=============================================================%
+
+
+\begin{center}
+%\begin{longtable}{|p {7 cm}|p {7 cm}|p {3 cm}|p {4 cm}|}
+\begin{longtable}{|p {5.2 cm}|p {5 cm}|p {2 cm}|p {1.5 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{type (file, header)} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+HeaderIDMeteoStation \index{HeaderIDMeteoStation} & column name in the file MeteoFile  & MeteoFile & header \\ \hline
+HeaderMeteoStationCoordinateX \index{HeaderMeteoStationCoordinateX} & column name in the file MeteoFile & MeteoFile & header \\ \hline
+HeaderMeteoStationCoordinateY \index{HeaderMeteoStationCoordinateY} & column name in the file MeteoFile & MeteoFile & header \\ \hline
+HeaderMeteoStationLatitude \index{HeaderMeteoStationLatitude} & column name in the file MeteoFile & MeteoFile & header \\ \hline
+HeaderMeteoStationLongitude \index{HeaderMeteoStationLongitude} & column name in the file MeteoFile & MeteoFile & header \\ \hline
+HeaderMeteoStationElevation \index{HeaderMeteoStationElevation} & column name in the file MeteoFile & MeteoFile & header \\ \hline
+HeaderMeteoStationSkyViewFactor \index{HeaderMeteoStationSkyViewFactor} & column name in the file MeteoFile  & MeteoFile & header \\ \hline
+HeaderMeteoStationStandardTime \index{HeaderMeteoStationStandardTime} & column name in the file MeteoFile & MeteoFile & header \\ \hline
+\caption{Keywords of headers that specify the meteo station characteristics}
+\label{meteo_data1d}
+\end{longtable}
+\end{center}
+
+
+
+%=============================================================%
+\subsection{Parameters for meteo forcing}
+%=============================================================%
+
+\begin{center}
+\begin{longtable}{|p {2.5 cm}|p {4.8 cm}|p {1.9 cm}|p{1. cm}|p{1. cm}|p{0.7 cm}|p{1.5 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Sca / Vec} & \textbf{Associated file} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Sca / Vec} & \textbf{Associated fie} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+Vmin \index{Vmin} & Minimum wind velocity (too low wind speeds may create numerical problems) & m s$^{-1}$ & 0, 100 & 0.5 & sca & geotop.inpts \\ \hline
+RHmin \index{RHmin} & Minimum relative humidity (too low relative humidities may create numerical problems) & \% & 0, 100 & 10 & sca & geotop.inpts \\ \hline
+RainCorrFactor \index{RainCorrFactor} & correction factor precipitated rain & - &  1 , 2& 1 & sca & geotop.inpts \\ \hline
+LapseRateTemp \index{LapseRateTemp} & Lapse rate of air temperature with elevation & $^\circ$C km$^{-1}$ &  & NA & vec & LapseRate File \\ \hline
+LapseRateDewTemp \index{LapseRateDewTemp} & Lapse rate of dew temperature with elevation & $^\circ$C km$^{-1}$ &  & NA & vec & LapseRate File \\ \hline
+LapseRatePrec \index{LapseRatePrec} & Lapse rate of precipitation with elevation & mm h$^{-1}$ km$^{-1}$ &  & NA & vec & LapseRate File \\ \hline
+\caption{Keywords for the description of the meteorological data. All values are numeric.}
+\label{meteo1d_data}
+\end{longtable}
+\end{center}
+
+
+
+
+%=============================================================%
+\subsection{Headers for meteo forcing}
+%=============================================================%
+
+Each meteo variable must be identified by a header in the {\it MeteoFile} and the header name may be identified by the keywords specified in Table \ref{meteo_data}.
+
+
+\begin{center}
+\begin{longtable}{|p {5.6 cm}|p {4.5 cm}|p {2 cm}|p {2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{M.U. of the data} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file} & \textbf{M.U. of the data} \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+HeaderDateDDMMYYYYhhmmMeteo \index{HeaderDateDDMMYYYYhhmmMeteo} & column name in the file MeteoFile for the variable DateDDMMYYYhhmmMeteo & MeteoFile & DD/MM/YYYY hh:mm \\ \hline
+HeaderJulianDayfrom0Meteo \index{HeaderJulianDayfrom0Meteo} & column name in the file MeteoFile for the variable julian day from 0 & MeteoFile & day \\ \hline
+HeaderIPrec \index{HeaderIPrec} & column name in the file MeteoFile for the variable precipitation & MeteoFile & mm h$^{-1}$ \\ \hline
+HeaderWindVelocity \index{HeaderWindVelocity} & column name in the file MeteoFile for the variable wind speed & MeteoFile & m s$^{-1}$ \\ \hline
+HeaderWindDirection \index{HeaderWindDirection} & column name in the file MeteoFile for the variable wind direction & MeteoFile &  $^\circ$N \\ \hline
+HeaderWindX \index{HeaderWindX} & column name in the file MeteoFile for the variable wind X & MeteoFile & m s$^{-1}$ \\ \hline
+HeaderWindY \index{HeaderWindY} & column name in the file MeteoFile for the variable wind Y & MeteoFile & m s$^{-1}$ \\ \hline
+HeaderRH \index{HeaderRH} & column name in the file MeteoFile for the variable Relative humidity & MeteoFile & \% \\ \hline
+HeaderAirTemp \index{HeaderAirTemp} & column name in the file MeteoFile for the variable Air Temperature & MeteoFile &  $^\circ$C \\ \hline
+HeaderDewTemp \index{HeaderDewTemp} & column name in the file MeteoFile for the variable Dew temperature & MeteoFile &  $^\circ$C \\ \hline
+HeaderAirPress \index{HeaderAirPress} & column name in the file MeteoFile for the variable Air Pressure & MeteoFile & mbar \\ \hline
+HeaderSWglobal \index{HeaderSWglobal} & column name in the file MeteoFile for the variable SW global & MeteoFile & W m$^{-2}$ \\ \hline
+HeaderSWdirect \index{HeaderSWdirect} & column name in the file MeteoFile for the variable Swdirect & MeteoFile & W m$^{-2}$ \\ \hline
+HeaderSWdiffuse \index{HeaderSWdiffuse} & column name in the file MeteoFile for the variable Swdiffuse & MeteoFile & W m$^{-2}$ \\ \hline
+HeaderCloudSWTransmissivity \index{HeaderCloudSWTransmissivity} & column name in the file MeteoFile for the variable transmissivity of SW through cloud & MeteoFile & -  \\ \hline
+HeaderCloudFactor \index{HeaderCloudFactor} & column name in the file MeteoFile for the variable cloud factor & MeteoFile & - \\ \hline
+HeaderLWin \index{HeaderLWin} & column name in the file MeteoFile for the variable LW in & MeteoFile & W m$^{-2}$ \\ \hline
+HeaderSWnet \index{HeaderSWnet} & column name in the file MeteoFile for the variable SW net & MeteoFile & W m$^{-2}$ \\ \hline
+HeaderDateDDMMYYYYhhmmLapseRates \index{HeaderDateDDMMYYYYhhmmLapseRates} & column name in the file LapseRateFile for the variable Date & LapseRateFile & DD/MM/YYYY hh:mm \\ \hline
+HeaderLapseRateTemp \index{HeaderLapseRateTemp} & column name in the file LapseRateFile for the variable air temperature & LapseRateFile & see LapseRateTemp \\ \hline
+HeaderLapseRateDewTemp \index{HeaderLapseRateDewTemp} & column name in the file LapseRateFile for the variable dew temperature & LapseRateFile & see LapseRateDewTemp \\ \hline
+HeaderLapseRatePrec \index{HeaderLapseRatePrec} & column name in the file LapseRateFile for the variable precipitation & LapseRateFile & see LapseRatePrec \\ \hline
+
+\caption{Headers of meteorological forcing (meteo data - character)}
+\label{meteo_data}
+\end{longtable}
+\end{center}
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Spatial distribution of meteorological forcing}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\subsection{1D}
+
+\subsection{Parameters}
+
+\begin{center}
+\begin{longtable}{|p {2.5 cm}|p {5.2 cm}|p {1 cm}|p{1 cm}|p{1.1 cm}|p{0.9 cm}|p{0.9 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Sca / Vec} & \textbf{Num / Opt} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Scalar / Vector} & \textbf{Num / Opt} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+Iobsint \index{Iobsint} & Let Micromet determine an appropriate "radius of influence" (=0), or define the "radius of influence" you want the model to use (=1). 1=use obs interval below, 0=use model generated interval. & - &  & 1 & sca & opt \\ \hline
+Dn & The "radius of influence" or "observation interval" you want the model to use for the interpolation.  In units of deltax, deltay. & - &  & 1 & sca & num \\ \hline
+SlopeWeight \index{SlopeWeight} & Weight assigned to the slope (as tangent when it is $<$1) in the spatial distribution of the wind speed & - & 0 - 1 & 0 & sca & num \\ \hline
+CurvatureWeight \index{CurvatureWeight} & Weight assigned to the curvature (as second derivative of the topographic surface) in the spatial distribution of the wind speed. Valid slope and curve weights values are between 0 and 1, 
+  with values of 0.5 giving approximately equal weight to slope and curvature.
+  The suggestion is that slopewt and curvewt be set such that slopewt + curvewt = 1.0. 
+  This will limit the total wind weight to between 0.5 and 1.5 (this is not stricktly required)& - &  & 0 & sca & num \\ \hline
+SlopeWeightD \index{SlopeWeightD} &  &  &  & 0 & sca & num \\ \hline
+CurvatureWeightD \index{CurvatureWeightD} &  &  &  & 0 & sca & num \\ \hline
+SlopeWeightI \index{SlopeWeightI} &  &  &  & 0 & sca & num \\ \hline
+CurvatureWeightI \index{CurvatureWeightI} &  &  &  & 0 & sca & num \\ \hline
+\caption{Table of spatial distribution method parameters  (numeric)}
+\label{meteodistr1d_numeric}
+\end{longtable}
+\end{center}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Output}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\subsection{Personalize}
+
+%\begin{center}
+%\begin{longtable}{|p {3.4 cm}|p {4.7 cm}|p {1. cm}|p{0.8 cm}|p{1.4 cm}|p{0.8 cm}|p{1.3 cm}|}
+%\hline
+%\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Sca / Vec} & \textbf{Str / Num / Opt} \\ \hline
+%\endfirsthead
+%\hline
+%\multicolumn{7}{| c |}{continued from previous page} \\
+%\hline
+%\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Sca / Vec} & \textbf{Str / Num / Opt} \\ \hline
+%\endhead
+%\hline
+%\multicolumn{7}{| c |}{{continued on next page}}\\ 
+%\hline
+%\endfoot
+%\endlastfoot
+%\hline
+%DefaultPoint & 0: use personal setting, 1:use default & - & 0, 1 & 1 & sca & opt \\ \hline
+%%SoilPlotDepths & depth at which one wants the meteorological data at the point to be plotted & - &  & NA & vec & num \\ \hline
+%\caption{Keywords of output parameters for maps configurable in geotop.inpts}
+%\label{snow_numeric}
+%\end{longtable}
+%\end{center}
+
+
+\subsection{Point}
+
+\subsubsection{File}
+
+\begin{center}
+\begin{longtable}{|p {3.5 cm}|p {7 cm}|p {1 cm}|p {1 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description}  \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+PointOutputFile \index{PointOutputFile} & name of the output file providing the Point values \\ \hline
+PointOutputFileWriteEnd \index{PointOutputFileWriteEnd} & name of the output file providing the Point values written just once at the end \\ \hline
+\caption{Keywords of output files to visualize meteorological forcing on the simulation points}
+\label{general1d_data}
+\end{longtable}
+\end{center}
+
+
+
+\subsubsection{Parameters}
+
+\begin{center}
+\begin{longtable}{|p {3.4 cm}|p {4.9 cm}|p {1 cm}|p{1.0 cm}|p{1.5 cm}|p{0.9 cm}|p{0.9 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Sca / Vec} & \textbf{Log / Num} \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Sca / Vec} & \textbf{Log / Num} \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+DefaultPoint \index{DefaultPoint} & 0: use personal setting (see Table of headers), 1:use default headers & - & 0, 1 & 1 & sca & opt \\ \hline
+DtPlotPoint \index{DtPlotPoint} & Plotting Time step (in hour) of the output for specified grid points (0 means the it is not plotted) & h & 0, inf & 0 & vec & num \\ \hline
+DatePoint \index{DatePoint} & column number in which one would like to visualize the Date12[DDMMYYYY hhmm]    	 & - & 1, 76 & -1 & sca & num \\ \hline
+JulianDayFromYear0Point \index{JulianDayFromYear0Point} & column number in which one would like to visualize the JulianDayFromYear0[days]   	 & - & 1, 76 & -1 & sca & num \\ \hline
+TimeFromStartPoint \index{TimeFromStartPoint} & column number in which one would like to visualize the TimeFromStart[days]  & - & 1, 76 & -1 & sca & num \\ \hline
+PeriodPoint \index{PeriodPoint} & column number in which one would like to visualize the Simulation\_Period & - & 1, 76 & -1 & sca & num \\ \hline
+RunPoint \index{RunPoint} & column number in which one would like to visualize the Run	 & - & 1, 76 & -1 & sca & num \\ \hline
+IDPointPoint \index{IDPointPoint} & column number in which one would like to visualize the IDpoint  & - & 1, 76 & -1 & sca & num \\ \hline
+PsnowPoint \index{PsnowPoint} & column number in which one would like to visualize the Psnow\_over\_canopy[mm]      & - & 1, 76 & -1 & sca & num \\ \hline
+PrainPoint \index{PrainPoint} & column number in which one would like to visualize the Prain\_over\_canopy[mm] 	 & - & 1, 76 & -1 & sca & num \\ \hline
+PsnowNetPoint \index{PsnowNetPoint} & column number in which one would like to visualize the Psnow\_under\_canopy[mm]  & - & 1, 76 & -1 & sca & num \\ \hline
+PrainNetPoint \index{PrainNetPoint} & column number in which one would like to visualize the Prain\_under\_canopy[mm] 	 & - & 1, 76 & -1 & sca & num \\ \hline
+PrainOnSnowPoint \index{PrainOnSnowPoint} & column number in which one would like to visualize the Prain\_rain\_on\_snow[mm] & - & 1, 76 & -1 & sca & num \\ \hline
+WindSpeedPoint \index{WindSpeedPoint} & column number in which one would like to visualize the Wind\_speed[m/s]          & - & 1, 76 & -1 & sca & num \\ \hline
+WindDirPoint \index{WindDirPoint} & column number in which one would like to visualize the Wind\_direction[deg]   & - & 1, 76 & -1 & sca & num \\ \hline
+RHPoint \index{RHPoint} & column number in which one would like to visualize the Relative\_Humidity[-]     & - & 1, 76 & -1 & sca & num \\ \hline
+AirPressPoint \index{AirPressPoint} & column number in which one would like to visualize the Pressure[mbar]     & - & 1, 76 & -1 & sca & num \\ \hline
+AirTempPoint \index{AirTempPoint} & column number in which one would like to visualize the Tair[\textcelsius]     & - & 1, 76 & -1 & sca & num \\ \hline
+TDewPoint \index{TDewPoint} & column number in which one would like to visualize the Tdew[\textcelsius]   & - & 1, 76 & -1 & sca & num \\ \hline
+TsurfPoint \index{TsurfPoint} & column number in which one would like to visualize the Tsurface[\textcelsius]     & - & 1, 76 & -1 & sca & num \\ \hline
+\caption{Table of point output  (numeric)}
+\label{point1d_numeric}
+\end{longtable}
+\end{center}
+
+
+\subsubsection{Headers}
+
+\begin{center}
+\begin{longtable}{|p {4.3 cm}|p {5 cm}|p {2 cm}|p {2 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Output file}  \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{Associated file}  \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+HeaderDatePoint \index{HeaderDatePoint} & column name in the file PointOutputFile for the variable DatePoint & PointOutputFile  \\ \hline
+HeaderJulianDayFromYear0Point \index{HeaderJulianDayFromYear0Point} & column name in the file PointOutputFile for the variable JulianDayFromYear0Point & PointOutputFile  \\ \hline
+HeaderTimeFromStartPoint \index{HeaderTimeFromStartPoint} & column name in the file PointOutputFile for the variable TimeFromStartPoint & PointOutputFile  \\ \hline
+HeaderPeriodPoint \index{HeaderPeriodPoint} & column name in the file PointOutputFile for the variable PeriodPoint & PointOutputFile  \\ \hline
+HeaderRunPoint \index{HeaderRunPoint} & column name in the file PointOutputFile for the variable RunPoint & PointOutputFile  \\ \hline
+HeaderIDPointPoint \index{HeaderIDPointPoint} & column name in the file PointOutputFile for the variable IDPointPoint & PointOutputFile  \\ \hline
+HeaderCanopyFractionPoint \index{HeaderCanopyFractionPoint} & column name in the file PointOutputFile for the variable CanopyFractionPoint & PointOutputFile  \\ \hline
+HeaderPsnowPoint \index{HeaderPsnowPoint} & column name in the file PointOutputFile for the variable PsnowPoint & PointOutputFile  \\ \hline
+HeaderPrainPoint \index{HeaderPrainPoint} & column name in the file PointOutputFile for the variable PrainPoint & PointOutputFile  \\ \hline
+HeaderPrainNetPoint \index{HeaderPrainNetPoint} & column name in the file PointOutputFile for the variable PrainNetPoint & PointOutputFile  \\ \hline
+HeaderPrainOnSnowPoint \index{HeaderPrainOnSnowPoint} & column name in the file PointOutputFile for the variable PrainOnSnowPoint & PointOutputFile  \\ \hline
+HeaderWindSpeedPoint \index{HeaderWindSpeedPoint} & column name in the file PointOutputFile for the variable WindSpeedPoint & PointOutputFile  \\ \hline
+HeaderWindDirPoint \index{HeaderWindDirPoint} & column name in the file PointOutputFile for the variable WindDirPoint & PointOutputFile  \\ \hline
+HeaderRHPoint \index{HeaderRHPoint} & column name in the file PointOutputFile for the variable RHPoint & PointOutputFile  \\ \hline
+HeaderAirPressPoint \index{HeaderAirPressPoint} & column name in the file PointOutputFile for the variable AirPressPoint & PointOutputFile  \\ \hline
+HeaderAirTempPoint \index{HeaderAirTempPoint} & column name in the file PointOutputFile for the variable AirTempPoint & PointOutputFile  \\ \hline
+HeaderTDewPoint \index{HeaderTDewPoint} & column name in the file PointOutputFile for the variable TDewPoint & PointOutputFile  \\ \hline
+HeaderTsurfPoint \index{HeaderTsurfPoint} & column name in the file PointOutputFile for the variable TsurfPoint & PointOutputFile  \\ \hline
+%HeaderQCanopyAirPoint & column name in the file PointOutputFile for the variable specific humidity at the canopy-air interface & PointOutputFile  \\ \hline
+\caption{Table of meteorological parameters (character)}
+\label{meteo1d_data}
+\end{longtable}
+\end{center}
+
+
+
+\subsection{Maps}
+
+\subsubsection{Map names}
+
+\begin{center}
+\begin{longtable}{|p {4.6 cm}|p {8 cm}|p {3 cm}|p {4 cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description}  \\ \hline
+\endfirsthead
+\hline
+\multicolumn{4}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description}  \\ \hline
+\endhead
+\hline
+\multicolumn{4}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+SurfaceTempMapFile \index{SurfaceTempMapFile} & name of the output file providing the surface temperature map  \\ \hline
+PrecipitationMapFile \index{PrecipitationMapFile} & name of the output file providing the precipitation map  \\ \hline
+AirTempMapFile \index{AirTempMapFile} & name of the output file providing the Air temperature map  \\ \hline
+WindSpeedMapFile \index{WindSpeedMapFile} & name of the output file providing the Wind Speed map  \\ \hline
+WindDirMapFile \index{WindDirMapFile} & name of the output file providing the Wind Direction map  \\ \hline
+RelHumMapFile \index{RelHumMapFile} & name of the output file providing the Rel. Humidity map  \\ \hline
+SpecificPlotSurfaceTempMapFile \index{SpecificPlotSurfaceTempMapFile} & name of the output file providing the surface air temperature map at high temporal resolution during specific days  \\ \hline
+SpecificPlotWindSpeedMapFile \index{SpecificPlotWindSpeedMapFile}& name of the output file providing the wind speed map at high temporal resolution during specific days  \\ \hline
+SpecificPlotWindDirMapFile \index{SpecificPlotWindDirMapFile} & name of the output file providing the wind direction map at high temporal resolution during specific days  \\ \hline
+SpecificPlotRelHumMapFile \index{SpecificPlotRelHumMapFile} & name of the output file providing the relative humidity map at high temporal resolution during specific days  \\ \hline
+\caption{Keywords of names of meteorological forcing maps}
+\label{meteo3d_data}
+\end{longtable}
+\end{center}
+
+\subsubsection{Parameters}
+
+\begin{center}
+\begin{longtable}{|p {3. cm}|p {3.5 cm}|p {2.5 cm}|p{1.7 cm}|p{1. cm}|p{1. cm}|p{1. cm}|}
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Sca / Vec}  \\ \hline
+\endfirsthead
+\hline
+\multicolumn{7}{| c |}{continued from previous page} \\
+\hline
+\textbf{Keyword} & \textbf{Description} & \textbf{M. U.} & \textbf{range} & \textbf{Default Value} & \textbf{Sca / Vec}  \\ \hline
+\endhead
+\hline
+\multicolumn{7}{| c |}{{continued on next page}}\\ 
+\hline
+\endfoot
+\endlastfoot
+\hline
+OutputMeteoMaps \index{OutputMeteoMaps} & frequency (h) of printing of the results of the meteo maps & h &  & 0 & sca \\ \hline
+SpecialPlotBegin \index{SpecialPlotBegin} & date of begin of plotting of the special output & format DDMMYY hhmm & 01/01/1800 00:00, 01/01/2500 00:00 & 0 & vec \\ \hline
+SpecialPlotEnd \index{SpecialPlotEnd} & date of end of plotting of the special output & format DDMMYY hhmm & 01/01/1800 00:00, 01/01/2500 00:00 & 0 & vec  \\ \hline
+\caption{Keywords for parameters of printing details for meteo maps}
+\label{meteo_numeric}
+\end{longtable}
+\end{center}
+
+
+
