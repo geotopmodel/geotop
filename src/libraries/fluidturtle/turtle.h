@@ -104,12 +104,9 @@ struct T_INIT
 
 #include "t_io.h"
 
-#include "t_list.h"
+/*#include "t_list.h"
 
-
-/* #include "t_random.h" */
-
-/*
+#include "t_random.h" /
 
 #include "t_datamanipulation.h"
 
