@@ -22,6 +22,7 @@
 #include "struct.geotop.h"
 #include "pedo.funct.h"
 #include "constants.h"
+#include "math.optim.h"
 
 extern char **files;
 
@@ -38,9 +39,6 @@ extern char **files;
   Ss=specific storativity
 */
 
-double power(double a, double b){
-  return exp(b*log(a));
-}
 /*--------------------------------------------*/
 double psi_teta(double w, double i, double s, double r, double a, double n,
                 double m, double pmin, double Ss )
