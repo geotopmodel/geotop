@@ -29,7 +29,6 @@ add_executable(geotop
         src/geotop/geotop.cc
         src/geotop/indices.cc
         src/geotop/input.cc
-	src/geotop/math.optim.cc
         src/geotop/meteo.cc
         src/geotop/meteodata.cc
         src/geotop/meteodistr.cc
