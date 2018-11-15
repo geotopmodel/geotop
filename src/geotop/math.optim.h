@@ -3,6 +3,8 @@
 
 #include <cmath>
 
+#define pow_2(a) a*a
+
 template <class T>
 T power(const T a, const T b){
 #ifdef MATH_OPTIM
