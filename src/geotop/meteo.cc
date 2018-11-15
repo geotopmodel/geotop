@@ -27,6 +27,7 @@
 #include "tabs.h"
 #include "times.h"
 #include "snow.h"
+#include "math.optim.h"
 
 extern long number_novalue, number_absent;
 extern T_INIT *UV;
@@ -194,7 +195,7 @@ void SatVapPressure_2(double *e, double *de_dT, double T, double P)
   b=17.502;
   c=240.97;
   *e=A*exp(b*T/(c+T));
-  *de_dT=(*e)*(b/(c+T)-b*T/pow(c+T,2.0));
+  *de_dT=(*e)*(b/(c+T)-b*T/pow_2(c+T));
 }
 
 //Temperature from saturated water vapour
@@ -217,7 +218,7 @@ void SpecHumidity_2(double *Q, double *dQ_dT, double RH, double T, double P)
   double e, de_dT, dQ_de;
   SatVapPressure_2(&e, &de_dT, T, P);
   *Q=SpecHumidity(RH*e, P);
-  dQ_de=0.622/(P-0.378*e)+0.235116*e/pow(P-0.378*e, 2.0);
+  dQ_de=0.622/(P-0.378*e)+0.235116*e/pow_2(P-0.378*e);
   *dQ_dT=dQ_de*de_dT;
 }
 
