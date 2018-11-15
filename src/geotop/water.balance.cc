@@ -30,6 +30,7 @@
 #include "logger.h"
 #include "timer.h"
 #include <ctime>
+#include "math.optim.h"
 
 extern long number_novalue;
 
@@ -1976,7 +1977,7 @@ int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
 double find_3Ddistance(double horizontal_distance, double vertical_distance)
 {
 
-    return sqrt(pow(horizontal_distance,2.)+pow(vertical_distance,2.));
+    return sqrt(pow_2(horizontal_distance)+pow_2(vertical_distance));
 
 }
 
