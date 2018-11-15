@@ -3,6 +3,8 @@
 
 #include <cmath>
 
+//#define pow_2(a) (a*a)
+
 template <class T>
 T pow_2(const T a){
 #ifdef MATH_OPTIM
@@ -11,7 +13,6 @@ return a*a;
 return std::pow(a,2);
 #endif
 }
-//#define pow_2(a) a*a
 
 template <class T>
 T power(const T a, const T b){
