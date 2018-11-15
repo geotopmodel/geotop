@@ -43,6 +43,7 @@ development of the Geotop model. Any feedback will be highly appreciated.
 #include "recovering.h"
 #include "logger.h"
 #include "timer.h"
+#include "math.optim.h"
 
 #include <ctime>
 #include <iostream>
@@ -1937,7 +1938,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (i=1; i<=par->total_pixel; i++)
                 {
-                    (*V)(i) = sqrt(pow((*met->Vxplot)(i), 2.0) + pow((*met->Vyplot)(i), 2.0));
+                    (*V)(i) = sqrt(pow_2((*met->Vxplot)(i)) + pow_2((*met->Vyplot)(i)));
                 }
                 plot(files[pVspd], i, V.get(), par->format_out, top->j_cont);
             }
