@@ -42,7 +42,7 @@
 #include "rw_maps.h"
 #include "meteo.h"
 #include "logger.h"
-
+#include "math.optim.h"
 
 extern long number_novalue, number_absent;
 extern T_INIT *UV;
@@ -366,7 +366,7 @@ short get_wind(double dE, double dN, Matrix<double> *E, Matrix<double> *N, METEO
                 if ((long) (*topo)(r,c) != number_novalue) {
                     (*winddir_grid)(r,c) = 270.0 - rad2deg * atan2((*v_grid)(r,c), (*u_grid)(r,c));
                     if ((*winddir_grid)(r,c) >= 360.0) (*winddir_grid)(r,c) -= 360.0;
-                    (*windspd_grid)(r,c) = pow(pow((*u_grid)(r,c), 2.0) + pow((*v_grid)(r,c), 2.0), 0.5);
+                    (*windspd_grid)(r,c) = pow(pow_2((*u_grid)(r,c)) + pow_2((*v_grid)(r,c)), 0.5);
                 }
             }
         }
@@ -670,7 +670,7 @@ void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
     //   have assumed a gamma value of 0.2.
 
     // First-round values, Eqn (13).
-    xkappa_1 = 5.052 * pow(2.0 * dn / Pi, 2.0);
+    xkappa_1 = 5.052 * pow_2(2.0 * dn / Pi);
 
     // Define the maximum scanning radius to have weight defined by
     //   wt = 1.0 x 10**(-30) = exp(-rmax_1/xkappa_1)
@@ -697,7 +697,7 @@ void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
 
             xb = (*xstn)(mm);
             yb = (*ystn)(mm);
-            dsq = pow(xb - xa, 2.0) + pow(yb - ya, 2.0);
+            dsq = pow_2(xb - xa) + pow_2(yb - ya);
 
             if (dsq <= rmax_1) {
                 w1 = exp((-dsq) / xkappa_1);
@@ -739,7 +739,7 @@ void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
 
                 xa = (*xstn)(nn);
                 ya = (*ystn)(nn);
-                dsq = pow(xg - xa, 2.0) + pow(yg - ya, 2.0);
+                dsq = pow_2(xg - xa) + pow_2(yg - ya);
 
                 if (dsq <= rmax_2) {
                     w1 = exp((-dsq) / xkappa_1);
@@ -788,7 +788,7 @@ void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
 
                 xa = (*xstn)(nn);
                 ya = (*ystn)(nn);
-                dsq = pow(xg - xa, 2.0) + pow(yg - ya, 2.0);
+                dsq = pow_2(xg - xa) + pow_2(yg - ya);
 
                 if (dsq <= rmax_2) {
                     w1 = exp((-dsq) / xkappa_1);
