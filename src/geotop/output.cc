@@ -26,7 +26,6 @@ development of the Geotop model. Any feedback will be highly appreciated.
 #include "struct.geotop.h"
 #include "output.h"
 #include "pedo.funct.h"
-#include "networks.h"
 #include "rw_maps.h"
 #include "constants.h"
 #include "extensions.h"

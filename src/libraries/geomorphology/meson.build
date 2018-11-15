@@ -3,8 +3,4 @@ src_files += [files(['dtm_resolution.cc',
                      'geomorphology.0875.cc',
                      'geomorphology.0875.h',
                      'geomorphology.cc',
-                     'geomorphology.h',
-                     'networks.cc',
-                     'networks.h',
-                     'shadows.cc',
-                     'shadows.h',])]
+                     'geomorphology.h',])]
