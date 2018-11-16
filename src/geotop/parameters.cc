@@ -2290,7 +2290,7 @@ char **assign_string_parameter(long beg, long end, char **string_param, char **k
 /***********************************************************/
 /***********************************************************/
 
-double assignation_number(long i, long j, char **keyword, double **num_param, long *num_param_components, double default_value,
+double assignation_number(long i, long j, char **keyword, double **num_param, const long *num_param_components, double default_value,
                           short code_error)
 {
   GEOLOG_PREFIX(__func__);
