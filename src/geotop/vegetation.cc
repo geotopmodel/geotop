@@ -27,6 +27,7 @@
 #include "meteo.h"
 #include "turbulence.h"
 #include "radiation.h"
+#include "math.optim.h"
 
 extern T_INIT *UV;
 extern const char *WORKING_DIRECTORY;
@@ -461,7 +462,7 @@ void shortwave_vegetation(double Sd, double Sb, double x, double fwsn,
   d=xm*K*wBb;
   f=w*xm*K*(1.0-wBb/w);
   h=pow(b*b-c*c,0.5)/xm;
-  s=pow(xm*K,2.0)+c*c-b*b;
+  s=pow_2(xm*K)+c*c-b*b;
   u1=b-c/Agd;
   u2=b-c*Agd;
   u3=f+c*Agd;
