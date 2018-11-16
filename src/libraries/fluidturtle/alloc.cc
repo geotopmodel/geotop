@@ -17,7 +17,7 @@ float *vector(long nl, long nh)
 
   v = (float *) malloc((size_t) ((nh - nl + 1 + NR_END) * sizeof(float)));
 
-  if (!v) t_error("allocation failure in fvector()");
+  if (v == nullptr) t_error("allocation failure in fvector()");
 
   return v - nl + NR_END;
 
@@ -43,7 +43,7 @@ float **matrix(long nrl, long nrh, long ncl, long nch)
 
   m = (float **) malloc((size_t) ((rows + NR_END) * sizeof(float *)));
 
-  if (!m) t_error("Allocation failure 1 in matrix()");
+  if (m == nullptr) t_error("Allocation failure 1 in matrix()");
 
   m += NR_END;
 
@@ -53,7 +53,7 @@ float **matrix(long nrl, long nrh, long ncl, long nch)
 
   m[nrl] = (float *) malloc((size_t) ((rows * cols + NR_END) * sizeof(float)));
 
-  if (!m) t_error("Allocation failure 2 in matrix()");
+  if (m == nullptr) t_error("Allocation failure 2 in matrix()");
 
   m[nrl] += NR_END;
 

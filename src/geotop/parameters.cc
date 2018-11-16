@@ -1748,7 +1748,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
            && (long)(*itools->pa_bed)(1,jres,i) != number_novalue &&
            (long)(*itools->pa_bed)(1,ja,i) != number_novalue
            && (long)(*itools->pa_bed)(1,jns,i) != number_novalue &&
-           (long)(*itools->pa_bed)(1,jss,i) )
+           ((long)(*itools->pa_bed)(1,jss,i) != 0) )
         {
           if ( (long)(*itools->pa_bed)(1,jfc,i) == number_novalue)
             {
