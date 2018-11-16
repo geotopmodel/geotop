@@ -391,7 +391,7 @@ double diff2glob(double a)
   }
   else if (a<0.80)
   {
-    k = 0.9511-0.1604*a + 4.388*pow_2(a) - 16.638*pow(a,3) + 12.336*pow_2(a)*pow_2(a);
+    k = 0.9511-0.1604*a + 4.388*pow_2(a) - 16.638*pow_3(a) + 12.336*pow(a,4);
   }
   else
   {
@@ -520,8 +520,8 @@ void longwave_radiation(short state, double pvap, double RH, double T,
   }
   else if (state==9)
   {
-    *eps_min = ( 59.38 + 113.7*pow( (T+tk)/273.16, 6. ) + 96.96*pow((465.*pvap/(T+tk))/25., 0.5) ) /
-               (5.67E-8*pow(T+tk, 4.));//Dilley 1998
+    *eps_min = ( 59.38 + 113.7*pow( (T+tk)/273.16, 6.0) + 96.96*pow((465.*pvap/(T+tk))/25., 0.5) ) /
+               (5.67E-8*pow(T+tk,4));//Dilley 1998
 
   }
   else
@@ -552,7 +552,7 @@ void longwave_radiation(short state, double pvap, double RH, double T,
 double SB(double T)   //Stefan-Boltzmann law
 {
   double R;
-  R=5.67E-8*pow(T+tk,4.0);
+  R=5.67E-8*pow(T+tk,4);
   return (R);
 }
 
@@ -564,7 +564,7 @@ double SB(double T)   //Stefan-Boltzmann law
 double dSB_dT(double T)
 {
   double dR_dT;
-  dR_dT=4.0*5.67E-8*pow(T+tk,3.0);
+  dR_dT=4.0*5.67E-8*pow_3(T+tk);
   return (dR_dT);
 }
 
