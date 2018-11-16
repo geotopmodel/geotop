@@ -6,4 +6,34 @@ shift
 SOURCE_DIR=$1
 shift
 
-clang-tidy -p ${BUILD_DIR} -checks="-*,performance-*,modernize-*,-modernize-make-unique" ${SOURCE_DIR}/src/geotop/*.cc  -header-filter=${SOURCE_DIR}/src/geotop/*.h
+CFILE=${BUILD_DIR}/compile_commands.json # compile file
+TFILE=${BUILD_DIR}/.compile_commands.json # temporary file
+
+# check we are in proper build dir
+if test ! -f  $CFILE ;then
+    echo "*** Something wrong happend. Please reconfigure meson. ***"
+    exit 1
+fi
+
+cp $CFILE $TFILE
+cat $TFILE | sed 's/-pipe//g' > ${CFILE}
+
+
+# no spaces
+CHECKS="-*,\
+performance-*,\
+modernize-*,\
+-modernize-make-unique,\
+bugprone-*"
+
+CHECKS="-*,misc*"
+
+SRC="${SOURCE_DIR}/src/geotop/*.cc\
+     ${SOURCE_DIR}/src/libraries/*/*.cc"
+
+HEAD="${SOURCE_DIR}/src/geotop/*.h ${SOURCE_DIR}/src/libraries/{ascii,fluidturtle,geomorphology,math}/*.h"
+
+clang-tidy -p ${BUILD_DIR} -checks="${CHECKS}" ${SRC}  \
+	   -header-filter="${HEAD}" -quiet
+
+mv $TFILE $CFILE
