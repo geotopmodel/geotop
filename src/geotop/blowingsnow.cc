@@ -660,7 +660,7 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met,
 //*****************************************************************************************************
 
 void print_windtrans_snow(double Dt, SNOW *snow, PAR *par, TOPO *top,
-                          METEO *met, Matrix<double> *LC)
+                          METEO * /*met*/, Matrix<double> * /*LC*/)
 {
 
   long i, r, c;

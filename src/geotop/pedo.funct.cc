@@ -113,7 +113,7 @@ double teta_psi(double psi, double i, double s, double r, double a, double n,
 
 /*--------------------------------------------*/
 double dteta_dpsi(double psi, double i, double s, double r, double a,
-                  double n, double m, double pmin, double Ss )
+                  double n, double m, double  /*pmin*/, double Ss )
 //it is the derivative of teta with respect to psi [mm^-1]
 {
   double dteta,psisat;

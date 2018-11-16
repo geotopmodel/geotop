@@ -469,7 +469,7 @@ double atm_transmittance(double X, double P, double RH, double T,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void longwave_radiation(short state, double pvap, double RH, double T,
+void longwave_radiation(short state, double pvap, double  /*RH*/, double T,
                         double k1, double k2, double taucloud, double *eps, double *eps_max,
                         double *eps_min)
 {

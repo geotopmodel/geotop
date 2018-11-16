@@ -45,7 +45,7 @@ extern T_INIT *UV;
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void dealloc_all(TOPO *top,SOIL *sl,LAND *land,WATER *wat,CHANNEL *cnet,
+void dealloc_all(TOPO *top,SOIL * /*sl*/,LAND *land,WATER * /*wat*/,CHANNEL *cnet,
                  PAR *par,ENERGY *egy,SNOW *snow, GLACIER *glac, METEO *met, TIMES *times) {
 
     long i, j, r, l, n;

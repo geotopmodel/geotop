@@ -34,7 +34,7 @@ extern char *FailedRunFile;
 
 void aero_resistance(double zmu, double zmt, double z0, double d0,
                      double z0_z0t, double v, double Ta, double T, double Qa,
-                     double Q, double P, double gmT, double *Lobukhov, double *rm, double *rh,
+                     double Q, double  /*P*/, double gmT, double *Lobukhov, double *rm, double *rh,
                      double *rv, short state_turb,
                      short MO, long maxiter)
 {
@@ -134,7 +134,7 @@ double Psih(double z)
 }
 
 //****Zero
-double Zero(double z)
+double Zero(double  /*z*/)
 {
   return (0.0);
 }
@@ -335,7 +335,7 @@ double CZ(short state, double zmeas, double z0, double d0, double L,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void Star(short a, double zmeas, double z0, double d0, double L, double u,
+void Star(short a, double zmeas, double z0, double d0, double L, double  /*u*/,
           double delta, double M, double N, double R,
           double *var, double *c, double *z0v, double (*Psi)(double z),
           double (*roughness)(double x, double y, double z) )
@@ -546,7 +546,7 @@ double latent(double Ts, double Le)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void find_actual_evaporation_parameters(long R, long C, double *alpha,
+void find_actual_evaporation_parameters(long  /*R*/, long  /*C*/, double *alpha,
                                         double *beta, Vector<double> *evap_layer, Vector<double> &theta,
                                         MatrixView<double> &&soil, Vector<double> &T, double psi, double P, double rv,
                                         double Ta,

@@ -56,13 +56,13 @@ extern char **files;
 #define MM 1
 #define ni 1.E-4
 #define num_iter_after_which_surfenergy_balance_not_recalculated 50
-#define Tmin_surface_below_which_surfenergy_balance_recalculated -50
+#define Tmin_surface_below_which_surfenergy_balance_recalculated (-50)
 #define num_iter_after_which_only_neutrality 10
 #define Csnow_at_T_greater_than_0 1.E20
 #define ratio_max_storage_RAIN_over_canopy_to_LSAI 0.1
 #define ratio_max_storage_SNOW_over_canopy_to_LSAI 5.0
 #define Tmax 100.0
-#define Tmin -90.0
+#define Tmin (-90.0)
 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -226,8 +226,8 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
 short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                          double JDe, SOIL_STATE *L, SOIL_STATE *C, STATEVAR_3D *S, STATEVAR_3D *G,
                          STATE_VEG *V,
-                         Vector<double> *snowage, ALLDATA *A, double E0, double Et, double Dtplot,
-                         double W, FILE *f, double *SWupabove_v, double *Tgskin)
+                         Vector<double> *snowage, ALLDATA *A, double E0, double Et, double  /*Dtplot*/,
+                         double W, FILE * /*f*/, double *SWupabove_v, double *Tgskin)
 {
     GEOLOG_PREFIX(__func__);
     GEOTIMER_PREFIX(__func__);
@@ -2195,7 +2195,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
+void update_soil_land(long  /*nsurf*/, long n, long i, long r, long c, double fc,
                       double Dt, ENERGY *egy, MatrixView<double> &&pa, SOIL_STATE *S, Tensor<double> *ET,
                       Matrix<double> *th)
 {
@@ -2242,7 +2242,7 @@ void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
+void update_soil_channel(long  /*nsurf*/, long n, long ch, double fc, double Dt,
                          ENERGY *egy, MatrixView<double> &&pa, SOIL_STATE *S, Matrix<double> *ET, Matrix<double> *th)
 {
 
@@ -2570,24 +2570,24 @@ void EnergyFluxes(double t, double Tg, long r, long c, long n, // 5 parameters
 /******************************************************************************************************************************************/
 
 void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c,
-                                    long n, double Tg0, double Qg0, double Tv0, double zmu, double zmT,
+                                    long n, double  /*Tg0*/, double  /*Qg0*/, double  /*Tv0*/, double zmu, double zmT,
                                     double z0s,
-                                    double d0s, double rz0s, double z0v, double d0v, double rz0v, double hveg,
+                                    double d0s, double rz0s, double  /*z0v*/, double  /*d0v*/, double  /*rz0v*/, double  /*hveg*/,
                                     double v, double Ta, double Qa,
                                     double P, double LR, double psi, double e, double fc, double LSAI,
-                                    double decaycoeff0, double Wcrn,
-                                    double Wcrnmax, double Wcsn, double Wcsnmax, double *dWcrn, double *dWcsn,
+                                    double  /*decaycoeff0*/, double  /*Wcrn*/,
+                                    double  /*Wcrnmax*/, double  /*Wcsn*/, double  /*Wcsnmax*/, double * /*dWcrn*/, double * /*dWcsn*/,
                                     Vector<double> &theta, MatrixView<double> &&soil,
-                                    RowView<double> &&land, RowView<double> &&root, PAR *par,
-                                    Vector<double> *soil_transp_layer,
-                                    double SWin, double LWin, double SWv, double *LW,
-                                    double *H, double *dH_dT, double *E, double *dE_dT, double *LWv, double *Hv,
-                                    double *LEv, double *Etrans,
+                                    RowView<double> && /*land*/, RowView<double> && /*root*/, PAR *par,
+                                    Vector<double> * /*soil_transp_layer*/,
+                                    double  /*SWin*/, double LWin, double  /*SWv*/, double *LW,
+                                    double *H, double *dH_dT, double *E, double *dE_dT, double *LWv, double * /*Hv*/,
+                                    double * /*LEv*/, double * /*Etrans*/,
                                     double *Tv, double *Qv, double *Ts, double *Qs, double *Hg0, double *Hg1,
                                     double *Eg0, double *Eg1, double *Lobukhov,
                                     double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g,
                                     double *rv_g, double *Qg,
-                                    double *u_top, double *decay, double *Locc, double *LWup_above_v, Vector<double> &T,
+                                    double * /*u_top*/, double * /*decay*/, double * /*Locc*/, double *LWup_above_v, Vector<double> &T,
                                     Vector<double> *soil_evap_layer_bare,
                                     Vector<double> *soil_evap_layer_veg, double sky, short flagTmin, long cont)
 {

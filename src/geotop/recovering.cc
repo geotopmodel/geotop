@@ -32,7 +32,7 @@ extern long number_novalue;
 /******************************************************************************************************************************************/
 
 void assign_recovered_map(short old, long n, char *name, Matrix<double> *assign,
-                          PAR *par, Matrix<double> *Zdistr)
+                          PAR * /*par*/, Matrix<double> *Zdistr)
 {
 
   long r, c;
@@ -67,7 +67,7 @@ void assign_recovered_map(short old, long n, char *name, Matrix<double> *assign,
 /******************************************************************************************************************************************/
 
 void assign_recovered_map_vector(short old, long n, char *name,
-                                 Vector<double> *assign, Matrix<long> *rc, PAR *par, Matrix<double> *Zdistr)
+                                 Vector<double> *assign, Matrix<long> *rc, PAR * /*par*/, Matrix<double> *Zdistr)
 {
 
   long i, r, c;
@@ -102,7 +102,7 @@ void assign_recovered_map_vector(short old, long n, char *name,
 /******************************************************************************************************************************************/
 
 void assign_recovered_map_long(short old, long n, char *name,
-                               Matrix<long> *assign, PAR *par, Matrix<double> *Zdistr)
+                               Matrix<long> *assign, PAR * /*par*/, Matrix<double> *Zdistr)
 {
 
   long r, c;
@@ -136,7 +136,7 @@ void assign_recovered_map_long(short old, long n, char *name,
 /******************************************************************************************************************************************/
 
 void assign_recovered_tensor(short old, long n, char *name,
-                             Tensor<double> *assign, PAR *par, Matrix<double> *Zdistr)
+                             Tensor<double> *assign, PAR * /*par*/, Matrix<double> *Zdistr)
 {
 
   long r, c, l;
@@ -178,7 +178,7 @@ void assign_recovered_tensor(short old, long n, char *name,
 /******************************************************************************************************************************************/
 
 void assign_recovered_tensor_vector(short old, long n, char *name, Matrix<double> *assign,
-                                    Matrix<long> *rc, PAR *par, Matrix<double> *Zdistr)
+                                    Matrix<long> *rc, PAR * /*par*/, Matrix<double> *Zdistr)
 {
 
   long r, c, i, l;

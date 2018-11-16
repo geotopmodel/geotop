@@ -774,7 +774,7 @@ long count_lines(char *meteo_file_name, long comment_char, long sep_char)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double **read_datamatrix(FILE *f, char *filename, long comment_char,
+double **read_datamatrix(FILE *f, char * /*filename*/, long comment_char,
                          long sep_char, long number_lines, long components_header)
 {
   GEOLOG_PREFIX(__func__);

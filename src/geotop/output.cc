@@ -2535,8 +2535,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 //****************************************************************************************************
 //****************************************************************************************************
 
-void write_output_headers(long n, TIMES *times, WATER *wat, PAR *par,
-                          TOPO *top, LAND *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac)
+void write_output_headers(long n, TIMES * /*times*/, WATER * /*wat*/, PAR *par,
+                          TOPO *top, LAND *land, SOIL *sl, ENERGY * /*egy*/, SNOW *snow, GLACIER * /*glac*/)
 {
     GEOLOG_PREFIX(__func__);
     /* internal auxiliary variables: */
@@ -3790,8 +3790,8 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 //***************************************************************************************************************
 
 void write_soil_output(long i, long iname, double init_date, double end_date,
-                       double JDfrom0, double JD, long day, long month, long year, long hour,
-                       long minute, Vector<double> *n, SOIL *sl, PAR *par, double psimin,
+                       double JDfrom0, double  /*JD*/, long day, long month, long year, long hour,
+                       long minute, Vector<double> *n, SOIL *sl, PAR *par, double  /*psimin*/,
                        double cosslope)
 {
     GEOLOG_PREFIX(__func__);
@@ -4135,8 +4135,8 @@ void write_soil_output(long i, long iname, double init_date, double end_date,
 //***************************************************************************************************************
 //***************************************************************************************************************
 
-void write_snow_output(long i, long iname, long r, long c, double init_date,
-                       double end_date, double JDfrom0, double JD,
+void write_snow_output(long  /*i*/, long iname, long r, long c, double init_date,
+                       double end_date, double JDfrom0, double  /*JD*/,
                        long day, long month, long year, long hour, long minute, Vector<double> *n,
                        STATEVAR_3D *snow, PAR *par, double cosslope)
 {
@@ -4550,7 +4550,7 @@ void write_soil_header(FILE *f, Vector<double> *n, RowView<double> &&dz)
 //a=2 snow(according to layers) and var used
 //a=3 snow(according to layers) and var/dz used
 
-void write_snow_header(short a, long r, long c, FILE *f, Vector<double> *n,
+void write_snow_header(short a, long  /*r*/, long  /*c*/, FILE *f, Vector<double> *n,
                        Tensor<double> *Dz)
 {
 

@@ -942,7 +942,7 @@ double cm_h(double cm0, double h, double h_thres1, double h_thres2)
 /******************************************************************************************************************************************/
 //cnt is the counter of Li Lp Lx (lower diagonal without diagonal)
 
-int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
+int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                      Vector<double> *Lx, Matrix<double> *Klat, Matrix<double> *Kbottom_l,
                      Vector<double> *Kbottom_ch, ALLDATA *adt, Vector<double> *H)
 {
@@ -1455,7 +1455,7 @@ int find_matrix_K_3D(double Dt, SOIL_STATE *SL, SOIL_STATE *SC,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-int find_matrix_K_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *Lx,
+int find_matrix_K_1D(long c, double  /*Dt*/, SOIL_STATE *L, Vector<double> *Lx,
                      Matrix<double> *Klat, Matrix<double> *Kbottom, ALLDATA *adt, Vector<double> *H)
 {
 
@@ -1992,7 +1992,7 @@ double find_3Ddistance(double horizontal_distance, double vertical_distance)
 /******************************************************************************************************************************************/
 
 void find_dt_max(short DD, double Courant, RowView<double> &&h, LAND *land, TOPO *top,
-                 CHANNEL *cnet, PAR *par, METEO *met, double t, double *dt)
+                 CHANNEL *cnet, PAR *par, METEO * /*met*/, double  /*t*/, double *dt)
 {
 
     double q, ds=sqrt((*UV->U)(1)*(*UV->U)(2)), area, Vmax, H;
@@ -2235,7 +2235,7 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
 /******************************************************************************************************************************************/
 
 void find_dt_max_chla(double Courant, RowView<double> &&h, RowView<double> &&hch, TOPO *top,
-                      CHANNEL *cnet, PAR *par, double t, double *dt)
+                      CHANNEL *cnet, PAR *par, double  /*t*/, double *dt)
 {
 
     double q, ds=sqrt((*UV->U)(1)*(*UV->U)(2)), area, areach, Vmax, H, Hch, DH;
@@ -2313,7 +2313,7 @@ void find_dt_max_chla(double Courant, RowView<double> &&h, RowView<double> &&hch
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void supflow_chla(double Dt, double t, RowView<double> &&h, RowView<double> &&hch, TOPO *top, WATER *wat,
+void supflow_chla(double Dt, double t, RowView<double> &&h, RowView<double> &&hch, TOPO *top, WATER * /*wat*/,
                   CHANNEL *cnet, PAR *par,
                   Vector<double> *Vsup, long *cnt)
 {
@@ -2438,7 +2438,7 @@ void supflow_chla(double Dt, double t, RowView<double> &&h, RowView<double> &&hc
 /******************************************************************************************************************************************/
 
 void find_dt_max_channel(short DDcomplex, double Courant, RowView<double> &&h,
-                         TOPO *top, CHANNEL *cnet, PAR *par, LAND *land, double t, double *dt)
+                         TOPO *top, CHANNEL *cnet, PAR *par, LAND * /*land*/, double  /*t*/, double *dt)
 {
 
     long r, c, ch, R, C;

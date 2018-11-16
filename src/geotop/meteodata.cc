@@ -880,7 +880,7 @@ short fill_RH(long imeteo, Vector<double> *Z, double **data, long nlines,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short fill_Pint(long imeteo, double **data, long nlines, long Prec,
+short fill_Pint(long  /*imeteo*/, double **data, long nlines, long Prec,
                 long PrecInt, long JDfrom0, char *HeaderPrecInt)
 {
 
