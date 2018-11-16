@@ -391,7 +391,7 @@ double diff2glob(double a)
   }
   else if (a<0.80)
   {
-    k = 0.9511-0.1604*a + 4.388*pow_2(a) - 16.638*a*pow_2(a) + 12.336*pow_2(a)*pow_2(a);
+    k = 0.9511-0.1604*a + 4.388*pow_2(a) - 16.638*pow(a,3) + 12.336*pow_2(a)*pow_2(a);
   }
   else
   {
