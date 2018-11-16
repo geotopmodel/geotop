@@ -625,7 +625,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat,
 
   double *others;
   double tau_atm, tau_atm_sin_alpha, sin_alpha, kd, kd0;
-  double tau = (double)number_novalue;
+  auto tau = (double)number_novalue;
   long j;
 
   others = (double *)malloc(12*sizeof(double));

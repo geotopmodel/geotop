@@ -21,8 +21,7 @@ STATEVAR_3D::STATEVAR_3D(double nan, long nl, long nr, long nc) :
   *w_liq = 0.;
 }
 
-STATEVAR_3D::~STATEVAR_3D() {
-}
+STATEVAR_3D::~STATEVAR_3D() = default;
 
 SOIL_STATE::SOIL_STATE(const long n, const long nl) :
 
