@@ -300,7 +300,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
       u_star=sqrt(v/(*rm));
 
       //wind speed at the top of the canopy
-      *u_top=(u_star/ka)*CZ(MO, hveg, z0, d0, *Lobukhov, (*Psim));
+      *u_top=(u_star/ka)*CZ(MO, hveg, z0, d0, *Lobukhov, (Psim));
 
       //iteration for Loc (within canopy Obukhov length)
       cont=0;

@@ -458,10 +458,10 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         if (i>A->P->total_channel)
             update_snow_age(Psnow_over, (*S->T)(ns,r,c), Dt, A->P->minP_torestore_A, &((*snowage)(j)));
         avis_d=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo,
-                           A->P->snow_aging_vis, (*snowage)(j), 0., (*Zero));
+                           A->P->snow_aging_vis, (*snowage)(j), 0., (Zero));
         avis_b=avis_d;//approx
         anir_d=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo,
-                           A->P->snow_aging_nir, (*snowage)(j), 0., (*Zero));
+                           A->P->snow_aging_nir, (*snowage)(j), 0., (Zero));
         anir_b=anir_d;//approx
     }
     else
@@ -528,9 +528,9 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
     if (snowD>0)
     {
         avis_b=snow_albedo(avis_ground, snowD, A->P->aep, A->P->avo,
-                           A->P->snow_aging_vis, (*snowage)(j), cosinc, (*Fzen));
+                           A->P->snow_aging_vis, (*snowage)(j), cosinc, (Fzen));
         anir_b=snow_albedo(anir_ground, snowD, A->P->aep, A->P->airo,
-                           A->P->snow_aging_nir, (*snowage)(j), cosinc, (*Fzen));
+                           A->P->snow_aging_nir, (*snowage)(j), cosinc, (Fzen));
     }
 
     //shortwave absorbed by soil (when vegetation is not present)
