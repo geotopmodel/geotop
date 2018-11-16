@@ -23,6 +23,7 @@
 #include "struct.geotop.h"
 #include "turbulence.h"
 #include "meteo.h"
+#include "math.optim.h"
 
 extern char *FailedRunFile;
 
@@ -250,8 +251,8 @@ void Lewis(double zmu, double zmt, double d0, double z0, double z0_z0t,
     }
   else
     {
-      Fm=1.0/(pow(1.0+Cmx*Rib,2.0));
-      Fh=1.0/(pow(1.0+Chx*Rib,2.0));
+      Fm=1.0/(pow_2(1.0+Cmx*Rib));
+      Fh=1.0/(pow_2(1.0+Chx*Rib));
     }
 
   /* calcola la resistenza aereodinamica */
@@ -376,7 +377,7 @@ double roughT(double M, double N, double R)
       b1=-0.565;
       b2=-0.183;
     }
-  fr=R+N*exp(b0+b1*log(M)+b2*pow(log(M),2.0));
+  fr=R+N*exp(b0+b1*log(M)+b2*pow_2(log(M)));
 
   return (fr);
 
@@ -410,7 +411,7 @@ double roughQ(double M, double N, double R)
       b1=-0.512;
       b2=-0.180;
     }
-  fr=R+N*exp(b0+b1*log(M)+b2*pow(log(M),2.0));
+  fr=R+N*exp(b0+b1*log(M)+b2*pow_2(log(M)));
   //fr=R+N*exp(-ka*(7.3*pow(M,0.25)*pow(0.595,0.5)-5));
   return (fr);
 
@@ -602,8 +603,7 @@ void find_actual_evaporation_parameters(long R, long C, double *alpha,
           for (l=1; l<=n; l++)
             {
 
-              D = D00 * pow((T[l]+tk)/tk,
-                            2.) * (Pa0/P);  //molecular diffusivity water vapor [mm2/s]
+              D = D00 * pow_2((T[l]+tk)/tk) * (Pa0/P);  //molecular diffusivity water vapor [mm2/s]
               (*r)(l) = (1.E3/D) * soil(jdz,l);
 
               Qsat = SpecHumidity(SatVapPressure(T[l], P), P);
