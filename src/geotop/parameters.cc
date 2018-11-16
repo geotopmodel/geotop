@@ -42,7 +42,6 @@ extern long *opnt, nopnt, *obsn, nobsn, *osnw, nosnw, *oglc, noglc, *osl,
        nosl;
 extern short *ipnt, *ibsn;
 extern char **hpnt, * *hbsn, * *hsnw, * *hglc, * *hsl;
-extern char *keywords_num[num_par_number], *keywords_char[num_par_char];
 
 extern char *SuccessfulRunFile, *FailedRunFile;
 

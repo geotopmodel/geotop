@@ -48,7 +48,6 @@ extern char *logfile;
 extern long Nl;
 extern long *opnt, nopnt, *obsn, nobsn;
 extern double **odp, *odb;
-extern long nopnt, *opnt;
 extern long i_sim, i_run;
 extern char *FailedRunFile;
 extern char **files;
