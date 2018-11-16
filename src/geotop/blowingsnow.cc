@@ -28,6 +28,7 @@
 #include "vegetation.h"
 #include "energy.balance.h"
 #include "meteodata.h"
+#include "math.optim.h"
 
 extern long number_novalue, number_absent;
 
@@ -520,8 +521,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
                     {
                       if ((*top->slope)(r,c) <= par->snow_smax)
                         {
-                          k_snowred = ( exp(-pow((*top->slope)(r,c) - par->snow_smin,
-                                                 2.)/par->snow_curv) -
+                          k_snowred = ( exp(-pow_2((*top->slope)(r,c) - par->snow_smin)/par->snow_curv) -
                                         exp(-pow(par->snow_smax, 2.)/par->snow_curv) );
                         }
                       else
