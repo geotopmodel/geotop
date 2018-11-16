@@ -17,6 +17,7 @@
 #include "PBSM.h"
 #include "util_math.h"
 #include "logger.h"
+#include "math.optim.h"
 
 extern T_INIT *UV;
 extern long Nl, Nr, Nc;
@@ -110,7 +111,7 @@ void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double r
 
       Ustar = 0.001;  //first guess
       i=0;
-      Z0 = CC2 * 0.07519 * pow(Ustar, 2.) / (2.*g) + Zstb;//Liston 1998
+      Z0 = CC2 * 0.07519 * pow_2(Ustar) / (2.*g) + Zstb;//Liston 1998
       F = (Ustar/ka) * log(zmeas/Z0) - V;
       do
         {
@@ -120,7 +121,7 @@ void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double r
           do
             {
               Ustar = Ustar1 - (F/F1)/pow(2., (double)k);
-              Z0 = CC2 * 0.07519 * pow(Ustar, 2.) / (2.*g) + Zstb;
+              Z0 = CC2 * 0.07519 * pow_2(Ustar) / (2.*g) + Zstb;
               k++;
             }
           while (fabs((Ustar/ka) * log(zmeas/Z0) - V) > fabs(F) && k<10);
@@ -153,15 +154,14 @@ void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double r
       if (Ustar > Usthr)
         {
 
-          Nsalt = 2.*rho/(CC2*CC3*Ustar)*(RauTerm - pow(Usthr,2.0)/pow(Ustar,
-                                          2.0)); //{Eq. 4.14 updated}
+          Nsalt = 2.*rho/(CC2*CC3*Ustar)*(RauTerm - pow_2(Usthr)/pow_2(Ustar)); //{Eq. 4.14 updated}
 
           if (Nsalt > 0)
             {
 
               // {saltation transport}
 
-              Hsalt = CC2/(2.*g)*pow(Ustar,2.0);    //{Eq. 4.13}
+              Hsalt = CC2/(2.*g)*pow_2(Ustar);    //{Eq. 4.13}
               TQsalt = CC1*Usthr * Nsalt * Hsalt;//{Eq. 4.20}
 
               // {calculate sublimation rate in the saltation layer}
@@ -180,8 +180,7 @@ void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double r
               C = 1.0/(Diff * SvDens * Nuss);
               DmDt = (2.0 * Pi * Mpr * SigmaZ)/(Ls * B/A + C);
               //{Eq. 6.16} {Gamma Dist. Corr.}
-              Mpm = 4.0/3.0 * Pi * rho_i * Mpr*pow(Mpr,
-                                                   2.0) *(1.0 + 3.0/Alpha + 2.0/pow(Alpha,2.0));
+              Mpm = 4.0/3.0 * Pi * rho_i * Mpr*pow_2(Mpr) *(1.0 + 3.0/Alpha + 2.0/pow_2(Alpha));
 
               Vs = DmDt/Mpm;              //{Sublimation rate coefficient Eq. 6.13}
 
@@ -293,8 +292,7 @@ double sublimation(double Z)
   A = k_atm * T * Nuss;
   C = 1.0/(Diff * SvDens * Nuss);
   DmDt = (2.0*Pi * Mpr * SigmaZ)/(Ls*B/A + C);
-  Mpm = 1.333 * Pi * rho_i * pow(Mpr,3.0) * (1.0 + 3.0/Alpha + 2.0/pow(Alpha,
-                                             2.0));  //{Eq. 6.16} {Gamma Dist. Corr.}
+  Mpm = 1.333 * Pi * rho_i * pow(Mpr,3.0) * (1.0 + 3.0/Alpha + 2.0/pow_2(Alpha));  //{Eq. 6.16} {Gamma Dist. Corr.}
 
   Vs = DmDt/Mpm;                             //{Eq. 6.13}
 
