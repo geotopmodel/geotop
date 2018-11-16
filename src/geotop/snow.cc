@@ -31,8 +31,8 @@
 #include "rw_maps.h"
 #include "times.h"
 #include "output.h"
-
 #include "PBSM.h"
+#include "math.optim.h"
 
 extern long number_novalue, number_absent;
 
@@ -264,7 +264,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
 
     //add new layer
     if ((*snow->w_ice)((*snow->lnum)(r,c),r,c) > SWEmax_layer *
-                                                    (1.+simpl_snow) )
+                                                 (1.+simpl_snow) )
     {
       occurring = 1;
     }
@@ -387,7 +387,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
             (*snow->Dzl)(l+1,r,c) = (*snow->Dzl)(l,r,c) * SWEmax_layer /
                                     (*snow->w_ice)(l,r,c);
             (*snow->w_liq)(l+1,r,c) = (*snow->w_liq)(l,r,c) * SWEmax_layer /
-                                         (*snow->w_ice)(l,r,c);
+                                      (*snow->w_ice)(l,r,c);
             (*snow->w_ice)(l+1,r,c) = SWEmax_layer;
 
             (*snow->T)(l+1,r,c) = (*snow->T)(l,r,c);
@@ -481,13 +481,13 @@ void snowlayer_merging(double a, long r, long c, STATEVAR_3D *snow, long l1,
 
   double h;
 
-  h = internal_energy((*snow->w_ice)(l1,r,c),(*snow->w_liq)(l1,r,c), (*snow->T)(l1,r,c)) 
+  h = internal_energy((*snow->w_ice)(l1,r,c),(*snow->w_liq)(l1,r,c), (*snow->T)(l1,r,c))
       + internal_energy((*snow->w_ice)(l2,r,c), (*snow->w_liq)(l2,r,c),(*snow->T)(l2,r,c));
-  
+
   (*snow->Dzl)(lres,r,c)=(*snow->Dzl)(l1,r,c)+(*snow->Dzl)(l2,r,c);
   (*snow->w_ice)(lres,r,c) = (*snow->w_ice)(l1,r,c) + (*snow->w_ice)(l2,r,c);
- (*snow->w_liq)(lres,r,c) = (*snow->w_liq)(l1,r,c) + (*snow->w_liq)(l2,r,c);
-  
+  (*snow->w_liq)(lres,r,c) = (*snow->w_liq)(l1,r,c) + (*snow->w_liq)(l2,r,c);
+
   if ((*snow->Dzl)(lres,r,c)<0 || (*snow->w_ice)(lres,r,c)<0 ||(*snow->w_liq)(lres,r,c)<0)
   {
     printf("ERROR 1 in snow layer merging r:%ld c:%ld l1:%ld l2:%ld lres:%ld\n",r,
@@ -536,10 +536,12 @@ void from_internal_energy(double a, long r, long c, double h, double *w_ice,
     *T=0.0;
     do
     {
-      T0=*T;
-      *T=T0-(pow(T0,3.0)+A*pow(T0,2.0)+B*T0+C)/(3.0*pow(T0,2.0)+2*A*T0+B);
+      T0 = *T;
+      *T = T0-(pow(T0,3.0)+A*pow_2(T0)+B*T0+C)/(3.0*pow_2(T0)+2*A*T0+B);
       cont++;
-      if (cont>100) printf("%ld %e %e %e %e\n",cont,SWE,h,T0,*T);
+
+      if (cont>100)
+        printf("%ld %e %e %e %e\n",cont,SWE,h,T0,*T);
     }
     while (fabs(*T-T0)>1.E-10 && cont<100);
 
@@ -597,7 +599,7 @@ short set_snow_min(double a, long r, long c, STATEVAR_3D *snow, long l1,
       && (*snow->Dzl)(l2,r,c) > 1.E-5)  //l1 too shallow and takes mass from l2
   {
     f = std::min<double>(Dmin - (*snow->Dzl)(l1,r,c),
-             (*snow->Dzl)(l2,r,c))/(*snow->Dzl)(l2,r,c);
+                         (*snow->Dzl)(l2,r,c))/(*snow->Dzl)(l2,r,c);
     h = internal_energy((*snow->w_ice)(l1,r,c), (*snow->w_liq)(l1,r,c),
                         (*snow->T)(l1,r,c));
     dd = f*(*snow->Dzl)(l2,r,c);
@@ -670,7 +672,7 @@ short set_snowice_min(double a, long r, long c, STATEVAR_1D *snow, long l1,
       && (*snow->w_ice)(l2)> 1.E-6) //l1 too shallow and takes mass from l2
   {
     f = std::min<double>(wicemin - (*snow->w_ice)(l1),
-             (*snow->w_ice)(l2))/(*snow->w_ice)(l2);
+                         (*snow->w_ice)(l2))/(*snow->w_ice)(l2);
     dd = f * (*snow->Dzl)(l2);
     (*snow->Dzl)(l1) += dd;
     (*snow->Dzl)(l2) -= dd;
@@ -862,7 +864,8 @@ void update_snow_age(double Psnow, double Ts, double Dt, double Prestore, double
 
   //effect melt and refreezing*/
   r2=pow(r1,10);
-  if (r2>1.0) r2=1.0;
+  if (r2>1.0)
+    r2=1.0;
 
   //effect of dirt
   r3=0.3;
@@ -925,11 +928,11 @@ double k_thermal_snow_Sturm(double density)   //W m^-1 K^-1 (Sturm, 1997)
   density*=0.001;
   if (density<0.156)
   {
-    kt=0.023+0.234*density;
+    kt = 0.023+0.234*density;
   }
   else
   {
-    kt=0.138-1.01*density+3.233*pow(density,2.0);
+    kt = 0.138-1.01*density + 3.233*pow_2(density);
   }
   return (kt);
 }
@@ -1088,7 +1091,7 @@ void WBsnow(double Dt, long ns, long r, long c, STATEVAR_3D *snow,
 
           //b)melting: snow depth decreases maintaining the same density
           if ((*snow->w_ice)(l,r,c)/(*E->ice)(m) < 1) (*snow->Dzl)(l,r,c) *=
-                                                                  ((*snow->w_ice)(l,r,c)/(*E->ice)(m));
+                                                              ((*snow->w_ice)(l,r,c)/(*E->ice)(m));
 
           //limit on max porosity
           if ((*snow->w_ice)(l,r,c) / (1.E-3*(*snow->Dzl)(l,r,c)*rho_w) >
@@ -1105,7 +1108,7 @@ void WBsnow(double Dt, long ns, long r, long c, STATEVAR_3D *snow,
           if (Se<0) Se=0.0;
           if (Se>1) Se=1.0;
           if (th>par->Sr*(1.0-thi)) Wdt += std::min<double>(5.0*pow(Se,3.0)*Dt,
-                                                (th - par->Sr*(1.0-thi)))*(*snow->Dzl)(l,r,c)*1.E-3*rho_w;
+                                                            (th - par->Sr*(1.0-thi)))*(*snow->Dzl)(l,r,c)*1.E-3*rho_w;
           (*snow->w_liq)(l,r,c) -= Wdt;
 
         }
@@ -1195,7 +1198,7 @@ void WBglacier(long ns, long ng, long r, long c, STATEVAR_3D *glac,
     if (l>ng)
     {
 
-     (*glac->w_ice)(l,r,c) = 0.;
+      (*glac->w_ice)(l,r,c) = 0.;
       (*glac->w_liq)(l,r,c) = 0.;
       (*glac->Dzl)(l,r,c) = 0.;
 
@@ -1212,7 +1215,7 @@ void WBglacier(long ns, long ng, long r, long c, STATEVAR_3D *glac,
         Edt -= ((*E->ice)(m) - (*E->deltaw)(m));
         *Melt = *Melt +  ((*E->liq)(m) + (*E->deltaw)(m));
 
-       (*glac->w_ice)(l,r,c) = 0.;
+        (*glac->w_ice)(l,r,c) = 0.;
         (*glac->w_liq)(l,r,c) = 0.;
         (*glac->Dzl)(l,r,c) = 0;
 
@@ -1221,7 +1224,7 @@ void WBglacier(long ns, long ng, long r, long c, STATEVAR_3D *glac,
       {
 
         (*glac->T)(l,r,c) = (*E->Temp)(m);
-       (*glac->w_ice)(l,r,c) = std::max<double>(0., (*E->ice)(m) - (*E->deltaw)(m) - Edt);
+        (*glac->w_ice)(l,r,c) = std::max<double>(0., (*E->ice)(m) - (*E->deltaw)(m) - Edt);
         (*glac->w_liq)(l,r,c) = std::max<double>(0., (*E->liq)(m) + (*E->deltaw)(m));
         (*glac->Dzl)(l,r,c) = 1.E3 * (*E->Dlayer)(m);
 
@@ -1233,7 +1236,7 @@ void WBglacier(long ns, long ng, long r, long c, STATEVAR_3D *glac,
           //COMPACTION
           //melting: snow depth decreases maintaining the same density
           if ((*glac->w_ice)(l,r,c)/(*E->ice)(m) < 1)(*glac->Dzl)(l,r,c) *=
-                                                                 ((*glac->w_ice)(l,r,c)/(*E->ice)(m));
+                                                             ((*glac->w_ice)(l,r,c)/(*E->ice)(m));
 
           //limit on max porosity
           if ((*glac->w_ice)(l,r,c) / (1.E-3*(*glac->Dzl)(l,r,c)*rho_w) > 0.95)
@@ -1251,7 +1254,7 @@ void WBglacier(long ns, long ng, long r, long c, STATEVAR_3D *glac,
           {
             *Melt = *Melt + (th - par->Sr*(1.0-thi))*(*glac->Dzl)(l,r,c)*1.E-3*rho_w;
             (*glac->w_liq)(l,r,c) = par->Sr*(1.0-thi)
-                                       *(*glac->Dzl)(l,r,c)*1.E-3*rho_w;
+                                    *(*glac->Dzl)(l,r,c)*1.E-3*rho_w;
           }
 
         }
@@ -1387,8 +1390,9 @@ double theta_snow(double a, double b, double T)
 
   double th;
 
-  th=1./(b+pow(a*T, 2.));
-  if (T>0) th=1./(b+pow(a*0., 2.));
+  th=1./(b+pow_2(a*T));
+  if (T>0)
+    th=1./(b+pow_2(a*0.));
   return (th);
 }
 
@@ -1402,9 +1406,8 @@ double dtheta_snow(double a, double b, double T)
 
   double dth;
 
-  dth=-2.*a*a*T/pow(b+pow(a*T, 2.), 2.);
-  if (T>0) dth=-2.*a*a*max_dtheta_snow(a,b)/pow(b+pow(a*max_dtheta_snow(a,b),
-                                                      2.), 2.);
+  dth=-2.*a*a*T/pow_2(b+pow_2(a*T));
+  if (T>0) dth=-2.*a*a*max_dtheta_snow(a,b)/pow_2(b+pow_2(a*max_dtheta_snow(a,b)));
   return (dth);
 }
 
