@@ -1,0 +1,9 @@
+#!/bin/bash
+
+BUILD_DIR=$1
+shift
+
+SOURCE_DIR=$1
+shift
+
+clang-tidy -p ${BUILD_DIR} -checks="-*,performance-*,modernize-*,-modernize-make-unique" ${SOURCE_DIR}/src/geotop/*.cc  -header-filter=${SOURCE_DIR}/src/geotop/*.h
