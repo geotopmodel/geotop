@@ -4,6 +4,8 @@
 #include "t_random.h"
 #include "networks.h"
 #include <logger.h>
+#include <timer.h>
+#include <math.optim.h>
 
 #define Pi 3.14159265358979     /* P greco */
 
@@ -23,7 +25,9 @@
 void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *input, Matrix<short> *convess,
                      long novalue)
 {
-    long i,j,t,m,n,p,q,h,k,r,s; //counter
+  GEOTIMER_PREFIX(__func__);
+
+  long i,j,t,m,n,p,q,h,k,r,s; //counter
     double deltateta; //amplitude of the angles in which the horizon is divided
     std::unique_ptr<Matrix<double>> alfa; //matrices with the angles of the direction
     std::unique_ptr<Vector<double>>
@@ -103,10 +107,10 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
                             {
                                 r=h-m+1;
                                 s=k-n+1;
-                                if ((*convess)(r,s)==1 && sqrt(pow((r-i),2)+pow((s-j),2))!=0)
+                                if ((*convess)(r,s)==1 && sqrt(pow_2((r-i))+pow_2((s-j)))!=0)
                                 {
                                     vv->co[t]=1-sin(atan(((*input)(r,s)-(*input)(i,j))
-                                                         /(sqrt(pow((r-i),2)+pow((s-j),2))*(*UV->U)(1))));
+                                                         /(sqrt(pow_2((r-i))+pow_2((s-j)))*(*UV->U)(1))));
                                     if (vv->co[t]<v->co[t])
                                     {
                                         v->co[t]=vv->co[t];
