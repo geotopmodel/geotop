@@ -4,9 +4,9 @@
 #include <cmath>
 
 #define pow_2(a) ((a)*(a))
-#define pow_3(a) ((a)*(pow_2(a)))
-#define pow_4(a) ((pow_2(a))*(pow_2(a)))
-#define pow_6(a) ((pow_3(a))*(pow_3(a)))
+//#define pow_3(a) ((a)*(a)*(a))
+//#define pow_4(a) ((a)*(a)*(a)*(a))
+//#define pow_6(a) ((pow_3(a))*(pow_3(a)))
 
 template <class T>
 T power(const T a, const T b){
