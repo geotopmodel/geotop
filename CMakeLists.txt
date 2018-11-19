@@ -115,6 +115,7 @@ add_executable(geotop
 	src/geotop/vector.h src/geotop/matrix.h src/geotop/tensor.h
 	src/geotop/rowview.h src/geotop/matrixview.h
 	src/geotop/geotop_asserts.h
+	src/geotop/math.optim.h
 	${CMAKE_BINARY_DIR}/src/geotop/version.cc)
 enable_testing()
 subdirs(tests)

@@ -27,6 +27,7 @@
 #include "times.h"
 #include "util_math.h"
 #include "geomorphology.h"
+#include "math.optim.h"
 
 extern long number_novalue, number_absent;
 
@@ -45,15 +46,15 @@ void sun(double JDfrom0, double *E0, double *Et, double *Delta)
 
   //correction sun-earth distance
   *E0=1.00011+0.034221*cos(Gamma)+0.00128*sin(Gamma)+0.000719*cos(
-        2*Gamma)+0.000077*sin(2*Gamma);
+          2*Gamma)+0.000077*sin(2*Gamma);
 
   //Correction for sideral day (rad)
   *Et=0.000075 + 0.001868*cos(Gamma) - 0.032077*sin(Gamma) - 0.014615*cos(
-        2*Gamma) - 0.04089*sin(2*Gamma);
+          2*Gamma) - 0.04089*sin(2*Gamma);
 
   //Solar Declination
   *Delta=0.006918-0.399912*cos(Gamma)+0.070257*sin(Gamma)-0.006758*cos(
-           2*Gamma)+0.000907*sin(2*Gamma)-0.002697*cos(3*Gamma)+0.00148*sin(3*Gamma);
+          2*Gamma)+0.000907*sin(2*Gamma)-0.002697*cos(3*Gamma)+0.00148*sin(3*Gamma);
 
 }
 
@@ -110,33 +111,33 @@ double SolarAzimuth(double JD, double latitude, double Delta, double dh)
 
   //solar azimuth
   if (h<=12)
+  {
+    if (alpha==Pi/2.0)  //zenith
     {
-      if (alpha==Pi/2.0)  //zenith
-        {
-          direction=Pi/2.0;
-        }
-      else
-        {
-          cosine=(sin(alpha)*sin(latitude)-sin(Delta))/(cos(alpha)*cos(latitude));
-          if (cosine>1) cosine = 1.;
-          if (cosine<-1) cosine = -1.;
-          direction=Pi - acos(cosine);
-        }
+      direction=Pi/2.0;
     }
+    else
+    {
+      cosine=(sin(alpha)*sin(latitude)-sin(Delta))/(cos(alpha)*cos(latitude));
+      if (cosine>1) cosine = 1.;
+      if (cosine<-1) cosine = -1.;
+      direction=Pi - acos(cosine);
+    }
+  }
   else
+  {
+    if (alpha==Pi/2.0) //zenith
     {
-      if (alpha==Pi/2.0) //zenith
-        {
-          direction=3*Pi/2.0;
-        }
-      else
-        {
-          cosine=(sin(alpha)*sin(latitude)-sin(Delta))/(cos(alpha)*cos(latitude));
-          if (cosine>1) cosine = 1.;
-          if (cosine<-1) cosine = -1.;
-          direction=Pi + acos(cosine);
-        }
+      direction=3*Pi/2.0;
     }
+    else
+    {
+      cosine=(sin(alpha)*sin(latitude)-sin(Delta))/(cos(alpha)*cos(latitude));
+      if (cosine>1) cosine = 1.;
+      if (cosine<-1) cosine = -1.;
+      direction=Pi + acos(cosine);
+    }
+  }
 
   return direction;
 
@@ -174,16 +175,16 @@ double TauatmCosinc(double JD, double *others)
 
   height = SolarHeight_(JD, others);
   if (height>0)
-    {
-      dir = SolarAzimuth_(JD, others);
-      return atm_transmittance(std::max<double>(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,
-                               albedo)*std::max<double>(0.0,cos(slope)*sin(height)+sin(slope)*cos(height)*cos(
-                                              -aspect+dir));
-    }
+  {
+    dir = SolarAzimuth_(JD, others);
+    return atm_transmittance(std::max<double>(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,
+                             albedo)*std::max<double>(0.0,cos(slope)*sin(height)+sin(slope)*cos(height)*cos(
+            -aspect+dir));
+  }
   else
-    {
-      return 0.0;
-    }
+  {
+    return 0.0;
+  }
 }
 
 double TauatmCosinc_(double JD, void *others) { return TauatmCosinc(JD, (double *)others); }
@@ -212,14 +213,14 @@ double TauatmSinalpha(double JD, double *others)
 
   height = SolarHeight_(JD, others);
   if (height>0)
-    {
-      return atm_transmittance(std::max<double>(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,
-                               albedo) * std::max<double>(sin(height),0.05);
-    }
+  {
+    return atm_transmittance(std::max<double>(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,
+                             albedo) * std::max<double>(sin(height),0.05);
+  }
   else
-    {
-      return 0.0;
-    }
+  {
+    return 0.0;
+  }
 }
 
 double TauatmSinalpha_(double JD, void *others) { return TauatmSinalpha(JD, (double *)others); }
@@ -243,14 +244,14 @@ double Cosinc(double JD, double *others)
   alpha = SolarHeight_(JD, others);
   direction = SolarAzimuth_(JD, others);
   if (alpha>0)
-    {
-      return std::max<double>(0.0,cos(slope)*sin(alpha)+sin(slope)*cos(alpha)*cos(
-                    -aspect+direction));
-    }
+  {
+    return std::max<double>(0.0,cos(slope)*sin(alpha)+sin(slope)*cos(alpha)*cos(
+            -aspect+direction));
+  }
   else
-    {
-      return 0.0;
-    }
+  {
+    return 0.0;
+  }
 }
 
 double Cosinc_(double JD, void *others) { return Cosinc(JD, (double *)others); }
@@ -271,13 +272,13 @@ double Sinalpha(double JD, double *others)
 
   alpha = SolarHeight_(JD, others);
   if (alpha>0)
-    {
-      return std::max<double>(sin(alpha), 0.05);
-    }
+  {
+    return std::max<double>(sin(alpha), 0.05);
+  }
   else
-    {
-      return 0.0;
-    }
+  {
+    return 0.0;
+  }
 }
 
 double Sinalpha_(double JD, void *others) { return Sinalpha(JD, (double *)others); }
@@ -336,40 +337,40 @@ void shortwave_radiation(double JDbeg, double JDend, double *others,
   *SWd = Isc*E0*tau_cloud*(*tau_atm_sin_alpha) * sky*kd + (1.-sky)*SWrefl_surr ;
 
   if (shadow == 1)
-    {
-      cos_inc = 0.0;
-      *SWb = 0.0;
-    }
+  {
+    cos_inc = 0.0;
+    *SWb = 0.0;
+  }
   else
-    {
-      cos_inc = adaptiveSimpsons2(Cosinc_, others, JDbeg, JDend, 1.E-6,
-                                  20) / (JDend - JDbeg);
-      //cos_inc = Cosinc( 0.5*(JDbeg+JDend), others);
-      tau_atm_cos_inc = adaptiveSimpsons2(TauatmCosinc_, others, JDbeg, JDend,
-                                          1.E-8, 20) / (JDend - JDbeg);
-      //tau_atm_cos_inc = tau_atm * cos_inc;
-      //cos_inc = sin_alpha;
-      //tau_atm_cos_inc = *tau_atm_sin_alpha;
-      *SWb = (1.-kd)*Isc*E0*tau_cloud*tau_atm_cos_inc;
-    }
+  {
+    cos_inc = adaptiveSimpsons2(Cosinc_, others, JDbeg, JDend, 1.E-6,
+                                20) / (JDend - JDbeg);
+    //cos_inc = Cosinc( 0.5*(JDbeg+JDend), others);
+    tau_atm_cos_inc = adaptiveSimpsons2(TauatmCosinc_, others, JDbeg, JDend,
+                                        1.E-8, 20) / (JDend - JDbeg);
+    //tau_atm_cos_inc = tau_atm * cos_inc;
+    //cos_inc = sin_alpha;
+    //tau_atm_cos_inc = *tau_atm_sin_alpha;
+    *SWb = (1.-kd)*Isc*E0*tau_cloud*tau_atm_cos_inc;
+  }
 
   *cos_inc_bd = kd*sin_alpha + (1.-kd)*cos_inc;
 
   if (sin_alpha > 1.E-5)
+  {
+    if (shadow == 1)
     {
-      if (shadow == 1)
-        {
-          *SWb_yes = 0;
-        }
-      else
-        {
-          *SWb_yes = 1;
-        }
+      *SWb_yes = 0;
     }
+    else
+    {
+      *SWb_yes = 1;
+    }
+  }
   else
-    {
-      *SWb_yes = -1;
-    }
+  {
+    *SWb_yes = -1;
+  }
 
 }
 
@@ -385,17 +386,17 @@ double diff2glob(double a)
 
   double k;
   if (a<0.22)
-    {
-      k=1.0-0.09*a;
-    }
+  {
+    k = 1.0-0.09*a;
+  }
   else if (a<0.80)
-    {
-      k=0.9511-0.1604*a+4.388*pow(a,2.0)-16.638*pow(a,3.0)+12.336*pow(a,4.0);
-    }
+  {
+     k = 0.9511-0.1604*a + 4.388*pow_2(a) - 16.638*pow(a,3) + 12.336*pow(a,4);
+  }
   else
-    {
-      k=0.165;
-    }
+  {
+    k = 0.165;
+  }
   return (k);
 }
 
@@ -437,25 +438,24 @@ double atm_transmittance(double X, double P, double RH, double T,
   double w0 = 0.9;
   double Fc = 0.84;
 
-  mr = 1./(sin(X)+0.15*(pow((3.885+X*180.0/Pi),-1.253)));
+  mr = 1./(sin(X)+0.15*(power((3.885+X*180.0/Pi),-1.253)));
   ma = mr*P/Pa0;
   w = 0.493*RH*(exp(26.23-5416.0/(T+tk)))/(T+tk); //cm
   U1 = w*mr;
   U3 = Lozone*mr;
-  tau_r = exp(-.0903*pow(ma,.84)*(1.+ma-pow(ma,1.01)));
-  tau_o = 1. - (.1611*U3*pow(1.+139.48*U3,
-                             -.3035) - .002715*U3/(1.+.044*U3+.0003*U3*U3));
-  tau_g = exp(-.0127*pow(ma,.26));
-  tau_w = 1. - 2.4959*U1/(pow(1.+79.034*U1,.6828)+6.385*U1);
+  tau_r = exp(-.0903*power(ma,.84)*(1.+ma-power(ma,1.01)));
+  tau_o = 1. - (.1611*U3*power(1.+139.48*U3, -.3035) - .002715*U3/(1.+.044*U3+.0003*U3*U3));
+  tau_g = exp(-.0127*power(ma,.26));
+  tau_w = 1. - 2.4959*U1/(power(1.+79.034*U1,.6828)+6.385*U1);
   //tau_a from 7.4.11 Iqbal
   tau_a = .12445*a - 0.0162 + (1.003 - .125*a) * exp(-b*ma*(1.089*a + .5123));
-  tau_aa = 1. - (1. - w0)*(1. - ma + pow(ma, 1.06))*(1. - tau_a);
+  tau_aa = 1. - (1. - w0)*(1. - ma + power(ma, 1.06))*(1. - tau_a);
   rho_a = .0685 + (1. - Fc)*(1. - tau_a/tau_aa);
   tau_atm_n = .9751 * tau_r * tau_o * tau_g * tau_w * tau_a;
   tau_atm_dr = .79 * tau_o * tau_g * tau_w * tau_aa * .5 * (1.-tau_r) /
-               (1. - ma + pow(ma, 1.02));
+               (1. - ma + power(ma, 1.02));
   tau_atm_da = .79 * tau_o * tau_g * tau_w * tau_aa * Fc * (1.-tau_a/tau_aa) /
-               (1. - ma + pow(ma, 1.02));
+               (1. - ma + power(ma, 1.02));
   tau_atm_dm = (tau_atm_n + tau_atm_dr + tau_atm_da) * rho_g * rho_a /
                (1. - rho_g * rho_a);
   tau_atm = tau_atm_n + tau_atm_dr + tau_atm_da + tau_atm_dm;
@@ -478,65 +478,61 @@ void longwave_radiation(short state, double pvap, double RH, double T,
   FILE *f;
 
   if (state==1)
-    {
-      *eps_min = 1.24*pow((pvap/(T+tk)),1./7.); //Brutsaert, 1975
+  {
+    *eps_min = 1.24*pow((pvap/(T+tk)),1./7.); //Brutsaert, 1975
 
-    }
+  }
   else if (state==2)
-    {
-      *eps_min = 1.08*(1.0-exp(-pow(pvap,(T+tk)/2016.0)));  //Satterlund, 1979
+  {
+    *eps_min = 1.08*(1.0-exp(-pow(pvap,(T+tk)/2016.0)));  //Satterlund, 1979
 
-    }
+  }
   else if (state==3)
-    {
-      *eps_min = (0.7+5.95*0.00001*pvap*exp(1500/(T+tk)));  //Idso(1981)
+  {
+    *eps_min = (0.7+5.95*0.00001*pvap*exp(1500/(T+tk)));  //Idso(1981)
 
-    }
+  }
   else if (state==4)
-    {
-      *eps_min = (0.7+5.95*0.00001*pvap*exp(1500/(T+tk)));
-      *eps_min = -0.792 + 3.161*(*eps_min) - 1.573*(*eps_min)*
-                 (*eps_min); //IDSO + HODGES
+  {
+    *eps_min = (0.7+5.95*0.00001*pvap*exp(1500/(T+tk)));
+    *eps_min = -0.792 + 3.161*(*eps_min) - 1.573*(*eps_min)*
+                                           (*eps_min); //IDSO + HODGES
 
-    }
+  }
   else if (state==5)
-    {
-      *eps_min = 0.765; //Koenig-Langlo & Augstein, 1994
+  {
+    *eps_min = 0.765; //Koenig-Langlo & Augstein, 1994
 
-    }
+  }
   else if (state==6)
-    {
-      *eps_min = (0.601+5.95*0.00001*pvap*exp(1500.0/(T
-                                                      +tk)));//Andreas and Ackley, 1982
-
-    }
+  {
+    *eps_min = (0.601+5.95*0.00001*pvap*exp(1500.0/(T+tk)));//Andreas and Ackley, 1982
+  }
   else if (state==7)
-    {
-      *eps_min = (0.23+k1*pow((pvap*100.)/(T+tk),1./k2)); //Konzelmann (1994)
+  {
+    *eps_min = (0.23+k1*pow((pvap*100.)/(T+tk),1./k2)); //Konzelmann (1994)
 
-    }
+  }
   else if (state==8)
-    {
-      *eps_min = (1.-(1.+46.5*pvap/(T+tk))*exp(-pow(1.2+3.*46.5*pvap/(T+tk),
-                                                    0.5))); //Prata 1996
+  {
+    *eps_min = (1.-(1.+46.5*pvap/(T+tk))*exp(-pow(1.2+3.*46.5*pvap/(T+tk), 0.5))); //Prata 1996
 
-    }
+  }
   else if (state==9)
-    {
-      *eps_min = ( 59.38 + 113.7*pow( (T+tk)/273.16,
-                                      6. ) + 96.96*pow((465.*pvap/(T+tk))/25., 0.5) ) / (5.67E-8*pow(T+tk,
-                                          4.));//Dilley 1998
+  {
+    *eps_min = ( 59.38 + 113.7*pow( (T+tk)/273.16, 6.0) + 96.96*pow((465.*pvap/(T+tk))/25., 0.5) ) /
+               (5.67E-8*pow(T+tk,4));//Dilley 1998
 
-    }
+  }
   else
-    {
+  {
 
-      f = fopen(FailedRunFile, "w");
-      fprintf(f,"Error:: Incorrect value for longwave radiation formula\n");
-      fclose(f);
-      t_error("Fatal Error! Geotop is closed. See failing report.");
+    f = fopen(FailedRunFile, "w");
+    fprintf(f,"Error:: Incorrect value for longwave radiation formula\n");
+    fclose(f);
+    t_error("Fatal Error! Geotop is closed. See failing report.");
 
-    }
+  }
 
   *eps = (*eps_min) * taucloud + 1.0 * (1.-taucloud);
   *eps_max = (*eps_min) * taucloud_overcast + 1.0 * (1.-taucloud);
@@ -556,7 +552,7 @@ void longwave_radiation(short state, double pvap, double RH, double T,
 double SB(double T)   //Stefan-Boltzmann law
 {
   double R;
-  R=5.67E-8*pow(T+tk,4.0);
+  R=5.67E-8*pow(T+tk,4);
   return (R);
 }
 
@@ -568,7 +564,7 @@ double SB(double T)   //Stefan-Boltzmann law
 double dSB_dT(double T)
 {
   double dR_dT;
-  dR_dT=4.0*5.67E-8*pow(T+tk,3.0);
+  dR_dT=4.0*5.67E-8*pow(T+tk,3);
   return (dR_dT);
 }
 
@@ -589,27 +585,27 @@ void rad_snow_absorption(long r, long c, Vector<double> *frac, double R,
 
   //in case of snow
   if ( (*snow->lnum)(r,c) > 1)
+  {
+
+    for (l=(*snow->lnum)(r,c); l>=1; l--)
     {
-
-      for (l=(*snow->lnum)(r,c); l>=1; l--)
-        {
-          m = (*snow->lnum)(r,c)-l+1;
-          z += 0.001 * (*snow->Dzl)(l,r,c);
-          rho = ((*snow->w_ice)(l,r,c) + (*snow->w_liq)(l,r,c))/ (0.001 * (*snow->Dzl)(l,r,c));
-          k = rho/3.0+50.0;
-         (*frac)(m) = res-R*exp(-k*z);
-          res = R*exp(-k*z);
-        }
-
-      (*frac)((*snow->lnum)(r,c)+1) = res;
-
+      m = (*snow->lnum)(r,c)-l+1;
+      z += 0.001 * (*snow->Dzl)(l,r,c);
+      rho = ((*snow->w_ice)(l,r,c) + (*snow->w_liq)(l,r,c))/ (0.001 * (*snow->Dzl)(l,r,c));
+      k = rho/3.0+50.0;
+      (*frac)(m) = res-R*exp(-k*z);
+      res = R*exp(-k*z);
     }
+
+    (*frac)((*snow->lnum)(r,c)+1) = res;
+
+  }
   else
-    {
+  {
 
-      (*frac)(0) = res;
+    (*frac)(0) = res;
 
-    }
+  }
 }
 
 /******************************************************************************************************************************************/
@@ -647,53 +643,52 @@ double cloud_transmittance(double JDbeg, double JDend, double lat,
   //tau_atm_sin_alpha = tau_atm*sin_alpha;
 
   if (tau_atm_sin_alpha > 0)
+  {
+    if ((long)SWd!=number_absent && (long)SWd!=number_novalue
+        && (long)SWb!=number_absent && (long)SWb!=number_novalue)
     {
-      if ((long)SWd!=number_absent && (long)SWd!=number_novalue
-          && (long)SWb!=number_absent && (long)SWb!=number_novalue)
-        {
-          if ( SWb+SWd > 0 && SWd > 0)
-            {
-              kd = SWd / (std::max<double>(0.,SWb)+SWd);
-              tau = ( SWd - (1.-sky)*SWrefl_surr ) / ( Isc*E0*tau_atm_sin_alpha*sky*kd );
-            }
+      if ( SWb+SWd > 0 && SWd > 0)
+      {
+        kd = SWd / (std::max<double>(0.,SWb)+SWd);
+        tau = ( SWd - (1.-sky)*SWrefl_surr ) / ( Isc*E0*tau_atm_sin_alpha*sky*kd );
+      }
 
-        }
-      else if ((long)SW!=number_absent && (long)SW!=number_novalue)
-        {
-
-          kd=0.2;
-          tau_atm = adaptiveSimpsons2(Tauatm_, others, JDbeg, JDend, 1.E-6,
-                                      20) / (JDend - JDbeg);
-          sin_alpha = adaptiveSimpsons2(Sinalpha_, others, JDbeg, JDend, 1.E-6,
-                                        20) / (JDend - JDbeg);
-
-          j=0;
-
-          do
-            {
-
-              j++;
-              kd0=kd;
-              //SW = (1-kd(T))*Isc*T*sin + sky*Kd(T)*Isc*T*sin + (1-sky)*SWsurr
-              //T=Ta*Tc
-              //SW - (1-sky)*SWsurr = Tc * (Isc*Ta*sin) * ( (1-kd) + sky*kd )
-              //Tc = ( SW - (1-sky)*SWsurr ) / ( (Isc*Ta*sin) * ( (1-kd) + sky*kd )
-              tau = ( SW - (1.-sky)*SWrefl_surr ) / ( Isc*E0*tau_atm_sin_alpha * ( (
-                                                        1-kd) + sky*kd ) );
-              if (tau > 1) tau = 1.0;
-              if (tau < 0) tau = 0.0;
-              kd = diff2glob(tau * tau_atm);
-
-            }
-          while (fabs(kd0-kd)>0.005 && j<1000);
-
-        }
     }
+    else if ((long)SW!=number_absent && (long)SW!=number_novalue)
+    {
+
+      kd=0.2;
+      tau_atm = adaptiveSimpsons2(Tauatm_, others, JDbeg, JDend, 1.E-6,
+                                  20) / (JDend - JDbeg);
+      sin_alpha = adaptiveSimpsons2(Sinalpha_, others, JDbeg, JDend, 1.E-6,
+                                    20) / (JDend - JDbeg);
+
+      j=0;
+
+      do
+      {
+
+        j++;
+        kd0=kd;
+        //SW = (1-kd(T))*Isc*T*sin + sky*Kd(T)*Isc*T*sin + (1-sky)*SWsurr
+        //T=Ta*Tc
+        //SW - (1-sky)*SWsurr = Tc * (Isc*Ta*sin) * ( (1-kd) + sky*kd )
+        //Tc = ( SW - (1-sky)*SWsurr ) / ( (Isc*Ta*sin) * ( (1-kd) + sky*kd )
+        tau = ( SW - (1.-sky)*SWrefl_surr ) / ( Isc*E0*tau_atm_sin_alpha * ( (1-kd) + sky*kd ) );
+        if (tau > 1) tau = 1.0;
+        if (tau < 0) tau = 0.0;
+        kd = diff2glob(tau * tau_atm);
+
+      }
+      while (fabs(kd0-kd)>0.005 && j<1000);
+
+    }
+  }
 
   if ( (long)tau != number_novalue)
-    {
-      if (tau<min_tau_cloud) tau=min_tau_cloud;
-    }
+  {
+    if (tau<min_tau_cloud) tau=min_tau_cloud;
+  }
 
   free(others);
 
@@ -719,23 +714,23 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met,
   //relative humidity
   if ((long)met->var[i-1][iRh] != number_novalue
       && (long)met->var[i-1][iRh] != number_absent)
-    {
-      RH=met->var[i-1][iRh]/100.;
-    }
+  {
+    RH=met->var[i-1][iRh]/100.;
+  }
   else
+  {
+    if ( (long)met->var[i-1][iT] != number_absent
+         && (long)met->var[i-1][iT] != number_novalue
+         && (long)met->var[i-1][iTdew] != number_absent
+         && (long)met->var[i-1][iTdew] != number_novalue)
     {
-      if ( (long)met->var[i-1][iT] != number_absent
-           && (long)met->var[i-1][iT] != number_novalue
-           && (long)met->var[i-1][iTdew] != number_absent
-           && (long)met->var[i-1][iTdew] != number_novalue)
-        {
-          RH=RHfromTdew(met->var[i-1][iT], met->var[i-1][iTdew], (*met->st->Z)(i));
-        }
-      else
-        {
-          RH=0.4;
-        }
+      RH=RHfromTdew(met->var[i-1][iT], met->var[i-1][iTdew], (*met->st->Z)(i));
     }
+    else
+    {
+      RH=0.4;
+    }
+  }
   if (RH<0.01) RH=0.01;
 
   T=met->var[i-1][iT];
@@ -775,50 +770,50 @@ short shadows_point(double **hor, long n, double alpha, double azimuth,
 
   /* compare the current solar azimuth with the horizon matrix */
   if (azimuth>=hor[n-1][0] || azimuth<hor[0][0])
-    {
-      iend=0;
-      ibeg=n-1;
-    }
+  {
+    iend=0;
+    ibeg=n-1;
+  }
   else
+  {
+    for (i=1; i<=n-1; i++)
     {
-      for (i=1; i<=n-1; i++)
-        {
-          if (azimuth>=hor[i-1][0] && azimuth<hor[i][0])
-            {
-              iend=i;
-              ibeg=i-1;
-            }
-        }
+      if (azimuth>=hor[i-1][0] && azimuth<hor[i][0])
+      {
+        iend=i;
+        ibeg=i-1;
+      }
     }
+  }
 
   if (iend>ibeg)
-    {
-      w=(azimuth-hor[ibeg][0])/(hor[iend][0]-hor[ibeg][0]);
-    }
+  {
+    w=(azimuth-hor[ibeg][0])/(hor[iend][0]-hor[ibeg][0]);
+  }
   else if (azimuth>hor[ibeg][0])
-    {
-      w=(azimuth-hor[ibeg][0])/(hor[iend][0]+360.0-hor[ibeg][0]);
-    }
+  {
+    w=(azimuth-hor[ibeg][0])/(hor[iend][0]+360.0-hor[ibeg][0]);
+  }
   else
-    {
-      w=(azimuth-(hor[ibeg][0]-360.0))/(hor[iend][0]-(hor[ibeg][0]-360.0));
-    }
+  {
+    w=(azimuth-(hor[ibeg][0]-360.0))/(hor[iend][0]-(hor[ibeg][0]-360.0));
+  }
 
   horiz_H = w * hor[iend][1] + (1.0-w) *
-            hor[ibeg][1]; // horizon elevation at a particular time
+                               hor[ibeg][1]; // horizon elevation at a particular time
 
   if (alpha<tol_flat)
-    {
-      shad=1;
-    }
+  {
+    shad=1;
+  }
   else if (alpha<horiz_H+tol_mount)
-    {
-      shad=1;
-    }
+  {
+    shad=1;
+  }
   else
-    {
-      shad=0;
-    }
+  {
+    shad=0;
+  }
 
   return (shad);
 }
@@ -856,184 +851,184 @@ void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
   sz=sin(alpha);
 
   if (fabs(sx)>fabs(sy))
+  {
+
+    if (sx>0)
     {
-
-      if (sx>0)
-        {
-          orix=1;
-        }
-      else
-        {
-          orix=-1;
-        }
-
-      if (fabs(sy)>1.E-10)
-        {
-          if (sy>0)
-            {
-              oriy=1;
-            }
-          else
-            {
-              oriy=-1;
-            }
-        }
-      else
-        {
-          orix=0;
-        }
-
-      for (k=0; k<nk; k++)
-        {
-          for (l=0; l<nl; l++)
-            {
-              //r=row(GDY*k+0.5*GDY, Nr, UV, number_novalue);
-              //c=col(GDX*l+0.5*GDX, Nc, UV, number_novalue);
-              r=Nr-k;
-              c=l+1;
-              kk=k;
-              ll=l;
-              xp=GDX*ll+0.5*GDX;
-              yp=GDY*kk+0.5*GDY;
-              //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
-              //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
-              rr=Nr-kk;
-              cc=ll+1;
-              zray=(*Z)(rr,cc);
-              (*SH)(r,c)=0;
-
-              while ( ((*SH)(r,c)==0) && (kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1) )
-                {
-                  q=((ll+orix)*GDX+0.5*GDX-xp)/sx;
-                  y=yp+q*sy;
-                  if (fabs(y-(GDY*kk+0.5*GDY))<GDY)
-                    {
-                      ll=ll+orix;
-                      xp=GDX*ll+0.5*GDX;
-                      yp=y;
-                      //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
-                      //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
-                      rr=Nr-kk;
-                      cc=ll+1;
-                      z1=(*Z)(rr,cc);
-                      //rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, UV, number_novalue);
-                      rr=Nr-(kk+oriy);
-                      z2=(*Z)(rr,cc);
-                      ztopo=z1+(z2-z1)*(yp-(GDY*kk+0.5*GDY))/(oriy*GDY);
-                    }
-                  else
-                    {
-                      q=((kk+oriy)*GDY+0.5*GDY-yp)/sy;
-                      x=xp+q*sx;
-                      kk=kk+oriy;
-                      xp=x;
-                      yp=GDY*kk+0.5*GDY;
-                      //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
-                      //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
-                      rr=Nr-kk;
-                      cc=ll+1;
-                      z1=(*Z)(rr,cc);
-                      //cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, UV, number_novalue);
-                      cc=ll+orix+1;
-                      z2=(*Z)(rr,cc);
-                      ztopo=z1+(z2-z1)*(xp-(GDX*ll+0.5*GDX))/(orix*GDX);
-                    }
-                  zray=zray+q*sz;
-                  if (ztopo>zray) (*SH)(r,c)=1;
-                }
-            }
-        }
-
+      orix=1;
     }
-  else
+    else
     {
+      orix=-1;
+    }
 
+    if (fabs(sy)>1.E-10)
+    {
       if (sy>0)
-        {
-          oriy=1;
-        }
+      {
+        oriy=1;
+      }
       else
-        {
-          oriy=-1;
-        }
-
-      if (fabs(sx)>1.E-10)
-        {
-          if (sx>0)
-            {
-              orix=1;
-            }
-          else
-            {
-              orix=-1;
-            }
-        }
-      else
-        {
-          orix=0;
-        }
-
-      for (k=0; k<nk; k++)
-        {
-          for (l=0; l<nl; l++)
-            {
-              //r=row(GDY*k+0.5*GDY, Nr, UV, number_novalue);
-              //c=col(GDX*l+0.5*GDX, Nc, UV, number_novalue);
-              r=Nr-k;
-              c=l+1;
-              kk=k;
-              ll=l;
-              xp=GDX*ll+0.5*GDX;
-              yp=GDY*kk+0.5*GDY;
-              //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
-              //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
-              rr=Nr-kk;
-              cc=ll+1;
-              zray=(*Z)(rr,cc);
-              (*SH)(r,c)=0;
-
-              while ( ((*SH)(r,c)==0) &&(kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1))
-                {
-                  q=((kk+oriy)*GDY+0.5*GDY-yp)/sy;
-                  x=xp+q*sx;
-                  if (fabs(x-(GDX*ll+0.5*GDX))<GDX)
-                    {
-                      kk=kk+oriy;
-                      yp=GDY*kk+0.5*GDY;
-                      xp=x;
-                      //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
-                      //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
-                      rr=Nr-kk;
-                      cc=ll+1;
-                      z1=(*Z)(rr,cc);
-                      //cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, UV, number_novalue);
-                      cc=ll+orix+1;
-                      z2=(*Z)(rr,cc);
-                      ztopo=z1+(z2-z1)*(xp-(GDX*ll+0.5*GDX))/(orix*GDX);
-                    }
-                  else
-                    {
-                      q=((ll+orix)*GDX+0.5*GDX-xp)/sx;
-                      y=yp+q*sy;
-                      ll=ll+orix;
-                      yp=y;
-                      xp=GDX*ll+0.5*GDX;
-                      //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
-                      //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
-                      rr=Nr-kk;
-                      cc=ll+1;
-                      z1=(*Z)(rr,cc);
-                      //rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, UV, number_novalue);
-                      rr=Nr-(kk+oriy);
-                      z2=(*Z)(rr,cc);
-                      ztopo=z1+(z2-z1)*(yp-(GDY*kk+0.5*GDY))/(oriy*GDY);
-                    }
-                  zray=zray+q*sz;
-                  if (ztopo>zray) (*SH)(r,c)=1;
-                }
-            }
-        }
+      {
+        oriy=-1;
+      }
     }
+    else
+    {
+      orix=0;
+    }
+
+    for (k=0; k<nk; k++)
+    {
+      for (l=0; l<nl; l++)
+      {
+        //r=row(GDY*k+0.5*GDY, Nr, UV, number_novalue);
+        //c=col(GDX*l+0.5*GDX, Nc, UV, number_novalue);
+        r=Nr-k;
+        c=l+1;
+        kk=k;
+        ll=l;
+        xp=GDX*ll+0.5*GDX;
+        yp=GDY*kk+0.5*GDY;
+        //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
+        //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
+        rr=Nr-kk;
+        cc=ll+1;
+        zray=(*Z)(rr,cc);
+        (*SH)(r,c)=0;
+
+        while ( ((*SH)(r,c)==0) && (kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1) )
+        {
+          q=((ll+orix)*GDX+0.5*GDX-xp)/sx;
+          y=yp+q*sy;
+          if (fabs(y-(GDY*kk+0.5*GDY))<GDY)
+          {
+            ll=ll+orix;
+            xp=GDX*ll+0.5*GDX;
+            yp=y;
+            //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
+            //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
+            rr=Nr-kk;
+            cc=ll+1;
+            z1=(*Z)(rr,cc);
+            //rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, UV, number_novalue);
+            rr=Nr-(kk+oriy);
+            z2=(*Z)(rr,cc);
+            ztopo=z1+(z2-z1)*(yp-(GDY*kk+0.5*GDY))/(oriy*GDY);
+          }
+          else
+          {
+            q=((kk+oriy)*GDY+0.5*GDY-yp)/sy;
+            x=xp+q*sx;
+            kk=kk+oriy;
+            xp=x;
+            yp=GDY*kk+0.5*GDY;
+            //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
+            //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
+            rr=Nr-kk;
+            cc=ll+1;
+            z1=(*Z)(rr,cc);
+            //cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, UV, number_novalue);
+            cc=ll+orix+1;
+            z2=(*Z)(rr,cc);
+            ztopo=z1+(z2-z1)*(xp-(GDX*ll+0.5*GDX))/(orix*GDX);
+          }
+          zray=zray+q*sz;
+          if (ztopo>zray) (*SH)(r,c)=1;
+        }
+      }
+    }
+
+  }
+  else
+  {
+
+    if (sy>0)
+    {
+      oriy=1;
+    }
+    else
+    {
+      oriy=-1;
+    }
+
+    if (fabs(sx)>1.E-10)
+    {
+      if (sx>0)
+      {
+        orix=1;
+      }
+      else
+      {
+        orix=-1;
+      }
+    }
+    else
+    {
+      orix=0;
+    }
+
+    for (k=0; k<nk; k++)
+    {
+      for (l=0; l<nl; l++)
+      {
+        //r=row(GDY*k+0.5*GDY, Nr, UV, number_novalue);
+        //c=col(GDX*l+0.5*GDX, Nc, UV, number_novalue);
+        r=Nr-k;
+        c=l+1;
+        kk=k;
+        ll=l;
+        xp=GDX*ll+0.5*GDX;
+        yp=GDY*kk+0.5*GDY;
+        //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
+        //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
+        rr=Nr-kk;
+        cc=ll+1;
+        zray=(*Z)(rr,cc);
+        (*SH)(r,c)=0;
+
+        while ( ((*SH)(r,c)==0) &&(kk>0)&&(kk<nk-1)&&(ll>0)&&(ll<nl-1))
+        {
+          q=((kk+oriy)*GDY+0.5*GDY-yp)/sy;
+          x=xp+q*sx;
+          if (fabs(x-(GDX*ll+0.5*GDX))<GDX)
+          {
+            kk=kk+oriy;
+            yp=GDY*kk+0.5*GDY;
+            xp=x;
+            //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
+            //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
+            rr=Nr-kk;
+            cc=ll+1;
+            z1=(*Z)(rr,cc);
+            //cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, UV, number_novalue);
+            cc=ll+orix+1;
+            z2=(*Z)(rr,cc);
+            ztopo=z1+(z2-z1)*(xp-(GDX*ll+0.5*GDX))/(orix*GDX);
+          }
+          else
+          {
+            q=((ll+orix)*GDX+0.5*GDX-xp)/sx;
+            y=yp+q*sy;
+            ll=ll+orix;
+            yp=y;
+            xp=GDX*ll+0.5*GDX;
+            //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
+            //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
+            rr=Nr-kk;
+            cc=ll+1;
+            z1=(*Z)(rr,cc);
+            //rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, UV, number_novalue);
+            rr=Nr-(kk+oriy);
+            z2=(*Z)(rr,cc);
+            ztopo=z1+(z2-z1)*(yp-(GDY*kk+0.5*GDY))/(oriy*GDY);
+          }
+          zray=zray+q*sz;
+          if (ztopo>zray) (*SH)(r,c)=1;
+        }
+      }
+    }
+  }
 }
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -1045,7 +1040,7 @@ double find_albedo(double dry_albedo, double sat_albedo, double wat_content,
 {
 
   return (dry_albedo + (sat_albedo-dry_albedo) * (wat_content - residual_wc) /
-          (saturated_wc - residual_wc) );
+                       (saturated_wc - residual_wc) );
 
 }
 
@@ -1068,83 +1063,83 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av,
 
   if ((long)met->var[met->nstsrad-1][iSWb]!=number_absent
       && (long)met->var[met->nstsrad-1][iSWd]!=number_absent)
+  {
+    if ((long)met->var[met->nstsrad-1][iSWb]!=number_novalue
+        && (long)met->var[met->nstsrad-1][iSWd]!=number_novalue)
     {
-      if ((long)met->var[met->nstsrad-1][iSWb]!=number_novalue
-          && (long)met->var[met->nstsrad-1][iSWd]!=number_novalue)
-        {
-          SWdata=2;
-        }
-      else
-        {
-          SWdata=0;
-        }
+      SWdata=2;
     }
-  else if ((long)met->var[met->nstsrad-1][iSW]!=number_absent)
-    {
-      if ((long)met->var[met->nstsrad-1][iSW]!=number_novalue)
-        {
-          SWdata=1;
-        }
-      else
-        {
-          SWdata=0;
-        }
-    }
-  else
+    else
     {
       SWdata=0;
     }
+  }
+  else if ((long)met->var[met->nstsrad-1][iSW]!=number_absent)
+  {
+    if ((long)met->var[met->nstsrad-1][iSW]!=number_novalue)
+    {
+      SWdata=1;
+    }
+    else
+    {
+      SWdata=0;
+    }
+  }
+  else
+  {
+    SWdata=0;
+  }
 
   if (SWdata>0)
+  {
+    tc = find_tau_cloud_station(JDb, JDe, met->nstsrad, met, Delta, E0, Et, ST,
+                                SWrefl_surr, Lozone, alpha, beta, albedo);
+    if ( (long)tc != number_novalue)
     {
-      tc = find_tau_cloud_station(JDb, JDe, met->nstsrad, met, Delta, E0, Et, ST,
-                                  SWrefl_surr, Lozone, alpha, beta, albedo);
-      if ( (long)tc != number_novalue)
-        {
-          *tau_cloud_yes = 1;
-          *tau_cloud = tc;
-        }
-      else
-        {
-          *tau_cloud_yes = 0;
-        }
+      *tau_cloud_yes = 1;
+      *tau_cloud = tc;
     }
-  else
+    else
     {
       *tau_cloud_yes = 0;
     }
+  }
+  else
+  {
+    *tau_cloud_yes = 0;
+  }
 
   if ( (long)met->var[met->nstcloud-1][iC]!=number_absent
        && (long)met->var[met->nstcloud-1][iC]!=number_novalue )
-    {
+  {
 
-      tc = met->var[met->nstcloud-1][iC];
+    tc = met->var[met->nstcloud-1][iC];
 
-      *tau_cloud_av_yes = 1;
-      tc = 1. - 0.71*tc;//from fraction of sky covered by clouds to cloud transmissivity after Kimball (1928)
-      if (tc > 1) tc = 1.;
-      if (tc < 0) tc = 0.;
-      *tau_cloud_av = tc;
+    *tau_cloud_av_yes = 1;
+    tc = 1. - 0.71*tc;//from fraction of sky covered by clouds to cloud transmissivity after Kimball (1928)
+    if (tc > 1) tc = 1.;
+    if (tc < 0) tc = 0.;
+    *tau_cloud_av = tc;
 
-    }
+  }
   else if ( (long)met->var[met->nstcloud-1][itauC]!=number_absent
             && (long)met->var[met->nstcloud-1][itauC]!=number_novalue )
-    {
+  {
 
-      tc = met->var[met->nstcloud-1][itauC];
+    tc = met->var[met->nstcloud-1][itauC];
 
-      *tau_cloud_av_yes = 1;
-      if (tc > 1) tc = 1.;
-      if (tc < 0) tc = 0.;
-      *tau_cloud_av = tc;
+    *tau_cloud_av_yes = 1;
+    if (tc > 1) tc = 1.;
+    if (tc < 0) tc = 0.;
+    *tau_cloud_av = tc;
 
-    }
+  }
   else
-    {
+  {
 
-      *tau_cloud_av_yes = 0;
+    *tau_cloud_av_yes = 0;
 
-    }
+  }
 
 }
 

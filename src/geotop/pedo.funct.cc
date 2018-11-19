@@ -1,41 +1,42 @@
 
 /* STATEMENT:
 
- Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
- Geotop 2.0.0 - 31 Oct 2013
+   Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
+   Geotop 2.0.0 - 31 Oct 2013
 
- Copyright (c), 2013 - Stefano Endrizzi
+   Copyright (c), 2013 - Stefano Endrizzi
 
- This file is part of Geotop 2.0.0
+   This file is part of Geotop 2.0.0
 
- Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
- WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
+   Geotop 2.0.0  is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+   WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE
 
- Geotop 2.0.0  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
- If you just use the code, please give feedback to the authors and the community.
- Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the Geotop model. Any feedback will be highly appreciated.
+   Geotop 2.0.0  is distributed as a free software in the hope to create and support a community of developers and users that constructively interact.
+   If you just use the code, please give feedback to the authors and the community.
+   Any way you use the model, may be the most trivial one, is significantly helpful for the future development of the Geotop model. Any feedback will be highly appreciated.
 
- If you have satisfactorily used the code, please acknowledge the authors.
+   If you have satisfactorily used the code, please acknowledge the authors.
 
- */
+*/
 
 #include "struct.geotop.h"
 #include "pedo.funct.h"
 #include "constants.h"
+#include "math.optim.h"
 
 extern char **files;
 
 /*
-in all the following subroutine
-w=theta
-i=theta_ice
-s=saturated water content
-r=residual water content
-a=alpha van genuchten
-n=n van genuchten
-m=m van genuchten
-pmin=psi min
-Ss=specific storativity
+  in all the following subroutine
+  w=theta
+  i=theta_ice
+  s=saturated water content
+  r=residual water content
+  a=alpha van genuchten
+  n=n van genuchten
+  m=m van genuchten
+  pmin=psi min
+  Ss=specific storativity
 */
 
 /*--------------------------------------------*/
@@ -76,9 +77,6 @@ double psi_teta(double w, double i, double s, double r, double a, double n,
   return psi;
 }
 
-
-
-
 /*--------------------------------------------*/
 double teta_psi(double psi, double i, double s, double r, double a, double n,
                 double m, double pmin, double Ss)
@@ -86,7 +84,7 @@ double teta_psi(double psi, double i, double s, double r, double a, double n,
   double teta,TETA,psisat;
   short sat=0;
 
-  psisat=(pow((pow(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a);
+  psisat = (power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // power() works but NOT Padè approximation
   if (psi>psisat) sat=1;
 
   if (psi<pmin) psi=pmin;
@@ -95,11 +93,11 @@ double teta_psi(double psi, double i, double s, double r, double a, double n,
     {
       if (psi>-1.E-6)
         {
-          TETA=1.0;
+	  TETA=1.0;
         }
       else
         {
-          TETA=1.0/pow((1.0+pow(a*(-psi),n)),m);
+	  TETA=1.0/pow((1.0+pow(a*(-psi),n)),m);
         }
       teta=r+TETA*(s-r);
     }
@@ -118,7 +116,7 @@ double dteta_dpsi(double psi, double i, double s, double r, double a,
 {
   double dteta,psisat;
 
-  psisat=(pow((pow(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a);
+  psisat = (power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // power() works but NOT Padè approximation
 
   if (psi>=psisat)
     {
@@ -140,12 +138,13 @@ double k_hydr_soil(double psi, double ksat, double imp, double i, double s,
 
   double k,TETA,psisat;
 
-  psisat = (pow((pow(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a);
-  TETA = 1.0/pow((1.0+pow(a*(-std::min<double>(psisat,psi)),n)),m);
+  psisat = (power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // power() works but NOT Padè approximation
+  TETA = 1.0/pow((1.0+pow(a*(-std::min<double>(psisat,psi)),n)),m); // power() does NOT work
 
-  k = ksat * pow(TETA,v)*(pow((1-pow((1-pow(TETA,(1.0/m))),m)),2.0));
+  k = ksat * pow(TETA,v) * pow_2((1-pow((1-pow(TETA,(1.0/m))),m))); // power() does NOT work
 
-  if (k/ksat < ratio) k = ratio * ksat;
+  if (k/ksat < ratio)
+    k = ratio * ksat;
 
   if (T>=0)
     {
@@ -156,12 +155,11 @@ double k_hydr_soil(double psi, double ksat, double imp, double i, double s,
       k *= 0.731495819;
     }
 
-  k *= (pow(10.0, -imp*i/(s-r)));
+  k *= (pow(10.0, -imp*i/(s-r))); // power() does NOT work
 
   return k;
 
 }
-
 /*--------------------------------------------*/
 
 double psi_saturation(double i, double s, double r, double a, double n,
@@ -173,7 +171,7 @@ double psi_saturation(double i, double s, double r, double a, double n,
   if (i<0) i=0.;
   if (1.0-i/(s-r)>1.E-6)
     {
-      psisat=(pow((pow(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a);
+      psisat=(power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a);
     }
   else
     {

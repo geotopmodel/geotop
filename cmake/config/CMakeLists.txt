@@ -15,6 +15,8 @@ set(MUTE_GEOLOG OFF CACHE BOOL "Silence the default logger geolog. You may want 
 
 set(MUTE_GEOTIMER OFF CACHE BOOL "Silence the default timer geotimer. You may want to turn this to on to gain a bit in terms of performances.")
 
+set(MATH_OPTIM OFF CACHE BOOL "Use math optimizations. You may want to turn this to on to gain a bit in terms of performances.")
+
 
 CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/src/geotop/config.cmake.h.in ${CMAKE_BINARY_DIR}/src/geotop/config.h)
 

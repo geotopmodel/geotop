@@ -22,6 +22,8 @@
 #include "turtle.h"
 #include "util_math.h"
 #include "constants.h"
+#include "timer.h"
+#include <math.optim.h>
 
 /*----------------------------------------------------------------------------------------------------------*/
 
@@ -29,7 +31,7 @@ short tridiag(short a, long r, long c, long nx, Vector<double> *diag_inf,
               Vector<double> *diag, Vector<double> *diag_sup, Vector<double> *b, Vector<double> *e)
 
 {
-
+  GEOTIMER_PREFIX(__func__);
   long j;
   double bet;
   std::unique_ptr<Vector<double>> gam {new Vector<double>{nx}};
@@ -84,7 +86,9 @@ short tridiag2(short a, long r, long c, long nbeg, long nend,
 //solve A(ld,d,ud) * e + b = 0
 
 {
-  long j;
+    GEOTIMER_PREFIX(__func__);
+
+    long j;
   double bet;
   std::unique_ptr<Vector<double>> gam{new Vector<double>{nend}};
 
@@ -205,7 +209,7 @@ double minimize_merit_function(double res0, double lambda1, double res1,
 
   //calculate three-point quadratic polynomial interpolating the merit function
   c = res0;
-  Cramer_rule(pow(lambda1, 2.0), lambda1, res1-res0, pow(lambda2, 2.0), lambda2,
+  Cramer_rule(pow_2(lambda1), lambda1, res1-res0, pow_2(lambda2), lambda2,
               res2-res0, &a, &b);
 
   //minimize ax^2+bx+c

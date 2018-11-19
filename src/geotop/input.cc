@@ -43,6 +43,7 @@
 #include "logger.h"
 #include <iostream>
 #include "timer.h"
+#include "math.optim.h"
 
 extern long number_novalue, number_absent;
 extern char *string_novalue;
@@ -1668,9 +1669,8 @@ land cover %ld, meteo station %ld\n",
                 {
                     if ((*top->slope)(r,c) <= par->snow_smax)
                     {
-                        k_snowred = ( exp(-pow((*top->slope)(r,c) - par->snow_smin,
-                                               2.)/par->snow_curv) -
-                                      exp(-pow(par->snow_smax, 2.)/par->snow_curv) );
+                        k_snowred = ( exp(-pow_2((*top->slope)(r,c) - par->snow_smin)/par->snow_curv) -
+                                      exp(-pow_2(par->snow_smax)/par->snow_curv) );
                     }
                     else
                     {
