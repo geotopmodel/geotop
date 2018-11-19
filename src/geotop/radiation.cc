@@ -391,7 +391,9 @@ double diff2glob(double a)
   }
   else if (a<0.80)
   {
-    k = 0.9511-0.1604*a + 4.388*pow_2(a) - 16.638*pow_3(a) + 12.336*pow(a,4);
+    k = 0.9511-0.1604*a + 4.388*pow_2(a) - 16.638*pow(a,3) + 12.336*pow(a,4);
+  //    k = 0.9511-0.1604*a + 4.388*pow_2(a) - 16.638*a*a*a + 12.336*a*a*a*a;
+
   }
   else
   {
@@ -564,7 +566,7 @@ double SB(double T)   //Stefan-Boltzmann law
 double dSB_dT(double T)
 {
   double dR_dT;
-  dR_dT=4.0*5.67E-8*pow_3(T+tk);
+  dR_dT=4.0*5.67E-8*pow(T+tk,3);
   return (dR_dT);
 }
 
@@ -674,8 +676,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat,
         //T=Ta*Tc
         //SW - (1-sky)*SWsurr = Tc * (Isc*Ta*sin) * ( (1-kd) + sky*kd )
         //Tc = ( SW - (1-sky)*SWsurr ) / ( (Isc*Ta*sin) * ( (1-kd) + sky*kd )
-        tau = ( SW - (1.-sky)*SWrefl_surr ) / ( Isc*E0*tau_atm_sin_alpha * ( (
-                                                                                     1-kd) + sky*kd ) );
+        tau = ( SW - (1.-sky)*SWrefl_surr ) / ( Isc*E0*tau_atm_sin_alpha * ( (1-kd) + sky*kd ) );
         if (tau > 1) tau = 1.0;
         if (tau < 0) tau = 0.0;
         kd = diff2glob(tau * tau_atm);
