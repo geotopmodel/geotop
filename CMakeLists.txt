@@ -53,15 +53,10 @@ add_executable(geotop
         src/libraries/fluidturtle/alloc.cc
         src/libraries/fluidturtle/datamanipulation.cc
         src/libraries/fluidturtle/error.cc
-        src/libraries/fluidturtle/list.cc
-        src/libraries/fluidturtle/random.cc
         src/libraries/fluidturtle/t_io.cc
-        src/libraries/fluidturtle/tensors3D.cc
         src/libraries/geomorphology/dtm_resolution.cc
         src/libraries/geomorphology/geomorphology.0875.cc
         src/libraries/geomorphology/geomorphology.cc
-        src/libraries/geomorphology/networks.cc
-        src/libraries/geomorphology/shadows.cc
         src/libraries/math/sparse_matrix.cc
         src/libraries/math/util_math.cc
         src/geotop/vegetation.h
@@ -94,16 +89,10 @@ add_executable(geotop
         src/libraries/math/sparse_matrix.h
         src/libraries/fluidturtle/t_alloc.h
         src/libraries/fluidturtle/t_datamanipulation.h
-        src/libraries/fluidturtle/t_random.h
-        src/libraries/fluidturtle/t_list.h
-        src/libraries/fluidturtle/turtle.h
-        src/libraries/fluidturtle/tensor3D.h
         src/libraries/fluidturtle/t_io.h
-        src/libraries/geomorphology/networks.h
         src/libraries/geomorphology/dtm_resolution.h
         src/libraries/geomorphology/geomorphology.0875.h
         src/libraries/geomorphology/geomorphology.h
-        src/libraries/geomorphology/shadows.h
         src/libraries/ascii/write_ascii.h
         src/libraries/ascii/import_ascii.h
         src/libraries/ascii/rw_maps.h
