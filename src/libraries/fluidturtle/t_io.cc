@@ -2,7 +2,7 @@
 
 #include <sys/stat.h>
 #include <libgen.h>
-#include <limits.h>
+#include <climits>
 
 extern const char *WORKING_DIRECTORY ;
 

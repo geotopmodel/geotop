@@ -1,0 +1,41 @@
+#!/bin/bash
+
+BUILD_DIR=$1
+shift
+
+SOURCE_DIR=$1
+shift
+
+ARGS=$1
+shift
+
+CFILE=${BUILD_DIR}/compile_commands.json # compile file
+TFILE=${BUILD_DIR}/.compile_commands.json # temporary file
+
+cp $CFILE $TFILE
+cat $TFILE | sed 's/-pipe//g' > ${CFILE}
+
+# no spaces
+CHECKS="-*,\
+performance-*,\
+modernize-*,\
+-modernize-make-unique,\
+bugprone-*,\
+misc-*,\
+readability-*,\
+-readability-function-size,\
+-readability-braces-around-statements,\
+-readability-inconsistent-declaration-parameter-name,\
+-readability-else-after-return"
+
+# CHECKS="-*,"
+
+SRC="${SOURCE_DIR}/src/geotop/*.cc\
+     ${SOURCE_DIR}/src/libraries/*/*.cc"
+
+HEAD="${SOURCE_DIR}/src/geotop/*.h ${SOURCE_DIR}/src/libraries/{ascii,fluidturtle,geomorphology,math}/*.h"
+
+clang-tidy -p ${BUILD_DIR} -checks="${CHECKS}" ${SRC}  \
+	   -header-filter="${HEAD}" -quiet $ARGS
+
+mv $TFILE $CFILE

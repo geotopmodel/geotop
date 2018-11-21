@@ -99,7 +99,7 @@ int main(int argc,char *argv[])
 {
     std::string wd;
 
-    if (!argv[1])
+    if (argv[1] == nullptr)
     {
         std::cerr << "Wrong number of arguments. Abort.\n"
                   << "Example of usage:\n"

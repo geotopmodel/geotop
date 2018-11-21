@@ -79,7 +79,7 @@ short tridiag(short a, long r, long c, long nx, Vector<double> *diag_inf,
 /*----------------------------------------------------------------------------------------------------------*/
 
 
-short tridiag2(short a, long r, long c, long nbeg, long nend,
+short tridiag2(short  /*a*/, long  /*r*/, long  /*c*/, long nbeg, long nend,
                Vector<double> *ld, Vector<double> *d, Vector<double> *ud, Vector<double> *b,
                Vector<double> *e)
 

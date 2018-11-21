@@ -51,7 +51,7 @@ extern char *FailedRunFile;
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 //Jordan et al., 1999
-double rho_newlyfallensnow(double u, double Tatm, double Tfreez)
+double rho_newlyfallensnow(double u, double Tatm, double  /*Tfreez*/)
 {
 
   double rho,T;
@@ -522,7 +522,7 @@ double internal_energy(double w_ice, double w_liq, double T)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void from_internal_energy(double a, long r, long c, double h, double *w_ice,
+void from_internal_energy(double a, long  /*r*/, long  /*c*/, double h, double *w_ice,
                           double *w_liq, double *T)
 {
 
@@ -662,7 +662,7 @@ short set_snow_max(double a, long r, long c, STATEVAR_3D *snow, long l1,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-short set_snowice_min(double a, long r, long c, STATEVAR_1D *snow, long l1,
+short set_snowice_min(double  /*a*/, long  /*r*/, long  /*c*/, STATEVAR_1D *snow, long l1,
                       long l2, double wicemin)
 {
 
@@ -837,7 +837,7 @@ void initialize_snow(long r, long c, long l, STATEVAR_3D *snow)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void show_Dminmax(long r, long c, double *Dmin, double *Dmax, long n)
+void show_Dminmax(long  /*r*/, long  /*c*/, double *Dmin, double *Dmax, long n)
 {
 
   long l;

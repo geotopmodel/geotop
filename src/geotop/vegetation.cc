@@ -301,7 +301,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
       u_star=sqrt(v/(*rm));
 
       //wind speed at the top of the canopy
-      *u_top=(u_star/ka)*CZ(MO, hveg, z0, d0, *Lobukhov, (*Psim));
+      *u_top=(u_star/ka)*CZ(MO, hveg, z0, d0, *Lobukhov, (Psim));
 
       //iteration for Loc (within canopy Obukhov length)
       cont=0;
@@ -774,7 +774,7 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void veg_transmittance(short stabcorr_incanopy, double v, double u_star,
+void veg_transmittance(short stabcorr_incanopy, double  /*v*/, double u_star,
                        double u_top, double Hveg, double z0soil, double z0veg, double d0veg,
                        double LSAI, double decaycoeff0, double Lo, double Loc, double *rb,
                        double *rh, double *decay)

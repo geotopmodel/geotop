@@ -469,7 +469,7 @@ double atm_transmittance(double X, double P, double RH, double T,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void longwave_radiation(short state, double pvap, double RH, double T,
+void longwave_radiation(short state, double pvap, double  /*RH*/, double T,
                         double k1, double k2, double taucloud, double *eps, double *eps_max,
                         double *eps_min)
 {
@@ -621,7 +621,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat,
 
   double *others;
   double tau_atm, tau_atm_sin_alpha, sin_alpha, kd, kd0;
-  double tau = (double)number_novalue;
+  auto tau = (double)number_novalue;
   long j;
 
   others = (double *)malloc(12*sizeof(double));

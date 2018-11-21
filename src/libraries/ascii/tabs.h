@@ -27,13 +27,13 @@ short readline_par(FILE *f, long comment_char, long sepfield_char,
                    long *keylength, long *string, long *stringlength, double *number,
                    long *numberlength, short *endoffile);
 
-double find_number(long *vector, long lengthvector);
+double find_number(const long *vector, long lengthvector);
 
-char *find_string(long *vector, long lengthvector);
+char *find_string(const long *vector, long lengthvector);
 
-double *find_number_vector(double *vector, long lengthvector);
+double *find_number_vector(const double *vector, long lengthvector);
 
-long *find_string_int(long *vector, long lengthvector);
+long *find_string_int(const long *vector, long lengthvector);
 
 /*----------------------------------------------------------------------------------------------------------*/
 

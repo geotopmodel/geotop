@@ -56,7 +56,7 @@ void update_soil_channel(long nsurf, long n, long ch, double fc, double Dt,
                          ENERGY *egy, MatrixView<double> &&pa, SOIL_STATE *S, Matrix<double> *ET, Matrix<double> *th);
 
 void update_F_energy(long nbeg, long nend, Vector<double> *F, double w,
-                     Vector<double> *K, double *T);
+                     Vector<double> *K, const double *T);
 
 void update_diag_dF_energy(long nbeg, long nend, Vector<double> *dF, double w,
                            Vector<double> *K);
@@ -97,9 +97,9 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
                                     double SWin, // 5
                                     double LWin, double SWv, double *LW, double *H, double *dH_dT, double *E,
                                     double *dE_dT, double *LWv, double *Hv, double *LEv, // 10
-                                    double *Etrans, double *Tv, double *Qv, double *Ts, double *Qs, double *Hg0,
+                                    double *Etrans, const double *Tv, const double *Qv, double *Ts, double *Qs, double *Hg0,
                                     double *Hg1, double *Eg0, double *Eg1, double *Lobukhov, // 10
-                                    double *rh, double *rv, double *rc, double *rb, double *ruc, double *rh_g,
+                                    const double *rh, const double *rv, const double *rc, const double *rb, const double *ruc, double *rh_g,
                                     double *rv_g, double *Qg, double *u_top, double *decay, // 10
                                     double *Locc, double *LWup_above_v, Vector<double> &T,
                                     Vector<double> *soil_evap_layer_bare,

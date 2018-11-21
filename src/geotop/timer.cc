@@ -10,7 +10,7 @@
 Timer geotimer;
 
 void Timer::print_summary() {
-  if (times.size() == 0 ) return; // do not print empty table
+  if (times.empty() ) return; // do not print empty table
   // compute the total elapsed time in seconds
   const auto t_end = high_resolution_clock::now();
   const auto t_tot = duration_cast<duration<double>>(t_end - t_start).count();

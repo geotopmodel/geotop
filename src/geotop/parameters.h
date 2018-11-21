@@ -29,7 +29,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 
 char **assign_string_parameter(long beg, long end, char **string_param, char **keyword);
 
-double assignation_number(long i, long j, char **keyword, double **num_param, long *num_param_components, double default_value,
+double assignation_number(long i, long j, char **keyword, double **num_param, const long *num_param_components, double default_value,
                           short code_error);
 
 char *assignation_string(long i, char **keyword, char **string_param);

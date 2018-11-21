@@ -636,7 +636,7 @@ void get_dn(long nc, long nr, double deltax, double deltay, long nstns,
 void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
                Vector<double> *xstnall, Vector<double> *ystnall,
                Vector<double> *xstn, Vector<double> *ystn, Vector<double> *var, double dn,
-               double undef,
+               double  /*undef*/,
                Matrix<double> *grid, double **value_station, long metcode) {
 
     long r, c, mm, nn;

@@ -16,7 +16,7 @@ Logger::Logger()
 }
 
 void Logger::pop() {
-  if (prefixes.size() > 0) {
+  if (!prefixes.empty()) {
     prefixes.pop();
   } else
     throw std::runtime_error{"You called pop() on and empty stack"};
@@ -24,7 +24,7 @@ void Logger::pop() {
 
 const std::string &Logger::prefix() const {
   static std::string s;
-  if (prefixes.size() > 0)
+  if (!prefixes.empty())
     return prefixes.top();
   else
     return s;

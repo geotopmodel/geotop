@@ -19,12 +19,12 @@
 
  */
 
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
-#include <math.h>
-#include <time.h>
-#include <ctype.h>
+#include <cstdio>
+#include <cstring>
+#include <cstdlib>
+#include <cmath>
+#include <ctime>
+#include <cctype>
 
 #include "tabs.h"
 
@@ -274,7 +274,7 @@ short readline_par(FILE *f, long comment_char, long sepfield_char,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double find_number(long *vector, long lengthvector)
+double find_number(const long *vector, long lengthvector)
 {
   GEOLOG_PREFIX(__func__);
   double N = 0.0, Nexp = 0.0;
@@ -357,7 +357,7 @@ double find_number(long *vector, long lengthvector)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-char *find_string(long *vector, long lengthvector)
+char *find_string(const long *vector, long lengthvector)
 {
   GEOLOG_PREFIX(__func__);
 
@@ -378,7 +378,7 @@ char *find_string(long *vector, long lengthvector)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double *find_number_vector(double *vector, long lengthvector)
+double *find_number_vector(const double *vector, long lengthvector)
 {
   GEOLOG_PREFIX(__func__);
 
@@ -398,7 +398,7 @@ double *find_number_vector(double *vector, long lengthvector)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-long *find_string_int(long *vector, long lengthvector)
+long *find_string_int(const long *vector, long lengthvector)
 {
   GEOLOG_PREFIX(__func__);
 
@@ -774,7 +774,7 @@ long count_lines(char *meteo_file_name, long comment_char, long sep_char)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-double **read_datamatrix(FILE *f, char *filename, long comment_char,
+double **read_datamatrix(FILE *f, char * /*filename*/, long comment_char,
                          long sep_char, long number_lines, long components_header)
 {
   GEOLOG_PREFIX(__func__);

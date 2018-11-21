@@ -42,7 +42,6 @@ extern long *opnt, nopnt, *obsn, nobsn, *osnw, nosnw, *oglc, noglc, *osl,
        nosl;
 extern short *ipnt, *ibsn;
 extern char **hpnt, * *hbsn, * *hsnw, * *hglc, * *hsl;
-extern char *keywords_num[num_par_number], *keywords_char[num_par_char];
 
 extern char *SuccessfulRunFile, *FailedRunFile;
 
@@ -1748,7 +1747,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
            && (long)(*itools->pa_bed)(1,jres,i) != number_novalue &&
            (long)(*itools->pa_bed)(1,ja,i) != number_novalue
            && (long)(*itools->pa_bed)(1,jns,i) != number_novalue &&
-           (long)(*itools->pa_bed)(1,jss,i) )
+           ((long)(*itools->pa_bed)(1,jss,i) != 0) )
         {
           if ( (long)(*itools->pa_bed)(1,jfc,i) == number_novalue)
             {
@@ -2290,7 +2289,7 @@ char **assign_string_parameter(long beg, long end, char **string_param, char **k
 /***********************************************************/
 /***********************************************************/
 
-double assignation_number(long i, long j, char **keyword, double **num_param, long *num_param_components, double default_value,
+double assignation_number(long i, long j, char **keyword, double **num_param, const long *num_param_components, double default_value,
                           short code_error)
 {
   GEOLOG_PREFIX(__func__);

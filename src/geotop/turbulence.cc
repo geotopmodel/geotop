@@ -35,7 +35,7 @@ extern char *FailedRunFile;
 
 void aero_resistance(double zmu, double zmt, double z0, double d0,
                      double z0_z0t, double v, double Ta, double T, double Qa,
-                     double Q, double P, double gmT, double *Lobukhov, double *rm, double *rh,
+                     double Q, double  /*P*/, double gmT, double *Lobukhov, double *rm, double *rh,
                      double *rv, short state_turb,
                      short MO, long maxiter)
 {
@@ -135,7 +135,7 @@ double Psih(double z)
 }
 
 //****Zero
-double Zero(double z)
+double Zero(double  /*z*/)
 {
   return (0.0);
 }
@@ -305,19 +305,19 @@ double CZ(short state, double zmeas, double z0, double d0, double L,
 
   if (state==1)     //both instability and stability considered
     {
-      c=cz(zmeas,z0,d0,L,(Psi),(*PsiStab));
+      c=cz(zmeas,z0,d0,L,(Psi),(PsiStab));
     }
   else if (state==2)    //instability considered & stability not considered
     {
-      c=cz(zmeas,z0,d0,L,(Psi),(*Zero));
+      c=cz(zmeas,z0,d0,L,(Psi),(Zero));
     }
   else if (state==3)    //instability not considered & stability considered
     {
-      c=cz(zmeas,z0,d0,L,(*Zero),(*PsiStab));
+      c=cz(zmeas,z0,d0,L,(Zero),(PsiStab));
     }
   else if (state==4)    //both instability and stability not considered
     {
-      c=cz(zmeas,z0,d0,L,(*Zero),(*Zero));
+      c=cz(zmeas,z0,d0,L,(Zero),(Zero));
     }
   else
     {
@@ -336,7 +336,7 @@ double CZ(short state, double zmeas, double z0, double d0, double L,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void Star(short a, double zmeas, double z0, double d0, double L, double u,
+void Star(short a, double zmeas, double z0, double d0, double L, double  /*u*/,
           double delta, double M, double N, double R,
           double *var, double *c, double *z0v, double (*Psi)(double z),
           double (*roughness)(double x, double y, double z) )
@@ -452,21 +452,21 @@ void Businger(short a, double zmu, double zmt, double d0, double z0, double v,
       if (cont>0) tol=10*T_star+100*u_star+1000*Q_star;
 
       //Conductances
-      Star(a, zmu, z0, d0, L, 0.0, v, 1.0, 0.0, 1.0, &u_star, &cm, &z0v, (*Psim),
-           (*roughT)); //momentum
+      Star(a, zmu, z0, d0, L, 0.0, v, 1.0, 0.0, 1.0, &u_star, &cm, &z0v, (Psim),
+           (roughT)); //momentum
       if (z0_z0t==0.0)  //rigid surface
         {
           Star(a, zmt, z0, d0, L, u_star, DT, u_star*z0/1.4E-5, 1.0, 0.0, &T_star, &ch,
-               &z0t, (*Psih), (*roughT)); //heat flux
+               &z0t, (Psih), (roughT)); //heat flux
           Star(a, zmt, z0, d0, L, u_star, DQ, u_star*z0/1.4E-5, 1.0, 0.0, &Q_star, &cv,
-               &z0q, (*Psih), (*roughQ)); //water vapour flux
+               &z0q, (Psih), (roughQ)); //water vapour flux
         }
       else    //bending surface
         {
           Star(a, zmt, z0, d0, L, u_star, DT, 1.0, 0.0, 1.0/z0_z0t, &T_star, &ch, &z0t,
-               (*Psih), (*roughT)); //heat flux
+               (Psih), (roughT)); //heat flux
           Star(a, zmt, z0, d0, L, u_star, DQ, 1.0, 0.0, 1.0/z0_z0t, &Q_star, &cv, &z0q,
-               (*Psih), (*roughQ)); //water vapour flux
+               (Psih), (roughQ)); //water vapour flux
         }
 
       //Obukhov length
@@ -547,7 +547,7 @@ double latent(double Ts, double Le)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void find_actual_evaporation_parameters(long R, long C, double *alpha,
+void find_actual_evaporation_parameters(long  /*R*/, long  /*C*/, double *alpha,
                                         double *beta, Vector<double> *evap_layer, Vector<double> &theta,
                                         MatrixView<double> &&soil, Vector<double> &T, double psi, double P, double rv,
                                         double Ta,

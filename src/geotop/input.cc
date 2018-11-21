@@ -63,7 +63,7 @@ extern double elapsed_time_start, cum_time, max_time;
 //****************************************************************************************************
 
 /** Subroutine which reads input data, performs  geomporphological analisys and allocates data */
-void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
+void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND *land,
                    METEO *met, WATER *wat, CHANNEL *cnet,
                    PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times)
 
@@ -2899,7 +2899,7 @@ to the soil type map");
 //***************************************************************************************************
 //***************************************************************************************************
 
-void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT)
+void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /*times*/, INIT_TOOLS *IT)
 {
     GEOLOG_PREFIX(__func__);
 
@@ -3630,7 +3630,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
 //***************************************************************************************************
 //***************************************************************************************************
 
-void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, Matrix<double> *LC)
+void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, Matrix<double> * /*LC*/)
 {
     GEOLOG_PREFIX(__func__);
 
