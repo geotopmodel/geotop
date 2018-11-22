@@ -62,7 +62,8 @@ double psi_teta(double w, double i, double s, double r, double a, double n,
       sat=0;
     }
 
-  if (TETA<TETAmin) TETA=TETAmin;
+  if (TETA<TETAmin)
+    TETA=TETAmin;
 
   if (TETA>1.0-1.E-6)
     {
@@ -72,7 +73,9 @@ double psi_teta(double w, double i, double s, double r, double a, double n,
     {
       psi=(pow((pow(TETA,-1.0/m)-1.0),1.0/n))*(-1.0/a);
     }
-  if (sat==1) psi += (w-(s-i))/Ss;
+
+  if (sat==1)
+    psi += (w-(s-i))/Ss;
 
   return psi;
 }
