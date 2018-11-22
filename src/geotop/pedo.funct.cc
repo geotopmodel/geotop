@@ -142,9 +142,9 @@ double k_hydr_soil(double psi, double ksat, double imp, double i, double s,
   double k,TETA,psisat;
 
   psisat = (power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // power() works but NOT Padè approximation
-  TETA = 1.0/pow((1.0+pow(a*(-std::min<double>(psisat,psi)),n)),m); // power() does NOT work
+  TETA = 1.0/power((1.0+power(a*(-std::min<double>(psisat,psi)),n)),m); // power() does NOT work !!! try
 
-  k = ksat * pow(TETA,v) * pow_2((1-pow((1-pow(TETA,(1.0/m))),m))); // power() does NOT work
+  k = ksat * power(TETA,v) * pow_2((1-power((1-power(TETA,(1.0/m))),m))); // power() does NOT work !!! try
 
   if (k/ksat < ratio)
     k = ratio * ksat;
@@ -158,7 +158,7 @@ double k_hydr_soil(double psi, double ksat, double imp, double i, double s,
       k *= 0.731495819;
     }
 
-  k *= (pow(10.0, -imp*i/(s-r))); // power() does NOT work
+  k *= (power(10.0, -imp*i/(s-r))); // power() does NOT work !!! try
 
   return k;
 
