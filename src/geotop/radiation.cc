@@ -439,24 +439,24 @@ double atm_transmittance(double X, double P, double RH, double T,
   double w0 = 0.9;
   double Fc = 0.84;
 
-  mr = 1./(sin(X)+0.15*(power((3.885+X*180.0/Pi),-1.253)));
+  mr = 1./(sin(X)+0.15*(pow((3.885+X*180.0/Pi),-1.253)));
   ma = mr*P/Pa0;
   w = 0.493*RH*(exp(26.23-5416.0/(T+tk)))/(T+tk); //cm
   U1 = w*mr;
   U3 = Lozone*mr;
-  tau_r = exp(-.0903*power(ma,.84)*(1.+ma-power(ma,1.01)));
-  tau_o = 1. - (.1611*U3*power(1.+139.48*U3, -.3035) - .002715*U3/(1.+.044*U3+.0003*U3*U3));
-  tau_g = exp(-.0127*power(ma,.26));
-  tau_w = 1. - 2.4959*U1/(power(1.+79.034*U1,.6828)+6.385*U1);
+  tau_r = exp(-.0903*pow(ma,.84)*(1.+ma-pow(ma,1.01)));
+  tau_o = 1. - (.1611*U3*pow(1.+139.48*U3, -.3035) - .002715*U3/(1.+.044*U3+.0003*U3*U3));
+  tau_g = exp(-.0127*pow(ma,.26));
+  tau_w = 1. - 2.4959*U1/(pow(1.+79.034*U1,.6828)+6.385*U1);
   //tau_a from 7.4.11 Iqbal
   tau_a = .12445*a - 0.0162 + (1.003 - .125*a) * exp(-b*ma*(1.089*a + .5123));
-  tau_aa = 1. - (1. - w0)*(1. - ma + power(ma, 1.06))*(1. - tau_a);
+  tau_aa = 1. - (1. - w0)*(1. - ma + pow(ma, 1.06))*(1. - tau_a);
   rho_a = .0685 + (1. - Fc)*(1. - tau_a/tau_aa);
   tau_atm_n = .9751 * tau_r * tau_o * tau_g * tau_w * tau_a;
   tau_atm_dr = .79 * tau_o * tau_g * tau_w * tau_aa * .5 * (1.-tau_r) /
-               (1. - ma + power(ma, 1.02));
+               (1. - ma + pow(ma, 1.02));
   tau_atm_da = .79 * tau_o * tau_g * tau_w * tau_aa * Fc * (1.-tau_a/tau_aa) /
-               (1. - ma + power(ma, 1.02));
+               (1. - ma + pow(ma, 1.02));
   tau_atm_dm = (tau_atm_n + tau_atm_dr + tau_atm_da) * rho_g * rho_a /
                (1. - rho_g * rho_a);
   tau_atm = tau_atm_n + tau_atm_dr + tau_atm_da + tau_atm_dm;
