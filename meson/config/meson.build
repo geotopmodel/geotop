@@ -4,7 +4,7 @@ include_dirs += include_directories('.')
 _cdata = configuration_data()
 
 # user defined options
-foreach _opt : ['MUTE_GEOLOG', 'MUTE_GEOTIMER', 'MATH_OPTIM']
+foreach _opt : ['MUTE_GEOLOG', 'MUTE_GEOTIMER', 'MATH_OPTIM', 'WITH_OMP']
     _cdata.set(_opt, get_option(_opt))
 endforeach
 
@@ -20,7 +20,7 @@ code = '''_Pragma("GCC diagnostic push")
 
 _pragma = _cxx.compiles(code, name: 'pragma check')
 
-_cdata.set('COMPILER_HAS_DIAGNOSTIC_PRAGMA', _pragma)
+_cdata.set('CWITH_OMPILER_HAS_DIAGNOSTIC_PRAGMA', _pragma)
 
 configure_file(output: 'config.h',
                input: _config,

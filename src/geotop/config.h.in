@@ -1,8 +1,0 @@
-#ifndef geotop_config_h
-#define geotop_config_h
-
-#cmakedefine COMPILER_HAS_DIAGNOSTIC_PRAGMA
-
-#include "warnings.h"
-
-#endif
