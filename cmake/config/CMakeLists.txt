@@ -17,6 +17,8 @@ set(MUTE_GEOTIMER OFF CACHE BOOL "Silence the default timer geotimer. You may wa
 
 set(MATH_OPTIM OFF CACHE BOOL "Use math optimizations. You may want to turn this to on to gain a bit in terms of performances.")
 
+set(OMP OFF CACHE BOOL "Use openMP framework")
+
 
 CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/src/geotop/config.cmake.h.in ${CMAKE_BINARY_DIR}/src/geotop/config.h)
 
