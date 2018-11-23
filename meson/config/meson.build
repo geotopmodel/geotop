@@ -20,7 +20,7 @@ code = '''_Pragma("GCC diagnostic push")
 
 _pragma = _cxx.compiles(code, name: 'pragma check')
 
-_cdata.set('CWITH_OMPILER_HAS_DIAGNOSTIC_PRAGMA', _pragma)
+_cdata.set('COMPILER_HAS_DIAGNOSTIC_PRAGMA', _pragma)
 
 configure_file(output: 'config.h',
                input: _config,
