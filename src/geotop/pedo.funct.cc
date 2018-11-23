@@ -49,7 +49,7 @@ double psi_teta(double w, double i, double s, double r, double a, double n,
   short sat;
 
   TETAsat=1.0-i/(s-r);
-  TETAmin=1.0/power((1.0+power(a*(-pmin),n)),m);
+  TETAmin=1.0/pow((1.0+pow(a*(-pmin),n)),m);
 
   if (w>s-i)
     {
@@ -71,7 +71,7 @@ double psi_teta(double w, double i, double s, double r, double a, double n,
     }
   else
     {
-      psi=(power((power(TETA,-1.0/m)-1.0),1.0/n))*(-1.0/a);
+      psi=(pow((pow(TETA,-1.0/m)-1.0),1.0/n))*(-1.0/a);
     }
 
   if (sat==1)
@@ -100,7 +100,7 @@ double teta_psi(double psi, double i, double s, double r, double a, double n,
         }
       else
         {
-	  TETA=1.0/pow((1.0+pow(a*(-psi),n)),m); // let's check (3)
+	  TETA=1.0/pow((1.0+pow(a*(-psi),n)),m);
         }
       teta=r+TETA*(s-r);
     }
@@ -119,7 +119,7 @@ double dteta_dpsi(double psi, double i, double s, double r, double a,
 {
   double dteta,psisat;
 
-  psisat = (pow((pow(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // pow() works but NOT Padè approximation
+  psisat = (power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // power() works but NOT Padè approximation
 
   if (psi>=psisat)
     {
@@ -127,7 +127,7 @@ double dteta_dpsi(double psi, double i, double s, double r, double a,
     }
   else
     {
-      dteta=(s-r)*(a*m*n)*(pow(-a*psi,n-1.0))*pow(1.0+pow(-a*psi,n),-m-1.0); // let's check (4)
+      dteta=(s-r)*(a*m*n)*(power(-a*psi,n-1.0))*power(1.0+power(-a*psi,n),-m-1.0);
     }
 
   return dteta;
@@ -142,9 +142,9 @@ double k_hydr_soil(double psi, double ksat, double imp, double i, double s,
   double k,TETA,psisat;
 
   psisat = (pow((pow(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // pow() works but NOT Padè approximation
-  TETA = 1.0/pow((1.0+pow(a*(-std::min<double>(psisat,psi)),n)),m); // pow() does NOT work !!! let's check (1)
+  TETA = 1.0/pow((1.0+pow(a*(-std::min<double>(psisat,psi)),n)),m); // pow() does NOT work
 
-  k = ksat * pow(TETA,v) * pow_2((1-pow((1-pow(TETA,(1.0/m))),m))); // pow() does NOT work !!! let's check (1)
+  k = ksat * pow(TETA,v) * pow_2((1-pow((1-pow(TETA,(1.0/m))),m))); // pow() does NOT work
 
   if (k/ksat < ratio)
     k = ratio * ksat;
@@ -158,7 +158,7 @@ double k_hydr_soil(double psi, double ksat, double imp, double i, double s,
       k *= 0.731495819;
     }
 
-  k *= (pow(10.0, -imp*i/(s-r))); // pow() does NOT work !!! let's check (1)
+  k *= (pow(10.0, -imp*i/(s-r))); // pow() does NOT work
 
   return k;
 
