@@ -49,7 +49,7 @@ double psi_teta(double w, double i, double s, double r, double a, double n,
   short sat;
 
   TETAsat=1.0-i/(s-r);
-  TETAmin=1.0/pow((1.0+pow(a*(-pmin),n)),m); // let's check (2)
+  TETAmin=1.0/power((1.0+power(a*(-pmin),n)),m);
 
   if (w>s-i)
     {
@@ -71,7 +71,7 @@ double psi_teta(double w, double i, double s, double r, double a, double n,
     }
   else
     {
-      psi=(pow((pow(TETA,-1.0/m)-1.0),1.0/n))*(-1.0/a); // let's check (2)
+      psi=(power((power(TETA,-1.0/m)-1.0),1.0/n))*(-1.0/a);
     }
 
   if (sat==1)
