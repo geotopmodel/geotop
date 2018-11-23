@@ -119,7 +119,7 @@ double dteta_dpsi(double psi, double i, double s, double r, double a,
 {
   double dteta,psisat;
 
-  psisat = (power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // power() works but NOT Padè approximation
+  psisat = (pow((pow(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // pow() works but NOT Padè approximation
 
   if (psi>=psisat)
     {
@@ -127,7 +127,7 @@ double dteta_dpsi(double psi, double i, double s, double r, double a,
     }
   else
     {
-      dteta=(s-r)*(a*m*n)*(power(-a*psi,n-1.0))*power(1.0+power(-a*psi,n),-m-1.0);
+      dteta=(s-r)*(a*m*n)*(pow(-a*psi,n-1.0))*pow(1.0+pow(-a*psi,n),-m-1.0);
     }
 
   return dteta;
@@ -174,7 +174,7 @@ double psi_saturation(double i, double s, double r, double a, double n,
   if (i<0) i=0.;
   if (1.0-i/(s-r)>1.E-6)
     {
-      psisat=(pow((pow(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a);
+      psisat=(power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a);
     }
   else
     {
