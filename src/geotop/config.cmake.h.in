@@ -8,5 +8,6 @@
 #cmakedefine MUTE_GEOLOG
 #cmakedefine MUTE_GEOTIMER
 #cmakedefine MATH_OPTIM
+#cmakedefine OMP
 
 #endif

@@ -4,7 +4,7 @@ include_dirs += include_directories('.')
 _cdata = configuration_data()
 
 # user defined options
-foreach _opt : ['MUTE_GEOLOG', 'MUTE_GEOTIMER', 'MATH_OPTIM']
+foreach _opt : ['MUTE_GEOLOG', 'MUTE_GEOTIMER', 'MATH_OPTIM', 'OMP']
     _cdata.set(_opt, get_option(_opt))
 endforeach
 

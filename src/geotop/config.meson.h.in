@@ -8,4 +8,5 @@
 #mesondefine MUTE_GEOLOG
 #mesondefine MUTE_GEOTIMER
 #mesondefine MATH_OPTIM
+#mesondefine OMP
 #endif
