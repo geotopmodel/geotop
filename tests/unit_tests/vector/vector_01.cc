@@ -180,3 +180,13 @@ TEST(Vector, summation){
   EXPECT_DOUBLE_EQ(v_2[2], 10.);
   EXPECT_DOUBLE_EQ(v_2[3], 12.);
 }
+
+TEST(Vector, norm_inf){
+  Vector<double> v{3};
+  double c{0.0};  
+  for (auto &x : v)
+    x = ++c;
+  EXPECT_DOUBLE_EQ(3,v.norm_inf());
+  v[1] = 99;
+  EXPECT_DOUBLE_EQ(99,v.norm_inf());
+}

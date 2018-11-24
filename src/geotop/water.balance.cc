@@ -319,7 +319,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
     product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B.get(), adt->W->f.get(), adt->W->H1.get(),
                                                           adt->T->Li.get(), adt->T->Lp.get(), adt->W->Lx.get());
 
-    res = norm_inf(adt->W->B.get(), 1, N);
+    res = adt->W->B->norm_inf();
 
     res00 = res; /** initial norm of the residual */
     epsilon = adt->P->TolVWb + adt->P->RelTolVWb * std::min<double>( res00, sqrt((double)N) );
@@ -691,7 +691,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
     product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B.get(), adt->W->f.get(), adt->W->H1.get(),
                                                           adt->T->Li.get(), adt->T->Lp.get(), adt->W->Lx.get());
 
-    res = norm_inf(adt->W->B.get(), 1, N);
+    res = adt->W->B->norm_inf();
 
     res00 = res; /** initial norm of the residual */
     epsilon = adt->P->TolVWb + adt->P->RelTolVWb * std::min<double>( res00, sqrt((double)N) );
@@ -811,7 +811,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
             product_matrix_using_lower_part_by_vector_plus_vector(-1., adt->W->B.get(), adt->W->f.get(), adt->W->H1.get(),
                                                                   adt->T->Li.get(), adt->T->Lp.get(), adt->W->Lx.get());
 
-            res = norm_inf(adt->W->B.get(), 1, N);
+            res = adt->W->B->norm_inf();
 
             out2=0;
 
