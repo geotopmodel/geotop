@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_PEDO_FUNCT_H
+#define _GEOTOP_PEDO_FUNCT_H
+
 
 /* STATEMENT:
 
@@ -48,3 +51,5 @@ double k_from_psi(long jK, double psi, double ice, double T, long l, MatrixView<
 
 double psisat_from(double ice, long l, MatrixView<double> &&pa);
 
+
+#endif

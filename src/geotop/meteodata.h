@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_METEODATA_H
+#define _GEOTOP_METEODATA_H
+
 
 /* STATEMENT:
 
@@ -52,3 +55,5 @@ void check_times(long imeteo, double **data, long nlines, long JDfrom0);
 void rewrite_meteo_files(double **meteo, long meteolines, char **header,
                          char *name, short added_JD, short added_wind_xy, short added_wind_dir,
                          short added_cloudiness, short added_Tdew, short added_RH, short added_Pint);
+
+#endif

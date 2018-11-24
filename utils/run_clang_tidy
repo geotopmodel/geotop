@@ -17,6 +17,7 @@ cat $TFILE | sed 's/-pipe//g' > ${CFILE}
 
 # no spaces
 CHECKS="-*,\
+llvm-header-guard,\
 performance-*,\
 modernize-*,\
 -modernize-make-unique,\
@@ -28,7 +29,6 @@ readability-*,\
 -readability-inconsistent-declaration-parameter-name,\
 -readability-else-after-return"
 
-# CHECKS="-*,"
 
 SRC="${SOURCE_DIR}/src/geotop/*.cc\
      ${SOURCE_DIR}/src/libraries/*/*.cc"

@@ -1,3 +1,6 @@
+#ifndef _LIBRARIES_FLUIDTURTLE_T_IO_H
+#define _LIBRARIES_FLUIDTURTLE_T_IO_H
+
 
 
 
@@ -13,3 +16,5 @@ FILE *t_fclose(FILE *stream);
 char *join_strings(const char *, const char *);
 
 
+
+#endif

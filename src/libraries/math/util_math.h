@@ -1,3 +1,6 @@
+#ifndef _LIBRARIES_MATH_UTIL_MATH_H
+#define _LIBRARIES_MATH_UTIL_MATH_H
+
 
 /* STATEMENT:
 
@@ -53,3 +56,5 @@ double adaptiveSimpsonsAux2(double (*f)(double x, void *p), void *arg,
 
 double adaptiveSimpsons2(double (*f)(double x, void *p), void *arg, double a,
                          double b, double epsilon, int maxRecursionDepth);
+
+#endif

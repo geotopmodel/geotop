@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_PARAMETERS_H
+#define _GEOTOP_PARAMETERS_H
+
 
 /* STATEMENT:
 
@@ -40,3 +43,5 @@ short read_point_file(char *name, char **key_header, PAR *par);
 
 short read_meteostations_file(Vector<long> *i, METEO_STATIONS *S, char *name, char **key_header);
 
+
+#endif

@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_OUTPUT_H
+#define _GEOTOP_OUTPUT_H
+
 
 /* STATEMENT:
 
@@ -75,3 +78,5 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par);
 
 void change_grid(long previous_sim, long next_sim, PAR *par, TOPO *top,
                  LAND *land, WATER *wat, CHANNEL *cnet);
+
+#endif

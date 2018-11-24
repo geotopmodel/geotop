@@ -2,8 +2,8 @@
 // Created by elisa on 2018/07/27.
 //
 
-#ifndef GEOTOP_ROWVIEW_H
-#define GEOTOP_ROWVIEW_H
+#ifndef _GEOTOP_ROWVIEW_H
+#define _GEOTOP_ROWVIEW_H
 
 #include "geotop_asserts.h"
 
@@ -74,4 +74,4 @@ public:
 
 };
 
-#endif // GEOTOP_ROWVIEW_H
+#endif // _GEOTOP_ROWVIEW_H

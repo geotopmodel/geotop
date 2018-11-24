@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_INPUT_H
+#define _GEOTOP_INPUT_H
+
 
 /* STATEMENT:
 
@@ -64,3 +67,5 @@ void initialize_veg_state(STATE_VEG *V, long n);
 void copy_veg_state(STATE_VEG *from, STATE_VEG *to);
 
 
+
+#endif

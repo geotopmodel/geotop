@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_TIMES_H
+#define _GEOTOP_TIMES_H
+
 
 /* STATEMENT:
 
@@ -62,3 +65,5 @@ double convert_JDfrom0_dateeur12(double JDfrom0);
 double convert_tfromstart_JDfrom0(double t, double JDfrom0_start);
 
 double convert_JDfrom0_tfromstart(double JDfrom0, double JDfrom0_start);
+
+#endif

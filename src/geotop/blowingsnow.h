@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_BLOWINGSNOW_H
+#define _GEOTOP_BLOWINGSNOW_H
+
 
 /* STATEMENT:
 
@@ -28,3 +31,5 @@ void set_windtrans_snow(double Dt, double t, SNOW *snow, METEO *met, LAND *land,
 void print_windtrans_snow(double Dt, SNOW *snow, PAR *par, TOPO *top, METEO *met, Matrix<double> *LC);
 
 void wind_packing(SNOW *snow, PAR *par, long r, long c, double Dt);
+
+#endif

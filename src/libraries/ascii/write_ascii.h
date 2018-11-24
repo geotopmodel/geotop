@@ -1,3 +1,6 @@
+#ifndef _LIBRARIES_ASCII_WRITE_ASCII_H
+#define _LIBRARIES_ASCII_WRITE_ASCII_H
+
 
 /* STATEMENT:
 
@@ -32,3 +35,5 @@ void write_esriascii(char *name, short type, Matrix<double> *DTM, T_INIT *UV,
 void write_esriascii_vector(char *name, short type, Vector<double> *DTM,
                             long **j, long nr, long nc, T_INIT *UV, long novalue);
 
+
+#endif

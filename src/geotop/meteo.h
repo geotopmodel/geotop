@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_METEO_H
+#define _GEOTOP_METEO_H
+
 
 /* STATEMENT:
 
@@ -50,3 +53,5 @@ double air_cp(double T);
 
 
 
+
+#endif

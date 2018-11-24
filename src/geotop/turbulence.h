@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_TURBULENCE_H
+#define _GEOTOP_TURBULENCE_H
+
 
 /* STATEMENT:
 
@@ -71,3 +74,5 @@ void find_actual_evaporation_parameters(long R, long C, double *alpha,
                                         MatrixView<double> &&soil, Vector<double> &T, double psi, double P, double rv,
                                         double Ta,
                                         double Qa, double Qgsat, long nsnow);
+
+#endif

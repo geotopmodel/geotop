@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_WATER_BALANCE_H
+#define _GEOTOP_WATER_BALANCE_H
+
 
 /* STATEMENT:
 
@@ -88,3 +91,5 @@ void draining_channel(double alpha, long ch, Matrix<double> *Z, RowView<double> 
 
 
 
+
+#endif

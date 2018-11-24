@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_CLOUDS_H
+#define _GEOTOP_CLOUDS_H
+
 
 /* STATEMENT:
 
@@ -45,3 +48,5 @@ void find_sunset(long nist, long *n0, long *n1, double **meteo,
                  double lat, double lon, double ST, double rotation);
 
 
+
+#endif

@@ -1,5 +1,5 @@
-#ifndef __math_optim_h_
-#define __math_optim_h_
+#ifndef _GEOTOP_MATH_OPTIM_H
+#define _GEOTOP_MATH_OPTIM_H
 
 #include <cmath>
 

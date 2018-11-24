@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_PBSM_H
+#define _GEOTOP_PBSM_H
+
 /*
 
  PRAIRIE BLOWING SNOW MODEL CODE
@@ -19,3 +22,5 @@ double suspension(double Z);
 
 double sublimation(double Z);
 
+
+#endif

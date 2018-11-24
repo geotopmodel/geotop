@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_METEODISTR_H
+#define _GEOTOP_METEODISTR_H
+
 /* STATEMENT:
 
  Geotop MODELS THE ENERGY AND WATER FLUXES AT THE LAND SURFACE
@@ -87,3 +90,5 @@ void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint, // 3
                Vector<double> *ystn, Vector<double> *var, double dn, // 3
                double undef, Matrix<double> *grid, double **value_station, long metcode); // 4 => TOT = 13 parameters
 
+
+#endif

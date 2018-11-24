@@ -1,3 +1,6 @@
+#ifndef _LIBRARIES_ASCII_IMPORT_ASCII_H
+#define _LIBRARIES_ASCII_IMPORT_ASCII_H
+
 
 /* STATEMENT:
 
@@ -26,3 +29,4 @@ double *read_esriascii(double *header, double novalue, char *name);
 
 void error_message(short format, long n, long n1, long n2, long n3,
                    char *name);
+#endif

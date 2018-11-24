@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_CONSTANTS_H
+#define _GEOTOP_CONSTANTS_H
+
 
 /* STATEMENT:
 
@@ -531,3 +534,5 @@
 #define ptBED ptLON+1
 #define ptTOT ptBED
 
+
+#endif
