@@ -22,6 +22,7 @@
 #include "turtle.h"
 #include "sparse_matrix.h"
 #include "util_math.h"
+#include "timer.h"
 
 #define MAX_VALUE_DIAG 1e-8
 #define MAX_ITERATIONS 50
@@ -1166,6 +1167,8 @@ long BiCGSTAB_LU_SSOR(double w, double tol_rel, double tol_min,
 void product_using_only_strict_lower_diagonal_part(Vector<double>* product,
                                                    Vector<double>* x, Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx)
 {
+  GEOTIMER_PREFIX(__func__);
+
 
   long c, r, i;
 
@@ -1297,7 +1300,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel,
                                                           Vector<long> *Lp,
                                                           Vector<double> *Lx)
 {
-
+GEOTIMER_PREFIX(__func__);
   //solve sistem (A+Iy)*x = B, find x
   //A M-matrix described by its lower diagonal part
 
@@ -1416,6 +1419,7 @@ void product_matrix_using_lower_part_by_vector_plus_vector(double k,
                                                            Vector<double> *out, Vector<double> *y, Vector<double> *x,
                                                            Vector<long> *Li, Vector<long> *Lp, Vector<double> *Lx)
 {
+  GEOTIMER_PREFIX(__func__);
 
   //calculates k*(y + Ax), where k is coefficient, y and x vectors, and A a SPD matrix defined with its lower diagonal part
 

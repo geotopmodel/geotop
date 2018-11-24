@@ -1455,6 +1455,7 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
 int find_matrix_K_1D(long c, double  /*Dt*/, SOIL_STATE *L, Vector<double> *Lx,
                      Matrix<double> *Klat, Matrix<double> *Kbottom, ALLDATA *adt, Vector<double> *H)
 {
+  GEOTIMER_PREFIX(__func__);
 
     long i, l, r=1, I, sy, cnt=0;
     double dz=0.0, dzn=0.0, dD=0.0, kn=0.0, kmax=0.0, kmaxn=0.0;
@@ -1578,6 +1579,7 @@ int find_matrix_K_1D(long c, double  /*Dt*/, SOIL_STATE *L, Vector<double> *Lx,
 int find_dfdH_3D(double Dt, Vector<double> *df, ALLDATA *adt, SOIL_STATE *L,
                  SOIL_STATE *C, Vector<double> *H, Matrix<double> *Klat)
 {
+    GEOTIMER_PREFIX(__func__);
 
     long i, l, r, c, j, sy, ch, bc;
     long n=(Nl+1)*adt->P->total_pixel;
@@ -1736,6 +1738,7 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
               SOIL_STATE *C, Vector<double> *H, Matrix<double> *Klat, Matrix<double> *Kbottom_l,
               Vector<double> *Kbottom_ch)
 {
+  GEOTIMER_PREFIX(__func__);
 
     long i, l, r, c, j, sy, ch, bc;
     long n=(Nl+1)*adt->P->total_pixel;
