@@ -1167,9 +1167,6 @@ long BiCGSTAB_LU_SSOR(double w, double tol_rel, double tol_min,
 void product_using_only_strict_lower_diagonal_part(Vector<double>* product,
                                                    Vector<double>* x, Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx)
 {
-  GEOTIMER_PREFIX(__func__);
-
-
   long c, r, i;
 
   for (i=1; i<=x->nh; i++)
@@ -1300,7 +1297,6 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel,
                                                           Vector<long> *Lp,
                                                           Vector<double> *Lx)
 {
-GEOTIMER_PREFIX(__func__);
   //solve sistem (A+Iy)*x = B, find x
   //A M-matrix described by its lower diagonal part
 
@@ -1324,7 +1320,6 @@ GEOTIMER_PREFIX(__func__);
                                                        Lx);
 
   //product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(r, x, y, Li, Lp, Lx);
-
   for (j=x->nl; j<=x->nh; j++ )
     {
       //r->co[j] = b->co[j] - r->co[j];
@@ -1419,8 +1414,6 @@ void product_matrix_using_lower_part_by_vector_plus_vector(double k,
                                                            Vector<double> *out, Vector<double> *y, Vector<double> *x,
                                                            Vector<long> *Li, Vector<long> *Lp, Vector<double> *Lx)
 {
-  GEOTIMER_PREFIX(__func__);
-
   //calculates k*(y + Ax), where k is coefficient, y and x vectors, and A a SPD matrix defined with its lower diagonal part
 
   long i;

@@ -47,7 +47,6 @@ add_executable(geotop
         src/geotop/output.cc
         src/geotop/parameters.cc
         src/geotop/PBSM.cc
-        src/geotop/pedo.funct.cc
         src/geotop/radiation.cc
         src/geotop/recovering.cc
         src/geotop/snow.cc

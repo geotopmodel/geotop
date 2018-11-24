@@ -955,7 +955,6 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
 
     for (i=1; i<=H->nh; i++)
     {
-
         /** VERTICAL FLUXES */
         if ( i<=n) //land
         {
@@ -1228,7 +1227,6 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
 
             R = r+1;
             C = c;
-            dn = ds/cos(0.5*atan((*adt->T->dzdE)(r,c))+0.5*atan((*adt->T->dzdE)(R,C)));
 
             /** -------------------- (2) -------------------- */
             if (R>=1 && R<=Nr && C>=1 && C<=Nc)
@@ -1290,7 +1288,6 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
 
             R = r;
             C = c-1;
-            dn = ds/cos(0.5*atan((*adt->T->dzdN)(r,c))+0.5*atan((*adt->T->dzdE)(R,C)));
 
             /** -------------------- (3) -------------------- */
             if (R>=1 && R<=Nr && C>=1 && C<=Nc)
@@ -1351,7 +1348,6 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
 
             R = r;
             C = c+1;
-            dn = ds/cos(0.5*atan((*adt->T->dzdN)(r,c))+0.5*atan((*adt->T->dzdE)(R,C)));
 
             /** -------------------- (4) -------------------- */
             if (R>=1 && R<=Nr && C>=1 && C<=Nc)
@@ -1580,8 +1576,6 @@ int find_matrix_K_1D(long c, double  /*Dt*/, SOIL_STATE *L, Vector<double> *Lx,
 int find_dfdH_3D(double Dt, Vector<double> *df, ALLDATA *adt, SOIL_STATE *L,
                  SOIL_STATE *C, Vector<double> *H, Matrix<double> *Klat)
 {
-    GEOTIMER_PREFIX(__func__);
-
     long i, l, r, c, j, sy, ch, bc;
     long n=(Nl+1)*adt->P->total_pixel;
     double dz, dn, dD, psi1, ice=0.0;
@@ -1739,8 +1733,6 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
               SOIL_STATE *C, Vector<double> *H, Matrix<double> *Klat, Matrix<double> *Kbottom_l,
               Vector<double> *Kbottom_ch)
 {
-  GEOTIMER_PREFIX(__func__);
-
     long i;
     long n=(Nl+1)*adt->P->total_pixel;
 
@@ -1974,18 +1966,6 @@ int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
 
     }
     return 0;
-}
-
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-/******************************************************************************************************************************************/
-
-double find_3Ddistance(double horizontal_distance, double vertical_distance)
-{
-
-    return sqrt(pow_2(horizontal_distance)+pow_2(vertical_distance));
-
 }
 
 /******************************************************************************************************************************************/

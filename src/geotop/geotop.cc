@@ -187,8 +187,6 @@ FOR A PARTICULAR PURPOSE.\n" << std::endl;
 void time_loop(ALLDATA *A)
 {
     GEOLOG_PREFIX(__func__);
-    GEOTIMER_PREFIX(__func__);
-
     clock_t tstart, tend;
     short en=0, wt=0, out;
     long i, sy, r, c, j, l;
