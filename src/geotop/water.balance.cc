@@ -945,6 +945,7 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                      Vector<double> *Lx, Matrix<double> *Klat, Matrix<double> *Kbottom_l,
                      Vector<double> *Kbottom_ch, ALLDATA *adt, Vector<double> *H)
 {
+  GEOTIMER_PREFIX(__func__);
 
     long i, l, r, c, j, I, R, C, J, sy, syn, ch, cnt=0;
     long n=(Nl+1)*adt->P->total_pixel;
@@ -1740,15 +1741,17 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
 {
   GEOTIMER_PREFIX(__func__);
 
-    long i, l, r, c, j, sy, ch, bc;
+    long i;
     long n=(Nl+1)*adt->P->total_pixel;
-    double dz, dn, dD, V0, V1, psi1, psi0, ice=0.0;
-    double area, ds=sqrt((*UV->U)(1)*(*UV->U)(2));
 
+    #pragma omp parallel for
     for (i=1; i<=H->nh; i++)
     {
+      long  l, r, c, j, sy, ch, bc;
+      double dz, dn, dD, V0, V1, psi1, psi0, ice=0.0;
+      double area, ds=sqrt((*UV->U)(1)*(*UV->U)(2));
 
-        if (i<=n)
+      if (i<=n)
         {
             l=(*adt->T->lrc_cont)(i,1);
             r=(*adt->T->lrc_cont)(i,2);
@@ -1885,6 +1888,7 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
             f->co[i] -= area*(*adt->W->Pnet)(r,c)/Dt;
         }
     }
+
     return 0;
 }
 
