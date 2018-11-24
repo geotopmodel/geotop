@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_INDICES_H
+#define _GEOTOP_INDICES_H
+
 
 /* STATEMENT:
 
@@ -33,3 +36,5 @@ void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
                                  CHANNEL *cnet, Matrix<double> *LC, Matrix<long> *lrc, long ***i, long n, long nch,
                                  long nl);
 
+
+#endif

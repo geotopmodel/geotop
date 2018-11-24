@@ -1,3 +1,6 @@
+#ifndef _LIBRARIES_GEOMORPHOLOGY_GEOMORPHOLOGY_H
+#define _LIBRARIES_GEOMORPHOLOGY_GEOMORPHOLOGY_H
+
 
 void find_slope(double deltax, double deltay, Matrix<double> *topo, Matrix<double> *dzdx, Matrix<double> *dzdy,
                 long undef);
@@ -32,3 +35,5 @@ double interp_value(double E, double N, Matrix<double> *M, Matrix<double> *Z, T_
 
 
 
+
+#endif

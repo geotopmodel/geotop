@@ -1,3 +1,6 @@
+#ifndef _LIBRARIES_MATH_SPARSE_MATRIX_H
+#define _LIBRARIES_MATH_SPARSE_MATRIX_H
+
 
 /* STATEMENT:
 
@@ -138,3 +141,4 @@ void product_matrix_using_lower_part_by_vector_plus_vector(double k,
 /****************************************************************************************************/
 void product_using_only_lower_diagonal_part2(Vector<double>* product,
                                              Vector<double>* x, Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx);
+#endif

@@ -1,8 +1,8 @@
 //
 // Created by elisa on 29/10/18.
 //
-#ifndef GEOTOP_TIMER_H
-#define GEOTOP_TIMER_H
+#ifndef _GEOTOP_TIMER_H
+#define _GEOTOP_TIMER_H
 
 #include "config.h"
 
@@ -77,4 +77,4 @@ class Timer::ScopedTimer {
     Timer::ScopedTimer __geotimer_prefix__ { string }
 #endif
 
-#endif  // GEOTOP_TIMER_H
+#endif // _GEOTOP_TIMER_H

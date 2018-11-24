@@ -1,5 +1,5 @@
-#ifndef __turtle_h_
-#define __turtle_h_
+#ifndef _LIBRARIES_FLUIDTURTLE_TURTLE_H
+#define _LIBRARIES_FLUIDTURTLE_TURTLE_H
 
 #include <cstdio>
 #include <cstring>

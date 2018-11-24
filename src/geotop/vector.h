@@ -2,8 +2,8 @@
 // Created by alberto on 4/19/18.
 //
 
-#ifndef GEOTOP_VECTOR_H
-#define GEOTOP_VECTOR_H
+#ifndef _GEOTOP_VECTOR_H
+#define _GEOTOP_VECTOR_H
 
 #include "geotop_asserts.h"
 #include <memory> // to use std::unique_ptr
@@ -153,4 +153,4 @@ public:
 
 };
 
-#endif // GEOTOP_VECTOR_H
+#endif // _GEOTOP_VECTOR_H

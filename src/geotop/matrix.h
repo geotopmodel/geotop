@@ -2,8 +2,8 @@
 // Created by elisa on 2018/07/02.
 //
 
-#ifndef GEOTOP_MATRIX_H
-#define GEOTOP_MATRIX_H
+#ifndef _GEOTOP_MATRIX_H
+#define _GEOTOP_MATRIX_H
 
 #include "geotop_asserts.h"
 #include <memory> // to use std::unique_ptr
@@ -149,4 +149,4 @@ public:
 
 };
 
-#endif // GEOTOP_MATRIX_H
+#endif // _GEOTOP_MATRIX_H

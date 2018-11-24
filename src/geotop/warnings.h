@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_WARNINGS_H
+#define _GEOTOP_WARNINGS_H
+
 #ifdef COMPILER_HAS_DIAGNOSTIC_PRAGMA
 #define DISABLE_WARNINGS                                                \
   _Pragma("GCC diagnostic push")                                          \
@@ -39,5 +42,7 @@
 
 #define DISABLE_WARNINGS
 #define ENABLE_WARNINGS
+
+#endif
 
 #endif

@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_KEYWORDS_H
+#define _GEOTOP_KEYWORDS_H
+
 
 /* STATEMENT:
 
@@ -798,3 +801,5 @@ char *keywords_char[num_par_char] =
   "SubfolderRecoveryFiles"
 };
 
+
+#endif

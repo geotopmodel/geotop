@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_RECOVERING_H
+#define _GEOTOP_RECOVERING_H
+
 
 /* STATEMENT:
 
@@ -42,3 +45,5 @@ void recover_run_averages(short old, Matrix<double> *A, char *name, Matrix<doubl
 
 void print_run_averages_for_recover(Matrix<double> *A, char *name, long **j_cont, PAR *par,
                                     long n, long nr, long nc);
+
+#endif

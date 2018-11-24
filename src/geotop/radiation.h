@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_RADIATION_H
+#define _GEOTOP_RADIATION_H
+
 
 /* STATEMENT:
 
@@ -99,3 +102,5 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av,
                             METEO *met, double JDb, double JDe, double Delta, double E0, double Et,
                             double ST, double A,
                             double Lozone, double alpha, double beta, double albedo);
+
+#endif

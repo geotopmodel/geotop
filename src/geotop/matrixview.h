@@ -2,8 +2,8 @@
 // Created by elisa on 2018/07/27.
 //
 
-#ifndef GEOTOP_MATRIXVIEW_H
-#define GEOTOP_MATRIXVIEW_H
+#ifndef _GEOTOP_MATRIXVIEW_H
+#define _GEOTOP_MATRIXVIEW_H
 
 #include "geotop_asserts.h"
 #include "rowview.h"
@@ -76,4 +76,4 @@ public:
 
 };
 
-#endif // GEOTOP_MATRIXVIEW_H
+#endif // _GEOTOP_MATRIXVIEW_H

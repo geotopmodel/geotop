@@ -1,3 +1,6 @@
+#ifndef _LIBRARIES_ASCII_EXTENSIONS_H
+#define _LIBRARIES_ASCII_EXTENSIONS_H
+
 
 /* STATEMENT:
 
@@ -23,3 +26,4 @@
 #define ascii_esri ".asc"
 //#define ascii_ft ".ft"
 #define textfile ".txt"
+#endif

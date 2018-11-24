@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_STRUCT_GEOTOP_H
+#define _GEOTOP_STRUCT_GEOTOP_H
+
 
 /* STATEMENT:
 
@@ -790,3 +793,5 @@ struct ALLDATA {
                 M{new METEO{}},
                 I{new TIMES{}} {}
 };
+
+#endif

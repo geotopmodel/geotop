@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_CHANNELS_H
+#define _GEOTOP_CHANNELS_H
+
 
 /* STATEMENT:
 
@@ -32,3 +35,5 @@ void find_max_constraint(Matrix<double> *Z, Matrix<double> *LC, Matrix<short> *p
 short neighboring_down_channel_pixel(long r, long c, long ir, long ic, Matrix<double> *Z, Matrix<double> *LC,
                                      Matrix<short> *pixel_type, Matrix<long> *CH, long novalue);
 
+
+#endif

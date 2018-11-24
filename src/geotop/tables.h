@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_TABLES_H
+#define _GEOTOP_TABLES_H
+
 
 /* STATEMENT:
 
@@ -29,3 +32,4 @@ double find_watertabledepth_up(double Z, long i, long ty, SOIL *sl);
 double find_watertabledepth_dw(double Z, long i, long ty, SOIL *sl);
 
 long nlayer(double D, RowView<double> &&dz, long max, short d);
+#endif

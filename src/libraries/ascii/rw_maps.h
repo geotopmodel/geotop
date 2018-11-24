@@ -1,3 +1,6 @@
+#ifndef _LIBRARIES_ASCII_RW_MAPS_H
+#define _LIBRARIES_ASCII_RW_MAPS_H
+
 
 /* STATEMENT:
 
@@ -94,3 +97,5 @@ void write_tensorseries2_vector(char *suf, long l, char *filename, short type,
 void write_tensorseries3_vector(char *suffix, char *filename, short type,
                                 short format, Matrix<double> *T, T_INIT *UV, long novalue, long **J, long nr,
                                 long nc);
+
+#endif

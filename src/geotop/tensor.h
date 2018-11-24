@@ -2,8 +2,8 @@
 // Created by elisa on 2018/07/26.
 //
 
-#ifndef GEOTOP_TENSOR_H
-#define GEOTOP_TENSOR_H
+#ifndef _GEOTOP_TENSOR_H
+#define _GEOTOP_TENSOR_H
 
 #include "geotop_asserts.h"
 #include <exception>
@@ -169,4 +169,4 @@ public:
 
 };
 
-#endif // GEOTOP_Tensor_H
+#endif // _GEOTOP_TENSOR_H

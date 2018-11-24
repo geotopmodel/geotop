@@ -1,3 +1,6 @@
+#ifndef _LIBRARIES_ASCII_TABS_H
+#define _LIBRARIES_ASCII_TABS_H
+
 
 /* STATEMENT:
 
@@ -68,3 +71,5 @@ char *assign_string(const char *a);
 /*----------------------------------------------------------------------------------------------------------*/
 
 void convert_string_in_lower_case(char *s);
+
+#endif

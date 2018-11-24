@@ -2,8 +2,8 @@
 // Created by alberto on 4/18/18.
 //
 
-#ifndef GEOTOP_LOGGER_H
-#define GEOTOP_LOGGER_H
+#ifndef _GEOTOP_LOGGER_H
+#define _GEOTOP_LOGGER_H
 
 #include "config.h"
 
@@ -304,4 +304,4 @@ class Logger::ScopedLevels {
 # define GEOLOG_PREFIX(dummy)
 #endif
 
-#endif // GEOTOP_LOGGER_H
+#endif // _GEOTOP_LOGGER_H

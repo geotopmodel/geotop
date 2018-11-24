@@ -1,3 +1,6 @@
+#ifndef _LIBRARIES_ASCII_INIT_H
+#define _LIBRARIES_ASCII_INIT_H
+
 
 /* STATEMENT:
 
@@ -20,3 +23,4 @@
  */
 
 void initmatrix(double val, Matrix<double> *destination, Matrix<double> *origin, double novalue);
+#endif

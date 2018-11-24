@@ -2,8 +2,8 @@
 // Created by alberto on 5/3/18.
 //
 
-#ifndef GEOTOP_GEOTOP_ASSERTS_H
-#define GEOTOP_GEOTOP_ASSERTS_H
+#ifndef _GEOTOP_ASSERTS_H
+#define _GEOTOP_ASSERTS_H
 
 #include <iostream>
 #include <sstream>
@@ -244,4 +244,4 @@ public:
 #define GEO_ERROR_GE(a, b)                                                     \
   GEO_ERROR((a >= b)) << a << " was expected to be greater or equal than "     \
                       << b << std::endl
-#endif // GEOTOP_GEOTOP_ASSERTS_H
+#endif // _GEOTOP_ASSERTS_H

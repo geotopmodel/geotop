@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_ENERGY_BALANCE_H
+#define _GEOTOP_ENERGY_BALANCE_H
+
 
 /* STATEMENT:
 
@@ -121,3 +124,5 @@ void merge(double a, Vector<double> *ice, Vector<double> *liq, Vector<double> *T
 
 void sux_minus6_condition(double ic, double wa, double rho, double D1,
                           ENERGY *E);
+
+#endif

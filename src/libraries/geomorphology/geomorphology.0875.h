@@ -1,3 +1,6 @@
+#ifndef _LIBRARIES_GEOMORPHOLOGY_GEOMORPHOLOGY_0875_H
+#define _LIBRARIES_GEOMORPHOLOGY_GEOMORPHOLOGY_0875_H
+
 /* Calculation of the sky view factor for each pixels:
    Input:  - N         number of part in which you want divide the horizon
            - UV        format file with the dimension of pixel and the novalue
@@ -9,3 +12,4 @@
 void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *input, Matrix<short> *convess,long novalue);
 
 void nablaquadro_mask(Matrix<double> *Z0, Matrix<short> *curv, Vector<double> *U, Vector<double> *V);
+#endif

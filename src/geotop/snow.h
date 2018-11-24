@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_SNOW_H
+#define _GEOTOP_SNOW_H
+
 
 /* STATEMENT:
 
@@ -156,3 +159,5 @@ double interpolate_snow(long r, long c, double h, long max, Tensor<double> *Dz,
 void copy_snowvar3D(STATEVAR_3D *from, STATEVAR_3D *to);
 
 /*----------------------------------------------------------------------------------------------------------*/
+
+#endif

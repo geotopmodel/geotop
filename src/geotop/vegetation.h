@@ -1,3 +1,6 @@
+#ifndef _GEOTOP_VEGETATION_H
+#define _GEOTOP_VEGETATION_H
+
 
 /* STATEMENT:
 
@@ -79,3 +82,5 @@ void veg_transmittance(short stabcorr_incanopy, double v, double u_star,
                        double u_top, double Hveg, double z0soil, double z0veg, double d0veg,
                        double LSAI, double decaycoeff0, double Lo, double Loc, double *rb,
                        double *rh, double *decay);
+
+#endif

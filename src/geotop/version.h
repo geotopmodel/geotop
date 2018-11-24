@@ -24,9 +24,9 @@ Any feedback will be highly appreciated.
  * recompilations
  */
 
-#ifndef __VERSION_H__
-#define __VERSION_H__
+#ifndef _GEOTOP_VERSION_H
+#define _GEOTOP_VERSION_H
 
 const char * version();
 const char * commit();
-#endif // __VERSION_H__
+#endif // _GEOTOP_VERSION_H
