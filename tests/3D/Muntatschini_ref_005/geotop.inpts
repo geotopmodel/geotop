@@ -29,12 +29,6 @@ DtPlotDischarge = 1
 DtPlotPoint = 1
 DtPlotBasin = 1
 
-! Output maps Dt in hours 
-OutputSoilMaps = 120
-OutputSurfEBALMaps = 120
-OutputMeteoMaps = 120
-OutputSnowMaps = 120
-
 !=======================================
 ! METEO STATIONS Input
 !=======================================
@@ -286,9 +280,10 @@ SoilAll = 1
 !=============================================================================
 
 ! Output maps Dt in hours 
-OutputSoilMaps=2	  
-OutputSurfEBALMaps=2
+OutputSoilMaps = 2	  
+OutputSurfEBALMaps = 2
 OutputMeteoMaps = 2
+OutputSnowMaps = 120
 
 ! soil moisture & temperature  ---------- 
 ! SoilAveragedTempTensorFile 			= 	"output-maps/T"
