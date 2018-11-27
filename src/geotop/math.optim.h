@@ -11,28 +11,10 @@
 template <class T>
 T power(const T a, const T b){
 #ifdef MATH_OPTIM
-    /* std::ofstream myfile{"analyze_power.txt", std::ios_base::app}; */
-    /* myfile << "(" << a << "," << b << ")\t\t" << std::endl; */
     return std::exp(b*std::log(a));
 #else
-    /* std::ofstream file{"analyze_pow.txt", std::ios_base::app}; */
-    /* file << "(" << a << "," << b << ")\t\t" << std::endl; */
     return std::pow(a,b);
 #endif
 }
 
 #endif
-
-
-//template <class T>
-//T power(const T a, const T b) {
-//  return std::pow(a, b);
-//}
-
-//template <class T>
-//T power(const T a, const T b) {
-//    if (a >= 1E+20 && a <= 1E+30) {
-//        return std::exp(b * std::log(a));
-//    } else {
-//        return std::pow(a, b);
-//    }
