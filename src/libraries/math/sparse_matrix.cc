@@ -22,6 +22,7 @@
 #include "turtle.h"
 #include "sparse_matrix.h"
 #include "util_math.h"
+#include "timer.h"
 
 #define MAX_VALUE_DIAG 1e-8
 #define MAX_ITERATIONS 50
@@ -1166,7 +1167,6 @@ long BiCGSTAB_LU_SSOR(double w, double tol_rel, double tol_min,
 void product_using_only_strict_lower_diagonal_part(Vector<double>* product,
                                                    Vector<double>* x, Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx)
 {
-
   long c, r, i;
 
   for (i=1; i<=x->nh; i++)
@@ -1297,7 +1297,6 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel,
                                                           Vector<long> *Lp,
                                                           Vector<double> *Lx)
 {
-
   //solve sistem (A+Iy)*x = B, find x
   //A M-matrix described by its lower diagonal part
 
@@ -1321,7 +1320,6 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel,
                                                        Lx);
 
   //product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(r, x, y, Li, Lp, Lx);
-
   for (j=x->nl; j<=x->nh; j++ )
     {
       //r->co[j] = b->co[j] - r->co[j];
@@ -1416,7 +1414,6 @@ void product_matrix_using_lower_part_by_vector_plus_vector(double k,
                                                            Vector<double> *out, Vector<double> *y, Vector<double> *x,
                                                            Vector<long> *Li, Vector<long> *Lp, Vector<double> *Lx)
 {
-
   //calculates k*(y + Ax), where k is coefficient, y and x vectors, and A a SPD matrix defined with its lower diagonal part
 
   long i;

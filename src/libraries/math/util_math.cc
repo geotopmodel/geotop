@@ -22,8 +22,7 @@
 #include "turtle.h"
 #include "util_math.h"
 #include "constants.h"
-#include "timer.h"
-#include <math.optim.h>
+#include "math.optim.h"
 
 /*----------------------------------------------------------------------------------------------------------*/
 
@@ -31,10 +30,10 @@ short tridiag(short a, long r, long c, long nx, Vector<double> *diag_inf,
               Vector<double> *diag, Vector<double> *diag_sup, Vector<double> *b, Vector<double> *e)
 
 {
-  GEOTIMER_PREFIX(__func__);
   long j;
   double bet;
-  std::unique_ptr<Vector<double>> gam {new Vector<double>{nx}};
+
+  Vector<double> gam {nx};
 
   /*for (j=1; j<=nx; j++) {
     printf("d[%ld]=%e\n",j,diag->co[j]);
@@ -54,8 +53,8 @@ short tridiag(short a, long r, long c, long nx, Vector<double> *diag_inf,
   //Decomposition and forward substitution
   for (j=2; j<=nx; j++)
     {
-      gam->co[j]=diag_sup->co[j-1]/bet;
-      bet=diag->co[j]-diag_inf->co[j-1]*gam->co[j];
+      gam(j)=diag_sup->co[j-1]/bet;
+      bet=diag->co[j]-diag_inf->co[j-1]*gam(j);
       if (bet==0.0)
         {
           /*printf("type=%d r=%ld c=%ld\n",a,r,c);
@@ -69,7 +68,7 @@ short tridiag(short a, long r, long c, long nx, Vector<double> *diag_inf,
   //Backsubstitution
   for (j=(nx-1); j>=1; j--)
     {
-      e->co[j]-=gam->co[j+1]*e->co[j+1];
+      e->co[j]-=gam(j+1)*e->co[j+1];
     }
 
   return 1;
@@ -86,11 +85,10 @@ short tridiag2(short  /*a*/, long  /*r*/, long  /*c*/, long nbeg, long nend,
 //solve A(ld,d,ud) * e + b = 0
 
 {
-    GEOTIMER_PREFIX(__func__);
-
-    long j;
+  long j;
   double bet;
-  std::unique_ptr<Vector<double>> gam{new Vector<double>{nend}};
+
+  Vector<double> gam{nend};
 
   bet = d->co[nbeg];
   if (bet == 0.0)
@@ -104,8 +102,8 @@ short tridiag2(short  /*a*/, long  /*r*/, long  /*c*/, long nbeg, long nend,
   //Decomposition and forward substitution
   for (j=nbeg+1; j<=nend; j++)
     {
-      gam->co[j] = ud->co[j-1]/bet;
-      bet = d->co[j]-ld->co[j-1]*gam->co[j];
+      gam(j) = ud->co[j-1]/bet;
+      bet = d->co[j]-ld->co[j-1]*gam(j);
       if (bet == 0.0)
         {
           return 1;
@@ -119,7 +117,7 @@ short tridiag2(short  /*a*/, long  /*r*/, long  /*c*/, long nbeg, long nend,
   //Backsubstitution
   for (j=(nend-1); j>=nbeg; j--)
     {
-      e->co[j] -= gam->co[j+1]*e->co[j+1];
+      e->co[j] -= gam(j+1)*e->co[j+1];
     }
 
   return 0;
@@ -245,7 +243,6 @@ double minimize_merit_function(double res0, double lambda1, double res1,
 
 double product(Vector<double> *a, Vector<double> *b)
 {
-
   double p=0.;
   long i,n=a->nh;
 
@@ -314,9 +311,8 @@ double adaptiveSimpsonsAux2(double (*f)(double x, void *p), void *arg,
   double S2 = Sleft + Sright;
   if (bottom <= 0 || fabs(S2 - S) <= 15*epsilon)
     return S2 + (S2 - S)/15;
-  return adaptiveSimpsonsAux2(f, arg, a, c, epsilon/2, Sleft,  fa, fc, fd,
-                              bottom-1) +
-         adaptiveSimpsonsAux2(f, arg, c, b, epsilon/2, Sright, fc, fb, fe, bottom-1);
+  return adaptiveSimpsonsAux2(f, arg, a, c, epsilon / 2, Sleft, fa, fc, fd,
+          bottom - 1) + adaptiveSimpsonsAux2(f, arg, c, b, epsilon / 2, Sright, fc, fb, fe, bottom - 1);
 }
 
 //
@@ -335,6 +331,5 @@ double adaptiveSimpsons2(double (*f)(double x, void *p),
   return adaptiveSimpsonsAux2(f, arg, a, b, epsilon, S, fa, fb, fc,
                               maxRecursionDepth);
 }
-
 /*----------------------------------------------------------------------------------------------------------*/
 

@@ -1,6 +1,8 @@
 #ifndef _GEOTOP_WATER_BALANCE_H
 #define _GEOTOP_WATER_BALANCE_H
 
+#include <cmath>
+#include "math.optim.h"
 
 /* STATEMENT:
 
@@ -56,7 +58,12 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
 int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
               Vector<double> *H, Matrix<double> *Klat, Matrix<double> *Kbottom);
 
-double find_3Ddistance(double horizontal_distance, double vertical_distance);
+inline double find_3Ddistance(double horizontal_distance, double vertical_distance)
+{
+
+  return std::sqrt(pow_2(horizontal_distance)+pow_2(vertical_distance));
+
+}
 
 void find_dt_max(short DD, double Courant, RowView<double> &&h, LAND *land, TOPO *top,
                  CHANNEL *cnet, PAR *par, METEO *met, double t, double *dt);
