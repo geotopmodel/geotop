@@ -5,6 +5,7 @@
 #include <logger.h>
 #include <timer.h>
 #include <math.optim.h>
+#include <omp.h>
 
 #define Pi 3.14159265358979     /* P greco */
 
@@ -70,6 +71,7 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
     }
 
     // Computation of matrix with sky view factor:
+#pragma omp parallel for collapse(2)
     for (i=1; i<=sky->nrh; i++)
     {
         for (j=1; j<=sky->nch; j++)
@@ -88,6 +90,7 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
         {
             if ((long)(*input)(i,j)!=novalue)  //computation only of novalue pixels
             {
+#pragma omp parallel for private(t)
                 for (t=1; t<=N; t++)
                 {
                     v->co[t]=1.0;
@@ -121,6 +124,7 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
                     }
                 }
                 vvv=0.0;
+#pragma omp parallel for private(t) reduction(+:vvv)
                 for (t=1; t<=N; t++)
                 {
                     vvv=vvv+v->co[t];
