@@ -1372,7 +1372,7 @@ No precipitation measurements, considered it 0.0
 27/3/2010 17:00 100.00% - Time elapsed (h:m:s)  0:00:06 Time remaining (h:m)  0:00  
 
 27/3/2010 17:00 JD:85.708333 (1^ simulation day) 100.00% completed! 
- t_meteo:  0.00 s, t_energy:  5.00 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.00 s
+ t_meteo:  0.00 s, t_energy:  4.87 s, t_blowingsnow:  0.00 s, t_water:  0.00 s, t_sub:  0.00 s, t_sup:  0.00 s, t_out:  0.00 s
  SW= 59.72 W/m2  LW:-43.61 W/m2  H=  1.25 W/m2  LE=  0.00 W/m2 
  Pvert=  0.00 mm Prain=  0.00 mm  Psnow=  0.00 mm  
  Max Error Richards=0.000000e+00 mm/h 
