@@ -4397,6 +4397,7 @@ void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
                      Tensor<double> *var, double cosslope)
 {
     GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     short first_column=1;
     long j, l;
