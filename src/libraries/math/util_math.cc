@@ -23,7 +23,7 @@
 #include "util_math.h"
 #include "constants.h"
 #include "math.optim.h"
-
+#include "timer.h"
 /*----------------------------------------------------------------------------------------------------------*/
 
 short tridiag(short a, long r, long c, long nx, Vector<double> *diag_inf,
@@ -36,39 +36,39 @@ short tridiag(short a, long r, long c, long nx, Vector<double> *diag_inf,
   Vector<double> gam {nx};
 
   /*for (j=1; j<=nx; j++) {
-    printf("d[%ld]=%e\n",j,diag->co[j]);
+    printf("d[%ld]=%e\n",j,(*diag)(j));
   }
   for (j=1; j<nx; j++) {
     printf("d[%ld]=%e %e\n",j,diag_inf->co[j],diag_sup->co[j]);
   }*/
-  if (diag->co[1]==0.0)
+  if ((*diag)(1)==0.0)
     {
       printf("type=%d r=%ld c=%ld\n",a,r,c);
       t_error("Error 1 in tridiag");
     }
 
-  bet=diag->co[1];
-  e->co[1]=b->co[1]/bet;
+  bet = (*diag)(1);
+  (*e)(1) = (*b)(1)/bet;
 
   //Decomposition and forward substitution
   for (j=2; j<=nx; j++)
     {
-      gam(j)=diag_sup->co[j-1]/bet;
-      bet=diag->co[j]-diag_inf->co[j-1]*gam(j);
+      gam(j) = (*diag_sup)(j-1)/bet;
+      bet = (*diag)(j) - (*diag_inf)(j-1)*gam(j);
       if (bet==0.0)
         {
           /*printf("type=%d r=%ld c=%ld\n",a,r,c);
-          printf("l=%ld diag(l)=%f diag_inf(l-1)=%f diag_sup(l-1)=%f\n",j,diag->co[j],diag_inf->co[j-1],diag_sup->co[j-1]);
+          printf("l=%ld diag(l)=%f diag_inf(l-1)=%f diag_sup(l-1)=%f\n",j,(*diag)(j),(*diag_inf)(j-1),(*diag_sup)(j-1));
           printf("Error 2 in tridiag\n");*/
           return 0;
         }
-      e->co[j]=(b->co[j]-diag_inf->co[j-1]*e->co[j-1])/bet;
+      (*e)(j) = ( (*b)(j)-(*diag_inf)(j-1)*(*e)(j-1) )/bet;
     }
 
   //Backsubstitution
   for (j=(nx-1); j>=1; j--)
     {
-      e->co[j]-=gam(j+1)*e->co[j+1];
+      (*e)(j) -= gam(j+1) * (*e)(j+1);
     }
 
   return 1;
@@ -111,13 +111,13 @@ short tridiag2(short  /*a*/, long  /*r*/, long  /*c*/, long nbeg, long nend,
           //printf("l=%ld d(l)=%f ld(l-1)=%f ud(l-1)=%f\n",j,d->co[j],ld->co[j-1],ud->co[j-1]);
           //t_error("Error 2 in tridiag");
         }
-      e->co[j] = (-b->co[j]-ld->co[j-1]*e->co[j-1])/bet;
+      (*e)(j) = (-(*b)(j)-ld->co[j-1]*(*e)(j-1))/bet;
     }
 
   //Backsubstitution
   for (j=(nend-1); j>=nbeg; j--)
     {
-      e->co[j] -= gam(j+1)*e->co[j+1];
+      (*e)(j) -= gam(j+1)*(*e)(j+1);
     }
 
   return 0;
@@ -303,6 +303,7 @@ double adaptiveSimpsonsAux2(double (*f)(double x, void *p), void *arg,
                             double a, double b, double epsilon,
                             double S, double fa, double fb, double fc, int bottom)
 {
+  GEOTIMER_PREFIX(__func__);
   double c = (a + b)/2, h = b - a;
   double d = (a + c)/2, e = (c + b)/2;
   double fd = f(d, arg), fe = f(e, arg);
