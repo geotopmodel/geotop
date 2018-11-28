@@ -25,15 +25,13 @@
 void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *input, Matrix<short> *convess,
                      long novalue)
 {
-  GEOTIMER_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
-  long i,j,t,m,n,p,q,h,k,r,s; //counter
+    long i,j,t,m,n,p,q,h,k,r,s; //counter
     double deltateta; //amplitude of the angles in which the horizon is divided
     std::unique_ptr<Matrix<double>> alfa; //matrices with the angles of the direction
-    std::unique_ptr<Vector<double>>
-            vv; //vector with the view factor of the current pixel for one of the N parts
-    std::unique_ptr<Vector<double>>
-            v; //vector with the minimum view factor of the current pixel for one of the N parts
+    std::unique_ptr<Vector<double>> vv; //vector with the view factor of the current pixel for one of the N parts
+    std::unique_ptr<Vector<double>> v; //vector with the minimum view factor of the current pixel for one of the N parts
     double vvv; //mean of the sky view for a pixel of the N parts
 
     if (sky->nrh!=input->nrh)
@@ -44,28 +42,27 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
     // Computation of the matrix with the angles of the direction
     alfa.reset(new Matrix<double>{2*input->nrh-1,2*input->nch-1});
     *alfa = (double)novalue; //initialisation with novalue
+
+#pragma omp parallel for private(i, j)
     for (i=1; i<=2*input->nrh-1; i++)
     {
         for (j=1; j<=2*input->nch-1; j++)
         {
             if (i<=input->nrh && j<input->nch)
             {
-                (*alfa)(i,j)=3.0/2.0*Pi+atan(((input->nrh-i)*  (*UV->U)(1))/ ((input->nch-j)*(*UV->U)(1)));
+                (*alfa)(i,j) = 3.0/2.0 * Pi+atan(((input->nrh-i)*(*UV->U)(1))/((input->nch-j)*(*UV->U)(1)));
             }
             if (i>input->nrh && j<=input->nch)
             {
-                (*alfa)(i,j)=Pi+atan(((input->nch-j)*(*UV->U)(1))/
-                                     ((i-input->nrh)*(*UV->U)(1)));
+                (*alfa)(i,j) = Pi + atan(((input->nch-j)*(*UV->U)(1))/((i-input->nrh)*(*UV->U)(1)));
             }
             if (i>=input->nrh && j>input->nch)
             {
-                (*alfa)(i,j)=Pi/2.0+atan(((i-input->nrh)*(*UV->U)(1))/
-                                         ((j-input->nch)*(*UV->U)(1)));
+                (*alfa)(i,j) = Pi/2.0 + atan(((i-input->nrh)*(*UV->U)(1))/((j-input->nch)*(*UV->U)(1)));
             }
             if (i<input->nrh && j>=input->nch)
             {
-                (*alfa)(i,j)=atan(((j-input->nch)*(*UV->U)(1))/
-                                  ((input->nrh-i)*(*UV->U)(1)));
+                (*alfa)(i,j) = atan(((j-input->nch)*(*UV->U)(1))/((input->nrh-i)*(*UV->U)(1)));
             }
         }
     }
@@ -84,6 +81,7 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
     vv.reset(new Vector<double>{N});
     deltateta=2.0*Pi/N;
 
+//#pragma omp parallel for private(i, j, t, v, m, n, p, q, h, k, r, s, vv) => segfault
     for (i=1; i<=input->nrh; i++)
     {
         for (j=1; j<=input->nch; j++)
@@ -93,12 +91,12 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
 //#pragma omp parallel for private(t)
                 for (t=1; t<=N; t++)
                 {
-                    v->co[t]=1.0;
+                    (*v)(t)=1.0;
                 }
-                m=input->nrh-i+1;
-                n=input->nch-j+1;
-                p=m+input->nrh-1;
-                q=n+input->nch-1;
+                m = input->nrh -i +1;
+                n = input->nch -j +1;
+                p = m + input->nrh -1;
+                q = n + input->nch -1;
                 for (h=m; h<=p; h++)
                 {
                     for (k=n; k<=q; k++)
@@ -107,15 +105,15 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
                         {
                             if ((*alfa)(h,k)>=(t-1)*deltateta && (*alfa)(h,k)<t*deltateta)
                             {
-                                r=h-m+1;
-                                s=k-n+1;
+                                r = h-m+1;
+                                s = k-n+1;
                                 if ((*convess)(r,s)==1 && sqrt(pow_2((r-i))+pow_2((s-j)))!=0)
                                 {
-                                    vv->co[t]=1-sin(atan(((*input)(r,s)-(*input)(i,j))
+                                    (*vv)(t) = 1-sin(atan(((*input)(r,s)-(*input)(i,j))
                                                          /(sqrt(pow_2((r-i))+pow_2((s-j)))*(*UV->U)(1))));
-                                    if (vv->co[t]<v->co[t])
+                                    if ((*vv)(t) < (*v)(t))
                                     {
-                                        v->co[t]=vv->co[t];
+                                        (*v)(t) = (*vv)(t);
                                     }
                                 }
                                 break;
@@ -127,9 +125,9 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
 //#pragma omp parallel for private(t) reduction(+:vvv)
                 for (t=1; t<=N; t++)
                 {
-                    vvv=vvv+v->co[t];
+                    vvv = vvv + (*v)(t);
                 }
-                (*sky)(i,j)=(1.0/N*vvv);
+                (*sky)(i,j) = (1.0/N*vvv);
             }
         }
         geolog << "Percentage of the calculation of the sky view factor matrix: %5.2f%%\n"
