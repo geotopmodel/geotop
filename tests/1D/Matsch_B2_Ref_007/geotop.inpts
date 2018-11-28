@@ -8,7 +8,7 @@
  
 TimeStepEnergyAndWater	=	900
 InitDateDDMMYYYYhhmm	=	02/10/2009 00:00  
-EndDateDDMMYYYYhhmm	=	02/11/2009 23:00
+EndDateDDMMYYYYhhmm	=	02/11/2009 00:00
 
 !Simulation settings
 RecoverSim	=	0
