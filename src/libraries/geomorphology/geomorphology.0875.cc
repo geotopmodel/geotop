@@ -68,7 +68,6 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
     }
 
     // Computation of matrix with sky view factor:
-//#pragma omp parallel for collapse(2)
     for (i=1; i<=sky->nrh; i++)
     {
         for (j=1; j<=sky->nch; j++)
@@ -81,14 +80,12 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
     vv.reset(new Vector<double>{N});
     deltateta=2.0*Pi/N;
 
-//#pragma omp parallel for private(i, j, t, v, m, n, p, q, h, k, r, s, vv) => segfault
     for (i=1; i<=input->nrh; i++)
     {
         for (j=1; j<=input->nch; j++)
         {
             if ((long)(*input)(i,j)!=novalue)  //computation only of novalue pixels
             {
-//#pragma omp parallel for private(t)
                 for (t=1; t<=N; t++)
                 {
                     (*v)(t)=1.0;
@@ -122,7 +119,7 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
                     }
                 }
                 vvv=0.0;
-//#pragma omp parallel for private(t) reduction(+:vvv)
+
                 for (t=1; t<=N; t++)
                 {
                     vvv = vvv + (*v)(t);
