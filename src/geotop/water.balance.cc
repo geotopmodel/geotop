@@ -1736,7 +1736,6 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
     long i;
     long n=(Nl+1)*adt->P->total_pixel;
 
-    #pragma omp parallel for
     for (i=1; i<=H->nh; i++)
     {
       long  l, r, c, j, sy, ch, bc;
