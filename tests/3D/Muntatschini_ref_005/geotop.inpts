@@ -30,10 +30,10 @@ DtPlotPoint = 1
 DtPlotBasin = 1
 
 ! Output maps Dt in hours 
-OutputSoilMaps = 120
-OutputSurfEBALMaps = 120
-OutputMeteoMaps = 120
-OutputSnowMaps = 120
+OutputSoilMaps = 2
+OutputSurfEBALMaps = 2
+OutputMeteoMaps = 2
+OutputSnowMaps = 2
 
 !=======================================
 ! METEO STATIONS Input
