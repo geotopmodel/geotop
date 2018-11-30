@@ -2,6 +2,7 @@ option('MUTE_GEOLOG', type: 'boolean', value: false)
 option('MUTE_GEOTIMER', type: 'boolean', value: false)
 option('MATH_OPTIM', type: 'boolean', value: false)
 option('WITH_OMP', type: 'boolean', value: false, description: 'Enable openMP framework')
+option('WITH_VECTORIZATION', type: 'boolean', value: false)
 
 # used to pass additional arguments when running tidy
 # target e.g. '-fix-errors' to apply fixes proposed

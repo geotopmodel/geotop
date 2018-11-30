@@ -9,4 +9,5 @@
 #mesondefine MUTE_GEOTIMER
 #mesondefine MATH_OPTIM
 #mesondefine WITH_OMP
+#mesondefine WITH_VECTORIZATION
 #endif
