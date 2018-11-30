@@ -119,7 +119,6 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
                     }
                 }
                 vvv=0.0;
-
                 for (t=1; t<=N; t++)
                 {
                     vvv = vvv + (*v)(t);
