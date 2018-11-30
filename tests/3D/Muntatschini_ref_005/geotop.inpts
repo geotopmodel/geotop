@@ -13,7 +13,7 @@ PointSim = 0
 TimeStepEnergyAndWater = 3600
 MinTimeStep = 10
 InitDateDDMMYYYYhhmm = 02/10/2009 00:00
-EndDateDDMMYYYYhhmm =  09/10/2009 00:00
+EndDateDDMMYYYYhhmm =  03/10/2009 00:00
 
 ! Catchment centroid (for Sun position) 
 Latitude  = 46.684
@@ -30,10 +30,10 @@ DtPlotPoint = 1
 DtPlotBasin = 1
 
 ! Output maps Dt in hours 
-OutputSoilMaps = 72
-OutputSurfEBALMaps = 72
-OutputMeteoMaps = 72
-OutputSnowMaps = 72
+OutputSoilMaps = 2
+OutputSurfEBALMaps = 2
+OutputMeteoMaps = 2
+OutputSnowMaps = 2
 
 !=======================================
 ! METEO STATIONS Input
@@ -286,9 +286,9 @@ SoilAll = 1
 !=============================================================================
 
 ! Output maps Dt in hours 
-OutputSoilMaps = 72	  
-OutputSurfEBALMaps = 72
-OutputMeteoMaps = 72
+OutputSoilMaps = 2	  
+OutputSurfEBALMaps = 2
+OutputMeteoMaps = 2
 
 ! soil moisture & temperature  ---------- 
 ! SoilAveragedTempTensorFile 			= 	"output-maps/T"
