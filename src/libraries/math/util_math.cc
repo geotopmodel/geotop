@@ -23,7 +23,6 @@
 #include "util_math.h"
 #include "constants.h"
 #include "math.optim.h"
-#include "timer.h"
 /*----------------------------------------------------------------------------------------------------------*/
 
 short tridiag(short a, long r, long c, long nx, Vector<double> *diag_inf,
