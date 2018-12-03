@@ -28,6 +28,7 @@
 #include "util_math.h"
 #include "geomorphology.h"
 #include "math.optim.h"
+#include "timer.h"
 
 extern long number_novalue, number_absent;
 
@@ -408,7 +409,7 @@ double diff2glob(double a)
 double atm_transmittance(double X, double P, double RH, double T,
                          double Lozone, double a, double b, double rho_g)
 {
-
+  GEOTIMER_PREFIX(__func__);
   //X = angle of the sun above the horizon [rad]
   //P = pressure [mbar]
   //RH = relative humidity [0-1]
