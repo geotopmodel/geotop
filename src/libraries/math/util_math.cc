@@ -303,7 +303,6 @@ double adaptiveSimpsonsAux2(double (*f)(double x, void *p), void *arg,
                             double a, double b, double epsilon,
                             double S, double fa, double fb, double fc, int bottom)
 {
-  GEOTIMER_PREFIX(__func__);
   double c = (a + b)/2, h = b - a;
   double d = (a + c)/2, e = (c + b)/2;
   double fd = f(d, arg), fe = f(e, arg);
