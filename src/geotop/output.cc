@@ -185,7 +185,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
             fprintf(f,"%02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)day,(float)month,
                     (float)year,(float)hour,(float)minute);
-            fprintf(f,",%f,%f,%f",(times->time+par->Dt)/secinday 
+            fprintf(f,",%f,%f,%f",(times->time+par->Dt)/secinday
                                   + (i_run-1) * ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)),JDfrom0,JD);
             fprintf(f,",%e,%e,%e,%e,%e,%e,%e\n",
                     cnet->Vout/(double)(*par->Dtplot_discharge)(i_sim),
@@ -224,9 +224,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             for (i=1; i<=par->rc->nrh; i++)
             {
 
-                r=(*par->rc)(i,1);
-                c=(*par->rc)(i,2);
-                j=top->j_cont[r][c];
+                r = (*par->rc)(i,1);
+                c = (*par->rc)(i,2);
+                j = top->j_cont[r][c];
 
                 for (l=1; l<=Nl; l++)
                 {
@@ -266,9 +266,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 for (i=1; i<=par->rc->nrh; i++)
                 {
                     write_suffix(NNNN, (*par->IDpoint)(i), 0);
-                    r=(*par->rc)(i,1);
-                    c=(*par->rc)(i,2);
-                    j=top->j_cont[r][c];
+                    r = (*par->rc)(i,1);
+                    c = (*par->rc)(i,2);
+                    j = top->j_cont[r][c];
                     sy = (*sl->type)(r,c);
 
                     if (par->output_vertical_distances == 1)
@@ -293,8 +293,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                             (*sl->thizplot)(i,l) = (*sl->SS->thi)(l,j);
                         if (strcmp(files[fsatz], string_novalue) != 0)
                             (*sl->satratio)(i,l) = ((*sl->SS->thi)(l,j) + (*sl->th)(l,j) -
-                                                   (*sl->pa)(sy,jres,l)) /((*sl->pa)(sy,jsat,l) -
-                                                                              (*sl->pa)(sy,jres,l));
+                                                    (*sl->pa)(sy,jres,l)) /((*sl->pa)(sy,jsat,l) -
+                                                                            (*sl->pa)(sy,jres,l));
                     }
                     for (l=0; l<=Nl; l++)
                     {
@@ -402,7 +402,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                 else if (opnt[j] == odaysfromstart)
                                 {
                                     fprintf(f, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
-                                                                                        ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
+                                                                                       ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
                                 }
                                 else if (opnt[j] == operiod)
                                 {
@@ -458,8 +458,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                 }
                                 else if (opnt[j] == odaysfromstart)
                                 {
-                                    fprintf(ffpoint, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
-                                                                                              ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
+                                    fprintf(ffpoint, "%f", (JDfrom0-(*par->init_date)(i_sim))
+                                                           + (i_run-1)*((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
                                 }
                                 else if (opnt[j] == operiod)
                                 {
@@ -548,7 +548,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                     else if (oglc[j] == 2)
                                     {
                                         fprintf(f, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
-                                                                                            ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
+                                                                                           ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
                                     }
                                     else if (oglc[j] == 3)
                                     {
@@ -671,7 +671,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                                     else if (oglc[j] == 2)
                                     {
                                         fprintf(f, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
-                                                                                            ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
+                                                                                           ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
                                     }
                                     else if (oglc[j] == 3)
                                     {
@@ -872,7 +872,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                         else if (obsn[j] == oodaysfromstart)
                         {
                             fprintf(f, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
-                                                                                ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
+                                                                               ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
                         }
                         else
                         {
@@ -916,7 +916,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                         else if (obsn[j] == oodaysfromstart)
                         {
                             fprintf(f, "%f",(JDfrom0-(*par->init_date)(i_sim))+(i_run-1)*
-                                                                                ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
+                                                                               ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)));
                         }
                         else
                         {
@@ -978,7 +978,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             for (i=1; i<=par->total_pixel; i++)
             {
                 (*met->Tamean)(i)+= (*met->Tgrid)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
-                                     /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
+                                    /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
             }
         }
         if (strcmp(files[fwspd], string_novalue) != 0)
@@ -986,7 +986,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             for (i=1; i<=par->total_pixel; i++)
             {
                 (*met->Vspdmean)(i)+=(*met->Vgrid)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
-                                      /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
+                                     /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
             }
         }
         if (strcmp(files[fwdir], string_novalue) != 0)
@@ -994,7 +994,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             for (i=1; i<=par->total_pixel; i++)
             {
                 (*met->Vdirmean)(i)+=(*met->Vdir)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
-                                      /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
+                                     /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
             }
         }
         if (strcmp(files[frh], string_novalue) != 0)
@@ -1002,7 +1002,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             for (i=1; i<=par->total_pixel; i++)
             {
                 (*met->RHmean)(i)+=(*met->RHgrid)((*top->rc_cont)(i,1),(*top->rc_cont)(i,2))
-                                    /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
+                                   /(((*par->output_meteo)(i_sim)*3600.0)/(par->Dt));
             }
         }
     }
@@ -1273,7 +1273,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 r = (*top->rc_cont)(i,1);
                 c = (*top->rc_cont)(i,2);
                 (*V)(i) = find_watertabledepth_up(find_activelayerdepth_up(i, (*sl->type)(r,c), sl),
-                                                   i, (*sl->type)(r,c), sl); // normal
+                                                  i, (*sl->type)(r,c), sl); // normal
             }
             temp1=join_strings(files[fwtable_up],s2);
             write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,top->j_cont, Nr, Nc);
@@ -1288,7 +1288,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 r = (*top->rc_cont)(i,1);
                 c = (*top->rc_cont)(i,2);
                 (*V)(i) = find_watertabledepth_dw(find_activelayerdepth_up(i, (*sl->type)(r,c), sl),
-                                                   i, (*sl->type)(r,c), sl); // normal
+                                                  i, (*sl->type)(r,c), sl); // normal
 
             }
             temp1=join_strings(files[fwtable_dw],s2);
@@ -2493,25 +2493,25 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
             if (par->Tzrun == 1 && strcmp(files[rTrun], string_novalue) != 0)
                 print_run_averages_for_recover(sl->Tzrun.get(), files[rTrun], top->j_cont, par, Nl, Nr, Nc);
-            
+
             if (par->wzrun == 1 && strcmp(files[rTrun], string_novalue) != 0)
                 print_run_averages_for_recover( sl->wzrun.get(), files[rwrun], top->j_cont, par, Nl, Nr, Nc);
-            
+
             if (par->Tzmaxrun == 1 && strcmp(files[rTmaxrun], string_novalue) != 0)
                 print_run_averages_for_recover(sl->Tzmaxrun.get(),files[rTmaxrun], top->j_cont, par, Nl, Nr, Nc);
-            
+
             if (par->wzmaxrun == 1 && strcmp(files[rwmaxrun], string_novalue) != 0)
                 print_run_averages_for_recover(sl->wzmaxrun.get(),files[rwmaxrun], top->j_cont, par, Nl, Nr, Nc);
-            
+
             if (par->Tzminrun == 1 && strcmp(files[rTminrun], string_novalue) != 0)
                 print_run_averages_for_recover(sl->Tzminrun.get(),files[rTminrun], top->j_cont, par, Nl, Nr, Nc);
-            
+
             if (par->wzminrun == 1 && strcmp(files[rwminrun], string_novalue) != 0)
                 print_run_averages_for_recover(sl->wzminrun.get(),files[rwminrun], top->j_cont, par, Nl, Nr, Nc);
-            
+
             if (par->dUzrun == 1 && strcmp(files[rdUrun], string_novalue) != 0)
                 print_run_averages_for_recover(sl->dUzrun.get(), files[rdUrun], top->j_cont, par, Nl, Nr, Nc);
-            
+
             if (par->SWErun == 1 && strcmp(files[rSWErun], string_novalue) != 0)
                 print_run_averages_for_recover(sl->SWErun.get(), files[rSWErun], top->j_cont, par, 3, Nr, Nc);
 
@@ -3045,7 +3045,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 for (l=1; l<=Nl; l++)
                 {
                     fprintf(f," Residual water content[-] of the layer %ld: %f\n",l,
-                           (*sl->pa)(sy,jres,l));
+                            (*sl->pa)(sy,jres,l));
                 }
                 for (l=1; l<=Nl; l++)
                 {
@@ -4397,6 +4397,7 @@ void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
                      Tensor<double> *var, double cosslope)
 {
     GEOLOG_PREFIX(__func__);
+    GEOTIMER_PREFIX(__func__);
 
     short first_column=1;
     long j, l;
@@ -4795,7 +4796,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
         {
             r = (*top->rc_cont)(j,1);
             c = (*top->rc_cont)(j,2);
-            if (strcmp(files[fpnet], string_novalue) != 0) 
+            if (strcmp(files[fpnet], string_novalue) != 0)
                 (*sl->Pnetcum)(j) += (*wat->Pnet)(r,c);
             if (strcmp(files[fevap], string_novalue) != 0)
             {
@@ -4851,11 +4852,11 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
 
             if (strcmp(files[fH], string_novalue) != 0)
                 (*egy->H_mean)(j) += ((*egy->H)(j))*Dt/((*par->output_surfenergy)(i_sim)*3600.);
-            
-            if (strcmp(files[fLE], string_novalue) != 0) 
+
+            if (strcmp(files[fLE], string_novalue) != 0)
                 (*egy->ET_mean)(j) += ((*egy->LE)(j))*Dt/((*par->output_surfenergy)(i_sim)*3600.);
-            
-            if (strcmp(files[fTs], string_novalue) != 0) 
+
+            if (strcmp(files[fTs], string_novalue) != 0)
                 (*egy->Ts_mean)(j) += ((*egy->Ts)(j))*Dt/((*par->output_surfenergy)(i_sim)*3600.);
 
             if (strcmp(files[fshadow], string_novalue) != 0)
@@ -4877,64 +4878,64 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
         {
             if (strcmp(files[pH], string_novalue) != 0
                 || strcmp(files[pHg], string_novalue) != 0
-                || strcmp(files[pG], string_novalue) != 0) 
+                || strcmp(files[pG], string_novalue) != 0)
                 (*egy->Hgplot)(j) += (*egy->Hgp)(j);
-            
+
             if (strcmp(files[pH], string_novalue) != 0
-                || strcmp(files[pHv], string_novalue) != 0) 
+                || strcmp(files[pHv], string_novalue) != 0)
                 (*egy->Hvplot)(j) += (*egy->Hvp)(j);
-            
+
             if (strcmp(files[pLE], string_novalue) != 0
                 || strcmp(files[pLEg], string_novalue) != 0
-                || strcmp(files[pG], string_novalue) != 0) 
+                || strcmp(files[pG], string_novalue) != 0)
                 (*egy->LEgplot)(j) += (*egy->LEgp)(j);
-            
+
             if (strcmp(files[pLE], string_novalue) != 0
-                || strcmp(files[pLEv], string_novalue) != 0) 
+                || strcmp(files[pLEv], string_novalue) != 0)
                 (*egy->LEvplot)(j) += (*egy->LEvp)(j);
-            
-            if (strcmp(files[pSWin], string_novalue) != 0) 
+
+            if (strcmp(files[pSWin], string_novalue) != 0)
                 (*egy->SWinplot)(j) += (*egy->SWinp)(j);
-            
+
             if (strcmp(files[pSWg], string_novalue) != 0
-                || strcmp(files[pG], string_novalue) != 0) 
+                || strcmp(files[pG], string_novalue) != 0)
                 (*egy->SWgplot)(j) += (*egy->SWgp)(j);
-            
-            if (strcmp(files[pSWv], string_novalue) != 0) 
+
+            if (strcmp(files[pSWv], string_novalue) != 0)
                 (*egy->SWvplot)(j) += (*egy->SWvp)(j);
-            
-            if (strcmp(files[pLWin], string_novalue) != 0) 
+
+            if (strcmp(files[pLWin], string_novalue) != 0)
                 (*egy->LWinplot)(j) += (*egy->LWinp)(j);
-            
+
             if (strcmp(files[pLWg], string_novalue) != 0
-                || strcmp(files[pG], string_novalue) != 0) 
+                || strcmp(files[pG], string_novalue) != 0)
                 (*egy->LWgplot)(j) += (*egy->LWgp)(j);
-            
-            if (strcmp(files[pLWv], string_novalue) != 0) 
+
+            if (strcmp(files[pLWv], string_novalue) != 0)
                 (*egy->LWvplot)(j) += (*egy->LWvp)(j);
-            
-            if (strcmp(files[pTs], string_novalue) != 0) 
+
+            if (strcmp(files[pTs], string_novalue) != 0)
                 (*egy->Tsplot)(j) += (*egy->Tsp)(j);
-            
-            if (strcmp(files[pTg], string_novalue) != 0) 
+
+            if (strcmp(files[pTg], string_novalue) != 0)
                 (*egy->Tgplot)(j) += (*egy->Tgp)(j);
-            
-            if (strcmp(files[pD], string_novalue) != 0) 
+
+            if (strcmp(files[pD], string_novalue) != 0)
                 (*snow->Dplot)(j) += W * DEPTH((*top->rc_cont)(j,1), (*top->rc_cont)(j,2), snow->S->lnum.get(), snow->S->Dzl.get());
-            
-            if (strcmp(files[pTa], string_novalue) != 0) 
+
+            if (strcmp(files[pTa], string_novalue) != 0)
                 (*met->Taplot)(j) += W * (*met->Tgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2));
-            
-            if (strcmp(files[pRH], string_novalue) != 0) 
-               (*met->RHplot)(j) += W * (*met->RHgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2));
-            
+
+            if (strcmp(files[pRH], string_novalue) != 0)
+                (*met->RHplot)(j) += W * (*met->RHgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2));
+
             if (strcmp(files[pVspd], string_novalue) != 0
                 || strcmp(files[pVdir], string_novalue) != 0)
             {
-                (*met->Vxplot)(j) -= W * (*met->Vgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2)) 
-                                      * sin( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*Pi/180. );
-               (*met->Vyplot)(j) -= W * (*met->Vgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2)) 
-                                      * cos( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*Pi/180. );
+                (*met->Vxplot)(j) -= W * (*met->Vgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2))
+                                     * sin( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*Pi/180. );
+                (*met->Vyplot)(j) -= W * (*met->Vgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2))
+                                     * cos( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*Pi/180. );
             }
 
         }
@@ -4955,7 +4956,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                     c = (*top->rc_cont)(j,2);
                     if (par->Tzrun == 1)
                         (*sl->Tzrun)((*par->jplot)(j),i) += (*sl->SS->T)(i,j)
-                                                              * Dt / (((*par->end_date)(i_sim) - (*par->init_date)(i_sim))*86400.);
+                                                            * Dt / (((*par->end_date)(i_sim) - (*par->init_date)(i_sim))*86400.);
                     if (par->Tzmaxrun == 1)
                     {
                         if ((*sl->Tzmaxrun)((*par->jplot)(j),i) < (*sl->SS->T)(i,j))
@@ -4986,7 +4987,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                 {
                     w = get_SWE(r, c, snow->S->lnum.get(), snow->S->w_ice.get(), snow->S->w_liq.get());
                     (*sl->SWErun)((*par->jplot)(j),1) += w * Dt / (((*par->end_date)(i_sim) -
-                                                                      (*par->init_date)(i_sim))*86400.);
+                                                                    (*par->init_date)(i_sim))*86400.);
                     if ((*sl->SWErun)((*par->jplot)(j),2)<w)
                         (*sl->SWErun)((*par->jplot)(j),2)=w;
                     if ((*sl->SWErun)((*par->jplot)(j),3)>w)
