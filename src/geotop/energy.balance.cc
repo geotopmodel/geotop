@@ -73,7 +73,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
                     Vector<double> *snowage, ALLDATA *A, double *W)
 {
     GEOLOG_PREFIX(__func__);
-    GEOTIMER_PREFIX(__func__);
+    GEOTIMER_SECTION(__func__);
 
     short sux;
     long i, r, c, cnt=0;
@@ -229,7 +229,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                          double W, FILE * /*f*/, double *SWupabove_v, double *Tgskin)
 {
     GEOLOG_PREFIX(__func__);
-    GEOTIMER_PREFIX(__func__);
+    GEOTIMER_SECTION(__func__);
 
     long l, j, ns, ng=0;
     double SWin, SW, SWbeam, SWdiff, SWv_vis, SWv_nir, SWg_vis, SWg_nir, cosinc,
@@ -1364,7 +1364,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                               double *dUsl)
 {
     GEOLOG_PREFIX(__func__);
-    GEOTIMER_PREFIX(__func__);
+    GEOTIMER_SECTION(__func__);
 
     short iter_close, iter_close2, lu=(*land->LC)(r,c), flagTmin = 0, sux,
             dirichlet = 0, neumann = 0, micro_sempl = 0, micro = 0, dirichlet_bottom = 0;
