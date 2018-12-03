@@ -1597,14 +1597,16 @@ void copy_snowvar3D(STATEVAR_3D *from, STATEVAR_3D *to)
     long l, r, c;
     long nl=from->Dzl->ndh, nr=from->Dzl->nrh, nc=from->Dzl->nch;
 
-#pragma omp parallel for firstprivate(from, nr, nc), private(r,c)
-    for (r=1; r<=nr; r++) {
+#pragma omp parallel for private(r,c)
+//#pragma omp parallel for firstprivate(from, nr, nc) private(r,c)
+  for (r=1; r<=nr; r++) {
         for (c=1; c<=nc; c++) {
             (*to->type)(r,c) = (*from->type)(r,c);
             (*to->lnum)(r,c) = (*from->lnum)(r,c);
         }
     }
-#pragma omp parallel for firstprivate(from, nl, nr, nc), private(l,r,c)
+#pragma omp parallel for private(l,r,c)
+//#pragma omp parallel for firstprivate(from, nl, nr, nc) private(l,r,c)
     for (l=1; l<=nl; l++) {
         for (r=1; r<=nr; r++) {
             for (c=1; c<=nc; c++) {
