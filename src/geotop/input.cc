@@ -70,7 +70,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
 
 {
     GEOLOG_PREFIX(__func__);
-    GEOTIMER_PREFIX(__func__);
+    GEOTIMER_SECTION(__func__);
 
     FILE *f; /** failed run file*/
     Matrix<double> *M;

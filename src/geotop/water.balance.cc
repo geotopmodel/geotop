@@ -65,7 +65,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
                     double *Voutlandbottom)
 {
     GEOLOG_PREFIX(__func__);
-    GEOTIMER_PREFIX(__func__);
+    GEOTIMER_SECTION(__func__);
 
     clock_t start, end;
     double Pnet, loss;
@@ -225,7 +225,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
                  double *Vbottom, double *Vlatsub, double *Total_Pnet, short updateK)
 {
     GEOLOG_PREFIX(__func__);
-    GEOTIMER_PREFIX(__func__);
+    GEOTIMER_SECTION(__func__);
 
     double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon,
             mu=0., hnew, hold=0.;
@@ -636,7 +636,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
                  double *Total_Pnet, short updateK)
 {
     GEOLOG_PREFIX(__func__);
-    GEOTIMER_PREFIX(__func__);
+    GEOTIMER_SECTION(__func__);
 
     double res=0.0, res0[3], res_prev[MM], res_av, res00, lambda[3], epsilon, mu=0.;
     double ds=sqrt((*UV->U)(1)*(*UV->U)(2)), area, dz, dn, dD;
@@ -944,7 +944,7 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                      Vector<double> *Lx, Matrix<double> *Klat, Matrix<double> *Kbottom_l,
                      Vector<double> *Kbottom_ch, ALLDATA *adt, Vector<double> *H)
 {
-    GEOTIMER_PREFIX(__func__);
+    GEOTIMER_SECTION(__func__);
 
     long i, l, r, c, j, I, R, C, J, sy, syn, ch, cnt=0;
     long n=(Nl+1)*adt->P->total_pixel;
@@ -1451,7 +1451,7 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
 int find_matrix_K_1D(long c, double  /*Dt*/, SOIL_STATE *L, Vector<double> *Lx,
                      Matrix<double> *Klat, Matrix<double> *Kbottom, ALLDATA *adt, Vector<double> *H)
 {
-    GEOTIMER_PREFIX(__func__);
+    GEOTIMER_SECTION(__func__);
 
     long i, l, r=1, I, sy, cnt=0;
     double dz=0.0, dzn=0.0, dD=0.0, kn=0.0, kmax=0.0, kmaxn=0.0;

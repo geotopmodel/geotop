@@ -82,7 +82,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
 {
     GEOLOG_PREFIX(__func__);
-    GEOTIMER_PREFIX(__func__);
+    GEOTIMER_SECTION(__func__);
 
     /* internal auxiliary variables: */
     long i,j,r=0,c=0,l,m,sy; /*counters*/
@@ -4397,7 +4397,7 @@ void write_snow_file(short a, long i, long r, long c, long lmax, FILE *f,
                      Tensor<double> *var, double cosslope)
 {
     GEOLOG_PREFIX(__func__);
-    GEOTIMER_PREFIX(__func__);
+    GEOTIMER_SECTION(__func__);
 
     short first_column=1;
     long j, l;

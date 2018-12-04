@@ -71,9 +71,9 @@ class Timer::ScopedTimer {
 };
 
 #ifdef MUTE_GEOTIMER
-#  define GEOTIMER_PREFIX(dummy)
+#  define GEOTIMER_SECTION(dummy)
 #else
-#  define GEOTIMER_PREFIX(string)                                              \
+#  define GEOTIMER_SECTION(string)                                              \
     Timer::ScopedTimer __geotimer_prefix__ { string }
 #endif
 

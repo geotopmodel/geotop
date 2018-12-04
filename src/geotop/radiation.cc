@@ -409,7 +409,7 @@ double diff2glob(double a)
 double atm_transmittance(double X, double P, double RH, double T,
                          double Lozone, double a, double b, double rho_g)
 {
-  GEOTIMER_PREFIX(__func__);
+  GEOTIMER_SECTION(__func__);
   //X = angle of the sun above the horizon [rad]
   //P = pressure [mbar]
   //RH = relative humidity [0-1]
