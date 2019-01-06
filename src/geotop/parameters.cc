@@ -1424,9 +1424,12 @@ static void assign_numeric_parameters(Par *par,
 
   par->state_discharge = 0;
   par->Dtplot_discharge *= 3600.;
-  if (par->Dtplot_discharge > 1.E-5 && par->Dtplot_discharge <= minDt)
+  if (par->Dtplot_discharge > 1.E-5 && par->Dtplot_discharge < par->Dt)
     {
-      par->plot_discharge_with_Dt_integration[1] = 1;
+      lg->logsf(geotop::logger::WARNING,
+                "Dtplot_discharge %.0f seconds will be increased to Dt %.0f",
+                par->Dtplot_discharge,par->Dt);
+      par->Dtplot_discharge = par->Dt;
     }
   else
     {
