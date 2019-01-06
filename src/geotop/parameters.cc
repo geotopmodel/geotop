@@ -1420,8 +1420,6 @@ static void assign_numeric_parameters(Par *par,
                                            lConfigStore, "DtPlotDischarge", 0., true, 1, false);
   par->Dtplot_discharge = lDtPlotDischarge[0];
 
-  par->plot_discharge_with_Dt_integration.resize(2, 0);
-
   par->state_discharge = 0;
   par->Dtplot_discharge *= 3600.;
   if (par->Dtplot_discharge > 1.E-5 && par->Dtplot_discharge < par->Dt)
@@ -1430,10 +1428,6 @@ static void assign_numeric_parameters(Par *par,
                 "Dtplot_discharge %.0f seconds will be increased to Dt %.0f",
                 par->Dtplot_discharge,par->Dt);
       par->Dtplot_discharge = par->Dt;
-    }
-  else
-    {
-      par->plot_discharge_with_Dt_integration[1] = 0;
     }
   if (par->Dtplot_discharge > 1.E-5) par->state_discharge = 1;
 
