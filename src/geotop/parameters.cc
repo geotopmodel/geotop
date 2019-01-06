@@ -1410,15 +1410,9 @@ static void assign_numeric_parameters(Par *par,
 
   par->ST = getDoubleValueWithDefault(lConfigStore, "StandardTimeSimulation",
                                       0., false);
-  // this below is a scalar:
-  //
 
-  //    par->Dtplot_discharge.resize(par->init_date.size() + 1, 0);
-  par->Dtplot_discharge = 0;
-
-  std::vector<double> lDtPlotDischarge = getDoubleVectorValueWithDefault(
-                                           lConfigStore, "DtPlotDischarge", 0., true, 1, false);
-  par->Dtplot_discharge = lDtPlotDischarge[0];
+  par->Dtplot_discharge = getDoubleValueWithDefault(lConfigStore, "DtPlotDischarge",
+                                                    0., false);
 
   par->state_discharge = 0;
   par->Dtplot_discharge *= 3600.;
