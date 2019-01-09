@@ -1732,6 +1732,8 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
               SOIL_STATE *C, Vector<double> *H, Matrix<double> *Klat, Matrix<double> *Kbottom_l,
               Vector<double> *Kbottom_ch)
 {
+  GEOTIMER_SECTION(__func__);
+  
     long i;
     long n=(Nl+1)*adt->P->total_pixel;
 

@@ -33,6 +33,7 @@
 #include "output.h"
 #include "PBSM.h"
 #include "math.optim.h"
+#include "timer.h"
 
 extern long number_novalue, number_absent;
 
@@ -1593,6 +1594,7 @@ double interpolate_snow(long r, long c, double h, long max, Tensor<double> *Dz,
 
 void copy_snowvar3D(STATEVAR_3D *from, STATEVAR_3D *to)
 {
+  GEOTIMER_SECTION(__func__);
 
   long l, r, c;
   long nl=from->Dzl->ndh, nr=from->Dzl->nrh, nc=from->Dzl->nch;

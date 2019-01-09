@@ -69,7 +69,6 @@ add_executable(geotop
         src/libraries/geomorphology/geomorphology.0875.cc
         src/libraries/geomorphology/geomorphology.cc
         src/libraries/math/sparse_matrix.cc
-        src/libraries/math/util_math.cc
         src/geotop/vegetation.h
         src/geotop/clouds.h
         src/geotop/water.balance.h
