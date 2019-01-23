@@ -124,7 +124,9 @@ When using the model, please cite and refer to the following papers describing t
 
 * Rigon, R., Bertoldi, G., Over, T.M., 2006. GEOtop: A Distributed Hydrological Model with Coupled Water and Energy Budgets.  J. Hydrometeorol. 7, 371–388. https://doi.org/10.1175/JHM497.1
 
-Here is the full list of peer-reviewed publications using the GEOtop model (updated July 2018):
+Here is the full list of peer-reviewed publications using the GEOtop model (updated January 2019):
+
+* Formetta, G., Capparelli, G., 2019. Quantifying the three-dimensional effects of anisotropic soil horizons on hillslope hydrology and stability. J. Hydrol. 570, 329–342. https://doi.org/10.1016/j.jhydrol.2018.12.064
 
 * Soltani, M., Laux, P., Mauder, M., Kunstmann, H., 2018. Spatiotemporal variability and empirical Copula-based dependence structure of modeled and observed coupled water and energy fluxes. Hydrol. Res. nh2018163. https://doi.org/10.2166/nh.2018.163
 
