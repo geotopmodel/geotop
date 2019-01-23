@@ -71,10 +71,15 @@ The new `**v3.0** GEOtop development branch v3.0 (beta), written in C++, can be 
 
 The 3.0 version starts from version se27xx, already validated and published in the Endrizzi et al. 2014 paper.
 It performs exactly as the se27xx, but it has some improvements in terms of:
+
 - usage of object-oriented approach
+
 - development of new data structures
+
 - ease of compiling and running
+
 - modularity and flexibility
+
 - increase in testing coverage.
 
 However, it still lacks of the integration with the MeteoIO library and other features implemented in the current 2.1 version (master branch https://github.com/geotopmodel/geotop). In the next months we plan to move toward stable 3.0 version, together with a publication. We as developer would like to have some feedbacks from you!
