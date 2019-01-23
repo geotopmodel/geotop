@@ -67,6 +67,22 @@ However, this branch is not fully stable when the model is used with full 3D wat
 The `**se27xx** <https://github.com/geotopmodel/geotop/tree/se27xx>`_ branch contains the code 2.0 version which has been used for the publication  `Endrizzi et al. (2014) <https://doi.org/10.5194/gmd-7-2831-2014>`_, with some minor bug fixing. It is the most stable GEOtop version and the current benchmark for the development versions.
 To install this version see https://github.com/geotopmodel/geotop/blob/se27xx/README.rst
 
+The new `**v3.0** GEOtop development branch v3.0 (beta), written in C++, can be found in the git repo https://github.com/geotopmodel/geotop/tree/v3.0 at . You can find the compiling, running and testing instructions at https://github.com/geotopmodel/geotop/blob/v3.0/readme.md
+
+The 3.0 version starts from version se27xx, already validated and published in the Endrizzi et al. 2014 paper.
+It performs exactly as the se27xx, but it has some improvements in terms of:
+- usage of object-oriented approach
+- development of new data structures
+- ease of compiling and running
+- modularity and flexibility
+- increase in testing coverage.
+
+However, it still lacks of the integration with the MeteoIO library and other features implemented in the current 2.1 version (master branch https://github.com/geotopmodel/geotop). In the next months we plan to move toward stable 3.0 version, together with a publication. We as developer would like to have some feedbacks from you!
+Bugs and suggestions can be addressed in the google groups or using pull requests.
+Further test cases to validate the model are also welcome.
+
+
+
 
 Report bugs/suggestion/issues
 -------------------------------
