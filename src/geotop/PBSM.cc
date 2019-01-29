@@ -83,7 +83,7 @@ void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double r
   TQsum = 0.0;  //{Total Suspension}
   SBsalt = 0.0;
   SBsum = 0.0;
-  T = Ta+tk; //Convert to Deg. K}
+  T = Ta+GTConst::tk; //Convert to Deg. K}
 
 
   if (Fetch>=300)
@@ -99,7 +99,7 @@ void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double r
 
       k_atm = 0.00063*T + 0.0673; //{therm. cond. of atm. (J/(msK))}
       Diff = 2.06E-5*pow(T/273.0, 1.75); //{diffus. of w.vap. atmos. (m2/s}
-      B = Ls*M/(R*T) - 1.0;
+      B = GTConst::Ls*M/(R*T) - 1.0;
 
       // find undersaturation of w. vapour at 2 metres}
 
@@ -111,21 +111,21 @@ void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double r
 
       Ustar = 0.001;  //first guess
       i=0;
-      Z0 = CC2 * 0.07519 * pow_2(Ustar) / (2.*g) + Zstb;//Liston 1998
-      F = (Ustar/ka) * log(zmeas/Z0) - V;
+      Z0 = CC2 * 0.07519 * pow_2(Ustar) / (2.*GTConst::g) + Zstb;//Liston 1998
+      F = (Ustar/GTConst::ka) * log(zmeas/Z0) - V;
       do
         {
           Ustar1 = Ustar;
-          F1 = (1./ka) * log(zmeas/Z0) - (Ustar/ka) * (CC2*0.07519/g) * Ustar / Z0;
+          F1 = (1./GTConst::ka) * log(zmeas/Z0) - (Ustar/GTConst::ka) * (CC2*0.07519/GTConst::g) * Ustar / Z0;
           k = 0;
           do
             {
               Ustar = Ustar1 - (F/F1)/pow(2., (double)k);
-              Z0 = CC2 * 0.07519 * pow_2(Ustar) / (2.*g) + Zstb;
+              Z0 = CC2 * 0.07519 * pow_2(Ustar) / (2.*GTConst::g) + Zstb;
               k++;
             }
-          while (fabs((Ustar/ka) * log(zmeas/Z0) - V) > fabs(F) && k<10);
-          F = (Ustar/ka) * log(zmeas/Z0) - V;
+          while (fabs((Ustar/GTConst::ka) * log(zmeas/Z0) - V) > fabs(F) && k<10);
+          F = (Ustar/GTConst::ka) * log(zmeas/Z0) - V;
           i++;
         }
       while (fabs(F)>1.E-3 && i<500);
@@ -161,7 +161,7 @@ void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double r
 
               // {saltation transport}
 
-              Hsalt = CC2/(2.*g)*pow_2(Ustar);    //{Eq. 4.13}
+              Hsalt = CC2/(2.*GTConst::g)*pow_2(Ustar);    //{Eq. 4.13}
               TQsalt = CC1*Usthr * Nsalt * Hsalt;//{Eq. 4.20}
 
               // {calculate sublimation rate in the saltation layer}
@@ -178,9 +178,9 @@ void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double r
               Nuss = 1.79 + 0.606 * sqrt(Reyn);     //{Eq. 6.21}
               A = k_atm * T * Nuss;
               C = 1.0/(Diff * SvDens * Nuss);
-              DmDt = (2.0 * Pi * Mpr * SigmaZ)/(Ls * B/A + C);
+              DmDt = (2.0 * GTConst::Pi * Mpr * SigmaZ)/(GTConst::Ls * B/A + C);
               //{Eq. 6.16} {Gamma Dist. Corr.}
-              Mpm = 4.0/3.0 * Pi * rho_i * Mpr*pow_2(Mpr) *(1.0 + 3.0/Alpha + 2.0/pow_2(Alpha));
+              Mpm = 4.0/3.0 * GTConst::Pi * GTConst::rho_i * Mpr*pow_2(Mpr) *(1.0 + 3.0/Alpha + 2.0/pow_2(Alpha));
 
               Vs = DmDt/Mpm;              //{Sublimation rate coefficient Eq. 6.13}
 
@@ -217,8 +217,8 @@ void Pbsm(long r, long c, double Fetch, double N, double dv, double Hv, double r
               /*i=0;
               Bound = 1.0;
               do{
-                F = ZD + ka*ka * (Fetch - XD) * pow(log(Bound/Z0) * log(ZD/Z0), -0.5) - Bound;     //{Eq. 6.9}
-                F1 = -0.5 * ka*ka * (Fetch - XD) * pow(log(Bound/Z0) * log(ZD/Z0), -1.5) * (log(ZD/Z0)) / Bound - 1.0;
+                F = ZD + GTConst::ka*GTConst::ka * (Fetch - XD) * pow(log(Bound/Z0) * log(ZD/Z0), -0.5) - Bound;     //{Eq. 6.9}
+                F1 = -0.5 * GTConst::ka*GTConst::ka * (Fetch - XD) * pow(log(Bound/Z0) * log(ZD/Z0), -1.5) * (log(ZD/Z0)) / Bound - 1.0;
                 Bound -= F/F1;
                 i++;
               }while (fabs(F)>1.E-4 && i<10);
@@ -254,7 +254,7 @@ double suspension(double Z)
 
   Nz = 0.8*exp(CC4*pow(Zr, CC5) - CC4*pow(Z, CC5));
   UstarZ = Ustar * pow(1.2/(1.2 + Nz), 0.5);         //{Eq. 5.17a}
-  Uz = (UstarZ/ka) *log(Z/Z0);//{Eq. 4.17r}
+  Uz = (UstarZ/GTConst::ka) *log(Z/Z0);//{Eq. 4.17r}
 
   return (Nz*Uz);
 
@@ -273,7 +273,7 @@ double sublimation(double Z)
 
   Nz = 0.8*exp(CC4*pow(Zr, CC5) - CC4*pow(Z, CC5));
   UstarZ = Ustar * pow(1.2/(1.2 + Nz), 0.5);         //{Eq. 5.17a}
-  Uz = (UstarZ/ka) *log(Z/Z0);//{Eq. 4.17r}
+  Uz = (UstarZ/GTConst::ka) *log(Z/Z0);//{Eq. 4.17r}
 
   Mpr = 4.6E-5 * pow(Z, -0.258);                     //{Eq. 6.15}
   if (Z >= 5.0) Mpr = 30E-6;
@@ -291,8 +291,8 @@ double sublimation(double Z)
   Nuss = 1.79 + 0.606 * sqrt(Reyn);           //{Eq. 6.21}
   A = k_atm * T * Nuss;
   C = 1.0/(Diff * SvDens * Nuss);
-  DmDt = (2.0*Pi * Mpr * SigmaZ)/(Ls*B/A + C);
-  Mpm = 1.333 * Pi * rho_i * pow(Mpr,3.0) * (1.0 + 3.0/Alpha + 2.0/pow_2(Alpha));  //{Eq. 6.16} {Gamma Dist. Corr.}
+  DmDt = (2.0*GTConst::Pi * Mpr * SigmaZ)/(GTConst::Ls*B/A + C);
+  Mpm = 1.333 * GTConst::Pi * GTConst::rho_i * pow(Mpr,3.0) * (1.0 + 3.0/Alpha + 2.0/pow_2(Alpha));  //{Eq. 6.16} {Gamma Dist. Corr.}
 
   Vs = DmDt/Mpm;                             //{Eq. 6.13}
 
