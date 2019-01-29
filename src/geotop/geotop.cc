@@ -267,7 +267,7 @@ void time_loop(ALLDATA *A)
                 set_time_step(A->P.get(), A->I.get());
 
                 // time at the beginning of the time step
-                JD0 = (*A->P->init_date)(i_sim)+A->I->time/secinday;
+                JD0 = (*A->P->init_date)(i_sim)+A->I->time/GTConst::secinday;
 
                 // time step variables
                 t = 0.;
@@ -276,7 +276,7 @@ void time_loop(ALLDATA *A)
                 // time step subdivisions
                 do
                 {
-                    JDb = (*A->P->init_date)(i_sim)+(A->I->time+t)/secinday;
+                    JDb = (*A->P->init_date)(i_sim)+(A->I->time+t)/GTConst::secinday;
 
                     if (t + Dt > A->P->Dt)
                         Dt = A->P->Dt - t;
@@ -284,7 +284,7 @@ void time_loop(ALLDATA *A)
                     // iterations
                     do
                     {
-                        JDe = (*A->P->init_date)(i_sim)+(A->I->time+t+Dt)/secinday;
+                        JDe = (*A->P->init_date)(i_sim)+(A->I->time+t+Dt)/GTConst::secinday;
 
                         // copy state variables on
                         copy_snowvar3D(A->N->S, S.get());
@@ -408,29 +408,29 @@ void time_loop(ALLDATA *A)
 
                                 th = theta_from_psi((*A->S->SS->P)(l,A->T->j_cont[r][c]),
                                                     (*A->S->SS->thi)(l,A->T->j_cont[r][c]), l,
-                                                    A->S->pa->matrix(sy), PsiMin);
+                                                    A->S->pa->matrix(sy), GTConst::PsiMin);
 
                                 if (th > (*A->S->pa)(sy,jsat,l) - (*A->S->SS->thi)(l,A->T->j_cont[r][c]))
                                     th = (*A->S->pa)(sy,jsat,l) - (*A->S->SS->thi)(l,A->T->j_cont[r][c]);
 
                                 C0 = (*A->S->pa)(sy,jct,l) * (1. - (*A->S->pa)(sy,jsat,l))
-                                     * (*A->S->pa)(sy,jdz,l) + c_ice*(*A->S->SS->thi)(l,A->T->j_cont[r][c]) + c_liq*th;
+                                     * (*A->S->pa)(sy,jdz,l) + GTConst::c_ice*(*A->S->SS->thi)(l,A->T->j_cont[r][c]) + GTConst::c_liq*th;
 
                                 th0 = th;
 
                                 th = theta_from_psi((*L->P)(l,A->T->j_cont[r][c]),
                                                     (*L->thi)(l,A->T->j_cont[r][c]), l,
-                                                    A->S->pa->matrix(sy), PsiMin);
+                                                    A->S->pa->matrix(sy), GTConst::PsiMin);
 
                                 if (th > (*A->S->pa)(sy,jsat,l)-(*L->thi)(l,A->T->j_cont[r][c]))
                                     th = (*A->S->pa)(sy,jsat,l)-(*L->thi)(l,A->T->j_cont[r][c]);
 
                                 C1 = (*A->S->pa)(sy,jct,l) * (1. - (*A->S->pa)(sy,jsat,l))
-                                     * (*A->S->pa)(sy,jdz,l) + c_ice*(*L->thi)(l,A->T->j_cont[r][c]) + c_liq*th;
+                                     * (*A->S->pa)(sy,jdz,l) + GTConst::c_ice*(*L->thi)(l,A->T->j_cont[r][c]) + GTConst::c_liq*th;
 
                                 (*A->S->dUzrun)(j,l) += 1.E-6
                                                         * (0.5*(C0+C1) * ((*L->T)(l,A->T->j_cont[r][c]) - (*A->S->SS->T)(l,A->T->j_cont[r][c]))
-                                                           + Lf *(th-th0) *(*A->S->pa)(sy,jdz,l) );
+                                                           + GTConst::Lf *(th-th0) *(*A->S->pa)(sy,jdz,l) );
                             }
                         }
                     }
