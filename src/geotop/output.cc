@@ -153,7 +153,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*cnet->r)(l);
                 c = (*cnet->c)(l);
-                Vchannel += 1.E-3 * std::max<double>((*cnet->SS->P)(0,l), 0.) / cos((*top->slope)(r,c)*Pi/180.) *
+                Vchannel += 1.E-3 * std::max<double>((*cnet->SS->P)(0,l), 0.) / cos((*top->slope)(r,c)*GTConst::Pi/180.) *
                             (*UV->U)(1) * par->w_dx * (*cnet->length)(l);
                 Vsub += (*cnet->Vsub)(l);
                 Vsup += (*cnet->Vsup)(l);
@@ -185,7 +185,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
             fprintf(f,"%02.0f/%02.0f/%04.0f %02.0f:%02.0f",(float)day,(float)month,
                     (float)year,(float)hour,(float)minute);
-            fprintf(f,",%f,%f,%f",(times->time+par->Dt)/secinday
+            fprintf(f,",%f,%f,%f",(times->time+par->Dt)/GTConst::secinday
                                   + (i_run-1) * ((*par->end_date)(i_sim)-(*par->init_date)(i_sim)),JDfrom0,JD);
             fprintf(f,",%e,%e,%e,%e,%e,%e,%e\n",
                     cnet->Vout/(double)(*par->Dtplot_discharge)(i_sim),
@@ -273,7 +273,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
                     if (par->output_vertical_distances == 1)
                     {
-                        cosslope = cos( std::min<double>(max_slope, (*top->slope)(r,c)) * Pi/180. );
+                        cosslope = cos( std::min<double>(GTConst::max_slope, (*top->slope)(r,c)) * GTConst::Pi/180. );
                     }
                     else
                     {
@@ -311,10 +311,10 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                         for (l=1; l<=(*snow->S->lnum)(r,c); l++)
                         {
                             odpnt[osnowdepth][i-1] += (*snow->S->Dzl)(l,r,c);
-                            odpnt[oSWE][i-1] += 1.0E+3*((*snow->S->w_liq)(l,r,c) + (*snow->S->w_ice)(l,r,c))/rho_w;
+                            odpnt[oSWE][i-1] += 1.0E+3*((*snow->S->w_liq)(l,r,c) + (*snow->S->w_ice)(l,r,c))/GTConst::rho_w;
                             odpnt[osnowT][i-1] += (*snow->S->T)(l,r,c)*(*snow->S->Dzl)(l,r,c);
                         }
-                        odpnt[osnowdens][i-1] = odpnt[oSWE][i-1]*rho_w/odpnt[osnowdepth][i-1];
+                        odpnt[osnowdens][i-1] = odpnt[oSWE][i-1]*GTConst::rho_w/odpnt[osnowdepth][i-1];
                         odpnt[osnowT][i-1] /= odpnt[osnowdepth][i-1];
                     }
                     else
@@ -336,10 +336,10 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                             for (l=1; l<=(*glac->G->lnum)(r,c); l++)
                             {
                                 odpnt[oglacdepth][i-1] += (*glac->G->Dzl)(l,r,c);
-                                odpnt[oGWE][i-1] += 1.0E+3*((*glac->G->w_liq)(l,r,c) + (*glac->G->w_ice)(l,r,c))/rho_w;
+                                odpnt[oGWE][i-1] += 1.0E+3*((*glac->G->w_liq)(l,r,c) + (*glac->G->w_ice)(l,r,c))/GTConst::rho_w;
                                 odpnt[oglacT][i-1] += (*glac->G->T)(l,r,c)*(*glac->G->Dzl)(l,r,c);
                             }
-                            odpnt[oglacdens][i-1] = odpnt[oGWE][i-1]*rho_w/odpnt[oglacdepth][i-1];
+                            odpnt[oglacdens][i-1] = odpnt[oGWE][i-1]*GTConst::rho_w/odpnt[oglacdepth][i-1];
                             odpnt[oglacT][i-1] /= odpnt[oglacdepth][i-1];
                         }
                         else
@@ -761,7 +761,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                     write_soil_output(i, (*par->IDpoint)(i), (*par->init_date)(i_sim),
                                       (*par->end_date)(i_sim), JDfrom0, JD,
                                       day, month, year, hour, minute,
-                                      par->soil_plot_depths.get(), sl, par, (double)PsiMin, cosslope);
+                                      par->soil_plot_depths.get(), sl, par, (double)GTConst::PsiMin, cosslope);
 
                     // snow output
                     write_snow_output(i, (*par->IDpoint)(i), r, c, (*par->init_date)(i_sim),
@@ -1333,7 +1333,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*top->rc_cont)(i,1);
                 c = (*top->rc_cont)(i,2);
-                (*V)(i) = std::max<double>(0, (*sl->SS->P)(0,i)) / cos((*top->slope)(r,c) * Pi/180.);
+                (*V)(i) = std::max<double>(0, (*sl->SS->P)(0,i)) / cos((*top->slope)(r,c) * GTConst::Pi/180.);
             }
             temp1 = join_strings(files[fhsupland], s2);
             write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
@@ -1349,7 +1349,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 c = (*top->rc_cont)(i,2);
                 if ((*cnet->ch)(r,c)!=0)
                 {
-                    (*V)(i) = (*cnet->SS->P)(0,(*cnet->ch)(r,c)) / cos((*top->slope)(r,c) *Pi/180.);
+                    (*V)(i) = (*cnet->SS->P)(0,(*cnet->ch)(r,c)) / cos((*top->slope)(r,c) *GTConst::Pi/180.);
                 }
                 else
                 {
@@ -1946,7 +1946,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 for (i=1; i<=par->total_pixel; i++)
                 {
-                    (*V)(i) = 270.0 - (180./Pi)*atan2((*met->Vyplot)(i),(*met->Vxplot)(i));
+                    (*V)(i) = 270.0 - (180./GTConst::Pi)*atan2((*met->Vyplot)(i),(*met->Vxplot)(i));
                     if ((*V)(i) >= 360.0) (*V)(i) -= 360.0;
                 }
                 plot(files[pVdir], i, V.get(), par->format_out, top->j_cont);
@@ -2255,7 +2255,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     {
         t_rec += par->Dt;
 
-        if (fabs(t_rec - par->ContRecovery*secinday)<1.E-5)
+        if (fabs(t_rec - par->ContRecovery*GTConst::secinday)<1.E-5)
         {
             t_rec = 0.;
             geolog << "Writing continuous-recovering files" << std::endl;
@@ -2275,9 +2275,9 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 fprintf(f,
                         "Time[s],Time[d],n,i_run,i_sim,cum_time[s],elapsed_time[s],last_recover\n");
                 fprintf(f,"%f,%f,%ld,%ld,%ld,%f,%f,%ld",times->time+par->Dt,
-                        (times->time+par->Dt)/secinday+(i_run-1)*((*par->end_date)(i_sim) -
+                        (times->time+par->Dt)/GTConst::secinday+(i_run-1)*((*par->end_date)(i_sim) -
                                                                   (*par->init_date)(i_sim)),
-                        (long)(((times->time+par->Dt)/secinday)/par->ContRecovery),i_run,i_sim,
+                        (long)(((times->time+par->Dt)/GTConst::secinday)/par->ContRecovery),i_run,i_sim,
                         cum_time,elapsed_time,par->n_ContRecovery);
                 fclose(f);
                 free(name);
@@ -4764,7 +4764,7 @@ void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
 
         for (i=1; i<=npoints; i++)
         {
-            if (vertical == 1) cosslope = cos( std::min<double>(max_slope, (*slope)((*RC)(i,1),(*RC)(i,2))) * Pi/180. );
+            if (vertical == 1) cosslope = cos( std::min<double>(GTConst::max_slope, (*slope)((*RC)(i,1),(*RC)(i,2))) * GTConst::Pi/180. );
             (*V)(i) = interpolate_soil2(lmin, (*n)(l)*cosslope, Nl, std::forward<RowView<double>>(dz), T, i);
         }
 
@@ -4815,7 +4815,7 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                 (*snow->SUBL)(j) += (*snow->subl)(j);
             if (strcmp(files[fsndur], string_novalue) != 0)
             {
-                if ((*snow->yes)(j) == 1) (*snow->t_snow)(j) += Dt/secinday;
+                if ((*snow->yes)(j) == 1) (*snow->t_snow)(j) += Dt/GTConst::secinday;
             }
         }
 
@@ -4933,9 +4933,9 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                 || strcmp(files[pVdir], string_novalue) != 0)
             {
                 (*met->Vxplot)(j) -= W * (*met->Vgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2))
-                                     * sin( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*Pi/180. );
+                                     * sin( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*GTConst::Pi/180. );
                 (*met->Vyplot)(j) -= W * (*met->Vgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2))
-                                     * cos( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*Pi/180. );
+                                     * cos( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*GTConst::Pi/180. );
             }
 
         }
@@ -5380,9 +5380,9 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
             for (l=1; l<=n; l++)
             {
                 (*sl->SS->T)(l,j) = (*sl->Tzrun)(j,l);
-                (*sl->Ptot)(l,j) = psi_from_theta( (*sl->wzrun)(j,l)/(*sl->pa)(sy,jdz,l), 0., l, sl->pa->matrix(sy), PsiMin );
+                (*sl->Ptot)(l,j) = psi_from_theta( (*sl->wzrun)(j,l)/(*sl->pa)(sy,jdz,l), 0., l, sl->pa->matrix(sy), GTConst::PsiMin );
                 (*sl->SS->P)(l,j) = std::min<double>(Psif((*sl->Tzrun)(j,l)),(*sl->Ptot)(l,j));
-                (*sl->th)(l,j) = theta_from_psi((*sl->SS->P)(l,j), 0., l, sl->pa->matrix(sy), PsiMin);
+                (*sl->th)(l,j) = theta_from_psi((*sl->SS->P)(l,j), 0., l, sl->pa->matrix(sy), GTConst::PsiMin);
                 (*sl->SS->thi)(l,j) = (*sl->wzrun)(j,l)/(*sl->pa)(sy,jdz,l) - (*sl->th)(l,j);
             }
             Tlow = (*sl->SS->T)(n,j);
@@ -5393,8 +5393,8 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
         else if (par->newperiodinit == 1)
         {
             Tlow = (*sl->Tzrun)(j,n);
-            Ptlow = psi_from_theta((*sl->wzrun)(j,n)/(*sl->pa)(sy,jdz,n), 0., n, sl->pa->matrix(sy), PsiMin);
-            thwlow = theta_from_psi(std::min<double>(Psif(Tlow),Ptlow), 0., n, sl->pa->matrix(sy),PsiMin);
+            Ptlow = psi_from_theta((*sl->wzrun)(j,n)/(*sl->pa)(sy,jdz,n), 0., n, sl->pa->matrix(sy), GTConst::PsiMin);
+            thwlow = theta_from_psi(std::min<double>(Psif(Tlow),Ptlow), 0., n, sl->pa->matrix(sy),GTConst::PsiMin);
             thilow = (*sl->wzrun)(j,n)/(*sl->pa)(sy,jdz,n) - thwlow;
         }
 
@@ -5440,9 +5440,9 @@ void end_period_1D(SOIL *sl, TOPO *top, PAR *par)
             do
             {
                 psin = std::min<double>(Psif(Tn), (*sl->Ptot)(l,j));
-                thwn = theta_from_psi(psin, 0., l, sl->pa->matrix(sy), PsiMin);
+                thwn = theta_from_psi(psin, 0., l, sl->pa->matrix(sy), GTConst::PsiMin);
                 thin = theta_from_psi((*sl->Ptot)(l,j), 0., l, sl->pa->matrix(sy),
-                                      PsiMin) - thwn;
+                                      GTConst::PsiMin) - thwn;
                 kn = k_thermal(0, 1, thwn, thin, (*sl->pa)(sy,jsat,l),
                                (*sl->pa)(sy,jkt,l));
 
