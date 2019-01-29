@@ -43,7 +43,7 @@ extern long Nr, Nc;
 void sun(double JDfrom0, double *E0, double *Et, double *Delta)
 {
 
-  double Gamma = 2.0*Pi*convert_JDfrom0_JD(JDfrom0)/365.25;
+  double Gamma = 2.0*GTConst::Pi*convert_JDfrom0_JD(JDfrom0)/365.25;
 
   //correction sun-earth distance
   *E0=1.00011+0.034221*cos(Gamma)+0.00128*sin(Gamma)+0.000719*cos(
@@ -74,7 +74,7 @@ double SolarHeight(double JD, double latitude, double Delta, double dh)
   if (h>=24) h-=24.0;
   if (h<0) h+=24.0;
 
-  sine = sin(latitude)*sin(Delta) + cos(latitude)*cos(Delta)*cos(omega*(12-h));
+  sine = sin(latitude)*sin(Delta) + cos(latitude)*cos(Delta)*cos(GTConst::omega*(12-h));
   if (sine>1) sine = 1.;
   if (sine<-1) sine = -1.;
 
@@ -105,7 +105,7 @@ double SolarAzimuth(double JD, double latitude, double Delta, double dh)
   if (h<0) h+=24.0;
 
   //solar height
-  sine = sin(latitude)*sin(Delta) + cos(latitude)*cos(Delta)*cos(omega*(12-h));
+  sine = sin(latitude)*sin(Delta) + cos(latitude)*cos(Delta)*cos(GTConst::omega*(12-h));
   if (sine>1) sine = 1.;
   if (sine<-1) sine = -1.;
   alpha=asin(sine);
@@ -113,30 +113,30 @@ double SolarAzimuth(double JD, double latitude, double Delta, double dh)
   //solar azimuth
   if (h<=12)
   {
-    if (alpha==Pi/2.0)  //zenith
+    if (alpha==GTConst::Pi/2.0)  //zenith
     {
-      direction=Pi/2.0;
+      direction=GTConst::Pi/2.0;
     }
     else
     {
       cosine=(sin(alpha)*sin(latitude)-sin(Delta))/(cos(alpha)*cos(latitude));
       if (cosine>1) cosine = 1.;
       if (cosine<-1) cosine = -1.;
-      direction=Pi - acos(cosine);
+      direction=GTConst::Pi - acos(cosine);
     }
   }
   else
   {
-    if (alpha==Pi/2.0) //zenith
+    if (alpha==GTConst::Pi/2.0) //zenith
     {
-      direction=3*Pi/2.0;
+      direction=3*GTConst::Pi/2.0;
     }
     else
     {
       cosine=(sin(alpha)*sin(latitude)-sin(Delta))/(cos(alpha)*cos(latitude));
       if (cosine>1) cosine = 1.;
       if (cosine<-1) cosine = -1.;
-      direction=Pi + acos(cosine);
+      direction=GTConst::Pi + acos(cosine);
     }
   }
 
@@ -335,7 +335,7 @@ void shortwave_radiation(double JDbeg, double JDend, double *others,
                                          1.E-6, 20) / (JDend - JDbeg);
   //*tau_atm_sin_alpha = tau_atm * sin_alpha;
 
-  *SWd = Isc*E0*tau_cloud*(*tau_atm_sin_alpha) * sky*kd + (1.-sky)*SWrefl_surr ;
+  *SWd = GTConst::Isc*E0*tau_cloud*(*tau_atm_sin_alpha) * sky*kd + (1.-sky)*SWrefl_surr ;
 
   if (shadow == 1)
   {
@@ -352,7 +352,7 @@ void shortwave_radiation(double JDbeg, double JDend, double *others,
     //tau_atm_cos_inc = tau_atm * cos_inc;
     //cos_inc = sin_alpha;
     //tau_atm_cos_inc = *tau_atm_sin_alpha;
-    *SWb = (1.-kd)*Isc*E0*tau_cloud*tau_atm_cos_inc;
+    *SWb = (1.-kd)*GTConst::Isc*E0*tau_cloud*tau_atm_cos_inc;
   }
 
   *cos_inc_bd = kd*sin_alpha + (1.-kd)*cos_inc;
@@ -426,7 +426,7 @@ double atm_transmittance(double X, double P, double RH, double T,
 
   m = 35. * pow( 1224.*pow(sin(X), 2.) + 1. , -0.5 );
   tau_sa = 1.021 - 0.084 * pow(m*(0.000949*P + 0.051), 0.5);
-  w = 0.493*RH*(exp(26.23-5416.0/(T+tk)))/(T+tk);
+  w = 0.493*RH*(exp(26.23-5416.0/(T+GTConst::tk)))/(T+GTConst::tk);
   tau_w = 1. - 0.077*pow(w*m, 0.3);
   tau_a = pow(0.935, m);
   tau_atm = tau_sa*tau_w*tau_a;
@@ -439,9 +439,9 @@ double atm_transmittance(double X, double P, double RH, double T,
   double w0 = 0.9;
   double Fc = 0.84;
 
-  mr = 1./(sin(X)+0.15*(power((3.885+X*180.0/Pi),-1.253)));
-  ma = mr*P/Pa0;
-  w = 0.493*RH*(exp(26.23-5416.0/(T+tk)))/(T+tk); //cm
+  mr = 1./(sin(X)+0.15*(power((3.885+X*180.0/GTConst::Pi),-1.253)));
+  ma = mr*P/GTConst::Pa0;
+  w = 0.493*RH*(exp(26.23-5416.0/(T+GTConst::tk)))/(T+GTConst::tk); //cm
   U1 = w*mr;
   U3 = Lozone*mr;
   tau_r = exp(-.0903*power(ma,.84)*(1.+ma-power(ma,1.01)));
@@ -480,22 +480,22 @@ void longwave_radiation(short state, double pvap, double  /*RH*/, double T,
 
   if (state==1)
   {
-    *eps_min = 1.24*pow((pvap/(T+tk)),1./7.); //Brutsaert, 1975
+    *eps_min = 1.24*pow((pvap/(T+GTConst::tk)),1./7.); //Brutsaert, 1975
 
   }
   else if (state==2)
   {
-    *eps_min = 1.08*(1.0-exp(-pow(pvap,(T+tk)/2016.0)));  //Satterlund, 1979
+    *eps_min = 1.08*(1.0-exp(-pow(pvap,(T+GTConst::tk)/2016.0)));  //Satterlund, 1979
 
   }
   else if (state==3)
   {
-    *eps_min = (0.7+5.95*0.00001*pvap*exp(1500/(T+tk)));  //Idso(1981)
+    *eps_min = (0.7+5.95*0.00001*pvap*exp(1500/(T+GTConst::tk)));  //Idso(1981)
 
   }
   else if (state==4)
   {
-    *eps_min = (0.7+5.95*0.00001*pvap*exp(1500/(T+tk)));
+    *eps_min = (0.7+5.95*0.00001*pvap*exp(1500/(T+GTConst::tk)));
     *eps_min = -0.792 + 3.161*(*eps_min) - 1.573*(*eps_min)*
                                            (*eps_min); //IDSO + HODGES
 
@@ -507,22 +507,22 @@ void longwave_radiation(short state, double pvap, double  /*RH*/, double T,
   }
   else if (state==6)
   {
-    *eps_min = (0.601+5.95*0.00001*pvap*exp(1500.0/(T+tk)));//Andreas and Ackley, 1982
+    *eps_min = (0.601+5.95*0.00001*pvap*exp(1500.0/(T+GTConst::tk)));//Andreas and Ackley, 1982
   }
   else if (state==7)
   {
-    *eps_min = (0.23+k1*pow((pvap*100.)/(T+tk),1./k2)); //Konzelmann (1994)
+    *eps_min = (0.23+k1*pow((pvap*100.)/(T+GTConst::tk),1./k2)); //Konzelmann (1994)
 
   }
   else if (state==8)
   {
-    *eps_min = (1.-(1.+46.5*pvap/(T+tk))*exp(-pow(1.2+3.*46.5*pvap/(T+tk), 0.5))); //Prata 1996
+    *eps_min = (1.-(1.+46.5*pvap/(T+GTConst::tk))*exp(-pow(1.2+3.*46.5*pvap/(T+GTConst::tk), 0.5))); //Prata 1996
 
   }
   else if (state==9)
   {
-    *eps_min = ( 59.38 + 113.7*pow( (T+tk)/273.16, 6.0) + 96.96*pow((465.*pvap/(T+tk))/25., 0.5) ) /
-               (5.67E-8*pow(T+tk,4));//Dilley 1998
+    *eps_min = ( 59.38 + 113.7*pow( (T+GTConst::tk)/273.16, 6.0) + 96.96*pow((465.*pvap/(T+GTConst::tk))/25., 0.5) ) /
+               (5.67E-8*pow(T+GTConst::tk,4));//Dilley 1998
 
   }
   else
@@ -553,7 +553,7 @@ void longwave_radiation(short state, double pvap, double  /*RH*/, double T,
 double SB(double T)   //Stefan-Boltzmann law
 {
   double R;
-  R=5.67E-8*pow(T+tk,4);
+  R=5.67E-8*pow(T+GTConst::tk,4);
   return (R);
 }
 
@@ -565,7 +565,7 @@ double SB(double T)   //Stefan-Boltzmann law
 double dSB_dT(double T)
 {
   double dR_dT;
-  dR_dT=4.0*5.67E-8*pow(T+tk,3);
+  dR_dT=4.0*5.67E-8*pow(T+GTConst::tk,3);
   return (dR_dT);
 }
 
@@ -651,7 +651,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat,
       if ( SWb+SWd > 0 && SWd > 0)
       {
         kd = SWd / (std::max<double>(0.,SWb)+SWd);
-        tau = ( SWd - (1.-sky)*SWrefl_surr ) / ( Isc*E0*tau_atm_sin_alpha*sky*kd );
+        tau = ( SWd - (1.-sky)*SWrefl_surr ) / ( GTConst::Isc*E0*tau_atm_sin_alpha*sky*kd );
       }
 
     }
@@ -671,11 +671,11 @@ double cloud_transmittance(double JDbeg, double JDend, double lat,
 
         j++;
         kd0=kd;
-        //SW = (1-kd(T))*Isc*T*sin + sky*Kd(T)*Isc*T*sin + (1-sky)*SWsurr
+        //SW = (1-kd(T))*GTConst::Isc*T*sin + sky*Kd(T)*GTConst::Isc*T*sin + (1-sky)*SWsurr
         //T=Ta*Tc
-        //SW - (1-sky)*SWsurr = Tc * (Isc*Ta*sin) * ( (1-kd) + sky*kd )
-        //Tc = ( SW - (1-sky)*SWsurr ) / ( (Isc*Ta*sin) * ( (1-kd) + sky*kd )
-        tau = ( SW - (1.-sky)*SWrefl_surr ) / ( Isc*E0*tau_atm_sin_alpha * ( (1-kd) + sky*kd ) );
+        //SW - (1-sky)*SWsurr = Tc * (GTConst::Isc*Ta*sin) * ( (1-kd) + sky*kd )
+        //Tc = ( SW - (1-sky)*SWsurr ) / ( (GTConst::Isc*Ta*sin) * ( (1-kd) + sky*kd )
+        tau = ( SW - (1.-sky)*SWrefl_surr ) / ( GTConst::Isc*E0*tau_atm_sin_alpha * ( (1-kd) + sky*kd ) );
         if (tau > 1) tau = 1.0;
         if (tau < 0) tau = 0.0;
         kd = diff2glob(tau * tau_atm);
@@ -688,7 +688,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat,
 
   if ( (long)tau != number_novalue)
   {
-    if (tau<min_tau_cloud) tau=min_tau_cloud;
+    if (tau<GTConst::min_tau_cloud) tau=GTConst::min_tau_cloud;
   }
 
   free(others);
@@ -737,8 +737,8 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met,
   T=met->var[i-1][iT];
   if ((long)T == number_novalue || (long)T == number_absent) T=0.0;
 
-  c = cloud_transmittance(JDbeg, JDend, (*met->st->lat)(i)*Pi/180., Delta,
-                          ((*met->st->lon)(i)*Pi/180. - ST*Pi/12. + Et)/omega, RH,
+  c = cloud_transmittance(JDbeg, JDend, (*met->st->lat)(i)*GTConst::Pi/180., Delta,
+                          ((*met->st->lon)(i)*GTConst::Pi/180. - ST*GTConst::Pi/12. + Et)/GTConst::omega, RH,
                           T, P, met->var[i-1][iSWd], met->var[i-1][iSWb], met->var[i-1][iSW], E0,
                           (*met->st->sky)(i), SWrefl_surr,
                           Lozone, alpha, beta, albedo);
