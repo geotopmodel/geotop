@@ -245,7 +245,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
         {
             temp = join_strings(name, textfile);
             matrix = read_txt_matrix_2(temp, 33, 44, 8, &num_lines);
-            par->delay_day_recover = matrix[0][0]/secinday;
+            par->delay_day_recover = matrix[0][0]/GTConst::secinday;
             i_run0 = (long)matrix[0][3];
             i_sim0 = (long)matrix[0][4];
             cum_time = matrix[0][5];
@@ -295,7 +295,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
                 par->total_pixel++;
                 if (par->point_sim != 1)
                 {
-                    par->total_area += ((*UV->U)(1) * (*UV->U)(2))/cos((*top->slope)(r,c)*Pi/180.);
+                    par->total_area += ((*UV->U)(1) * (*UV->U)(2))/cos((*top->slope)(r,c)*GTConst::Pi/180.);
                 }
                 else
                 {
@@ -549,15 +549,15 @@ keyword LinearInterpolation at 1.\n");
         met->LRv[i] = (double)number_novalue;
         if (i == ilsTa)
         {
-            met->LRd[i] = LapseRateTair;
+            met->LRd[i] = GTConst::LapseRateTair;
         }
         else if (i == ilsTdew)
         {
-            met->LRd[i] = LapseRateTdew;
+            met->LRd[i] = GTConst::LapseRateTdew;
         }
         else if (i == ilsPrec)
         {
-            met->LRd[i] = LapseRatePrec;
+            met->LRd[i] = GTConst::LapseRatePrec;
         }
         else
         {
@@ -711,7 +711,7 @@ keyword LinearInterpolation at 1.\n");
         l++;
         z += (*sl->pa)(1,jdz,l);
     }
-    while (l<Nl && z < z_transp);
+    while (l<Nl && z < GTConst::z_transp);
 
     land->root_fraction.reset(new Matrix<double>{par->n_landuses, l});
 
@@ -804,7 +804,7 @@ land cover %ld, meteo station %ld\n",
     {
 
         temp=join_strings(files[ftsteps],textfile);
-        times->Dt_matrix = read_txt_matrix_2(temp, 33, 44, max_cols_time_steps_file+1, &num_lines);
+        times->Dt_matrix = read_txt_matrix_2(temp, 33, 44, GTConst::max_cols_time_steps_file+1, &num_lines);
         free(temp);
         times->numlinesDt_matrix = num_lines;
         par->tsteps_from_file=1;
@@ -979,12 +979,12 @@ land cover %ld, meteo station %ld\n",
             {
                 z = 0.;
                 (*sl->SS->P)(0,i) = -(*IT->init_water_table_depth)(sy) *
-                                    cos((*top->slope)(r,c)*Pi/180.);
+                                    cos((*top->slope)(r,c)*GTConst::Pi/180.);
                 for (l=1; l<=Nl; l++)
                 {
-                    z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*Pi/180.);
+                    z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
                     (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
-                    z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*Pi/180.);
+                    z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
                 }
             }
             else
@@ -1009,12 +1009,12 @@ land cover %ld, meteo station %ld\n",
             sy=(*sl->type)(r,c);
 
             z = 0.;
-            (*sl->SS->P)(0,i) = -(*M)(r,c)*cos((*top->slope)(r,c)*Pi/180.);
+            (*sl->SS->P)(0,i) = -(*M)(r,c)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
             for (l=1; l<=Nl; l++)
             {
-                z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*Pi/180.);
+                z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
                 (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
-                z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*Pi/180.);
+                z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
             }
         }
     }
@@ -1033,13 +1033,13 @@ land cover %ld, meteo station %ld\n",
             (*sl->Ptot)(l,i) = (*sl->SS->P)(l,i);
             (*sl->th)(l,i) = teta_psi((*sl->SS->P)(l,i), 0.0, (*sl->pa)(sy,jsat,l),
                                       (*sl->pa)(sy,jres,l), (*sl->pa)(sy,ja,l),
-                                      (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l), PsiMin,
+                                      (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l), GTConst::PsiMin,
                                       (*sl->pa)(sy,jss,l));
 
             th_oversat = std::max<double>( (*sl->SS->P)(l,i), 0.0 ) * (*sl->pa)(sy,jss,l);
             (*sl->th)(l,i) -= th_oversat;
 
-            if ((*sl->SS->T)(l,i) <=Tfreezing)
+            if ((*sl->SS->T)(l,i) <=GTConst::Tfreezing)
             {
 
                 // Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
@@ -1050,7 +1050,7 @@ land cover %ld, meteo station %ld\n",
                                                                 (*sl->pa)(sy,ja,l),
                                                                 (*sl->pa)(sy,jns,l),
                                                                 1.-1./(*sl->pa)(sy,jns,l),
-                                                                PsiMin,
+                                                                GTConst::PsiMin,
                                                                 (*sl->pa)(sy,jss,l));
 
                 // if Theta(without freezing) < Theta_unfrozen(in equilibrium with T):
@@ -1065,7 +1065,7 @@ land cover %ld, meteo station %ld\n",
                                              (*sl->SS->thi)(l,i), (*sl->pa)(sy,jsat,l),
                                              (*sl->pa)(sy,jres,l), (*sl->pa)(sy,ja,l),
                                              (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l),
-                                             PsiMin, (*sl->pa)(sy,jss,l));
+                                             GTConst::PsiMin, (*sl->pa)(sy,jss,l));
             }
         }
     }
@@ -1177,12 +1177,12 @@ land cover %ld, meteo station %ld\n",
                                         (*sl->pa)(sy,jsat,l), (*sl->pa)(sy,jres,l),
                                         (*sl->pa)(sy,ja,l), (*sl->pa)(sy,jns,l),
                                         1.-1./(*sl->pa)(sy,jns,l),
-                                        PsiMin, (*sl->pa)(sy,jss,l));
+                                        GTConst::PsiMin, (*sl->pa)(sy,jss,l));
 
             th_oversat = std::max<double>( (*cnet->SS->P)(l,j), 0.0 ) * (*sl->pa)(sy,jss,l);
             (*cnet->th)(l,j) -= th_oversat;
 
-            if ((*cnet->SS->T)(l,j) <=Tfreezing)
+            if ((*cnet->SS->T)(l,j) <=GTConst::Tfreezing)
             {
                 // Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
                 (*cnet->SS->thi)(l,j) = (*cnet->th)(l,j) - teta_psi(Psif( (*cnet->SS->T)(l,j)),
@@ -1192,7 +1192,7 @@ land cover %ld, meteo station %ld\n",
                                                                     (*sl->pa)(sy,ja,l),
                                                                     (*sl->pa)(sy,jns,l),
                                                                     1.-1./(*sl->pa)(sy,jns,l),
-                                                                    PsiMin,
+                                                                    GTConst::PsiMin,
                                                                     (*sl->pa)(sy,jss,l));
 
                 // if Theta(without freezing)< Theta_unfrozen(in equilibrium with T)
@@ -1208,7 +1208,7 @@ land cover %ld, meteo station %ld\n",
                                                (*sl->pa)(sy,ja,l),
                                                (*sl->pa)(sy,jns,l),
                                                1.-1./(*sl->pa)(sy,jns,l),
-                                               PsiMin,
+                                               GTConst::PsiMin,
                                                (*sl->pa)(sy,jss,l));
             }
         }
@@ -1241,7 +1241,7 @@ land cover %ld, meteo station %ld\n",
                                             (*sl->pa)(sy,ja,l),
                                             (*sl->pa)(sy,jns,l),
                                             1.-1./(*sl->pa)(sy,jns,l),
-                                            PsiMin,
+                                            GTConst::PsiMin,
                                             (*sl->pa)(sy,jss,l));
             }
         }
@@ -1440,7 +1440,7 @@ land cover %ld, meteo station %ld\n",
     egy->Tstar.reset(new Vector<double>{Nl}); // soil temperature at which freezing begins
     egy->THETA.reset(new Vector<double>{Nl});  // water content (updated in the iterations)
 
-    // allocate vector of soil layer contributions to evaporation (up to z_evap)
+    // allocate vector of soil layer contributions to evaporation (up to GTConst::z_evap)
     z = 0.;
     l = 0;
     do
@@ -1448,7 +1448,7 @@ land cover %ld, meteo station %ld\n",
         l++;
         z += (*sl->pa)(1,jdz,l);
     }
-    while (l<Nl && z < z_evap);
+    while (l<Nl && z < GTConst::z_evap);
     egy->soil_evap_layer_bare.reset(new Vector<double> {l});
     egy->soil_evap_layer_veg.reset(new Vector<double> {l});
 
@@ -1528,7 +1528,7 @@ land cover %ld, meteo station %ld\n",
             {
                 if ((long)(*land->LC)(r,c) != number_novalue) (*snow->S->w_ice)(1,r,c) =
                                                                       (*snow->S->Dzl)(1,r,c) *
-                                                                      IT->rhosnow0/rho_w;
+                                                                      IT->rhosnow0/GTConst::rho_w;
             }
         }
 
@@ -1551,7 +1551,7 @@ land cover %ld, meteo station %ld\n",
             {
                 if ((long)(*land->LC)(r,c) != number_novalue) (*snow->S->Dzl)(1,r,c) =
                                                                       (*snow->S->w_ice)(1,r,c) *
-                                                                      rho_w/IT->rhosnow0;
+                                                                      GTConst::rho_w/IT->rhosnow0;
             }
         }
     }
@@ -1565,7 +1565,7 @@ land cover %ld, meteo station %ld\n",
                 if ((long)(*land->LC)(r,c) != number_novalue)
                 {
                     (*snow->S->w_ice)(1,r,c) = IT->swe0;
-                    (*snow->S->Dzl)(1,r,c) = IT->swe0*rho_w/IT->rhosnow0;
+                    (*snow->S->Dzl)(1,r,c) = IT->swe0*GTConst::rho_w/IT->rhosnow0;
                 }
             }
         }
@@ -1897,7 +1897,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                     else if ((*M)(r,c)>1.E-5)
                     {
 
-                        if (IT->rhoglac0 * (*M)(r,c) / rho_w < par->max_weq_glac *
+                        if (IT->rhoglac0 * (*M)(r,c) / GTConst::rho_w < par->max_weq_glac *
                                                                par->max_glac_layers )
                         {
 
@@ -1908,7 +1908,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                             {
                                 n++;
 
-                                if (IT->rhoglac0 * (*M)(r,c) / rho_w < par->max_weq_glac * n)
+                                if (IT->rhoglac0 * (*M)(r,c) / GTConst::rho_w < par->max_weq_glac * n)
                                 {
                                     (*glac->G->w_ice)(n,r,c) = par->max_weq_glac;
                                 }
@@ -1918,14 +1918,14 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                                                                   1000. - z;
                                 }
 
-                               (*glac->G->Dzl)(n,r,c) = rho_w * (*glac->G->w_ice)(n,r,c) /
+                               (*glac->G->Dzl)(n,r,c) = GTConst::rho_w * (*glac->G->w_ice)(n,r,c) /
                                                             IT->rhoglac0;
                                 (*glac->G->T)(n,r,c) = IT->Tglac0;
 
                                 z += (*glac->G->w_ice)(n,r,c);
 
                             }
-                            while (fabs(z - IT->rhoglac0 * (*M)(r,c) / rho_w) < 1.E-6);
+                            while (fabs(z - IT->rhoglac0 * (*M)(r,c) / GTConst::rho_w) < 1.E-6);
 
                             (*glac->G->lnum)(r,c) = n;
 
@@ -1952,14 +1952,14 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                                 else
                                 {
                                     (*glac->G->w_ice)(n,r,c) = ( IT->rhoglac0 * (*M)(r,c) /
-                                                                    rho_w -
+                                                                    GTConst::rho_w -
                                                                     par->max_weq_glac *
                                                                     ( par->max_glac_layers -
                                                                       par->inf_glac_layers->nh ) ) /
                                                                   par->inf_glac_layers->nh;
                                 }
 
-                               (*glac->G->Dzl)(n,r,c) = rho_w * (*glac->G->w_ice)(n,r,c) /
+                               (*glac->G->Dzl)(n,r,c) = GTConst::rho_w * (*glac->G->w_ice)(n,r,c) /
                                                             IT->rhoglac0;
                                 (*glac->G->T)(n,r,c) = IT->Tglac0;
 
@@ -1994,7 +1994,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     (*met->Tgrid) = par->Tair_default;
 
     met->Pgrid.reset(new Matrix<double>{Nr,Nc});
-    (*met->Pgrid) = Pa0;
+    (*met->Pgrid) = GTConst::Pa0;
 
     met->RHgrid.reset(new Matrix<double>{Nr,Nc});
     (*met->RHgrid) = par->RH_default;
@@ -2354,7 +2354,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
             if (par->output_vertical_distances == 1)
             {
-                cosslope = cos( std::min<double>(max_slope,(*top->slope)(r,c)) * Pi/180. );
+                cosslope = cos( std::min<double>(GTConst::max_slope,(*top->slope)(r,c)) * GTConst::Pi/180. );
             }
             else
             {
@@ -2363,7 +2363,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
             write_soil_output(j, (*par->IDpoint)(j), (*par->init_date)(1),
                               (*par->end_date)(1), (*par->init_date)(1), JD, day, month, year, hour,
-                              minute, par->soil_plot_depths.get(), sl, par, (double)PsiMin, cosslope);
+                              minute, par->soil_plot_depths.get(), sl, par, (double)GTConst::PsiMin, cosslope);
             write_snow_output(j, (*par->IDpoint)(j), r, c, (*par->init_date)(1),
                               (*par->end_date)(1), (*par->init_date)(1), JD, day, month, year, hour,
                               minute, par->snow_plot_depths.get(), snow->S, par, cosslope);
@@ -2706,8 +2706,8 @@ to the soil type map");
         write_map(files[fslp], 0, par->format_out, top->slope.get(), UV, number_novalue);
 
     find_min_max(top->slope.get(), (double)number_novalue, &max, &min);
-    geolog << "Slope Min:" << tan(min*Pi/180.) << "(" << min << "deg)"
-           << "Max:" << tan(max*Pi/180.) << "(" << max << "deg)" << std::endl;
+    geolog << "Slope Min:" << tan(min*GTConst::Pi/180.) << "(" << min << "deg)"
+           << "Max:" << tan(max*GTConst::Pi/180.) << "(" << max << "deg)" << std::endl;
 
     /**************************************************************************************************/
     // ASPECT
@@ -3121,8 +3121,8 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /
     if (read_sl==1)
     {
         find_min_max(P.get(), (double)number_novalue, &max, &min);
-        geolog << "Slope Min:" << tan(min*Pi/180.) << "(" << min << "deg)"
-               << "Max:" << tan(max*Pi/180.) << "(" << max << "deg)" << std::endl;
+        geolog << "Slope Min:" << tan(min*GTConst::Pi/180.) << "(" << min << "deg)"
+               << "Max:" << tan(max*GTConst::Pi/180.) << "(" << max << "deg)" << std::endl;
 
         for (i=1; i<=par->chkpt->nrh; i++)
         {
@@ -3793,7 +3793,7 @@ std::unique_ptr<Tensor<double>> find_Z_of_any_layer(Matrix<double> *Zsurface, Ma
         {
             if ((long)(*LC)(r,c)!=number_novalue)
             {
-                cosine = cos((*slope)(r,c)*Pi/180.);
+                cosine = cos((*slope)(r,c)*GTConst::Pi/180.);
                 sy=(*sl->type)(r,c);
 
                 if (point!=1)
