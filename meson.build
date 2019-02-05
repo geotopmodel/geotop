@@ -39,6 +39,7 @@ geotop = executable('geotop', main, src_files, tag,
                     dependencies: deps,
                     install:true,
                     install_rpath: rpaths)
+message('------------------ ' +rpaths)
 
 # set up tests
 subdir('tests')
