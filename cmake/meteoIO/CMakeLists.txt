@@ -1,9 +1,16 @@
 ####################
 
 if(WITH_METEOIO)
-  IF (METEOIO_DIR)
-    set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS} -L${METEOIO_DIR}/lib -I${METEOIO_DIR}/include -lmeteoio" CACHE STRING "" FORCE)
-  else()
-    set(CMAKE_CXX_FLAGS " ${CMAKE_CXX_FLAGS} -lmeteoio" CACHE STRING "" FORCE)  
-  endif()
+
+  find_path(METEOIO_INCLUDE_DIR meteoio/Config.h
+    PATHS
+    /usr/include
+    /usr/local/include
+    ${METEOIO_DIR}/include
+    )
+
+  find_library(METEOIO_LIBRARY
+    NAMES meteoio
+    PATHS /usr/lib64 ${METEOIO_DIR}/lib)
+
 endif()  

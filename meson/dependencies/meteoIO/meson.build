@@ -20,7 +20,7 @@ if _dir == ''
        error('\n\nCannot find suitable installation for '+_opt+'. Try to specify the prefix with the option -DMETEOIO_DIR')
     endif
     
-    _lib = compiler.find_library(_libname,  required: 'true')
+    _lib = compiler.find_library(_libname,  required: true)
 
     meteoio = declare_dependency(dependencies:_lib)
 else
@@ -35,7 +35,7 @@ else
     endif
 
     _libpath = _dir+'/lib'
-    _lib = compiler.find_library('meteoio', dirs:_libpath, required: 'true')
+    _lib = compiler.find_library('meteoio', dirs:_libpath, required: true)
 
     meteoio = declare_dependency(include_directories: _includedir,
                                  dependencies:_lib)

@@ -14,11 +14,12 @@ SET( CMAKE_CXX_FLAGS_DEBUG " -Wextra -Wall -g -Wshadow -Wpointer-arith -Wcast-qu
 SET( CMAKE_CXX_FLAGS_RELEASE " -Wextra -Wall -O2 -funroll-loops -fstrict-aliasing -DNDEBUG" CACHE STRING "" )
 SET( CMAKE_CXX_FLAGS_MINSIZEREL " -Wextra -Wall -O2 " CACHE STRING "" )
 
-subdirs(cmake)
-
 
 project(geotop LANGUAGES CXX C
   VERSION 3.0)
+
+add_subdirectory(cmake)
+
 
 
 include_directories(src/geotop)
@@ -31,6 +32,7 @@ include_directories(src/libraries/math)
 # the config.h file
 include_directories(${CMAKE_BINARY_DIR}/src/geotop)
 
+include_directories(${METEOIO_INCLUDE_DIR})
 
 add_executable(geotop
         src/geotop/blowingsnow.cc
@@ -116,8 +118,11 @@ add_executable(geotop
 	src/geotop/geotop_asserts.h
 	src/geotop/math.optim.h
 	${CMAKE_BINARY_DIR}/src/geotop/version.cc)
+
+target_link_libraries(geotop ${METEOIO_LIBRARY})
+
 enable_testing()
-subdirs(tests)
 
+add_subdirectory(tests)
 
-subdirs(cmake/final_message)
+add_subdirectory(cmake/final_message)
