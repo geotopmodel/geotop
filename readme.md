@@ -1,4 +1,27 @@
-# Using build system tools
+# Installation instructions
+
+The following instructions have been tested on a Linux system.
+
+## Download the GEOtop v3.0 source code
+
+Clone the git repository:
+```
+git clone https://github.com/geotopmodel/geotop.git
+```
+
+Move to your local geotop repository
+```
+cd geotop
+```
+
+Checkout the v3.0 branch and make sure you are in the right branch:
+```
+git checkout v3.0
+git branch
+```
+
+
+## Install using build system tools
 Now you can compile using a build system tool.
 Build tools are programs that automate the creation of executable applications
 from source code.
@@ -7,7 +30,7 @@ a usable or executable form.
 You can choose between [CMake](https://cmake.org/) (Please note that you need cmake version 3 at least)
 and [meson](http://mesonbuild.com/).
 
-## CMake
+## Option 1: install using CMake
 - Create the build directory and go inside it:
 ```
 mkdir cmake-build
@@ -65,7 +88,7 @@ ctest -R 1D -j4
 ctest
 ```
 
-## Meson
+## Option 2: Install using Meson
 - Create the build directory and go inside it:
 ```
 mkdir meson-build
