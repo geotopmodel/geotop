@@ -9,5 +9,6 @@
 #cmakedefine MUTE_GEOTIMER
 #cmakedefine MATH_OPTIM
 #cmakedefine WITH_OMP
+#cmakedefine WITH_METEOIO
 
 #endif

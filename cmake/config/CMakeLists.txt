@@ -19,6 +19,10 @@ set(MATH_OPTIM OFF CACHE BOOL "Use math optimizations. You may want to turn this
 
 set(WITH_OMP OFF CACHE BOOL "Use openMP framework")
 
+set(WITH_METEOIO OFF CACHE BOOL "Use MeteoIO library")
+
+set(METEOIO_DIR '' CACHE PATH "Prefix of MeteoIO library installation")
+
 
 CONFIGURE_FILE(${CMAKE_SOURCE_DIR}/src/geotop/config.cmake.h.in ${CMAKE_BINARY_DIR}/src/geotop/config.h)
 
