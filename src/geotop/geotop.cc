@@ -140,6 +140,13 @@ FOR A PARTICULAR PURPOSE.\n" << std::endl;
     geolog << "WORKING DIRECTORY: " << wd << std::endl;
     geolog << "LOGFILE: " << wd << "geotop.log\n" << std::endl;
 
+#ifdef WITH_METEOIO
+    std::string cfgfile = "io_it_paths.ini";
+    cfgfile = wd + cfgfile;
+    mio::Config cfg(cfgfile);
+    mio::IOManager iomanager(cfg);
+#endif
+
     std::unique_ptr<ALLDATA> adt;
     FILE* f;
 
