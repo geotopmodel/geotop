@@ -665,8 +665,8 @@ short fill_wind_xy(double **data, long nlines, long Wspeed, long Wdir,
             if ( (long)data[i][Wspeed] != number_novalue
                  && (long)data[i][Wdir] != number_novalue )
             {
-                data[i][Wx] = -data[i][Wspeed] * sin(data[i][Wdir] * Pi / 180.);
-                data[i][Wy] = -data[i][Wspeed] * cos(data[i][Wdir] * Pi / 180.);
+                data[i][Wx] = -data[i][Wspeed] * sin(data[i][Wdir] * GTConst::Pi / 180.);
+                data[i][Wy] = -data[i][Wspeed] * cos(data[i][Wdir] * GTConst::Pi / 180.);
             }
             else
             {
@@ -723,7 +723,7 @@ short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir,
 
                 if (fabs(data[i][Wy]) < 1.E-10 )
                 {
-                    a = Pi/2.;
+                    a = GTConst::Pi/2.;
                 }
                 else
                 {
@@ -732,19 +732,19 @@ short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir,
 
                 if (data[i][Wx] <= 0 && data[i][Wy] <= 0 )
                 {
-                    data[i][Wdir] = a*180./Pi;
+                    data[i][Wdir] = a*180./GTConst::Pi;
                 }
                 else if (data[i][Wx] <= 0 && data[i][Wy] >= 0 )
                 {
-                    data[i][Wdir] = a*180./Pi + 90.;
+                    data[i][Wdir] = a*180./GTConst::Pi + 90.;
                 }
                 else if (data[i][Wx] >= 0 && data[i][Wy] >= 0 )
                 {
-                    data[i][Wdir] = a*180./Pi + 180.;
+                    data[i][Wdir] = a*180./GTConst::Pi + 180.;
                 }
                 else
                 {
-                    data[i][Wdir] = a*180./Pi + 270.;
+                    data[i][Wdir] = a*180./GTConst::Pi + 270.;
                 }
 
             }
