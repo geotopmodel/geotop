@@ -46,6 +46,10 @@
 #include <fstream>
 #include "timer.h"
 
+#ifdef WITH_METEOIO
+#include <meteoio/MeteoIO.h>
+#endif
+
 void time_loop(ALLDATA *A);
 
 
