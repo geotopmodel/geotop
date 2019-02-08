@@ -14,7 +14,7 @@ It performs exactly as the previous version but it has some improvements in term
 However, it still lacks of the integration with the MeteoIO library and other features implemented in the current 2.1 version (branch ```master```).
 In the next months we plan to move toward a stable 3.0 version, together with a publication.
 
-A more detailed description of this new version can be found in the MHPC thesis
+A more detailed description of this new version can be found in the MHPC thesis (https://www.mhpc.it/)
 of Elisa Bortoli at the following link: https://iris.sissa.it/handle/20.500.11767/86154#.XEXzOsZ7l8w
 
 GEOtop 3.0 can be compiled and run following the listed instructions,
