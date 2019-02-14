@@ -27,6 +27,7 @@
 #include "rw_maps.h"
 #include "tabs.h"
 #include <logger.h>
+#include "timer.h"
 
 extern long number_absent, number_novalue;
 extern char *string_novalue;
@@ -966,6 +967,7 @@ void rewrite_meteo_files(double **meteo, long meteolines, char **header,
                          char *name, short added_JD, short added_wind_xy, short added_wind_dir,
                          short added_cloudiness, short added_Tdew, short added_RH, short added_Pint)
 {
+    GEOTIMER_SECTION(__func__);
 
     char *newname;
     short first_column, write;
