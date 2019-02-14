@@ -25,6 +25,7 @@
 #include "meteo.h"
 #include "radiation.h"
 #include "times.h"
+#include "timer.h"
 
 #define filecloud "clouds.txt"
 
@@ -42,6 +43,7 @@ short fill_meteo_data_with_cloudiness(double **meteo, long meteolines,
                                       double rotation,
                                       double Lozone, double alpha, double beta, double albedo)
 {
+  GEOTIMER_SECTION(__func__);
 
   double *cloudtrans;
   long n;
