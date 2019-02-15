@@ -72,6 +72,7 @@ namespace GTConst {
     constexpr double Ls = 2834700.00;     /* latent heat of sublimation [J/kg] */
     constexpr double g = 9.81;      /* gravity acceleration [m/s2] */
     constexpr double Pi = 3.14159265358979;
+    constexpr double FromDegToRad = Pi/180; /** conversion from degrees to radians */
     constexpr double tk = 273.15;    /* =0 Deg in Kelvin*/
     constexpr double k_liq = 0.567;  /* thermal conductivity of water [W m^-1 K^-1]*/
     constexpr double k_ice = 2.290;  /* thermal conductivity of water [W m^-1 K^-1]*/
