@@ -123,7 +123,7 @@ void snow_compactation(double Dt, long r, long c, long l, STATEVAR_3D *snow,
     {
       load+=((*snow->w_ice)(m,r,c) + (*snow->w_liq)(m,r,c));
     }
-    load*=fabs(cos(slope*GTConst::Pi/180.));
+    load*=fabs(cos(slope*GTConst::FromDegToRad));
     eta=eta0*exp(c4*(GTConst::Tfreezing-(*snow->T)(l,r,c))+c5*(GTConst::rho_i*theta_i));
     CR2=-load/eta;
 
