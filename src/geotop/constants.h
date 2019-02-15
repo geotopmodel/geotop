@@ -44,11 +44,11 @@
 namespace GTConst {
     constexpr double KNe = 0.0;  // Euler method parameter for heat equation (0.5 = Crank Nicholson, 0 = Backward Euler)
     constexpr double LSAIthres = 0.1;  // Minimum LSAI
-    constexpr double z_evap = 100.;  // soil depth responsable for soil evaporation [mm]
-    constexpr double z_transp = 10000.;  // soil depth responsable for canopy transpiration [mm]
+    constexpr double z_evap = 100.0;  // soil depth responsable for soil evaporation [mm]
+    constexpr double z_transp = 10000.0;  // soil depth responsable for canopy transpiration [mm]
     constexpr double min_tau_cloud = 0.1;
     constexpr double RelativeErrorRichards = 1.E-10;
-    constexpr double max_cols_time_steps_file = 100;
+    constexpr int max_cols_time_steps_file = 100;
     constexpr double PsiMin = -1.E+10;
     constexpr double thmin = 0.1;  // Newton method parameter
     constexpr double thmax = 0.5;  // Newton method parameter
