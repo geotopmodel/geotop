@@ -98,7 +98,6 @@ time_t start_time;
 double elapsed_time, elapsed_time_start, cum_time, max_time;
 
 /*----------   2.  Begin of main and declaration of its variables (several structs)   ----------*/
-
 int main(int argc,char *argv[])
 {
     std::string wd;
@@ -141,10 +140,14 @@ FOR A PARTICULAR PURPOSE.\n" << std::endl;
     geolog << "LOGFILE: " << wd << "geotop.log\n" << std::endl;
 
 #ifdef WITH_METEOIO
-    std::string cfgfile = "io_it_paths.ini";
+    std::string cfgfile = "io_it.ini";
     cfgfile = wd + cfgfile;
     mio::Config cfg(cfgfile);
+
     mio::IOManager iomanager(cfg);
+    mio::DEMObject dem;
+    dem.setUpdatePpt(mio::DEMObject::SLOPE);
+    iomanager.readDEM(dem);
 #endif
 
     std::unique_ptr<ALLDATA> adt;
