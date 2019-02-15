@@ -1083,7 +1083,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 
   //find components of times->Dt_vector
   cod = 0;
-  n = (long)max_cols_time_steps_file + 1;
+  n = (long)GTConst::max_cols_time_steps_file + 1;
   times->Dt_vector=(double *)malloc(n*sizeof(double));
   times->Dt_vector[0] =
     0.;//it is the space for the date in case of time variable time step
@@ -1290,7 +1290,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   par->free_drainage_bottom = assignation_number(41, 0, keyword, num_param, num_param_components, 0., 0);
   par->free_drainage_lateral = assignation_number(42, 0, keyword, num_param, num_param_components, 1., 0);
   par->TolVWb = assignation_number(43, 0, keyword, num_param, num_param_components, 1.E-6, 0);
-  par->RelTolVWb = RelativeErrorRichards;
+  par->RelTolVWb = GTConst::RelativeErrorRichards;
   par->MaxErrWb = 1.E99;
   par->MaxiterTol = (long) assignation_number(44, 0, keyword, num_param, num_param_components, 100., 0);
   par->TolCG = assignation_number(45, 0, keyword, num_param, num_param_components, 0.01, 0);
@@ -1678,17 +1678,17 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
     {
       if ( (long)(*sl->pa)(1,jfc,i) == number_novalue)
         {
-          (*sl->pa)(1,jfc,i) = teta_psi( (-1./3.)*1.E5/g, 0., (*sl->pa)(1,jsat,i),
+          (*sl->pa)(1,jfc,i) = teta_psi( (-1./3.)*1.E5/GTConst::g, 0., (*sl->pa)(1,jsat,i),
                                             (*sl->pa)(1,jres,i), (*sl->pa)(1,ja,i),
-                                            (*sl->pa)(1,jns,i), 1.-1./(*sl->pa)(1,jns,i), PsiMin,
+                                            (*sl->pa)(1,jns,i), 1.-1./(*sl->pa)(1,jns,i), GTConst::PsiMin,
                                             (*sl->pa)(1,jss,i));
         }
 
       if ( (long)(*sl->pa)(1,jwp,i) == number_novalue)
         {
-          (*sl->pa)(1,jwp,i) = teta_psi( -15.*1.E5/g, 0., (*sl->pa)(1,jsat,i),
+          (*sl->pa)(1,jwp,i) = teta_psi( -15.*1.E5/GTConst::g, 0., (*sl->pa)(1,jsat,i),
                                             (*sl->pa)(1,jres,i), (*sl->pa)(1,ja,i),
-                                            (*sl->pa)(1,jns,i), 1.-1./(*sl->pa)(1,jns,i), PsiMin,
+                                            (*sl->pa)(1,jns,i), 1.-1./(*sl->pa)(1,jns,i), GTConst::PsiMin,
                                             (*sl->pa)(1,jss,i));
         }
     }
@@ -1751,18 +1751,18 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
         {
           if ( (long)(*itools->pa_bed)(1,jfc,i) == number_novalue)
             {
-              (*itools->pa_bed)(1,jfc,i) = teta_psi( (-1./3.)*1.E5/g, 0.,
+              (*itools->pa_bed)(1,jfc,i) = teta_psi( (-1./3.)*1.E5/GTConst::g, 0.,
                                                         (*itools->pa_bed)(1,jsat,i), (*itools->pa_bed)(1,jres,i),
                                                         (*itools->pa_bed)(1,ja,i),
-                                                        (*itools->pa_bed)(1,jns,i), 1.-1./(*itools->pa_bed)(1,jns,i), PsiMin,
+                                                        (*itools->pa_bed)(1,jns,i), 1.-1./(*itools->pa_bed)(1,jns,i), GTConst::PsiMin,
                                                         (*itools->pa_bed)(1,jss,i));
             }
           if ( (long)(*itools->pa_bed)(1,jwp,i) == number_novalue)
             {
-              (*itools->pa_bed)(1,jwp,i) = teta_psi( -15.*1.E5/g, 0.,
+              (*itools->pa_bed)(1,jwp,i) = teta_psi( -15.*1.E5/GTConst::g, 0.,
                                                         (*itools->pa_bed)(1,jsat,i), (*itools->pa_bed)(1,jres,i),
                                                         (*itools->pa_bed)(1,ja,i),
-                                                        (*itools->pa_bed)(1,jns,i), 1.-1./(*itools->pa_bed)(1,jns,i), PsiMin,
+                                                        (*itools->pa_bed)(1,jns,i), 1.-1./(*itools->pa_bed)(1,jns,i), GTConst::PsiMin,
                                                         (*itools->pa_bed)(1,jss,i));
             }
         }
@@ -2529,17 +2529,17 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
             {
               if ( (long)(*sl->pa)(i,jfc,j) == number_novalue)
                 {
-                  (*sl->pa)(i,jfc,j) = teta_psi( (-1./3.)*1.E5/g, 0., (*sl->pa)(i,jsat,j),
+                  (*sl->pa)(i,jfc,j) = teta_psi( (-1./3.)*1.E5/GTConst::g, 0., (*sl->pa)(i,jsat,j),
                                                     (*sl->pa)(i,jres,j), (*sl->pa)(i,ja,j),
-                                                    (*sl->pa)(i,jns,j), 1.-1./(*sl->pa)(i,jns,j), PsiMin,
+                                                    (*sl->pa)(i,jns,j), 1.-1./(*sl->pa)(i,jns,j), GTConst::PsiMin,
                                                     (*sl->pa)(i,jss,j));
                 }
 
               if ( (long)(*sl->pa)(i,jwp,j) == number_novalue)
                 {
-                  (*sl->pa)(i,jwp,j) = teta_psi( -15.*1.E5/g, 0., (*sl->pa)(i,jsat,j),
+                  (*sl->pa)(i,jwp,j) = teta_psi( -15.*1.E5/GTConst::g, 0., (*sl->pa)(i,jsat,j),
                                                     (*sl->pa)(i,jres,j), (*sl->pa)(i,ja,j),
-                                                    (*sl->pa)(i,jns,j), 1.-1./(*sl->pa)(i,jns,j), PsiMin,
+                                                    (*sl->pa)(i,jns,j), 1.-1./(*sl->pa)(i,jns,j), GTConst::PsiMin,
                                                     (*sl->pa)(i,jss,j));
                 }
             }

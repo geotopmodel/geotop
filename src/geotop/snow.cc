@@ -57,11 +57,11 @@ double rho_newlyfallensnow(double u, double Tatm, double  /*Tfreez*/)
 
   double rho,T;
 
-  if (Tatm>260.15-tk)
+  if (Tatm>260.15-GTConst::tk)
   {
     T=Tatm;
-    if (T>=275.65-tk) T=275.65-tk;
-    rho=500.0*(1.0-0.951*exp(-1.4*pow(278.15-tk-T,-1.15)-0.008*pow(u,1.7)));
+    if (T>=275.65-GTConst::tk) T=275.65-GTConst::tk;
+    rho=500.0*(1.0-0.951*exp(-1.4*pow(278.15-GTConst::tk-T,-1.15)-0.008*pow(u,1.7)));
   }
   else
   {
@@ -92,27 +92,27 @@ void snow_compactation(double Dt, long r, long c, long l, STATEVAR_3D *snow,
   long m;
   double theta_i,theta_w,c1,c2,c3,c4,c5,load,eta0,eta,CR1,CR2;
 
-  theta_i=(*snow->w_ice)(l,r,c)/(0.001*(*snow->Dzl)(l,r,c)*rho_i);
-  theta_w=(*snow->w_liq)(l,r,c)/(0.001*(*snow->Dzl)(l,r,c)*rho_w);
+  theta_i=(*snow->w_ice)(l,r,c)/(0.001*(*snow->Dzl)(l,r,c)*GTConst::rho_i);
+  theta_w=(*snow->w_liq)(l,r,c)/(0.001*(*snow->Dzl)(l,r,c)*GTConst::rho_w);
 
   if ( theta_i < par->snow_maxpor)
   {
 
     //DESTRUCTIVE METAMORPHISM
     //gamma=theta*rho
-    if (theta_i*rho_i<=par->snow_density_cutoff)
+    if (theta_i*GTConst::rho_i<=par->snow_density_cutoff)
     {
       c1=par->drysnowdef_rate;
     }
     else
     {
-      c1=par->drysnowdef_rate*exp(-0.046*(rho_i*theta_i -
+      c1=par->drysnowdef_rate*exp(-0.046*(GTConst::rho_i*theta_i -
                                           par->snow_density_cutoff));
     }
     if (theta_w>0.001) c1*=par->wetsnowdef_rate;
     c2=2.777E-6; //[s^-1]
     c3=0.04;   //[K^-1]
-    CR1=-c1*c2*exp(-c3*(Tfreezing-(*snow->T)(l,r,c)));
+    CR1=-c1*c2*exp(-c3*(GTConst::Tfreezing-(*snow->T)(l,r,c)));
 
     //OVERBURDEN
     eta0=par->snow_viscosity;  //[kg s m^-2]
@@ -123,8 +123,8 @@ void snow_compactation(double Dt, long r, long c, long l, STATEVAR_3D *snow,
     {
       load+=((*snow->w_ice)(m,r,c) + (*snow->w_liq)(m,r,c));
     }
-    load*=fabs(cos(slope*Pi/180.));
-    eta=eta0*exp(c4*(Tfreezing-(*snow->T)(l,r,c))+c5*(rho_i*theta_i));
+    load*=fabs(cos(slope*GTConst::Pi/180.));
+    eta=eta0*exp(c4*(GTConst::Tfreezing-(*snow->T)(l,r,c))+c5*(GTConst::rho_i*theta_i));
     CR2=-load/eta;
 
     (*snow->Dzl)(l,r,c) *= exp( (CR1 + CR2) * Dt ); // Cuell
@@ -515,7 +515,7 @@ void snowlayer_merging(double a, long r, long c, STATEVAR_3D *snow, long l1,
 double internal_energy(double w_ice, double w_liq, double T)
 {
 
-  return (c_ice*w_ice+c_liq*w_liq)*(T-Tfreezing) + Lf*w_liq;
+  return (GTConst::c_ice*w_ice+GTConst::c_liq*w_liq)*(T-GTConst::Tfreezing) + GTConst::Lf*w_liq;
 }
 
 /******************************************************************************************************************************************/
@@ -529,7 +529,7 @@ void from_internal_energy(double a, long  /*r*/, long  /*c*/, double h, double *
 
   double SWE=(*w_ice)+(*w_liq);
   double T0;
-  double A=-h/(c_ice*SWE), B=c_liq/(c_ice*a*a), C=(Lf*SWE-h)/(c_ice*SWE*a*a);
+  double A=-h/(GTConst::c_ice*SWE), B=GTConst::c_liq/(GTConst::c_ice*a*a), C=(GTConst::Lf*SWE-h)/(GTConst::c_ice*SWE*a*a);
   long cont=0;
 
   if (SWE>0)
@@ -861,7 +861,7 @@ void update_snow_age(double Psnow, double Ts, double Dt, double Prestore, double
   double r1, r2, r3;
 
   //effect of grain growth due to vapour diffusion
-  r1=exp(5000.0*(1.0/tk-1.0/(Ts+tk)));
+  r1=exp(5000.0*(1.0/GTConst::tk-1.0/(Ts+GTConst::tk)));
 
   //effect melt and refreezing*/
   r2=pow(r1,10);
@@ -947,7 +947,7 @@ double k_thermal_snow_Yen(double density)   //W m^-1 K^-1 (Yen, 1981)
 {
 
   double kt;
-  kt=k_ice*pow((density/rho_w),1.88);
+  kt=GTConst::k_ice*pow((density/GTConst::rho_w),1.88);
   return (kt);
 }
 
@@ -1095,21 +1095,21 @@ void WBsnow(double Dt, long ns, long r, long c, STATEVAR_3D *snow,
                                                               ((*snow->w_ice)(l,r,c)/(*E->ice)(m));
 
           //limit on max porosity
-          if ((*snow->w_ice)(l,r,c) / (1.E-3*(*snow->Dzl)(l,r,c)*rho_w) >
+          if ((*snow->w_ice)(l,r,c) / (1.E-3*(*snow->Dzl)(l,r,c)*GTConst::rho_w) >
               par->snow_maxpor)
           {
             (*snow->Dzl)(l,r,c) = 1.E3 * (*snow->w_ice)(l,r,c) /
-                                  ( rho_w * par->snow_maxpor );
+                                  ( GTConst::rho_w * par->snow_maxpor );
           }
 
           //CALCULATE LIQUID WATER GOING BELOW
-          th = (*snow->w_liq)(l,r,c)/(1.0E-3*(*snow->Dzl)(l,r,c)*rho_w);    //[-]
-          thi = (*snow->w_ice)(l,r,c)/(1.0E-3*(*snow->Dzl)(l,r,c)*rho_i);   //[-]
+          th = (*snow->w_liq)(l,r,c)/(1.0E-3*(*snow->Dzl)(l,r,c)*GTConst::rho_w);    //[-]
+          thi = (*snow->w_ice)(l,r,c)/(1.0E-3*(*snow->Dzl)(l,r,c)*GTConst::rho_i);   //[-]
           Se = (th - par->Sr*(1.0-thi))/( (1.0-thi) - par->Sr*(1.0-thi));
           if (Se<0) Se=0.0;
           if (Se>1) Se=1.0;
           if (th>par->Sr*(1.0-thi)) Wdt += std::min<double>(5.0*pow(Se,3.0)*Dt,
-                                                            (th - par->Sr*(1.0-thi)))*(*snow->Dzl)(l,r,c)*1.E-3*rho_w;
+                                                            (th - par->Sr*(1.0-thi)))*(*snow->Dzl)(l,r,c)*1.E-3*GTConst::rho_w;
           (*snow->w_liq)(l,r,c) -= Wdt;
 
         }
@@ -1166,7 +1166,7 @@ void new_snow(double a, long r, long c, STATEVAR_3D *snow, double P,
     ns=(*snow->lnum)(r,c);
 
     h=internal_energy((*snow->w_ice)(ns,r,c), (*snow->w_liq)(ns,r,c), (*snow->T)(ns,r,c));
-    h+=(c_ice*P)*(std::min<double>(T, -0.1) - Tfreezing);
+    h+=(GTConst::c_ice*P)*(std::min<double>(T, -0.1) - GTConst::Tfreezing);
 
     (*snow->Dzl)(ns,r,c)+=Dz;
     (*snow->w_ice)(ns,r,c)+=P;
@@ -1240,22 +1240,22 @@ void WBglacier(long ns, long ng, long r, long c, STATEVAR_3D *glac,
                                                              ((*glac->w_ice)(l,r,c)/(*E->ice)(m));
 
           //limit on max porosity
-          if ((*glac->w_ice)(l,r,c) / (1.E-3*(*glac->Dzl)(l,r,c)*rho_w) > 0.95)
+          if ((*glac->w_ice)(l,r,c) / (1.E-3*(*glac->Dzl)(l,r,c)*GTConst::rho_w) > 0.95)
           {
-            (*glac->Dzl)(l,r,c) = 1.E3 *(*glac->w_ice)(l,r,c) / ( rho_w * 0.95 );
+            (*glac->Dzl)(l,r,c) = 1.E3 *(*glac->w_ice)(l,r,c) / ( GTConst::rho_w * 0.95 );
           }
 
           //CALCULATE LIQUID WATER GOING BELOW
-          th = (*glac->w_liq)(l,r,c)/(1.0E-3*(*glac->Dzl)(l,r,c)*rho_w);    //[-]
-          thi =(*glac->w_ice)(l,r,c)/(1.0E-3*(*glac->Dzl)(l,r,c)*rho_i);   //[-]
+          th = (*glac->w_liq)(l,r,c)/(1.0E-3*(*glac->Dzl)(l,r,c)*GTConst::rho_w);    //[-]
+          thi =(*glac->w_ice)(l,r,c)/(1.0E-3*(*glac->Dzl)(l,r,c)*GTConst::rho_i);   //[-]
           Se = (th - par->Sr*(1.0-thi))/( (1.0-thi) - par->Sr*(1.0-thi));
           if (Se<0) Se=0.0;
           if (Se>1) Se=1.0;
           if (th>par->Sr*(1.0-thi))
           {
-            *Melt = *Melt + (th - par->Sr*(1.0-thi))*(*glac->Dzl)(l,r,c)*1.E-3*rho_w;
+            *Melt = *Melt + (th - par->Sr*(1.0-thi))*(*glac->Dzl)(l,r,c)*1.E-3*GTConst::rho_w;
             (*glac->w_liq)(l,r,c) = par->Sr*(1.0-thi)
-                                    *(*glac->Dzl)(l,r,c)*1.E-3*rho_w;
+                                    *(*glac->Dzl)(l,r,c)*1.E-3*GTConst::rho_w;
           }
 
         }

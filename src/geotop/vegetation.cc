@@ -69,8 +69,8 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
   FILE *f;
 
   //vegetation thermal capacity
-  //C0=0.02*LSAI*c_liq + c_ice*Wcsn + c_liq*Wcrn;
-  C0=land[jcd]*LSAI*c_can + c_ice*Wcsn + c_liq*Wcrn;
+  //C0=0.02*LSAI*GTConst::c_liq + GTConst::c_ice*Wcsn + GTConst::c_liq*Wcrn;
+  C0=land[jcd]*LSAI*GTConst::c_can + GTConst::c_ice*Wcsn + GTConst::c_liq*Wcrn;
   C=C0;
 
   fwliq=pow(Wcrn/Wcrnmax,2./3.);
@@ -169,16 +169,16 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
 
           if (T11>0 && Wcsn>0)  //melting
             {
-              melt_can=std::min<double>(Wcsn, c_ice*Wcsn*(T11-0.0)/Lf);
-              T11p=T11 - Lf*melt_can/C;
+              melt_can=std::min<double>(Wcsn, GTConst::c_ice*Wcsn*(T11-0.0)/GTConst::Lf);
+              T11p=T11 - GTConst::Lf*melt_can/C;
               Wcsn-=melt_can;
               Wcrn+=melt_can;
 
             }
           else if (T11<0 && Wcrn>0)   //freezing
             {
-              melt_can=-std::min<double>(Wcrn, c_liq*Wcrn*(0.0-T11)/Lf);
-              T11p=T11 - Lf*melt_can/C;
+              melt_can=-std::min<double>(Wcrn, GTConst::c_liq*Wcrn*(0.0-T11)/GTConst::Lf);
+              T11p=T11 - GTConst::Lf*melt_can/C;
               Wcsn-=melt_can;
               Wcrn+=melt_can;
 
@@ -188,7 +188,7 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
               T11p=T11;
             }
 
-          C=land[jcd]*LSAI*c_can + c_ice*Wcsn + c_liq*Wcrn;
+          C=land[jcd]*LSAI*GTConst::c_can + GTConst::c_ice*Wcsn + GTConst::c_liq*Wcrn;
           C=(C+C0)/2.;
 
           canopy_fluxes(r, c, T11p, Tg, Ta, Qg, Qa, zmu, zmT, z0, z0s, d0, z0r, hveg, v,
@@ -301,7 +301,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
       u_star=sqrt(v/(*rm));
 
       //wind speed at the top of the canopy
-      *u_top=(u_star/ka)*CZ(MO, hveg, z0, d0, *Lobukhov, (Psim));
+      *u_top=(u_star/GTConst::ka)*CZ(MO, hveg, z0, d0, *Lobukhov, (Psim));
 
       //iteration for Loc (within canopy Obukhov length)
       cont=0;
@@ -343,9 +343,9 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
 
           //      -u*^3
           // Loc = ------------------    Below Canopy Monin-Obukhov length (Niu&Yang)
-          //       k(g/T)(Hg/(rho*C))
+          //       k(GTConst::g/T)(Hg/(rho*C))
 
-          Loc=-pow(u_star,3.0)/( ka*(g/(*Ts+tk))*(Hg/(air_density(*Ts,*Qs,
+          Loc=-pow(u_star,3.0)/( GTConst::ka*(GTConst::g/(*Ts+GTConst::tk))*(Hg/(air_density(*Ts,*Qs,
                                                                   P)*air_cp(*Ts))) );
           if (Hg==0.0 || Hg!=Hg) Loc=1.E+50;
 
@@ -374,7 +374,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
       dEsubldT=dEdT*fw/R;
       if (fwliq+fwice>0)
         {
-          Lv=Lt + Lf*fwice/(fwliq
+          Lv=Lt + GTConst::Lf*fwice/(fwliq
                             +fwice); //linear interpolation to decide if sublimation or condensation occurs
         }
       else
@@ -393,7 +393,7 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
         }
       else
         {
-          Lv=Lt + Lf;
+          Lv=Lt + GTConst::Lf;
         }
     }
 
@@ -832,7 +832,7 @@ void veg_transmittance(short stabcorr_incanopy, double  /*v*/, double u_star,
   //ground resistance
   //Zeng
   //Cs_dense = 0.004;
-  //Cs_bare = (pow(z0soil*u_star/1.5E-5,-0.45)*ka/0.13);
+  //Cs_bare = (pow(z0soil*u_star/1.5E-5,-0.45)*GTConst::ka/0.13);
   //W = 1.0-exp(-LSAI);
   //Cs = W*Cs_dense + (1.0-W)*Cs_bare;
   //*rh = 1.0/( Cs * u_star);
@@ -840,9 +840,9 @@ void veg_transmittance(short stabcorr_incanopy, double  /*v*/, double u_star,
   //Huntingford (with a term from Zeng)
   r = (Hveg*exp(*decay)/(d0veg*(*decay))) * (exp(-(*decay)*z0soil/Hveg)-exp(-
                                              (*decay)*zm/Hveg));
-  Ktop = ka*u_star*(Hveg-d0veg)/phi_above;
+  Ktop = GTConst::ka*u_star*(Hveg-d0veg)/phi_above;
   *rh = std::min<double>(1.E20, r*d0veg/Ktop + 2.0*pow(r,
-                                           0.45)/(ka*u_star)); //2.0 comes from ln(z0/z0h)
+                                           0.45)/(GTConst::ka*u_star)); //2.0 comes from ln(z0/z0h)
 
 }
 

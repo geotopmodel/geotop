@@ -227,7 +227,7 @@ inline double Psif(double T)
 {
   if (T<0)
     {
-      return T*(1000.0*Lf)/(g*(Tfreezing+tk));
+      return T*(1000.0*GTConst::Lf)/(GTConst::g*(GTConst::Tfreezing+GTConst::tk));
     }
   return 0;
 }
