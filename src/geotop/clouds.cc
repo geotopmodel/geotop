@@ -55,7 +55,7 @@ short fill_meteo_data_with_cloudiness(double **meteo, long meteolines,
     {
 
       cloudtrans = (double *)malloc(meteolines*sizeof(double));
-      cloudiness(meteo, meteolines, horizon, horizonlines, lat*GTConst::Pi/180., lon*GTConst::Pi/180.,
+      cloudiness(meteo, meteolines, horizon, horizonlines, lat*GTConst::FromDegToRad, lon*GTConst::FromDegToRad,
                  ST, Z, sky, SWrefl_surr, cloudtrans, ndivday, rotation, Lozone, alpha, beta,
                  albedo);
 
@@ -167,7 +167,7 @@ void cloudiness(double **meteo, long meteolines, double **horizon,
   height_sun = SolarHeight(meteo[n][iJDfrom0], lat, Delta,
                            (lon - ST*GTConst::Pi/12. + Et)/GTConst::omega);
   dir_sun = SolarAzimuth(meteo[n][iJDfrom0], lat, Delta,
-                         (lon - ST*GTConst::Pi/12. + Et)/GTConst::omega) + rotation*GTConst::Pi/180.;
+                         (lon - ST*GTConst::Pi/12. + Et)/GTConst::omega) + rotation*GTConst::FromDegToRad;
   if (dir_sun < 0) dir_sun += 2*GTConst::Pi;
   if (dir_sun > 2*GTConst::Pi) dir_sun -= 2*GTConst::Pi;
 
@@ -348,7 +348,7 @@ void find_sunset(long nist, long *n0, long *n1, double **meteo,
       alpha = SolarHeight(meteo[n][iJDfrom0], lat, Delta,
                           (lon - ST*GTConst::Pi/12. + Et)/GTConst::omega);
       direction = SolarAzimuth(meteo[n][iJDfrom0], lat, Delta,
-                               (lon - ST*GTConst::Pi/12. + Et)/GTConst::omega) + rotation*GTConst::Pi/180.;
+                               (lon - ST*GTConst::Pi/12. + Et)/GTConst::omega) + rotation*GTConst::FromDegToRad;
       if (direction < 0) direction += 2*GTConst::Pi;
       if (direction > 2*GTConst::Pi) direction -= 2*GTConst::Pi;
 
