@@ -121,7 +121,7 @@ External models extensions
 
 Thsere are several **GEOtop** model extensions, to deal with additional physical processes. 
 
-GEOto model optimization tools
+GEOtop model optimization tools
 ------------------------------
 
 The plugin **R package geotopOtim2** (https://github.com/EURAC-Ecohydro/geotopOptim2) allows the automatic calibration and sensitivity analysis of the **GEOtop** 2.x hydrological model, based on the "Particle Swarm Optimisation" approach and the LHOAT "Latin-Hypercube One-factor-At-a-Time" approach. It has been mainly developed by Emanuele Cordano, Samuel Senoner, Giacomo Bertoldi. A paper is in preparation.
@@ -130,16 +130,21 @@ There is in development also an interface for `**PEST** <http://www.pesthomepage
 
 GEOtop model for shallow  landslides triggering prediction.
 ------------------------------
-**GEOtop** has been one of the first fully distributed hydrolgical models applied for hallow  landslides triggering prediction. A fundamental paper is `Simoni et al. (2008) <https://doi.org/10.1002/hyp.6886>`_, which is referred to the old 0.875 version of the model.
+**GEOtop-SF** has been one of the first fully distributed hydrolgical models applied for hallow  landslides triggering prediction. A fundamental paper is `Simoni et al. (2008) <https://doi.org/10.1002/hyp.6886>`_, which is referred to the old 0.875 version of the model.
 
 A more recent implementation of GEOtop for shallow landslides prectition can be found in `Formetta et al. (2016b) <https://doi.org/10.1002/2015WR017626>`_, where GEOtop is embedded in the **GEOframe modelling system**.
 
 GEOtop model for soil erosion prediction.
 ------------------------------
 
-There is also an extension of GEOtop  for modelling sediment dynamics simulating the spatio-temporal dynamics of soil erosion , deposition. Documentation can be found in `Zi et al. (2016) <https://doi.org/10.1016/j.envsoft.2016.06.004>`_
+**GEOtop_ERO** is  an extension of **GEOtop**  for modelling sediment dynamics simulating the spatio-temporal dynamics of soil erosion , deposition. Documentation can be found in `Zi et al. (2016) <https://doi.org/10.1016/j.envsoft.2016.06.004>`_
 
-The code of the extension can be dowloaded from:  https://sourceforge.net/projects/geotopero/
+The code of the **GEOtop_ERO** model extension can be dowloaded from the repository: https://sourceforge.net/p/geotopero/code/ref/master/
+
+GEOtop model for vegetation dynamic simulation.
+------------------------------
+
+**GEOtop_DV** is  a Matlab extension of **GEOtop**  for modelling grassland vegetation dynamics for 1D simulations. Documentation can be found in `* Della Chiesa et al. (2014) <https://doi.org/10.1002/eco.1471>`_
 
 
 References
