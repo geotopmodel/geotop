@@ -1,9 +1,10 @@
+
 GEOtop
-======
+######
 
 |Build Status| |License (GPL version 3)|
 
-:date:  last revision August 2018
+:date:  last revision Fabruary 2019
 
 
 
@@ -24,7 +25,7 @@ where the model is briefly described and links to papers and other useful
 websites have been collected.
 
 Installation
---------------
+************
 
 If you want to build **GEOtop** (master branch v.2.1) from sources in your own machine:
 
@@ -37,7 +38,7 @@ packages:
 
 
 Documentation
--------
+*************
     
 An old version of the manual (currently under revision) can be found here:    
 
@@ -56,7 +57,8 @@ Useful material on **GEOtop** and his hystorical development can be found also o
    http://abouthydrology.blogspot.com/
    
 GEOtop development branches
--------
+***************************
+
 Currently (Agust 2018) there are several development branches in this repostory. Most used branches are the followings:
 
 The main `**master** <https://github.com/geotopmodel/geotop>`_ branch contains the 2.1 version. It is written in c++ and it has the possibility to use the the `**MeteoIO** library <https://models.slf.ch/p/meteoio/>`_ to spatialize input meteorological variables.
@@ -90,7 +92,8 @@ Further test cases to validate the model are also welcome.
 
 
 Report bugs/suggestion/issues
--------------------------------
+*****************************
+
 Please use the github issues facility.
 
 We have the following mailing lists:
@@ -100,23 +103,47 @@ We have the following mailing lists:
    **GEOtopUsers** for regular users: https://groups.google.com/forum/#!forum/geotopusers
    
 
-External utilities and scripts
-----------
+External utilities and pre-post processing scripts
+**************************************************
+
 During the years, several scripts and external softwares have been developed for preprocess **GEOtop** inputs, postprocess and visualize results. Some utilites can be found here:
 
 There are **R scripts** (https://github.com/ecor/geotopbricks) for I/O and **GEOtop** results visualization. They work for versions 2.0 and 2.1. Mainly developed by Emanuele Cordano. There is also a stable version published on CRAN as **R package** (https://cran.r-project.org/web/packages/geotopbricks/).
-
-There is also the plugin **R package geotopOtim2** (https://github.com/EURAC-Ecohydro/geotopOptim2) for the automatic calibration and sensitivity analysis of the **GEOtop** 2.x hydrological model, based on the "Particle Swarm Optimisation" approach and the LHOAT "Latin-Hypercube One-factor-At-a-Time" approach. It has been mainly developed by Emanuele Cordano, Samuel Senoner, Giacomo Bertoldi.
 
 The **R package Topo Sub** (https://github.com/EURAC-Ecohydro/TopoSUB) allows to produce spatially-distributed GEOtop output maps from a limited number of 1D single column simulations using a clustering approach (neglecting 3D water interactions). It has been developed by Joel Fiddes (Fiddrs and Gruber, 2012) and structured as R package by Johannes Brenner.
 
 There are **Matlab scripts** (https://github.com/EURAC-Ecohydro/GEOmatlab) for I/O and **GEOtop** results visualization. They work for version 1.25, most of them also for version 2.0. Mainly developed by Giacomo Bertoldi and collaborators.
 
-**GEOtop** can be embedded in the **GEOframe modelling system** (https://github.com/GEOframeOMSProjects). Mainly developed by Riccardo Rigon, Giuseppe Formetta and collaborators.
+**GEOtop** can be embedded in the **GEOframe modelling system** (https://github.com/GEOframeOMSProjects). Mainly developed by Riccardo Rigon, Giuseppe Formetta and collaborators. For more info see: `Formetta et al. (2016a) <https://doi.org/10.3390/w8010012>`_
+
+External models extensions 
+**************************************************
+
+Thsere are several **GEOtop** model extensions, to deal with additional physical processes. 
+
+GEOto model optimization tools
+------------------------------
+
+The plugin **R package geotopOtim2** (https://github.com/EURAC-Ecohydro/geotopOptim2) allows the automatic calibration and sensitivity analysis of the **GEOtop** 2.x hydrological model, based on the "Particle Swarm Optimisation" approach and the LHOAT "Latin-Hypercube One-factor-At-a-Time" approach. It has been mainly developed by Emanuele Cordano, Samuel Senoner, Giacomo Bertoldi. A paper is in preparation.
+
+There is in development also an interface for `**PEST** <http://www.pesthomepage.org/>`_  software package for parameter estimation and uncertainty analysis. An example of the **GEOtop-PEST** interface for inverse modelling in the Rott catchment can be found at: https://doi.pangaea.de/10.1594/PANGAEA.892921. A paper by Mohsen Soltani, Patrick Laux1, Matthias Mauder, and Harald Kunstmann1 is currently in revision.
+
+GEOtop model for shallow  landslides triggering prediction.
+------------------------------
+**GEOtop** has been one of the first fully distributed hydrolgical models applied for hallow  landslides triggering prediction. A fundamental paper is `Simoni et al. (2008) <https://doi.org/10.1002/hyp.6886>`_, which is referred to the old 0.875 version of the model.
+
+A more recent implementation of GEOtop for shallow landslides prectition can be found in `Formetta et al. (2016b) <https://doi.org/10.1002/2015WR017626>`_, where GEOtop is embedded in the **GEOframe modelling system**.
+
+GEOtop model for soil erosion prediction.
+------------------------------
+
+There is also an extension of GEOtop  for modelling sediment dynamics simulating the spatio-temporal dynamics of soil erosion , deposition. Documentation can be found in `Zi et al. (2016) <https://doi.org/10.1016/j.envsoft.2016.06.004>`_
+
+The code of the extension can be dowloaded from:  https://sourceforge.net/projects/geotopero/
 
 
 References
-----------
+**************************************************
 
 When using the model, please cite and refer to the following papers describing the **GEOtop** model:
 
