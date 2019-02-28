@@ -139,9 +139,10 @@ A more recent implementation of GEOtop for shallow landslides prectition can be 
 GEOtop model for soil erosion prediction.
 ------------------------------
 
-**GEOtop_ERO** is  an extension of **GEOtop**  for modelling sediment dynamics simulating the spatio-temporal dynamics of soil erosion , deposition. Documentation can be found in `Zi et al. (2016) <https://doi.org/10.1016/j.envsoft.2016.06.004>`_
+**GEOtop_SED** is  an extension of **GEOtop**  for modelling sediment dynamics simulating the spatio-temporal dynamics of soil erosion , deposition. Documentation can be found in `Zi et al. (2016) <https://doi.org/10.1016/j.envsoft.2016.06.004>`_
 
-The code of the **GEOtop_ERO** model extension can be dowloaded from the repository: https://sourceforge.net/p/geotopero/code/ref/master/
+The code of the **GEOtop_sed** model extension can be dowloaded from the repository: 
+https://github.com/TanZiTT/GEOtopSed
 
 GEOtop model for vegetation dynamic simulation.
 ------------------------------
