@@ -35,6 +35,8 @@ If you prefer to install **GEOtop** via Docker to avoid manual installation of
 packages:
 
     see here: https://hub.docker.com/r/omslab/geotop
+    
+    and here: https://github.com/geotopmodel/docker
 
 
 Documentation
