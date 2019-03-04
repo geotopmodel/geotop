@@ -4,7 +4,7 @@ GEOtop
 
 |Build Status| |License (GPL version 3)|
 
-:date:  last revision Fabruary 2019
+:date:  last revision March 2019
 
 
 
