@@ -123,12 +123,20 @@ External models extensions
 
 Thsere are several **GEOtop** model extensions, to deal with additional physical processes. 
 
-GEOtop model optimization tools
+GEOtop model particle swarm optimization with **R**
 ------------------------------
 
 The plugin **R package geotopOtim2** (https://github.com/EURAC-Ecohydro/geotopOptim2) allows the automatic calibration and sensitivity analysis of the **GEOtop** 2.x hydrological model, based on the "Particle Swarm Optimisation" approach and the LHOAT "Latin-Hypercube One-factor-At-a-Time" approach. It has been mainly developed by Emanuele Cordano, Samuel Senoner, Giacomo Bertoldi. A paper is in preparation.
 
-There is in development also an interface for `**PEST** <http://www.pesthomepage.org/>`_  software package for parameter estimation and uncertainty analysis. An example of the **GEOtop-PEST** interface for inverse modelling in the Rott catchment can be found at: https://doi.pangaea.de/10.1594/PANGAEA.892921. A paper by Mohsen Soltani, Patrick Laux1, Matthias Mauder, and Harald Kunstmann1 is currently in revision.
+GEOtop model optimization with **PEST**  
+------------------------------
+
+It has been developed an  interface for  `**PEST** <http://www.pesthomepage.org/>`_  software package for parameter estimation and uncertainty analysis. An example of the **GEOtop-PEST** interface for inverse modelling in the Rott catchment can be found at: https://doi.pangaea.de/10.1594/PANGAEA.892921. Full details can be found in the paper  `Soltani et al. (2019)  <https://doi.org/10.1016/j.jhydrol.2019.02.033>`_
+
+In general, PEST requires the following input files for automatic parameter estimation and inverse modelling: (i) Template files, to identify the model parameters; (ii) Instruction files, to identify the model outputs; and (iii) Control file, which supplies PEST with the names of all template and instruction files, the names of model input and output files, initial parameter values, measurement values and weights, etc. (Doherty, 2010). 
+
+The  PEST software (Doherty, 2002) together with over 100-utility-programs such as SENSAN
+and GENLINPRED used herein are freely available at  http://www.pesthomepage.org/Downloads.php.  For detailed and comprehensive information for combining a model of interest with PEST, it is referred to Sect. “3. The Model-PEST Interface” of the PEST manual, as described in Doherty (2002).
 
 GEOtop model for shallow  landslides triggering prediction.
 ------------------------------
@@ -160,6 +168,8 @@ When using the model, please cite and refer to the following papers describing t
 * Rigon, R., Bertoldi, G., Over, T.M., 2006. GEOtop: A Distributed Hydrological Model with Coupled Water and Energy Budgets.  J. Hydrometeorol. 7, 371–388. https://doi.org/10.1175/JHM497.1
 
 Here is the full list of peer-reviewed publications using the GEOtop model (updated January 2019):
+
+* Soltani, M., Laux, P., Mauder, M., Kunstmann, H., 2019. Inverse distributed modelling of streamflow and turbulent fluxes: A sensitivity and uncertainty analysis coupled with automatic optimization. J. Hydrol. 571, 856–872. https://doi.org/10.1016/j.jhydrol.2019.02.033
 
 * Formetta, G., Capparelli, G., 2019. Quantifying the three-dimensional effects of anisotropic soil horizons on hillslope hydrology and stability. J. Hydrol. 570, 329–342. https://doi.org/10.1016/j.jhydrol.2018.12.064
 
