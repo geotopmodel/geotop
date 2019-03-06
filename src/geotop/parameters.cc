@@ -53,7 +53,7 @@ extern char *SuccessfulRunFile, *FailedRunFile;
 short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, char *filename)
 {
   GEOLOG_PREFIX(__func__);
-  //variables
+
   FILE *f;
 
   short res;
@@ -83,12 +83,11 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
 
   long beg=0, end=0;
 
-  //convert keyword listed on top of the file in lower case
+  /**convert keyword listed on top of the file in lower case*/
   n = (long)num_par_number;
   keywords_num_lower_case = (char **)malloc(n*sizeof(char *));
   for (i=0; i<n; i++)
     {
-      //printf("%ld,%s\n",i,keywords_num[i]);
       keywords_num_lower_case[i] = assign_string(keywords_num[i]);
       convert_string_in_lower_case(keywords_num_lower_case[i]);
     }
@@ -97,12 +96,11 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
   keywords_char_lower_case = (char **)malloc(n*sizeof(char *));
   for (i=0; i<n; i++)
     {
-      //printf("%ld,%s\n",i,keywords_char[i]);
       keywords_char_lower_case[i] = assign_string(keywords_char[i]);
       convert_string_in_lower_case(keywords_char_lower_case[i]);
     }
 
-  //Allocation
+  /**allocation*/
   n = (long)max_charstring;
   key = (long *)malloc(n*sizeof(long));
   string = (long *)malloc(n*sizeof(long));
@@ -110,7 +108,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
   n = (long)max_numvect;
   number = (double *)malloc(n*sizeof(double));
 
-  //read how many lines there are
+  /**read how many lines there are*/
   inum=0;
   istr=0;
   f = t_fopen(filename, "r");
@@ -133,7 +131,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
   string_read=(long **)malloc(istr*sizeof(long *));
   number_read=(double **)malloc(inum*sizeof(double *));
 
-  //read single lines
+  /**read single lines*/
   f = fopen(filename, "r");
   inum=0;
   istr=0;
@@ -164,8 +162,8 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
   free(string);
   free(number);
 
-  //compare keywords number
-  n = (long)num_par_number;
+  /**compare keywords number*/
+  n = (long)num_par_number; /**number related to numerical keywords*/
   num_param_components = (long *)malloc(n*sizeof(long));
   num_param = (double **)malloc(n*sizeof(double *));
   for (i=0; i<num_par_number; i++)
@@ -173,14 +171,14 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
       ok=0;
       for (j=0; j<inum; j++)
         {
-          if ( strcmp (keywords_num_lower_case[i], keywords_num_read[j]) == 0)
+          if ( strcmp (keywords_num_lower_case[i], keywords_num_read[j]) == 0) /**parameter is read*/
             {
               ok=1;
               num_param_components[i] = number_comp_read[j];
               num_param[i] = find_number_vector(number_read[j], number_comp_read[j]);
             }
         }
-      if (ok==0) //parameter not read
+      if (ok==0) /**parameter is not read*/
         {
           num_param_components[i] = 1;
           num_param[i] = (double *)malloc(sizeof(double));
@@ -188,7 +186,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //deallocate read arrays
+  /**deallocate read arrays*/
   for (j=0; j<inum; j++)
     {
       free(number_read[j]);
@@ -198,10 +196,10 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
   free(keywords_num_read);
   free(number_comp_read);
 
-  //assign parameter
+  /**assign parameter*/
     assign_numeric_parameters(par, land, times, sl, met, itools, num_param, num_param_components, keywords_num);
 
-  //deallocate keyword arrays
+  /**deallocate keyword arrays*/
   for (i=0; i<num_par_number; i++)
     {
       free(num_param[i]);
@@ -209,8 +207,8 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
   free(num_param);
   free(num_param_components);
 
-  //compare keywords string
-  n = (long)num_par_char;
+  /**compare keywords string*/
+  n = (long)num_par_char;  /**number related to char keywords*/
   string_param = (char **)malloc(n*sizeof(char *));
   for (i=0; i<num_par_char; i++)
     {
@@ -231,7 +229,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //deallocate read arrays
+  /**deallocate read arrays*/
   for (j=0; j<istr; j++)
     {
       free(string_read[j]);
@@ -241,7 +239,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
   free(keywords_str_read);
   free(string_length_read);
 
-  //assign parameter
+  /**assign parameter*/
   end += nmet;
   itools->met_col_names = assign_string_parameter(beg, end, string_param, keywords_char);
   beg = end;
@@ -302,9 +300,9 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
 
   beg = end;
   end += 1;
-  path_rec_files = assignation_string(beg, keywords_char, string_param);//path of recovery files
+  path_rec_files = assignation_string(beg, keywords_char, string_param); /**path of recovery files*/
 
-  //deallocate keyword arrays
+  /**deallocate keyword arrays*/
   for (i=0; i<num_par_char; i++)
     {
       free(string_param[i]);
@@ -325,12 +323,12 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
     }
   free(keywords_char_lower_case);
 
-  //replace none value with some default values
+  /**replace none values with some default values*/
 
-  //Horizon
+  /**horizon file headers (input)*/
   for (j=0; j<2; j++)
     {
-      if (strcmp(itools->horizon_col_names[j], string_novalue) == 0)
+      if (strcmp(itools->horizon_col_names[j], string_novalue) == 0) /**horizon_col_names[j]="none"*/
         {
           free(itools->horizon_col_names[j]);
           if (j==0)
@@ -344,10 +342,10 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //HeaderPointFile
+  /**point file headers (output)*/
   for (j=0; j<otot; j++)
     {
-      if (strcmp(hpnt[j], string_novalue) == 0)
+      if (strcmp(hpnt[j], string_novalue) == 0) /**hpnt[j]="none"*/
         {
           free(hpnt[j]);
           if (j==odate12)
@@ -669,10 +667,10 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //HeaderBasinFile
+    /**basin file headers (output)*/
   for (j=0; j<ootot; j++)
     {
-      if (strcmp(hbsn[j], string_novalue) == 0)
+      if (strcmp(hbsn[j], string_novalue) == 0) /**hbsn[j]="none"*/
         {
           free(hbsn[j]);
           if (j==oodate12)
@@ -786,10 +784,10 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //HeaderSnowFile
+    /**snow file headers (output)*/
   for (j=0; j<10; j++)
     {
-      if (strcmp(hsnw[j], string_novalue) == 0)
+      if (strcmp(hsnw[j], string_novalue) == 0) /**hsnw[j]="none"*/
         {
           free(hsnw[j]);
           if (j==0)
@@ -819,10 +817,10 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //HeaderGlacierFile
+    /**glacier file headers (output)*/
   for (j=0; j<10; j++)
     {
-      if (strcmp(hglc[j], string_novalue) == 0)
+      if (strcmp(hglc[j], string_novalue) == 0) /**hglc[j]="none"*/
         {
 
           free(hglc[j]);
@@ -870,10 +868,10 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
     }
 
 
-  //HeaderGlacierFile
+    /**soil file headers (output)*/
   for (j=0; j<6; j++)
     {
-      if (strcmp(hsl[j], string_novalue) == 0)
+      if (strcmp(hsl[j], string_novalue) == 0) /**hsl[j]="none"*/
         {
           free(hsl[j]);
           if (j==0)
@@ -903,10 +901,10 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //Recovery Files
+    /**recovery file headers (output)*/
   for (j=rpsi; j<=rsux; j++)
     {
-      if (strcmp(files[j], string_novalue) == 0)
+      if (strcmp(files[j], string_novalue) == 0) /**files[j]="none"*/
         {
           free(files[j]);
           if (j==rpsi)
@@ -1032,7 +1030,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //add path to recovery files
+  /**add path to recovery files*/
   if (strcmp(path_rec_files, string_novalue) != 0)
     {
       temp = assign_string(path_rec_files);
@@ -1049,7 +1047,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
     }
   free(path_rec_files);
 
-  //add working path to the file name
+  /**add working path to the file name*/
   for (i=0; i<nfiles; i++)
     {
       if (strcmp(files[i], string_novalue) != 0)
