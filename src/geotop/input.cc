@@ -964,7 +964,7 @@ land cover %ld, meteo station %ld\n",
 
     }
 
-    if (existing_file(files[fwt0]) == 0)
+    if (existing_file(files[fwt0]) == 0) /** file for the initial water table NOT found */
     {
 
         for (i=1; i<=par->total_pixel; i++)
@@ -978,8 +978,7 @@ land cover %ld, meteo station %ld\n",
             if ((long)(*IT->init_water_table_depth)(sy) != number_novalue)
             {
                 z = 0.;
-                (*sl->SS->P)(0,i) = -(*IT->init_water_table_depth)(sy) *
-                                    cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+                (*sl->SS->P)(0,i) = -(*IT->init_water_table_depth)(sy)*cos((*top->slope)(r,c)*GTConst::FromDegToRad);
                 for (l=1; l<=Nl; l++)
                 {
                     z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::FromDegToRad);
@@ -1080,7 +1079,7 @@ land cover %ld, meteo station %ld\n",
         if (strcmp(files[fpsiztot], string_novalue) != 0 || strcmp(files[fpsiztotwriteend], string_novalue) != 0)
             sl->Ptotzplot.reset(new Matrix<double>{par->rc->nrh, Nl});
         if (strcmp(files[fpsiz], string_novalue) != 0 || strcmp(files[fpsizwriteend], string_novalue) != 0)
-            sl->Pzplot.reset(new Matrix<double>{par->rc->nrh,1, Nl,0});
+            sl->Pzplot.reset(new Matrix<double>{par->rc->nrh,1, Nl, 0});
         if (strcmp(files[fliqz], string_novalue) != 0 || strcmp(files[fliqzwriteend], string_novalue) != 0)
             sl->thzplot.reset(new Matrix<double>{par->rc->nrh, Nl});
         if (strcmp(files[fliqzav], string_novalue) != 0 || strcmp(files[fliqzavwriteend], string_novalue) != 0)
@@ -1160,13 +1159,11 @@ land cover %ld, meteo station %ld\n",
         r=(*cnet->r)(j);
         c=(*cnet->c)(j);
 
-        (*cnet->SS->P)(0,j) = (*sl->SS->P)(0,top->j_cont[r][c]) +
-                              par->depr_channel;
+        (*cnet->SS->P)(0,j) = (*sl->SS->P)(0,top->j_cont[r][c]) + par->depr_channel;
 
         for (l=1; l<=Nl; l++)
         {
-            (*cnet->SS->P)(l,j) = (*sl->Ptot)(l,top->j_cont[r][c]) +
-                                  par->depr_channel;
+            (*cnet->SS->P)(l,j) = (*sl->Ptot)(l,top->j_cont[r][c]) + par->depr_channel;
         }
 
         for (l=1; l<=Nl; l++)
@@ -1487,8 +1484,7 @@ land cover %ld, meteo station %ld\n",
     snow->S = new STATEVAR_3D{(double)number_novalue, par->max_snow_layers, Nr, Nc};
 
     // initial snow depth
-    if ( strcmp(files[fsn0], string_novalue) != 0
-         && strcmp(files[fswe0], string_novalue) != 0 )
+    if ( strcmp(files[fsn0], string_novalue) != 0 && strcmp(files[fswe0], string_novalue) != 0 )
     {
         printf("Initial condition on snow depth from file %s\n",files[fsn0]);
         M=read_map(2, files[fsn0], land->LC.get(), UV, (double)number_novalue);
@@ -1836,8 +1832,7 @@ land cover %ld, meteo station %ld\n",
     /*! Initialization of the struct "glac" (of the type GLACIER):*/
     /**************************************************************************************************/
     /*! Optional reading of glacier depth in the whole basin ("GLACIER0"):    */
-    if ( par->point_sim!=1 && strcmp(files[fgl0], string_novalue) != 0
-         && par->max_glac_layers==0)
+    if (par->point_sim!=1 && strcmp(files[fgl0], string_novalue)!= 0 && par->max_glac_layers==0)
     {
         geolog << "Warning: Glacier map present, but glacier represented with 0 layers" << std::endl;
     }
