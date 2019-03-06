@@ -69,8 +69,8 @@ press again "Enter".
 - For example you can choose the build type, writing RELEASE (default option) or
 DEBUG after ```CMAKE_BUILD_TYPE```,
 and modify the other flags as you prefer, knowing that a flag like:
-    - __*_RELEASE__: will be applied only when compiling in RELEASE mode
-    - __*_DEBUG__: will be applied only when compiling in DEBUG mode.
+    - *_RELEASE: will be applied only when compiling in RELEASE mode
+    - *_DEBUG: will be applied only when compiling in DEBUG mode.
 
 - Press again [c] and [e] to configure; then press [g] to generate and exit.
 Now the current directory will have the following files and folders:
