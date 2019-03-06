@@ -152,11 +152,11 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
         t_error("Fatal Error! Geotop is closed. See failing report.");
     }
 
-    // soil parameters
+    /**read soil parameters files*/
     success = read_soil_parameters(files[fspar], IT.get(), sl, par->soil_type_bedr_default);
     Nl=sl->pa->nch;
 
-    // pointlist files
+    /** read the output point file (i.e ListPoints.txt)*/
     success = read_point_file(files[fpointlist], IT->point_col_names, par);
 
     // max time that the simulation is supposed to model
@@ -2459,7 +2459,7 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
     double min, max;
     FILE *f;
 
-    // reading TOPOGRAPHY
+    /**reading TOPOGRAPHY*/
     flag = file_exists(fdem);
     if (flag == 1)
     {
