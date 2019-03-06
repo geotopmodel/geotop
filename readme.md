@@ -62,10 +62,15 @@ ccmake ..
 - Press [c] and [e] to configure and edit the options
 
 - Press [t] to toggle the advanced mode; several options will appear.
-Select the build type, writing RELEASE or DEBUG after ```CMAKE_BUILD_TYPE```,
+You can modify the values of the flags going to the correspondent line,
+pressing "Enter" key and then editing; to save what you have just written
+press again "Enter".
+
+- For example you can choose the build type, writing RELEASE (default option) or
+DEBUG after ```CMAKE_BUILD_TYPE```,
 and modify the other flags as you prefer, knowing that a flag like:
-    - **RELEASE**: will be applied only when compiling in RELEASE mode
-    - **DEBUG**: will be applied only when compiling in DEBUG mode.
+    - __*_RELEASE__: will be applied only when compiling in RELEASE mode
+    - __*_DEBUG__: will be applied only when compiling in DEBUG mode.
 
 - Press again [c] and [e] to configure; then press [g] to generate and exit.
 Now the current directory will have the following files and folders:
@@ -118,11 +123,20 @@ meson configure
 ```
 
 - If you want to modify some of them, add -Doption=value: for example
-    - set the build type to debug type: ``` meson configure -Dbuildtype=debug ```
-    - add compiler and linker options (i.e. add ```-pg```): ``` meson configure -Dcpp_args=-pg -Dcpp_link_args=-pg```
-    - define multiple compiler options: ```meson configure -Dcpp_args=" -OPTION_1 -OPTION_2"```
+    - to set the build type to debug writes:
+    ```
+    meson configure -Dbuildtype=debug
+    ```
+    - to add compiler and linker options (i.e. add ```-pg```) write:
+    ```
+    meson configure -Dcpp_args=-pg -Dcpp_link_args=-pg
+    ```
+    - define multiple compiler options:
+    ```
+    meson configure -Dcpp_args=" -OPTION_1 -OPTION_2"
+    ```
 
-- To check if the desired flags were activated you can look at their current values
+- To check if the desired flags were activated, you can look at their current values
 (```true``` or ```false```) again typing inside the build folder:
 ```
 meson configure
