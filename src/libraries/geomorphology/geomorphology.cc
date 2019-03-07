@@ -300,8 +300,7 @@ void curvature(double deltax, double deltay, Matrix<double> *topo,
 /******************************************************************************************************************************************/
 
 
-void topofilter(Matrix<double> *Zin, Matrix<double> *Zout, long novalue, long n)
-{
+void topofilter(Matrix<double> *Zin, Matrix<double> *Zout, long novalue, long n) {
 
     long r, c, nr, nc, ir, ic, i;
     std::unique_ptr<Vector<double>> values;
@@ -328,7 +327,7 @@ void topofilter(Matrix<double> *Zin, Matrix<double> *Zout, long novalue, long n)
                             if ((long)(*Zin)(r+ir,c+ic)!=novalue)
                             {
                                 cnt++;
-                                values->co[cnt]=(*Zin)(r+ir,c+ic);
+                                (*values)(cnt)=(*Zin)(r+ir,c+ic);
                             }
                         }
                     }
@@ -344,7 +343,7 @@ void topofilter(Matrix<double> *Zin, Matrix<double> *Zout, long novalue, long n)
                 (*Zout)(r,c) = 0.;
                 for (i=1; i<=cnt; i++)
                 {
-                    (*Zout)(r,c) += values->co[i]/(double)cnt;
+                    (*Zout)(r,c) += (*values)(i)/(double)cnt;
                 }
 
             }
