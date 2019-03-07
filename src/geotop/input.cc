@@ -2461,19 +2461,19 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
 
     /**reading TOPOGRAPHY*/
     flag = file_exists(fdem);
-    if (flag == 1)
+    if (flag == 1) /**file DEM present*/
     {
         M.reset(new Matrix<double>{1,1});
-        top->Z0.reset(read_map(0, files[fdem], M.get(), UV, (double)number_novalue)); // topography
-        write_map(files[fdem], 0, par->format_out, top->Z0.get(), UV, number_novalue);
+        top->Z0.reset(read_map(0, files[fdem], M.get(), UV, (double)number_novalue)); /**topography*/
+        write_map(files[fdem], 0, par->format_out, top->Z0.get(), UV, number_novalue); /**rewrite DEM file*/
 
         // filtering
         M.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
-        multipass_topofilter(par->lowpass, top->Z0.get(), M.get(), (double)number_novalue, 1);
+        multipass_topofilter(par->lowpass, top->Z0.get(), M.get(), (double)number_novalue, 1); /**assign "-9999" to cell outside the domain*/
         copy_doublematrix(M.get(), top->Z0.get());
         // write_map(files[fdem], 0, par->format_out, top->Z0, UV, number_novalue);
 
-        // calculate East and North
+        /**calculate East and North matrices*/
         top->East.reset(new Matrix<double>{top->Z0->nrh, top->Z0->nch});
         top->North.reset(new Matrix<double>{top->Z0->nrh, top->Z0->nch});
         for (r=1; r<=top->Z0->nrh; r++)
@@ -2486,7 +2486,7 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
         }
 
     }
-    else
+    else /**file DEM NOT present*/
     {
 
         f = fopen(FailedRunFile, "w");
