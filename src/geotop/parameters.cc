@@ -30,6 +30,7 @@
 #include "pedo.funct.h"
 #include "keywords.h"
 #include "logger.h"
+#include "timer.h"
 
 extern long number_novalue, number_absent;
 extern char *string_novalue;
@@ -2723,6 +2724,7 @@ short read_point_file(char *name, char **key_header, PAR *par)
 short read_meteostations_file(Vector<long> *i, METEO_STATIONS *S, char *name, char **key_header)
 {
   GEOLOG_PREFIX(__func__);
+  GEOTIMER_SECTION(__func__);
 
   double **M;
   long nlines, n, j, k;
