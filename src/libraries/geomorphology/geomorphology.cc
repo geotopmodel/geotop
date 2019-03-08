@@ -425,44 +425,53 @@ void multipass_topofilter(long ntimes, Matrix<double> *Zin, Matrix<double> *Zout
 
 short is_boundary(long r, long c, Matrix<double> *dem, long novalue)
 {
-
+/**
+ * analyze different cases of (ir, ic) (can be -1, 0, 1)
+ */
     long ir, ic;
     short yes = 0;
 
+    /** (ir,ic) = (-1,0)*/
     ir=-1;
     ic=0;
     if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
+    /** (ir,ic) = (-1,1)*/
     ir=-1;
     ic=1;
     if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
+    /** (ir,ic) = (-1,-1)*/
+    ir=-1;
+    ic=-1;
+    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
+
+    /** (ir,ic) = (0,1)*/
     ir=0;
     ic=1;
     if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
+    /** (ir,ic) = (0,-1)*/
+    ir=0;
+    ic=-1;
+    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
+
+    /** (ir,ic) = (1,1)*/
     ir=1;
     ic=1;
     if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
+    /** (ir,ic) = (1,0)*/
     ir=1;
     ic=0;
     if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
+    /** (ir,ic) = (1,-1)*/
     ir=1;
-    ic=-1;
-    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
-
-    ir=0;
-    ic=-1;
-    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
-
-    ir=-1;
     ic=-1;
     if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
     return yes;
-
 }
 
 /******************************************************************************************************************************************/
