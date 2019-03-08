@@ -2789,7 +2789,7 @@ to the soil type map");
         top->pixel_type.reset(copyshort_doublematrix(M.get()));
 
         cont = 0;
-        /**check that top->pixel_type assumes only the admitted values: -1, 0, 1, 2, 10*/
+        /**check that top->pixel_type assumes only the admitted values: -1, 0, 1, 2, 10, 11, 12*/
         for (r=1; r<=top->Z0->nrh; r++)
         {
             for (c=1; c<=top->Z0->nch; c++)
@@ -2798,7 +2798,7 @@ to the soil type map");
                 {
                     if ((*top->pixel_type)(r,c)!=0 && (*top->pixel_type)(r,c)!=1
                         && (*top->pixel_type)(r,c)!=2 && (*top->pixel_type)(r,c)!=10
-                        && (*top->pixel_type)(r,c)!=11 && (*top->pixel_type)(r,c)!=12
+                        && (*top->pixel_type)(r,c)!=11 && (*top->pixel_type)(r,c)!=12 /**missing explanation of pixel_type 11 and 12*/
                         && (*top->pixel_type)(r,c)!=-1)
                     {
                         f = fopen(FailedRunFile, "w");
@@ -2824,7 +2824,7 @@ to the soil type map");
     }
 
     /**************************************************************************************************/
-    /**border*/
+    /**check BORDER cell*/
     top->is_on_border.reset(new Matrix<short>{land->LC->nrh, land->LC->nch});
     for (r=1; r<=land->LC->nrh; r++)
     {
@@ -2841,7 +2841,7 @@ to the soil type map");
         }
     }
 
-    /**count the pixels having pixel_type = 1, 2 or -1*/
+    /**count the pixels having pixel_type = -1, 1, 2, 11, 12*/
     cont = 0;
     for (r=1; r<=top->Z0->nrh; r++)
     {
@@ -2851,13 +2851,15 @@ to the soil type map");
             {
                 if ((*top->pixel_type)(r,c) == -1 || (*top->pixel_type)(r,c) == 1
                     || (*top->pixel_type)(r,c) == 2 || (*top->pixel_type)(r,c) == 11
-                    || (*top->pixel_type)(r,c) == 12) cont ++;
+                    || (*top->pixel_type)(r,c) == 12)
+                    cont ++;
             }
         }
     }
 
     top->BC_counter.reset(new Matrix<long>{top->Z0->nrh, top->Z0->nch});
 
+    /**assign values to (top->BC_counter) and (top->BC_DepthFreeSurface) */
     if (cont > 0)
     {
         top->BC_DepthFreeSurface.reset(new Vector<double>{cont});
@@ -2874,7 +2876,7 @@ to the soil type map");
                     {
                         cont ++;
                         (*top->BC_counter)(r,c) = cont;
-                        (*top->BC_DepthFreeSurface)(cont) = par->DepthFreeSurface; //[mm]
+                        (*top->BC_DepthFreeSurface)(cont) = par->DepthFreeSurface; /**[mm]*/
                     }
                 }
             }
