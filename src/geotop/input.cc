@@ -2789,6 +2789,7 @@ to the soil type map");
         top->pixel_type.reset(copyshort_doublematrix(M.get()));
 
         cont = 0;
+        /**check that top->pixel_type assumes only the admitted values: -1, 0, 1, 2, 10*/
         for (r=1; r<=top->Z0->nrh; r++)
         {
             for (c=1; c<=top->Z0->nch; c++)
@@ -2806,14 +2807,16 @@ to the soil type map");
                         fclose(f);
                         t_error("Fatal Error! Geotop is closed. See failing report (14).");
                     }
-                    if ((*top->pixel_type)(r,c)==10) cont++;
+                    if ((*top->pixel_type)(r,c)==10)
+                        cont++;
                 }
             }
         }
 
         printf("Channel networks has %ld pixels set to channel\n",cont);
 
-        if (flag >= 0) write_map(files[fnet], 1, par->format_out, M.get(), UV, number_novalue);
+        if (flag >= 0)
+            write_map(files[fnet], 1, par->format_out, M.get(), UV, number_novalue);
     }
     else
     {
