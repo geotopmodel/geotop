@@ -30,12 +30,12 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
 {
     GEOTIMER_SECTION(__func__);
 
-    long i,j,t,m,n,p,q,h,k,r,s; //counter
-    double deltateta; //amplitude of the angles in which the horizon is divided
-    std::unique_ptr<Matrix<double>> alfa; //matrices with the angles of the direction
-    std::unique_ptr<Vector<double>> vv; //vector with the view factor of the current pixel for one of the N parts
-    std::unique_ptr<Vector<double>> v; //vector with the minimum view factor of the current pixel for one of the N parts
-    double vvv; //mean of the sky view for a pixel of the N parts
+    long i,j,t,m,n,p,q,h,k,r,s; /**counter*/
+    double deltateta; /**amplitude of the angles in which the horizon is divided*/
+    std::unique_ptr<Matrix<double>> alfa; /**matrices with the angles of the direction*/
+    std::unique_ptr<Vector<double>> vv; /**vector with the view factor of the current pixel for one of the N parts*/
+    std::unique_ptr<Vector<double>> v; /**vector with the minimum view factor of the current pixel for one of the N parts*/
+    double vvv; /**mean of the sky view for a pixel of the N parts*/
 
     if (sky->nrh!=input->nrh)
         t_error("Sky view factor fatal error, number of rows not consistent");
@@ -196,13 +196,13 @@ void nablaquadro_mask(Matrix<double> *Z0, Matrix<short> *curv, Vector<double> *U
                     derivate2 = 0.5*((z[1]+z[5]-2*z[0])/(grid[1]*grid[1])+ (z[3]+z[7]-2*z[0])/(grid[3]*grid[3]));
                     derivate2 = derivate2 + 0.5*((z[2]+z[4]+z[6]+z[8]-4*z[0])/(grid[6]*grid[6]));
 
-                    if (fabs(derivate2)<=der_min || derivate2>der_min)  //plane or concave
+                    if (fabs(derivate2)<=der_min || derivate2>der_min)  /**plane or concave*/
                     {
                         (*curv)(i,j)=0;
                     }
                     else
                     {
-                        (*curv)(i,j)=1; //convex
+                        (*curv)(i,j)=1; /**convex*/
                     }
                 }
             }
