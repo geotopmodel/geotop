@@ -123,12 +123,12 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
 
     if (A->P->point_sim != 1)
     {
-        A->E->sun[0] = A->P->latitude*GTConst::FromDegToRad;
-        A->E->sun[2] = (A->P->longitude*GTConst::FromDegToRad - A->P->ST*GTConst::Pi/12. + Et)/GTConst::omega;
+        A->E->sun[0] = A->P->latitude*GTConst::Pi/180.;
+        A->E->sun[2] = (A->P->longitude*GTConst::Pi/180. - A->P->ST*GTConst::Pi/12. + Et)/GTConst::omega;
         A->E->hsun = adaptiveSimpsons2(SolarHeight__, A->E->sun, JDb, JDe, 1.E-6,
                                        20) / (JDe - JDb);
         A->E->dsun = adaptiveSimpsons2(SolarAzimuth__, A->E->sun, JDb, JDe, 1.E-6,
-                                       20) / (JDe - JDb) + A->P->dem_rotation*GTConst::FromDegToRad;
+                                       20) / (JDe - JDb) + A->P->dem_rotation*GTConst::Pi/180.;
         if (A->E->dsun < 0) A->E->dsun += 2*GTConst::Pi;
         if (A->E->dsun > 2*GTConst::Pi) A->E->dsun -= 2*GTConst::Pi;
         A->E->sinhsun = adaptiveSimpsons2(Sinalpha_, A->E->sun, JDb, JDe, 1.E-6,
@@ -298,10 +298,10 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
 
     Precpoint=(*A->W->PrecTot)(r,c);
     //define prec as normal (not vertical)
-    Precpoint*=cos((*A->T->slope)(r,c)*GTConst::FromDegToRad);
+    Precpoint*=cos((*A->T->slope)(r,c)*GTConst::Pi/180.);
     //another cosine correction applied for point simulations (due to area proejection)
     if (A->P->point_sim==1 && A->P->flag1D==0)
-        Precpoint*=cos((*A->T->slope)(r,c)*GTConst::FromDegToRad);
+        Precpoint*=cos((*A->T->slope)(r,c)*GTConst::Pi/180.);
 
     Tdirichlet=A->M->var[A->M->nstTs-1][iTs];
     if ((long)Tdirichlet == number_novalue
@@ -488,13 +488,13 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
     //calculation of SWin
     if (A->P->point_sim==1)
     {
-        A->E->sun[0] = (*A->T->latitude)(r,c)*GTConst::FromDegToRad;
-        A->E->sun[2] = ((*A->T->longitude)(r,c)*GTConst::FromDegToRad - A->P->ST*GTConst::Pi/12. +
+        A->E->sun[0] = (*A->T->latitude)(r,c)*GTConst::Pi/180.;
+        A->E->sun[2] = ((*A->T->longitude)(r,c)*GTConst::Pi/180. - A->P->ST*GTConst::Pi/12. +
                         Et)/GTConst::omega;
         A->E->hsun = adaptiveSimpsons2(SolarHeight__, A->E->sun, JDb, JDe, 1.E-6,
                                        20) / (JDe - JDb);
         A->E->dsun = adaptiveSimpsons2(SolarAzimuth__, A->E->sun, JDb, JDe, 1.E-6,
-                                       20) / (JDe - JDb) + A->P->dem_rotation*GTConst::FromDegToRad;
+                                       20) / (JDe - JDb) + A->P->dem_rotation*GTConst::Pi/180.;
         if (A->E->dsun < 0) A->E->dsun += 2*GTConst::Pi;
         if (A->E->dsun > 2*GTConst::Pi) A->E->dsun -= 2*GTConst::Pi;
         A->E->sinhsun = adaptiveSimpsons2(Sinalpha_, A->E->sun, JDb, JDe, 1.E-6,
@@ -508,8 +508,8 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
     A->E->sun[3] = RHpoint;
     A->E->sun[4] = Tpoint;
     A->E->sun[5] = Ppoint;
-    A->E->sun[6] = (*A->T->slope)(r,c)*GTConst::FromDegToRad;
-    A->E->sun[7] = (*A->T->aspect)(r,c)*GTConst::FromDegToRad;
+    A->E->sun[6] = (*A->T->slope)(r,c)*GTConst::Pi/180.;
+    A->E->sun[7] = (*A->T->aspect)(r,c)*GTConst::Pi/180.;
     if (A->P->albedoSWin != 0) A->E->sun[11] = (avis_b + avis_d + anir_b +
                                                 anir_d)/4.;
 
