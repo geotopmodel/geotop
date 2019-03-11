@@ -302,8 +302,8 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
           //find west-east component
           for (c=1; c<=Nc; c++)
             {
-              (*snow->Qtrans_x)(r,c)=fabs((*snow->Qtrans)(r,c)*(-sin((*met->Vdir)(r,c)*GTConst::FromDegToRad)));
-              (*snow->Qsub_x)(r,c)=fabs((*snow->Qsub)(r,c)*(-sin((*met->Vdir)(r,c)*GTConst::FromDegToRad)));
+              (*snow->Qtrans_x)(r,c)=fabs((*snow->Qtrans)(r,c)*(-sin((*met->Vdir)(r,c)*GTConst::Pi/180.)));
+              (*snow->Qsub_x)(r,c)=fabs((*snow->Qsub)(r,c)*(-sin((*met->Vdir)(r,c)*GTConst::Pi/180.)));
             }
 
           //find when there is a wind direction inversion
@@ -322,7 +322,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
                 {
                   c++;
                 }
-              while ( (-sin((*met->Vdir)(r,c)*GTConst::FromDegToRad))*(-sin((*met->Vdir)(r,c0)*GTConst::FromDegToRad))>0 && c<Nc );
+              while ( (-sin((*met->Vdir)(r,c)*GTConst::Pi/180.))*(-sin((*met->Vdir)(r,c0)*GTConst::Pi/180.))>0 && c<Nc );
 
               num_change++;
               c0=c;
@@ -334,7 +334,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
           for (i=1; i<num_change; i++)
             {
               //east wind
-              if ( (-sin((*met->Vdir)(r,(*snow->change_dir_wind)(i))*GTConst::FromDegToRad)) > 0 )
+              if ( (-sin((*met->Vdir)(r,(*snow->change_dir_wind)(i))*GTConst::Pi/180.)) > 0 )
                 {
                   if (par->upwindblowingsnow==1 && (*snow->change_dir_wind)(i)!=1)
                     (*snow->Qtrans_x)(r,(*snow->change_dir_wind)(i))=0.0;
@@ -412,8 +412,8 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
           //find south-north component
           for (r=1; r<=Nr; r++)
             {
-              (*snow->Qtrans_y)(r,c)=fabs((*snow->Qtrans)(r,c)*(-cos((*met->Vdir)(r,c)*GTConst::FromDegToRad)));
-              (*snow->Qsub_y)(r,c)=fabs((*snow->Qsub)(r,c)*(-cos((*met->Vdir)(r,c)*GTConst::FromDegToRad)));
+              (*snow->Qtrans_y)(r,c)=fabs((*snow->Qtrans)(r,c)*(-cos((*met->Vdir)(r,c)*GTConst::Pi/180.)));
+              (*snow->Qsub_y)(r,c)=fabs((*snow->Qsub)(r,c)*(-cos((*met->Vdir)(r,c)*GTConst::Pi/180.)));
             }
 
           //find when there is a wind direction inversion
@@ -432,7 +432,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
                 {
                   r++;
                 }
-              while ( (-cos((*met->Vdir)(r,c)*GTConst::FromDegToRad))*(-cos((*met->Vdir)(r0,c)*GTConst::FromDegToRad))>0 && r<Nr );
+              while ( (-cos((*met->Vdir)(r,c)*GTConst::Pi/180.))*(-cos((*met->Vdir)(r0,c)*GTConst::Pi/180.))>0 && r<Nr );
 
               num_change++;
               r0=r;
@@ -444,7 +444,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
           for (i=1; i<num_change; i++)
             {
               //south wind
-              if ( (-cos((*met->Vdir)((*snow->change_dir_wind)(i),c)*GTConst::FromDegToRad)) < 0 )
+              if ( (-cos((*met->Vdir)((*snow->change_dir_wind)(i),c)*GTConst::Pi/180.)) < 0 )
                 {
                   if (par->upwindblowingsnow==1 && (*snow->change_dir_wind)(i)!=1)
                     (*snow->Qtrans)((*snow->change_dir_wind)(i),c)=0.0;
