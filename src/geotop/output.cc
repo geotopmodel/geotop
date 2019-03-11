@@ -153,7 +153,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*cnet->r)(l);
                 c = (*cnet->c)(l);
-                Vchannel += 1.E-3 * std::max<double>((*cnet->SS->P)(0,l), 0.) / cos((*top->slope)(r,c)*GTConst::FromDegToRad) *
+                Vchannel += 1.E-3 * std::max<double>((*cnet->SS->P)(0,l), 0.) / cos((*top->slope)(r,c)*GTConst::Pi/180.) *
                             (*UV->U)(1) * par->w_dx * (*cnet->length)(l);
                 Vsub += (*cnet->Vsub)(l);
                 Vsup += (*cnet->Vsup)(l);
@@ -273,7 +273,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
 
                     if (par->output_vertical_distances == 1)
                     {
-                        cosslope = cos( std::min<double>(GTConst::max_slope, (*top->slope)(r,c)) * GTConst::FromDegToRad );
+                        cosslope = cos( std::min<double>(GTConst::max_slope, (*top->slope)(r,c)) * GTConst::Pi/180. );
                     }
                     else
                     {
@@ -1333,7 +1333,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
             {
                 r = (*top->rc_cont)(i,1);
                 c = (*top->rc_cont)(i,2);
-                (*V)(i) = std::max<double>(0, (*sl->SS->P)(0,i)) / cos((*top->slope)(r,c) * GTConst::FromDegToRad);
+                (*V)(i) = std::max<double>(0, (*sl->SS->P)(0,i)) / cos((*top->slope)(r,c) * GTConst::Pi/180.);
             }
             temp1 = join_strings(files[fhsupland], s2);
             write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
@@ -1349,7 +1349,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 c = (*top->rc_cont)(i,2);
                 if ((*cnet->ch)(r,c)!=0)
                 {
-                    (*V)(i) = (*cnet->SS->P)(0,(*cnet->ch)(r,c)) / cos((*top->slope)(r,c) *GTConst::FromDegToRad);
+                    (*V)(i) = (*cnet->SS->P)(0,(*cnet->ch)(r,c)) / cos((*top->slope)(r,c) *GTConst::Pi/180.);
                 }
                 else
                 {
@@ -4764,7 +4764,7 @@ void write_tensorseries_soil(long lmin, char *suf, char *filename, short type,
 
         for (i=1; i<=npoints; i++)
         {
-            if (vertical == 1) cosslope = cos( std::min<double>(GTConst::max_slope, (*slope)((*RC)(i,1),(*RC)(i,2))) * GTConst::FromDegToRad );
+            if (vertical == 1) cosslope = cos( std::min<double>(GTConst::max_slope, (*slope)((*RC)(i,1),(*RC)(i,2))) * GTConst::Pi/180. );
             (*V)(i) = interpolate_soil2(lmin, (*n)(l)*cosslope, Nl, std::forward<RowView<double>>(dz), T, i);
         }
 
@@ -4933,9 +4933,9 @@ void fill_output_vectors(double Dt, double W, ENERGY *egy, SNOW *snow,
                 || strcmp(files[pVdir], string_novalue) != 0)
             {
                 (*met->Vxplot)(j) -= W * (*met->Vgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2))
-                                     * sin( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*GTConst::FromDegToRad );
+                                     * sin( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*GTConst::Pi/180. );
                 (*met->Vyplot)(j) -= W * (*met->Vgrid)((*top->rc_cont)(j,1),(*top->rc_cont)(j,2))
-                                     * cos( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*GTConst::FromDegToRad );
+                                     * cos( (*met->Vdir)( (*top->rc_cont)(j,1), (*top->rc_cont)(j,2) )*GTConst::Pi/180. );
             }
 
         }
