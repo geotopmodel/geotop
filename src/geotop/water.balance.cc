@@ -112,9 +112,9 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
           r=adt->T->lrc_cont->co[j][2];
           c=adt->T->lrc_cont->co[j][3];
           sy=(*adt->S->type)(r,c);
-          area=ds*ds/cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad);
+          area=ds*ds/cos((*adt->T->slope)(r,c)*GTConst::Pi/180.);
           if(l==0){
-            m1 += area * 1.E-3*std::max<double>(0.0, L->P->co[l][adt->T->j_cont[r][c]]) / cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad);
+            m1 += area * 1.E-3*std::max<double>(0.0, L->P->co[l][adt->T->j_cont[r][c]]) / cos((*adt->T->slope)(r,c)*GTConst::Pi/180.);
           }else {
             dz = (*adt->S->pa)(sy,jdz,l);
             m1 += area*1.E-3*dz * theta_from_psi(L->P->co[l][adt->T->j_cont[r][c]], 0, l, adt->S->pa->matrix(sy), GTConst::PsiMin);
@@ -138,9 +138,9 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
           r=adt->T->lrc_cont->co[j][2];
           c=adt->T->lrc_cont->co[j][3];
           sy=(*adt->S->type)(r,c);
-          area=ds*ds/cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad);
+          area=ds*ds/cos((*adt->T->slope)(r,c)*GTConst::Pi/180.);
           if(l==0){
-            m2 += area * 1.E-3*std::max<double>(0.0, L->P->co[l][adt->T->j_cont[r][c]]) / cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad);
+            m2 += area * 1.E-3*std::max<double>(0.0, L->P->co[l][adt->T->j_cont[r][c]]) / cos((*adt->T->slope)(r,c)*GTConst::Pi/180.);
           }else {
             dz = (*adt->S->pa)(sy,jdz,l);
             m2 += area*1.E-3*dz * theta_from_psi(L->P->co[l][adt->T->j_cont[r][c]], 0, l, adt->S->pa->matrix(sy), GTConst::PsiMin);
@@ -181,7 +181,7 @@ short water_balance(double Dt, double JD0, double JD1, double JD2,
             }
             if ( (*L->P)(0,j) > 0 )
                 (*L->P)(0,j) = std::min<double>( (*L->P)(0,j),
-                                                 std::max<double>(0.,-(*adt->T->BC_DepthFreeSurface)(j))*cos((*adt->T->slope)(1,j)*GTConst::FromDegToRad) );
+                                                 std::max<double>(0.,-(*adt->T->BC_DepthFreeSurface)(j))*cos((*adt->T->slope)(1,j)*GTConst::Pi/180.) );
         }
         end=clock();
         t_sub += (end-start)/(double)CLOCKS_PER_SEC;
@@ -270,7 +270,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
             /** precipitation */
             if (l == 0 && (*adt->W->Pnet)(r,c) > 0)
             {
-                *Total_Pnet = *Total_Pnet + ((*adt->W->Pnet)(r,c)/cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad))
+                *Total_Pnet = *Total_Pnet + ((*adt->W->Pnet)(r,c)/cos((*adt->T->slope)(r,c)*GTConst::Pi/180.))
                                             / (double)adt->P->total_pixel;
             }
 
@@ -278,7 +278,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
             if ((*adt->W->Pnet)(r,c) > 0 && l == 0)
             {
                 (*adt->W->H1)(i) = std::max<double>(0.,  (*L->P)(l,j))
-                                   + ((*adt->W->Pnet)(r,c)/cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad))
+                                   + ((*adt->W->Pnet)(r,c)/cos((*adt->T->slope)(r,c)*GTConst::Pi/180.))
                                    + (*adt->T->Z)(l,r,c);
             }
             else
@@ -299,7 +299,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
             if ((*adt->W->Pnet)(r,c) > 0 && l == 0)
             {
                 (*adt->W->H1)(i) = std::max<double>( 0., (*C->P)(l,ch))
-                                   + ( (*adt->W->Pnet)(r,c)/cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad) )
+                                   + ( (*adt->W->Pnet)(r,c)/cos((*adt->T->slope)(r,c)*GTConst::Pi/180.) )
                                    + ( (*adt->T->Z)(l,r,c) - adt->P->depr_channel );
             }
             else
@@ -508,7 +508,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
             /** volume lost at the bottom */
             if (l==Nl)
             {
-                area = ds*ds/cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad);
+                area = ds*ds/cos((*adt->T->slope)(r,c)*GTConst::Pi/180.);
                 if (ch>0) area -= (*adt->C->length)(ch) * adt->P->w_dx *
                                   ds; //area of the pixel[m2]
                 *Vbottom = *Vbottom + area * (*adt->W->Kbottom)(r,c) * 1.E-3 * Dt;
@@ -525,7 +525,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
                     {
                         /* The depth of the free surface is multiplied by cosine since Z's are the layer depths in vertical direction */
                         if ( (*adt->T->Z)(0,r,c) - (*adt->T->Z)(l,r,c) <=
-                             ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad)
+                             ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::Pi/180.)
                              && (*adt->W->H1)(i) - (*adt->T->Z)(l,r,c) > 0 )
                         {
 
@@ -555,7 +555,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
                     {
 
                         if ( (*adt->T->Z)(0,r,c) - (*adt->T->Z)(l,r,c) <=
-                             ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad) )
+                             ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::Pi/180.) )
                         {
 
                             dz = (*adt->S->pa)(sy,jdz,l); /// [mm]
@@ -592,7 +592,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
             if (l==0)
             {
                 /** hold and hnew are normal */
-                hold = std::max<double>(0., (*C->P)(l,ch)) / cos((*adt->T->slope)(r,c) * GTConst::FromDegToRad);
+                hold = std::max<double>(0., (*C->P)(l,ch)) / cos((*adt->T->slope)(r,c) * GTConst::Pi/180.);
             }
 
             /** depr channel is defined vertical */
@@ -610,7 +610,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
             if (l==0)
             {
                 /** hold and hnew are normal */
-                hnew = std::max<double>(0., (*C->P)(l,ch)) / cos((*adt->T->slope)(r,c) * GTConst::FromDegToRad);
+                hnew = std::max<double>(0., (*C->P)(l,ch)) / cos((*adt->T->slope)(r,c) * GTConst::Pi/180.);
                 (*Vsub)(ch) += 1.E-3 * ( hnew - hold ) * (*adt->C->length)(ch) * adt->P->w_dx * ds;
             }
 
@@ -665,14 +665,14 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
         if (l == 0 && (*adt->W->Pnet)(r,c) > 0)
         {
             *Total_Pnet = *Total_Pnet +
-                          ((*adt->W->Pnet)(r,c)/cos(std::min<double>(GTConst::max_slope, (*adt->T->slope)(r,c))*GTConst::FromDegToRad)) / (double)adt->P->total_pixel;
+                          ((*adt->W->Pnet)(r,c)/cos(std::min<double>(GTConst::max_slope, (*adt->T->slope)(r,c))*GTConst::Pi/180.)) / (double)adt->P->total_pixel;
         }
 
         /** solution guess */
         if ((*adt->W->Pnet)(r,c) > 0 && l == 0)
         {
             (*adt->W->H1)(i) = std::max<double>(0., (*L->P)(l,c))
-                               + ((*adt->W->Pnet)(r,c)/cos(std::min<double>(GTConst::max_slope,(*adt->T->slope)(r,c))*GTConst::FromDegToRad))
+                               + ((*adt->W->Pnet)(r,c)/cos(std::min<double>(GTConst::max_slope,(*adt->T->slope)(r,c))*GTConst::Pi/180.))
                                + (*adt->T->Z)(l,r,c);
         }
         else
@@ -889,7 +889,7 @@ short Richards1D(long c, double Dt, SOIL_STATE *L, ALLDATA *adt, double *loss, d
             if ((*adt->T->pixel_type)(r,c) == 1)
             {
                 if ( (*adt->T->Z)(0,r,c) - (*adt->T->Z)(l,r,c) <=
-                     ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad)
+                     ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::Pi/180.)
                      && (*adt->W->H1)(i) - (*adt->T->Z)(l,r,c) > 0 )
                 {
                     dz = (*adt->S->pa)(sy,jdz,l);//[mm]
@@ -965,7 +965,7 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
             sy=(*adt->S->type)(r,c);
 
             ch=(*adt->C->ch)(r,c);
-            area=ds*ds/cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad);
+            area=ds*ds/cos((*adt->T->slope)(r,c)*GTConst::Pi/180.);
             if (ch>0) area-=(*adt->C->length)(ch) * adt->P->w_dx *
                             ds; //area of the pixel[m2]
 
@@ -1207,12 +1207,12 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                         if ((*H)(I) > (*H)(i))
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = std::max<double>(0., (*H)(I) - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*GTConst::FromDegToRad);
+                            dz = std::max<double>(0., (*H)(I) - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*GTConst::Pi/180.);
                         }
                         else
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = std::max<double>(0., (*H)(i) - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad);
+                            dz = std::max<double>(0., (*H)(i) - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*GTConst::Pi/180.);
                         }
 
                         if (dz < adt->P->thres_hsup_1) kn = 0.;
@@ -1267,12 +1267,12 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                         if ((*H)(I) > (*H)(i))
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = std::max<double>(0., (*H)(I) - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*GTConst::FromDegToRad);
+                            dz = std::max<double>(0., (*H)(I) - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*GTConst::Pi/180.);
                         }
                         else
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = std::max<double>(0., (*H)(i) - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad);
+                            dz = std::max<double>(0., (*H)(i) - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*GTConst::Pi/180.);
                         }
 
                         if (dz < adt->P->thres_hsup_1) kn = 0.;
@@ -1328,12 +1328,12 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                         if ((*H)(I) > (*H)(i))
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = std::max<double>(0., (*H)(I) - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*GTConst::FromDegToRad);
+                            dz = std::max<double>(0., (*H)(I) - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*GTConst::Pi/180.);
                         }
                         else
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = std::max<double>(0., (*H)(i) - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad);
+                            dz = std::max<double>(0., (*H)(i) - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*GTConst::Pi/180.);
                         }
 
                         if (dz < adt->P->thres_hsup_1) kn = 0.;
@@ -1388,12 +1388,12 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                         if ((*H)(I) > (*H)(i))
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = std::max<double>(0., (*H)(I) - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*GTConst::FromDegToRad);
+                            dz = std::max<double>(0., (*H)(I) - (*adt->T->Z)(l,R,C)) / cos((*adt->T->slope)(R,C)*GTConst::Pi/180.);
                         }
                         else
                         {
                             kn = (*adt->L->ty)((long)(*adt->L->LC)(R,C),jcm);
-                            dz = std::max<double>(0., (*H)(i) - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad);
+                            dz = std::max<double>(0., (*H)(i) - (*adt->T->Z)(l,r,c)) / cos((*adt->T->slope)(r,c)*GTConst::Pi/180.);
                         }
 
                         if (dz < adt->P->thres_hsup_1) kn = 0.;
@@ -1594,7 +1594,7 @@ int find_dfdH_3D(double Dt, Vector<double> *df, ALLDATA *adt, SOIL_STATE *L,
             sy = (*adt->S->type)(r,c);
             bc = (*adt->T->BC_counter)(r,c);
             ch = (*adt->C->ch)(r,c);
-            area = ds*ds/cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad);
+            area = ds*ds/cos((*adt->T->slope)(r,c)*GTConst::Pi/180.);
             if (ch>0)
                 area-= (*adt->C->length)(ch) * adt->P->w_dx * ds; //area of the pixel[m2]
             psi1 = (*H)(i) - (*adt->T->Z)(l,r,c);
@@ -1617,7 +1617,7 @@ int find_dfdH_3D(double Dt, Vector<double> *df, ALLDATA *adt, SOIL_STATE *L,
         /** hydraulic capacity (diagonal term) = (dV/dH)/(Ah*Dt) */
         if (l==0)
         {
-            if (psi1>0) (*df)(i) += ( area / cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad) ) / Dt;
+            if (psi1>0) (*df)(i) += ( area / cos((*adt->T->slope)(r,c)*GTConst::Pi/180.) ) / Dt;
 
         }
         else
@@ -1637,7 +1637,7 @@ int find_dfdH_3D(double Dt, Vector<double> *df, ALLDATA *adt, SOIL_STATE *L,
                 if ((*adt->T->pixel_type)(r,c) == 1 || (*adt->T->pixel_type)(r,c) == 11)
                 {
                     if ( (*adt->T->Z)(0,r,c) - (*adt->T->Z)(l,r,c) <=
-                         ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad)
+                         ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::Pi/180.)
                          && (*H)(i) - (*adt->T->Z)(l,r,c) > 0 )
                     {
                         if ((long)(*adt->L->LC)(r+1,c)==number_novalue
@@ -1690,7 +1690,7 @@ int find_dfdH_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *df,
         /** hydraulic capacity (diagonal term) = (dV/dH)/(Ah*Dt) */
         if (l==0)
         {
-            if (psi1>0) (*df)(i) += ( area / cos( std::min<double>(GTConst::max_slope, (*adt->T->slope)(r,c))*GTConst::FromDegToRad) ) / Dt;
+            if (psi1>0) (*df)(i) += ( area / cos( std::min<double>(GTConst::max_slope, (*adt->T->slope)(r,c))*GTConst::Pi/180.) ) / Dt;
         }
         else
         {
@@ -1708,7 +1708,7 @@ int find_dfdH_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *df,
             if ((*adt->T->pixel_type)(r,c) == 1)
             {
                 if ( (*adt->T->Z)(0,r,c) - (*adt->T->Z)(l,r,c) <=
-                     ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad)
+                     ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::Pi/180.)
                      && (*H)(i) - (*adt->T->Z)(l,r,c) > 0 )
                 {
                     dz = (*adt->S->pa)(sy,jdz,l);//[mm]
@@ -1753,7 +1753,7 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
             sy = (*adt->S->type)(r,c);
             bc = (*adt->T->BC_counter)(r,c);
             ch = (*adt->C->ch)(r,c);
-            area = ds*ds/cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad);
+            area = ds*ds/cos((*adt->T->slope)(r,c)*GTConst::Pi/180.);
 
             if (ch>0)
                 area -= (*adt->C->length)(ch) * adt->P->w_dx * ds; //area of the pixel[m2]
@@ -1784,8 +1784,8 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
         /** hydraulic capacity (diagonal term) */
         if (l==0)
         {
-            V1 = area * std::max<double>(0.0, psi1) / cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad);
-            V0 = area * std::max<double>(0.0, psi0) / cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad);
+            V1 = area * std::max<double>(0.0, psi1) / cos((*adt->T->slope)(r,c)*GTConst::Pi/180.);
+            V0 = area * std::max<double>(0.0, psi0) / cos((*adt->T->slope)(r,c)*GTConst::Pi/180.);
         }
         else
         {
@@ -1818,7 +1818,7 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
                 if ((*adt->T->pixel_type)(r,c) == 1 || (*adt->T->pixel_type)(r,c) == 11)
                 {
                     if ( (*adt->T->Z)(0,r,c) - (*adt->T->Z)(l,r,c) <=
-                         ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad)
+                         ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::Pi/180.)
                          && (*H)(i) - (*adt->T->Z)(l,r,c) > 0 )
                     {
                         if ((long)(*adt->L->LC)(r+1,c)==number_novalue
@@ -1843,7 +1843,7 @@ int find_f_3D(double Dt, Vector<double> *f, ALLDATA *adt, SOIL_STATE *L,
                          || (*adt->T->pixel_type)(r,c) == 12)
                 {
                     if ( (*adt->T->Z)(0,r,c) - (*adt->T->Z)(l,r,c) <=
-                         ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad) )
+                         ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::Pi/180.) )
                     {
                         if ((long)(*adt->L->LC)(r+1,c)==number_novalue
                             || (long)(*adt->L->LC)(r-1,c)==number_novalue)
@@ -1913,9 +1913,9 @@ int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
         if (l==0)
         {
             V1 = area * std::max<double>(0.0, psi1) / cos( std::min<double>(GTConst::max_slope,
-                                                                            (*adt->T->slope)(r,c))*GTConst::FromDegToRad);
+                                                                            (*adt->T->slope)(r,c))*GTConst::Pi/180.);
             V0 = area * std::max<double>(0.0, psi0) / cos( std::min<double>(GTConst::max_slope,
-                                                                            (*adt->T->slope)(r,c))*GTConst::FromDegToRad);
+                                                                            (*adt->T->slope)(r,c))*GTConst::Pi/180.);
 
         }
         else
@@ -1941,7 +1941,7 @@ int find_f_1D(long c, double Dt, SOIL_STATE *L, Vector<double> *f, ALLDATA *adt,
             if ((*adt->T->pixel_type)(r,c) == 1)
             {
                 if ( (*adt->T->Z)(0,r,c) - (*adt->T->Z)(l,r,c) <=
-                     ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::FromDegToRad)
+                     ((*adt->T->BC_DepthFreeSurface)(bc))*cos((*adt->T->slope)(r,c)*GTConst::Pi/180.)
                      && (*H)(i) - (*adt->T->Z)(l,r,c) > 0 )
                 {
                     dz = (*adt->S->pa)(sy,jdz,l);//[mm]
@@ -1988,7 +1988,7 @@ void find_dt_max(short DD, double Courant, RowView<double> &&h, LAND *land, TOPO
         r = (*top->rc_cont)(j,1);
         c = (*top->rc_cont)(j,2);
 
-        H =  std::max<double>(0.0, h(j)) / cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+        H =  std::max<double>(0.0, h(j)) / cos((*top->slope)(r,c)*GTConst::Pi/180.);
         /** h[i] is the pressure at the surface, H is the depth of water normal to the surface */
 
         if (H > par->min_hsup_land)
@@ -2004,7 +2004,7 @@ void find_dt_max(short DD, double Courant, RowView<double> &&h, LAND *land, TOPO
             }
 
             area = ds*ds;
-            area /= cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+            area /= cos((*top->slope)(r,c)*GTConst::Pi/180.);
             ch = (*cnet->ch)(r,c);
 
             if (ch>0)
@@ -2055,9 +2055,9 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
     {
         r = (*top->rc_cont)(j,1);
         c = (*top->rc_cont)(j,2);
-        H = std::max<double>(0., h(j)) / cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+        H = std::max<double>(0., h(j)) / cos((*top->slope)(r,c)*GTConst::Pi/180.);
         area = ds*ds;
-        area /= cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+        area /= cos((*top->slope)(r,c)*GTConst::Pi/180.);
         m1 += H*1.E-3*area;
     }
 
@@ -2081,7 +2081,7 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
             r = (*top->rc_cont)(j,1);
             c = (*top->rc_cont)(j,2);
 
-            H = std::max<double>(0., h(j)) / cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+            H = std::max<double>(0., h(j)) / cos((*top->slope)(r,c)*GTConst::Pi/180.);
 
             dV[j] = 0.0;
 
@@ -2089,7 +2089,7 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
             {
 
                 area = ds*ds;
-                area /= cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+                area /= cos((*top->slope)(r,c)*GTConst::Pi/180.);
                 ch = (*cnet->ch)(r,c);
                 if (ch>0)
                     area -= (*cnet->length)(ch) * par->w_dx *
@@ -2137,24 +2137,24 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
             c = (*top->rc_cont)(j,2);
 
             area = ds*ds;
-            area /= cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+            area /= cos((*top->slope)(r,c)*GTConst::Pi/180.);
             ch = (*cnet->ch)(r,c);
             if (ch>0)
                 area -= (*cnet->length)(ch) * par->w_dx *
                         ds; /** area of the pixel[m2] */
 
-            h(j) -= (1.E3 * dV[j]/area) * cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+            h(j) -= (1.E3 * dV[j]/area) * cos((*top->slope)(r,c)*GTConst::Pi/180.);
 
             if ((*top->BC_counter)(r,c) > 0 && (*top->pixel_type)(r,c) == -1)
             {
                 if (h(j) > 0)
                 {
-                    h(j) += (1.E3*met->qinv[1]*ds*Dt/area) * cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+                    h(j) += (1.E3*met->qinv[1]*ds*Dt/area) * cos((*top->slope)(r,c)*GTConst::Pi/180.);
                 }
                 else
                 {
                     if ( met->qinv[1]*ds > 0)
-                        h(j) = (1.E3*met->qinv[1]*ds*Dt/area) * cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+                        h(j) = (1.E3*met->qinv[1]*ds*Dt/area) * cos((*top->slope)(r,c)*GTConst::Pi/180.);
                 }
             }
 
@@ -2167,19 +2167,19 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
                     C = (*top->rc_cont)((*top->Jdown)(j,d),2);
 
                     area = ds*ds;
-                    area /= cos((*top->slope)(R,C)*GTConst::FromDegToRad);
+                    area /= cos((*top->slope)(R,C)*GTConst::Pi/180.);
                     ch = (*cnet->ch)(R,C);
                     if (ch>0) area -= (*cnet->length)(ch) * par->w_dx *
                                       ds; /** area of the pixel[m2] */
 
                     if (h((*top->Jdown)(j,d))>0)
                     {
-                        h((*top->Jdown)(j,d)) += (1.E3 * dV[j]*(*top->Qdown)(j,d)/area) * cos( (*top->slope)(R,C)*GTConst::FromDegToRad);
+                        h((*top->Jdown)(j,d)) += (1.E3 * dV[j]*(*top->Qdown)(j,d)/area) * cos( (*top->slope)(R,C)*GTConst::Pi/180.);
                     }
                     else
                     {
                         if ( dV[j]*(*top->Qdown)(j,d) > 0)
-                            h((*top->Jdown)(j,d)) = (1.E3 * dV[j]*(*top->Qdown)(j,d)/area) * cos((*top->slope)(R,C)*GTConst::FromDegToRad);
+                            h((*top->Jdown)(j,d)) = (1.E3 * dV[j]*(*top->Qdown)(j,d)/area) * cos((*top->slope)(R,C)*GTConst::Pi/180.);
                     }
 
                 }
@@ -2199,9 +2199,9 @@ void supflow(short DDland, short DDch, double Dt, double t, RowView<double> &&h,
     {
         r = (*top->rc_cont)(j,1);
         c = (*top->rc_cont)(j,2);
-        H = std::max<double>(0., h(j)) / cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+        H = std::max<double>(0., h(j)) / cos((*top->slope)(r,c)*GTConst::Pi/180.);
         area = ds*ds;
-        area /= cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+        area /= cos((*top->slope)(r,c)*GTConst::Pi/180.);
         m2 += H*1.E-3*area;
     }
 
@@ -2232,12 +2232,12 @@ void find_dt_max_chla(double Courant, RowView<double> &&h, RowView<double> &&hch
         c = (*cnet->c)(ch);
 
         H = std::max<double>(0.0, h(ch)) / cos(
-                (*top->slope)(r,c)*GTConst::FromDegToRad);
+                (*top->slope)(r,c)*GTConst::Pi/180.);
         /** h(i) is the pressure at the surface, H is the depth of water normal to the surface */
-        area = ds*ds/cos((*top->slope)(r,c)*GTConst::FromDegToRad) - (*cnet->length)(ch) * par->w_dx * ds;
+        area = ds*ds/cos((*top->slope)(r,c)*GTConst::Pi/180.) - (*cnet->length)(ch) * par->w_dx * ds;
 
-        Hch = std::max<double>(0., hch(ch) ) / cos((*top->slope)(r,c)*GTConst::FromDegToRad)
-              - par->depr_channel * cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+        Hch = std::max<double>(0., hch(ch) ) / cos((*top->slope)(r,c)*GTConst::Pi/180.)
+              - par->depr_channel * cos((*top->slope)(r,c)*GTConst::Pi/180.);
         areach = (*cnet->length)(ch) * par->w_dx * ds;
 
         if (H > par->min_hsup_land)
@@ -2329,11 +2329,11 @@ void supflow_chla(double Dt, double t, RowView<double> &&h, RowView<double> &&hc
             r = (*cnet->r)(ch);
             c = (*cnet->c)(ch);
 
-            H = std::max<double>(0., h(top->j_cont[r][c])) / cos((*top->slope)(r,c)*GTConst::FromDegToRad);
-            Hch = std::max<double>(0., hch(ch) ) / cos((*top->slope)(r,c)*GTConst::FromDegToRad) -
-                  par->depr_channel * cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+            H = std::max<double>(0., h(top->j_cont[r][c])) / cos((*top->slope)(r,c)*GTConst::Pi/180.);
+            Hch = std::max<double>(0., hch(ch) ) / cos((*top->slope)(r,c)*GTConst::Pi/180.) -
+                  par->depr_channel * cos((*top->slope)(r,c)*GTConst::Pi/180.);
 
-            area = ds*ds/cos((*top->slope)(r,c)*GTConst::FromDegToRad) - (*cnet->length)(ch) * par->w_dx * ds;
+            area = ds*ds/cos((*top->slope)(r,c)*GTConst::Pi/180.) - (*cnet->length)(ch) * par->w_dx * ds;
             areach = (*cnet->length)(ch) * par->w_dx * ds;
 
             if (H > par->min_hsup_land)
@@ -2351,16 +2351,16 @@ void supflow_chla(double Dt, double t, RowView<double> &&h, RowView<double> &&hc
 
                     (*Vsup)(ch) += q*dt;
 
-                    h(top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+                    h(top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cos((*top->slope)(r,c)*GTConst::Pi/180.);
 
                     if (hch(ch)>0)
                     {
-                        hch(ch) += (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*GTConst::FromDegToRad);  /// [mm]
+                        hch(ch) += (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*GTConst::Pi/180.);  /// [mm]
                     }
                     else
                     {
                         if ( q > 0 )
-                            hch(ch) = (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*GTConst::FromDegToRad); /// [mm]
+                            hch(ch) = (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*GTConst::Pi/180.); /// [mm]
                     }
 
                 }
@@ -2375,15 +2375,15 @@ void supflow_chla(double Dt, double t, RowView<double> &&h, RowView<double> &&hc
 
                     (*Vsup)(ch) += q*dt;
 
-                    h(top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+                    h(top->j_cont[r][c]) -= (1.E3 * q*dt/area) * cos((*top->slope)(r,c)*GTConst::Pi/180.);
 
                     if (hch(ch)>0)
                     {
-                        hch(ch) += (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*GTConst::FromDegToRad);  /// [mm]
+                        hch(ch) += (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*GTConst::Pi/180.);  /// [mm]
                     }
                     else
                     {
-                        if ( q > 0 ) hch(ch) = (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*GTConst::FromDegToRad); /// [mm]
+                        if ( q > 0 ) hch(ch) = (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*GTConst::Pi/180.); /// [mm]
                     }
                 }
             }
@@ -2399,15 +2399,15 @@ void supflow_chla(double Dt, double t, RowView<double> &&h, RowView<double> &&hc
 
                 (*Vsup)(ch) -= q*dt;
 
-                hch(ch) -= (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+                hch(ch) -= (1.E3 * q*dt/areach) * cos((*top->slope)(r,c)*GTConst::Pi/180.);
 
                 if (h(top->j_cont[r][c])>0)
                 {
-                    h(top->j_cont[r][c]) += (1.E3 * q*dt/area) * cos((*top->slope)(r,c)*GTConst::FromDegToRad); /// [mm]
+                    h(top->j_cont[r][c]) += (1.E3 * q*dt/area) * cos((*top->slope)(r,c)*GTConst::Pi/180.); /// [mm]
                 }
                 else
                 {
-                    if ( q > 0 ) h(top->j_cont[r][c]) = (1.E3 * q*dt/area) * cos((*top->slope)(r,c)*GTConst::FromDegToRad);  /// [mm]
+                    if ( q > 0 ) h(top->j_cont[r][c]) = (1.E3 * q*dt/area) * cos((*top->slope)(r,c)*GTConst::Pi/180.);  /// [mm]
                 }
             }
         }
@@ -2439,7 +2439,7 @@ void find_dt_max_channel(short DDcomplex, double Courant, RowView<double> &&h,
 
         r = (*cnet->r)(ch);
         c = (*cnet->c)(ch);
-        H = std::max<double>(0., h(ch)) / cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+        H = std::max<double>(0., h(ch)) / cos((*top->slope)(r,c)*GTConst::Pi/180.);
 
         if (H > par->min_hsup_channel)
         {
@@ -2553,7 +2553,7 @@ void channel_flow(double Dt, double t, short DDcomplex, RowView<double> &&h, Vec
 
                 dV[ch] = 0.0;
 
-                H = std::max<double>(0., h(ch)) / cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+                H = std::max<double>(0., h(ch)) / cos((*top->slope)(r,c)*GTConst::Pi/180.);
 
                 if (H > par->min_hsup_channel)
                 {
@@ -2601,7 +2601,7 @@ void channel_flow(double Dt, double t, short DDcomplex, RowView<double> &&h, Vec
                 r = (*cnet->r)(ch);
                 c = (*cnet->c)(ch);
 
-                h(ch) -= (1.E3*dV[ch]/(dn*(*cnet->length)(ch))) * cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+                h(ch) -= (1.E3*dV[ch]/(dn*(*cnet->length)(ch))) * cos((*top->slope)(r,c)*GTConst::Pi/180.);
 
                 if ((*top->is_on_border)(r,c) == 1
                     && (*cnet->ch_down)(ch)==ch) /** outlet section */
@@ -2615,13 +2615,13 @@ void channel_flow(double Dt, double t, short DDcomplex, RowView<double> &&h, Vec
                     if (h((*cnet->ch_down)(ch))>0)
                     {
                         h((*cnet->ch_down)(ch)) += (1.E3*dV[ch]/ (dn*(*cnet->length)((*cnet->ch_down)(ch))))
-                                                   * cos( (*top->slope)(R,C)*GTConst::FromDegToRad); /// [mm]
+                                                   * cos( (*top->slope)(R,C)*GTConst::Pi/180.); /// [mm]
                     }
                     else
                     {
                         if ( dV[ch] > 0)
                             h((*cnet->ch_down)(ch)) = (1.E3*dV[ch]/ (dn*(*cnet->length)((*cnet->ch_down)(ch))))
-                                                      * cos((*top->slope)(R,C)*GTConst::FromDegToRad);  /// [mm]
+                                                      * cos((*top->slope)(R,C)*GTConst::Pi/180.);  /// [mm]
                     }
                 }
             }
@@ -2652,7 +2652,7 @@ void draining_land(double alpha, long i, TOPO *T, LAND *L, PAR *P,
 
         r = (*T->rc_cont)(i,1);
         c = (*T->rc_cont)(i,2);
-        H = std::max<double>(h(i), 0.)/cos((*T->slope)(r,c)*GTConst::FromDegToRad);
+        H = std::max<double>(h(i), 0.)/cos((*T->slope)(r,c)*GTConst::Pi/180.);
         p = (*T->Z0)(r,c) + alpha*1.E-3*std::max<double>(h(i), 0.);
         Ks = cm_h((*L->ty)((short)(*L->LC)(r,c),jcm), H, P->thres_hsup_1, P->thres_hsup_2);
 

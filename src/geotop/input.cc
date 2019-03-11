@@ -295,7 +295,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
                 par->total_pixel++;
                 if (par->point_sim != 1)
                 {
-                    par->total_area += ((*UV->U)(1) * (*UV->U)(2))/cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+                    par->total_area += ((*UV->U)(1) * (*UV->U)(2))/cos((*top->slope)(r,c)*GTConst::Pi/180.);
                 }
                 else
                 {
@@ -978,12 +978,13 @@ land cover %ld, meteo station %ld\n",
             if ((long)(*IT->init_water_table_depth)(sy) != number_novalue)
             {
                 z = 0.;
-                (*sl->SS->P)(0,i) = -(*IT->init_water_table_depth)(sy)*cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+                (*sl->SS->P)(0,i) = -(*IT->init_water_table_depth)(sy) * cos((*top->slope)(r,c)*GTConst::Pi/180.);
+		
                 for (l=1; l<=Nl; l++)
                 {
-                    z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+                    z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
                     (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
-                    z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+                    z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
                 }
             }
             else
@@ -1008,12 +1009,12 @@ land cover %ld, meteo station %ld\n",
             sy=(*sl->type)(r,c);
 
             z = 0.;
-            (*sl->SS->P)(0,i) = -(*M)(r,c)*cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+            (*sl->SS->P)(0,i) = -(*M)(r,c)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
             for (l=1; l<=Nl; l++)
             {
-                z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+                z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
                 (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
-                z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+                z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
             }
         }
     }
@@ -2349,7 +2350,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
             if (par->output_vertical_distances == 1)
             {
-                cosslope = cos( std::min<double>(GTConst::max_slope,(*top->slope)(r,c)) * GTConst::FromDegToRad );
+                cosslope = cos( std::min<double>(GTConst::max_slope,(*top->slope)(r,c)) * GTConst::Pi/180. );
             }
             else
             {
@@ -2706,8 +2707,8 @@ to the soil type map");
 
     find_min_max(top->slope.get(), (double)number_novalue, &max, &min);
 
-    geolog << "Slope Min:" << tan(min*GTConst::FromDegToRad) << "(" << min << "deg)"
-           << "Max:" << tan(max*GTConst::FromDegToRad) << "(" << max << "deg)" << std::endl;
+    geolog << "Slope Min:" << tan(min*GTConst::Pi/180.) << "(" << min << "deg)"
+           << "Max:" << tan(max*GTConst::Pi/180.) << "(" << max << "deg)" << std::endl;
 
     /**************************************************************************************************/
     /**ASPECT*/
@@ -3127,8 +3128,8 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /
     if (read_sl==1)
     {
         find_min_max(P.get(), (double)number_novalue, &max, &min);
-        geolog << "Slope Min:" << tan(min*GTConst::FromDegToRad) << "(" << min << "deg)"
-               << "Max:" << tan(max*GTConst::FromDegToRad) << "(" << max << "deg)" << std::endl;
+        geolog << "Slope Min:" << tan(min*GTConst::Pi/180.) << "(" << min << "deg)"
+               << "Max:" << tan(max*GTConst::Pi/180.) << "(" << max << "deg)" << std::endl;
 
         for (i=1; i<=par->chkpt->nrh; i++)
         {
@@ -3799,7 +3800,7 @@ std::unique_ptr<Tensor<double>> find_Z_of_any_layer(Matrix<double> *Zsurface, Ma
         {
             if ((long)(*LC)(r,c)!=number_novalue)
             {
-                cosine = cos((*slope)(r,c)*GTConst::FromDegToRad);
+                cosine = cos((*slope)(r,c)*GTConst::Pi/180.);
                 sy=(*sl->type)(r,c);
 
                 if (point!=1)

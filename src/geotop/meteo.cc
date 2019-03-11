@@ -100,8 +100,8 @@ void meteo_distr(long *line, long lineLR, METEO *met, WATER *wat, TOPO *top,
         {
           for (c=1; c<=Nc; c++)
             {
-              (*wat->Pnet)(r,c) = par->raincorrfact*(*wat->PrecTot)(r,c)*((JDend-JDbeg)*24.)*cos((*top->slope)(r,c)*GTConst::FromDegToRad); //from [mm/h] to [mm]
-              if (par->point_sim==1) (*wat->Pnet)(r,c) *= cos((*top->slope)(r,c)*GTConst::FromDegToRad);
+              (*wat->Pnet)(r,c) = par->raincorrfact*(*wat->PrecTot)(r,c)*((JDend-JDbeg)*24.)*cos((*top->slope)(r,c)*GTConst::Pi/180.); //from [mm/h] to [mm]
+              if (par->point_sim==1) (*wat->Pnet)(r,c) *= cos((*top->slope)(r,c)*GTConst::Pi/180.);
             }
         }
     }

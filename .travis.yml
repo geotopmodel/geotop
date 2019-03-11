@@ -37,7 +37,8 @@ before_install:
   - cd ..
 
 install:
-  - meson.py -DMUTE_GEOLOG=true -DMUTE_GEOTIMER=true -DWITH_METEOIO=false -DMETEOIO_DIR=$HOME/meteoio meson-build-release
+  - meson.py -DMUTE_GEOLOG=true -DMUTE_GEOTIMER=true meson-build-release
+#  - meson.py -DMUTE_GEOLOG=true -DMUTE_GEOTIMER=true -DWITH_METEOIO=true -DMETEOIO_DIR=$HOME/meteoio meson-build-release
   - cd meson-build-release
   - ninja -j2
 
