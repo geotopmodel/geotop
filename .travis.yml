@@ -37,12 +37,13 @@ before_install:
   - cd ..
 
 install:
-  - meson.py -DMUTE_GEOLOG=true -DMUTE_GEOTIMER=true -DWITH_METEOIO=true -DMETEOIO_DIR=$HOME/meteoio meson-build-release
+  - meson.py -DMUTE_GEOLOG=true -DMUTE_GEOTIMER=true meson-build-release
+#  - meson.py -DMUTE_GEOLOG=true -DMUTE_GEOTIMER=true -DWITH_METEOIO=true -DMETEOIO_DIR=$HOME/meteoio meson-build-release
   - cd meson-build-release
   - ninja -j2
 
 script:
-  - meson.py test --suite geotop:small_example --print-errorlogs
+  - meson.py test --print-errorlogs
   #- meson.py test --suite geotop:unit_tests --print-errorlogs
   # - meson.py test --suite geotop:1D --print-errorlogs
   # - travis_wait 90 meson.py test --suite geotop:3D --print-errorlogs

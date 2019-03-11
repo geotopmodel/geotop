@@ -737,8 +737,8 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met,
   T=met->var[i-1][iT];
   if ((long)T == number_novalue || (long)T == number_absent) T=0.0;
 
-  c = cloud_transmittance(JDbeg, JDend, (*met->st->lat)(i)*GTConst::FromDegToRad, Delta,
-                          ((*met->st->lon)(i)*GTConst::FromDegToRad - ST*GTConst::Pi/12. + Et)/GTConst::omega, RH,
+  c = cloud_transmittance(JDbeg, JDend, (*met->st->lat)(i)*GTConst::Pi/180., Delta,
+                          ((*met->st->lon)(i)*GTConst::Pi/180. - ST*GTConst::Pi/12. + Et)/GTConst::omega, RH,
                           T, P, met->var[i-1][iSWd], met->var[i-1][iSWb], met->var[i-1][iSW], E0,
                           (*met->st->sky)(i), SWrefl_surr,
                           Lozone, alpha, beta, albedo);
