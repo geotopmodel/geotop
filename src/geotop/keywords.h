@@ -77,8 +77,8 @@ char *keywords_num[num_par_number] =
   "ThresWaterDepthLandSup",
   "SurFlowResChannel",
   "ThresWaterDepthChannel",
-  "RatioChannelWidthPixelWidth",
-  "ChannelDepression",
+  "RatioChannelWidthPixelWidth", /**ratio between the width of the channel and of whole CHANNEL pixel*/
+  "ChannelDepression", /**water height in a CHANNEL pixel [mm]*/
   "MaxCourantSupFlowLand",
   "MaxCourantSupFlowChannel",
   "MinSupWaterDepthLand",
@@ -390,7 +390,7 @@ char *keywords_num[num_par_number] =
   "WindAsWindXAndWindY",
   "SnowAgingCoeffVis",
   "SnowAgingCoeffNIR",
-  "DepthFreeSurfaceAtTheBoundary",
+  "DepthFreeSurfaceAtTheBoundary", /**depth from the surface for which a border cell is permeable (water drains) [mm]*/
   "PrecAsIntensity",
   "LinearInterpolation",
   "OutputDepthsVertical",
