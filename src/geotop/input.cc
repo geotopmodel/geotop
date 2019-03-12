@@ -156,7 +156,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
     success = read_soil_parameters(files[fspar], IT.get(), sl, par->soil_type_bedr_default);
     Nl=sl->pa->nch;
 
-    /** read the output point file (i.e ListPoints.txt) */
+    /** read the file (i.e ListPoints.txt) containing the coordinates of the chosen output points */
     success = read_point_file(files[fpointlist], IT->point_col_names, par);
 
     // max time that the simulation is supposed to model
@@ -344,6 +344,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
     met->line_interp_WEB_LR=0;
     met->line_interp_Bsnow_LR=0;
 
+    /** look for meteo stations input files */
     success = read_meteostations_file(met->imeteo_stations.get(), met->st.get(), files[fmetstlist],
                                       IT->meteostations_col_names);
 
@@ -2924,6 +2925,9 @@ to the soil type map");
 
 void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /*times*/, INIT_TOOLS *IT)
 {
+    /**
+     * read input maps for a point simulation (1D)
+     */
     GEOLOG_PREFIX(__func__);
 
     long i, r, c, num_lines;
