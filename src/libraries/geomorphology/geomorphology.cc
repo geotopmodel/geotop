@@ -11,7 +11,6 @@
 void find_slope(double deltax, double deltay, Matrix<double> *topo,
                 Matrix<double> *dzdx, Matrix<double> *dzdy, long undef)
 {
-
     long r,c,R1,C1,R2,C2;
     long nc=topo->nch;
     long nr=topo->nrh;
@@ -125,7 +124,6 @@ void find_slope(double deltax, double deltay, Matrix<double> *topo,
 Matrix<double> * find_max_slope(Matrix<double> *topo, Matrix<double> *dzdx,
                                 Matrix<double> *dzdy, long undef)
 {
-
     long r, c;
     long nc = topo->nch;
     long nr = topo->nrh;
@@ -158,7 +156,6 @@ Matrix<double> * find_max_slope(Matrix<double> *topo, Matrix<double> *dzdx,
 Matrix<double> * find_aspect(Matrix<double> *topo, Matrix<double> *dzdx,
                              Matrix<double> *dzdy, long undef)
 {
-
     long r, c;
     long nc = topo->nch;
     long nr = topo->nrh;
@@ -196,7 +193,6 @@ void curvature(double deltax, double deltay, Matrix<double> *topo,
                Matrix<double> *c1, Matrix<double> *c2, Matrix<double> *c3, Matrix<double> *c4,
                long undef)
 {
-
     long r,c;
     long R1, R2, C1, C2;
     long nc=topo->nch;
@@ -295,7 +291,9 @@ void curvature(double deltax, double deltay, Matrix<double> *topo,
 
 void topofilter(Matrix<double> *Zin, Matrix<double> *Zout, long novalue, long n)
 {
-/**Set to novalue all the cells next to at least one cell with "-9999" in DEM*/
+/*
+ * set to novalue all the cells next to at least one cell with "-9999" in DEM
+ */
     long r, c, nr, nc, ir, ic, i;
     std::unique_ptr<Vector<double>> values;
     long cnt;
@@ -360,7 +358,6 @@ void topofilter(Matrix<double> *Zin, Matrix<double> *Zout, long novalue, long n)
 
 void order_values(Vector<double>* list, long n)
 {
-
     long i,j,k=0;
     double min;
 
@@ -387,7 +384,6 @@ void order_values(Vector<double>* list, long n)
 
 void multipass_topofilter(long ntimes, Matrix<double> *Zin, Matrix<double> *Zout, long novalue, long n)
 {
-
     long i, r, c;
     Matrix<double> *M;
 
@@ -470,7 +466,6 @@ short is_boundary(long r, long c, Matrix<double> *dem, long novalue)
 
 void find_min_max(Matrix<double> *M, long novalue, double *max, double *min)
 {
-
     long r, c, nr=M->nrh, nc=M->nch;
 
     *max=-1.E99;
@@ -523,7 +518,6 @@ long row(double N, long nrows, T_INIT *UV, long novalue)
 
 long col(double E, long ncols, T_INIT *UV, long novalue)
 {
-
     long cnt;
 
     if (E<(*UV->U)(4) || E>(*UV->U)(4)+ncols*(*UV->U)(2))
@@ -550,9 +544,7 @@ long col(double E, long ncols, T_INIT *UV, long novalue)
 double topo_from_origin(double **topo, double E, double N, long ncols,
                         long nrows, T_INIT *UV, long novalue)
 {
-
     return topo[row(N, nrows, UV, novalue)][col(E, ncols, UV, novalue)];
-
 }
 
 /******************************************************************************************************************************************/
@@ -563,7 +555,6 @@ double topo_from_origin(double **topo, double E, double N, long ncols,
 double interp_value(double E, double N, Matrix<double> *M, Matrix<double> *Z,
                     T_INIT *UV, long novalue)
 {
-
     double  dN, dE, N0, E0, DN, DE, w1, V;
     long r, c;
 
@@ -647,7 +638,6 @@ double interp_value(double E, double N, Matrix<double> *M, Matrix<double> *Z,
     }
 
     return (V);
-
 }
 
 /******************************************************************************************************************************************/
