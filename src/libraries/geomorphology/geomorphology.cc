@@ -17,7 +17,7 @@ void find_slope(double deltax, double deltay, Matrix<double> *topo,
     long nr=topo->nrh;
     double a, delta;
 
-    // Find dzdx.
+    /**Find dzdx*/
     for (r=1; r<=nr; r++)
     {
         for (c=1; c<=nc; c++)
@@ -31,15 +31,14 @@ void find_slope(double deltax, double deltay, Matrix<double> *topo,
                 C1=c-1;
                 C2=c+1;
                 delta=deltax;
+
                 if (R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc)
                 {
                     if ((long)(*topo)(R1,C1)!=undef && (long)(*topo)(R2,C2)!=undef)
                     {
-                        if ( ((*topo)(R2,C2) - (*topo)(r,c)) * ((*topo)(r,c) - (*topo)(R1,C1))
-                             < 0)
+                        if ( ((*topo)(R2,C2) - (*topo)(r,c)) * ((*topo)(r,c) - (*topo)(R1,C1)) < 0)
                         {
-                            if ( fabs((*topo)(r,c) - (*topo)(R1,C1)) > fabs((*topo)(R2,C2) -
-                                                                            (*topo)(r,c)) )
+                            if ( fabs((*topo)(r,c) - (*topo)(R1,C1)) > fabs((*topo)(R2,C2) - (*topo)(r,c)) )
                             {
                                 a += ((*topo)(r,c) - (*topo)(R1,C1)) / delta;
                             }
@@ -70,12 +69,12 @@ void find_slope(double deltax, double deltay, Matrix<double> *topo,
                 C1=c;
                 C2=c;
                 delta=deltay;
+
                 if (R1>=1 && R1<=nr && R2>=1 && R2<=nr && C1>=1 && C1<=nc && C2>=1 && C2<=nc)
                 {
                     if ((long)(*topo)(R1,C1)!=undef && (long)(*topo)(R2,C2)!=undef)
                     {
-                        if ( ((*topo)(R2,C2) - (*topo)(r,c)) * ((*topo)(r,c) - (*topo)(R1,C1))
-                             < 0)
+                        if ( ((*topo)(R2,C2) - (*topo)(r,c)) * ((*topo)(r,c) - (*topo)(R1,C1)) < 0)
                         {
                             if ( fabs((*topo)(r,c) - (*topo)(R1,C1)) > fabs((*topo)(R2,C2) -
                                                                             (*topo)(r,c)) )
@@ -113,9 +112,7 @@ void find_slope(double deltax, double deltay, Matrix<double> *topo,
 
                 (*dzdx)(r,c) = (double)undef;
                 (*dzdy)(r,c) = (double)undef;
-
             }
-
         }
     }
 }
@@ -130,12 +127,11 @@ Matrix<double> * find_max_slope(Matrix<double> *topo, Matrix<double> *dzdx,
 {
 
     long r, c;
-    long nc=topo->nch;
-    long nr=topo->nrh;
+    long nc = topo->nch;
+    long nr = topo->nrh;
     Matrix<double> *M;
 
-    M=new Matrix<double>{nr, nc};
-
+    M = new Matrix<double>{nr, nc};
 
     for (r=1; r<=nr; r++)
     {
@@ -143,17 +139,14 @@ Matrix<double> * find_max_slope(Matrix<double> *topo, Matrix<double> *dzdx,
         {
             if ((long)(*topo)(r,c)!=undef)
             {
-                (*M)(r,c) = (180./Pi) * atan(pow(pow((*dzdx)(r,c),
-                                                     2.0) + pow((*dzdy)(r,c), 2.0), 0.5));
+                (*M)(r,c) = (180./Pi) * atan(pow(pow((*dzdx)(r,c), 2.0) + pow((*dzdy)(r,c), 2.0), 0.5));
             }
             else
             {
                 (*M)(r,c) = (double)undef;
             }
-
         }
     }
-
     return M;
 }
 
@@ -167,11 +160,11 @@ Matrix<double> * find_aspect(Matrix<double> *topo, Matrix<double> *dzdx,
 {
 
     long r, c;
-    long nc=topo->nch;
-    long nr=topo->nrh;
+    long nc = topo->nch;
+    long nr = topo->nrh;
     Matrix<double> *M;
 
-    M=new Matrix<double>{nr, nc};
+    M = new Matrix<double>{nr, nc};
 
     for (r=1; r<=nr; r++)
     {
@@ -179,9 +172,10 @@ Matrix<double> * find_aspect(Matrix<double> *topo, Matrix<double> *dzdx,
         {
             if ((long)(*topo)(r,c)!=undef)
             {
-                (*M)(r,c) = (180./Pi) * (3.0 / 2.0 * Pi - atan2((*dzdy)(r,c),
-                                                                (*dzdx)(r,c)));
-                if ((*M)(r,c)>=360.0) (*M)(r,c) -= 360.0;
+                (*M)(r,c) = (180./Pi) * (3.0 / 2.0 * Pi - atan2((*dzdy)(r,c), (*dzdx)(r,c)));
+
+                if ((*M)(r,c)>=360.0)
+                    (*M)(r,c) -= 360.0;
             }
             else
             {
@@ -189,7 +183,6 @@ Matrix<double> * find_aspect(Matrix<double> *topo, Matrix<double> *dzdx,
             }
         }
     }
-
     return M;
 }
 
@@ -300,8 +293,7 @@ void curvature(double deltax, double deltay, Matrix<double> *topo,
 /******************************************************************************************************************************************/
 
 
-void topofilter(Matrix<double> *Zin, Matrix<double> *Zout, long novalue, long n)
-{
+void topofilter(Matrix<double> *Zin, Matrix<double> *Zout, long novalue, long n) {
 
     long r, c, nr, nc, ir, ic, i;
     std::unique_ptr<Vector<double>> values;
@@ -328,7 +320,7 @@ void topofilter(Matrix<double> *Zin, Matrix<double> *Zout, long novalue, long n)
                             if ((long)(*Zin)(r+ir,c+ic)!=novalue)
                             {
                                 cnt++;
-                                values->co[cnt]=(*Zin)(r+ir,c+ic);
+                                (*values)(cnt)=(*Zin)(r+ir,c+ic);
                             }
                         }
                     }
@@ -344,7 +336,7 @@ void topofilter(Matrix<double> *Zin, Matrix<double> *Zout, long novalue, long n)
                 (*Zout)(r,c) = 0.;
                 for (i=1; i<=cnt; i++)
                 {
-                    (*Zout)(r,c) += values->co[i]/(double)cnt;
+                    (*Zout)(r,c) += (*values)(i)/(double)cnt;
                 }
 
             }
@@ -433,44 +425,53 @@ void multipass_topofilter(long ntimes, Matrix<double> *Zin, Matrix<double> *Zout
 
 short is_boundary(long r, long c, Matrix<double> *dem, long novalue)
 {
-
+/**
+ * analyze different cases of (ir, ic) (can be -1, 0, 1)
+ */
     long ir, ic;
     short yes = 0;
 
+    /** (ir,ic) = (-1,0)*/
     ir=-1;
     ic=0;
     if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
+    /** (ir,ic) = (-1,1)*/
     ir=-1;
     ic=1;
     if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
+    /** (ir,ic) = (-1,-1)*/
+    ir=-1;
+    ic=-1;
+    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
+
+    /** (ir,ic) = (0,1)*/
     ir=0;
     ic=1;
     if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
+    /** (ir,ic) = (0,-1)*/
+    ir=0;
+    ic=-1;
+    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
+
+    /** (ir,ic) = (1,1)*/
     ir=1;
     ic=1;
     if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
+    /** (ir,ic) = (1,0)*/
     ir=1;
     ic=0;
     if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
+    /** (ir,ic) = (1,-1)*/
     ir=1;
-    ic=-1;
-    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
-
-    ir=0;
-    ic=-1;
-    if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
-
-    ir=-1;
     ic=-1;
     if ( (long)(*dem)(r+ir,c+ic)==novalue ) yes = 1;
 
     return yes;
-
 }
 
 /******************************************************************************************************************************************/
