@@ -697,11 +697,11 @@ struct METEO_STATIONS{
     std::unique_ptr<Vector<double>> N;
     std::unique_ptr<Vector<double>> lat;
     std::unique_ptr<Vector<double>> lon;
-    std::unique_ptr<Vector<double>> Z;
-    std::unique_ptr<Vector<double>> sky;
-    std::unique_ptr<Vector<double>> ST;
-    std::unique_ptr<Vector<double>> Vheight;
-    std::unique_ptr<Vector<double>> Theight;
+    std::unique_ptr<Vector<double>> Z; /** elevations [m a.s.l] */
+    std::unique_ptr<Vector<double>> sky; /** sky view factor */
+    std::unique_ptr<Vector<double>> ST; /** identifier for the meteo station */
+    std::unique_ptr<Vector<double>> Vheight; /** height of wind sensor */
+    std::unique_ptr<Vector<double>> Theight; /** height of temperature sensor */
 };
 
 
