@@ -2730,7 +2730,11 @@ short read_point_file(char *name, char **key_header, PAR *par)
 short read_meteostations_file(Vector<long> *i, METEO_STATIONS *S, char *name, char **key_header)
 {
     /*
-     * look for meteo stations input files
+     * Look for additional meteo stations input files.
+     * These new infos
+     * - will overwrite previous infos
+     * - regard: East, North, latitude, longitude, elevation, sky view factor, station index
+     *   of each meteo stations.
      */
   GEOLOG_PREFIX(__func__);
   GEOTIMER_SECTION(__func__);
