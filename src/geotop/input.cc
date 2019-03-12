@@ -344,7 +344,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
     met->line_interp_WEB_LR=0;
     met->line_interp_Bsnow_LR=0;
 
-    /** look for meteo stations input files */
+    /** look for additional meteo stations input files */
     success = read_meteostations_file(met->imeteo_stations.get(), met->st.get(), files[fmetstlist],
                                       IT->meteostations_col_names);
 
@@ -385,7 +385,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
                 && (long)met->data[i-1][0][iJDfrom0] == number_absent)
             {
                 f = fopen(FailedRunFile, "w");
-                fprintf(f, "Error:: Date Column missing in file %s\n",temp);
+                fprintf(f, "Error: Date Column missing in file %s\n",temp);
                 fclose(f);
                 t_error("Fatal Error! Geotop is closed. See failing report (2).");
             }
