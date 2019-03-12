@@ -304,7 +304,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
             }
         }
     }
-
+    /**calculate the tensor of the centres of gravity for each layer*/
     top->Z = find_Z_of_any_layer(top->Z0.get(), top->slope.get(), land->LC.get(), sl, par->point_sim);
 
     top->Jdown.reset(new Matrix<long>{par->total_pixel, 4});
@@ -979,7 +979,7 @@ land cover %ld, meteo station %ld\n",
             {
                 z = 0.;
                 (*sl->SS->P)(0,i) = -(*IT->init_water_table_depth)(sy) * cos((*top->slope)(r,c)*GTConst::Pi/180.);
-		
+
                 for (l=1; l<=Nl; l++)
                 {
                     z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
@@ -1227,12 +1227,12 @@ land cover %ld, meteo station %ld\n",
             {
                 sy = (*cnet->soil_type)(i);
                 (*cnet->th)(l,i) = teta_psi(std::min<double>((*cnet->SS->P)(l,i),
-                                                 psi_saturation((*cnet->SS->thi)(l,i),
-                                                                (*sl->pa)(sy,jsat,l),
-                                                                (*sl->pa)(sy,jres,l),
-                                                                (*sl->pa)(sy,ja,l),
-                                                                (*sl->pa)(sy,jns,l),
-                                                                1.-1./(*sl->pa)(sy,jns,l))),
+                                                             psi_saturation((*cnet->SS->thi)(l,i),
+                                                                            (*sl->pa)(sy,jsat,l),
+                                                                            (*sl->pa)(sy,jres,l),
+                                                                            (*sl->pa)(sy,ja,l),
+                                                                            (*sl->pa)(sy,jns,l),
+                                                                            1.-1./(*sl->pa)(sy,jns,l))),
                                             (*cnet->SS->thi)(l,i),
                                             (*sl->pa)(sy,jsat,l),
                                             (*sl->pa)(sy,jres,l),
@@ -1765,9 +1765,9 @@ land cover %ld, meteo station %ld\n",
                             else
                             {
                                 (*snow->S->w_ice)(n,r,c) = ( SWE - par->max_weq_snow *
-                                                                      ( par->max_snow_layers -
-                                                                        par->inf_snow_layers->nh ) ) /
-                                                              par->inf_snow_layers->nh;
+                                                                   ( par->max_snow_layers -
+                                                                     par->inf_snow_layers->nh ) ) /
+                                                           par->inf_snow_layers->nh;
                             }
                         }
                     }
@@ -1894,7 +1894,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                     {
 
                         if (IT->rhoglac0 * (*M)(r,c) / GTConst::rho_w < par->max_weq_glac *
-                                                               par->max_glac_layers )
+                                                                        par->max_glac_layers )
                         {
 
                             n = 0;
@@ -1911,11 +1911,11 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                                 else
                                 {
                                     (*glac->G->w_ice)(n,r,c) = IT->rhoglac0 * (*M)(r,c) /
-                                                                  1000. - z;
+                                                               1000. - z;
                                 }
 
-                               (*glac->G->Dzl)(n,r,c) = GTConst::rho_w * (*glac->G->w_ice)(n,r,c) /
-                                                            IT->rhoglac0;
+                                (*glac->G->Dzl)(n,r,c) = GTConst::rho_w * (*glac->G->w_ice)(n,r,c) /
+                                                         IT->rhoglac0;
                                 (*glac->G->T)(n,r,c) = IT->Tglac0;
 
                                 z += (*glac->G->w_ice)(n,r,c);
@@ -1948,15 +1948,15 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                                 else
                                 {
                                     (*glac->G->w_ice)(n,r,c) = ( IT->rhoglac0 * (*M)(r,c) /
-                                                                    GTConst::rho_w -
-                                                                    par->max_weq_glac *
-                                                                    ( par->max_glac_layers -
-                                                                      par->inf_glac_layers->nh ) ) /
-                                                                  par->inf_glac_layers->nh;
+                                                                 GTConst::rho_w -
+                                                                 par->max_weq_glac *
+                                                                 ( par->max_glac_layers -
+                                                                   par->inf_glac_layers->nh ) ) /
+                                                               par->inf_glac_layers->nh;
                                 }
 
-                               (*glac->G->Dzl)(n,r,c) = GTConst::rho_w * (*glac->G->w_ice)(n,r,c) /
-                                                            IT->rhoglac0;
+                                (*glac->G->Dzl)(n,r,c) = GTConst::rho_w * (*glac->G->w_ice)(n,r,c) /
+                                                         IT->rhoglac0;
                                 (*glac->G->T)(n,r,c) = IT->Tglac0;
 
                             }
@@ -2772,16 +2772,29 @@ to the soil type map");
     /**************************************************************************************************/
     /*
      * CHANNEL NETWORK: if pixel_type is
-     * 0:       land pixel; if it is on the border:
-     *                      - the border is impermeable
-     *                      - water is free only on the surface)
-     * 1 or 2:  land pixel; it it is on the border
-     *                      - the border is permeable above an user-defined elevation in the saturated part, weir-wise
-     * 10:      channel pixel; if it is on the border
-     *                      - the border is impermeable,
-                            - water is free only on the surface)
-     * -1:      land pixel, where an incoming discharge from outside is considered (as rain)
-     *
+     *-1 => LAND pixel
+     *      where an incoming discharge from outside is considered (as rain/irrigation) [TO CHECK WITH A TEST CASE if Qin can be of river]
+     * 0 => LAND pixel (exchange water in any directions)
+     *      if it is on the border:
+     *      - the border is impermeable
+     *      - water is free only on the surface [TO CHECK WITH A TEST CASE]
+     * 1 => LAND pixel [TO CHECK WITH A TEST CASE]
+     *      if it is on the border
+     *      - water is free only on the surface [TO CHECK WITH A TEST CASE different from 0]
+     * 2 => LAND pixel [TO CHECK WITH A TEST CASE different from 1]
+     *      if it is on the border
+     *      - the border is permeable above an user-defined elevation in the saturated part (DepthFreeSurfaceAtTheBoundary [mm])
+     *      - weir-wise
+     * 10 => CHANNEL pixel
+     *      if it is on the border
+     *      - the border is impermeable,
+     *      - water is free only on the surface [TO CHECK WITH A TEST CASE]
+     * 11 => CHANNEL pixel
+     *      if it is on the border
+     *      - behaves as pixel_type 1 [TO CHECK WITH A TEST CASE]
+     * 12 => CHANNEL pixel
+     *      if it is on the border
+     *      - behaves as pixel_type 2 [TO CHECK WITH A TEST CASE]
     */
     flag = file_exists(fnet);
     if (flag == 1) /**keyword is present and the file exists*/
@@ -2799,7 +2812,7 @@ to the soil type map");
                 {
                     if ((*top->pixel_type)(r,c)!=0 && (*top->pixel_type)(r,c)!=1
                         && (*top->pixel_type)(r,c)!=2 && (*top->pixel_type)(r,c)!=10
-                        && (*top->pixel_type)(r,c)!=11 && (*top->pixel_type)(r,c)!=12 /**missing explanation of pixel_type 11 and 12*/
+                        && (*top->pixel_type)(r,c)!=11 && (*top->pixel_type)(r,c)!=12
                         && (*top->pixel_type)(r,c)!=-1)
                     {
                         f = fopen(FailedRunFile, "w");
@@ -2825,7 +2838,7 @@ to the soil type map");
     }
 
     /**************************************************************************************************/
-    /**check BORDER cell*/
+    /**check BORDER cells*/
     top->is_on_border.reset(new Matrix<short>{land->LC->nrh, land->LC->nch});
     for (r=1; r<=land->LC->nrh; r++)
     {
@@ -2863,7 +2876,7 @@ to the soil type map");
     /**assign values to (top->BC_counter) and (top->BC_DepthFreeSurface) */
     if (cont > 0)
     {
-        top->BC_DepthFreeSurface.reset(new Vector<double>{cont});
+        top->BC_DepthFreeSurface.reset(new Vector<double>{cont}); /**if set to 0, drainage only from only surface flow*/
         cont = 0;
         for (r=1; r<=top->Z0->nrh; r++)
         {
@@ -3458,7 +3471,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
     (*UV->U)(4) = 0.0;
     (*UV->U)(3) = 0.0;
     (*UV->V)(2) = (double)number_novalue;
-    
+
     if ((*UV->V)(2)<0)
     {
         (*UV->V)(1) = -1.;
@@ -3693,7 +3706,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
         WT.reset(new Vector<double>{IT->init_water_table_depth->nh});
         for (i=1; i<=IT->init_water_table_depth->nh; i++)
         {
-           (*WT)(i) = (*IT->init_water_table_depth)(i);
+            (*WT)(i) = (*IT->init_water_table_depth)(i);
         }
         IT->init_water_table_depth.reset(new Vector<double>{par->total_pixel +par->total_channel});
 
@@ -3765,13 +3778,22 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
 std::unique_ptr<Tensor<double>> find_Z_of_any_layer(Matrix<double> *Zsurface, Matrix<double> *slope,
                                                     Matrix<double> *LC, SOIL *sl, short point)
 {
-
+/**Calculate the tensor of the centres of gravity for each layer (Z);
+ * for each cell
+ *          Z = Zsurface(r,c) - Zaverage - 0.5*(*sl->pa)(sy,jdz,l) * cos((*slope)(r,c))
+ * where
+ * - Zsurface(r,c): DEM elevation
+ * - Zaverage: average DEM elevation (not considering the cells with novalue)
+ * - (*sl->pa)(sy,jdz,l): soil layer thickness
+ * - (*slope)(r,c): slope matrix
+ * */
     GEOLOG_PREFIX(__func__);
 
     std::unique_ptr<Tensor<double>> Z;
     double Zaverage=0., z, cosine;
     long l, r, c, n, sy;
 
+    /**calculate the average basin elevation (not considering the cells with novalue)*/
     if (point!=1)
     {
         Zaverage=0.;
@@ -3805,7 +3827,8 @@ std::unique_ptr<Tensor<double>> find_Z_of_any_layer(Matrix<double> *Zsurface, Ma
 
                 if (point!=1)
                 {
-                    z=1.E3*((*Zsurface)(r,c)-Zaverage);//[mm]
+                    /**conversion from [m] to [mm] and normalization respect to the average basin elevation*/
+                    z=1.E3*((*Zsurface)(r,c)-Zaverage);
                 }
                 else
                 {
