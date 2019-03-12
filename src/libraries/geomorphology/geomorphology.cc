@@ -293,8 +293,9 @@ void curvature(double deltax, double deltay, Matrix<double> *topo,
 /******************************************************************************************************************************************/
 
 
-void topofilter(Matrix<double> *Zin, Matrix<double> *Zout, long novalue, long n) {
-
+void topofilter(Matrix<double> *Zin, Matrix<double> *Zout, long novalue, long n)
+{
+/**Set to novalue all the cells next to at least one cell with "-9999" in DEM*/
     long r, c, nr, nc, ir, ic, i;
     std::unique_ptr<Vector<double>> values;
     long cnt;
@@ -392,27 +393,12 @@ void multipass_topofilter(long ntimes, Matrix<double> *Zin, Matrix<double> *Zout
 
     M = new Matrix<double>{Zin->nrh, Zin->nch};
 
-    for (r=1; r<=Zin->nrh; r++)
-    {
-        for (c=1; c<=Zin->nch; c++)
-        {
-            (*Zout)(r,c) = (*Zin)(r,c);
-        }
-    }
+    *Zout = *Zin;
 
     for (i=1; i<=ntimes; i++)
     {
-
-        for (r=1; r<=Zout->nrh; r++)
-        {
-            for (c=1; c<=Zout->nch; c++)
-            {
-                (*M)(r,c) = (*Zout)(r,c);
-            }
-        }
-
+        *M = *Zout;
         topofilter(M, Zout, novalue, n);
-
     }
 
     delete M;
@@ -426,7 +412,10 @@ void multipass_topofilter(long ntimes, Matrix<double> *Zin, Matrix<double> *Zout
 short is_boundary(long r, long c, Matrix<double> *dem, long novalue)
 {
 /**
- * analyze different cases of (ir, ic) (can be -1, 0, 1)
+ * Check if the cell is on the boundary:
+ * - analyze different cases of ir and ic: they can be -1, 0, 1
+ * - directions like D8 drainage method
+ * - (ir,ic) = (0,0) is not considered since it is the cell itself
  */
     long ir, ic;
     short yes = 0;
