@@ -36,7 +36,6 @@
 
 Matrix<short> * copyshort_doublematrix(Matrix<double> *M)
 {
-
     Matrix<short> *S;
     long r, c;
 
@@ -50,7 +49,6 @@ Matrix<short> * copyshort_doublematrix(Matrix<double> *M)
     }
 
     return (S);
-
 }
 
 /******************************************************************************************************************************************/
@@ -60,7 +58,6 @@ Matrix<short> * copyshort_doublematrix(Matrix<double> *M)
 
 Matrix<long> *copylong_doublematrix(Matrix<double> *M)
 {
-
     Matrix<long> *L;
     long r, c;
 
@@ -74,7 +71,6 @@ Matrix<long> *copylong_doublematrix(Matrix<double> *M)
     }
 
     return (L);
-
 }
 
 /******************************************************************************************************************************************/
@@ -88,7 +84,6 @@ Matrix<long> *copylong_doublematrix(Matrix<double> *M)
 
 Matrix<double>* copydouble_longmatrix(Matrix<long> *L)
 {
-
     Matrix<double> *M;
     long r, c;
 
@@ -102,7 +97,6 @@ Matrix<double>* copydouble_longmatrix(Matrix<long> *L)
     }
 
     return (M);
-
 }
 
 /******************************************************************************************************************************************/
@@ -112,7 +106,6 @@ Matrix<double>* copydouble_longmatrix(Matrix<long> *L)
 
 Matrix<double> *copydoublematrix_const(double c0, Matrix<double> *Mref, double NOVALUE)
 {
-
     Matrix<double> *M;
     long r, c;
 
@@ -133,7 +126,6 @@ Matrix<double> *copydoublematrix_const(double c0, Matrix<double> *Mref, double N
     }
 
     return (M);
-
 }
 
 /******************************************************************************************************************************************/
@@ -175,7 +167,6 @@ Matrix<double> *copydoublematrix_const(double c0, Matrix<double> *Mref, double N
 
 void write_suffix(char *suffix, long i, short start)
 {
-
     short m=0, c=0, d=0, u=0;
 
     if (i>=0 && i<=9)
@@ -220,7 +211,6 @@ void write_suffix(char *suffix, long i, short start)
     suffix[start+1]=c;
     suffix[start+2]=d;
     suffix[start+3]=u;
-
 }
 
 /******************************************************************************************************************************************/
@@ -230,7 +220,6 @@ void write_suffix(char *suffix, long i, short start)
 
 char *namefile_i(char *name, long i)
 {
-
     char SSSS[ ]= {"SSSS"};
     char *name_out;
     char *temp;
@@ -242,7 +231,6 @@ char *namefile_i(char *name, long i)
     free(temp);
 
     return (name_out);
-
 }
 
 /******************************************************************************************************************************************/
@@ -252,7 +240,6 @@ char *namefile_i(char *name, long i)
 
 char *namefile_i_we(char *name, long i)
 {
-
     char SSSS[ ]= {"LSSSS"};
     char *name_out;
 
@@ -261,7 +248,6 @@ char *namefile_i_we(char *name, long i)
     name_out=join_strings(name,SSSS);
 
     return (name_out);
-
 }
 
 /******************************************************************************************************************************************/
@@ -271,7 +257,6 @@ char *namefile_i_we(char *name, long i)
 
 char *namefile_i_we2(char *name, long i)
 {
-
     char SSSS[ ]= {"SSSS"};
     char *name_out;
 
@@ -280,7 +265,6 @@ char *namefile_i_we2(char *name, long i)
     name_out=join_strings(name,SSSS);
 
     return (name_out);
-
 }
 
 /******************************************************************************************************************************************/
@@ -326,7 +310,6 @@ short existing_file(char *name)
     free(grass);
 
     return (a);
-
 }
 
 /******************************************************************************************************************************************/
@@ -356,7 +339,6 @@ short existing_file_wext(char *name, char *extension)
     free(temp);
 
     return (a);
-
 }
 
 /******************************************************************************************************************************************/
@@ -382,7 +364,6 @@ short existing_file_woext(char *name)
     }
 
     return (a);
-
 }
 
 /******************************************************************************************************************************************/
@@ -533,7 +514,6 @@ Matrix<double>* read_map(short a, char *filename, Matrix<double> *Mref,
     }
 
     return (M);
-
 }
 
 /******************************************************************************************************************************************/
@@ -544,7 +524,6 @@ Matrix<double>* read_map(short a, char *filename, Matrix<double> *Mref,
 std::unique_ptr<Vector<double>> read_map_vector(short type, char *namefile, Matrix<double> *mask,
                                                 T_INIT *grid, double no_value, Matrix<long> *rc)
 {
-
     std::unique_ptr<Matrix<double>> M;
     long i, n=rc->nrh;
     std::unique_ptr<Vector<double>> V{new Vector<double>{n}};
@@ -557,7 +536,6 @@ std::unique_ptr<Vector<double>> read_map_vector(short type, char *namefile, Matr
     }
 
     return V;
-
 }
 
 /******************************************************************************************************************************************/
@@ -601,7 +579,6 @@ void write_map(char *filename, short type, short format, Matrix<double> *M,
     {
         write_esriascii(filename, type, M, UV, novalue);
     }
-
 }
 
 /******************************************************************************************************************************************/
@@ -632,7 +609,6 @@ void write_map_vector(char *filename, short type, short format,
     {
         write_esriascii_vector(filename, type, V, j, nr, nc, UV, novalue);
     }
-
 }
 
 /******************************************************************************************************************************************/
@@ -688,7 +664,6 @@ void write_tensorseries(short a, long l, long i, char *filename, short type,
     write_map(name, type, format, M.get(), UV, novalue);
 
     free(name);
-
 }
 
 /******************************************************************************************************************************************/
@@ -737,7 +712,6 @@ void write_tensorseries_vector(short a, long l, long i, char *filename,
     write_map_vector(name, type, format, V.get(), UV, novalue, J, nr, nc);
 
     free(name);
-
 }
 
 /******************************************************************************************************************************************/
@@ -776,7 +750,6 @@ void rename_tensorseries(short a, long l, long i, char *filename)
     rename_map(name);
 
     free(name);
-
 }
 
 /******************************************************************************************************************************************/
@@ -786,7 +759,6 @@ void rename_tensorseries(short a, long l, long i, char *filename)
 
 void rename_map(char *filename)
 {
-
     char *name, *namenw, *temp;
 
     if (existing_file(filename) == 2)
@@ -809,7 +781,6 @@ void rename_map(char *filename)
         free(name);
         free(temp);
     }
-
 }
 
 /******************************************************************************************************************************************/
@@ -820,7 +791,6 @@ void rename_map(char *filename)
 void write_tensorseries2(char *suf, long l, char *filename, short type,
                          short format, DOUBLETENSOR *T, T_INIT *UV, long novalue) // maybe NOT used
 {
-
     char LLLLL[ ]= {"LLLLL"};
     char *temp1, *temp2;
     long r, c;
@@ -843,7 +813,6 @@ void write_tensorseries2(char *suf, long l, char *filename, short type,
 
     free(temp1);
     free(temp2);
-
 }
 
 /******************************************************************************************************************************************/
@@ -855,7 +824,6 @@ void write_tensorseries2_vector(char *suf, long l, char *filename, short type,
                                 short format, Matrix<double> *T, T_INIT *UV, long novalue, long **J, long nr,
                                 long nc)
 {
-
     char LLLLL[ ]= {"LLLLL"};
     char *temp1, *temp2;
     long i, npoints=T->nch;
@@ -876,7 +844,6 @@ void write_tensorseries2_vector(char *suf, long l, char *filename, short type,
 
     free(temp1);
     free(temp2);
-
 }
 
 /******************************************************************************************************************************************/
@@ -892,7 +859,6 @@ void write_tensorseries3_vector(char *suffix, char *filename, short type,
                                 short format, Matrix<double> *T, T_INIT *UV, long novalue, long **J, long nr,
                                 long nc)
 {
-
     long l;
     for (l=T->nrl; l<=T->nrh; l++)
     {
