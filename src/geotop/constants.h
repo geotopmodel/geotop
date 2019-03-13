@@ -57,9 +57,9 @@ namespace GTConst {
     constexpr double max_slope = 89.999;
 
     // STANDARD LAPSE RATES: For the sign, remember that the Lapse Rate gives how a variable decrease with height
-    constexpr double LapseRateTair = 6.5;  // Lapse rate for Tair [C/m]
-    constexpr double LapseRateTdew = 2.5;  // Lapse rate for Tdew [C/m]
-    constexpr double LapseRatePrec = 0.0;  // Lapse rate for Precipitation [1/m]
+    constexpr double LapseRateTair = 6.5;  /** Lapse rate for Tair [°C/m] */
+    constexpr double LapseRateTdew = 2.5;  /** Lapse rate for Tdew [°C/m] */
+    constexpr double LapseRatePrec = 0.0;  /** Lapse rate for Precipitation [1/m] */
 //****************************************************
 // Constants
 //****************************************************
