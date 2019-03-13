@@ -859,16 +859,14 @@ short fill_Pint(long  /*imeteo*/, double **data, long nlines, long Prec,
     if ( (long)data[0][Prec] != number_absent
          && (long)data[0][PrecInt] == number_absent )
     {
-
         data[0][PrecInt] = (double)number_novalue;
 
         for (i=1; i<nlines; i++)
         {
             if ( (long)data[i][Prec] != number_novalue)
             {
-                data[i][PrecInt] = data[i][Prec] / (data[i][JDfrom0] - data[i
-                                                                            -1][JDfrom0]);//[mm/d]
-                data[i][PrecInt] /= 24.;//[mm/h]
+                data[i][PrecInt] = data[i][Prec] / (data[i][JDfrom0] - data[i-1][JDfrom0]); /** [mm/d] */
+                data[i][PrecInt] /= 24.; /** [mm/h] */
                 //printf("%ld %f %f\n",i,data[i][PrecInt],data[i][Prec]);
             }
             else
@@ -880,7 +878,6 @@ short fill_Pint(long  /*imeteo*/, double **data, long nlines, long Prec,
             {
                 data[i][Prec] = (double)number_absent;
             }
-
         }
 
         if (strcmp(HeaderPrecInt, string_novalue) != 0)
@@ -891,13 +888,10 @@ short fill_Pint(long  /*imeteo*/, double **data, long nlines, long Prec,
         {
             return 0;
         }
-
     }
     else
     {
-
         return 0;
-
     }
 }
 

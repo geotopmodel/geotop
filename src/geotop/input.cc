@@ -351,7 +351,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
     /** effective meteo input reading and structures filling */
 #pragma omp parallel for firstprivate(added_JDfrom0, added_wind_xy, added_wind_dir, added_Tdew, added_RH, added_Pint) private(f, i, j, n, ist, temp, num_lines)
 
-    for (i=1; i<=met->st->E->nh; i++)
+    for (i=1; i<=met->st->E->nh; i++) /** for each meteo station ... */
     {
 
         if ((*met->imeteo_stations)(1) != number_novalue)
@@ -382,8 +382,8 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
             temp = namefile_i(files[fmet], ist);
             met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines);
 
-            if ((long)met->data[i-1][0][iDate12] == number_absent
-                && (long)met->data[i-1][0][iJDfrom0] == number_absent)
+            if ((long)met->data[i-1][0][iDate12] == number_absent /** i.e. 26/03/2010 17:00 */
+                && (long)met->data[i-1][0][iJDfrom0] == number_absent) /** i.e. 734223.7083 */
             {
                 f = fopen(FailedRunFile, "w");
                 fprintf(f, "Error: Date Column missing in file %s\n",temp);
@@ -392,14 +392,16 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
             }
             met->numlines[i-1] = num_lines;
 
-            /* fixing dates: converting times in the same standard time set for the simulation and fill
-           JDfrom0 */
+            /** fix dates:
+             * - convert times in the same standard time set for the simulation
+             * - fill JDfrom0
+             */
             added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, (*met->st->ST)(i),
                                          met->numlines[i-1], iDate12, iJDfrom0);
 
             check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
 
-            // find clouds
+            /** find clouds */
             if (strcmp(IT->met_col_names[itauC], string_novalue) != 0)
             {
                 if ((long)met->data[i-1][0][itauC] == number_absent || par->ric_cloud == 1)
@@ -422,7 +424,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
                 }
             }
 
-            // calculate Wx and Wy if Wspeed and direction are given
+            /** calculate Wx and Wy if wind speed and direction are given */
             if (par->wind_as_xy == 1)
             {
                 added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir,
@@ -430,7 +432,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
                                              IT->met_col_names[iWsy]);
             }
 
-            // calcululate Wspeed and direction if Wx and Wy are given
+            /** calculate wind speed and direction if Wx and Wy are given */
             if (par->wind_as_dir == 1)
             {
                 added_wind_dir = fill_wind_dir(met->data[i-1], met->numlines[i-1], iWs, iWdir,
@@ -438,21 +440,21 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
                                                IT->met_col_names[iWdir]);
             }
 
-            // find Tdew
+            /** find Tdew */
             if (par->vap_as_Td == 1)
             {
                 added_Tdew = fill_Tdew(i, met->st->Z.get(), met->data[i-1], met->numlines[i-1], iRh,
                                        iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
             }
 
-            // find RH
+            /** find RH */
             if (par->vap_as_RH == 1)
             {
                 added_RH = fill_RH(i,  met->st->Z.get(), met->data[i-1], met->numlines[i-1], iRh,
                                    iT, iTdew, IT->met_col_names[iRh]);
             }
 
-            // find Prec Intensity
+            /** find Precipitation Intensity */
             if ( (*par->linear_interpolation_meteo)(i) == 1
                  && (long)met->data[i-1][0][iPrec] != number_absent)
             {
@@ -471,12 +473,12 @@ keyword LinearInterpolation at 1.\n");
                                        iJDfrom0, IT->met_col_names[iPrecInt]);
             }
 
-            // rewrite completed files
+            /** rewrite completed files */
             rewrite_meteo_files(met->data[i-1], met->numlines[i-1], IT->met_col_names,
                                 temp, added_JDfrom0, added_wind_xy, added_wind_dir, added_cloud,
                                 added_Tdew, added_RH, added_Pint);
 
-            // calculate Wx and Wy if Wspeed and direction are given
+            /** (re)calculate Wx and Wy if wind speed and direction are given */
             if (par->wind_as_xy != 1)
             {
                 added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir,
@@ -484,14 +486,14 @@ keyword LinearInterpolation at 1.\n");
                                              IT->met_col_names[iWsy]);
             }
 
-            // find Prec Intensity
+            /** (re)find Precipitation Intensity */
             if (par->prec_as_intensity != 1)
             {
                 added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt,
                                        iJDfrom0, IT->met_col_names[iPrecInt]);
             }
 
-            // find Tdew
+            /** (re)find Tdew */
             if (par->vap_as_Td != 1)
             {
                 added_Tdew = fill_Tdew(i, met->st->Z.get(), met->data[i-1], met->numlines[i-1], iRh,
@@ -521,14 +523,10 @@ keyword LinearInterpolation at 1.\n");
 
         }
     }
-
-
-    // read LAPSE RATES FILE
-
-    if (strcmp(files[fLRs], string_novalue) != 0)    //s stands for string
+    /** read lapse rates file */
+    if (strcmp(files[fLRs], string_novalue) != 0) /** s stands for string */
     {
-        if (existing_file_wext(files[fLRs],
-                               textfile)==0)
+        if (existing_file_wext(files[fLRs], textfile)==0)
             printf("Lapse rate file unavailable. Check input files. If you do not have a lapse rate file,\
  remove its name and keywords from input file\n");
         temp = join_strings(files[fLRs], textfile);
@@ -546,7 +544,7 @@ keyword LinearInterpolation at 1.\n");
     n = (long)nlstot;
     met->LRv = (double *)malloc(n*sizeof(double));
     met->LRd = (double *)malloc(n*sizeof(double));
-    for ( i=0; i<nlstot; i++)
+    for (i=0; i<nlstot; i++)
     {
         met->LRv[i] = (double)number_novalue;
         if (i == ilsTa)
@@ -568,18 +566,18 @@ keyword LinearInterpolation at 1.\n");
     }
 
 
-    // FIND A STATION WITH SHORTWAVE RADIATION DATA
+    /** find a station with shortwave radiation data */
     met->nstsrad=0;
     do
     {
         met->nstsrad++;
         a=0;
         if ( (long)met->data[met->nstsrad-1][0][iSW]!=number_absent
-             || ((long)met->data[met->nstsrad-1][0][iSWb]!=number_absent
-                 && (long)met->data[met->nstsrad-1][0][iSWd]!=number_absent ) )
+             || ( (long)met->data[met->nstsrad-1][0][iSWb]!=number_absent
+                  && (long)met->data[met->nstsrad-1][0][iSWd]!=number_absent) )
             a=1;
     }
-    while (met->nstsrad<met->st->Z->nh && a==0);
+    while (met->nstsrad < met->st->Z->nh && a==0);
     if (a==0)
     {
         geolog << "WARNING: NO shortwave radiation measurements available" << std::endl;
@@ -589,7 +587,7 @@ keyword LinearInterpolation at 1.\n");
         geolog << "Shortwave radiation measurements from station " << met->nstsrad << std::endl;
     }
 
-    // FIND A STATION WITH CLOUD DATA
+    /** find a station with cloud data */
     met->nstcloud=0;
     do
     {
@@ -609,16 +607,16 @@ keyword LinearInterpolation at 1.\n");
         geolog << "Cloudiness measurements from station " << met->nstcloud << std::endl;
     }
 
-    // FIND A STATION WITH LONGWAVE RADIATION DATA
+    /** find a station with longwave radiation data */
     met->nstlrad=0;
     do
     {
         met->nstlrad++;
         a=0;
-        if ( (long)met->data[met->nstlrad-1][0][iLWi]!=number_absent)
+        if ( (long)met->data[met->nstlrad-1][0][iLWi]!=number_absent )
             a=1;
     }
-    while (met->nstlrad<met->st->Z->nh && a==0);
+    while (met->nstlrad < met->st->Z->nh && a==0);
     if (a==0)
     {
         geolog << "WARNING: NO longwave radiation measurements available" << std::endl;
@@ -628,13 +626,13 @@ keyword LinearInterpolation at 1.\n");
         geolog << "Longwave radiation measurements from station " << met->nstlrad << std::endl;
     }
 
-    // FIND A STATION WITH SURFACE TEMPERATURE ABOVE
+    /** find a station with surface temperature above */
     met->nstTs=0;
     do
     {
         met->nstTs++;
         a=0;
-        if ( (long)met->data[met->nstTs-1][0][iTs]!=number_absent)
+        if ( (long)met->data[met->nstTs-1][0][iTs]!=number_absent )
             a=1;
     }
     while (met->nstTs<met->st->Z->nh && a==0);
@@ -647,7 +645,7 @@ keyword LinearInterpolation at 1.\n");
         geolog << "Surface temperature measurements from station " << met->nstTs << std::endl;
     }
 
-    //FIND A STATION WITH BOTTOM TEMPERATURE ABOVE
+    /** find a station with bottom temperature above */
     met->nstTbottom=0;
     do
     {
@@ -667,7 +665,7 @@ keyword LinearInterpolation at 1.\n");
     }
 
     /**************************************************************************************************/
-    // read INCOMING DISCHARGE
+    /** read incoming discharge */
 
     met->qinv = (double *)malloc(2*sizeof(double));
     met->qinv[0] = 0.;
@@ -696,15 +694,15 @@ keyword LinearInterpolation at 1.\n");
 
 
     /**************************************************************************************************/
-    /*! Completing the several time-indipendent input variables with the data of input-files:         */
+    /*! Completing the several time-indipendent input variables with the data of input-files          */
     /**************************************************************************************************/
     /**************************************************************************************************/
-    // Completing of "land" (of the type LAND):
+    /** Completing of "land" (of the type LAND): */
 
-    // Initialize matrix of shadow
-    land->shadow.reset(new Matrix<short>{Nr,Nc}); /* initialized as if it was always NOT in shadow */
+    /** Initialize matrix of shadow */
+    land->shadow.reset(new Matrix<short>{Nr,Nc}); /** initialized as if it was always NOT in shadow */
 
-    // Check that there aren't cell with an undefined land use value
+    /** Check that there aren't cell with an undefined land use value */
     z = 0.;
     l = 0;
 
@@ -713,31 +711,31 @@ keyword LinearInterpolation at 1.\n");
         l++;
         z += (*sl->pa)(1,jdz,l);
     }
-    while (l<Nl && z < GTConst::z_transp);
+    while (l<Nl && z<GTConst::z_transp);
 
     land->root_fraction.reset(new Matrix<double>{par->n_landuses, l});
 
-    // check vegetation variable consistency
-    if (jHveg!=jdHveg+jHveg-1)
+    /** check vegetation variable consistency */
+    if (jHveg != jdHveg+jHveg-1)
         t_error("Vegetation variables not consistent");
-    if (jz0thresveg!=jdz0thresveg+jHveg-1)
+    if (jz0thresveg != jdz0thresveg+jHveg-1)
         t_error("Vegetation variables not consistent");
-    if (jz0thresveg2!=jdz0thresveg2+jHveg-1)
+    if (jz0thresveg2 != jdz0thresveg2+jHveg-1)
         t_error("Vegetation variables not consistent");
-    if (jLSAI!=jdLSAI+jHveg-1)
+    if (jLSAI != jdLSAI+jHveg-1)
         t_error("Vegetation variables not consistent");
-    if (jcf!=jdcf+jHveg-1)
+    if (jcf != jdcf+jHveg-1)
         t_error("Vegetation variables not consistent");
-    if (jdecay0!=jddecay0+jHveg-1)
+    if (jdecay0 != jddecay0+jHveg-1)
         t_error("Vegetation variables not consistent");
-    if (jexpveg!=jdexpveg+jHveg-1)
+    if (jexpveg != jdexpveg+jHveg-1)
         t_error("Vegetation variables not consistent");
-    if (jroot!=jdroot+jHveg-1)
+    if (jroot != jdroot+jHveg-1)
         t_error("Vegetation variables not consistent");
-    if (jrs!=jdrs+jHveg-1)
+    if (jrs != jdrs+jHveg-1)
         t_error("Vegetation variables not consistent");
 
-    // variables used to assign vegetation properties that change with time
+    /** variables used to assign vegetation properties that change with time */
     num_cols = jdvegprop + 1;
     land->vegpars=(double ***)malloc(par->n_landuses*sizeof(double **));
     land->vegparv=(double **)malloc(par->n_landuses*sizeof(double *));
@@ -747,10 +745,10 @@ keyword LinearInterpolation at 1.\n");
 
     par->vegflag.reset(new Vector<short>{par->n_landuses});
 
-    // time dependent vegetation parameters
+    /** time dependent vegetation parameters */
     for (i=1; i<=par->n_landuses; i++)
     {
-        if (strcmp(files[fvegpar], string_novalue) != 0) // s stands for string
+        if (strcmp(files[fvegpar], string_novalue) != 0) /** s stands for string */
         {
             temp = namefile_i_we2(files[fvegpar], i);
 
@@ -777,16 +775,17 @@ keyword LinearInterpolation at 1.\n");
             land->vegparv[i-1][j] = (double)number_novalue;
         }
 
-        // z0 (convert in m)
-        (*land->ty)(i,jz0)*=0.001;
+        /** z0 (convert in m) */
+        (*land->ty)(i,jz0) *= 0.001;
 
-        // find root fraction
+        /** find root fraction */
         root(land->root_fraction->nch, (*land->ty)(i,jroot), 0.0, sl->pa->row(1,jdz), land->root_fraction->row(i));
 
-        // error messages
+        /** error messages */
         for (l=1; l<=met->st->Z->nh; l++)
         {
-            if (0.001*(*land->ty)(i,jHveg) > (*met->st->Vheight)(l) || 0.001*(*land->ty)(i,jHveg) > (*met->st->Theight)(l))
+            if (0.001*(*land->ty)(i,jHveg) > (*met->st->Vheight)(l) /** Vheight: height of the wind sensor */
+                || 0.001*(*land->ty)(i,jHveg) > (*met->st->Theight)(l)) /** Theight: height of the temperature sensor */
             {
                 f = fopen(FailedRunFile, "w");
                 fprintf(f, "hc:%f m, zmu:%f m, zmt:%f m - hc must be lower than measurement height - \
@@ -800,8 +799,7 @@ land cover %ld, meteo station %ld\n",
     }
 
     //******************************************
-    // file with time steps
-
+    /** file with time steps */
     if (strcmp(files[ftsteps], string_novalue) != 0)
     {
 
@@ -818,9 +816,8 @@ land cover %ld, meteo station %ld\n",
     }
 
     /**************************************************************************************************/
-    /*! Filling up of the struct "channel" (of the type CHANNEL):                                     */
-
-    /* The number of channel-pixel are counted: */
+    /** Completing the struct "channel" (of the type CHANNEL): */
+    /** The number of channel-pixel are counted: */
     i=0;
     for (r=1; r<=Nr; r++)
     {

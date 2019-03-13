@@ -36,24 +36,23 @@ extern const char *WORKING_DIRECTORY;
 //*****************************************************************************************************************
 //*****************************************************************************************************************
 //*****************************************************************************************************************
-//lat and lon in [deg]
 short fill_meteo_data_with_cloudiness(double **meteo, long meteolines,
                                       double **horizon, long horizonlines, double lat,
                                       double lon, double ST, double Z, double sky, double SWrefl_surr, long ndivday,
                                       double rotation,
                                       double Lozone, double alpha, double beta, double albedo)
 {
+  /** lat and lon in [deg] */
   GEOTIMER_SECTION(__func__);
 
   double *cloudtrans;
   long n;
 
-  //if there are radiation data, and no cloudiness
+  /** if there are radiation data and no cloudiness */
   if ( (long)meteo[0][iSW] != number_absent
        || ( (long)meteo[0][iSWb] != number_absent
             && (long)meteo[0][iSWd] != number_absent ) )
     {
-
       cloudtrans = (double *)malloc(meteolines*sizeof(double));
       cloudiness(meteo, meteolines, horizon, horizonlines, lat*GTConst::Pi/180., lon*GTConst::Pi/180.,
                  ST, Z, sky, SWrefl_surr, cloudtrans, ndivday, rotation, Lozone, alpha, beta,
@@ -66,16 +65,11 @@ short fill_meteo_data_with_cloudiness(double **meteo, long meteolines,
 
       free(cloudtrans);
       return 1;
-
     }
   else
     {
-
       return 0;
-
     }
-
-
 }
 
 //*****************************************************************************************************************
