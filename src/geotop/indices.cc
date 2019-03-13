@@ -43,11 +43,11 @@ void i_lrc_cont(Matrix<double> *LC, long ***i, Matrix<long> *lrc, long nl,
             {
               for (l=0; l<=nl; l++)
                 {
-                  cont++;
-                  i[l][r][c]=cont;
-                  (*lrc)(cont,1)=l;
-                  (*lrc)(cont,2)=r;
-                  (*lrc)(cont,3)=c;
+                  cont ++;
+                  i[l][r][c] = cont;
+                  (*lrc)(cont,1) = l;
+                  (*lrc)(cont,2) = r;
+                  (*lrc)(cont,3) = c;
                 }
             }
         }
@@ -61,7 +61,6 @@ void i_lrc_cont(Matrix<double> *LC, long ***i, Matrix<long> *lrc, long nl,
 
 void j_rc_cont(Matrix<double> *LC, long **j, Matrix<long> *rc, long nr, long nc)
 {
-
   long cont=0;
   long r, c;
   for (r=1; r<=nr; r++)
@@ -70,10 +69,10 @@ void j_rc_cont(Matrix<double> *LC, long **j, Matrix<long> *rc, long nr, long nc)
         {
           if ((long)(*LC)(r,c)!=number_novalue)
             {
-              cont++;
-              j[r][c]=cont;
-              (*rc)(cont,1)=r;
-              (*rc)(cont,2)=c;
+              cont ++;
+              j[r][c] = cont;
+              (*rc)(cont,1) = r;
+              (*rc)(cont,2) = c;
             }
         }
     }
@@ -94,10 +93,10 @@ void lch3_cont(long **ch3, Matrix<long> *lch, long nl, long nch)
     {
       for (l=0; l<=nl; l++)
         {
-          cont++;
-          ch3[l][ch]=cont;
-          (*lch)(cont,1)=l;
-          (*lch)(cont,2)=ch;
+          cont ++;
+          ch3[l][ch] = cont;
+          (*lch)(cont,1) = l;
+          (*lch)(cont,2) = ch;
         }
     }
 }

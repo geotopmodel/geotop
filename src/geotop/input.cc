@@ -794,13 +794,11 @@ land cover %ld, meteo station %ld\n",
     /** file with time steps */
     if (strcmp(files[ftsteps], string_novalue) != 0)
     {
-
         temp=join_strings(files[ftsteps],textfile);
         times->Dt_matrix = read_txt_matrix_2(temp, 33, 44, GTConst::max_cols_time_steps_file+1, &num_lines);
         free(temp);
         times->numlinesDt_matrix = num_lines;
         par->tsteps_from_file=1;
-
     }
     else
     {
@@ -815,13 +813,14 @@ land cover %ld, meteo station %ld\n",
     {
         for (c=1; c<=Nc; c++)
         {
-            if ((*top->pixel_type)(r,c)>=10) i++;
+            if ((*top->pixel_type)(r,c)>=10)
+                i++;
         }
     }
     geolog << "Channel pixels: " << i << std::endl;
     par->total_channel = i;
 
-    // allocate channel vectors/matrixes
+    /** allocate channel vectors/matrixes */
     if (i==0) i=1;
 
     cnet->Vout = 0.;
@@ -851,14 +850,15 @@ land cover %ld, meteo station %ld\n",
 
     cnet->lch.reset(new Matrix<long>{(Nl+1)*i, 2});
 
+    /** fill cnet->ch3 and cnet->lch */
     lch3_cont(cnet->ch3, cnet->lch.get(), Nl, par->total_channel);
 
 
     /**************************************************************************************************/
-    // Cont for Richards 3D
+    /** Cont for Richards 3D */
     n = std::min<long>((*par->Nl_spinup)(i_sim0),Nl);
 
-    // 3D
+    /** 3D */
     top->i_cont=(long ***)malloc((n+1)*sizeof(long **));
     for (l=0; l<=n; l++)
     {
@@ -871,9 +871,10 @@ land cover %ld, meteo station %ld\n",
 
     top->lrc_cont.reset(new Matrix<long>{(n+1)*par->total_pixel, 3});
 
+    /** fill top->i_cont and top->lrc_cont */
     i_lrc_cont(land->LC.get(), top->i_cont, top->lrc_cont.get(), n, Nr, Nc);
 
-    // 2D
+    /** 2D */
     top->j_cont=(long **)malloc((Nr+1)*sizeof(long *));
     for (r=1; r<=Nr; r++)
     {
@@ -886,9 +887,10 @@ land cover %ld, meteo station %ld\n",
 
     top->rc_cont.reset(new Matrix<long>{par->total_pixel,2});
 
+    /** fill top->j_cont and top->rc_cont */
     j_rc_cont(land->LC.get(), top->j_cont, top->rc_cont.get(), Nr, Nc);
 
-    // plotted points
+    /** plotted points */
     if (par->state_pixel == 1)
     {
         par->jplot.reset(new Vector<long>{par->total_pixel});
@@ -905,7 +907,7 @@ land cover %ld, meteo station %ld\n",
         }
     }
 
-    // BEDROCK (adjusting soil properties)
+    /** bedrock (adjusting soil properties) */
     set_bedrock(IT.get(), sl, cnet, par, top, land->LC.get());
 
     /**************************************************************************************************/
@@ -952,26 +954,24 @@ land cover %ld, meteo station %ld\n",
         {
             sl->ETcum.reset(new Vector<double>{par->total_pixel});
         }
-
     }
 
     if (existing_file(files[fwt0]) == 0) /** file for the initial water table NOT found */
     {
-
-        for (i=1; i<=par->total_pixel; i++)
+        for (i=1; i<=par->total_pixel; i++) /** for every valid pixel ... */
         {
 
             r = (*top->rc_cont)(i,1);
             c = (*top->rc_cont)(i,2);
 
-            sy=(*sl->type)(r,c);
+            sy = (*sl->type)(r,c);
 
-            if ((long)(*IT->init_water_table_depth)(sy) != number_novalue)
+            if ((long)(*IT->init_water_table_depth)(sy) != number_novalue) /** initial water table value is known */
             {
                 z = 0.;
                 (*sl->SS->P)(0,i) = -(*IT->init_water_table_depth)(sy) * cos((*top->slope)(r,c)*GTConst::Pi/180.);
 
-                for (l=1; l<=Nl; l++)
+                for (l=1; l<=Nl; l++) /** use soil layer thickness (jdz) */
                 {
                     z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
                     (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
@@ -980,7 +980,7 @@ land cover %ld, meteo station %ld\n",
             }
             else
             {
-                for (l=1; l<=Nl; l++)
+                for (l=1; l<=Nl; l++) /** use initial pressure head (jpsi) */
                 {
                     (*sl->SS->P)(l,i) = (*sl->pa)(sy,jpsi,l);
                 }
@@ -992,16 +992,21 @@ land cover %ld, meteo station %ld\n",
 
         M = read_map(2, files[fwt0], land->LC.get(), UV, (double)number_novalue);
 
-        for (i=1; i<=par->total_pixel; i++)
+        for (i=1; i<=par->total_pixel; i++) /** for every valid pixel ... */
+        /** same code as previous case:
+         *  - initial water table value is known
+         *  - use soil layer thickness (jdz)
+         */
         {
             r = (*top->rc_cont)(i,1);
             c = (*top->rc_cont)(i,2);
 
-            sy=(*sl->type)(r,c);
+            sy = (*sl->type)(r,c);
 
             z = 0.;
             (*sl->SS->P)(0,i) = -(*M)(r,c)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
-            for (l=1; l<=Nl; l++)
+
+            for (l=1; l<=Nl; l++) /** use soil layer thickness (jdz)*/
             {
                 z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
                 (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
@@ -1010,18 +1015,20 @@ land cover %ld, meteo station %ld\n",
         }
     }
 
-    for (i=1; i<=par->total_pixel; i++)
+    /** calculate temperature, total precipitation and theta */
+    for (i=1; i<=par->total_pixel; i++) /** for every valid pixel ... */
     {
         r = (*top->rc_cont)(i,1);
         c = (*top->rc_cont)(i,2);
 
-        sy=(*sl->type)(r,c);
+        sy = (*sl->type)(r,c);
 
         for (l=1; l<=Nl; l++)
         {
             (*sl->SS->T)(l,i) = (*sl->pa)(sy,jT,l);
 
             (*sl->Ptot)(l,i) = (*sl->SS->P)(l,i);
+            /** calculate theta from psi */
             (*sl->th)(l,i) = teta_psi((*sl->SS->P)(l,i), 0.0, (*sl->pa)(sy,jsat,l),
                                       (*sl->pa)(sy,jres,l), (*sl->pa)(sy,ja,l),
                                       (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l), GTConst::PsiMin,
@@ -1030,10 +1037,9 @@ land cover %ld, meteo station %ld\n",
             th_oversat = std::max<double>( (*sl->SS->P)(l,i), 0.0 ) * (*sl->pa)(sy,jss,l);
             (*sl->th)(l,i) -= th_oversat;
 
-            if ((*sl->SS->T)(l,i) <=GTConst::Tfreezing)
+            if ((*sl->SS->T)(l,i) <= GTConst::Tfreezing) /** Tsoil < 0 [°C]*/
             {
-
-                // Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
+                /** Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T) */
                 (*sl->SS->thi)(l,i) = (*sl->th)(l,i) - teta_psi(Psif((*sl->SS->T)(l,i)),
                                                                 0.0,
                                                                 (*sl->pa)(sy,jsat,l),
@@ -1044,12 +1050,11 @@ land cover %ld, meteo station %ld\n",
                                                                 GTConst::PsiMin,
                                                                 (*sl->pa)(sy,jss,l));
 
-                // if Theta(without freezing) < Theta_unfrozen(in equilibrium with T):
-                // Theta_ice is set at 0
-                if ((*sl->SS->thi)(l,i)<0)
+                /** if Theta(without freezing) < 0 => set Theta_ice = 0 */
+                if ((*sl->SS->thi)(l,i) < 0)
                     (*sl->SS->thi)(l,i)=0.0;
 
-                // Psi is updated taking into account the freezing
+                /** Psi is updated taking into account the freezing */
                 (*sl->th)(l,i) -= (*sl->SS->thi)(l,i);
 
                 (*sl->SS->P)(l,i) = psi_teta((*sl->th)(l,i) + th_oversat,
@@ -2762,30 +2767,30 @@ to the soil type map");
 
     /**************************************************************************************************/
     /*
-     * CHANNEL NETWORK: if pixel_type is \n
+     * CHANNEL NETWORK: if pixel_type is [TO CHECK ALL WITH TEST CASES]
      *-1 => LAND pixel
-     *      where an incoming discharge from outside is considered (as rain/irrigation) [TO CHECK WITH A TEST CASE if Qin can be of river] \n
-     * 0 => LAND pixel (exchange water in any directions)
+     *      - an incoming discharge from outside is considered (as rain/irrigation) [TO CHECK IF Qin CAN BE OF RIVER]
+     * 0 => LAND pixel
      *      if it is on the border:
      *      - the border is impermeable
-     *      - water is free only on the surface [TO CHECK WITH A TEST CASE] \n
-     * 1 => LAND pixel [TO CHECK WITH A TEST CASE]
+     *      - water is not free on the surface
+     * 1 => LAND pixel
      *      if it is on the border
-     *      - water is free only on the surface [TO CHECK WITH A TEST CASE different from 0] \n
-     * 2 => LAND pixel [TO CHECK WITH A TEST CASE different from 1]
+     *      - water is free only on the surface
+     * 2 => LAND pixel
      *      if it is on the border
-     *      - the border is permeable above an user-defined elevation in the saturated part (DepthFreeSurfaceAtTheBoundary [mm]) \n
-     *      - weir-wise
+     *      - the border is permeable above an user-defined elevation in the saturated part (DepthFreeSurfaceAtTheBoundary [mm])
+     *      - weir-wise ("stramazzo")
      * 10 => CHANNEL pixel
      *      if it is on the border
-     *      - the border is impermeable,
-     *      - water is free only on the surface [TO CHECK WITH A TEST CASE] \n
+     *      - the border is impermeable
+     *      - water is free only on the surface
      * 11 => CHANNEL pixel
      *      if it is on the border
-     *      - behaves as pixel_type 1 [TO CHECK WITH A TEST CASE] \n
+     *      - behaves as pixel_type 1
      * 12 => CHANNEL pixel
      *      if it is on the border
-     *      - behaves as pixel_type 2 [TO CHECK WITH A TEST CASE]
+     *      - behaves as pixel_type 2
     */
     flag = file_exists(fnet);
     if (flag == 1) /** keyword is present and the file exists */
@@ -3657,7 +3662,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
     short yes=0;
     FILE *f;
 
-    // check if bedrock depth is above soil lower border, otherwise we do not need to calculate anything
+    /** check if bedrock depth is above soil lower border, otherwise we do not need to calculate anything */
     z = 0.;
     for (l=1; l<=Nl; l++)
     {
@@ -3667,12 +3672,13 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
     {
         r = (*top->rc_cont)(i,1);
         c = (*top->rc_cont)(i,2);
-        if ((*IT->bed)(r,c) < z) yes = 1;
+        if ((*IT->bed)(r,c) < z)
+            yes = 1;
     }
 
     if (yes == 1)
     {
-        // consistency check
+        /** consistency check */
         if (IT->init_water_table_depth->nh != sl->pa->ndh)
         {
             f = fopen(FailedRunFile, "w");
@@ -3681,7 +3687,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
             t_error("Fatal Error! Geotop is closed. See failing report (19).");
         }
 
-        // rewrite soil type
+        /** rewrite soil type */
         T.reset(new Tensor<double>{sl->pa->ndh, nsoilprop, Nl});
         for (i=1; i<=sl->pa->ndh; i++)
         {
@@ -3695,7 +3701,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
         }
         sl->pa.reset(new Tensor<double>{par->total_pixel+par->total_channel, nsoilprop, Nl});
 
-        // rewrite initial water table depth
+        /** rewrite initial water table depth */
         WT.reset(new Vector<double>{IT->init_water_table_depth->nh});
         for (i=1; i<=IT->init_water_table_depth->nh; i++)
         {
@@ -3703,7 +3709,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
         }
         IT->init_water_table_depth.reset(new Vector<double>{par->total_pixel +par->total_channel});
 
-        // assign jdz (is needed later)
+        /** assign jdz (is needed later) */
         for (i=1; i<=sl->pa->ndh; i++)
         {
             for (l=1; l<=Nl; l++)
@@ -3923,7 +3929,6 @@ void initialize_veg_state(STATE_VEG *V, long n)
     V->Tv.reset(new Vector<double>{n});
     V->wsnow.reset(new Vector<double>{n});
     V->wrain.reset(new Vector<double>{n});
-
 }
 
 /***************************************************************************************************/
