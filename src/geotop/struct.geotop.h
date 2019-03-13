@@ -179,7 +179,7 @@ typedef struct {
     std::unique_ptr<Matrix<double>> Z0; /** elevation of each pixel (DEM) [m a.s.l]*/
     std::unique_ptr<Tensor<double>> Z;
 
-    std::unique_ptr<Matrix<double>> sky; /** sky view factor for each pixel [-] */
+    std::unique_ptr<Matrix<double>> sky; /** sky view factor for each pixel */
     std::unique_ptr<Matrix<short>> pixel_type;
 
     std::unique_ptr<Matrix<double>> aspect; /** aspect; ex: matr_ev->azimuth */
@@ -344,9 +344,9 @@ typedef struct {
     double aep; /** albedo extinction parameter [m] */
     double avo; /** new snow visible band reflectance */
     double airo; /** new near infrared band reflectance */
-    double Sr;      /*WATER FRACTION RETAINED BY CAPILLARY FORCES IN SNOW*/
-    double rho_ice;     /*Ice density [kg/mc]*/
-    long total_pixel;    /*The number of the valid pixel of the whole basin*/
+    double Sr;      /** water fraction retained by capillary forces in snow */
+    double rho_ice;     /** ice density [kg/mc] */
+    long total_pixel;    /** the number of the valid pixel of the whole basin */
     long total_channel;
     double total_area;
 
@@ -705,10 +705,10 @@ typedef struct {
 } GLACIER;
 
 struct METEO_STATIONS{
-    std::unique_ptr<Vector<double>> E;
-    std::unique_ptr<Vector<double>> N;
-    std::unique_ptr<Vector<double>> lat;
-    std::unique_ptr<Vector<double>> lon;
+    std::unique_ptr<Vector<double>> E; /** East */
+    std::unique_ptr<Vector<double>> N; /** North */
+    std::unique_ptr<Vector<double>> lat; /** latitude */
+    std::unique_ptr<Vector<double>> lon; /** longitude */
     std::unique_ptr<Vector<double>> Z; /** elevations [m a.s.l] */
     std::unique_ptr<Vector<double>> sky; /** sky view factor */
     std::unique_ptr<Vector<double>> ST; /** identifier for the meteo station */
@@ -731,12 +731,12 @@ struct METEO {
     long line_interp_WEB_LR;
     long line_interp_Bsnow_LR;
 
-    double **LRs; //matrix read from the external value
-    long LRsnr;   //number of lines of the matrix
-    double *LRv;  //vector of interpolatedvalues
-    double **LRc; //cyclic values from the parameter file (one vector for each LR variable)
-    long *LRcnc;  //number of components of the vector (for each component)
-    double *LRd;  //vector of default values
+    double **LRs; /** matrix read from the external value */
+    long LRsnr; /** number of lines of the matrix */
+    double *LRv;  /** vector of interpolated values */
+    double **LRc; /** cyclic values from the parameter file (one vector for each LR variable) */
+    long *LRcnc;  /** number of components of the vector (for each component) */
+    double *LRd;  /** vector of default values */
 
     double **qins;
     double *qinv;
