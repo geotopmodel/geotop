@@ -348,6 +348,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
     success = read_meteostations_file(met->imeteo_stations.get(), met->st.get(), files[fmetstlist],
                                       IT->meteostations_col_names);
 
+    /** effective meteo input reading and structures filling */
 #pragma omp parallel for firstprivate(added_JDfrom0, added_wind_xy, added_wind_dir, added_Tdew, added_RH, added_Pint) private(f, i, j, n, ist, temp, num_lines)
 
     for (i=1; i<=met->st->E->nh; i++)
@@ -362,23 +363,23 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
             ist = i;
         }
 
-        // initialize
+        /** initialize */
         met->line_interp_WEB[i-1] = 0;
         met->line_interp_Bsnow[i-1] = 0;
 
-        // allocate var
+        /** allocate var */
         met->var[i-1] = (double *)malloc(num_cols*sizeof(double));
 
-        // read horizon
+        /** read horizon */
         met->horizon[i-1] = read_horizon(1, ist, files[fhormet], IT->horizon_col_names, &num_lines);
         met->horizonlines[i-1] = num_lines;
 
-        // filename
-        if (strcmp(files[fmet], string_novalue) != 0)
+        /** filename */
+        if (strcmp(files[fmet], string_novalue) != 0) /** meteo files are present */
         {
 
-            // read matrix
-            temp=namefile_i(files[fmet], ist);
+            /** read matrix */
+            temp = namefile_i(files[fmet], ist);
             met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines);
 
             if ((long)met->data[i-1][0][iDate12] == number_absent
