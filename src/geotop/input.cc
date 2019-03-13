@@ -716,23 +716,15 @@ keyword LinearInterpolation at 1.\n");
     land->root_fraction.reset(new Matrix<double>{par->n_landuses, l});
 
     /** check vegetation variable consistency */
-    if (jHveg != jdHveg+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jz0thresveg != jdz0thresveg+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jz0thresveg2 != jdz0thresveg2+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jLSAI != jdLSAI+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jcf != jdcf+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jdecay0 != jddecay0+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jexpveg != jdexpveg+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jroot != jdroot+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jrs != jdrs+jHveg-1)
+    if ( jHveg != jdHveg+jHveg-1
+        || jz0thresveg != jdz0thresveg+jHveg-1
+        || jz0thresveg2 != jdz0thresveg2+jHveg-1
+        || jLSAI != jdLSAI+jHveg-1
+        || jcf != jdcf+jHveg-1
+        || jdecay0 != jddecay0+jHveg-1
+        || jexpveg != jdexpveg+jHveg-1
+        || jroot != jdroot+jHveg-1
+        || jrs != jdrs+jHveg-1 )
         t_error("Vegetation variables not consistent");
 
     /** variables used to assign vegetation properties that change with time */
