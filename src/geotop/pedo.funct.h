@@ -46,7 +46,9 @@ inline double psi_teta(double w, double i, double s, double r, double a, double 
                 double m, double pmin, double Ss )
 
 {
-
+/**
+ * calculate psi from theta
+ */
   double psi,TETA,TETAsat,TETAmin;
   short sat;
 
@@ -81,15 +83,20 @@ inline double psi_teta(double w, double i, double s, double r, double a, double 
 
 /*--------------------------------------------*/
 inline double teta_psi(double psi, double i, double s, double r, double a, double n,
-                double m, double pmin, double Ss)
+                       double m, double pmin, double Ss)
 {
+  /**
+   * calculate theta from psi
+   */
   double teta,TETA,psisat;
   short sat=0;
 
   psisat = (power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // power() works but NOT Padè approximation
-  if (psi>psisat) sat=1;
+  if (psi>psisat)
+    sat=1;
 
-  if (psi<pmin) psi=pmin;
+  if (psi<pmin)
+    psi=pmin;
 
   if (sat==0)
     {
@@ -114,7 +121,9 @@ inline double teta_psi(double psi, double i, double s, double r, double a, doubl
 /*--------------------------------------------*/
 inline double dteta_dpsi(double psi, double i, double s, double r, double a,
                   double n, double m, double  /*pmin*/, double Ss )
-//it is the derivative of teta with respect to psi [mm^-1]
+/*
+ * derivative of teta with respect to psi [mm^-1]
+ */
 {
   double dteta,psisat;
 
@@ -137,7 +146,6 @@ inline double k_hydr_soil(double psi, double ksat, double imp, double i, double 
                    double r, double a, double n, double m, double v, double T, double ratio)
 
 {
-
   double k,TETA,psisat;
 
   psisat = (power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // power() works but NOT Padè approximation
@@ -160,14 +168,12 @@ inline double k_hydr_soil(double psi, double ksat, double imp, double i, double 
   k *= (pow(10.0, -imp*i/(s-r))); // power() does NOT work
 
   return k;
-
 }
 /*--------------------------------------------*/
 
 inline double psi_saturation(double i, double s, double r, double a, double n,
                       double m)
 {
-
   double psisat;
 
   if (i<0) i=0.;
@@ -181,7 +187,6 @@ inline double psi_saturation(double i, double s, double r, double a, double n,
     }
 
   return (psisat);
-
 }
 /*------------------------------------------------------------------------------------------------------*/
 
@@ -203,9 +208,7 @@ inline double Arithmetic_Mean(double D1, double D2, double K1, double K2)
 /*------------------------------------------------------------------------------------------------------*/
 
 inline double Mean(short a, double D1, double D2, double K1, double K2)
-
 {
-
   if (a==0)
     {
       return (Harmonic_Mean(D1,D2,K1,K2));
@@ -236,7 +239,6 @@ inline double Psif(double T)
 inline double theta_from_psi(double psi, double ice, long l, MatrixView<double> &&pa,
                       double pmin)
 {
-
   const double s = pa(jsat,l);
   const double res = pa(jres,l);
   const double a = pa(ja,l);
@@ -251,7 +253,6 @@ inline double theta_from_psi(double psi, double ice, long l, MatrixView<double> 
 /******************************************************************************************************************************************/
 inline double psi_from_theta(double th, double ice, long l, MatrixView<double> &&pa, double pmin)
 {
-
   const double s=pa(jsat,l);
   const double res=pa(jres,l);
   const double a=pa(ja,l);
@@ -260,7 +261,6 @@ inline double psi_from_theta(double th, double ice, long l, MatrixView<double> &
   const double Ss=pa(jss,l);
 
   return psi_teta(th, ice, s, res, a, n, m, pmin, Ss);
-
 }
 
 /******************************************************************************************************************************************/
@@ -268,7 +268,6 @@ inline double psi_from_theta(double th, double ice, long l, MatrixView<double> &
 inline double dtheta_dpsi_from_psi(double psi, double ice, long l, MatrixView<double> &&pa,
                             double pmin)
 {
-
   const double s = pa(jsat,l);
   const double res = pa(jres,l);
   const double a = pa(ja,l);
@@ -277,7 +276,6 @@ inline double dtheta_dpsi_from_psi(double psi, double ice, long l, MatrixView<do
   const double Ss = pa(jss,l);
 
   return dteta_dpsi(psi, ice, s, res, a, n, m, pmin, Ss);
-
 }
 
 
@@ -294,14 +292,12 @@ inline double k_from_psi(long jK, double psi, double ice, double T, long l,
   const double v = pa(jv,l);
 
   return k_hydr_soil(psi, kmax, imp, ice, s, res, a, n, m, v, T, ratio);
-
 }
 
 /******************************************************************************************************************************************/
 
 inline double psisat_from(double ice, long l, MatrixView<double> &&pa)
 {
-
   const double s =pa(jsat,l);
   const double res =pa(jres,l);
   const double a = pa(ja,l);
@@ -309,7 +305,6 @@ inline double psisat_from(double ice, long l, MatrixView<double> &&pa)
   const double m = 1.-1./n;
 
   return psi_saturation(ice, s, res, a, n, m);
-
 }
 /******************************************************************************************************************************************/
 

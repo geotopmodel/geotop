@@ -119,7 +119,7 @@ struct SOIL_STATE {
     SOIL_STATE(const long n, const long nl);
 
     std::unique_ptr<Matrix<double>> P;
-    std::unique_ptr<Matrix<double>> thi;
+    std::unique_ptr<Matrix<double>> thi; /** theta ice */
     std::unique_ptr<Matrix<double>> T;
 };
 
@@ -142,7 +142,7 @@ struct SOIL {
     std::unique_ptr<Matrix<double>> thw_av_tensor;
     std::unique_ptr<Matrix<double>> thi_av_tensor;
     std::unique_ptr<Matrix<double>> Ptot;
-    std::unique_ptr<Matrix<double>> th;
+    std::unique_ptr<Matrix<double>> th; /** theta (soil water content) */
 
     std::unique_ptr<Tensor<double>> ET;
 
