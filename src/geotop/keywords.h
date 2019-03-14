@@ -381,7 +381,7 @@ char *keywords_num[num_par_number] =
   "SoilPlotDepths",
   "SnowPlotDepths",
   "GlacPlotDepths",
-  "RicalculateCloudiness",
+  "RicalculateCloudiness", /** if set to 1, calculate cloud transmissivity (during day)*/
   "DewTemperatureAsRH",
   "RHAsDewTemperature",
   "NumberDayIntervalsToCalculateCloudiness",
@@ -434,8 +434,8 @@ char *keywords_char[num_par_char] =
 {
   "HeaderDateDDMMYYYYhhmmMeteo",
   "HeaderJulianDayfrom0Meteo",
-  "HeaderIPrec",
-  "HeaderPrec",
+  "HeaderIPrec", /** precipitation intensity [mm/h]*/
+  "HeaderPrec", /** precipitation in the meteo time step [mm/timestep]*/
   "HeaderWindVelocity",
   "HeaderWindDirection",
   "HeaderWindX",

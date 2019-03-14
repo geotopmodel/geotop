@@ -118,9 +118,9 @@ typedef struct {
 struct SOIL_STATE {
     SOIL_STATE(const long n, const long nl);
 
-    std::unique_ptr<Matrix<double>> P;
+    std::unique_ptr<Matrix<double>> P; /** psi */
     std::unique_ptr<Matrix<double>> thi; /** theta ice */
-    std::unique_ptr<Matrix<double>> T;
+    std::unique_ptr<Matrix<double>> T; /** temperature */
 };
 
 /*---------------------------------------------------------------------------*/
@@ -235,7 +235,7 @@ typedef struct {
     std::unique_ptr<Matrix<double>> ty;
 
     double ***vegpars;
-    double **vegparv;
+    double **vegparv; /** matrix with time dependent vegetation parameters */
     std::unique_ptr<Vector<double>> vegpar;
     long *NumlinesVegTimeDepData;
 
@@ -630,7 +630,7 @@ typedef struct {
     double RH_default;
     double V_default;
     double Vdir_default;
-    double IPrec_default;
+    double IPrec_default; /** precipitation intensity */
 
     double simulation_hours;
 
@@ -731,6 +731,7 @@ struct METEO {
     long line_interp_WEB_LR;
     long line_interp_Bsnow_LR;
 
+    /** Lapse Rate parameters */
     double **LRs; /** matrix read from the external value */
     long LRsnr; /** number of lines of the matrix */
     double *LRv;  /** vector of interpolated values */
