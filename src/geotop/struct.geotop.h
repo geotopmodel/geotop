@@ -234,7 +234,7 @@ typedef struct {
     std::unique_ptr<Matrix<short>> shadow; /** parameter equal to 1 if shadow, otherwise 0 */
     std::unique_ptr<Matrix<double>> ty;
 
-    double ***vegpars;
+    double ***vegpars; /** tensor with time dependent vegetation parameters */
     double **vegparv; /** matrix with time dependent vegetation parameters */
     std::unique_ptr<Vector<double>> vegpar;
     long *NumlinesVegTimeDepData;
@@ -382,8 +382,8 @@ typedef struct {
     short output_meteo_bin;
 
     std::unique_ptr<Matrix<double>> chkpt;
-    std::unique_ptr<Matrix<long>> rc;
-    std::unique_ptr<Vector<long>> jplot;
+    std::unique_ptr<Matrix<long>> rc; /** contains the rows and cols indexes of the selected output points */
+    std::unique_ptr<Vector<long>> jplot; /** size = valid pixels; value can be the output point index or 0 */
 
     short recover;
 
@@ -496,7 +496,7 @@ typedef struct {
     std::unique_ptr<Vector<double>> Dtplot_basin;
     std::unique_ptr<Vector<double>> Dtplot_discharge;
 
-    short state_pixel;
+    short state_pixel; /** equal to 1 if output pixels are set */
     short state_discharge;
     short state_basin;
 
@@ -598,7 +598,7 @@ typedef struct {
     double k_to_ksat;
     short RunIfAnOldRunIsPresent;
 
-    std::unique_ptr<Vector<long>> Nl_spinup;
+    std::unique_ptr<Vector<long>> Nl_spinup; /** (*par->Nl_spinup)(1),default = 10'000 */
 
     short newperiodinit;
 
@@ -720,12 +720,12 @@ struct METEO_STATIONS{
 struct METEO {
     std::unique_ptr<METEO_STATIONS> st;
 
-    double ***data;
+    double ***data; /** meteo data */
 
-    long *numlines;
-    double ***horizon;
-    long *horizonlines;
-    double **var;
+    long *numlines; /** number of line of meteo data */
+    double ***horizon; /** horizon for meteo stations */
+    long *horizonlines; /** number of line in the horizon file */
+    double **var; /** meteo variables for the current instant */
     long *line_interp_WEB;
     long *line_interp_Bsnow;
     long line_interp_WEB_LR;
