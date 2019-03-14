@@ -902,6 +902,9 @@ short fill_Pint(long  /*imeteo*/, double **data, long nlines, long Prec,
 
 void check_times(long imeteo, double **data, long nlines, long JDfrom0)
 {
+    /**
+     * the simulation should start after the beginning of meteo time series
+     */
     long i;
     FILE *f;
 

@@ -401,7 +401,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
 
             check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
 
-            /** find clouds */
+            /** calculate cloud transmissivity */
             if (strcmp(IT->met_col_names[itauC], string_novalue) != 0)
             {
                 if ((long)met->data[i-1][0][itauC] == number_absent || par->ric_cloud == 1)
@@ -440,14 +440,14 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
                                                IT->met_col_names[iWdir]);
             }
 
-            /** find Tdew */
+            /** calculate Tdew */
             if (par->vap_as_Td == 1)
             {
                 added_Tdew = fill_Tdew(i, met->st->Z.get(), met->data[i-1], met->numlines[i-1], iRh,
                                        iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
             }
 
-            /** find RH */
+            /** calculate RH */
             if (par->vap_as_RH == 1)
             {
                 added_RH = fill_RH(i,  met->st->Z.get(), met->data[i-1], met->numlines[i-1], iRh,
@@ -486,14 +486,14 @@ keyword LinearInterpolation at 1.\n");
                                              IT->met_col_names[iWsy]);
             }
 
-            /** (re)find Precipitation Intensity */
+            /** (re)calculate Precipitation Intensity */
             if (par->prec_as_intensity != 1)
             {
                 added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt,
                                        iJDfrom0, IT->met_col_names[iPrecInt]);
             }
 
-            /** (re)find Tdew */
+            /** (re)calculate Tdew */
             if (par->vap_as_Td != 1)
             {
                 added_Tdew = fill_Tdew(i, met->st->Z.get(), met->data[i-1], met->numlines[i-1], iRh,
@@ -541,7 +541,7 @@ keyword LinearInterpolation at 1.\n");
         par->LRflag=0;
     }
 
-    n = (long)nlstot;
+    n = (long)nlstot; /** n lapse rate */
     met->LRv = (double *)malloc(n*sizeof(double));
     met->LRd = (double *)malloc(n*sizeof(double));
     for (i=0; i<nlstot; i++)
@@ -626,7 +626,7 @@ keyword LinearInterpolation at 1.\n");
         geolog << "Longwave radiation measurements from station " << met->nstlrad << std::endl;
     }
 
-    /** find a station with surface temperature above */
+    /** find a station with surface temperature */
     met->nstTs=0;
     do
     {
@@ -645,7 +645,7 @@ keyword LinearInterpolation at 1.\n");
         geolog << "Surface temperature measurements from station " << met->nstTs << std::endl;
     }
 
-    /** find a station with bottom temperature above */
+    /** find a station with bottom temperature */
     met->nstTbottom=0;
     do
     {
@@ -891,7 +891,7 @@ land cover %ld, meteo station %ld\n",
     j_rc_cont(land->LC.get(), top->j_cont, top->rc_cont.get(), Nr, Nc);
 
     /** plotted points */
-    if (par->state_pixel == 1)
+    if (par->state_pixel == 1) /** output pixel exists */
     {
         par->jplot.reset(new Vector<long>{par->total_pixel});
         for (i=1; i<=par->total_pixel; i++)
@@ -971,18 +971,18 @@ land cover %ld, meteo station %ld\n",
                 z = 0.;
                 (*sl->SS->P)(0,i) = -(*IT->init_water_table_depth)(sy) * cos((*top->slope)(r,c)*GTConst::Pi/180.);
 
-                for (l=1; l<=Nl; l++) /** use soil layer thickness (jdz) */
+                for (l=1; l<=Nl; l++)
                 {
-                    z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
+                    z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.); /** use soil layer thickness (jdz) */
                     (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
                     z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
                 }
             }
             else
             {
-                for (l=1; l<=Nl; l++) /** use initial pressure head (jpsi) */
+                for (l=1; l<=Nl; l++)
                 {
-                    (*sl->SS->P)(l,i) = (*sl->pa)(sy,jpsi,l);
+                    (*sl->SS->P)(l,i) = (*sl->pa)(sy,jpsi,l); /** use initial pressure head (jpsi) */
                 }
             }
         }
@@ -1006,9 +1006,9 @@ land cover %ld, meteo station %ld\n",
             z = 0.;
             (*sl->SS->P)(0,i) = -(*M)(r,c)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
 
-            for (l=1; l<=Nl; l++) /** use soil layer thickness (jdz)*/
+            for (l=1; l<=Nl; l++)
             {
-                z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
+                z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.); /** use soil layer thickness (jdz)*/
                 (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
                 z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
             }
@@ -1066,35 +1066,46 @@ land cover %ld, meteo station %ld\n",
         }
     }
 
-
+/** EXPLANATION IS NEEDED (1)*/
     if (par->state_pixel == 1)
     {
         if (strcmp(files[fTz], string_novalue) != 0 || strcmp(files[fTzwriteend], string_novalue) != 0)
             sl->Tzplot.reset(new Matrix<double>{par->rc->nrh, Nl});
+
         if (strcmp(files[fTzav], string_novalue) != 0 || strcmp(files[fTzavwriteend], string_novalue) != 0)
             sl->Tzavplot.reset(new Matrix<double>{par->rc->nrh, Nl});
+
         if (strcmp(files[fpsiztot], string_novalue) != 0 || strcmp(files[fpsiztotwriteend], string_novalue) != 0)
             sl->Ptotzplot.reset(new Matrix<double>{par->rc->nrh, Nl});
+
         if (strcmp(files[fpsiz], string_novalue) != 0 || strcmp(files[fpsizwriteend], string_novalue) != 0)
             sl->Pzplot.reset(new Matrix<double>{par->rc->nrh,1, Nl, 0});
+
         if (strcmp(files[fliqz], string_novalue) != 0 || strcmp(files[fliqzwriteend], string_novalue) != 0)
             sl->thzplot.reset(new Matrix<double>{par->rc->nrh, Nl});
+
         if (strcmp(files[fliqzav], string_novalue) != 0 || strcmp(files[fliqzavwriteend], string_novalue) != 0)
             sl->thzavplot.reset(new Matrix<double>{par->rc->nrh, Nl});
+
         if (strcmp(files[ficez], string_novalue) != 0|| strcmp(files[ficezwriteend], string_novalue) != 0)
             sl->thizplot.reset(new Matrix<double>{par->rc->nrh, Nl});
+
         if (strcmp(files[ficezav], string_novalue) != 0|| strcmp(files[ficezavwriteend], string_novalue) != 0)
             sl->thizavplot.reset(new Matrix<double>{par->rc->nrh, Nl});
+
         if (strcmp(files[fsatz], string_novalue) != 0)
             sl->satratio.reset(new Matrix<double>{par->rc->nrh, Nl});
 
+        /** EXPLANATION IS NEEDED (2)*/
         for (i=1; i<=par->rc->nrh; i++)
         {
             r = (*top->rc_cont)(i,1);
             c = (*top->rc_cont)(i,2);
             j = top->j_cont[r][c];
+
             sy = (*sl->type)(r,c);
-            for (l=1; l<=Nl; l++)
+
+            for (l=1; l<=Nl; l++) /** for every soil layer ... */
             {
                 if (strcmp(files[fTz], string_novalue) != 0|| strcmp(files[fTzwriteend], string_novalue) != 0)
                     (*sl->Tzplot)(i,l) = (*sl->SS->T)(l,j);
