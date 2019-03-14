@@ -325,24 +325,21 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
 
 
     /**************************************************************************************************/
-    // Reading  RAIN data file, METEO data file and CLOUD data file
+    /** Reading  RAIN data file, METEO data file and CLOUD data file */
     num_cols = (long)nmet;
 
-    // meteo data
-    met->data=(double ***)malloc(met->st->E->nh*sizeof(double **));
-    // number of line of meteo data
-    met->numlines=(long *)malloc(met->st->E->nh*sizeof(long));
-    // meteo variables for the current instant
-    met->var=(double **)malloc(met->st->E->nh*sizeof(double *));
-    // horizon for meteo stations
-    met->horizon=(double ***)malloc(met->st->E->nh*sizeof(double **));
-    // number of line in the horizon file
-    met->horizonlines=(long *)malloc(met->st->E->nh*sizeof(long));
-    // line of met->data used (stored in memory to avoid from searching from the first line)
-    met->line_interp_WEB=(long *)malloc(met->st->E->nh*sizeof(long));
-    met->line_interp_Bsnow=(long *)malloc(met->st->E->nh*sizeof(long));
-    met->line_interp_WEB_LR=0;
-    met->line_interp_Bsnow_LR=0;
+
+    met->data = (double ***) malloc(met->st->E->nh * sizeof(double **));
+    met->numlines = (long *) malloc(met->st->E->nh * sizeof(long));
+    met->var = (double **) malloc(met->st->E->nh * sizeof(double *));
+    met->horizon = (double ***) malloc(met->st->E->nh * sizeof(double **));
+    met->horizonlines = (long *) malloc(met->st->E->nh * sizeof(long));
+
+    /** line of met->data used (stored in memory to avoid from searching from the first line) */
+    met->line_interp_WEB = (long *) malloc(met->st->E->nh*sizeof(long));
+    met->line_interp_Bsnow = (long *) malloc(met->st->E->nh*sizeof(long));
+    met->line_interp_WEB_LR = 0;
+    met->line_interp_Bsnow_LR = 0;
 
     /** look for additional meteo stations input files */
     success = read_meteostations_file(met->imeteo_stations.get(), met->st.get(), files[fmetstlist],
@@ -717,21 +714,21 @@ keyword LinearInterpolation at 1.\n");
 
     /** check vegetation variable consistency */
     if ( jHveg != jdHveg+jHveg-1
-        || jz0thresveg != jdz0thresveg+jHveg-1
-        || jz0thresveg2 != jdz0thresveg2+jHveg-1
-        || jLSAI != jdLSAI+jHveg-1
-        || jcf != jdcf+jHveg-1
-        || jdecay0 != jddecay0+jHveg-1
-        || jexpveg != jdexpveg+jHveg-1
-        || jroot != jdroot+jHveg-1
-        || jrs != jdrs+jHveg-1 )
+         || jz0thresveg != jdz0thresveg+jHveg-1
+         || jz0thresveg2 != jdz0thresveg2+jHveg-1
+         || jLSAI != jdLSAI+jHveg-1
+         || jcf != jdcf+jHveg-1
+         || jdecay0 != jddecay0+jHveg-1
+         || jexpveg != jdexpveg+jHveg-1
+         || jroot != jdroot+jHveg-1
+         || jrs != jdrs+jHveg-1 )
         t_error("Vegetation variables not consistent");
 
     /** variables used to assign vegetation properties that change with time */
     num_cols = jdvegprop + 1;
-    land->vegpars=(double ***)malloc(par->n_landuses*sizeof(double **));
-    land->vegparv=(double **)malloc(par->n_landuses*sizeof(double *));
-    land->NumlinesVegTimeDepData=(long *)malloc(par->n_landuses*sizeof(long));
+    land->vegpars = (double ***) malloc(par->n_landuses*sizeof(double **));
+    land->vegparv = (double **) malloc(par->n_landuses*sizeof(double *));
+    land->NumlinesVegTimeDepData=(long *) malloc(par->n_landuses*sizeof(long));
 
     land->vegpar.reset(new Vector<double>{jdvegprop});
 
@@ -749,7 +746,7 @@ keyword LinearInterpolation at 1.\n");
                 printf("There is a specific vegetation parameter file for land cover type = %ld\n", i);
                 free(temp);
                 temp = namefile_i(files[fvegpar], i);
-                land->vegpars[i-1] = read_txt_matrix_2(temp, 33, 44, num_cols, &num_lines);
+                land->vegpars[i-1] = read_txt_matrix_2(temp, 33, 44, num_cols, &num_lines); /** tensor */
                 free(temp);
                 land->NumlinesVegTimeDepData[i-1] = num_lines;
                 (*par->vegflag)(i)=1;
@@ -764,10 +761,10 @@ keyword LinearInterpolation at 1.\n");
         land->vegparv[i-1]=(double *)malloc(num_cols*sizeof(double));
         for (j=0; j<num_cols; j++)
         {
-            land->vegparv[i-1][j] = (double)number_novalue;
+            land->vegparv[i-1][j] = (double)number_novalue; /** matrix */
         }
 
-        /** z0 (convert in m) */
+        /** convert z0 in [m] */
         (*land->ty)(i,jz0) *= 0.001;
 
         /** find root fraction */
@@ -821,14 +818,18 @@ land cover %ld, meteo station %ld\n",
     par->total_channel = i;
 
     /** allocate channel vectors/matrixes */
-    if (i==0) i=1;
+    if (i==0)
+        i=1;
 
     cnet->Vout = 0.;
 
+    /** allocate vectors of the same dimension of the number of channel pixels;
+     * if there are no channel pixels, these quantities become scalar.
+     */
     cnet->r.reset(new Vector<long>{i});
     cnet->c.reset(new Vector<long>{i});
 
-    cnet->ch.reset(new Matrix<long>{Nr,Nc});
+    cnet->ch.reset(new Matrix<long>{Nr,Nc}); /** allocate matrix of the same dimension of DEM grid */
 
     cnet->ch_down.reset(new Vector<long>{i});
     cnet->length.reset(new Vector<double>{i});
@@ -842,30 +843,29 @@ land cover %ld, meteo station %ld\n",
     if (par->total_channel>1)
         enumerate_channels(cnet, land->LC.get(), top->pixel_type.get(), top->Z0.get(), top->slope.get(), number_novalue);
 
-    cnet->ch3 = (long **)malloc((Nl+1)*sizeof(long *));
+    cnet->ch3 = (long **) malloc((Nl+1)*sizeof(long *)); /** for each soil layer (+1) we'll have an array of channel pixel */
     for (l=0; l<=Nl; l++)
     {
         cnet->ch3[l] = (long *)malloc((i+1)*sizeof(long));
     }
 
-    cnet->lch.reset(new Matrix<long>{(Nl+1)*i, 2});
+    cnet->lch.reset(new Matrix<long>{(Nl+1)*i, 2}); /* matrix with (nrows, ncols) = (n° of cells of cnet->ch3, 2) */
 
     /** fill cnet->ch3 and cnet->lch */
     lch3_cont(cnet->ch3, cnet->lch.get(), Nl, par->total_channel);
 
-
     /**************************************************************************************************/
-    /** Cont for Richards 3D */
+    /** Count for Richards 3D */
     n = std::min<long>((*par->Nl_spinup)(i_sim0),Nl);
 
     /** 3D */
-    top->i_cont=(long ***)malloc((n+1)*sizeof(long **));
+    top->i_cont = (long ***) malloc((n+1)*sizeof(long **)); /* tensor with dimension (n+1, Nr+1, Nc+1) */
     for (l=0; l<=n; l++)
     {
-        top->i_cont[l]=(long **)malloc((Nr+1)*sizeof(long *));
+        top->i_cont[l] = (long **) malloc((Nr+1)*sizeof(long *));
         for (r=1; r<=Nr; r++)
         {
-            top->i_cont[l][r]=(long *)malloc((Nc+1)*sizeof(long));
+            top->i_cont[l][r] = (long *) malloc((Nc+1)*sizeof(long));
         }
     }
 
@@ -875,10 +875,10 @@ land cover %ld, meteo station %ld\n",
     i_lrc_cont(land->LC.get(), top->i_cont, top->lrc_cont.get(), n, Nr, Nc);
 
     /** 2D */
-    top->j_cont=(long **)malloc((Nr+1)*sizeof(long *));
+    top->j_cont = (long **)malloc((Nr+1)*sizeof(long *));
     for (r=1; r<=Nr; r++)
     {
-        top->j_cont[r]=(long *)malloc((Nc+1)*sizeof(long));
+        top->j_cont[r] = (long *)malloc((Nc+1)*sizeof(long));
         for (c=1; c<=Nc; c++)
         {
             top->j_cont[r][c] = 0;
@@ -890,8 +890,8 @@ land cover %ld, meteo station %ld\n",
     /** fill top->j_cont and top->rc_cont */
     j_rc_cont(land->LC.get(), top->j_cont, top->rc_cont.get(), Nr, Nc);
 
-    /** plotted points */
-    if (par->state_pixel == 1) /** output pixel exists */
+    /** assign indexes to the selected output points (i.e. the ones written in ListPoints.txt) */
+    if (par->state_pixel == 1) /** output pixels are set */
     {
         par->jplot.reset(new Vector<long>{par->total_pixel});
         for (i=1; i<=par->total_pixel; i++)
@@ -993,10 +993,10 @@ land cover %ld, meteo station %ld\n",
         M = read_map(2, files[fwt0], land->LC.get(), UV, (double)number_novalue);
 
         for (i=1; i<=par->total_pixel; i++) /** for every valid pixel ... */
-        /** same code as previous case:
-         *  - initial water table value is known
-         *  - use soil layer thickness (jdz)
-         */
+            /** same code as previous case:
+             *  - initial water table value is known
+             *  - use soil layer thickness (jdz)
+             */
         {
             r = (*top->rc_cont)(i,1);
             c = (*top->rc_cont)(i,2);

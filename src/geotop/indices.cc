@@ -31,7 +31,6 @@ extern long number_novalue;
 void i_lrc_cont(Matrix<double> *LC, long ***i, Matrix<long> *lrc, long nl,
                 long nr, long nc)
 {
-
   long cont=0;
   long l, r, c;
 
