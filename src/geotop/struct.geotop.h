@@ -136,12 +136,12 @@ struct STATE_VEG {
 /*---------------------------------------------------------------------------*/
 
 struct SOIL {
-    std::unique_ptr<Matrix<long>> type;
+    std::unique_ptr<Matrix<long>> type; /** soil type map */
     std::unique_ptr<Tensor<double>> pa;
     std::unique_ptr<Matrix<double>> T_av_tensor;
     std::unique_ptr<Matrix<double>> thw_av_tensor;
     std::unique_ptr<Matrix<double>> thi_av_tensor;
-    std::unique_ptr<Matrix<double>> Ptot;
+    std::unique_ptr<Matrix<double>> Ptot; /** total precipitation */
     std::unique_ptr<Matrix<double>> th; /** theta (soil water content) */
 
     std::unique_ptr<Tensor<double>> ET;
@@ -256,8 +256,8 @@ typedef struct {
      * - R = number of rows of the basin
      * - C = number of columns in the basin
      */
-    std::unique_ptr<Vector<long>> r; /** array of rows of the channel-pixels; dimension=nch */
-    std::unique_ptr<Vector<long>> c; /** array of columns of the channel-pixels; dimension=nch */
+    std::unique_ptr<Vector<long>> r; /** rows indexes of the channel pixels */
+    std::unique_ptr<Vector<long>> c; /** columns indexes of the channel pixels */
     std::unique_ptr<Matrix<long>> ch;
     std::unique_ptr<Vector<long>> ch_down;
     std::unique_ptr<Vector<double>> Vsup;
@@ -267,8 +267,8 @@ typedef struct {
     double Vout;
     long **ch3;
     std::unique_ptr<Matrix<long>> lch;
-    std::unique_ptr<Vector<long>> soil_type;
-    std::unique_ptr<Matrix<double>> th;
+    std::unique_ptr<Vector<long>> soil_type; /** soil type for channel pixels */
+    std::unique_ptr<Matrix<double>> th; /** theta (SWC) */
     std::unique_ptr<Matrix<double>> ET;
     std::unique_ptr<Vector<double>> Kbottom;
     SOIL_STATE *SS;
@@ -382,10 +382,10 @@ typedef struct {
     short output_meteo_bin;
 
     std::unique_ptr<Matrix<double>> chkpt;
-    std::unique_ptr<Matrix<long>> rc; /** contains the rows and cols indexes of the selected output points */
+    std::unique_ptr<Matrix<long>> rc; /** rows and cols indexes of the selected output points */
     std::unique_ptr<Vector<long>> jplot; /** size = valid pixels; value can be the output point index or 0 */
 
-    short recover;
+    short recover; /** if equal to 1, enables recovery [default = 0]*/
 
     double Vmin;
 
@@ -479,12 +479,12 @@ typedef struct {
     double snow_smax;
     double snow_curv;
 
-    double Zboundary;
+    double Zboundary; /** Z at which 0 annual temperature takes place [mm]*/
     double Tboundary;
     double Fboundary;
 
     double Ks_channel;
-    double depr_channel;
+    double depr_channel; /** default = 500 */
 
     short tsteps_from_file;
 
