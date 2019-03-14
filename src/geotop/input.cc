@@ -1015,7 +1015,7 @@ land cover %ld, meteo station %ld\n",
         }
     }
 
-    /** calculate temperature, total precipitation and theta */
+    /** calculate temperature, total precipitation, theta, theta ice and psi*/
     for (i=1; i<=par->total_pixel; i++) /** for every valid pixel ... */
     {
         r = (*top->rc_cont)(i,1);
@@ -1066,8 +1066,8 @@ land cover %ld, meteo station %ld\n",
         }
     }
 
-/** EXPLANATION IS NEEDED (1)*/
-    if (par->state_pixel == 1)
+/** fill structure SOIL for the selected output pixels */
+    if (par->state_pixel == 1) /** output pixels are set */
     {
         if (strcmp(files[fTz], string_novalue) != 0 || strcmp(files[fTzwriteend], string_novalue) != 0)
             sl->Tzplot.reset(new Matrix<double>{par->rc->nrh, Nl});
@@ -1096,37 +1096,43 @@ land cover %ld, meteo station %ld\n",
         if (strcmp(files[fsatz], string_novalue) != 0)
             sl->satratio.reset(new Matrix<double>{par->rc->nrh, Nl});
 
-        /** EXPLANATION IS NEEDED (2)*/
-        for (i=1; i<=par->rc->nrh; i++)
+        for (i=1; i<=par->rc->nrh; i++) /** for every output point pixel index ... */
         {
-            r = (*top->rc_cont)(i,1);
-            c = (*top->rc_cont)(i,2);
-            j = top->j_cont[r][c];
+            r = (*top->rc_cont)(i,1); /** row index of the valid pixels */
+            c = (*top->rc_cont)(i,2); /** column index of the valid pixels */
+            j = top->j_cont[r][c]; /** element in the map of valid pixels */
 
-            sy = (*sl->type)(r,c);
+            sy = (*sl->type)(r,c); /** soil type map for output point pixel */
 
-            for (l=1; l<=Nl; l++) /** for every soil layer ... */
+            for (l=1; l<=Nl; l++) /** for every soil layer (starting from index 1) ... */
             {
                 if (strcmp(files[fTz], string_novalue) != 0|| strcmp(files[fTzwriteend], string_novalue) != 0)
                     (*sl->Tzplot)(i,l) = (*sl->SS->T)(l,j);
+
                 if (strcmp(files[fTzav], string_novalue) != 0|| strcmp(files[fTzavwriteend], string_novalue) != 0)
                     (*sl->Tzavplot)(i,l) = (*sl->SS->T)(l,j);
+
                 if (strcmp(files[fliqz], string_novalue) != 0|| strcmp(files[fliqzwriteend],string_novalue) != 0)
                     (*sl->thzplot)(i,l) = (*sl->th)(l,j);
+
                 if (strcmp(files[fliqzav], string_novalue) != 0 || strcmp(files[fliqzavwriteend], string_novalue) != 0)
                     (*sl->thzavplot)(i,l) = (*sl->th)(l,j);
+
                 if (strcmp(files[ficez], string_novalue) != 0 || strcmp(files[ficezwriteend], string_novalue) != 0)
                     (*sl->thizplot)(i,l) = (*sl->SS->thi)(l,j);
+
                 if (strcmp(files[ficezav], string_novalue) != 0|| strcmp(files[ficezavwriteend], string_novalue) != 0)
                     (*sl->thizavplot)(i,l) = (*sl->SS->thi)(l,j);
+
                 if (strcmp(files[fpsiztot], string_novalue) != 0 || strcmp(files[fpsiztotwriteend],string_novalue) != 0)
                     (*sl->Ptotzplot)(i,l) = (*sl->Ptot)(l,j);
+
                 if (strcmp(files[fsatz], string_novalue) != 0)
                     (*sl->satratio)(i,l) = ((*sl->SS->thi)(l,j)
                                             + (*sl->th)(l,j)
                                             - (*sl->pa)(sy,jres,l)) / ((*sl->pa)(sy,jsat,l)- (*sl->pa)(sy,jres,l));
             }
-            for (l=0; l<=Nl; l++)
+            for (l=0; l<=Nl; l++) /** for every soil layer (starting from index 0) ... */
             {
                 if (strcmp(files[fpsiz], string_novalue) != 0|| strcmp(files[fpsizwriteend], string_novalue) != 0)
                     (*sl->Pzplot)(i,l) = (*sl->SS->P)(l,j);
@@ -1134,50 +1140,53 @@ land cover %ld, meteo station %ld\n",
         }
     }
 
-    if (recovered > 0)
+    if (recovered > 0) /** recover enabled */
     {
+        /** recover the objectes corresponding to the 4th argument in the function */
         assign_recovered_tensor_vector(old, par->recover, files[riceg], sl->SS->thi.get(),
-                                       top->rc_cont.get(), par, land->LC.get());
+                                       top->rc_cont.get(), par, land->LC.get()); /** recover thi */
         assign_recovered_tensor_vector(old, par->recover, files[rTg], sl->SS->T.get(),
-                                       top->rc_cont.get(), par, land->LC.get());
+                                       top->rc_cont.get(), par, land->LC.get()); /** recover T */
         assign_recovered_tensor_vector(old, par->recover, files[rpsi], sl->SS->P.get(),
-                                       top->rc_cont.get(), par, land->LC.get());
+                                       top->rc_cont.get(), par, land->LC.get()); /** recover P */
 
         assign_recovered_map_vector(old, par->recover, files[rwcrn], sl->VS->wrain.get(),
-                                    top->rc_cont.get(), par, land->LC.get());
+                                    top->rc_cont.get(), par, land->LC.get()); /** recover wrain */
         assign_recovered_map_vector(old, par->recover, files[rwcsn], sl->VS->wsnow.get(),
-                                    top->rc_cont.get(), par, land->LC.get());
+                                    top->rc_cont.get(), par, land->LC.get()); /** recover wsnow */
         assign_recovered_map_vector(old, par->recover, files[rTv], sl->VS->Tv.get(),
-                                    top->rc_cont.get(), par, land->LC.get());
+                                    top->rc_cont.get(), par, land->LC.get()); /** recover Tv */
     }
 
 
-    // channel soil
+    /** (Keep on) Completing the struct  "channel" (of the type CHANNEL) */
     cnet->SS = new SOIL_STATE {cnet->r->nh, Nl};
 
     cnet->th.reset(new Matrix<double>{Nl, cnet->r->nh});
-
     cnet->ET.reset(new Matrix<double>{Nl, cnet->r->nh});
 
     cnet->Kbottom.reset(new Vector<double>{cnet->r->nh});
 
-    for (j=1; j<=par->total_channel; j++)
+    for (j=1; j<=par->total_channel; j++) /** for every channel pixel ... */
     {
-        sy=(*cnet->soil_type)(j);
-        r=(*cnet->r)(j);
-        c=(*cnet->c)(j);
+        sy = (*cnet->soil_type)(j);
+        r = (*cnet->r)(j);
+        c = (*cnet->c)(j);
 
+        /** calculate psi for layer 0 using other psi data */
         (*cnet->SS->P)(0,j) = (*sl->SS->P)(0,top->j_cont[r][c]) + par->depr_channel;
 
+        /** calculate psi for other layers using precipitation data */
         for (l=1; l<=Nl; l++)
         {
             (*cnet->SS->P)(l,j) = (*sl->Ptot)(l,top->j_cont[r][c]) + par->depr_channel;
         }
 
+        /** calculate temperature, theta, theta ice and psi */
         for (l=1; l<=Nl; l++)
         {
             (*cnet->SS->T)(l,j)=(*sl->pa)(sy,jT,l);
-
+            /** calculate theta from psi */
             (*cnet->th)(l,j) = teta_psi((*cnet->SS->P)(l,j), 0.0,
                                         (*sl->pa)(sy,jsat,l), (*sl->pa)(sy,jres,l),
                                         (*sl->pa)(sy,ja,l), (*sl->pa)(sy,jns,l),
@@ -1189,7 +1198,7 @@ land cover %ld, meteo station %ld\n",
 
             if ((*cnet->SS->T)(l,j) <=GTConst::Tfreezing)
             {
-                // Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
+                /** Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T) */
                 (*cnet->SS->thi)(l,j) = (*cnet->th)(l,j) - teta_psi(Psif( (*cnet->SS->T)(l,j)),
                                                                     0.0,
                                                                     (*sl->pa)(sy,jsat,l),
@@ -1200,11 +1209,11 @@ land cover %ld, meteo station %ld\n",
                                                                     GTConst::PsiMin,
                                                                     (*sl->pa)(sy,jss,l));
 
-                // if Theta(without freezing)< Theta_unfrozen(in equilibrium with T)
-                // Theta_ice is set at 0
-                if ((*cnet->SS->thi)(l,j)<0) (*cnet->SS->thi)(l,j)=0.0;
+                /** if Theta(without freezing) < 0 => set Theta_ice = 0 */
+                if ((*cnet->SS->thi)(l,j) < 0)
+                    (*cnet->SS->thi)(l,j) = 0.0;
 
-                // Psi is updated taking into account the freezing
+                /** Psi is updated taking into account the freezing */
                 (*cnet->th)(l,j) -= (*cnet->SS->thi)(l,j);
                 (*cnet->SS->P)(l,j) = psi_teta((*cnet->th)(l,j) + th_oversat,
                                                (*cnet->SS->thi)(l,j),
@@ -1219,40 +1228,41 @@ land cover %ld, meteo station %ld\n",
         }
     }
 
-    if (recovered > 0 && par->total_channel > 0)
+    if (recovered > 0 && par->total_channel > 0) /** recover is enables and there are channel pixels */
     {
+        /** recover the objectes corresponding to the 4th argument in the function */
         assign_recovered_tensor_channel(old, par->recover, files[rpsich], cnet->SS->P.get(),
-                                        cnet->r.get(), cnet->c.get(), top->Z0.get());
-        assign_recovered_tensor_channel(old, par->recover, files[ricegch],
-                                        cnet->SS->thi.get(), cnet->r.get(), cnet->c.get(), top->Z0.get());
+                                        cnet->r.get(), cnet->c.get(), top->Z0.get()); /** recover P */
+        assign_recovered_tensor_channel(old, par->recover, files[ricegch], cnet->SS->thi.get(),
+                                        cnet->r.get(), cnet->c.get(), top->Z0.get()); /** recover thi */
         assign_recovered_tensor_channel(old, par->recover, files[rTgch], cnet->SS->T.get(),
-                                        cnet->r.get(), cnet->c.get(), top->Z0.get());
+                                        cnet->r.get(), cnet->c.get(), top->Z0.get()); /** recover T */
 
-        for (i=1; i<=par->total_channel; i++)
+        for (i=1; i<=par->total_channel; i++) /** for every channel pixel ... */
         {
             for (l=1; l<=Nl; l++)
             {
                 sy = (*cnet->soil_type)(i);
-                (*cnet->th)(l,i) = teta_psi(std::min<double>((*cnet->SS->P)(l,i),
-                                                             psi_saturation((*cnet->SS->thi)(l,i),
-                                                                            (*sl->pa)(sy,jsat,l),
-                                                                            (*sl->pa)(sy,jres,l),
-                                                                            (*sl->pa)(sy,ja,l),
-                                                                            (*sl->pa)(sy,jns,l),
-                                                                            1.-1./(*sl->pa)(sy,jns,l))),
-                                            (*cnet->SS->thi)(l,i),
-                                            (*sl->pa)(sy,jsat,l),
-                                            (*sl->pa)(sy,jres,l),
-                                            (*sl->pa)(sy,ja,l),
-                                            (*sl->pa)(sy,jns,l),
-                                            1.-1./(*sl->pa)(sy,jns,l),
-                                            GTConst::PsiMin,
-                                            (*sl->pa)(sy,jss,l));
+                /** calculate theta from psi */
+                (*cnet->th)(l,i) = teta_psi(
+                        std::min<double>(
+                                (*cnet->SS->P)(l,i),
+                                psi_saturation((*cnet->SS->thi)(l,i), (*sl->pa)(sy,jsat,l), (*sl->pa)(sy,jres,l),
+                                               (*sl->pa)(sy,ja,l), (*sl->pa)(sy,jns,l), 1.-1./(*sl->pa)(sy,jns,l))
+                        ),
+                        (*cnet->SS->thi)(l,i),
+                        (*sl->pa)(sy,jsat,l),
+                        (*sl->pa)(sy,jres,l),
+                        (*sl->pa)(sy,ja,l),
+                        (*sl->pa)(sy,jns,l),
+                        1.-1./(*sl->pa)(sy,jns,l),
+                        GTConst::PsiMin,
+                        (*sl->pa)(sy,jss,l));
             }
         }
     }
 
-    // z boundary condition
+    /** z boundary condition */
     for (l=1; l<=Nl; l++)
     {
         par->Zboundary -= (*sl->pa)(1,jdz,l);
@@ -1266,7 +1276,7 @@ land cover %ld, meteo station %ld\n",
         t_error("Fatal Error! Geotop is closed. See failing report (6).");
     }
 
-    par->Zboundary *= 1.E-3;  // convert in [m]
+    par->Zboundary *= 1.E-3;  /** convert from [mm] to [m] */
 
     /**************************************************************************************************/
     /*! Initialization of the struct "egy" (of the type ENERGY):*/
@@ -1812,7 +1822,8 @@ land cover %ld, meteo station %ld\n",
 
         assign_recovered_map_long(old, par->recover, files[rns], snow->S->lnum.get(), par, land->LC.get());
 
-        assign_recovered_map_vector(old, par->recover, files[rsnag], snow->age.get(), top->rc_cont.get(), par, land->LC.get());
+        assign_recovered_map_vector(old, par->recover, files[rsnag], snow->age.get(),
+                                    top->rc_cont.get(), par, land->LC.get());
 
         assign_recovered_tensor(old, par->recover, files[rDzs], snow->S->Dzl.get(), par, land->LC.get());
 
