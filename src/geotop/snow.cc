@@ -1434,7 +1434,6 @@ double dtheta_snow(double a, double b, double T)
 
 void allocate_and_initialize_statevar_1D(STATEVAR_1D *V, double nan, long nl)
 {
-
   V->Dzl.reset(new Vector<double>{nl});
   V->T.reset(new Vector<double>{nl});
   *(V->T) = nan;

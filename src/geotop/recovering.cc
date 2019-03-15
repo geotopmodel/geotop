@@ -104,8 +104,8 @@ void assign_recovered_map_vector(short old, long n, char *name, Vector<double> *
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void assign_recovered_map_long(short old, long n, char *name,
-                               Matrix<long> *assign, PAR * /*par*/, Matrix<double> *Zdistr)
+void assign_recovered_map_long(short old, long n, char *name, Matrix<long> *assign,
+                               PAR * /*par*/, Matrix<double> *Zdistr)
 {
 
   long r, c;
@@ -138,10 +138,9 @@ void assign_recovered_map_long(short old, long n, char *name,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void assign_recovered_tensor(short old, long n, char *name,
-                             Tensor<double> *assign, PAR * /*par*/, Matrix<double> *Zdistr)
+void assign_recovered_tensor(short old, long n, char *name, Tensor<double> *assign,
+                             PAR * /*par*/, Matrix<double> *Zdistr)
 {
-
   long r, c, l;
   std::unique_ptr<Matrix<double>> M;
   char *temp1, *temp2, *temp3;

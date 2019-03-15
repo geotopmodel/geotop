@@ -109,7 +109,8 @@ Matrix<double> *copydoublematrix_const(double c0, Matrix<double> *Mref, double N
     Matrix<double> *M;
     long r, c;
 
-    M= new Matrix<double>{Mref->nrh,Mref->nch};
+    M = new Matrix<double>{Mref->nrh,Mref->nch};
+
     for (r=1; r<=M->nrh; r++)
     {
         for (c=1; c<=M->nch; c++)
@@ -124,7 +125,6 @@ Matrix<double> *copydoublematrix_const(double c0, Matrix<double> *Mref, double N
             }
         }
     }
-
     return (M);
 }
 
