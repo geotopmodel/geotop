@@ -94,7 +94,7 @@ typedef struct {
     std::unique_ptr<Vector<double>> Temp;
     std::unique_ptr<Vector<double>> deltaw;
     std::unique_ptr<Vector<double>> SWlayer;
-    std::unique_ptr<Vector<double>> soil_transp_layer;
+    std::unique_ptr<Vector<double>> soil_transp_layer;  /** its size = n° of layer in which there is transpiration */
     std::unique_ptr<Vector<double>> dFenergy;
     std::unique_ptr<Vector<double>> udFenergy;
     std::unique_ptr<Vector<double>> Kth0;
@@ -105,8 +105,8 @@ typedef struct {
     std::unique_ptr<Vector<double>> T1;
     std::unique_ptr<Vector<double>> Tstar;
     std::unique_ptr<Vector<double>> THETA;
-    std::unique_ptr<Vector<double>> soil_evap_layer_bare;
-    std::unique_ptr<Vector<double>> soil_evap_layer_veg;
+    std::unique_ptr<Vector<double>> soil_evap_layer_bare; /** its size = n° of layer in which there is evaporation from bare soil */
+    std::unique_ptr<Vector<double>> soil_evap_layer_veg; /** its size = n° of layer in which there is evaporation from vegetation */
 
     std::unique_ptr<Matrix<double>> Tgskin_surr;
     std::unique_ptr<Matrix<double>> SWrefl_surr;
@@ -286,11 +286,11 @@ typedef struct {
      * - C=number of columns
      * - nt=number of time-step of the whole similation
      */
-    std::unique_ptr<Matrix<double>> PrecTot; /** total(snow+rain) precipitation (in a Dt) [mm] */
-    std::unique_ptr<Matrix<double>> Pnet;  /** liquid precipitation which reaches the soil surface in in a Dt as input
+    std::unique_ptr<Matrix<double>> PrecTot; /** total (snow+rain) precipitation (in a Dt) [mm] */
+    std::unique_ptr<Matrix<double>> Pnet;  /** liquid precipitation which reaches the soil surface in a Dt as input
                                             * of "punctual_energy" subroutine [mm],
-                                            * rain intensity as output of the same subroutine and
-                                            * in "water.balance.c" module [mm/s]*/
+                                            * (rain intensity as output of the same subroutine and
+                                            * in "water.balance.c" module [mm/s]) */
     std::unique_ptr<Vector<double>> PrTOT_mean;  /** total precipitation (on nDt_output_basin Dt time intervals) [mm] */
     std::unique_ptr<Vector<double>> PrSNW_mean;
     std::unique_ptr<Vector<double>> Pt;
@@ -378,8 +378,8 @@ typedef struct {
     short output_soil_bin;
     short output_snow_bin;
     short output_glac_bin;
-    short output_surfenergy_bin;
-    short output_meteo_bin;
+    short output_surfenergy_bin; /** set to 1 if we want to know the surface energy balance data in the output station [TO CHECK] */
+    short output_meteo_bin; /** set to 1 if we want to know the meteo data in the output station [TO CHECK] */
 
     std::unique_ptr<Matrix<double>> chkpt;
     std::unique_ptr<Matrix<long>> rc; /** rows and cols indexes of the selected output points */
@@ -654,9 +654,9 @@ struct STATEVAR_3D {
 
     std::unique_ptr<Matrix<short>> type;
     std::unique_ptr<Matrix<long>> lnum;
-    std::unique_ptr<Tensor<double>> Dzl;
+    std::unique_ptr<Tensor<double>> Dzl; /** snow depth */
     std::unique_ptr<Tensor<double>> w_liq;
-    std::unique_ptr<Tensor<double>> w_ice;
+    std::unique_ptr<Tensor<double>> w_ice; /** SWE (snow water equivalent) */
     std::unique_ptr<Tensor<double>> T;
 };
 
@@ -673,7 +673,7 @@ typedef struct {
 typedef struct {
     STATEVAR_3D *S;
     STATEVAR_1D *S_for_BS;
-    std::unique_ptr<Vector<double>> age;
+    std::unique_ptr<Vector<double>> age; /** snow age */
     std::unique_ptr<Vector<double>> MELTED;
     std::unique_ptr<Vector<double>> melted;
     std::unique_ptr<Vector<double>> SUBL;
