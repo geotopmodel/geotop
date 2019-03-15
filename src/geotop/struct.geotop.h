@@ -355,7 +355,7 @@ typedef struct {
     std::unique_ptr<Vector<long>> inf_snow_layers;
 
     double max_weq_glac;
-    long max_glac_layers;
+    long max_glac_layers; /** glacier layers */
     std::unique_ptr<Vector<long>> inf_glac_layers;
 
     double Sr_glac;
@@ -657,16 +657,16 @@ struct STATEVAR_3D {
     std::unique_ptr<Tensor<double>> Dzl; /** snow depth */
     std::unique_ptr<Tensor<double>> w_liq;
     std::unique_ptr<Tensor<double>> w_ice; /** SWE (snow water equivalent) */
-    std::unique_ptr<Tensor<double>> T;
+    std::unique_ptr<Tensor<double>> T; /** temperature */
 };
 
 
 typedef struct {
     short type;
     long lnum;
-    std::unique_ptr<Vector<double>> Dzl;
+    std::unique_ptr<Vector<double>> Dzl; /** snow depth */
     std::unique_ptr<Vector<double>> w_liq;
-    std::unique_ptr<Vector<double>> w_ice;
+    std::unique_ptr<Vector<double>> w_ice; /** SWE (snow water equivalent) */
     std::unique_ptr<Vector<double>> T;
 } STATEVAR_1D;
 
