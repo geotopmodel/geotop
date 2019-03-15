@@ -694,7 +694,7 @@ keyword LinearInterpolation at 1.\n");
     /*! Completing the several time-indipendent input variables with the data of input-files          */
     /**************************************************************************************************/
     /**************************************************************************************************/
-    /** Completing of "land" (of the type LAND): */
+    /** Completing of "land" (of the type LAND) */
 
     /** Initialize matrix of shadow */
     land->shadow.reset(new Matrix<short>{Nr,Nc}); /** initialized as if it was always NOT in shadow */
@@ -803,7 +803,7 @@ land cover %ld, meteo station %ld\n",
     }
 
     /**************************************************************************************************/
-    /** Completing the struct "channel" (of the type CHANNEL): */
+    /** Completing the struct "channel" (of the type CHANNEL) */
     /** The number of channel-pixel are counted: */
     i=0;
     for (r=1; r<=Nr; r++)
@@ -1279,9 +1279,9 @@ land cover %ld, meteo station %ld\n",
     par->Zboundary *= 1.E-3;  /** convert from [mm] to [m] */
 
     /**************************************************************************************************/
-    /*! Initialization of the struct "egy" (of the type ENERGY):*/
+    /** Initialization of the struct "egy" (of the type ENERGY): */
 
-    if (par->output_surfenergy_bin == 1)
+    if (par->output_surfenergy_bin == 1) /** if we want to know the surface energy balance data in the output station [TO CHECK] ... */
     {
         if (strcmp(files[fradnet], string_novalue) != 0)
         {
@@ -1430,7 +1430,7 @@ land cover %ld, meteo station %ld\n",
     }
 
 
-    // vectors used in energy_balance()
+    /** vectors/matrices used in energy_balance() */
     egy->Tgskin_surr.reset(new Matrix<double>{Nr,Nc});
     egy->SWrefl_surr.reset(new Matrix<double>{Nr, Nc});
 
@@ -1455,7 +1455,7 @@ land cover %ld, meteo station %ld\n",
     egy->Tstar.reset(new Vector<double>{Nl}); // soil temperature at which freezing begins
     egy->THETA.reset(new Vector<double>{Nl});  // water content (updated in the iterations)
 
-    // allocate vector of soil layer contributions to evaporation (up to GTConst::z_evap)
+    /** allocate vector of soil layer contributions to evaporation (up to GTConst::z_evap) */
     z = 0.;
     l = 0;
     do
@@ -1463,7 +1463,8 @@ land cover %ld, meteo station %ld\n",
         l++;
         z += (*sl->pa)(1,jdz,l);
     }
-    while (l<Nl && z < GTConst::z_evap);
+    while (l<Nl && z<GTConst::z_evap);
+
     egy->soil_evap_layer_bare.reset(new Vector<double> {l});
     egy->soil_evap_layer_veg.reset(new Vector<double> {l});
 
@@ -1471,20 +1472,19 @@ land cover %ld, meteo station %ld\n",
     geolog << "Soil water transpires from the first " << egy->soil_transp_layer->nh << " layers" << std::endl;
 
     /**************************************************************************************************/
-    /*! Completing of the struct "water" (of the type WATER) */
+    /** Completing of the struct "water" (of the type WATER) */
     wat->Voutlandsub = 0.;
     wat->Voutlandsup = 0.;
     wat->Voutbottom = 0.;
 
-
-    /* Initialization of wat->Pnet (liquid precipitation that reaches the sl surface in mm): */
+    /** Initialization of Liquid precipitation that reaches the soil surface [mm] */
     wat->Pnet.reset(new Matrix<double>{Nr,Nc});
 
-    /* Initialization of wat->PrecTot (total precipitation (rain+snow) precipitation): */
+    /** Initialization of Total precipitation (rain+snow) precipitation [mm] */
     wat->PrecTot.reset(new Matrix<double>{Nr,Nc});
     (*wat->PrecTot) = par->IPrec_default;
 
-    /* Initialization of the matrices with the output of total precipitation and interception: */
+    /** Initialization of Output total precipitation and interception */
     if (par->output_meteo_bin == 1 && strcmp(files[fprec], string_novalue) != 0)
     {
         wat->PrTOT_mean.reset(new Vector<double>{par->total_pixel});
@@ -1496,12 +1496,12 @@ land cover %ld, meteo station %ld\n",
     wat->h_sup.reset(new Vector<double>{par->total_pixel});
 
     /**************************************************************************************************/
-    /*! Initialization of the struct "snow" (of the type SNOW): */
+    /** Initialization of the struct "snow" (of the type SNOW) */
     /*************************************************************************************************/
-    snow->S=(STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
+    snow->S = (STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
     snow->S = new STATEVAR_3D{(double)number_novalue, par->max_snow_layers, Nr, Nc};
 
-    // initial snow depth
+    /** initial snow depth and snow water equivalent (SWE) */
     if ( strcmp(files[fsn0], string_novalue) != 0 && strcmp(files[fswe0], string_novalue) != 0 )
     {
         printf("Initial condition on snow depth from file %s\n",files[fsn0]);
@@ -1510,7 +1510,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                (*snow->S->Dzl)(1,r,c) = (*M)(r,c);
+                (*snow->S->Dzl)(1,r,c) = (*M)(r,c); /** snow depth */
             }
         }
 
@@ -1520,7 +1520,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                (*snow->S->w_ice)(1,r,c) = (*M)(r,c);
+                (*snow->S->w_ice)(1,r,c) = (*M)(r,c); /** SWE */
             }
         }
     }
@@ -1532,7 +1532,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                (*snow->S->Dzl)(1,r,c) = (*M)(r,c);
+                (*snow->S->Dzl)(1,r,c) = (*M)(r,c); /** snow depth */
             }
         }
 
@@ -1540,9 +1540,8 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                if ((long)(*land->LC)(r,c) != number_novalue) (*snow->S->w_ice)(1,r,c) =
-                                                                      (*snow->S->Dzl)(1,r,c) *
-                                                                      IT->rhosnow0/GTConst::rho_w;
+                if ( (long)(*land->LC)(r,c) != number_novalue )
+                    (*snow->S->w_ice)(1,r,c) = (*snow->S->Dzl)(1,r,c) * IT->rhosnow0/GTConst::rho_w; /** SWE */
             }
         }
 
@@ -1555,7 +1554,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                (*snow->S->w_ice)(1,r,c) = (*M)(r,c);
+                (*snow->S->w_ice)(1,r,c) = (*M)(r,c); /** SWE */
             }
         }
 
@@ -1563,9 +1562,8 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                if ((long)(*land->LC)(r,c) != number_novalue) (*snow->S->Dzl)(1,r,c) =
-                                                                      (*snow->S->w_ice)(1,r,c) *
-                                                                      GTConst::rho_w/IT->rhosnow0;
+                if ( (long)(*land->LC)(r,c) != number_novalue )
+                    (*snow->S->Dzl)(1,r,c) = (*snow->S->w_ice)(1,r,c) * GTConst::rho_w/IT->rhosnow0; /** snow depth */
             }
         }
     }
@@ -1578,28 +1576,26 @@ land cover %ld, meteo station %ld\n",
             {
                 if ((long)(*land->LC)(r,c) != number_novalue)
                 {
-                    (*snow->S->w_ice)(1,r,c) = IT->swe0;
-                    (*snow->S->Dzl)(1,r,c) = IT->swe0*GTConst::rho_w/IT->rhosnow0;
+                    (*snow->S->w_ice)(1,r,c) = IT->swe0; /** SWE */
+                    (*snow->S->Dzl)(1,r,c) = IT->swe0*GTConst::rho_w/IT->rhosnow0; /** snow depth */
                 }
             }
         }
     }
 
 
-    // Optional reading of snow age in the whole basin
+    /** Optional reading of snow age in the whole basin */
     if ( strcmp(files[fsnag0], string_novalue) != 0 )
     {
         printf("Snow age initial condition from file %s\n",files[fsnag0]+1);
-        snow->age = read_map_vector(2, files[fsnag0], land->LC.get(), UV,
-                                    (double)number_novalue, top->rc_cont.get());
+        snow->age = read_map_vector(2, files[fsnag0], land->LC.get(), UV, (double)number_novalue, top->rc_cont.get());
     }
     else
     {
         snow->age.reset(new Vector<double>{par->total_pixel});
         *(snow->age) = IT->agesnow0;
     }
-
-
+// QUAAAAAAAAAAAAAAAA
     if (times->JD_plots->nh > 1)
     {
         if (strcmp(files[pD], string_novalue) != 0)
@@ -1681,7 +1677,7 @@ land cover %ld, meteo station %ld\n",
             if ( (long)(*land->LC)(r,c)!=number_novalue)
             {
 
-                // Adjusting snow init depth in case of steep slope (contribution by Stephan Gruber)
+                /** Adjusting snow init depth in case of steep slope (contribution by Stephan Gruber) */
                 if (par->snow_curv > 0 &&(*top->slope)(r,c) > par->snow_smin)
                 {
                     if ((*top->slope)(r,c) <= par->snow_smax)
@@ -1730,7 +1726,7 @@ land cover %ld, meteo station %ld\n",
                 else if (D>1.E-5 || SWE>1.E-5)
                 {
 
-                    (*snow->age)(top->j_cont[r][c])*=86400.0;  // now in [s]
+                    (*snow->age)(top->j_cont[r][c])*=86400.0;  /** now in [s] */
 
                     if (SWE <= par->max_weq_snow * par->max_snow_layers )
                     {
@@ -1796,7 +1792,7 @@ land cover %ld, meteo station %ld\n",
                     }
                 }
 
-                non_dimensionalize_snowage(&((*snow->age)(top->j_cont[r][c])), IT->Tsnow0);
+                non_dimensionalize_snowage( &( (*snow->age)(top->j_cont[r][c]) ), IT->Tsnow0 );
 
                 if (par->point_sim == 1)
                 {
@@ -1848,9 +1844,9 @@ land cover %ld, meteo station %ld\n",
 
 
     /**************************************************************************************************/
-    /*! Initialization of the struct "glac" (of the type GLACIER):*/
+    /** Initialization of the struct "glac" (of the type GLACIER) */
     /**************************************************************************************************/
-    /*! Optional reading of glacier depth in the whole basin ("GLACIER0"):    */
+    /*! Optional reading of glacier depth in the whole basin ("GLACIER0")    */
     if (par->point_sim!=1 && strcmp(files[fgl0], string_novalue)!= 0 && par->max_glac_layers==0)
     {
         geolog << "Warning: Glacier map present, but glacier represented with 0 layers" << std::endl;
@@ -2003,7 +1999,8 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
 
     //*************************************************************************************************
-    // Filling up of the struct "met" (of the type METEO):
+    /** Filling up of the struct "met" (of the type METEO) */
+
     met->Tgrid.reset(new Matrix<double>{Nr,Nc});
     (*met->Tgrid) = par->Tair_default;
 
@@ -2019,7 +2016,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     met->Vdir.reset(new Matrix<double>{Nr,Nc});
     (*met->Vdir) = par->Vdir_default;
 
-    if (par->output_meteo_bin == 1)
+    if (par->output_meteo_bin == 1) /** if we want to know the meteo data in the output station [TO CHECK] ... */
     {
         if (strcmp(files[fTa], string_novalue) != 0)
         {
@@ -2060,7 +2057,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     }
 
     /**************************************************************************************************/
-    // SpinUp variables
+    /** SpinUp variables */
 
     if (par->recover > 0)
         write_suffix(rec, par->recover, 4);
@@ -2355,7 +2352,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
             recover_run_averages(old, sl->SWErun.get(), files[rSWErun], land->LC.get(), top->rc_cont.get(), par, 3);
     }
 
-    // WRITE INITIAL CONDITION
+    /** write initial condition */
     write_output_headers(met->st->Z->nh, times, wat, par, top, land, sl, egy, snow, glac);
 
     if (par->state_pixel == 1)

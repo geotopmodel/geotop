@@ -142,13 +142,17 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
                             double SWEmax_tot)
 
 {
-
+/** combine different snow layers:
+ * - add
+ * - split
+ * - ...
+ */
   long l, linf, n, k, j, max=snow->Dzl->ndh;
   double D, Dnew, Dmin, SWE, SWEnew, ice;
   short occurring;
   FILE *f;
 
-  //check on SWEmax[kg/m2]
+  /** check on SWEmax[kg/m2] */
   SWE = 0.0;
   l=1;
   while (l <= (*snow->lnum)(r,c))
@@ -156,7 +160,10 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
     SWE += (*snow->w_ice)(l,r,c);
     ice = (*snow->w_ice)(l,r,c);
     (*snow->w_ice)(l,r,c) -= std::max<double>(0.0, SWE-SWEmax_tot);
-    if ((*snow->w_ice)(l,r,c) < 0) (*snow->w_ice)(l,r,c) = 0.0;
+
+    if ((*snow->w_ice)(l,r,c) < 0)
+      (*snow->w_ice)(l,r,c) = 0.0;
+
     if (ice > 0)
     {
       (*snow->Dzl)(l,r,c) *= (*snow->w_ice)(l,r,c)/ice;
@@ -165,7 +172,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
     l++;
   }
 
-  //D=snow depth(mm)
+  /** D = snow depth [mm] */
   D = 0.0;
   SWE = 0.0;
   for (l=1; l<=max; l++)
@@ -174,8 +181,8 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
     SWE += ((*snow->w_ice)(l,r,c)+(*snow->w_liq)(l,r,c));
   }
 
-  //PREPROCESSING
-  //1. If the snow depth is too small, then it is reset to 0
+  /** PREPROCESSING */
+  /** 1. If the snow depth is too small, then it is reset to 0 */
   if (SWE < no_snow*SWEmax_layer)
   {
     (*snow->lnum)(r,c)=0;
@@ -185,11 +192,11 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
       (*snow->Dzl)(l,r,c)=0.0;
       (*snow->w_ice)(l,r,c)=0.0;
       (*snow->w_liq)(l,r,c)=0.0;
-      (*snow->T)(l,r,c)=0.0; //Temperatura di inizializzazione
+      (*snow->T)(l,r,c)=0.0; /** initialization temperature */
     }
 
 
-    //2. If D<Dsnow_simpl, we are in the simplified case
+    /** 2. If D<Dsnow_simpl, we are in the simplified case */
   }
   else if ((*snow->lnum)(r,c) > 0 && SWE < simpl_snow*SWEmax_layer)
   {
@@ -211,14 +218,14 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
       (*snow->lnum)(r,c)=1;
     }
 
-    //3. if z>=Dsnow_simpl, ordinary case
+    /** 3. if z>=Dsnow_simpl, ordinary case */
   }
   else if ((*snow->lnum)(r,c) > 0 && SWE >= simpl_snow*SWEmax_layer)
   {
 
     (*snow->type)(r,c)=2;
 
-    //4. if there is not yet a snow layer and D<Dsnow_simpl, simplified case
+    /** 4. if there is not yet a snow layer and D<Dsnow_simpl, simplified case */
   }
   else if ((*snow->lnum)(r,c) == 0 && SWE < simpl_snow*SWEmax_layer)
   {
@@ -228,7 +235,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
     (*snow->T)(1,r,c)=std::min<double>(Ta,-0.1);
 
 
-    //5. if there is not yet a snow layer and D>=Dmin(max), simplified case
+    /** 5. if there is not yet a snow layer and D>=Dmin(max), simplified case */
   }
   else if ((*snow->lnum)(r,c) == 0 && SWE >= simpl_snow*SWEmax_layer)
   {
@@ -239,11 +246,11 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
 
   }
 
-  // SIMMETRICAL PARAMETERIZATION SCHEME (new)
+  /** SIMMETRICAL PARAMETERIZATION SCHEME (new) */
   if ((*snow->type)(r,c)==2)
   {
 
-    //remove layers < 0.01 mm
+    /** remove layers < 0.01 mm */
     n = 0;
     do
     {
@@ -263,7 +270,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
     }
     while (n<=max && occurring==1);
 
-    //add new layer
+    /** add new layer */
     if ((*snow->w_ice)((*snow->lnum)(r,c),r,c) > SWEmax_layer *
                                                  (1.+simpl_snow) )
     {
@@ -355,7 +362,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
       (*snow->lnum)(r,c) ++;
     }
 
-    //split layers
+    /** split layers */
     if ((*snow->lnum)(r,c) < max)
     {
 
@@ -364,7 +371,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
 
         occurring = 0;
 
-        //FROM UP DOWN
+        /** FROM UP DOWN */
         k = inf->nh;
 
         do
@@ -410,7 +417,7 @@ void snow_layer_combination(double a, long r, long c, STATEVAR_3D *snow, double 
 
     }
 
-    //check
+    /** check */
     Dnew = 0.0;
     SWEnew = 0.0;
     for (l=1; l<=max; l++)
@@ -959,15 +966,15 @@ double k_thermal_snow_Yen(double density)   //W m^-1 K^-1 (Yen, 1981)
 
 void non_dimensionalize_snowage(double *snowage, double Ta)
 {
-
   double r1, r2, r3;
 
-  r1=exp(5000.0*(1.0/273.16-1.0/(Ta+273.16)));
-  r2=pow(r1,10);
-  if (r2>1.0) r2=1.0;
+  r1 = exp(5000.0*(1.0/273.16-1.0/(Ta+273.16)));
+  r2 = pow(r1,10);
+  if (r2>1.0)
+    r2=1.0;
   r3=0.3;
 
-  *snowage*=((r1+r2+r3)*1.0E-6);
+  *snowage *= ((r1+r2+r3)*1.0E-6);
 }
 
 /******************************************************************************************************************************************/
