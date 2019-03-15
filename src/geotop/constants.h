@@ -57,9 +57,9 @@ namespace GTConst {
     constexpr double max_slope = 89.999;
 
     // STANDARD LAPSE RATES: For the sign, remember that the Lapse Rate gives how a variable decrease with height
-    constexpr double LapseRateTair = 6.5;  // Lapse rate for Tair [C/m]
-    constexpr double LapseRateTdew = 2.5;  // Lapse rate for Tdew [C/m]
-    constexpr double LapseRatePrec = 0.0;  // Lapse rate for Precipitation [1/m]
+    constexpr double LapseRateTair = 6.5;  /** Lapse rate for Tair [°C/m] */
+    constexpr double LapseRateTdew = 2.5;  /** Lapse rate for Tdew [°C/m] */
+    constexpr double LapseRatePrec = 0.0;  /** Lapse rate for Precipitation [1/m] */
 //****************************************************
 // Constants
 //****************************************************
@@ -79,7 +79,7 @@ namespace GTConst {
     constexpr double c_liq = 4188.0; /* heat capacity of water    [J/(kg*K)]*/
     constexpr double c_ice = 2117.0; /* heat capacity of ice    [J/(kg*K)]*/
     constexpr double c_can = 2700.0; /* heat capacity of canopy [J/(kg*K)]*/
-    constexpr double Tfreezing = 0.0E1; /* freezing temperature [Celsius]*/
+    constexpr double Tfreezing = 0.0; /** freezing temperature [*C] */
     constexpr double ka = 0.41;         /* Von Karman constant */
     constexpr double mu_l = 0.001787; /* Dynamic viscosity of water at 0 degrees Celsius*/
     constexpr double wsn_vis = 0.8; /* snow on canopy: scattering parameters */

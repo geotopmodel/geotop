@@ -30,21 +30,21 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
 {
     GEOTIMER_SECTION(__func__);
 
-    long i,j,t,m,n,p,q,h,k,r,s; /**counter*/
-    double deltateta; /**amplitude of the angles in which the horizon is divided*/
-    std::unique_ptr<Matrix<double>> alfa; /**matrices with the angles of the direction*/
-    std::unique_ptr<Vector<double>> vv; /**vector with the view factor of the current pixel for one of the N parts*/
-    std::unique_ptr<Vector<double>> v; /**vector with the minimum view factor of the current pixel for one of the N parts*/
-    double vvv; /**mean of the sky view for a pixel of the N parts*/
+    long i,j,t,m,n,p,q,h,k,r,s; /** counter */
+    double deltateta; /** amplitude of the angles in which the horizon is divided */
+    std::unique_ptr<Matrix<double>> alfa; /** matrices with the angles of the direction */
+    std::unique_ptr<Vector<double>> vv; /** vector with the view factor of the current pixel for one of the N parts */
+    std::unique_ptr<Vector<double>> v; /** vector with the minimum view factor of the current pixel for one of the N parts */
+    double vvv; /** mean of the sky view for a pixel of the N parts*/
 
     if (sky->nrh!=input->nrh)
         t_error("Sky view factor fatal error, number of rows not consistent");
     if (sky->nch!=input->nch)
         t_error("Sky view factor fatal error, number of cols not consistent");
 
-    /** Computation of the matrix with the angles of the direction*/
+    /** Computation of the matrix with the angles of the direction */
     alfa.reset(new Matrix<double>{2*input->nrh-1,2*input->nch-1});
-    *alfa = (double)novalue; //initialisation with novalue
+    *alfa = (double)novalue; /** initialisation with novalue */
 
 #pragma omp parallel for private(i, j)
     for (i=1; i<=2*input->nrh-1; i++)
@@ -70,7 +70,7 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
         }
     }
 
-    /** Computation of matrix with sky view factor:*/
+    /** Computation of matrix with sky view factor: */
     for (i=1; i<=sky->nrh; i++)
     {
         for (j=1; j<=sky->nch; j++)
@@ -87,7 +87,7 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
     {
         for (j=1; j<=input->nch; j++)
         {
-            if ((long)(*input)(i,j)!=novalue)  /** Computation only of novalue pixels*/
+            if ((long)(*input)(i,j)!=novalue)  /** Computation only of novalue pixels */
             {
                 for (t=1; t<=N; t++)
                 {
@@ -138,14 +138,15 @@ void sky_view_factor(Matrix<double> *sky, long N, T_INIT *UV, Matrix<double> *in
 
 //***************************************************************************
 
-/**taken from geomorphology099 and der_min modified*/
 void nablaquadro_mask(Matrix<double> *Z0, Matrix<short> *curv, Vector<double> *U, Vector<double> *V)
 {
-
+/**
+ * taken from geomorphology099 and der_min modified
+ */
     short y;
     long i,j,h,rows,cols;
     double grid[9],z[9],derivate2;
-    double der_min=0.00001; /**limit for planarity*/
+    double der_min=0.00001; /** limit for planarity */
 
     short v[13][2] = {           { 0, 0},
                                  { 0, 1},
@@ -196,13 +197,13 @@ void nablaquadro_mask(Matrix<double> *Z0, Matrix<short> *curv, Vector<double> *U
                     derivate2 = 0.5*((z[1]+z[5]-2*z[0])/(grid[1]*grid[1])+ (z[3]+z[7]-2*z[0])/(grid[3]*grid[3]));
                     derivate2 = derivate2 + 0.5*((z[2]+z[4]+z[6]+z[8]-4*z[0])/(grid[6]*grid[6]));
 
-                    if (fabs(derivate2)<=der_min || derivate2>der_min)  /**plane or concave*/
+                    if (fabs(derivate2)<=der_min || derivate2>der_min)  /** plane or concave */
                     {
                         (*curv)(i,j)=0;
                     }
                     else
                     {
-                        (*curv)(i,j)=1; /**convex*/
+                        (*curv)(i,j)=1; /** convex */
                     }
                 }
             }

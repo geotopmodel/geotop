@@ -38,7 +38,7 @@ typedef struct {
     std::unique_ptr<Vector<double>> ET_mean;
     std::unique_ptr<Vector<double>> H_mean;
     std::unique_ptr<Vector<double>> SEB_mean;
-    std::unique_ptr<Vector<double>> Ts_mean;  /*averaged surface Temperature(on nDt_output_basin Dt time intervals)*/
+    std::unique_ptr<Vector<double>> Ts_mean;  /** averaged surface Temperature (on nDt_output_basin Dt time intervals) */
     std::unique_ptr<Vector<double>> Rswdown_mean;
     std::unique_ptr<Vector<double>> Rswbeam_mean;
     std::unique_ptr<Vector<long>> nDt_shadow;
@@ -118,9 +118,9 @@ typedef struct {
 struct SOIL_STATE {
     SOIL_STATE(const long n, const long nl);
 
-    std::unique_ptr<Matrix<double>> P;
-    std::unique_ptr<Matrix<double>> thi;
-    std::unique_ptr<Matrix<double>> T;
+    std::unique_ptr<Matrix<double>> P; /** psi */
+    std::unique_ptr<Matrix<double>> thi; /** theta ice */
+    std::unique_ptr<Matrix<double>> T; /** temperature */
 };
 
 /*---------------------------------------------------------------------------*/
@@ -128,21 +128,21 @@ struct SOIL_STATE {
 struct STATE_VEG {
 
     std::unique_ptr<Vector<double>> Tv;
-    std::unique_ptr<Vector<double>> wrain;       /*intercepted precipitation in mm*/
-    std::unique_ptr<Vector<double>> wsnow;       /*intercepted precipitation in mm*/
+    std::unique_ptr<Vector<double>> wrain; /** intercepted precipitation [mm] */
+    std::unique_ptr<Vector<double>> wsnow; /** intercepted precipitation [mm] */
 
 };
 
 /*---------------------------------------------------------------------------*/
 
 struct SOIL {
-    std::unique_ptr<Matrix<long>> type;
+    std::unique_ptr<Matrix<long>> type; /** soil type map */
     std::unique_ptr<Tensor<double>> pa;
     std::unique_ptr<Matrix<double>> T_av_tensor;
     std::unique_ptr<Matrix<double>> thw_av_tensor;
     std::unique_ptr<Matrix<double>> thi_av_tensor;
-    std::unique_ptr<Matrix<double>> Ptot;
-    std::unique_ptr<Matrix<double>> th;
+    std::unique_ptr<Matrix<double>> Ptot; /** total precipitation */
+    std::unique_ptr<Matrix<double>> th; /** theta (soil water content) */
 
     std::unique_ptr<Tensor<double>> ET;
 
@@ -176,14 +176,14 @@ struct SOIL {
 
 /*---------------------------------------------------------------------------*/
 typedef struct {
-    std::unique_ptr<Matrix<double>> Z0;         //elevation of each pixel (DEM)
+    std::unique_ptr<Matrix<double>> Z0; /** elevation of each pixel (DEM) [m a.s.l]*/
     std::unique_ptr<Tensor<double>> Z;
 
-    std::unique_ptr<Matrix<double>> sky;        //view factor (of the sky) for each pixel
+    std::unique_ptr<Matrix<double>> sky; /** sky view factor for each pixel */
     std::unique_ptr<Matrix<short>> pixel_type;
 
-    std::unique_ptr<Matrix<double>> aspect;     /*aspect; ex: matr_ev->azimuth*/
-    std::unique_ptr<Matrix<double>> slope;     /*slope of the pixels; ex: matr_ev->slope*/
+    std::unique_ptr<Matrix<double>> aspect; /** aspect; ex: matr_ev->azimuth */
+    std::unique_ptr<Matrix<double>> slope; /** slope of the pixels; ex: matr_ev->slope */
 
     std::unique_ptr<Matrix<double>> curvature1;
     std::unique_ptr<Matrix<double>> curvature2;
@@ -229,29 +229,35 @@ typedef struct {
 
 /*---------------------------------------------------------------------------*/
 typedef struct {
-    std::unique_ptr<Matrix<double>> LC;            //land cover for each pixel
+    std::unique_ptr<Matrix<double>> LC; /** land cover for each pixel */
     std::unique_ptr<Matrix<double>> delay;
-    std::unique_ptr<Matrix<short>> shadow;      //=1 if shadow, =0 if not
+    std::unique_ptr<Matrix<short>> shadow; /** parameter equal to 1 if shadow, otherwise 0 */
     std::unique_ptr<Matrix<double>> ty;
 
-    double ***vegpars;
-    double **vegparv;
+    double ***vegpars; /** tensor with time dependent vegetation parameters */
+    double **vegparv; /** matrix with time dependent vegetation parameters */
     std::unique_ptr<Vector<double>> vegpar;
     long *NumlinesVegTimeDepData;
 
     std::unique_ptr<Matrix<double>> root_fraction;
 
-} LAND;/*all this data are calculated on the basis of land use data and some other par*/
+} LAND; /** all this data are calculated on the basis of land use data and some other parameters */
 
 
 /*---------------------------------------------------------------------------*/
 
 
 typedef struct {
-    /*nch=number of channel-pixel,ns=number of virtual stretches of channel,L=number of layers,
-                      R=number of rows of the basin,C=number of columns in the basin*/
-    std::unique_ptr<Vector<long>> r;          /*array of rows of the channel-pixels; dimension=nch*/
-    std::unique_ptr<Vector<long>> c;          /*array of columns of the channel-pixels; dimension=nch*/
+    /**
+     * CHANNEL parameters:
+     * - nch = number of channel-pixel
+     * - ns = number of virtual stretches of channel
+     * - L = number of layers
+     * - R = number of rows of the basin
+     * - C = number of columns in the basin
+     */
+    std::unique_ptr<Vector<long>> r; /** rows indexes of the channel pixels */
+    std::unique_ptr<Vector<long>> c; /** columns indexes of the channel pixels */
     std::unique_ptr<Matrix<long>> ch;
     std::unique_ptr<Vector<long>> ch_down;
     std::unique_ptr<Vector<double>> Vsup;
@@ -261,8 +267,8 @@ typedef struct {
     double Vout;
     long **ch3;
     std::unique_ptr<Matrix<long>> lch;
-    std::unique_ptr<Vector<long>> soil_type;
-    std::unique_ptr<Matrix<double>> th;
+    std::unique_ptr<Vector<long>> soil_type; /** soil type for channel pixels */
+    std::unique_ptr<Matrix<double>> th; /** theta (SWC) */
     std::unique_ptr<Matrix<double>> ET;
     std::unique_ptr<Vector<double>> Kbottom;
     SOIL_STATE *SS;
@@ -272,14 +278,20 @@ typedef struct {
 /*---------------------------------------------------------------------------*/
 
 typedef struct {
-    /*nstations=number of all the rain-stations,number_of_pixels=number of all the pixels of the basin R*C,
-                       R=number of rows,C=number of columns,nt=number of time-step of the whole similation*/
-    std::unique_ptr<Matrix<double>> PrecTot;    /*total(snow+rain) precipitation in mm (in a Dt)*/
-    std::unique_ptr<Matrix<double>> Pnet;       /*liquid precipitation which reaches the sl surface in mm in a Dt as input
-                              of "punctual_energy" subroutine, rain intensity in mm/s as output of the
-                              same subroutine and in "water.balance.c" module*/
-
-    std::unique_ptr<Vector<double>> PrTOT_mean;  /*Total precipitation [mm](on nDt_output_basin Dt time intervals)*/
+    /**
+     * WATER parameters:
+     * - nstations=number of all the rain-stations
+     * - number_of_pixels=number of all the pixels of the basin R*C
+     * - R=number of rows
+     * - C=number of columns
+     * - nt=number of time-step of the whole similation
+     */
+    std::unique_ptr<Matrix<double>> PrecTot; /** total(snow+rain) precipitation (in a Dt) [mm] */
+    std::unique_ptr<Matrix<double>> Pnet;  /** liquid precipitation which reaches the soil surface in in a Dt as input
+                                            * of "punctual_energy" subroutine [mm],
+                                            * rain intensity as output of the same subroutine and
+                                            * in "water.balance.c" module [mm/s]*/
+    std::unique_ptr<Vector<double>> PrTOT_mean;  /** total precipitation (on nDt_output_basin Dt time intervals) [mm] */
     std::unique_ptr<Vector<double>> PrSNW_mean;
     std::unique_ptr<Vector<double>> Pt;
     std::unique_ptr<Vector<double>> Ps;
@@ -311,7 +323,7 @@ typedef struct {
 typedef struct {
 
     std::unique_ptr<Vector<double>> JD_plots;
-    double time;    /*time=current time from the begin of simulation [s]*/
+    double time; /** current time from the begin of simulation [s] */
     long iplot;
     double **Dt_matrix;
     long numlinesDt_matrix;
@@ -322,19 +334,19 @@ typedef struct {
 
 /*---------------------------------------------------------------------------*/
 typedef struct {
-    double Dt;      /*Dt=the integration time interval [s]*/
+    double Dt; /** integration time interval [s] */
     double ST;
-    short print;         /*1 IF YOU WANT TO PRINT MATRICES WITH INTERMEDIATE RESULTS, 0 OTHERWISE*/
+    short print; /** parameter equal to 1 if you want to print matrices with intermediate results, otherwise equal to 0 */
     short monin_obukhov;
-    double gamma_m;   /*Exponent of the law of uniform motion on the surface*/
-    double T_rain;    /*TEMPERATURE ABOVE WICH ALL PRECIPITAION IS RAIN [C]*/
-    double T_snow;    /*TEMPERATURE BELOW WICH ALL PRECIPITAION IS SNOW [C]*/
-    double aep;       /*ALBEDO EXTINCTION PARAMETER [m]*/
-    double avo;       /*NEW SNOW VISIBLE BAND REFLECTANCE*/
-    double airo;      /*NEW NEAR INFRARED BAND REFLECTANCE*/
-    double Sr;      /*WATER FRACTION RETAINED BY CAPILLARY FORCES IN SNOW*/
-    double rho_ice;     /*Ice density [kg/mc]*/
-    long total_pixel;    /*The number of the valid pixel of the whole basin*/
+    double gamma_m; /** exponent of the law of uniform motion on the surface */
+    double T_rain; /** temperature above wich all precipitaion is rain [°C] */
+    double T_snow; /** temperature below wich all precipitaion is snow [°C] */
+    double aep; /** albedo extinction parameter [m] */
+    double avo; /** new snow visible band reflectance */
+    double airo; /** new near infrared band reflectance */
+    double Sr;      /** water fraction retained by capillary forces in snow */
+    double rho_ice;     /** ice density [kg/mc] */
+    long total_pixel;    /** the number of the valid pixel of the whole basin */
     long total_channel;
     double total_area;
 
@@ -370,10 +382,10 @@ typedef struct {
     short output_meteo_bin;
 
     std::unique_ptr<Matrix<double>> chkpt;
-    std::unique_ptr<Matrix<long>> rc;
-    std::unique_ptr<Vector<long>> jplot;
+    std::unique_ptr<Matrix<long>> rc; /** rows and cols indexes of the selected output points */
+    std::unique_ptr<Vector<long>> jplot; /** size = valid pixels; value can be the output point index or 0 */
 
-    short recover;
+    short recover; /** if equal to 1, enables recovery [default = 0]*/
 
     double Vmin;
 
@@ -467,12 +479,12 @@ typedef struct {
     double snow_smax;
     double snow_curv;
 
-    double Zboundary;
+    double Zboundary; /** Z at which 0 annual temperature takes place [mm]*/
     double Tboundary;
     double Fboundary;
 
     double Ks_channel;
-    double depr_channel;
+    double depr_channel; /** default = 500 */
 
     short tsteps_from_file;
 
@@ -484,7 +496,7 @@ typedef struct {
     std::unique_ptr<Vector<double>> Dtplot_basin;
     std::unique_ptr<Vector<double>> Dtplot_discharge;
 
-    short state_pixel;
+    short state_pixel; /** equal to 1 if output pixels are set */
     short state_discharge;
     short state_basin;
 
@@ -586,7 +598,7 @@ typedef struct {
     double k_to_ksat;
     short RunIfAnOldRunIsPresent;
 
-    std::unique_ptr<Vector<long>> Nl_spinup;
+    std::unique_ptr<Vector<long>> Nl_spinup; /** (*par->Nl_spinup)(1),default = 10'000 */
 
     short newperiodinit;
 
@@ -618,7 +630,7 @@ typedef struct {
     double RH_default;
     double V_default;
     double Vdir_default;
-    double IPrec_default;
+    double IPrec_default; /** precipitation intensity */
 
     double simulation_hours;
 
@@ -693,38 +705,39 @@ typedef struct {
 } GLACIER;
 
 struct METEO_STATIONS{
-    std::unique_ptr<Vector<double>> E;
-    std::unique_ptr<Vector<double>> N;
-    std::unique_ptr<Vector<double>> lat;
-    std::unique_ptr<Vector<double>> lon;
-    std::unique_ptr<Vector<double>> Z;
-    std::unique_ptr<Vector<double>> sky;
-    std::unique_ptr<Vector<double>> ST;
-    std::unique_ptr<Vector<double>> Vheight;
-    std::unique_ptr<Vector<double>> Theight;
+    std::unique_ptr<Vector<double>> E; /** East */
+    std::unique_ptr<Vector<double>> N; /** North */
+    std::unique_ptr<Vector<double>> lat; /** latitude */
+    std::unique_ptr<Vector<double>> lon; /** longitude */
+    std::unique_ptr<Vector<double>> Z; /** elevations [m a.s.l] */
+    std::unique_ptr<Vector<double>> sky; /** sky view factor */
+    std::unique_ptr<Vector<double>> ST; /** identifier for the meteo station */
+    std::unique_ptr<Vector<double>> Vheight; /** height of wind sensor [m] */
+    std::unique_ptr<Vector<double>> Theight; /** height of temperature sensor [m] */
 };
 
 
 struct METEO {
     std::unique_ptr<METEO_STATIONS> st;
 
-    double ***data;
+    double ***data; /** meteo data */
 
-    long *numlines;
-    double ***horizon;
-    long *horizonlines;
-    double **var;
+    long *numlines; /** number of line of meteo data */
+    double ***horizon; /** horizon for meteo stations */
+    long *horizonlines; /** number of line in the horizon file */
+    double **var; /** meteo variables for the current instant */
     long *line_interp_WEB;
     long *line_interp_Bsnow;
     long line_interp_WEB_LR;
     long line_interp_Bsnow_LR;
 
-    double **LRs; //matrix read from the external value
-    long LRsnr;   //number of lines of the matrix
-    double *LRv;  //vector of interpolatedvalues
-    double **LRc; //cyclic values from the parameter file (one vector for each LR variable)
-    long *LRcnc;  //number of components of the vector (for each component)
-    double *LRd;  //vector of default values
+    /** Lapse Rate parameters */
+    double **LRs; /** matrix read from the external value */
+    long LRsnr; /** number of lines of the matrix */
+    double *LRv;  /** vector of interpolated values */
+    double **LRc; /** cyclic values from the parameter file (one vector for each LR variable) */
+    long *LRcnc;  /** number of components of the vector (for each component) */
+    double *LRd;  /** vector of default values */
 
     double **qins;
     double *qinv;

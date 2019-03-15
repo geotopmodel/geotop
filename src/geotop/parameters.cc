@@ -2357,6 +2357,9 @@ char *assignation_string(long i, char **keyword, char **string_param)
 
 short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
 {
+  /*
+   * read soil parameters files
+   */
   GEOLOG_PREFIX(__func__);
 
   short ok;
@@ -2366,7 +2369,7 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
   std::unique_ptr<Tensor<double>> old_sl_par;
   FILE *f;
 
-  //look if there is at least 1 soil file
+  /** look if there is at least 1 soil file */
   i = 0;
   ok = 0;
   nlinesprev = -1;
@@ -2647,6 +2650,9 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
 
 short read_point_file(char *name, char **key_header, PAR *par)
 {
+  /*
+   * read the file (i.e ListPoints.txt) containing the coordinates of the chosen output points
+   */
   GEOLOG_PREFIX(__func__);
 
   std::unique_ptr<Matrix<double>> chkpt2;
@@ -2723,6 +2729,13 @@ short read_point_file(char *name, char **key_header, PAR *par)
 
 short read_meteostations_file(Vector<long> *i, METEO_STATIONS *S, char *name, char **key_header)
 {
+    /*
+     * Look for additional meteo stations input files.
+     * These new infos
+     * - will overwrite previous infos
+     * - regard: East, North, latitude, longitude, elevation, sky view factor, station index
+     *   of each meteo stations.
+     */
   GEOLOG_PREFIX(__func__);
   GEOTIMER_SECTION(__func__);
 

@@ -72,7 +72,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
     GEOLOG_PREFIX(__func__);
     GEOTIMER_SECTION(__func__);
 
-    FILE *f; /** failed run file*/
+    FILE *f; /** failed run file */
     Matrix<double> *M;
     std::unique_ptr<INIT_TOOLS> IT;
 
@@ -152,11 +152,11 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
         t_error("Fatal Error! Geotop is closed. See failing report.");
     }
 
-    /**read soil parameters files*/
+    /** read soil parameters files */
     success = read_soil_parameters(files[fspar], IT.get(), sl, par->soil_type_bedr_default);
     Nl=sl->pa->nch;
 
-    /** read the output point file (i.e ListPoints.txt)*/
+    /** read the file (i.e ListPoints.txt) containing the coordinates of the chosen output points */
     success = read_point_file(files[fpointlist], IT->point_col_names, par);
 
     // max time that the simulation is supposed to model
@@ -272,13 +272,13 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
     /**************************************************************************************************/
     /*! Reading of the Input files:                                                                   */
     /**************************************************************************************************/
-    if (par->point_sim!=1)  //distributed simulation
+    if (par->point_sim!=1)  /** distributed simulation (3D) */
     {
         read_inputmaps(top, land, sl, par, IT.get());
     }
-    else
+    else /** point simulation (1D) */
     {
-        read_optionsfile_point(par, top, land, sl, times, IT.get());
+        read_optionsfile_point(par, top, land, sl, times, IT.get()); /** particular case: point simulation WITH input maps */
     }
 
     Nr=top->Z0->nrh;
@@ -304,7 +304,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
             }
         }
     }
-
+    /** calculate the tensor of the centres of gravity for each layer */
     top->Z = find_Z_of_any_layer(top->Z0.get(), top->slope.get(), land->LC.get(), sl, par->point_sim);
 
     top->Jdown.reset(new Matrix<long>{par->total_pixel, 4});
@@ -325,31 +325,30 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
 
 
     /**************************************************************************************************/
-    // Reading  RAIN data file, METEO data file and CLOUD data file
+    /** Reading  RAIN data file, METEO data file and CLOUD data file */
     num_cols = (long)nmet;
 
-    // meteo data
-    met->data=(double ***)malloc(met->st->E->nh*sizeof(double **));
-    // number of line of meteo data
-    met->numlines=(long *)malloc(met->st->E->nh*sizeof(long));
-    // meteo variables for the current instant
-    met->var=(double **)malloc(met->st->E->nh*sizeof(double *));
-    // horizon for meteo stations
-    met->horizon=(double ***)malloc(met->st->E->nh*sizeof(double **));
-    // number of line in the horizon file
-    met->horizonlines=(long *)malloc(met->st->E->nh*sizeof(long));
-    // line of met->data used (stored in memory to avoid from searching from the first line)
-    met->line_interp_WEB=(long *)malloc(met->st->E->nh*sizeof(long));
-    met->line_interp_Bsnow=(long *)malloc(met->st->E->nh*sizeof(long));
-    met->line_interp_WEB_LR=0;
-    met->line_interp_Bsnow_LR=0;
 
+    met->data = (double ***) malloc(met->st->E->nh * sizeof(double **));
+    met->numlines = (long *) malloc(met->st->E->nh * sizeof(long));
+    met->var = (double **) malloc(met->st->E->nh * sizeof(double *));
+    met->horizon = (double ***) malloc(met->st->E->nh * sizeof(double **));
+    met->horizonlines = (long *) malloc(met->st->E->nh * sizeof(long));
+
+    /** line of met->data used (stored in memory to avoid from searching from the first line) */
+    met->line_interp_WEB = (long *) malloc(met->st->E->nh*sizeof(long));
+    met->line_interp_Bsnow = (long *) malloc(met->st->E->nh*sizeof(long));
+    met->line_interp_WEB_LR = 0;
+    met->line_interp_Bsnow_LR = 0;
+
+    /** look for additional meteo stations input files */
     success = read_meteostations_file(met->imeteo_stations.get(), met->st.get(), files[fmetstlist],
                                       IT->meteostations_col_names);
 
+    /** effective meteo input reading and structures filling */
 #pragma omp parallel for firstprivate(added_JDfrom0, added_wind_xy, added_wind_dir, added_Tdew, added_RH, added_Pint) private(f, i, j, n, ist, temp, num_lines)
 
-    for (i=1; i<=met->st->E->nh; i++)
+    for (i=1; i<=met->st->E->nh; i++) /** for each meteo station ... */
     {
 
         if ((*met->imeteo_stations)(1) != number_novalue)
@@ -361,43 +360,45 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
             ist = i;
         }
 
-        // initialize
+        /** initialize */
         met->line_interp_WEB[i-1] = 0;
         met->line_interp_Bsnow[i-1] = 0;
 
-        // allocate var
+        /** allocate var */
         met->var[i-1] = (double *)malloc(num_cols*sizeof(double));
 
-        // read horizon
+        /** read horizon */
         met->horizon[i-1] = read_horizon(1, ist, files[fhormet], IT->horizon_col_names, &num_lines);
         met->horizonlines[i-1] = num_lines;
 
-        // filename
-        if (strcmp(files[fmet], string_novalue) != 0)
+        /** filename */
+        if (strcmp(files[fmet], string_novalue) != 0) /** meteo files are present */
         {
 
-            // read matrix
-            temp=namefile_i(files[fmet], ist);
+            /** read matrix */
+            temp = namefile_i(files[fmet], ist);
             met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines);
 
-            if ((long)met->data[i-1][0][iDate12] == number_absent
-                && (long)met->data[i-1][0][iJDfrom0] == number_absent)
+            if ((long)met->data[i-1][0][iDate12] == number_absent /** i.e. 26/03/2010 17:00 */
+                && (long)met->data[i-1][0][iJDfrom0] == number_absent) /** i.e. 734223.7083 */
             {
                 f = fopen(FailedRunFile, "w");
-                fprintf(f, "Error:: Date Column missing in file %s\n",temp);
+                fprintf(f, "Error: Date Column missing in file %s\n",temp);
                 fclose(f);
                 t_error("Fatal Error! Geotop is closed. See failing report (2).");
             }
             met->numlines[i-1] = num_lines;
 
-            /* fixing dates: converting times in the same standard time set for the simulation and fill
-           JDfrom0 */
+            /** fix dates:
+             * - convert times in the same standard time set for the simulation
+             * - fill JDfrom0
+             */
             added_JDfrom0 = fixing_dates(ist, met->data[i-1], par->ST, (*met->st->ST)(i),
                                          met->numlines[i-1], iDate12, iJDfrom0);
 
             check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
 
-            // find clouds
+            /** calculate cloud transmissivity */
             if (strcmp(IT->met_col_names[itauC], string_novalue) != 0)
             {
                 if ((long)met->data[i-1][0][itauC] == number_absent || par->ric_cloud == 1)
@@ -420,7 +421,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
                 }
             }
 
-            // calculate Wx and Wy if Wspeed and direction are given
+            /** calculate Wx and Wy if wind speed and direction are given */
             if (par->wind_as_xy == 1)
             {
                 added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir,
@@ -428,7 +429,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
                                              IT->met_col_names[iWsy]);
             }
 
-            // calcululate Wspeed and direction if Wx and Wy are given
+            /** calculate wind speed and direction if Wx and Wy are given */
             if (par->wind_as_dir == 1)
             {
                 added_wind_dir = fill_wind_dir(met->data[i-1], met->numlines[i-1], iWs, iWdir,
@@ -436,21 +437,21 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
                                                IT->met_col_names[iWdir]);
             }
 
-            // find Tdew
+            /** calculate Tdew */
             if (par->vap_as_Td == 1)
             {
                 added_Tdew = fill_Tdew(i, met->st->Z.get(), met->data[i-1], met->numlines[i-1], iRh,
                                        iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
             }
 
-            // find RH
+            /** calculate RH */
             if (par->vap_as_RH == 1)
             {
                 added_RH = fill_RH(i,  met->st->Z.get(), met->data[i-1], met->numlines[i-1], iRh,
                                    iT, iTdew, IT->met_col_names[iRh]);
             }
 
-            // find Prec Intensity
+            /** find Precipitation Intensity */
             if ( (*par->linear_interpolation_meteo)(i) == 1
                  && (long)met->data[i-1][0][iPrec] != number_absent)
             {
@@ -469,12 +470,12 @@ keyword LinearInterpolation at 1.\n");
                                        iJDfrom0, IT->met_col_names[iPrecInt]);
             }
 
-            // rewrite completed files
+            /** rewrite completed files */
             rewrite_meteo_files(met->data[i-1], met->numlines[i-1], IT->met_col_names,
                                 temp, added_JDfrom0, added_wind_xy, added_wind_dir, added_cloud,
                                 added_Tdew, added_RH, added_Pint);
 
-            // calculate Wx and Wy if Wspeed and direction are given
+            /** (re)calculate Wx and Wy if wind speed and direction are given */
             if (par->wind_as_xy != 1)
             {
                 added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir,
@@ -482,14 +483,14 @@ keyword LinearInterpolation at 1.\n");
                                              IT->met_col_names[iWsy]);
             }
 
-            // find Prec Intensity
+            /** (re)calculate Precipitation Intensity */
             if (par->prec_as_intensity != 1)
             {
                 added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt,
                                        iJDfrom0, IT->met_col_names[iPrecInt]);
             }
 
-            // find Tdew
+            /** (re)calculate Tdew */
             if (par->vap_as_Td != 1)
             {
                 added_Tdew = fill_Tdew(i, met->st->Z.get(), met->data[i-1], met->numlines[i-1], iRh,
@@ -519,14 +520,10 @@ keyword LinearInterpolation at 1.\n");
 
         }
     }
-
-
-    // read LAPSE RATES FILE
-
-    if (strcmp(files[fLRs], string_novalue) != 0)    //s stands for string
+    /** read lapse rates file */
+    if (strcmp(files[fLRs], string_novalue) != 0) /** s stands for string */
     {
-        if (existing_file_wext(files[fLRs],
-                               textfile)==0)
+        if (existing_file_wext(files[fLRs], textfile)==0)
             printf("Lapse rate file unavailable. Check input files. If you do not have a lapse rate file,\
  remove its name and keywords from input file\n");
         temp = join_strings(files[fLRs], textfile);
@@ -541,10 +538,10 @@ keyword LinearInterpolation at 1.\n");
         par->LRflag=0;
     }
 
-    n = (long)nlstot;
+    n = (long)nlstot; /** n lapse rate */
     met->LRv = (double *)malloc(n*sizeof(double));
     met->LRd = (double *)malloc(n*sizeof(double));
-    for ( i=0; i<nlstot; i++)
+    for (i=0; i<nlstot; i++)
     {
         met->LRv[i] = (double)number_novalue;
         if (i == ilsTa)
@@ -566,18 +563,18 @@ keyword LinearInterpolation at 1.\n");
     }
 
 
-    // FIND A STATION WITH SHORTWAVE RADIATION DATA
+    /** find a station with shortwave radiation data */
     met->nstsrad=0;
     do
     {
         met->nstsrad++;
         a=0;
         if ( (long)met->data[met->nstsrad-1][0][iSW]!=number_absent
-             || ((long)met->data[met->nstsrad-1][0][iSWb]!=number_absent
-                 && (long)met->data[met->nstsrad-1][0][iSWd]!=number_absent ) )
+             || ( (long)met->data[met->nstsrad-1][0][iSWb]!=number_absent
+                  && (long)met->data[met->nstsrad-1][0][iSWd]!=number_absent) )
             a=1;
     }
-    while (met->nstsrad<met->st->Z->nh && a==0);
+    while (met->nstsrad < met->st->Z->nh && a==0);
     if (a==0)
     {
         geolog << "WARNING: NO shortwave radiation measurements available" << std::endl;
@@ -587,7 +584,7 @@ keyword LinearInterpolation at 1.\n");
         geolog << "Shortwave radiation measurements from station " << met->nstsrad << std::endl;
     }
 
-    // FIND A STATION WITH CLOUD DATA
+    /** find a station with cloud data */
     met->nstcloud=0;
     do
     {
@@ -607,16 +604,16 @@ keyword LinearInterpolation at 1.\n");
         geolog << "Cloudiness measurements from station " << met->nstcloud << std::endl;
     }
 
-    // FIND A STATION WITH LONGWAVE RADIATION DATA
+    /** find a station with longwave radiation data */
     met->nstlrad=0;
     do
     {
         met->nstlrad++;
         a=0;
-        if ( (long)met->data[met->nstlrad-1][0][iLWi]!=number_absent)
+        if ( (long)met->data[met->nstlrad-1][0][iLWi]!=number_absent )
             a=1;
     }
-    while (met->nstlrad<met->st->Z->nh && a==0);
+    while (met->nstlrad < met->st->Z->nh && a==0);
     if (a==0)
     {
         geolog << "WARNING: NO longwave radiation measurements available" << std::endl;
@@ -626,13 +623,13 @@ keyword LinearInterpolation at 1.\n");
         geolog << "Longwave radiation measurements from station " << met->nstlrad << std::endl;
     }
 
-    // FIND A STATION WITH SURFACE TEMPERATURE ABOVE
+    /** find a station with surface temperature */
     met->nstTs=0;
     do
     {
         met->nstTs++;
         a=0;
-        if ( (long)met->data[met->nstTs-1][0][iTs]!=number_absent)
+        if ( (long)met->data[met->nstTs-1][0][iTs]!=number_absent )
             a=1;
     }
     while (met->nstTs<met->st->Z->nh && a==0);
@@ -645,7 +642,7 @@ keyword LinearInterpolation at 1.\n");
         geolog << "Surface temperature measurements from station " << met->nstTs << std::endl;
     }
 
-    //FIND A STATION WITH BOTTOM TEMPERATURE ABOVE
+    /** find a station with bottom temperature */
     met->nstTbottom=0;
     do
     {
@@ -665,7 +662,7 @@ keyword LinearInterpolation at 1.\n");
     }
 
     /**************************************************************************************************/
-    // read INCOMING DISCHARGE
+    /** read incoming discharge */
 
     met->qinv = (double *)malloc(2*sizeof(double));
     met->qinv[0] = 0.;
@@ -694,15 +691,15 @@ keyword LinearInterpolation at 1.\n");
 
 
     /**************************************************************************************************/
-    /*! Completing the several time-indipendent input variables with the data of input-files:         */
+    /*! Completing the several time-indipendent input variables with the data of input-files          */
     /**************************************************************************************************/
     /**************************************************************************************************/
-    // Completing of "land" (of the type LAND):
+    /** Completing of "land" (of the type LAND): */
 
-    // Initialize matrix of shadow
-    land->shadow.reset(new Matrix<short>{Nr,Nc}); /* initialized as if it was always NOT in shadow */
+    /** Initialize matrix of shadow */
+    land->shadow.reset(new Matrix<short>{Nr,Nc}); /** initialized as if it was always NOT in shadow */
 
-    // Check that there aren't cell with an undefined land use value
+    /** Check that there aren't cell with an undefined land use value */
     z = 0.;
     l = 0;
 
@@ -711,44 +708,36 @@ keyword LinearInterpolation at 1.\n");
         l++;
         z += (*sl->pa)(1,jdz,l);
     }
-    while (l<Nl && z < GTConst::z_transp);
+    while (l<Nl && z<GTConst::z_transp);
 
     land->root_fraction.reset(new Matrix<double>{par->n_landuses, l});
 
-    // check vegetation variable consistency
-    if (jHveg!=jdHveg+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jz0thresveg!=jdz0thresveg+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jz0thresveg2!=jdz0thresveg2+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jLSAI!=jdLSAI+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jcf!=jdcf+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jdecay0!=jddecay0+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jexpveg!=jdexpveg+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jroot!=jdroot+jHveg-1)
-        t_error("Vegetation variables not consistent");
-    if (jrs!=jdrs+jHveg-1)
+    /** check vegetation variable consistency */
+    if ( jHveg != jdHveg+jHveg-1
+         || jz0thresveg != jdz0thresveg+jHveg-1
+         || jz0thresveg2 != jdz0thresveg2+jHveg-1
+         || jLSAI != jdLSAI+jHveg-1
+         || jcf != jdcf+jHveg-1
+         || jdecay0 != jddecay0+jHveg-1
+         || jexpveg != jdexpveg+jHveg-1
+         || jroot != jdroot+jHveg-1
+         || jrs != jdrs+jHveg-1 )
         t_error("Vegetation variables not consistent");
 
-    // variables used to assign vegetation properties that change with time
+    /** variables used to assign vegetation properties that change with time */
     num_cols = jdvegprop + 1;
-    land->vegpars=(double ***)malloc(par->n_landuses*sizeof(double **));
-    land->vegparv=(double **)malloc(par->n_landuses*sizeof(double *));
-    land->NumlinesVegTimeDepData=(long *)malloc(par->n_landuses*sizeof(long));
+    land->vegpars = (double ***) malloc(par->n_landuses*sizeof(double **));
+    land->vegparv = (double **) malloc(par->n_landuses*sizeof(double *));
+    land->NumlinesVegTimeDepData=(long *) malloc(par->n_landuses*sizeof(long));
 
     land->vegpar.reset(new Vector<double>{jdvegprop});
 
     par->vegflag.reset(new Vector<short>{par->n_landuses});
 
-    // time dependent vegetation parameters
+    /** time dependent vegetation parameters */
     for (i=1; i<=par->n_landuses; i++)
     {
-        if (strcmp(files[fvegpar], string_novalue) != 0) // s stands for string
+        if (strcmp(files[fvegpar], string_novalue) != 0) /** s stands for string */
         {
             temp = namefile_i_we2(files[fvegpar], i);
 
@@ -757,7 +746,7 @@ keyword LinearInterpolation at 1.\n");
                 printf("There is a specific vegetation parameter file for land cover type = %ld\n", i);
                 free(temp);
                 temp = namefile_i(files[fvegpar], i);
-                land->vegpars[i-1] = read_txt_matrix_2(temp, 33, 44, num_cols, &num_lines);
+                land->vegpars[i-1] = read_txt_matrix_2(temp, 33, 44, num_cols, &num_lines); /** tensor */
                 free(temp);
                 land->NumlinesVegTimeDepData[i-1] = num_lines;
                 (*par->vegflag)(i)=1;
@@ -772,19 +761,20 @@ keyword LinearInterpolation at 1.\n");
         land->vegparv[i-1]=(double *)malloc(num_cols*sizeof(double));
         for (j=0; j<num_cols; j++)
         {
-            land->vegparv[i-1][j] = (double)number_novalue;
+            land->vegparv[i-1][j] = (double)number_novalue; /** matrix */
         }
 
-        // z0 (convert in m)
-        (*land->ty)(i,jz0)*=0.001;
+        /** convert z0 in [m] */
+        (*land->ty)(i,jz0) *= 0.001;
 
-        // find root fraction
+        /** find root fraction */
         root(land->root_fraction->nch, (*land->ty)(i,jroot), 0.0, sl->pa->row(1,jdz), land->root_fraction->row(i));
 
-        // error messages
+        /** error messages */
         for (l=1; l<=met->st->Z->nh; l++)
         {
-            if (0.001*(*land->ty)(i,jHveg) > (*met->st->Vheight)(l) || 0.001*(*land->ty)(i,jHveg) > (*met->st->Theight)(l))
+            if (0.001*(*land->ty)(i,jHveg) > (*met->st->Vheight)(l) /** Vheight: height of the wind sensor */
+                || 0.001*(*land->ty)(i,jHveg) > (*met->st->Theight)(l)) /** Theight: height of the temperature sensor */
             {
                 f = fopen(FailedRunFile, "w");
                 fprintf(f, "hc:%f m, zmu:%f m, zmt:%f m - hc must be lower than measurement height - \
@@ -798,17 +788,14 @@ land cover %ld, meteo station %ld\n",
     }
 
     //******************************************
-    // file with time steps
-
+    /** file with time steps */
     if (strcmp(files[ftsteps], string_novalue) != 0)
     {
-
         temp=join_strings(files[ftsteps],textfile);
         times->Dt_matrix = read_txt_matrix_2(temp, 33, 44, GTConst::max_cols_time_steps_file+1, &num_lines);
         free(temp);
         times->numlinesDt_matrix = num_lines;
         par->tsteps_from_file=1;
-
     }
     else
     {
@@ -816,29 +803,33 @@ land cover %ld, meteo station %ld\n",
     }
 
     /**************************************************************************************************/
-    /*! Filling up of the struct "channel" (of the type CHANNEL):                                     */
-
-    /* The number of channel-pixel are counted: */
+    /** Completing the struct "channel" (of the type CHANNEL): */
+    /** The number of channel-pixel are counted: */
     i=0;
     for (r=1; r<=Nr; r++)
     {
         for (c=1; c<=Nc; c++)
         {
-            if ((*top->pixel_type)(r,c)>=10) i++;
+            if ((*top->pixel_type)(r,c)>=10)
+                i++;
         }
     }
     geolog << "Channel pixels: " << i << std::endl;
     par->total_channel = i;
 
-    // allocate channel vectors/matrixes
-    if (i==0) i=1;
+    /** allocate channel vectors/matrixes */
+    if (i==0)
+        i=1;
 
     cnet->Vout = 0.;
 
+    /** allocate vectors of the same dimension of the number of channel pixels;
+     * if there are no channel pixels, these quantities become scalar.
+     */
     cnet->r.reset(new Vector<long>{i});
     cnet->c.reset(new Vector<long>{i});
 
-    cnet->ch.reset(new Matrix<long>{Nr,Nc});
+    cnet->ch.reset(new Matrix<long>{Nr,Nc}); /** allocate matrix of the same dimension of DEM grid */
 
     cnet->ch_down.reset(new Vector<long>{i});
     cnet->length.reset(new Vector<double>{i});
@@ -852,41 +843,42 @@ land cover %ld, meteo station %ld\n",
     if (par->total_channel>1)
         enumerate_channels(cnet, land->LC.get(), top->pixel_type.get(), top->Z0.get(), top->slope.get(), number_novalue);
 
-    cnet->ch3 = (long **)malloc((Nl+1)*sizeof(long *));
+    cnet->ch3 = (long **) malloc((Nl+1)*sizeof(long *)); /** for each soil layer (+1) we'll have an array of channel pixel */
     for (l=0; l<=Nl; l++)
     {
         cnet->ch3[l] = (long *)malloc((i+1)*sizeof(long));
     }
 
-    cnet->lch.reset(new Matrix<long>{(Nl+1)*i, 2});
+    cnet->lch.reset(new Matrix<long>{(Nl+1)*i, 2}); /* matrix with (nrows, ncols) = (n° of cells of cnet->ch3, 2) */
 
+    /** fill cnet->ch3 and cnet->lch */
     lch3_cont(cnet->ch3, cnet->lch.get(), Nl, par->total_channel);
 
-
     /**************************************************************************************************/
-    // Cont for Richards 3D
+    /** Count for Richards 3D */
     n = std::min<long>((*par->Nl_spinup)(i_sim0),Nl);
 
-    // 3D
-    top->i_cont=(long ***)malloc((n+1)*sizeof(long **));
+    /** 3D */
+    top->i_cont = (long ***) malloc((n+1)*sizeof(long **)); /* tensor with dimension (n+1, Nr+1, Nc+1) */
     for (l=0; l<=n; l++)
     {
-        top->i_cont[l]=(long **)malloc((Nr+1)*sizeof(long *));
+        top->i_cont[l] = (long **) malloc((Nr+1)*sizeof(long *));
         for (r=1; r<=Nr; r++)
         {
-            top->i_cont[l][r]=(long *)malloc((Nc+1)*sizeof(long));
+            top->i_cont[l][r] = (long *) malloc((Nc+1)*sizeof(long));
         }
     }
 
     top->lrc_cont.reset(new Matrix<long>{(n+1)*par->total_pixel, 3});
 
+    /** fill top->i_cont and top->lrc_cont */
     i_lrc_cont(land->LC.get(), top->i_cont, top->lrc_cont.get(), n, Nr, Nc);
 
-    // 2D
-    top->j_cont=(long **)malloc((Nr+1)*sizeof(long *));
+    /** 2D */
+    top->j_cont = (long **)malloc((Nr+1)*sizeof(long *));
     for (r=1; r<=Nr; r++)
     {
-        top->j_cont[r]=(long *)malloc((Nc+1)*sizeof(long));
+        top->j_cont[r] = (long *)malloc((Nc+1)*sizeof(long));
         for (c=1; c<=Nc; c++)
         {
             top->j_cont[r][c] = 0;
@@ -895,10 +887,11 @@ land cover %ld, meteo station %ld\n",
 
     top->rc_cont.reset(new Matrix<long>{par->total_pixel,2});
 
+    /** fill top->j_cont and top->rc_cont */
     j_rc_cont(land->LC.get(), top->j_cont, top->rc_cont.get(), Nr, Nc);
 
-    // plotted points
-    if (par->state_pixel == 1)
+    /** assign indexes to the selected output points (i.e. the ones written in ListPoints.txt) */
+    if (par->state_pixel == 1) /** output pixels are set */
     {
         par->jplot.reset(new Vector<long>{par->total_pixel});
         for (i=1; i<=par->total_pixel; i++)
@@ -914,7 +907,7 @@ land cover %ld, meteo station %ld\n",
         }
     }
 
-    // BEDROCK (adjusting soil properties)
+    /** bedrock (adjusting soil properties) */
     set_bedrock(IT.get(), sl, cnet, par, top, land->LC.get());
 
     /**************************************************************************************************/
@@ -961,28 +954,26 @@ land cover %ld, meteo station %ld\n",
         {
             sl->ETcum.reset(new Vector<double>{par->total_pixel});
         }
-
     }
 
     if (existing_file(files[fwt0]) == 0) /** file for the initial water table NOT found */
     {
-
-        for (i=1; i<=par->total_pixel; i++)
+        for (i=1; i<=par->total_pixel; i++) /** for every valid pixel ... */
         {
 
             r = (*top->rc_cont)(i,1);
             c = (*top->rc_cont)(i,2);
 
-            sy=(*sl->type)(r,c);
+            sy = (*sl->type)(r,c);
 
-            if ((long)(*IT->init_water_table_depth)(sy) != number_novalue)
+            if ((long)(*IT->init_water_table_depth)(sy) != number_novalue) /** initial water table value is known */
             {
                 z = 0.;
                 (*sl->SS->P)(0,i) = -(*IT->init_water_table_depth)(sy) * cos((*top->slope)(r,c)*GTConst::Pi/180.);
-		
+
                 for (l=1; l<=Nl; l++)
                 {
-                    z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
+                    z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.); /** use soil layer thickness (jdz) */
                     (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
                     z += 0.5 * (*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
                 }
@@ -991,7 +982,7 @@ land cover %ld, meteo station %ld\n",
             {
                 for (l=1; l<=Nl; l++)
                 {
-                    (*sl->SS->P)(l,i) = (*sl->pa)(sy,jpsi,l);
+                    (*sl->SS->P)(l,i) = (*sl->pa)(sy,jpsi,l); /** use initial pressure head (jpsi) */
                 }
             }
         }
@@ -1001,36 +992,43 @@ land cover %ld, meteo station %ld\n",
 
         M = read_map(2, files[fwt0], land->LC.get(), UV, (double)number_novalue);
 
-        for (i=1; i<=par->total_pixel; i++)
+        for (i=1; i<=par->total_pixel; i++) /** for every valid pixel ... */
+            /** same code as previous case:
+             *  - initial water table value is known
+             *  - use soil layer thickness (jdz)
+             */
         {
             r = (*top->rc_cont)(i,1);
             c = (*top->rc_cont)(i,2);
 
-            sy=(*sl->type)(r,c);
+            sy = (*sl->type)(r,c);
 
             z = 0.;
             (*sl->SS->P)(0,i) = -(*M)(r,c)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
+
             for (l=1; l<=Nl; l++)
             {
-                z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
+                z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.); /** use soil layer thickness (jdz)*/
                 (*sl->SS->P)(l,i) = (*sl->SS->P)(0,i) + z;
                 z += 0.5*(*sl->pa)(sy,jdz,l)*cos((*top->slope)(r,c)*GTConst::Pi/180.);
             }
         }
     }
 
-    for (i=1; i<=par->total_pixel; i++)
+    /** calculate temperature, total precipitation, theta, theta ice and psi*/
+    for (i=1; i<=par->total_pixel; i++) /** for every valid pixel ... */
     {
         r = (*top->rc_cont)(i,1);
         c = (*top->rc_cont)(i,2);
 
-        sy=(*sl->type)(r,c);
+        sy = (*sl->type)(r,c);
 
         for (l=1; l<=Nl; l++)
         {
             (*sl->SS->T)(l,i) = (*sl->pa)(sy,jT,l);
 
             (*sl->Ptot)(l,i) = (*sl->SS->P)(l,i);
+            /** calculate theta from psi */
             (*sl->th)(l,i) = teta_psi((*sl->SS->P)(l,i), 0.0, (*sl->pa)(sy,jsat,l),
                                       (*sl->pa)(sy,jres,l), (*sl->pa)(sy,ja,l),
                                       (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l), GTConst::PsiMin,
@@ -1039,10 +1037,9 @@ land cover %ld, meteo station %ld\n",
             th_oversat = std::max<double>( (*sl->SS->P)(l,i), 0.0 ) * (*sl->pa)(sy,jss,l);
             (*sl->th)(l,i) -= th_oversat;
 
-            if ((*sl->SS->T)(l,i) <=GTConst::Tfreezing)
+            if ((*sl->SS->T)(l,i) <= GTConst::Tfreezing) /** Tsoil < 0 [°C]*/
             {
-
-                // Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
+                /** Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T) */
                 (*sl->SS->thi)(l,i) = (*sl->th)(l,i) - teta_psi(Psif((*sl->SS->T)(l,i)),
                                                                 0.0,
                                                                 (*sl->pa)(sy,jsat,l),
@@ -1053,12 +1050,11 @@ land cover %ld, meteo station %ld\n",
                                                                 GTConst::PsiMin,
                                                                 (*sl->pa)(sy,jss,l));
 
-                // if Theta(without freezing) < Theta_unfrozen(in equilibrium with T):
-                // Theta_ice is set at 0
-                if ((*sl->SS->thi)(l,i)<0)
+                /** if Theta(without freezing) < 0 => set Theta_ice = 0 */
+                if ((*sl->SS->thi)(l,i) < 0)
                     (*sl->SS->thi)(l,i)=0.0;
 
-                // Psi is updated taking into account the freezing
+                /** Psi is updated taking into account the freezing */
                 (*sl->th)(l,i) -= (*sl->SS->thi)(l,i);
 
                 (*sl->SS->P)(l,i) = psi_teta((*sl->th)(l,i) + th_oversat,
@@ -1070,56 +1066,73 @@ land cover %ld, meteo station %ld\n",
         }
     }
 
-
-    if (par->state_pixel == 1)
+/** fill structure SOIL for the selected output pixels */
+    if (par->state_pixel == 1) /** output pixels are set */
     {
         if (strcmp(files[fTz], string_novalue) != 0 || strcmp(files[fTzwriteend], string_novalue) != 0)
             sl->Tzplot.reset(new Matrix<double>{par->rc->nrh, Nl});
+
         if (strcmp(files[fTzav], string_novalue) != 0 || strcmp(files[fTzavwriteend], string_novalue) != 0)
             sl->Tzavplot.reset(new Matrix<double>{par->rc->nrh, Nl});
+
         if (strcmp(files[fpsiztot], string_novalue) != 0 || strcmp(files[fpsiztotwriteend], string_novalue) != 0)
             sl->Ptotzplot.reset(new Matrix<double>{par->rc->nrh, Nl});
+
         if (strcmp(files[fpsiz], string_novalue) != 0 || strcmp(files[fpsizwriteend], string_novalue) != 0)
             sl->Pzplot.reset(new Matrix<double>{par->rc->nrh,1, Nl, 0});
+
         if (strcmp(files[fliqz], string_novalue) != 0 || strcmp(files[fliqzwriteend], string_novalue) != 0)
             sl->thzplot.reset(new Matrix<double>{par->rc->nrh, Nl});
+
         if (strcmp(files[fliqzav], string_novalue) != 0 || strcmp(files[fliqzavwriteend], string_novalue) != 0)
             sl->thzavplot.reset(new Matrix<double>{par->rc->nrh, Nl});
+
         if (strcmp(files[ficez], string_novalue) != 0|| strcmp(files[ficezwriteend], string_novalue) != 0)
             sl->thizplot.reset(new Matrix<double>{par->rc->nrh, Nl});
+
         if (strcmp(files[ficezav], string_novalue) != 0|| strcmp(files[ficezavwriteend], string_novalue) != 0)
             sl->thizavplot.reset(new Matrix<double>{par->rc->nrh, Nl});
+
         if (strcmp(files[fsatz], string_novalue) != 0)
             sl->satratio.reset(new Matrix<double>{par->rc->nrh, Nl});
 
-        for (i=1; i<=par->rc->nrh; i++)
+        for (i=1; i<=par->rc->nrh; i++) /** for every output point pixel index ... */
         {
-            r = (*top->rc_cont)(i,1);
-            c = (*top->rc_cont)(i,2);
-            j = top->j_cont[r][c];
-            sy = (*sl->type)(r,c);
-            for (l=1; l<=Nl; l++)
+            r = (*top->rc_cont)(i,1); /** row index of the valid pixels */
+            c = (*top->rc_cont)(i,2); /** column index of the valid pixels */
+            j = top->j_cont[r][c]; /** element in the map of valid pixels */
+
+            sy = (*sl->type)(r,c); /** soil type map for output point pixel */
+
+            for (l=1; l<=Nl; l++) /** for every soil layer (starting from index 1) ... */
             {
                 if (strcmp(files[fTz], string_novalue) != 0|| strcmp(files[fTzwriteend], string_novalue) != 0)
                     (*sl->Tzplot)(i,l) = (*sl->SS->T)(l,j);
+
                 if (strcmp(files[fTzav], string_novalue) != 0|| strcmp(files[fTzavwriteend], string_novalue) != 0)
                     (*sl->Tzavplot)(i,l) = (*sl->SS->T)(l,j);
+
                 if (strcmp(files[fliqz], string_novalue) != 0|| strcmp(files[fliqzwriteend],string_novalue) != 0)
                     (*sl->thzplot)(i,l) = (*sl->th)(l,j);
+
                 if (strcmp(files[fliqzav], string_novalue) != 0 || strcmp(files[fliqzavwriteend], string_novalue) != 0)
                     (*sl->thzavplot)(i,l) = (*sl->th)(l,j);
+
                 if (strcmp(files[ficez], string_novalue) != 0 || strcmp(files[ficezwriteend], string_novalue) != 0)
                     (*sl->thizplot)(i,l) = (*sl->SS->thi)(l,j);
+
                 if (strcmp(files[ficezav], string_novalue) != 0|| strcmp(files[ficezavwriteend], string_novalue) != 0)
                     (*sl->thizavplot)(i,l) = (*sl->SS->thi)(l,j);
+
                 if (strcmp(files[fpsiztot], string_novalue) != 0 || strcmp(files[fpsiztotwriteend],string_novalue) != 0)
                     (*sl->Ptotzplot)(i,l) = (*sl->Ptot)(l,j);
+
                 if (strcmp(files[fsatz], string_novalue) != 0)
                     (*sl->satratio)(i,l) = ((*sl->SS->thi)(l,j)
                                             + (*sl->th)(l,j)
                                             - (*sl->pa)(sy,jres,l)) / ((*sl->pa)(sy,jsat,l)- (*sl->pa)(sy,jres,l));
             }
-            for (l=0; l<=Nl; l++)
+            for (l=0; l<=Nl; l++) /** for every soil layer (starting from index 0) ... */
             {
                 if (strcmp(files[fpsiz], string_novalue) != 0|| strcmp(files[fpsizwriteend], string_novalue) != 0)
                     (*sl->Pzplot)(i,l) = (*sl->SS->P)(l,j);
@@ -1127,50 +1140,53 @@ land cover %ld, meteo station %ld\n",
         }
     }
 
-    if (recovered > 0)
+    if (recovered > 0) /** recover enabled */
     {
+        /** recover the objectes corresponding to the 4th argument in the function */
         assign_recovered_tensor_vector(old, par->recover, files[riceg], sl->SS->thi.get(),
-                                       top->rc_cont.get(), par, land->LC.get());
+                                       top->rc_cont.get(), par, land->LC.get()); /** recover thi */
         assign_recovered_tensor_vector(old, par->recover, files[rTg], sl->SS->T.get(),
-                                       top->rc_cont.get(), par, land->LC.get());
+                                       top->rc_cont.get(), par, land->LC.get()); /** recover T */
         assign_recovered_tensor_vector(old, par->recover, files[rpsi], sl->SS->P.get(),
-                                       top->rc_cont.get(), par, land->LC.get());
+                                       top->rc_cont.get(), par, land->LC.get()); /** recover P */
 
         assign_recovered_map_vector(old, par->recover, files[rwcrn], sl->VS->wrain.get(),
-                                    top->rc_cont.get(), par, land->LC.get());
+                                    top->rc_cont.get(), par, land->LC.get()); /** recover wrain */
         assign_recovered_map_vector(old, par->recover, files[rwcsn], sl->VS->wsnow.get(),
-                                    top->rc_cont.get(), par, land->LC.get());
+                                    top->rc_cont.get(), par, land->LC.get()); /** recover wsnow */
         assign_recovered_map_vector(old, par->recover, files[rTv], sl->VS->Tv.get(),
-                                    top->rc_cont.get(), par, land->LC.get());
+                                    top->rc_cont.get(), par, land->LC.get()); /** recover Tv */
     }
 
 
-    // channel soil
+    /** (Keep on) Completing the struct  "channel" (of the type CHANNEL) */
     cnet->SS = new SOIL_STATE {cnet->r->nh, Nl};
 
     cnet->th.reset(new Matrix<double>{Nl, cnet->r->nh});
-
     cnet->ET.reset(new Matrix<double>{Nl, cnet->r->nh});
 
     cnet->Kbottom.reset(new Vector<double>{cnet->r->nh});
 
-    for (j=1; j<=par->total_channel; j++)
+    for (j=1; j<=par->total_channel; j++) /** for every channel pixel ... */
     {
-        sy=(*cnet->soil_type)(j);
-        r=(*cnet->r)(j);
-        c=(*cnet->c)(j);
+        sy = (*cnet->soil_type)(j);
+        r = (*cnet->r)(j);
+        c = (*cnet->c)(j);
 
+        /** calculate psi for layer 0 using other psi data */
         (*cnet->SS->P)(0,j) = (*sl->SS->P)(0,top->j_cont[r][c]) + par->depr_channel;
 
+        /** calculate psi for other layers using precipitation data */
         for (l=1; l<=Nl; l++)
         {
             (*cnet->SS->P)(l,j) = (*sl->Ptot)(l,top->j_cont[r][c]) + par->depr_channel;
         }
 
+        /** calculate temperature, theta, theta ice and psi */
         for (l=1; l<=Nl; l++)
         {
             (*cnet->SS->T)(l,j)=(*sl->pa)(sy,jT,l);
-
+            /** calculate theta from psi */
             (*cnet->th)(l,j) = teta_psi((*cnet->SS->P)(l,j), 0.0,
                                         (*sl->pa)(sy,jsat,l), (*sl->pa)(sy,jres,l),
                                         (*sl->pa)(sy,ja,l), (*sl->pa)(sy,jns,l),
@@ -1182,7 +1198,7 @@ land cover %ld, meteo station %ld\n",
 
             if ((*cnet->SS->T)(l,j) <=GTConst::Tfreezing)
             {
-                // Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T)
+                /** Theta_ice = Theta(without freezing) - Theta_unfrozen(in equilibrium with T) */
                 (*cnet->SS->thi)(l,j) = (*cnet->th)(l,j) - teta_psi(Psif( (*cnet->SS->T)(l,j)),
                                                                     0.0,
                                                                     (*sl->pa)(sy,jsat,l),
@@ -1193,11 +1209,11 @@ land cover %ld, meteo station %ld\n",
                                                                     GTConst::PsiMin,
                                                                     (*sl->pa)(sy,jss,l));
 
-                // if Theta(without freezing)< Theta_unfrozen(in equilibrium with T)
-                // Theta_ice is set at 0
-                if ((*cnet->SS->thi)(l,j)<0) (*cnet->SS->thi)(l,j)=0.0;
+                /** if Theta(without freezing) < 0 => set Theta_ice = 0 */
+                if ((*cnet->SS->thi)(l,j) < 0)
+                    (*cnet->SS->thi)(l,j) = 0.0;
 
-                // Psi is updated taking into account the freezing
+                /** Psi is updated taking into account the freezing */
                 (*cnet->th)(l,j) -= (*cnet->SS->thi)(l,j);
                 (*cnet->SS->P)(l,j) = psi_teta((*cnet->th)(l,j) + th_oversat,
                                                (*cnet->SS->thi)(l,j),
@@ -1212,40 +1228,41 @@ land cover %ld, meteo station %ld\n",
         }
     }
 
-    if (recovered > 0 && par->total_channel > 0)
+    if (recovered > 0 && par->total_channel > 0) /** recover is enables and there are channel pixels */
     {
+        /** recover the objectes corresponding to the 4th argument in the function */
         assign_recovered_tensor_channel(old, par->recover, files[rpsich], cnet->SS->P.get(),
-                                        cnet->r.get(), cnet->c.get(), top->Z0.get());
-        assign_recovered_tensor_channel(old, par->recover, files[ricegch],
-                                        cnet->SS->thi.get(), cnet->r.get(), cnet->c.get(), top->Z0.get());
+                                        cnet->r.get(), cnet->c.get(), top->Z0.get()); /** recover P */
+        assign_recovered_tensor_channel(old, par->recover, files[ricegch], cnet->SS->thi.get(),
+                                        cnet->r.get(), cnet->c.get(), top->Z0.get()); /** recover thi */
         assign_recovered_tensor_channel(old, par->recover, files[rTgch], cnet->SS->T.get(),
-                                        cnet->r.get(), cnet->c.get(), top->Z0.get());
+                                        cnet->r.get(), cnet->c.get(), top->Z0.get()); /** recover T */
 
-        for (i=1; i<=par->total_channel; i++)
+        for (i=1; i<=par->total_channel; i++) /** for every channel pixel ... */
         {
             for (l=1; l<=Nl; l++)
             {
                 sy = (*cnet->soil_type)(i);
-                (*cnet->th)(l,i) = teta_psi(std::min<double>((*cnet->SS->P)(l,i),
-                                                 psi_saturation((*cnet->SS->thi)(l,i),
-                                                                (*sl->pa)(sy,jsat,l),
-                                                                (*sl->pa)(sy,jres,l),
-                                                                (*sl->pa)(sy,ja,l),
-                                                                (*sl->pa)(sy,jns,l),
-                                                                1.-1./(*sl->pa)(sy,jns,l))),
-                                            (*cnet->SS->thi)(l,i),
-                                            (*sl->pa)(sy,jsat,l),
-                                            (*sl->pa)(sy,jres,l),
-                                            (*sl->pa)(sy,ja,l),
-                                            (*sl->pa)(sy,jns,l),
-                                            1.-1./(*sl->pa)(sy,jns,l),
-                                            GTConst::PsiMin,
-                                            (*sl->pa)(sy,jss,l));
+                /** calculate theta from psi */
+                (*cnet->th)(l,i) = teta_psi(
+                        std::min<double>(
+                                (*cnet->SS->P)(l,i),
+                                psi_saturation((*cnet->SS->thi)(l,i), (*sl->pa)(sy,jsat,l), (*sl->pa)(sy,jres,l),
+                                               (*sl->pa)(sy,ja,l), (*sl->pa)(sy,jns,l), 1.-1./(*sl->pa)(sy,jns,l))
+                        ),
+                        (*cnet->SS->thi)(l,i),
+                        (*sl->pa)(sy,jsat,l),
+                        (*sl->pa)(sy,jres,l),
+                        (*sl->pa)(sy,ja,l),
+                        (*sl->pa)(sy,jns,l),
+                        1.-1./(*sl->pa)(sy,jns,l),
+                        GTConst::PsiMin,
+                        (*sl->pa)(sy,jss,l));
             }
         }
     }
 
-    // z boundary condition
+    /** z boundary condition */
     for (l=1; l<=Nl; l++)
     {
         par->Zboundary -= (*sl->pa)(1,jdz,l);
@@ -1259,7 +1276,7 @@ land cover %ld, meteo station %ld\n",
         t_error("Fatal Error! Geotop is closed. See failing report (6).");
     }
 
-    par->Zboundary *= 1.E-3;  // convert in [m]
+    par->Zboundary *= 1.E-3;  /** convert from [mm] to [m] */
 
     /**************************************************************************************************/
     /*! Initialization of the struct "egy" (of the type ENERGY):*/
@@ -1765,9 +1782,9 @@ land cover %ld, meteo station %ld\n",
                             else
                             {
                                 (*snow->S->w_ice)(n,r,c) = ( SWE - par->max_weq_snow *
-                                                                      ( par->max_snow_layers -
-                                                                        par->inf_snow_layers->nh ) ) /
-                                                              par->inf_snow_layers->nh;
+                                                                   ( par->max_snow_layers -
+                                                                     par->inf_snow_layers->nh ) ) /
+                                                           par->inf_snow_layers->nh;
                             }
                         }
                     }
@@ -1805,7 +1822,8 @@ land cover %ld, meteo station %ld\n",
 
         assign_recovered_map_long(old, par->recover, files[rns], snow->S->lnum.get(), par, land->LC.get());
 
-        assign_recovered_map_vector(old, par->recover, files[rsnag], snow->age.get(), top->rc_cont.get(), par, land->LC.get());
+        assign_recovered_map_vector(old, par->recover, files[rsnag], snow->age.get(),
+                                    top->rc_cont.get(), par, land->LC.get());
 
         assign_recovered_tensor(old, par->recover, files[rDzs], snow->S->Dzl.get(), par, land->LC.get());
 
@@ -1894,7 +1912,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                     {
 
                         if (IT->rhoglac0 * (*M)(r,c) / GTConst::rho_w < par->max_weq_glac *
-                                                               par->max_glac_layers )
+                                                                        par->max_glac_layers )
                         {
 
                             n = 0;
@@ -1911,11 +1929,11 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                                 else
                                 {
                                     (*glac->G->w_ice)(n,r,c) = IT->rhoglac0 * (*M)(r,c) /
-                                                                  1000. - z;
+                                                               1000. - z;
                                 }
 
-                               (*glac->G->Dzl)(n,r,c) = GTConst::rho_w * (*glac->G->w_ice)(n,r,c) /
-                                                            IT->rhoglac0;
+                                (*glac->G->Dzl)(n,r,c) = GTConst::rho_w * (*glac->G->w_ice)(n,r,c) /
+                                                         IT->rhoglac0;
                                 (*glac->G->T)(n,r,c) = IT->Tglac0;
 
                                 z += (*glac->G->w_ice)(n,r,c);
@@ -1948,15 +1966,15 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                                 else
                                 {
                                     (*glac->G->w_ice)(n,r,c) = ( IT->rhoglac0 * (*M)(r,c) /
-                                                                    GTConst::rho_w -
-                                                                    par->max_weq_glac *
-                                                                    ( par->max_glac_layers -
-                                                                      par->inf_glac_layers->nh ) ) /
-                                                                  par->inf_glac_layers->nh;
+                                                                 GTConst::rho_w -
+                                                                 par->max_weq_glac *
+                                                                 ( par->max_glac_layers -
+                                                                   par->inf_glac_layers->nh ) ) /
+                                                               par->inf_glac_layers->nh;
                                 }
 
-                               (*glac->G->Dzl)(n,r,c) = GTConst::rho_w * (*glac->G->w_ice)(n,r,c) /
-                                                            IT->rhoglac0;
+                                (*glac->G->Dzl)(n,r,c) = GTConst::rho_w * (*glac->G->w_ice)(n,r,c) /
+                                                         IT->rhoglac0;
                                 (*glac->G->T)(n,r,c) = IT->Tglac0;
 
                             }
@@ -2460,21 +2478,21 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
     double min, max;
     FILE *f;
 
-    /**reading TOPOGRAPHY*/
+    /** reading TOPOGRAPHY */
     flag = file_exists(fdem);
     if (flag == 1)  /**keyword is present and the file exists*/
     {
         M.reset(new Matrix<double>{1,1});
-        top->Z0.reset(read_map(0, files[fdem], M.get(), UV, (double)number_novalue)); /**topography*/
-        write_map(files[fdem], 0, par->format_out, top->Z0.get(), UV, number_novalue); /**rewrite DEM file*/
+        top->Z0.reset(read_map(0, files[fdem], M.get(), UV, (double)number_novalue)); /** topography */
+        write_map(files[fdem], 0, par->format_out, top->Z0.get(), UV, number_novalue); /** rewrite DEM file */
 
         // filtering
         M.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
-        multipass_topofilter(par->lowpass, top->Z0.get(), M.get(), (double)number_novalue, 1); /**assign "-9999" to cell outside the domain*/
+        multipass_topofilter(par->lowpass, top->Z0.get(), M.get(), (double)number_novalue, 1); /** assign "-9999" to cell outside the domain */
         copy_doublematrix(M.get(), top->Z0.get());
         // write_map(files[fdem], 0, par->format_out, top->Z0, UV, number_novalue);
 
-        /**calculate East and North matrices*/
+        /** calculate East and North matrices */
         top->East.reset(new Matrix<double>{top->Z0->nrh, top->Z0->nch});
         top->North.reset(new Matrix<double>{top->Z0->nrh, top->Z0->nch});
         for (r=1; r<=top->Z0->nrh; r++)
@@ -2497,24 +2515,24 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
 
     }
 
-    /**reading LAND COVER TYPE*/
+    /** reading LAND COVER TYPE */
     flag = file_exists(flu);
-    if (flag == 1) /**keyword is present and the file exists*/
+    if (flag == 1) /** keyword is present and the file exists */
     {
         land->LC.reset(read_map(1, files[flu], top->Z0.get(), UV, (double)number_novalue));
 
-        /**check to have "-9999" along the borders*/
-        for (r=1; r<=land->LC->nrh; r++) /**first and last columns fixed*/
+        /** check to have "-9999" along the borders */
+        for (r=1; r<=land->LC->nrh; r++) /** first and last columns fixed */
         {
             (*land->LC)(r,1)=(double)number_novalue;
             (*land->LC)(r,land->LC->nch)=(double)number_novalue;
         }
-        for (c=1; c<=land->LC->nch; c++) /**first and last rows fixed*/
+        for (c=1; c<=land->LC->nch; c++) /** first and last rows fixed */
         {
             (*land->LC)(1,c)=(double)number_novalue;
             (*land->LC)(land->LC->nrh,c)=(double)number_novalue;
         }
-        /**chech to have coherent values of landcover ( 1 < LC < n_landuses)*/
+        /** chech to have coherent values of landcover ( 1 < LC < n_landuses) */
         for (r=1; r<=land->LC->nrh; r++)
         {
             for (c=1; c<=land->LC->nch; c++)
@@ -2532,7 +2550,7 @@ to the land cover type\n");
                 }
             }
         }
-        /**Land use is the official mask: set novalue in LC points where DTM is not available*/
+        /** Land use is the official mask: set novalue in LC points where DTM is not available */
         for (r=1; r<=land->LC->nrh; r++)
         {
             for (c=1; c<=land->LC->nch; c++)
@@ -2556,22 +2574,22 @@ to the land cover type\n");
         printf("Land cover type assumed to be always 1\n");
         land->LC.reset(copydoublematrix_const(1.0, top->Z0.get(), (double)number_novalue));
 
-        /**set "-9999" along the borders*/
-        for (r=1; r<=land->LC->nrh; r++) /**first and last columns fixed*/
+        /** set "-9999" along the borders */
+        for (r=1; r<=land->LC->nrh; r++) /** first and last columns fixed */
         {
             (*land->LC)(r,1)=(double)number_novalue;
             (*land->LC)(r,land->LC->nch)=(double)number_novalue;
         }
-        for (c=1; c<=land->LC->nch; c++) /**first and last rows fixed*/
+        for (c=1; c<=land->LC->nch; c++) /** first and last rows fixed */
         {
             (*land->LC)(1,c)=(double)number_novalue;
             (*land->LC)(land->LC->nrh,c)=(double)number_novalue;
         }
     }
-    if (flag >= 0) /* keyword is present and the file can exist or not*/
-        write_map(files[flu], 1, par->format_out, land->LC.get(), UV, number_novalue); /**(re)write LAND COVER file*/
+    if (flag >= 0) /** keyword is present and the file can exist or not */
+        write_map(files[flu], 1, par->format_out, land->LC.get(), UV, number_novalue); /** (re)write LAND COVER file */
 
-    if (par->state_pixel == 1) /**output printing for single points is active*/
+    if (par->state_pixel == 1) /** output printing for single points is active */
     {
         par->rc.reset(new Matrix<long>{par->chkpt->nrh,2});
         par->IDpoint.reset(new Vector<long>{par->chkpt->nrh});
@@ -2613,9 +2631,9 @@ to the land cover type\n");
     }
 
     /*************************************************************************************************/
-    /**reading SKY VIEW FACTOR*/
+    /** reading SKY VIEW FACTOR */
     flag = file_exists(fsky);
-    if (flag == 1) /**keyword is present and the file exists*/
+    if (flag == 1) /** keyword is present and the file exists */
     {
         top->sky.reset(read_map(2, files[fsky], land->LC.get(), UV, (double)number_novalue));
     }
@@ -2624,24 +2642,24 @@ to the land cover type\n");
         top->sky.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
         if (par->sky == 0)
         {
-            /**assign a constant value to sky view factor*/
+            /** assign a constant value to sky view factor */
             (*top->sky) = 1.;
         }
         else
         {
-            /**calculate sky view factor*/
+            /** calculate sky view factor */
             Matrix<short> curv{top->Z0->nrh,top->Z0->nch};
             nablaquadro_mask(top->Z0.get(), &curv, UV->U.get(), UV->V.get());
             sky_view_factor(top->sky.get(), 36, UV, top->Z0.get(), &curv, number_novalue);
         }
     }
-    if (flag >= 0) /**keyword is present and the file can exist or not*/
-        write_map(files[fsky], 0, par->format_out, top->sky.get(), UV, number_novalue); /**(re)write SKY VIEW FACTOR file*/
+    if (flag >= 0) /** keyword is present and the file can exist or not */
+        write_map(files[fsky], 0, par->format_out, top->sky.get(), UV, number_novalue); /** (re)write SKY VIEW FACTOR file */
 
     /**************************************************************************************************/
-    /**reading DELAY*/
+    /** reading DELAY */
     flag = file_exists(fdelay);
-    if (flag == 1) /**keyword is present and the file exists*/
+    if (flag == 1) /** keyword is present and the file exists */
     {
         land->delay.reset(read_map(2, files[fdelay], land->LC.get(), UV, (double)number_novalue));
     }
@@ -2649,18 +2667,18 @@ to the land cover type\n");
     {
         land->delay.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
     }
-    if (flag >= 0) /**keyword is present and the file can exist or not*/
-        write_map(files[fdelay], 0, par->format_out, land->delay.get(), UV, number_novalue); /**(re)write DELAY file*/
+    if (flag >= 0) /** keyword is present and the file can exist or not */
+        write_map(files[fdelay], 0, par->format_out, land->delay.get(), UV, number_novalue); /** (re)write DELAY file */
 
     /**************************************************************************************************/
-    /**reading SOIL MAP*/
+    /** reading SOIL MAP */
     flag = file_exists(fsoil);
-    if (flag == 1) /**keyword is present and the file exists*/
+    if (flag == 1) /** keyword is present and the file exists */
     {
         M.reset(read_map(2, files[fsoil], land->LC.get(), UV, (double)number_novalue));
         sl->type.reset(copylong_doublematrix(M.get()));
 
-        /**chech to have coherent values of soiltype ( 1 < ST < n_soiltypes)*/
+        /** chech to have coherent values of soiltype ( 1 < ST < n_soiltypes) */
         for (r=1; r<=land->LC->nrh; r++)
         {
             for (c=1; c<=land->LC->nch; c++)
@@ -2684,25 +2702,25 @@ to the soil type map");
         M.reset(copydoublematrix_const(par->soil_type_land_default, land->LC.get(), (double)number_novalue));
         sl->type.reset(copylong_doublematrix(M.get()));
     }
-    if (flag >= 0) /**keyword is present and the file can exist or not*/
-        write_map(files[fsoil], 1, par->format_out, M.get(), UV, number_novalue); /**(re)write SOIL MAP file*/
+    if (flag >= 0) /** keyword is present and the file can exist or not */
+        write_map(files[fsoil], 1, par->format_out, M.get(), UV, number_novalue); /** (re)write SOIL MAP file */
 
     /**************************************************************************************************/
-    /**SLOPE*/
+    /** SLOPE */
     top->dzdE.reset(new Matrix<double>{land->LC->nrh, land->LC->nch});
     top->dzdN.reset(new Matrix<double>{land->LC->nrh, land->LC->nch});
     find_slope((*UV->U)(1), (*UV->U)(2), top->Z0.get(), top->dzdE.get(), top->dzdN.get(), (double)number_novalue);
 
     flag = file_exists(fslp);
-    if (flag == 1) /**keyword is present and the file exists*/
+    if (flag == 1) /** keyword is present and the file exists */
     {
-        top->slope.reset(read_map(2, files[fslp], land->LC.get(), UV, (double)number_novalue)); /**reads in degrees*/
+        top->slope.reset(read_map(2, files[fslp], land->LC.get(), UV, (double)number_novalue)); /** reads in degrees */
     }
     else
     {
         top->slope.reset(find_max_slope(top->Z0.get(), top->dzdE.get(), top->dzdN.get(), (double)number_novalue));
     }
-    if (flag >= 0) /**keyword is present and the file can exist or not*/
+    if (flag >= 0) /** keyword is present and the file can exist or not */
         write_map(files[fslp], 0, par->format_out, top->slope.get(), UV, number_novalue);
 
     find_min_max(top->slope.get(), (double)number_novalue, &max, &min);
@@ -2711,9 +2729,9 @@ to the soil type map");
            << "Max:" << tan(max*GTConst::Pi/180.) << "(" << max << "deg)" << std::endl;
 
     /**************************************************************************************************/
-    /**ASPECT*/
+    /** ASPECT */
     flag = file_exists(fasp);
-    if (flag == 1) /**keyword is present and the file exists*/
+    if (flag == 1) /** keyword is present and the file exists */
     {
         top->aspect.reset(read_map(2, files[fasp], land->LC.get(), UV, (double)number_novalue));
     }
@@ -2721,11 +2739,11 @@ to the soil type map");
     {
         top->aspect.reset(find_aspect(top->Z0.get(), top->dzdE.get(), top->dzdN.get(), (double)number_novalue));
     }
-    if (flag >= 0) /**keyword is present and the file can exist or not*/
-        write_map(files[fasp], 0, par->format_out, top->aspect.get(), UV, number_novalue); /**(re)write ASPECT file*/
+    if (flag >= 0) /** keyword is present and the file can exist or not */
+        write_map(files[fasp], 0, par->format_out, top->aspect.get(), UV, number_novalue); /** (re)write ASPECT file */
 
     /**************************************************************************************************/
-    /**CURVATURE*/
+    /** CURVATURE */
     top->curvature1.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
     top->curvature2.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
     top->curvature3.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
@@ -2740,19 +2758,19 @@ to the soil type map");
     if (strcmp(files[fcurv], string_novalue) != 0)
     {
         temp = join_strings(files[fcurv], "N-S");
-        write_map(temp, 0, par->format_out, top->curvature1.get(), UV, number_novalue); /**write CURVATURE N-S file*/
+        write_map(temp, 0, par->format_out, top->curvature1.get(), UV, number_novalue); /** write CURVATURE N-S file */
         free(temp);
 
         temp = join_strings(files[fcurv], "W-E");
-        write_map(temp, 0, par->format_out, top->curvature2.get(), UV, number_novalue); /**write CURVATURE W-E file*/
+        write_map(temp, 0, par->format_out, top->curvature2.get(), UV, number_novalue); /** write CURVATURE W-E file */
         free(temp);
 
         temp = join_strings(files[fcurv], "NW-SE");
-        write_map(temp, 0, par->format_out, top->curvature3.get(), UV, number_novalue); /**write CURVATURE NW-SE file*/
+        write_map(temp, 0, par->format_out, top->curvature3.get(), UV, number_novalue); /** write CURVATURE NW-SE file */
         free(temp);
 
         temp = join_strings(files[fcurv], "NE-SW");
-        write_map(temp, 0, par->format_out, top->curvature4.get(), UV, number_novalue); /**write CURVATURE NE-SW file*/
+        write_map(temp, 0, par->format_out, top->curvature4.get(), UV, number_novalue); /** write CURVATURE NE-SW file */
         free(temp);
 
     }
@@ -2771,26 +2789,39 @@ to the soil type map");
 
     /**************************************************************************************************/
     /*
-     * CHANNEL NETWORK: if pixel_type is
-     * 0:       land pixel; if it is on the border:
-     *                      - the border is impermeable
-     *                      - water is free only on the surface)
-     * 1 or 2:  land pixel; it it is on the border
-     *                      - the border is permeable above an user-defined elevation in the saturated part, weir-wise
-     * 10:      channel pixel; if it is on the border
-     *                      - the border is impermeable,
-                            - water is free only on the surface)
-     * -1:      land pixel, where an incoming discharge from outside is considered (as rain)
-     *
+     * CHANNEL NETWORK: if pixel_type is [TO CHECK ALL WITH TEST CASES]
+     *-1 => LAND pixel
+     *      - an incoming discharge from outside is considered (as rain/irrigation) [TO CHECK IF Qin CAN BE OF RIVER]
+     * 0 => LAND pixel
+     *      if it is on the border:
+     *      - the border is impermeable
+     *      - water is not free on the surface
+     * 1 => LAND pixel
+     *      if it is on the border
+     *      - water is free only on the surface
+     * 2 => LAND pixel
+     *      if it is on the border
+     *      - the border is permeable above an user-defined elevation in the saturated part (DepthFreeSurfaceAtTheBoundary [mm])
+     *      - weir-wise ("stramazzo")
+     * 10 => CHANNEL pixel
+     *      if it is on the border
+     *      - the border is impermeable
+     *      - water is free only on the surface
+     * 11 => CHANNEL pixel
+     *      if it is on the border
+     *      - behaves as pixel_type 1
+     * 12 => CHANNEL pixel
+     *      if it is on the border
+     *      - behaves as pixel_type 2
     */
     flag = file_exists(fnet);
-    if (flag == 1) /**keyword is present and the file exists*/
+    if (flag == 1) /** keyword is present and the file exists */
     {
         M.reset(read_map(2, files[fnet], land->LC.get(), UV, (double)number_novalue));
         top->pixel_type.reset(copyshort_doublematrix(M.get()));
 
         cont = 0;
-        /**check that top->pixel_type assumes only the admitted values: -1, 0, 1, 2, 10, 11, 12*/
+        /** check that top->pixel_type assumes only the admitted values: -1, 0, 1, 2, 10, 11, 12 */
         for (r=1; r<=top->Z0->nrh; r++)
         {
             for (c=1; c<=top->Z0->nch; c++)
@@ -2799,7 +2830,7 @@ to the soil type map");
                 {
                     if ((*top->pixel_type)(r,c)!=0 && (*top->pixel_type)(r,c)!=1
                         && (*top->pixel_type)(r,c)!=2 && (*top->pixel_type)(r,c)!=10
-                        && (*top->pixel_type)(r,c)!=11 && (*top->pixel_type)(r,c)!=12 /**missing explanation of pixel_type 11 and 12*/
+                        && (*top->pixel_type)(r,c)!=11 && (*top->pixel_type)(r,c)!=12
                         && (*top->pixel_type)(r,c)!=-1)
                     {
                         f = fopen(FailedRunFile, "w");
@@ -2825,7 +2856,7 @@ to the soil type map");
     }
 
     /**************************************************************************************************/
-    /**check BORDER cell*/
+    /** check BORDER cells */
     top->is_on_border.reset(new Matrix<short>{land->LC->nrh, land->LC->nch});
     for (r=1; r<=land->LC->nrh; r++)
     {
@@ -2842,7 +2873,7 @@ to the soil type map");
         }
     }
 
-    /**count the pixels having pixel_type = -1, 1, 2, 11, 12*/
+    /** count the pixels having pixel_type = -1, 1, 2, 11, 12 */
     cont = 0;
     for (r=1; r<=top->Z0->nrh; r++)
     {
@@ -2860,10 +2891,10 @@ to the soil type map");
 
     top->BC_counter.reset(new Matrix<long>{top->Z0->nrh, top->Z0->nch});
 
-    /**assign values to (top->BC_counter) and (top->BC_DepthFreeSurface) */
+    /** assign values to (top->BC_counter) and (top->BC_DepthFreeSurface) */
     if (cont > 0)
     {
-        top->BC_DepthFreeSurface.reset(new Vector<double>{cont});
+        top->BC_DepthFreeSurface.reset(new Vector<double>{cont}); /** if set to 0, drainage only from only surface flow */
         cont = 0;
         for (r=1; r<=top->Z0->nrh; r++)
         {
@@ -2877,7 +2908,7 @@ to the soil type map");
                     {
                         cont ++;
                         (*top->BC_counter)(r,c) = cont;
-                        (*top->BC_DepthFreeSurface)(cont) = par->DepthFreeSurface; /**[mm]*/
+                        (*top->BC_DepthFreeSurface)(cont) = par->DepthFreeSurface; /** [mm] */
                     }
                 }
             }
@@ -2889,9 +2920,9 @@ to the soil type map");
         *(top->BC_DepthFreeSurface) = double(number_novalue);
     }
 
-    /**BEDROCK*/
+    /** BEDROCK */
     flag = file_exists(fbed);
-    if (flag == 1) /**keyword is present and the file exists*/
+    if (flag == 1) /** keyword is present and the file exists */
     {
         IT->bed.reset(read_map(2, files[fbed], land->LC.get(), UV, (double)number_novalue));
     }
@@ -2900,8 +2931,8 @@ to the soil type map");
         IT->bed.reset(new Matrix<double>{top->Z0->nrh, top->Z0->nch});
         (*IT->bed) = 1.E99;
     }
-    if (flag>=0) /**keyword is present and the file can exist or not*/
-        write_map(files[fbed], 0, par->format_out, IT->bed.get(), UV, number_novalue); /**(re)write BEDROCK file*/
+    if (flag>=0) /** keyword is present and the file can exist or not */
+        write_map(files[fbed], 0, par->format_out, IT->bed.get(), UV, number_novalue); /** (re)write BEDROCK file */
 }
 
 //***************************************************************************************************
@@ -2911,6 +2942,9 @@ to the soil type map");
 
 void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /*times*/, INIT_TOOLS *IT)
 {
+    /**
+     * read input maps for a point simulation (1D)
+     */
     GEOLOG_PREFIX(__func__);
 
     long i, r, c, num_lines;
@@ -2920,16 +2954,16 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /
     double min, max;
     FILE *f;
 
-    // 4. CALCULATE TOPOGRAPHIC PROPERTIES
-    // check if there are point coordinates
+    /** 4. CALCULATE TOPOGRAPHIC PROPERTIES */
+    /** check if there are point coordinates */
     coordinates = 1;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
-        if ( (long)(*par->chkpt)(i,ptX)==number_novalue
-             || (long)(*par->chkpt)(i,ptY)==number_novalue ) coordinates = 0;
+        if ( (long)(*par->chkpt)(i,ptX)==number_novalue || (long)(*par->chkpt)(i,ptY)==number_novalue )
+            coordinates = 0;
     }
 
-    // ---------------------- (a) Read dem ----------------------
+    /** ---------------------- (a) Read dem ---------------------- */
     read_dem=0;
     // if(par->recover>0) read_dem=1;
     for (i=1; i<=par->chkpt->nrh; i++)
@@ -2955,7 +2989,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /
             geolog << "Warning: Dem file " << files[fdem]+1 << "present" << std::endl;
 
             Q.reset(new Matrix<double>{1,1});
-            Z.reset(read_map(0, files[fdem], Q.get(), UV, (double)number_novalue)); //topography
+            Z.reset(read_map(0, files[fdem], Q.get(), UV, (double)number_novalue)); /**topography*/
 
             Q.reset(new Matrix<double>{Z->nrh,Z->nch});
             multipass_topofilter(par->lowpass, Z.get(), Q.get(), (double)number_novalue, 1);
@@ -2967,7 +3001,6 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /
             geolog << "Warning: Dem file not present" << std::endl;
         }
     }
-
 
     if (read_dem==1)
     {
@@ -2983,7 +3016,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /
         }
     }
 
-    // ---------------------- (b) Read land use ----------------------
+    /** ---------------------- (b) Read land use ---------------------- */
     read_lu=0;
     // if(par->recover>0) read_lu=1;
     for (i=1; i<=par->chkpt->nrh; i++)
@@ -3036,7 +3069,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /
         }
     }
 
-    // ---------------------- (c) Read soil type ----------------------
+    /** ---------------------- (c) Read soil type ---------------------- */
     read_soil=0;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
@@ -3080,7 +3113,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /
         }
     }
 
-    // ---------------------- (d) Read slope ----------------------
+    /** ---------------------- (d) Read slope ---------------------- */
     read_sl=0;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
@@ -3142,7 +3175,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /
         }
     }
 
-    // ---------------------- (e) Read aspect ----------------------
+    /** ---------------------- (e) Read aspect ----------------------*/
     read_as=0;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
@@ -3199,7 +3232,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /
         }
     }
 
-    // ---------------------- (f) Sky view factor file ----------------------
+    /** ---------------------- (f) Sky view factor file ---------------------- */
     read_sk=0;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
@@ -3254,7 +3287,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /
         }
     }
 
-    // ---------------------- (f2) Bedrock file ----------------------
+    /** ---------------------- (f2) Bedrock file ---------------------- */
     read_bed=0;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
@@ -3298,7 +3331,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /
         }
     }
 
-    // ---------------------- (g) Curvature ----------------------
+    /** ---------------------- (g) Curvature ---------------------- */
     read_curv=0;
     for (i=1; i<=par->chkpt->nrh; i++)
     {
@@ -3378,7 +3411,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /
         }
     }
 
-    // ---------------------- (h) No value check ----------------------
+    /** ---------------------- (h) No value check ---------------------- */
     /** Assign default value if NO value is inserted */
     for (i=1; i<=par->chkpt->nrh; i++)
     {
@@ -3431,7 +3464,7 @@ void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES * /
             (*par->chkpt)(i,ptHOR) = (*par->chkpt)(i,ptID);
     }
 
-    // ---------------------- (i) Show results ----------------------
+    /** ---------------------- (i) Show results ---------------------- */
     geolog << std::endl << "POINTS:" << std::endl;
     geolog << "ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],\
 SkyViewFactor[-],CurvatureN-S[1/m],CurvatureW-E[1/m],CurvatureNW-SE[1/m],CurvatureNE-SW[1/m],\
@@ -3447,7 +3480,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
         geolog << std::endl;
     }
 
-    // ---------------------- (l) Set UV ----------------------
+    /** ---------------------- (l) Set UV ---------------------- */
     if (read_dem==0 && read_lu==0 && read_soil==0 && read_sl==0 && read_as==0 && read_sk==0)
     {
         UV->U.reset(new Vector<double>{4});
@@ -3458,7 +3491,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
     (*UV->U)(4) = 0.0;
     (*UV->U)(3) = 0.0;
     (*UV->V)(2) = (double)number_novalue;
-    
+
     if ((*UV->V)(2)<0)
     {
         (*UV->V)(1) = -1.;
@@ -3468,10 +3501,10 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
         (*UV->V)(1) = 1.;
     }
 
-    // ---------------------- (n) Deallocation ----------------------
+    /** ---------------------- (n) Deallocation ---------------------- */
     // if(par->recover==0 && read_dem==1){
 
-    // 5. SET CHECKPOINT
+    /** 5. SET CHECKPOINT */
     if (par->state_pixel == 1)
     {
         par->rc.reset(new Matrix<long>{par->chkpt->nrh,2});
@@ -3482,7 +3515,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
         }
     }
 
-    // 6. SET PROPERTIES
+    /** 6. SET PROPERTIES */
     top->East.reset(new Matrix<double>{1,par->chkpt->nrh});
     top->North.reset(new Matrix<double>{1,par->chkpt->nrh});
     top->Z0.reset(new Matrix<double>{1,par->chkpt->nrh});
@@ -3569,7 +3602,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
             (*IT->bed)(1,i) = 1.E99;
     }
 
-    // 7. SET PAR
+    /** 7. SET PAR */
     for (i=1; i<=par->init_date->nh; i++)
     {
         (*par->output_soil)(i)=0.;
@@ -3586,8 +3619,8 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
     par->output_surfenergy_bin = 0;
     par->output_meteo_bin = 0;
 
-    // 8. READ HORIZONS
-    // find max top->horizon_point
+    /** 8. READ HORIZONS */
+    /** find max top->horizon_point */
     top->num_horizon_point=0;
     for (r=1; r<=top->horizon_point->nrh; r++)
     {
@@ -3651,7 +3684,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
     short yes=0;
     FILE *f;
 
-    // check if bedrock depth is above soil lower border, otherwise we do not need to calculate anything
+    /** check if bedrock depth is above soil lower border, otherwise we do not need to calculate anything */
     z = 0.;
     for (l=1; l<=Nl; l++)
     {
@@ -3661,12 +3694,13 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
     {
         r = (*top->rc_cont)(i,1);
         c = (*top->rc_cont)(i,2);
-        if ((*IT->bed)(r,c) < z) yes = 1;
+        if ((*IT->bed)(r,c) < z)
+            yes = 1;
     }
 
     if (yes == 1)
     {
-        // consistency check
+        /** consistency check */
         if (IT->init_water_table_depth->nh != sl->pa->ndh)
         {
             f = fopen(FailedRunFile, "w");
@@ -3675,7 +3709,7 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
             t_error("Fatal Error! Geotop is closed. See failing report (19).");
         }
 
-        // rewrite soil type
+        /** rewrite soil type */
         T.reset(new Tensor<double>{sl->pa->ndh, nsoilprop, Nl});
         for (i=1; i<=sl->pa->ndh; i++)
         {
@@ -3689,15 +3723,15 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
         }
         sl->pa.reset(new Tensor<double>{par->total_pixel+par->total_channel, nsoilprop, Nl});
 
-        // rewrite initial water table depth
+        /** rewrite initial water table depth */
         WT.reset(new Vector<double>{IT->init_water_table_depth->nh});
         for (i=1; i<=IT->init_water_table_depth->nh; i++)
         {
-           (*WT)(i) = (*IT->init_water_table_depth)(i);
+            (*WT)(i) = (*IT->init_water_table_depth)(i);
         }
         IT->init_water_table_depth.reset(new Vector<double>{par->total_pixel +par->total_channel});
 
-        // assign jdz (is needed later)
+        /** assign jdz (is needed later) */
         for (i=1; i<=sl->pa->ndh; i++)
         {
             for (l=1; l<=Nl; l++)
@@ -3765,13 +3799,22 @@ void set_bedrock(INIT_TOOLS *IT, SOIL *sl, CHANNEL *cnet, PAR *par, TOPO *top, M
 std::unique_ptr<Tensor<double>> find_Z_of_any_layer(Matrix<double> *Zsurface, Matrix<double> *slope,
                                                     Matrix<double> *LC, SOIL *sl, short point)
 {
-
+/**Calculate the tensor of the centres of gravity for each layer (Z);
+ * for each cell
+ *          Z = Zsurface(r,c) - Zaverage - 0.5*(*sl->pa)(sy,jdz,l) * cos((*slope)(r,c))
+ * where
+ * - Zsurface(r,c): DEM elevation
+ * - Zaverage: average DEM elevation (not considering the cells with novalue)
+ * - (*sl->pa)(sy,jdz,l): soil layer thickness
+ * - (*slope)(r,c): slope matrix
+ * */
     GEOLOG_PREFIX(__func__);
 
     std::unique_ptr<Tensor<double>> Z;
     double Zaverage=0., z, cosine;
     long l, r, c, n, sy;
 
+    /**calculate the average basin elevation (not considering the cells with novalue)*/
     if (point!=1)
     {
         Zaverage=0.;
@@ -3805,7 +3848,8 @@ std::unique_ptr<Tensor<double>> find_Z_of_any_layer(Matrix<double> *Zsurface, Ma
 
                 if (point!=1)
                 {
-                    z=1.E3*((*Zsurface)(r,c)-Zaverage);//[mm]
+                    /**conversion from [m] to [mm] and normalization respect to the average basin elevation*/
+                    z=1.E3*((*Zsurface)(r,c)-Zaverage);
                 }
                 else
                 {
@@ -3907,7 +3951,6 @@ void initialize_veg_state(STATE_VEG *V, long n)
     V->Tv.reset(new Vector<double>{n});
     V->wsnow.reset(new Vector<double>{n});
     V->wrain.reset(new Vector<double>{n});
-
 }
 
 /***************************************************************************************************/

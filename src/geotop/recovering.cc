@@ -42,21 +42,21 @@ void assign_recovered_map(short old, long n, char *name, Matrix<double> *assign,
   temp = namefile_i_we2(name, n);
 
   if (old == 1)
-    {
-      temp2 = join_strings(temp, ".old");
-      free(temp);
-      temp = assign_string(temp2);
-      free(temp2);
-    }
+  {
+    temp2 = join_strings(temp, ".old");
+    free(temp);
+    temp = assign_string(temp2);
+    free(temp2);
+  }
 
   M.reset(read_map(1, temp, Zdistr, UV, (double)number_novalue));
   for (r=1; r<=M->nrh; r++)
+  {
+    for (c=1; c<=M->nch; c++)
     {
-      for (c=1; c<=M->nch; c++)
-        {
-          (*assign)(r,c) = (*M)(r,c);
-        }
+      (*assign)(r,c) = (*M)(r,c);
     }
+  }
 
   free(temp);
 }
@@ -66,10 +66,14 @@ void assign_recovered_map(short old, long n, char *name, Matrix<double> *assign,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void assign_recovered_map_vector(short old, long n, char *name,
-                                 Vector<double> *assign, Matrix<long> *rc, PAR * /*par*/, Matrix<double> *Zdistr)
+void assign_recovered_map_vector(short old, long n, char *name, Vector<double> *assign,
+                                 Matrix<long> *rc, PAR * /*par*/, Matrix<double> *Zdistr)
 {
-
+  /**
+   * Recover function:
+   * - recover values for the vector "assign"
+   * - creates file ".old"
+   */
   long i, r, c;
   std::unique_ptr<Matrix<double>> M;
   char *temp, *temp2;
@@ -77,21 +81,20 @@ void assign_recovered_map_vector(short old, long n, char *name,
   temp = namefile_i_we2(name, n);
 
   if (old == 1)
-    {
-      temp2 = join_strings(temp, ".old");
-      free(temp);
-      temp = assign_string(temp2);
-      free(temp2);
-    }
+  {
+    temp2 = join_strings(temp, ".old");
+    free(temp);
+    temp = assign_string(temp2);
+    free(temp2);
+  }
 
   M.reset(read_map(1, temp, Zdistr, UV, (double)number_novalue));
   for (i=1; i<=rc->nrh; i++)
-    {
-      r = (*rc)(i,1);
-      c = (*rc)(i,2);
-      assign->co[i] = (*M)(r,c);
-    }
-
+  {
+    r = (*rc)(i,1);
+    c = (*rc)(i,2);
+      (*assign)(i) = (*M)(r,c);
+  }
   free(temp);
 }
 
@@ -112,22 +115,22 @@ void assign_recovered_map_long(short old, long n, char *name,
   temp = namefile_i_we2(name, n);
 
   if (old == 1)
-    {
-      temp2 = join_strings(temp, ".old");
-      free(temp);
-      temp = assign_string(temp2);
-      free(temp2);
-    }
+  {
+    temp2 = join_strings(temp, ".old");
+    free(temp);
+    temp = assign_string(temp2);
+    free(temp2);
+  }
 
   M.reset(read_map(1, temp, Zdistr, UV, (double)number_novalue));
   for (r=1; r<=M->nrh; r++)
+  {
+    for (c=1; c<=M->nch; c++)
     {
-      for (c=1; c<=M->nch; c++)
-        {
-          (*assign)(r,c) = (long)(*M)(r,c);
-        }
+      (*assign)(r,c) = (long)(*M)(r,c);
     }
-    free(temp);
+  }
+  free(temp);
 }
 
 /******************************************************************************************************************************************/
@@ -144,32 +147,32 @@ void assign_recovered_tensor(short old, long n, char *name,
   char *temp1, *temp2, *temp3;
 
   for (l=assign->ndl; l<=assign->ndh; l++)
+  {
+
+    temp1 = namefile_i_we2(name, n);
+    temp2 = namefile_i_we(temp1, l);
+
+    if (old == 1)
     {
-
-      temp1 = namefile_i_we2(name, n);
-      temp2 = namefile_i_we(temp1, l);
-
-      if (old == 1)
-        {
-          temp3 = join_strings(temp2, ".old");
-          free(temp2);
-          temp2 = assign_string(temp3);
-          free(temp3);
-        }
-
-      M.reset(read_map(1, temp2, Zdistr, UV, (double)number_novalue));
-
-      for (r=1; r<=M->nrh; r++)
-        {
-          for (c=1; c<=M->nch; c++)
-            {
-              (*assign)(l,r,c) = (*M)(r,c);
-            }
-        }
-        free(temp2);
-      free(temp1);
-
+      temp3 = join_strings(temp2, ".old");
+      free(temp2);
+      temp2 = assign_string(temp3);
+      free(temp3);
     }
+
+    M.reset(read_map(1, temp2, Zdistr, UV, (double)number_novalue));
+
+    for (r=1; r<=M->nrh; r++)
+    {
+      for (c=1; c<=M->nch; c++)
+      {
+        (*assign)(l,r,c) = (*M)(r,c);
+      }
+    }
+    free(temp2);
+    free(temp1);
+
+  }
 }
 
 /******************************************************************************************************************************************/
@@ -180,36 +183,39 @@ void assign_recovered_tensor(short old, long n, char *name,
 void assign_recovered_tensor_vector(short old, long n, char *name, Matrix<double> *assign,
                                     Matrix<long> *rc, PAR * /*par*/, Matrix<double> *Zdistr)
 {
-
+  /**
+   * Recover function:
+   * - recover values for the matrix "assign"
+   * - creates file ".old"
+   */
   long r, c, i, l;
   std::unique_ptr<Matrix<double>> M;
   char *temp1, *temp2, *temp3;
 
   for (l=assign->nrl; l<=assign->nrh; l++)
+  {
+
+    temp1 = namefile_i_we2(name, n);
+    temp2 = namefile_i_we(temp1, l);
+
+    if (old == 1)
     {
-
-      temp1 = namefile_i_we2(name, n);
-      temp2 = namefile_i_we(temp1, l);
-
-      if (old == 1)
-        {
-          temp3 = join_strings(temp2, ".old");
-          free(temp2);
-          temp2 = assign_string(temp3);
-          free(temp3);
-        }
-
-      M.reset(read_map(1, temp2, Zdistr, UV, (double)number_novalue));
-      for (i=1; i<=rc->nrh; i++)
-        {
-          r = (*rc)(i,1);
-          c = (*rc)(i,2);
-          (*assign)(l,i) = (*M)(r,c);
-        }
-        free(temp2);
-      free(temp1);
-
+      temp3 = join_strings(temp2, ".old");
+      free(temp2);
+      temp2 = assign_string(temp3);
+      free(temp3);
     }
+
+    M.reset(read_map(1, temp2, Zdistr, UV, (double)number_novalue));
+    for (i=1; i<=rc->nrh; i++)
+    {
+      r = (*rc)(i,1);
+      c = (*rc)(i,2);
+      (*assign)(l,i) = (*M)(r,c);
+    }
+    free(temp2);
+    free(temp1);
+  }
 }
 
 /******************************************************************************************************************************************/
@@ -217,39 +223,43 @@ void assign_recovered_tensor_vector(short old, long n, char *name, Matrix<double
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
-void assign_recovered_tensor_channel(short old, long n, char *name,
-                                     Matrix<double> *assign, Vector<long> *r, Vector<long> *c, Matrix<double> *Zdistr)
+void assign_recovered_tensor_channel(short old, long n, char *name, Matrix<double> *assign,
+                                     Vector<long> *r, Vector<long> *c, Matrix<double> *Zdistr)
 {
-
+  /**
+   * Recover function:
+   * - recover values for the matrix "assign"
+   * - creates file ".old"
+   */
   long ch, l;
   std::unique_ptr<Matrix<double>> M;
   char *temp1, *temp2, *temp3;
 
   for (l=assign->nrl; l<=assign->nrh; l++)
+  {
+
+    temp1 = namefile_i_we2(name, n);
+    temp2 = namefile_i_we(temp1, l);
+
+    if (old == 1)
     {
-
-      temp1 = namefile_i_we2(name, n);
-      temp2 = namefile_i_we(temp1, l);
-
-      if (old == 1)
-        {
-          temp3 = join_strings(temp2, ".old");
-          free(temp2);
-          temp2 = assign_string(temp3);
-          free(temp3);
-        }
-
-      M.reset(read_map(1, temp2, Zdistr, UV, (double)number_novalue));
-
-      for (ch=1; ch<=r->nh; ch++)
-        {
-          if (r->co[ch] > 0)
-            (*assign)(l,ch) = (*M)(r->co[ch],c->co[ch]);
-        }
-        free(temp2);
-      free(temp1);
-
+      temp3 = join_strings(temp2, ".old");
+      free(temp2);
+      temp2 = assign_string(temp3);
+      free(temp3);
     }
+
+    M.reset(read_map(1, temp2, Zdistr, UV, (double)number_novalue));
+
+    for (ch=1; ch<=r->nh; ch++)
+    {
+      if ((*r)(ch) > 0)
+        (*assign)(l,ch) = (*M)( (*r)(ch), (*c)(ch) );
+    }
+    free(temp2);
+    free(temp1);
+
+  }
 }
 
 /******************************************************************************************************************************************/
@@ -267,15 +277,15 @@ void recover_run_averages(short old, Matrix<double> *A, char *name,
   M.reset(new Matrix<double>{n, par->total_pixel});
   assign_recovered_tensor_vector(old, par->recover, name, M.get(), rc, par, LC);
   for (j=1; j<=par->total_pixel; j++)
+  {
+    if ((*par->jplot)(j) > 0)
     {
-      if ((*par->jplot)(j) > 0)
-        {
-          for (l=1; l<=n; l++)
-            {
-              (*A)((*par->jplot)(j),l) = (*M)(l,j);
-            }
-        }
+      for (l=1; l<=n; l++)
+      {
+        (*A)((*par->jplot)(j),l) = (*M)(l,j);
+      }
     }
+  }
 }
 
 /******************************************************************************************************************************************/
@@ -293,21 +303,21 @@ void print_run_averages_for_recover(Matrix<double> *A, char *name,
   M.reset(new Matrix<double>{n, par->total_pixel});
   *M = (double)number_novalue;
   for (j=1; j<=par->total_pixel; j++)
+  {
+    if ((*par->jplot)(j) > 0)
     {
-      if ((*par->jplot)(j) > 0)
-        {
-          for (l=1; l<=n; l++)
-            {
-              (*M)(l,j) = (*A)((*par->jplot)(j),l);
-            }
-        }
+      for (l=1; l<=n; l++)
+      {
+        (*M)(l,j) = (*A)((*par->jplot)(j),l);
+      }
     }
+  }
   for (l=1; l<=n; l++)
-    {
-      rename_tensorseries(1, l, 0, name);
-      write_tensorseries_vector(1, l, 0, name, 0, par->format_out, M.get(), UV,
-                                number_novalue, j_cont, nr, nc);
-    }
+  {
+    rename_tensorseries(1, l, 0, name);
+    write_tensorseries_vector(1, l, 0, name, 0, par->format_out, M.get(), UV,
+                              number_novalue, j_cont, nr, nc);
+  }
 }
 
 /******************************************************************************************************************************************/

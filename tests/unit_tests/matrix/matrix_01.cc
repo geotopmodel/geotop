@@ -154,3 +154,19 @@ TEST(Matrix, out_of_range_zero){
   EXPECT_ANY_THROW( m.at(5000,5000) );
   
 }
+
+TEST(Matrix, copy_from_to){
+  Matrix<double> from{2,2};
+  double c{0.0};
+  for (auto &x : from)
+    x = ++c;
+
+  Matrix<double> to{2,2};
+  to = from;
+	
+  EXPECT_DOUBLE_EQ( to(1,1), 1 );
+  EXPECT_DOUBLE_EQ( to(1,2), 2 );
+  EXPECT_DOUBLE_EQ( to(2,1), 3 );
+  EXPECT_DOUBLE_EQ( to(2,2), 4 );
+ 
+}
