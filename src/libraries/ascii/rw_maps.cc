@@ -171,46 +171,46 @@ void write_suffix(char *suffix, long i, short start)
 
     if (i>=0 && i<=9)
     {
-        m=0;
-        c=0;
-        d=0;
-        u=i;
+        m = 0;
+        c = 0;
+        d = 0;
+        u = i;
     }
     else if (i<=99)
     {
-        m=0;
-        c=0;
-        d=(short)(i/10.0);
-        u=i-10.0*d;
+        m = 0;
+        c = 0;
+        d = (short)(i/10.0);
+        u = i-10.0*d;
     }
     else if (i<=999)
     {
-        m=0;
-        c=(short)(i/100.0);
-        d=(short)((i-100.0*c)/10.0);
-        u=i-100.0*c-10*d;
+        m = 0;
+        c = (short)(i/100.0);
+        d = (short)((i-100.0*c)/10.0);
+        u = i-100.0*c-10*d;
     }
     else if (i<=9999)
     {
-        m=(short)(i/1000.0);
-        c=(short)((i-1000.0*m)/100.0);
-        d=(short)((i-1000.0*m-100.0*c)/10.0);
-        u=i-1000*m-100.0*c-10*d;
+        m = (short)(i/1000.0);
+        c = (short)((i-1000.0*m)/100.0);
+        d = (short)((i-1000.0*m-100.0*c)/10.0);
+        u = i-1000*m-100.0*c-10*d;
     }
     else
     {
         t_error("Number too high");
     }
 
-    m+=48;
-    c+=48;
-    d+=48;
-    u+=48;
+    m += 48;
+    c += 48;
+    d += 48;
+    u += 48;
 
-    suffix[start]=m;
-    suffix[start+1]=c;
-    suffix[start+2]=d;
-    suffix[start+3]=u;
+    suffix[start] = m;
+    suffix[start+1] = c;
+    suffix[start+2] = d;
+    suffix[start+3] = u;
 }
 
 /******************************************************************************************************************************************/

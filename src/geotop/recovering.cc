@@ -269,12 +269,12 @@ void assign_recovered_tensor_channel(short old, long n, char *name, Matrix<doubl
 void recover_run_averages(short old, Matrix<double> *A, char *name,
                           Matrix<double> *LC, Matrix<long> *rc, PAR *par, long n)
 {
-
   std::unique_ptr<Matrix<double>> M;
   long j, l;
 
   M.reset(new Matrix<double>{n, par->total_pixel});
   assign_recovered_tensor_vector(old, par->recover, name, M.get(), rc, par, LC);
+
   for (j=1; j<=par->total_pixel; j++)
   {
     if ((*par->jplot)(j) > 0)

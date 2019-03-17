@@ -2061,7 +2061,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         write_suffix(rec, par->recover, 4);
     if (par->n_ContRecovery > 0)
         write_suffix(crec, par->n_ContRecovery, 5);
-
+    // *******************************************************
     if (par->Tzrun == 1)
     {
         sl->Tzrun.reset(new Matrix<double>{par->rc->nrh, Nl});
@@ -2093,7 +2093,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
+    // *******************************************************
     if (par->wzrun == 1)
     {
         sl->wzrun.reset(new Matrix<double>{par->rc->nrh, Nl});
@@ -2125,7 +2125,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
+    // *******************************************************
     if (par->Tzmaxrun == 1)
     {
         sl->Tzmaxrun.reset(new Matrix<double>{par->rc->nrh, Nl});
@@ -2158,7 +2158,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
+    // *******************************************************
     if (par->wzmaxrun == 1)
     {
         sl->wzmaxrun.reset(new Matrix<double>{par->rc->nrh, Nl});
@@ -2191,7 +2191,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
+    // *******************************************************
     if (par->Tzminrun == 1)
     {
         sl->Tzminrun.reset(new Matrix<double>{par->rc->nrh, Nl});
@@ -2224,7 +2224,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
+    // *******************************************************
     if (par->wzminrun == 1)
     {
         sl->wzminrun.reset(new Matrix<double>{par->rc->nrh, Nl});
@@ -2257,7 +2257,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
+    // *******************************************************
     if (par->dUzrun == 1)
     {
         sl->dUzrun.reset(new Matrix<double>{par->rc->nrh, Nl});
@@ -2289,7 +2289,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
+    // *******************************************************
     if (par->SWErun == 1)
     {
         sl->SWErun.reset(new Matrix<double>{par->rc->nrh, 3}); /** mean,max,min */
@@ -2322,7 +2322,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
+    // *******************************************************
     if (recovered > 0) /** recover enabled */
     {
         if (par->Tzrun == 1)
@@ -2349,15 +2349,14 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         if (par->SWErun == 1)
             recover_run_averages(old, sl->SWErun.get(), files[rSWErun], land->LC.get(), top->rc_cont.get(), par, 3);
     }
-
+    // *******************************************************
     /** write initial condition */
     write_output_headers(met->st->Z->nh, times, wat, par, top, land, sl, egy, snow, glac);
 
-    if (par->state_pixel == 1)
+    if (par->state_pixel == 1) /** output pixels are set */
     {
-        for (j=1; j<=par->rc->nrh; j++)
+        for (j=1; j<=par->rc->nrh; j++) /** for every output point ... */
         {
-
             r = (*par->rc)(j,1);
             c = (*par->rc)(j,2);
 
@@ -2380,7 +2379,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     }
 
     /**************************************************************************************************/
-    // Free the struct allocated in this subroutine:
+    /** Free the struct allocated in this subroutine */
 
     for (i=0; i<nmet; i++)
     {
@@ -2420,7 +2419,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
     n = std::min<long>((*par->Nl_spinup)(i_sim0),Nl);
 
-    if (par->point_sim != 1)
+    if (par->point_sim != 1) /** distributed simulation (3D setup) */
     {
         cont_nonzero_values_matrix2(&i, &j, cnet, land->LC.get(), top->lrc_cont.get(),
                                     top->i_cont, par->total_pixel, par->total_channel, n);
@@ -2584,7 +2583,7 @@ to the land cover type\n");
     if (flag >= 0) /** keyword is present and the file can exist or not */
         write_map(files[flu], 1, par->format_out, land->LC.get(), UV, number_novalue); /** (re)write LAND COVER file */
 
-    if (par->state_pixel == 1) /** output printing for single points is active */
+    if (par->state_pixel == 1) /** output pixels are set */
     {
         par->rc.reset(new Matrix<long>{par->chkpt->nrh,2});
         par->IDpoint.reset(new Vector<long>{par->chkpt->nrh});
@@ -3500,7 +3499,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
     // if(par->recover==0 && read_dem==1){
 
     /** 5. SET CHECKPOINT */
-    if (par->state_pixel == 1)
+    if (par->state_pixel == 1) /** output pixels are set */
     {
         par->rc.reset(new Matrix<long>{par->chkpt->nrh,2});
         for (i=1; i<=par->chkpt->nrh; i++)
