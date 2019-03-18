@@ -602,6 +602,7 @@ typedef struct {
 
     short newperiodinit;
 
+    /** spin-up variables (*run) */
     short Tzrun;
     short wzrun;
     short dUzrun;
