@@ -43,8 +43,9 @@ install:
   - ninja -j2
 
 script:
-  - meson.py test --print-errorlogs
-  #- meson.py test --suite geotop:unit_tests --print-errorlogs
-  # - meson.py test --suite geotop:1D --print-errorlogs
-  # - travis_wait 90 meson.py test --suite geotop:3D --print-errorlogs
+# - meson.py test --print-errorlogs
+# - meson.py test --suite geotop:unit_tests --print-errorlogs
+ - meson.py test --suite geotop:Vinschgau_test_1D_001 --print-errorlogs
+# - meson.py test --suite geotop:1D --print-errorlogs
+# - travis_wait 90 meson.py test --suite geotop:3D --print-errorlogs
 
