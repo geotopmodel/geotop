@@ -2540,7 +2540,7 @@ void write_output_headers(long n, TIMES * /*times*/, WATER * /*wat*/, PAR *par,
                           TOPO *top, LAND *land, SOIL *sl, ENERGY * /*egy*/, SNOW *snow, GLACIER * /*glac*/)
 {
     GEOLOG_PREFIX(__func__);
-    /* internal auxiliary variables: */
+    /** internal auxiliary variables: */
     long i,l,m,j,r,c;
     char *name,*temp,*temp2,NNNN[ ]= {"NNNN"},rec[ ]= {"_recNNNN"},crec[ ]= {"_crecNNNN"};
     long sy;
@@ -2553,16 +2553,16 @@ void write_output_headers(long n, TIMES * /*times*/, WATER * /*wat*/, PAR *par,
     if (par->n_ContRecovery > 0)
         write_suffix(crec, par->n_ContRecovery, 5);
 
-    // DISCHARGE
+    /** discharge */
     if (par->state_discharge == 1 && strcmp(files[fQ], string_novalue) != 0)
     {
-        if (par->recover>0)
+        if (par->recover > 0)
         {
             temp = join_strings(files[fQ], rec);
             name = join_strings(temp, textfile);
             free(temp);
         }
-        else if (par->n_ContRecovery>0)
+        else if (par->n_ContRecovery > 0)
         {
             temp = join_strings(files[fQ], crec);
             name = join_strings(temp, textfile);
@@ -2580,17 +2580,17 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
         free(name);
     }
 
-
-    if (par->state_pixel == 1)
+    if (par->state_pixel == 1) /** if output pixels are set ... */
     {
-        // output matrix and vectors
-        m=(long)otot;
-        odpnt=(double **)malloc(m*sizeof(double *));
-        odp=(double **)malloc(m*sizeof(double *));
+        /** output matrix and vectors */
+        m = (long)otot;
+        odpnt = (double **)malloc(m*sizeof(double *));
+        odp = (double **)malloc(m*sizeof(double *));
+
         for (i=0; i<otot; i++)
         {
-            odpnt[i]=(double *)malloc(par->rc->nrh*sizeof(double));
-            odp[i]=(double *)malloc(par->rc->nrh*sizeof(double));
+            odpnt[i] = (double *)malloc(par->rc->nrh*sizeof(double));
+            odp[i] = (double *)malloc(par->rc->nrh*sizeof(double));
             for (j=0; j<par->rc->nrh; j++)
             {
                 odpnt[i][j] = 0.;
@@ -2600,14 +2600,13 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
         if (strcmp(files[fpointwriteend], string_novalue) != 0)
         {
-
-            if (par->recover>0)
+            if (par->recover > 0)
             {
                 temp = join_strings(files[fpointwriteend], rec);
                 name = join_strings(temp, textfile);
                 free(temp);
             }
-            else if (par->n_ContRecovery>0)
+            else if (par->n_ContRecovery > 0)
             {
                 temp = join_strings(files[fpointwriteend], crec);
                 name = join_strings(temp, textfile);
@@ -2617,12 +2616,11 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             {
                 name = join_strings(files[fpointwriteend], textfile);
             }
-
             ffpoint=fopen(name,"w");
             first_column=1;
             for (j=0; j<nopnt; j++)
             {
-                if (first_column==0)
+                if (first_column == 0)
                 {
                     fprintf(ffpoint,",");
                 }
@@ -2643,18 +2641,17 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             free(name);
         }
 
-        if (par->max_glac_layers>0)
+        if (par->max_glac_layers > 0)
         {
             if (strcmp(files[fglzwriteend], string_novalue) != 0)
             {
-
-                if (par->recover>0)
+                if (par->recover > 0)
                 {
                     temp = join_strings(files[fpointwriteend], rec);
                     name = join_strings(temp, textfile);
                     free(temp);
                 }
-                else if (par->n_ContRecovery>0)
+                else if (par->n_ContRecovery > 0)
                 {
                     temp = join_strings(files[fpointwriteend], crec);
                     name = join_strings(temp, textfile);
@@ -2676,6 +2673,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                     m = par->max_glac_layers;
                 }
                 first_column=1;
+
                 for (j=0; j<noglc; j++)
                 {
                     if (first_column==0)
@@ -2707,8 +2705,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                     {
                         l = (long)fmod( (double)oglc[j]-6.-3*(double)m,
                                         (double)par->max_glac_layers ) + 1;
-                        n = floor( ( (double)oglc[j]-6.-3.*(double)m) / (double)par->max_glac_layers )
-                            + 6 + 3;
+                        n = floor( ( (double)oglc[j]-6.-3.*(double)m) / (double)par->max_glac_layers ) + 6 + 3;
                         fprintf(ffglac, "%s(%ld)",hglc[n],l);
                     }
                     else
@@ -2723,14 +2720,13 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
         if (strcmp(files[fTzwriteend], string_novalue) != 0)
         {
-
-            if (par->recover>0)
+            if (par->recover > 0)
             {
                 temp = join_strings(files[fTzwriteend], rec);
                 name = join_strings(temp, textfile);
                 free(temp);
             }
-            else if (par->n_ContRecovery>0)
+            else if (par->n_ContRecovery > 0)
             {
                 temp = join_strings(files[fTzwriteend], crec);
                 name = join_strings(temp, textfile);
@@ -2748,14 +2744,13 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
         if (strcmp(files[fTzavwriteend], string_novalue) != 0)
         {
-
-            if (par->recover>0)
+            if (par->recover > 0)
             {
                 temp = join_strings(files[fTzavwriteend], rec);
                 name = join_strings(temp, textfile);
                 free(temp);
             }
-            else if (par->n_ContRecovery>0)
+            else if (par->n_ContRecovery > 0)
             {
                 temp = join_strings(files[fTzavwriteend], crec);
                 name = join_strings(temp, textfile);
@@ -2773,14 +2768,13 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
         if (strcmp(files[fpsiztotwriteend], string_novalue) != 0)
         {
-
-            if (par->recover>0)
+            if (par->recover > 0)
             {
                 temp = join_strings(files[fpsiztotwriteend], rec);
                 name = join_strings(temp, textfile);
                 free(temp);
             }
-            else if (par->n_ContRecovery>0)
+            else if (par->n_ContRecovery > 0)
             {
                 temp = join_strings(files[fpsiztotwriteend], crec);
                 name = join_strings(temp, textfile);
@@ -2798,13 +2792,13 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
         if (strcmp(files[fpsizwriteend], string_novalue) != 0)
         {
-            if (par->recover>0)
+            if (par->recover > 0)
             {
                 temp = join_strings(files[fpsizwriteend], rec);
                 name = join_strings(temp, textfile);
                 free(temp);
             }
-            else if (par->n_ContRecovery>0)
+            else if (par->n_ContRecovery > 0)
             {
                 temp = join_strings(files[fpsizwriteend], crec);
                 name = join_strings(temp, textfile);
@@ -2822,14 +2816,13 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
         if (strcmp(files[fliqzwriteend], string_novalue) != 0)
         {
-
-            if (par->recover>0)
+            if (par->recover > 0)
             {
                 temp = join_strings(files[fliqzwriteend], rec);
                 name = join_strings(temp, textfile);
                 free(temp);
             }
-            else if (par->n_ContRecovery>0)
+            else if (par->n_ContRecovery > 0)
             {
                 temp = join_strings(files[fliqzwriteend], crec);
                 name = join_strings(temp, textfile);
@@ -2840,21 +2833,20 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 name = join_strings(files[fliqzwriteend], textfile);
             }
 
-            ffliq=fopen(name,"w");
+            ffliq = fopen(name,"w");
             write_soil_header(ffliq, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
             free(name);
         }
 
         if (strcmp(files[fliqzavwriteend], string_novalue) != 0)
         {
-
-            if (par->recover>0)
+            if (par->recover > 0)
             {
                 temp = join_strings(files[fliqzavwriteend], rec);
                 name = join_strings(temp, textfile);
                 free(temp);
             }
-            else if (par->n_ContRecovery>0)
+            else if (par->n_ContRecovery > 0)
             {
                 temp = join_strings(files[fliqzavwriteend], crec);
                 name = join_strings(temp, textfile);
@@ -2865,21 +2857,20 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 name = join_strings(files[fliqzavwriteend], textfile);
             }
 
-            ffliqav=fopen(name,"w");
+            ffliqav = fopen(name,"w");
             write_soil_header(ffliqav, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
             free(name);
         }
 
         if (strcmp(files[ficezwriteend], string_novalue) != 0)
         {
-
-            if (par->recover>0)
+            if (par->recover > 0)
             {
                 temp = join_strings(files[ficezwriteend], rec);
                 name = join_strings(temp, textfile);
                 free(temp);
             }
-            else if (par->n_ContRecovery>0)
+            else if (par->n_ContRecovery > 0)
             {
                 temp = join_strings(files[ficezwriteend], crec);
                 name = join_strings(temp, textfile);
@@ -2890,21 +2881,20 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 name = join_strings(files[ficezwriteend], textfile);
             }
 
-            ffice=fopen(name,"w");
+            ffice = fopen(name,"w");
             write_soil_header(ffice, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
             free(name);
         }
 
         if (strcmp(files[ficezavwriteend], string_novalue) != 0)
         {
-
-            if (par->recover>0)
+            if (par->recover > 0)
             {
                 temp = join_strings(files[ficezavwriteend], rec);
                 name = join_strings(temp, textfile);
                 free(temp);
             }
-            else if (par->n_ContRecovery>0)
+            else if (par->n_ContRecovery > 0)
             {
                 temp = join_strings(files[ficezavwriteend], crec);
                 name = join_strings(temp, textfile);
@@ -2915,20 +2905,20 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 name = join_strings(files[ficezavwriteend], textfile);
             }
 
-            fficeav=fopen(name,"w");
+            fficeav = fopen(name,"w");
             write_soil_header(fficeav, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
             free(name);
         }
 
         if (strcmp(files[fsnTzwriteend], string_novalue) != 0)
         {
-            if (par->recover>0)
+            if (par->recover > 0)
             {
                 temp = join_strings(files[fsnTzwriteend], rec);
                 name = join_strings(temp, textfile);
                 free(temp);
             }
-            else if (par->n_ContRecovery>0)
+            else if (par->n_ContRecovery > 0)
             {
                 temp = join_strings(files[fsnTzwriteend], crec);
                 name = join_strings(temp, textfile);
@@ -2939,21 +2929,20 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 name = join_strings(files[fsnTzwriteend], textfile);
             }
 
-            ffsnowT=fopen(name,"w");
+            ffsnowT = fopen(name,"w");
             write_snow_header(0, 1, 1, ffsnowT, par->snow_plot_depths.get(), snow->S->Dzl.get());
             free(name);
         }
 
         if (strcmp(files[fsnlzwriteend], string_novalue) != 0)
         {
-
-            if (par->recover>0)
+            if (par->recover > 0)
             {
                 temp = join_strings(files[fsnlzwriteend], rec);
                 name = join_strings(temp, textfile);
                 free(temp);
             }
-            else if (par->n_ContRecovery>0)
+            else if (par->n_ContRecovery > 0)
             {
                 temp = join_strings(files[fsnlzwriteend], crec);
                 name = join_strings(temp, textfile);
@@ -2964,7 +2953,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 name = join_strings(files[fsnlzwriteend], textfile);
             }
 
-            ffsnowl=fopen(name,"w");
+            ffsnowl = fopen(name,"w");
             write_snow_header(0, 1, 1, ffsnowl, par->snow_plot_depths.get(), snow->S->Dzl.get());
             free(name);
         }
@@ -2972,13 +2961,13 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
         if (strcmp(files[fsnizwriteend], string_novalue) != 0)
         {
 
-            if (par->recover>0)
+            if (par->recover > 0)
             {
                 temp = join_strings(files[fsnizwriteend], rec);
                 name = join_strings(temp, textfile);
                 free(temp);
             }
-            else if (par->n_ContRecovery>0)
+            else if (par->n_ContRecovery > 0)
             {
                 temp = join_strings(files[fsnizwriteend], crec);
                 name = join_strings(temp, textfile);
@@ -2989,15 +2978,14 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 name = join_strings(files[fsnizwriteend], textfile);
             }
 
-            ffsnowT=fopen(name,"w");
+            ffsnowT = fopen(name,"w");
             write_snow_header(0, 1, 1, ffsnowi, par->snow_plot_depths.get(), snow->S->Dzl.get());
             free(name);
         }
 
         if (strcmp(files[fsndzwriteend], string_novalue) != 0)
         {
-
-            if (par->recover>0)
+            if (par->recover > 0)
             {
                 temp = join_strings(files[fsndzwriteend], rec);
                 name = join_strings(temp, textfile);
@@ -3021,24 +3009,23 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
         root_fraction.reset(new Vector<double>{Nl});
 
-        // DATA POINTS
+        /** Data points */
         for (i=1; i<=par->rc->nrh; i++)
         {
             write_suffix(NNNN, (*par->IDpoint)(i), 0);
-            r=(*par->rc)(i,1);
-            c=(*par->rc)(i,2);
-            sy=(*sl->type)(r,c);
-            lu=(short)(*land->LC)(r,c);
+            r = (*par->rc)(i,1);
+            c = (*par->rc)(i,2);
+            sy = (*sl->type)(r,c);
+            lu = (short)(*land->LC)(r,c);
 
             if (strcmp(files[fpoint], string_novalue) != 0 && par->point_sim != 1)
             {
-                name=join_strings(files[fpoint],"_info_");
-                temp=join_strings(name,NNNN);
-                temp2=join_strings(temp,textfile);
-                f=t_fopen(temp2,"w");
+                name = join_strings(files[fpoint],"_info_");
+                temp = join_strings(name,NNNN);
+                temp2 = join_strings(temp,textfile);
+                f = t_fopen(temp2,"w");
 
-                fprintf(f,
-                        " The main properties of the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld are:\n",
+                fprintf(f, " The main properties of the pixel E=%15.3f N=%15.3f, row=%4ld col=%4ld are:\n",
                         (*par->chkpt)(i,ptX),(*par->chkpt)(i,ptY),r,c);
                 fprintf(f," Elevation above sea level: %10.3f m\n",(*top->Z0)(r,c));
                 fprintf(f," Gauckler-Strickler [m^1/3/s]: %f\n",(*land->ty)(lu,jcm));
@@ -3122,13 +3109,13 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
                 temp=join_strings(files[fpoint],NNNN);
 
-                if (par->recover>0)
+                if (par->recover > 0)
                 {
                     temp2 = join_strings(temp, rec);
                     name = join_strings(temp2, textfile);
                     free(temp2);
                 }
-                else if (par->n_ContRecovery>0)
+                else if (par->n_ContRecovery > 0)
                 {
                     temp2 = join_strings(temp, crec);
                     name = join_strings(temp2, textfile);
@@ -3145,7 +3132,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 first_column=1;
                 for (j=0; j<nopnt; j++)
                 {
-                    if (first_column==0)
+                    if (first_column == 0)
                     {
                         fprintf(f,",");
                     }
@@ -3167,20 +3154,20 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 free(name);
             }
 
-            if (par->max_glac_layers>0)
+            if (par->max_glac_layers > 0)
             {
                 if (strcmp(files[fglz], string_novalue) != 0)
                 {
 
                     temp=join_strings(files[fglz],NNNN);
 
-                    if (par->recover>0)
+                    if (par->recover > 0)
                     {
                         temp2 = join_strings(temp, rec);
                         name = join_strings(temp2, textfile);
                         free(temp2);
                     }
-                    else if (par->n_ContRecovery>0)
+                    else if (par->n_ContRecovery > 0)
                     {
                         temp2 = join_strings(temp, crec);
                         name = join_strings(temp2, textfile);
@@ -3206,7 +3193,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                     first_column=1;
                     for (j=0; j<noglc; j++)
                     {
-                        if (first_column==0)
+                        if (first_column == 0)
                         {
                             fprintf(f,",");
                         }
@@ -3235,8 +3222,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                         {
                             l = (long)fmod( (double)oglc[j]-6.-3*(double)m,
                                             (double)par->max_glac_layers ) + 1;
-                            n = floor( ( (double)oglc[j]-6.-3.*(double)m) / (double)par->max_glac_layers )
-                                + 6 + 3;
+                            n = floor( ( (double)oglc[j]-6.-3.*(double)m) / (double)par->max_glac_layers ) + 6 + 3;
                             fprintf(f, "%s(%ld)",hglc[n],l);
                         }
                         else
@@ -3253,15 +3239,15 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             if (strcmp(files[fTz], string_novalue) != 0)
             {
 
-                temp=join_strings(files[fTz],NNNN);
+                temp = join_strings(files[fTz],NNNN);
 
-                if (par->recover>0)
+                if (par->recover > 0)
                 {
                     temp2 = join_strings(temp, rec);
                     name = join_strings(temp2, textfile);
                     free(temp2);
                 }
-                else if (par->n_ContRecovery>0)
+                else if (par->n_ContRecovery > 0)
                 {
                     temp2 = join_strings(temp, crec);
                     name = join_strings(temp2, textfile);
@@ -3285,13 +3271,13 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
                 temp=join_strings(files[fTzav],NNNN);
 
-                if (par->recover>0)
+                if (par->recover > 0)
                 {
                     temp2 = join_strings(temp, rec);
                     name = join_strings(temp2, textfile);
                     free(temp2);
                 }
-                else if (par->n_ContRecovery>0)
+                else if (par->n_ContRecovery > 0)
                 {
                     temp2 = join_strings(temp, crec);
                     name = join_strings(temp2, textfile);
@@ -3313,15 +3299,15 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             if (strcmp(files[fpsiztot], string_novalue) != 0)
             {
 
-                temp=join_strings(files[fpsiztot],NNNN);
+                temp = join_strings(files[fpsiztot],NNNN);
 
-                if (par->recover>0)
+                if (par->recover > 0)
                 {
                     temp2 = join_strings(temp, rec);
                     name = join_strings(temp2, textfile);
                     free(temp2);
                 }
-                else if (par->n_ContRecovery>0)
+                else if (par->n_ContRecovery > 0)
                 {
                     temp2 = join_strings(temp, crec);
                     name = join_strings(temp2, textfile);
@@ -3343,15 +3329,15 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             if (strcmp(files[fpsiz], string_novalue) != 0)
             {
 
-                temp=join_strings(files[fpsiz],NNNN);
+                temp = join_strings(files[fpsiz],NNNN);
 
-                if (par->recover>0)
+                if (par->recover > 0)
                 {
                     temp2 = join_strings(temp, rec);
                     name = join_strings(temp2, textfile);
                     free(temp2);
                 }
-                else if (par->n_ContRecovery>0)
+                else if (par->n_ContRecovery > 0)
                 {
                     temp2 = join_strings(temp, crec);
                     name = join_strings(temp2, textfile);
@@ -3373,15 +3359,15 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             if (strcmp(files[fliqz], string_novalue) != 0)
             {
 
-                temp=join_strings(files[fliqz],NNNN);
+                temp = join_strings(files[fliqz],NNNN);
 
-                if (par->recover>0)
+                if (par->recover > 0)
                 {
                     temp2 = join_strings(temp, rec);
                     name = join_strings(temp2, textfile);
                     free(temp2);
                 }
-                else if (par->n_ContRecovery>0)
+                else if (par->n_ContRecovery > 0)
                 {
                     temp2 = join_strings(temp, crec);
                     name = join_strings(temp2, textfile);
@@ -3403,15 +3389,15 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             if (strcmp(files[fliqzav], string_novalue) != 0)
             {
 
-                temp=join_strings(files[fliqzav],NNNN);
+                temp = join_strings(files[fliqzav],NNNN);
 
-                if (par->recover>0)
+                if (par->recover > 0)
                 {
                     temp2 = join_strings(temp, rec);
                     name = join_strings(temp2, textfile);
                     free(temp2);
                 }
-                else if (par->n_ContRecovery>0)
+                else if (par->n_ContRecovery > 0)
                 {
                     temp2 = join_strings(temp, crec);
                     name = join_strings(temp2, textfile);
@@ -3424,7 +3410,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
                 free(temp);
 
-                f=t_fopen(name,"w");
+                f = t_fopen(name,"w");
                 write_soil_header(f, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
                 t_fclose(f);
                 free(name);
@@ -3433,15 +3419,15 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             if (strcmp(files[ficez], string_novalue) != 0)
             {
 
-                temp=join_strings(files[ficez],NNNN);
+                temp = join_strings(files[ficez],NNNN);
 
-                if (par->recover>0)
+                if (par->recover > 0)
                 {
                     temp2 = join_strings(temp, rec);
                     name = join_strings(temp2, textfile);
                     free(temp2);
                 }
-                else if (par->n_ContRecovery>0)
+                else if (par->n_ContRecovery > 0)
                 {
                     temp2 = join_strings(temp, crec);
                     name = join_strings(temp2, textfile);
@@ -3454,7 +3440,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
                 free(temp);
 
-                f=t_fopen(name,"w");
+                f = t_fopen(name,"w");
                 write_soil_header(f, par->soil_plot_depths.get(), sl->pa->row(1,jdz));
                 t_fclose(f);
                 free(name);
@@ -3463,9 +3449,9 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             if (strcmp(files[ficezav], string_novalue) != 0)
             {
 
-                temp=join_strings(files[ficezav],NNNN);
+                temp = join_strings(files[ficezav],NNNN);
 
-                if (par->recover>0)
+                if (par->recover > 0)
                 {
                     temp2 = join_strings(temp, rec);
                     name = join_strings(temp2, textfile);
@@ -3493,15 +3479,15 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             if (strcmp(files[fsatz], string_novalue) != 0)
             {
 
-                temp=join_strings(files[fsatz],NNNN);
+                temp = join_strings(files[fsatz],NNNN);
 
-                if (par->recover>0)
+                if (par->recover > 0)
                 {
                     temp2 = join_strings(temp, rec);
                     name = join_strings(temp2, textfile);
                     free(temp2);
                 }
-                else if (par->n_ContRecovery>0)
+                else if (par->n_ContRecovery > 0)
                 {
                     temp2 = join_strings(temp, crec);
                     name = join_strings(temp2, textfile);
@@ -3523,15 +3509,15 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             if (strcmp(files[fsnTz], string_novalue) != 0)
             {
 
-                temp=join_strings(files[fsnTz],NNNN);
+                temp = join_strings(files[fsnTz],NNNN);
 
-                if (par->recover>0)
+                if (par->recover > 0)
                 {
                     temp2 = join_strings(temp, rec);
                     name = join_strings(temp2, textfile);
                     free(temp2);
                 }
-                else if (par->n_ContRecovery>0)
+                else if (par->n_ContRecovery > 0)
                 {
                     temp2 = join_strings(temp, crec);
                     name = join_strings(temp2, textfile);
@@ -3553,15 +3539,15 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             if (strcmp(files[fsnlz], string_novalue) != 0)
             {
 
-                temp=join_strings(files[fsnlz],NNNN);
+                temp = join_strings(files[fsnlz],NNNN);
 
-                if (par->recover>0)
+                if (par->recover > 0)
                 {
                     temp2 = join_strings(temp, rec);
                     name = join_strings(temp2, textfile);
                     free(temp2);
                 }
-                else if (par->n_ContRecovery>0)
+                else if (par->n_ContRecovery > 0)
                 {
                     temp2 = join_strings(temp, crec);
                     name = join_strings(temp2, textfile);
@@ -3583,15 +3569,15 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             if (strcmp(files[fsniz], string_novalue) != 0)
             {
 
-                temp=join_strings(files[fsniz],NNNN);
+                temp = join_strings(files[fsniz],NNNN);
 
-                if (par->recover>0)
+                if (par->recover > 0)
                 {
                     temp2 = join_strings(temp, rec);
                     name = join_strings(temp2, textfile);
                     free(temp2);
                 }
-                else if (par->n_ContRecovery>0)
+                else if (par->n_ContRecovery > 0)
                 {
                     temp2 = join_strings(temp, crec);
                     name = join_strings(temp2, textfile);
@@ -3613,15 +3599,15 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             if (strcmp(files[fsndz], string_novalue) != 0)
             {
 
-                temp=join_strings(files[fsndz],NNNN);
+                temp = join_strings(files[fsndz],NNNN);
 
-                if (par->recover>0)
+                if (par->recover > 0)
                 {
                     temp2 = join_strings(temp, rec);
                     name = join_strings(temp2, textfile);
                     free(temp2);
                 }
-                else if (par->n_ContRecovery>0)
+                else if (par->n_ContRecovery > 0)
                 {
                     temp2 = join_strings(temp, crec);
                     name = join_strings(temp2, textfile);
@@ -3634,7 +3620,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
                 free(temp);
 
-                f=t_fopen(name,"w");
+                f = t_fopen(name,"w");
                 write_snow_header(2, 1, 1, f, par->snow_plot_depths.get(), snow->S->Dzl.get());
                 t_fclose(f);
                 free(name);
@@ -3644,9 +3630,9 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
 
     }
 
-    m=(long)ootot;
-    odbsn=(double *)malloc(m*sizeof(double));
-    odb=(double *)malloc(m*sizeof(double));
+    m = (long)ootot;
+    odbsn = (double *)malloc(m*sizeof(double));
+    odb = (double *)malloc(m*sizeof(double));
     for (i=0; i<ootot; i++)
     {
         odbsn[i]=0.;
@@ -3656,17 +3642,16 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
     if (par->state_basin == 1)
     {
 
-        //DATA BASIN
+        /** Data basin */
         if (strcmp(files[fbaswriteend], string_novalue) != 0)
         {
-
-            if (par->recover>0)
+            if (par->recover > 0)
             {
                 temp = join_strings(files[fbaswriteend], rec);
                 name = join_strings(temp, textfile);
                 free(temp);
             }
-            else if (par->n_ContRecovery>0)
+            else if (par->n_ContRecovery > 0)
             {
                 temp = join_strings(files[fbaswriteend], crec);
                 name = join_strings(temp, textfile);
@@ -3677,12 +3662,12 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 name = join_strings(files[fbaswriteend], textfile);
             }
 
-            ffbas=fopen(name,"w");
+            ffbas = fopen(name,"w");
 
-            first_column=1;
+            first_column = 1;
             for (j=0; j<nobsn; j++)
             {
-                if (first_column==0)
+                if (first_column == 0)
                 {
                     fprintf(ffbas,",");
                 }
@@ -3706,7 +3691,7 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
         if (strcmp(files[fbas], string_novalue) != 0)
         {
 
-            if (par->recover>0)
+            if (par->recover > 0)
             {
                 temp = join_strings(files[fbas], rec);
                 name = join_strings(temp, textfile);
@@ -3723,12 +3708,12 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
                 name = join_strings(files[fbas], textfile);
             }
 
-            f=t_fopen(name,"w");
+            f = t_fopen(name,"w");
 
-            first_column=1;
+            first_column = 1;
             for (j=0; j<nobsn; j++)
             {
-                if (first_column==0)
+                if (first_column == 0)
                 {
                     fprintf(f,",");
                 }
@@ -3750,20 +3735,18 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             t_fclose(f);
             free(name);
         }
-
     }
 
-    //SNOW COVERED AREA STATISTICS
+    /** snow covered area statistics */
     if (par->point_sim!=1 && strcmp(files[fSCA], string_novalue) != 0)
     {
-
-        if (par->recover>0)
+        if (par->recover > 0)
         {
             temp = join_strings(files[fSCA], rec);
             name = join_strings(temp, textfile);
             free(temp);
         }
-        else if (par->n_ContRecovery>0)
+        else if (par->n_ContRecovery > 0)
         {
             temp = join_strings(files[fSCA], crec);
             name = join_strings(temp, textfile);
@@ -3774,15 +3757,11 @@ Vsub/Dt[m3/s],Vchannel[m3],Qoutlandsup[m3/s],Qoutlandsub[m3/s],Qoutbottom[m3/s]\
             name = join_strings(files[fSCA], textfile);
         }
 
-        f=t_fopen(name,"w");
-        fprintf(f,
-                "DATE[day/month/year hour:min],t[days],JDfrom0,JD,snowDav,SWEav,Tav,Tsav,perc.SFA,perc.SCA\n");
+        f = t_fopen(name,"w");
+        fprintf(f, "DATE[day/month/year hour:min],t[days],JDfrom0,JD,snowDav,SWEav,Tav,Tsav,perc.SFA,perc.SCA\n");
         t_fclose(f);
         free(name);
     }
-
-
-
 }
 
 //***************************************************************************************************************

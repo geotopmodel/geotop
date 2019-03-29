@@ -63,12 +63,16 @@ extern double elapsed_time_start, cum_time, max_time;
 //****************************************************************************************************
 //****************************************************************************************************
 
-/** Subroutine which reads input data, performs  geomporphological analisys and allocates data */
 void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND *land,
                    METEO *met, WATER *wat, CHANNEL *cnet,
                    PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times)
-
 {
+    /**
+     * Subroutine which
+     *  - reads input data
+     *  - performs  geomorphological analysis
+     *  - allocates data
+     */
     GEOLOG_PREFIX(__func__);
     GEOTIMER_SECTION(__func__);
 
@@ -88,12 +92,12 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
 
     // logfile =  nullptr;  //join_strings(WORKING_DIRECTORY, logfile_name);
 
-    // reads the parameters in __control_parameters
+    /** reads the parameters in geotop.inpts of the working directory */
     temp = join_strings(WORKING_DIRECTORY, program_name);
     success = read_inpts_par(par, land, times, sl, met, IT.get(), temp);
     free(temp);
 
-    // correct state pixel
+    /** correct state pixel */
     par->Tzrun = 0;
     par->wzrun = 0;
     par->Tzmaxrun = 0;
@@ -694,7 +698,7 @@ keyword LinearInterpolation at 1.\n");
     /*! Completing the several time-indipendent input variables with the data of input-files          */
     /**************************************************************************************************/
     /**************************************************************************************************/
-    /** Completing of "land" (of the type LAND): */
+    /** Completing of "land" (of the type LAND) */
 
     /** Initialize matrix of shadow */
     land->shadow.reset(new Matrix<short>{Nr,Nc}); /** initialized as if it was always NOT in shadow */
@@ -803,7 +807,7 @@ land cover %ld, meteo station %ld\n",
     }
 
     /**************************************************************************************************/
-    /** Completing the struct "channel" (of the type CHANNEL): */
+    /** Completing the struct "channel" (of the type CHANNEL) */
     /** The number of channel-pixel are counted: */
     i=0;
     for (r=1; r<=Nr; r++)
@@ -1149,7 +1153,6 @@ land cover %ld, meteo station %ld\n",
                                        top->rc_cont.get(), par, land->LC.get()); /** recover T */
         assign_recovered_tensor_vector(old, par->recover, files[rpsi], sl->SS->P.get(),
                                        top->rc_cont.get(), par, land->LC.get()); /** recover P */
-
         assign_recovered_map_vector(old, par->recover, files[rwcrn], sl->VS->wrain.get(),
                                     top->rc_cont.get(), par, land->LC.get()); /** recover wrain */
         assign_recovered_map_vector(old, par->recover, files[rwcsn], sl->VS->wsnow.get(),
@@ -1279,9 +1282,9 @@ land cover %ld, meteo station %ld\n",
     par->Zboundary *= 1.E-3;  /** convert from [mm] to [m] */
 
     /**************************************************************************************************/
-    /*! Initialization of the struct "egy" (of the type ENERGY):*/
+    /** Initialization of the struct "egy" (of the type ENERGY): */
 
-    if (par->output_surfenergy_bin == 1)
+    if (par->output_surfenergy_bin == 1) /** if we want to know the surface energy balance data in the output station [TO CHECK] ... */
     {
         if (strcmp(files[fradnet], string_novalue) != 0)
         {
@@ -1353,6 +1356,7 @@ land cover %ld, meteo station %ld\n",
 
     egy->sun = (double *)malloc(12*sizeof(double));
 
+    /** plot output */
     if (times->JD_plots->nh > 1)
     {
         if (strcmp(files[pH], string_novalue) != 0
@@ -1430,7 +1434,7 @@ land cover %ld, meteo station %ld\n",
     }
 
 
-    // vectors used in energy_balance()
+    /** vectors/matrices used in energy_balance() */
     egy->Tgskin_surr.reset(new Matrix<double>{Nr,Nc});
     egy->SWrefl_surr.reset(new Matrix<double>{Nr, Nc});
 
@@ -1455,7 +1459,7 @@ land cover %ld, meteo station %ld\n",
     egy->Tstar.reset(new Vector<double>{Nl}); // soil temperature at which freezing begins
     egy->THETA.reset(new Vector<double>{Nl});  // water content (updated in the iterations)
 
-    // allocate vector of soil layer contributions to evaporation (up to GTConst::z_evap)
+    /** allocate vector of soil layer contributions to evaporation (up to GTConst::z_evap) */
     z = 0.;
     l = 0;
     do
@@ -1463,7 +1467,8 @@ land cover %ld, meteo station %ld\n",
         l++;
         z += (*sl->pa)(1,jdz,l);
     }
-    while (l<Nl && z < GTConst::z_evap);
+    while (l<Nl && z<GTConst::z_evap);
+
     egy->soil_evap_layer_bare.reset(new Vector<double> {l});
     egy->soil_evap_layer_veg.reset(new Vector<double> {l});
 
@@ -1471,20 +1476,19 @@ land cover %ld, meteo station %ld\n",
     geolog << "Soil water transpires from the first " << egy->soil_transp_layer->nh << " layers" << std::endl;
 
     /**************************************************************************************************/
-    /*! Completing of the struct "water" (of the type WATER) */
+    /** Completing of the struct "water" (of the type WATER) */
     wat->Voutlandsub = 0.;
     wat->Voutlandsup = 0.;
     wat->Voutbottom = 0.;
 
-
-    /* Initialization of wat->Pnet (liquid precipitation that reaches the sl surface in mm): */
+    /** Initialization of Liquid precipitation that reaches the soil surface [mm] */
     wat->Pnet.reset(new Matrix<double>{Nr,Nc});
 
-    /* Initialization of wat->PrecTot (total precipitation (rain+snow) precipitation): */
+    /** Initialization of Total precipitation (rain+snow) precipitation [mm] */
     wat->PrecTot.reset(new Matrix<double>{Nr,Nc});
     (*wat->PrecTot) = par->IPrec_default;
 
-    /* Initialization of the matrices with the output of total precipitation and interception: */
+    /** Initialization of Output total precipitation and interception */
     if (par->output_meteo_bin == 1 && strcmp(files[fprec], string_novalue) != 0)
     {
         wat->PrTOT_mean.reset(new Vector<double>{par->total_pixel});
@@ -1496,12 +1500,12 @@ land cover %ld, meteo station %ld\n",
     wat->h_sup.reset(new Vector<double>{par->total_pixel});
 
     /**************************************************************************************************/
-    /*! Initialization of the struct "snow" (of the type SNOW): */
+    /** Initialization of the struct "snow" (of the type SNOW) */
     /*************************************************************************************************/
-    snow->S=(STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
+    snow->S = (STATEVAR_3D *)malloc(sizeof(STATEVAR_3D));
     snow->S = new STATEVAR_3D{(double)number_novalue, par->max_snow_layers, Nr, Nc};
 
-    // initial snow depth
+    /** initial snow depth and snow water equivalent (SWE) */
     if ( strcmp(files[fsn0], string_novalue) != 0 && strcmp(files[fswe0], string_novalue) != 0 )
     {
         printf("Initial condition on snow depth from file %s\n",files[fsn0]);
@@ -1510,7 +1514,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                (*snow->S->Dzl)(1,r,c) = (*M)(r,c);
+                (*snow->S->Dzl)(1,r,c) = (*M)(r,c); /** snow depth */
             }
         }
 
@@ -1520,7 +1524,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                (*snow->S->w_ice)(1,r,c) = (*M)(r,c);
+                (*snow->S->w_ice)(1,r,c) = (*M)(r,c); /** SWE */
             }
         }
     }
@@ -1532,7 +1536,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                (*snow->S->Dzl)(1,r,c) = (*M)(r,c);
+                (*snow->S->Dzl)(1,r,c) = (*M)(r,c); /** snow depth */
             }
         }
 
@@ -1540,9 +1544,8 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                if ((long)(*land->LC)(r,c) != number_novalue) (*snow->S->w_ice)(1,r,c) =
-                                                                      (*snow->S->Dzl)(1,r,c) *
-                                                                      IT->rhosnow0/GTConst::rho_w;
+                if ( (long)(*land->LC)(r,c) != number_novalue )
+                    (*snow->S->w_ice)(1,r,c) = (*snow->S->Dzl)(1,r,c) * IT->rhosnow0/GTConst::rho_w; /** SWE */
             }
         }
 
@@ -1555,7 +1558,7 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                (*snow->S->w_ice)(1,r,c) = (*M)(r,c);
+                (*snow->S->w_ice)(1,r,c) = (*M)(r,c); /** SWE */
             }
         }
 
@@ -1563,9 +1566,8 @@ land cover %ld, meteo station %ld\n",
         {
             for (c=1; c<=Nc; c++)
             {
-                if ((long)(*land->LC)(r,c) != number_novalue) (*snow->S->Dzl)(1,r,c) =
-                                                                      (*snow->S->w_ice)(1,r,c) *
-                                                                      GTConst::rho_w/IT->rhosnow0;
+                if ( (long)(*land->LC)(r,c) != number_novalue )
+                    (*snow->S->Dzl)(1,r,c) = (*snow->S->w_ice)(1,r,c) * GTConst::rho_w/IT->rhosnow0; /** snow depth */
             }
         }
     }
@@ -1578,20 +1580,19 @@ land cover %ld, meteo station %ld\n",
             {
                 if ((long)(*land->LC)(r,c) != number_novalue)
                 {
-                    (*snow->S->w_ice)(1,r,c) = IT->swe0;
-                    (*snow->S->Dzl)(1,r,c) = IT->swe0*GTConst::rho_w/IT->rhosnow0;
+                    (*snow->S->w_ice)(1,r,c) = IT->swe0; /** SWE */
+                    (*snow->S->Dzl)(1,r,c) = IT->swe0*GTConst::rho_w/IT->rhosnow0; /** snow depth */
                 }
             }
         }
     }
 
 
-    // Optional reading of snow age in the whole basin
+    /** Optional reading of snow age in the whole basin */
     if ( strcmp(files[fsnag0], string_novalue) != 0 )
     {
         printf("Snow age initial condition from file %s\n",files[fsnag0]+1);
-        snow->age = read_map_vector(2, files[fsnag0], land->LC.get(), UV,
-                                    (double)number_novalue, top->rc_cont.get());
+        snow->age = read_map_vector(2, files[fsnag0], land->LC.get(), UV, (double)number_novalue, top->rc_cont.get());
     }
     else
     {
@@ -1599,7 +1600,7 @@ land cover %ld, meteo station %ld\n",
         *(snow->age) = IT->agesnow0;
     }
 
-
+    /** plot output */
     if (times->JD_plots->nh > 1)
     {
         if (strcmp(files[pD], string_novalue) != 0)
@@ -1612,8 +1613,7 @@ land cover %ld, meteo station %ld\n",
     {
 
         snow->S_for_BS=(STATEVAR_1D *)malloc(sizeof(STATEVAR_1D));
-        allocate_and_initialize_statevar_1D(snow->S_for_BS, (double)number_novalue,
-                                            par->max_snow_layers);
+        allocate_and_initialize_statevar_1D(snow->S_for_BS, (double)number_novalue, par->max_snow_layers);
 
         snow->change_dir_wind.reset(new Vector<long>{std::max<long>(Nr,Nc)});
 
@@ -1628,33 +1628,32 @@ land cover %ld, meteo station %ld\n",
         snow->Qtrans_x.reset(new Matrix<double>{Nr,Nc});
         snow->Qtrans_y.reset(new Matrix<double>{Nr,Nc});
 
-        if (par->output_snow_bin == 1)
+        if (par->output_snow_bin == 1)  /** if we want to know the snow data in the output station [TO CHECK] ... */
         {
             snow->Wtrans_plot.reset(new Matrix<double>{Nr,Nc});
             snow->Wsubl_plot.reset(new Matrix<double>{Nr,Nc});
 
+            /** work on a map */
             for (r=1; r<=Nr; r++)
             {
                 for (c=1; c<=Nc; c++)
                 {
-                    if ((long)(*land->LC)(r,c)==number_novalue)
+                    if ((long)(*land->LC)(r,c)==number_novalue) /** if land cover value is "-9999" (no value) ... */
                     {
-                        (*snow->Wtrans_plot)(r,c)=(double)number_novalue;
-                        (*snow->Wsubl_plot)(r,c)=(double)number_novalue;
-
+                        (*snow->Wtrans_plot)(r,c) = (double)number_novalue;
+                        (*snow->Wsubl_plot)(r,c) = (double)number_novalue;
                     }
                     else
                     {
-                        (*snow->Wtrans_plot)(r,c)=0.0;
-                        (*snow->Wsubl_plot)(r,c)=0.0;
-
+                        (*snow->Wtrans_plot)(r,c) = 0.0;
+                        (*snow->Wsubl_plot)(r,c) = 0.0;
                     }
                 }
             }
         }
     }
 
-    if (par->output_snow_bin == 1)
+    if (par->output_snow_bin == 1) /** if we want to know the snow data in the output station [TO CHECK] ... */
     {
         if (strcmp(files[fsnowmelt], string_novalue) != 0)
         {
@@ -1673,15 +1672,15 @@ land cover %ld, meteo station %ld\n",
         }
     }
 
+    /** work on a map */
     for (r=1; r<=Nr; r++)
     {
         for (c=1; c<=Nc; c++)
         {
-
-            if ( (long)(*land->LC)(r,c)!=number_novalue)
+            if ( (long)(*land->LC)(r,c) != number_novalue) /** if land cover value has a value (different from "-9999") ... */
             {
 
-                // Adjusting snow init depth in case of steep slope (contribution by Stephan Gruber)
+                /** adjust initial snow depth in case of steep slope (contribution by Stephan Gruber) */
                 if (par->snow_curv > 0 &&(*top->slope)(r,c) > par->snow_smin)
                 {
                     if ((*top->slope)(r,c) <= par->snow_smax)
@@ -1693,13 +1692,14 @@ land cover %ld, meteo station %ld\n",
                     {
                         k_snowred = 0.0;
                     }
-                    (*snow->S->Dzl)(1,r,c) *= k_snowred;
-                    (*snow->S->w_ice)(1,r,c) *= k_snowred;
+                    (*snow->S->Dzl)(1,r,c) *= k_snowred; /** snow depth */
+                    (*snow->S->w_ice)(1,r,c) *= k_snowred; /** SWE */
                 }
 
                 D = (*snow->S->Dzl)(1,r,c);
                 SWE = (*snow->S->w_ice)(1,r,c);
 
+                /** checks the validity of snow depth (D) and snow water equivalent (SWE) values */
                 if (D<0 || SWE<0)
                 {
                     f = fopen(FailedRunFile, "w");
@@ -1730,7 +1730,7 @@ land cover %ld, meteo station %ld\n",
                 else if (D>1.E-5 || SWE>1.E-5)
                 {
 
-                    (*snow->age)(top->j_cont[r][c])*=86400.0;  // now in [s]
+                    (*snow->age)(top->j_cont[r][c])*=86400.0;  /** now in [s] */
 
                     if (SWE <= par->max_weq_snow * par->max_snow_layers )
                     {
@@ -1796,7 +1796,7 @@ land cover %ld, meteo station %ld\n",
                     }
                 }
 
-                non_dimensionalize_snowage(&((*snow->age)(top->j_cont[r][c])), IT->Tsnow0);
+                non_dimensionalize_snowage( &( (*snow->age)(top->j_cont[r][c]) ), IT->Tsnow0 );
 
                 if (par->point_sim == 1)
                 {
@@ -1816,22 +1816,22 @@ land cover %ld, meteo station %ld\n",
         }
     }
 
-    if (recovered > 0)
+    if (recovered > 0) /** recover enabled */
     {
         *snow->S->type = 2;
 
-        assign_recovered_map_long(old, par->recover, files[rns], snow->S->lnum.get(), par, land->LC.get());
-
+        assign_recovered_map_long(old, par->recover, files[rns], snow->S->lnum.get(),
+                                  par, land->LC.get()); /** recover lnum */
         assign_recovered_map_vector(old, par->recover, files[rsnag], snow->age.get(),
-                                    top->rc_cont.get(), par, land->LC.get());
-
-        assign_recovered_tensor(old, par->recover, files[rDzs], snow->S->Dzl.get(), par, land->LC.get());
-
-        assign_recovered_tensor(old, par->recover, files[rwls], snow->S->w_liq.get(), par, land->LC.get());
-
-        assign_recovered_tensor(old, par->recover, files[rwis], snow->S->w_ice.get(), par, land->LC.get());
-
-        assign_recovered_tensor(old, par->recover, files[rTs], snow->S->T.get(), par, land->LC.get());
+                                    top->rc_cont.get(), par, land->LC.get()); /** recover age */
+        assign_recovered_tensor(old, par->recover, files[rDzs], snow->S->Dzl.get(),
+                                par, land->LC.get()); /** recover Dzl */
+        assign_recovered_tensor(old, par->recover, files[rwls], snow->S->w_liq.get(),
+                                par, land->LC.get()); /** recover w_liq */
+        assign_recovered_tensor(old, par->recover, files[rwis], snow->S->w_ice.get(),
+                                par, land->LC.get()); /** recover w_ice */
+        assign_recovered_tensor(old, par->recover, files[rTs], snow->S->T.get(),
+                                par, land->LC.get()); /** recover T */
 
         /* f = fopen(logfile, "a");
        for(r=1;r<=Nr;r++){
@@ -1848,38 +1848,37 @@ land cover %ld, meteo station %ld\n",
 
 
     /**************************************************************************************************/
-    /*! Initialization of the struct "glac" (of the type GLACIER):*/
+    /** Initialization of the struct "glac" (of the type GLACIER) */
     /**************************************************************************************************/
-    /*! Optional reading of glacier depth in the whole basin ("GLACIER0"):    */
-    if (par->point_sim!=1 && strcmp(files[fgl0], string_novalue)!= 0 && par->max_glac_layers==0)
+    /** Optional reading of glacier depth in the whole basin ("fgl0") */
+    if (par->point_sim!=1 && strcmp(files[fgl0], string_novalue)!= 0 && par->max_glac_layers==0) /** 3D setup + glacier map + 0 glacier layers */
     {
-        geolog << "Warning: Glacier map present, but glacier represented with 0 layers" << std::endl;
+        geolog << "WARNING: Glacier map present, but glacier represented with 0 layers" << std::endl;
     }
 
-    if (par->max_glac_layers==0 && IT->Dglac0>0)
+    if (par->max_glac_layers==0 && IT->Dglac0>0) /** 0 glacier layers + glacier depth assigned*/
     {
         geolog << std::endl << "WARNING: You have chosen 0 glacier layers in block 10 in the parameter file, \
 but you assigned a value of the glacier depth. The latter will be ignored." << std::endl;
     }
 
-    // If the max number of glacier layers is greater than 1, the matrices (or tensors) lnum,
-    // Dzl. w_liq, w_ice, T and print matrices are defined, according to the respective flags
-    if (par->max_glac_layers>0)
+    /** If the max number of glacier layers is greater than 1, the matrices (or tensors) lnum,
+    Dzl. w_liq, w_ice, T and print matrices are defined, according to the respective flags */
+    if (par->max_glac_layers>0) /** at least 1 glacier layer */
     {
-
-        if ( par->point_sim!=1 && strcmp(files[fgl0], string_novalue) != 0 )
+        if ( par->point_sim!=1 && strcmp(files[fgl0], string_novalue) != 0 ) /** 3D setup + glacier map */
         {
             geolog << "Glacier initial condition from file " << files[fgl0]+1 << std::endl;
-            M=read_map(2, files[fgl0], land->LC.get(), UV, (double)number_novalue);
+            M = read_map(2, files[fgl0], land->LC.get(), UV, (double)number_novalue);
         }
         else
         {
-            M=copydoublematrix_const(IT->Dglac0, land->LC.get(), (double)number_novalue);
+            M = copydoublematrix_const(IT->Dglac0, land->LC.get(), (double)number_novalue);
         }
 
         glac->G = new STATEVAR_3D {(double)number_novalue, par->max_glac_layers, Nr, Nc};
 
-        if (par->output_glac_bin == 1)
+        if (par->output_glac_bin == 1) /** if we want to know the glacier data in the output station [TO CHECK] ... */
         {
             if (strcmp(files[fglacmelt], string_novalue) != 0)
             {
@@ -1911,10 +1910,8 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                     else if ((*M)(r,c)>1.E-5)
                     {
 
-                        if (IT->rhoglac0 * (*M)(r,c) / GTConst::rho_w < par->max_weq_glac *
-                                                                        par->max_glac_layers )
+                        if (IT->rhoglac0 * (*M)(r,c) / GTConst::rho_w < par->max_weq_glac * par->max_glac_layers )
                         {
-
                             n = 0;
                             z = 0.;
 
@@ -1928,12 +1925,10 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                                 }
                                 else
                                 {
-                                    (*glac->G->w_ice)(n,r,c) = IT->rhoglac0 * (*M)(r,c) /
-                                                               1000. - z;
+                                    (*glac->G->w_ice)(n,r,c) = IT->rhoglac0 * (*M)(r,c)/1000. - z;
                                 }
 
-                                (*glac->G->Dzl)(n,r,c) = GTConst::rho_w * (*glac->G->w_ice)(n,r,c) /
-                                                         IT->rhoglac0;
+                                (*glac->G->Dzl)(n,r,c) = GTConst::rho_w * (*glac->G->w_ice)(n,r,c) / IT->rhoglac0;
                                 (*glac->G->T)(n,r,c) = IT->Tglac0;
 
                                 z += (*glac->G->w_ice)(n,r,c);
@@ -1942,11 +1937,9 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
                             while (fabs(z - IT->rhoglac0 * (*M)(r,c) / GTConst::rho_w) < 1.E-6);
 
                             (*glac->G->lnum)(r,c) = n;
-
                         }
                         else
                         {
-
                             (*glac->G->lnum)(r,c) = par->max_glac_layers;
 
                             for (n=1; n<=par->max_glac_layers; n++)
@@ -1990,20 +1983,23 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
             }
         }
 
-        if (recovered > 0)
+        if (recovered > 0) /** recover enabled */
         {
-            assign_recovered_map_long(old, par->recover, files[rni], glac->G->lnum.get(), par, land->LC.get());
-            assign_recovered_tensor(old, par->recover, files[rDzi], glac->G->Dzl.get(), par, land->LC.get());
-            assign_recovered_tensor(old, par->recover, files[rwli], glac->G->w_liq.get(), par, land->LC.get());
-            assign_recovered_tensor(old, par->recover, files[rwii], glac->G->w_ice.get(), par, land->LC.get());
-            assign_recovered_tensor(old, par->recover, files[rTi], glac->G->T.get(), par, land->LC.get());
+            assign_recovered_map_long(old, par->recover, files[rni], glac->G->lnum.get(),
+                                      par, land->LC.get()); /** recover lnum */
+            assign_recovered_tensor(old, par->recover, files[rDzi], glac->G->Dzl.get(),
+                                    par, land->LC.get()); /** recover Dzl */
+            assign_recovered_tensor(old, par->recover, files[rwli], glac->G->w_liq.get(),
+                                    par, land->LC.get()); /** recover w_liq */
+            assign_recovered_tensor(old, par->recover, files[rwii], glac->G->w_ice.get(),
+                                    par, land->LC.get()); /**recover w_ice */
+            assign_recovered_tensor(old, par->recover, files[rTi], glac->G->T.get(),
+                                    par, land->LC.get()); /** recover T */
         }
     }
-
-
-
     //*************************************************************************************************
-    // Filling up of the struct "met" (of the type METEO):
+    /** Filling up of the struct "met" (of the type METEO) */
+
     met->Tgrid.reset(new Matrix<double>{Nr,Nc});
     (*met->Tgrid) = par->Tair_default;
 
@@ -2019,7 +2015,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     met->Vdir.reset(new Matrix<double>{Nr,Nc});
     (*met->Vdir) = par->Vdir_default;
 
-    if (par->output_meteo_bin == 1)
+    if (par->output_meteo_bin == 1) /** if we want to know the meteo data in the output station [TO CHECK] ... */
     {
         if (strcmp(files[fTa], string_novalue) != 0)
         {
@@ -2039,8 +2035,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         }
     }
 
-
-    // plot output
+    /** plot output */
     if (times->JD_plots->nh > 1)
     {
         if (strcmp(files[pTa], string_novalue) != 0)
@@ -2060,18 +2055,18 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     }
 
     /**************************************************************************************************/
-    // SpinUp variables
+    /** SpinUp variables */
 
     if (par->recover > 0)
         write_suffix(rec, par->recover, 4);
     if (par->n_ContRecovery > 0)
         write_suffix(crec, par->n_ContRecovery, 5);
-
+    // *******************************************************
     if (par->Tzrun == 1)
     {
         sl->Tzrun.reset(new Matrix<double>{par->rc->nrh, Nl});
 
-        if (par->recover>0)
+        if (par->recover > 0)
         {
             temp = join_strings(files[fTrun], rec);
             name = join_strings(temp, textfile);
@@ -2098,7 +2093,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
+    // *******************************************************
     if (par->wzrun == 1)
     {
         sl->wzrun.reset(new Matrix<double>{par->rc->nrh, Nl});
@@ -2130,7 +2125,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
+    // *******************************************************
     if (par->Tzmaxrun == 1)
     {
         sl->Tzmaxrun.reset(new Matrix<double>{par->rc->nrh, Nl});
@@ -2163,7 +2158,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
+    // *******************************************************
     if (par->wzmaxrun == 1)
     {
         sl->wzmaxrun.reset(new Matrix<double>{par->rc->nrh, Nl});
@@ -2196,7 +2191,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
+    // *******************************************************
     if (par->Tzminrun == 1)
     {
         sl->Tzminrun.reset(new Matrix<double>{par->rc->nrh, Nl});
@@ -2229,7 +2224,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
+    // *******************************************************
     if (par->wzminrun == 1)
     {
         sl->wzminrun.reset(new Matrix<double>{par->rc->nrh, Nl});
@@ -2262,7 +2257,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
+    // *******************************************************
     if (par->dUzrun == 1)
     {
         sl->dUzrun.reset(new Matrix<double>{par->rc->nrh, Nl});
@@ -2294,10 +2289,10 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
+    // *******************************************************
     if (par->SWErun == 1)
     {
-        sl->SWErun.reset(new Matrix<double>{par->rc->nrh, 3}); //mean,max,min
+        sl->SWErun.reset(new Matrix<double>{par->rc->nrh, 3}); /** mean,max,min */
         for (l=1; l<=par->rc->nrh; l++)
         {
             (*sl->SWErun)(l,1) = 0.;
@@ -2327,8 +2322,8 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         free(name);
         fclose(f);
     }
-
-    if (recovered > 0)
+    // *******************************************************
+    if (recovered > 0) /** recover enabled */
     {
         if (par->Tzrun == 1)
             recover_run_averages(old, sl->Tzrun.get(), files[rTrun], land->LC.get(), top->rc_cont.get(), par, Nl);
@@ -2354,15 +2349,14 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         if (par->SWErun == 1)
             recover_run_averages(old, sl->SWErun.get(), files[rSWErun], land->LC.get(), top->rc_cont.get(), par, 3);
     }
-
-    // WRITE INITIAL CONDITION
+    // *******************************************************
+    /** write initial condition */
     write_output_headers(met->st->Z->nh, times, wat, par, top, land, sl, egy, snow, glac);
 
-    if (par->state_pixel == 1)
+    if (par->state_pixel == 1) /** output pixels are set */
     {
-        for (j=1; j<=par->rc->nrh; j++)
+        for (j=1; j<=par->rc->nrh; j++) /** for every output point ... */
         {
-
             r = (*par->rc)(j,1);
             c = (*par->rc)(j,2);
 
@@ -2385,7 +2379,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     }
 
     /**************************************************************************************************/
-    // Free the struct allocated in this subroutine:
+    /** Free the struct allocated in this subroutine */
 
     for (i=0; i<nmet; i++)
     {
@@ -2425,7 +2419,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
 
     n = std::min<long>((*par->Nl_spinup)(i_sim0),Nl);
 
-    if (par->point_sim != 1)
+    if (par->point_sim != 1) /** distributed simulation (3D setup) */
     {
         cont_nonzero_values_matrix2(&i, &j, cnet, land->LC.get(), top->lrc_cont.get(),
                                     top->i_cont, par->total_pixel, par->total_channel, n);
@@ -2589,7 +2583,7 @@ to the land cover type\n");
     if (flag >= 0) /** keyword is present and the file can exist or not */
         write_map(files[flu], 1, par->format_out, land->LC.get(), UV, number_novalue); /** (re)write LAND COVER file */
 
-    if (par->state_pixel == 1) /** output printing for single points is active */
+    if (par->state_pixel == 1) /** output pixels are set */
     {
         par->rc.reset(new Matrix<long>{par->chkpt->nrh,2});
         par->IDpoint.reset(new Vector<long>{par->chkpt->nrh});
@@ -3505,7 +3499,7 @@ DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]" << std::endl;
     // if(par->recover==0 && read_dem==1){
 
     /** 5. SET CHECKPOINT */
-    if (par->state_pixel == 1)
+    if (par->state_pixel == 1) /** output pixels are set */
     {
         par->rc.reset(new Matrix<long>{par->chkpt->nrh,2});
         for (i=1; i<=par->chkpt->nrh; i++)

@@ -83,7 +83,6 @@ void cloudiness(double **meteo, long meteolines, double **horizon,
                 long ndivday, double rotation,
                 double Lozone, double alpha, double beta, double albedo)
 {
-
   double tc, tc0;
   double E0, Et, Delta, height_sun, dir_sun;
   long n00, n0, n1, k, n;
@@ -91,7 +90,7 @@ void cloudiness(double **meteo, long meteolines, double **horizon,
   FILE *f;
   char *temp;
 
-  //file header
+  /** file header */
   temp = join_strings(WORKING_DIRECTORY,filecloud);
   f = fopen(temp,"w");
   fprintf(f,
@@ -99,25 +98,24 @@ void cloudiness(double **meteo, long meteolines, double **horizon,
   fclose(f);
   free(temp);
 
-  //average cloudiness in ndivday daily intervals
+  /** average cloudiness in ndivday daily intervals */
   n = ndivday + 1;
   ndiv = (long *)malloc(n*sizeof(long));
 
-  //initialization
+  /** initialization */
   n00 = 0;
   tc = (double)number_novalue;
 
-  //loop
+  /** loop */
   do
     {
-      tc0=tc;
-      find_sunset(n00, &n0, &n1, meteo, meteolines, horizon, horizonlines, lat, lon,
-                  ST, rotation);
+      tc0 = tc;
+      find_sunset(n00, &n0, &n1, meteo, meteolines, horizon, horizonlines, lat, lon, ST, rotation);
 
-      ndiv[0]=n0;
+      ndiv[0] = n0;
       for (k=1; k<=ndivday-1; k++)
         {
-          ndiv[k]=(long)(n0+k*(n1-n0)/(double)ndivday);
+          ndiv[k] = (long)(n0+k*(n1-n0)/(double)ndivday);
         }
       ndiv[ndivday]=n1;
 
@@ -126,7 +124,7 @@ void cloudiness(double **meteo, long meteolines, double **horizon,
           tc = average_cloudiness(ndiv[k-1], ndiv[k], meteo, meteolines, lat, lon, ST,
                                   Z, sky, SWrefl_surr, rotation, Lozone, alpha, beta, albedo);
 
-          //cloudiness at night (from n00<=n<n0)
+          /** cloudiness at night (from n00<=n<n0) */
           if (k==1)
             {
               for (n=n00; n<n0; n++)
@@ -143,7 +141,7 @@ void cloudiness(double **meteo, long meteolines, double **horizon,
                 }
             }
 
-          //cloudiness during the day
+          /** cloudiness during the day */
           for (n=ndiv[k-1]; n<ndiv[k]; n++)
             {
               cloudtrans[n] = tc;
@@ -159,11 +157,14 @@ void cloudiness(double **meteo, long meteolines, double **horizon,
   n = n00;
   sun(meteo[n][iJDfrom0], &E0, &Et, &Delta);
   height_sun = SolarHeight(meteo[n][iJDfrom0], lat, Delta,
-                           (lon - ST*GTConst::Pi/12. + Et)/GTConst::omega);
+                                 (lon - ST*GTConst::Pi/12. + Et)/GTConst::omega);
   dir_sun = SolarAzimuth(meteo[n][iJDfrom0], lat, Delta,
-                         (lon - ST*GTConst::Pi/12. + Et)/GTConst::omega) + rotation*GTConst::Pi/180.;
-  if (dir_sun < 0) dir_sun += 2*GTConst::Pi;
-  if (dir_sun > 2*GTConst::Pi) dir_sun -= 2*GTConst::Pi;
+                               (lon - ST*GTConst::Pi/12. + Et)/GTConst::omega) + rotation*GTConst::Pi/180.;
+  if (dir_sun < 0)
+    dir_sun += 2*GTConst::Pi;
+
+  if (dir_sun > 2*GTConst::Pi)
+    dir_sun -= 2*GTConst::Pi;
 
   if ( shadows_point(horizon, horizonlines, height_sun*180./GTConst::Pi, dir_sun*180./GTConst::Pi,
                      GTConst::Tol_h_mount, GTConst::Tol_h_flat) == 0)
@@ -177,7 +178,6 @@ void cloudiness(double **meteo, long meteolines, double **horizon,
     }
   cloudtrans[n] = tc;
   printf("n = %ld/%ld\n",n+1,meteolines);
-
 }
 
 //*****************************************************************************************************************
@@ -199,7 +199,7 @@ double find_cloudiness(long n, double **meteo, long meteolines, double lat,
   FILE *f;
   char *temp;
 
-  //initial and final JD of the time step
+  /** initial and final JD of the time step */
   if (n == 0)
     {
       JDbegin = meteo[n][iJDfrom0] - 0.5 * ( meteo[n+1][iJDfrom0] -
@@ -219,13 +219,13 @@ double find_cloudiness(long n, double **meteo, long meteolines, double lat,
       JDend = 0.5 * ( meteo[n][iJDfrom0] + meteo[n+1][iJDfrom0] );
     }
 
-  //sun variables
+  /** sun variables */
   sun(meteo[n][iJDfrom0], &E0, &Et, &Delta);
 
-  //pressure [mbar]
-  P=pressure(Z);
+  /** pressure [mbar] */
+  P = pressure(Z);
 
-  //relative humidity [-]
+  /** relative humidity [-] */
   RH=meteo[n][iRh];
   if ((long)RH != number_novalue && (long)RH != number_absent)
     {
@@ -247,17 +247,17 @@ double find_cloudiness(long n, double **meteo, long meteolines, double lat,
     }
   if (RH<0.01) RH=0.01;
 
-  //air temperature [C]
+  /** air temperature [°C] */
   T=meteo[n][iT];
   if ((long)T == number_novalue || (long)T == number_absent) T=0.0;
 
-  //cloudiness transmissivity
+  /** cloudiness transmissivity */
   tau_cloud = cloud_transmittance(JDbegin, JDend, lat, Delta,
                                   (lon-ST*GTConst::Pi/12.+Et)/GTConst::omega, RH, T, P, meteo[n][iSWd],
                                   meteo[n][iSWb], meteo[n][iSW], E0, sky, SWrefl_surr, Lozone, alpha, beta,
                                   albedo);
 
-  //plotting
+  /** plotting */
   temp = join_strings(WORKING_DIRECTORY,filecloud);
   f = fopen(temp,"a");
   convert_JDfrom0_JDandYear(meteo[n][iJDfrom0], &JD, &y);
