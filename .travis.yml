@@ -28,10 +28,10 @@ before_install:
   - source activate py36
   - git clone https://github.com/mesonbuild/meson.git _meson
   - export PATH="$PWD/_meson:$PATH"
-  - wget https://models.slf.ch/p/meteoio/downloads/get/MeteoIO-2.8.0-src.tar.gz && tar -xvzf MeteoIO-2.8.0-src.tar.gz
-  - mv MeteoIO-2.8.0-src MeteoIO
-  - cd MeteoIO
-  - cmake -DCMAKE_INSTALL_PREFIX=$HOME/meteoio .
+  # - wget https://models.slf.ch/p/meteoio/downloads/get/MeteoIO-2.8.0-src.tar.gz && tar -xvzf MeteoIO-2.8.0-src.tar.gz
+  # - mv MeteoIO-2.8.0-src MeteoIO
+  # - cd MeteoIO
+  # - cmake -DCMAKE_INSTALL_PREFIX=$HOME/meteoio .
   - make -j2
   - sudo make install
   - cd ..
@@ -43,8 +43,10 @@ install:
   - ninja -j2
 
 script:
-  - meson.py test --print-errorlogs
-  #- meson.py test --suite geotop:unit_tests --print-errorlogs
+ - meson.py test --suite geotop:Vinschgau_test_1D_001 --print-errorlogs
+ - cat /home/travis/build/geotopmodel/geotop/tests/1D/Vinschgau_test_1D_001/failing_output
+  # - meson.py test --print-errorlogs
+  # - meson.py test --suite geotop:unit_tests --print-errorlogs
   # - meson.py test --suite geotop:1D --print-errorlogs
   # - travis_wait 90 meson.py test --suite geotop:3D --print-errorlogs
 
