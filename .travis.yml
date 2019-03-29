@@ -32,8 +32,8 @@ before_install:
   # - mv MeteoIO-2.8.0-src MeteoIO
   # - cd MeteoIO
   # - cmake -DCMAKE_INSTALL_PREFIX=$HOME/meteoio .
-  - make -j2
-  - sudo make install
+  # - make -j2
+  # - sudo make install
   - cd ..
 
 install:
