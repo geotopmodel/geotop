@@ -34,7 +34,7 @@ before_install:
   # - cmake -DCMAKE_INSTALL_PREFIX=$HOME/meteoio .
   # - make -j2
   # - sudo make install
-  - cd ..
+  # - cd ..
 
 install:
   - meson.py -DMUTE_GEOLOG=true -DMUTE_GEOTIMER=true meson-build-release
