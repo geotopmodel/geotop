@@ -11,7 +11,7 @@ set(_tests
   1D/PureDrainage 
   1D/PureDrainageFaked 
   1D/PureDrainageRainy 
-  1D/PureDrainageRainySlope 
+  1D/PureDrainageRainySlope
   3D/Borden05m 
   3D/example 
   3D/hillslope01 
