@@ -86,11 +86,11 @@ void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOL
     std::string filename_dem_geotop = mio::FileUtils::getFilename(std::string(files[fdem]) + ".asc");
 
     std::cerr << "DEM FILE used by MeteoIO (defined in io_it.ini): " << filename_dem_meteoio.c_str() << std::endl;
-    std::cerr << "DEM FILE used by GEOtop   (defined in geotop.inpts): " <<  filename_dem_geotop.c_str() << std::endl;
+    std::cerr << "DEM FILE used by GEOtop (defined in geotop.inpts): " <<  filename_dem_geotop.c_str() << std::endl;
     if (filename_dem_meteoio != filename_dem_geotop)
     {
-        std::cerr << " You specified two different file for DEM in two different files: please define just one" << std::endl;
-        std::cerr <<"Geotop failed." << std::endl;
+        std::cerr << "You specified two different file for DEM in two different files: please define just one" << std::endl;
+        std::cerr << "Geotop failed." << std::endl;
         exit(1);
     }
 
