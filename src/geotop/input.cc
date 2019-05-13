@@ -751,7 +751,7 @@ void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *l
     /**************************************************************************************************/
     if (par->point_sim!=1)  /** distributed simulation (3D) */
     {
-        read_inputmaps(top, land, sl, par, IT.get());
+        meteoio_read_inputmaps(top, land, sl, par, IT.get(), iomanager);
     }
     else /** point simulation (1D) */
     {
