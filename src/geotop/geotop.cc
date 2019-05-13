@@ -47,7 +47,8 @@
 #include "timer.h"
 
 #ifdef WITH_METEOIO
-#include <meteoio/MeteoIO.h>
+#include "meteoio_wrapper.h"
+#include <vector>
 #endif
 
 void time_loop(ALLDATA *A);
@@ -140,14 +141,8 @@ FOR A PARTICULAR PURPOSE.\n" << std::endl;
     geolog << "LOGFILE: " << wd << "geotop.log\n" << std::endl;
 
 #ifdef WITH_METEOIO
-    std::string cfgfile = "io_it.ini";
-    cfgfile = wd + cfgfile;
-    mio::Config cfg(cfgfile);
-
-    mio::IOManager iomanager(cfg);
-    mio::DEMObject dem;
-    dem.setUpdatePpt(mio::DEMObject::SLOPE);
-    iomanager.readDEM(dem);
+    std::string cfgfile = wd + "io_it.ini";
+    MeteoioWrapper mw{cfgfile}; // used in unit tests
 #endif
 
     std::unique_ptr<ALLDATA> adt;
