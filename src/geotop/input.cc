@@ -82,8 +82,8 @@ void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOL
     std::cerr << " ---------------------------------- READ DEM ---------------------------------- " << std::endl;
     mio::Config cfg = iomanager.getConfig();
     std::string filename_dem_path = cfg.get("DEMFILE", "Input");
-    std::string filename_dem_meteoio = mio::IOUtils::getFilename(filename_dem_path);
-    std::string filename_dem_geotop = mio::IOUtils::getFilename(std::string(files[fdem]) + ".asc");
+    std::string filename_dem_meteoio = mio::FileUtils::getFilename(filename_dem_path);
+    std::string filename_dem_geotop = mio::FileUtils::getFilename(std::string(files[fdem]) + ".asc");
 
     std::cerr << "DEM FILE used by MeteoIO (defined in io_it.ini): " << filename_dem_meteoio.c_str() << std::endl;
     std::cerr << "DEM FILE used by GEOtop   (defined in geotop.inpts): " <<  filename_dem_geotop.c_str() << std::endl;
