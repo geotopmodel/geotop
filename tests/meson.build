@@ -54,6 +54,7 @@ _tests = ['1D/ARF_1D',
 foreach _t : _tests
     _test_prefix = _prefix+'/'+_t
    test(_t, geotop, args:[_test_prefix], suite: _t.split('/'),
+        workdir: meson.current_source_dir()+'/'+_t,
         timeout: 7200) # using 1800 snow_dstr_SENSITIVITY fails ...
 endforeach
 
