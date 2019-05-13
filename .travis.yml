@@ -39,7 +39,7 @@ before_install:
 install:
   - meson.py -DMUTE_GEOLOG=true -DMUTE_GEOTIMER=true -DWITH_METEOIO=true -DMETEOIO_DIR=$HOME/meteoio meson-build-release
   - cd meson-build-release
-  - ninja -j2
+  - ninja
 
 script:
  - meson.py test --suite geotop:small_example --print-errorlogs
