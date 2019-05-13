@@ -45,6 +45,7 @@ add_executable(geotop
         src/geotop/input.cc
         src/geotop/meteo.cc
         src/geotop/meteodata.cc
+	src/geotop/meteoio_plugin.cc
         src/geotop/meteodistr.cc
         src/geotop/output.cc
         src/geotop/parameters.cc
@@ -85,6 +86,7 @@ add_executable(geotop
         src/geotop/turbulence.h
         src/geotop/meteo.h
         src/geotop/meteodata.h
+	src/geotop/meteoio_plugin.h
 	src/geotop/meteoio_wrapper.h
         src/geotop/struct.geotop.h
         src/geotop/output.h
