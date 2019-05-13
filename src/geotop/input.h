@@ -43,13 +43,19 @@ struct INIT_TOOLS
     std::unique_ptr<Vector<double>> init_water_table_depth;
 };
 
-
-
 void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
                    METEO *met, WATER *wat, CHANNEL *cnet,
                    PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times);
 
 void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT);
+
+#ifdef WITH_METEOIO
+#include <meteoio/MeteoIO.h>
+void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT, mio::IOManager& iomanager);
+void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
+                            METEO *met, WATER *wat, CHANNEL *cnet,
+                            PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times, mio::IOManager& iomanager);
+#endif
 
 void read_optionsfile_point(PAR *par, TOPO *top, LAND *land, SOIL *sl, TIMES *times, INIT_TOOLS *IT);
 

@@ -46,6 +46,10 @@
 #include "math.optim.h"
 #include <omp.h>
 
+#ifdef WITH_METEOIO
+#include <meteoio/MeteoIO.h>
+#endif
+
 extern long number_novalue, number_absent;
 extern char *string_novalue;
 
@@ -62,7 +66,22 @@ extern double elapsed_time_start, cum_time, max_time;
 //****************************************************************************************************
 //****************************************************************************************************
 //****************************************************************************************************
-
+#ifdef WITH_METEOIO
+void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT, mio::IOManager& iomanager)
+{
+}
+//****************************************************************************************************
+//****************************************************************************************************
+void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
+                           METEO *met, WATER *wat, CHANNEL *cnet,
+                           PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times, mio::IOManager& iomanager)
+{
+}
+#endif
+//****************************************************************************************************
+//****************************************************************************************************
+//****************************************************************************************************
+//****************************************************************************************************
 void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND *land,
                    METEO *met, WATER *wat, CHANNEL *cnet,
                    PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times)
