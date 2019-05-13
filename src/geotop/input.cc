@@ -48,6 +48,7 @@
 
 #ifdef WITH_METEOIO
 #include <meteoio/MeteoIO.h>
+#include "meteoio_plugin.h"
 #endif
 
 extern long number_novalue, number_absent;
@@ -78,19 +79,35 @@ void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOL
     double min, max;
     FILE *f;
 
+    std::cerr << " ---------------------------------- READ DEM ---------------------------------- " << std::endl;
+    mio::Config cfg = iomanager.getConfig();
+    std::string filename_dem_path = cfg.get("DEMFILE", "Input");
+    std::string filename_dem_meteoio = mio::IOUtils::getFilename(filename_dem_path);
+    std::string filename_dem_geotop = mio::IOUtils::getFilename(std::string(files[fdem]) + ".asc");
+
+    std::cerr << "DEM FILE used by MeteoIO (defined in io_it.ini): " << filename_dem_meteoio.c_str() << std::endl;
+    std::cerr << "DEM FILE used by GEOtop   (defined in geotop.inpts): " <<  filename_dem_geotop.c_str() << std::endl;
+    if (filename_dem_meteoio != filename_dem_geotop)
+    {
+        std::cerr << " You specified two different file for DEM in two different files: please define just one" << std::endl;
+        std::cerr <<"Geotop failed." << std::endl;
+        exit(1);
+    }
+
+    mio::DEMObject dem;
+    iomanager.readDEM(dem); /** read DEM with MeteoIO */
+
+    top->Z0.reset(new Matrix<double>{dem.getNy(), dem.getNx()});
+    meteoio_copyDEM(dem, top->Z0.get()); /** copy DEM from MeteoIO to GEOtop */
+
     /** reading TOPOGRAPHY */
     flag = file_exists(fdem);
     if (flag == 1)  /**keyword is present and the file exists*/
     {
-        M.reset(new Matrix<double>{1,1});
-        top->Z0.reset(read_map(0, files[fdem], M.get(), UV, (double)number_novalue)); /** topography */
-        write_map(files[fdem], 0, par->format_out, top->Z0.get(), UV, number_novalue); /** rewrite DEM file */
-
         // filtering
         M.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
         multipass_topofilter(par->lowpass, top->Z0.get(), M.get(), (double)number_novalue, 1); /** assign "-9999" to cell outside the domain */
-        copy_doublematrix(M.get(), top->Z0.get());
-        // write_map(files[fdem], 0, par->format_out, top->Z0, UV, number_novalue);
+        *top->Z0 = *M;
 
         /** calculate East and North matrices */
         top->East.reset(new Matrix<double>{top->Z0->nrh, top->Z0->nch});
