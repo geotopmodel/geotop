@@ -146,6 +146,7 @@ FOR A PARTICULAR PURPOSE.\n" << std::endl;
 
 #ifdef WITH_METEOIO
     std::string cfgfile = wd + "io_it.ini";
+
     MeteoioWrapper mw{cfgfile}; // used in unit tests
 
     // The following 2 lines are necessary since I'm passing iomanager to get_all_input
