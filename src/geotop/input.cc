@@ -94,21 +94,30 @@ void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOL
         exit(1);
     }
 
-    mio::DEMObject dem;
-    iomanager.readDEM(dem); /** read DEM with MeteoIO */
-
-    top->Z0.reset(new Matrix<double>{dem.getNy(), dem.getNx()});
-    meteoio_copyDEM(dem, top->Z0.get()); /** copy DEM from MeteoIO to GEOtop */
-
     /** reading TOPOGRAPHY */
     flag = file_exists(fdem);
     if (flag == 1)  /**keyword is present and the file exists*/
     {
+        // --------------------------- GEOtop 3.0 BEFORE MeteoIO reading ---------------------------
+//        M.reset(new Matrix<double>{1,1});
+//        top->Z0.reset(read_map(0, files[fdem], M.get(), UV, (double)number_novalue)); /** topography */
+//        write_map(files[fdem], 0, par->format_out, top->Z0.get(), UV, number_novalue); /** rewrite DEM file */
+//
+//        // filtering
+//        M.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
+//        multipass_topofilter(par->lowpass, top->Z0.get(), M.get(), (double)number_novalue, 1); /** assign "-9999" to cell outside the domain */
+//        copy_doublematrix(M.get(), top->Z0.get());
+        // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
+        mio::DEMObject dem;
+        iomanager.readDEM(dem); /** read DEM with MeteoIO */
+        top->Z0.reset(new Matrix<double>{dem.getNy(), dem.getNx()});
+        meteoio_copyDEM(dem, top->Z0.get()); /** copy DEM from MeteoIO to GEOtop */
+
         // filtering
         M.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
         multipass_topofilter(par->lowpass, top->Z0.get(), M.get(), (double)number_novalue, 1); /** assign "-9999" to cell outside the domain */
         *top->Z0 = *M;
-
+        // ------------------------------------------------------------------------------------------------------------
         /** calculate East and North matrices */
         top->East.reset(new Matrix<double>{top->Z0->nrh, top->Z0->nch});
         top->North.reset(new Matrix<double>{top->Z0->nrh, top->Z0->nch});
