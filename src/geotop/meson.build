@@ -1,3 +1,5 @@
+_wm = get_option('WITH_METEOIO')
+
 src_files += [files(['PBSM.cc',
     'PBSM.h',
     'blowingsnow.cc',
@@ -25,9 +27,6 @@ src_files += [files(['PBSM.cc',
     'meteo.h',
     'meteodata.cc',
     'meteodata.h',		
-    'meteoio_plugin.cc',
-    'meteoio_plugin.h',
-    'meteoio_wrapper.h',
     'meteodistr.cc',
     'meteodistr.h',
     'output.cc',
@@ -59,6 +58,13 @@ src_files += [files(['PBSM.cc',
     'warnings.h',
     'water.balance.cc',
     'water.balance.h',])]
+
+if _wm == true
+src_files = src_files + [files([
+    'meteoio_wrapper.h',
+    'meteoio_plugin.cc',
+    'meteoio_plugin.h',])]
+endif   
 
 _config = files('config.meson.h.in')
 _vcs    = files('version.cc.in')
