@@ -26,6 +26,8 @@
 #include "write_ascii.h"
 #include "extensions.h"
 #include "t_datamanipulation.h"
+
+#include <timer.h>
 /* #include "tensor3D.h" */
 
 
@@ -374,6 +376,7 @@ short existing_file_woext(char *name)
 Matrix<double>* read_map(short a, char *filename, Matrix<double> *Mref,
                          T_INIT *UVref, double no_value)
 {
+    GEOTIMER_SECTION(__func__);
 /**
  * a=0 does not use Mref, UVref output
  * a=1 does not check novalues, Mref e UVref input
@@ -436,6 +439,8 @@ Matrix<double>* read_map(short a, char *filename, Matrix<double> *Mref,
             /**check header*/
             if (Dxmap != (*UVref->U)(2))
             {
+                std::cerr << "Dxmap          = " << Dxmap << std::endl;
+                std::cerr << "(*UVref->U)(2) = " << (*UVref->U)(2) << std::endl;
                 printf("Dx in %s file is different from Dx in DTM file! \n",filename);
                 t_error("Inconsistent map");
             }
