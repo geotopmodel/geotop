@@ -42,7 +42,8 @@ install:
   - ninja
 
 script:
- - meson.py test --suite geotop:small_example --print-errorlogs
+ - meson.py test --suite geotop:Matsch_B2_Ref_007 --print-errorlogs
+ - meson.py test --suite geotop:3D --print-errorlogs
  # - meson.py test --suite geotop:unit_tests --print-errorlogs
  # - meson.py test --suite geotop:1D --print-errorlogs
  # - travis_wait 90 meson.py test --suite geotop:3D --print-errorlogs
