@@ -28,6 +28,7 @@
 #include "t_datamanipulation.h"
 
 #include <timer.h>
+//#include <iomanip>
 /* #include "tensor3D.h" */
 
 
@@ -387,8 +388,7 @@ Matrix<double>* read_map(short a, char *filename, Matrix<double> *Mref,
     double *header=nullptr, *m=nullptr;
     double Dxmap=0, Dymap=0, X0map=0, Y0map=0;
 
-    if (a != 0 && a != 1
-        && a != 2)
+    if (a != 0 && a != 1 && a != 2)
         t_error("Value of flag not supported in the subroutine in read_map");
 
     if (existing_file(filename)==1)
@@ -439,8 +439,8 @@ Matrix<double>* read_map(short a, char *filename, Matrix<double> *Mref,
             /**check header*/
             if (Dxmap != (*UVref->U)(2))
             {
-                std::cerr << "Dxmap          = " << Dxmap << std::endl;
-                std::cerr << "(*UVref->U)(2) = " << (*UVref->U)(2) << std::endl;
+//                std::cerr << "Dxmap          = " << std::setprecision(15) << Dxmap << std::endl;
+//                std::cerr << "(*UVref->U)(2) = " << std::setprecision(15) << (*UVref->U)(2) << std::endl;
                 printf("Dx in %s file is different from Dx in DTM file! \n",filename);
                 t_error("Inconsistent map");
             }
