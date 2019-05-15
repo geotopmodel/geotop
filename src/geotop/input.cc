@@ -107,6 +107,14 @@ void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOL
 //        M.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
 //        multipass_topofilter(par->lowpass, top->Z0.get(), M.get(), (double)number_novalue, 1); /** assign "-9999" to cell outside the domain */
 //        copy_doublematrix(M.get(), top->Z0.get());
+
+//        // Print DEM map
+//        for(std::size_t i=top->Z0->nrl; i<= top->Z0->nrh; i++){
+//            for(std::size_t j=top->Z0->ncl; j<=top->Z0->nch; j++){
+//                std::cerr << (*top->Z0)(i,j) << " ";
+//            }
+//            std::cerr << std::endl;
+//        }
         // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
         mio::DEMObject dem;
         iomanager.readDEM(dem); /** read DEM with MeteoIO */
@@ -117,6 +125,14 @@ void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOL
         M.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
         multipass_topofilter(par->lowpass, top->Z0.get(), M.get(), (double)number_novalue, 1); /** assign "-9999" to cell outside the domain */
         *top->Z0 = *M;
+
+//        // Print DEM map
+//        for(std::size_t i=top->Z0->nrl; i<= top->Z0->nrh; i++){
+//            for(std::size_t j=top->Z0->ncl; j<=top->Z0->nch; j++){
+//                std::cerr << (*top->Z0)(i,j) << " ";
+//            }
+//            std::cerr << std::endl;
+//        }
         // ------------------------------------------------------------------------------------------------------------
         /** calculate East and North matrices */
         top->East.reset(new Matrix<double>{top->Z0->nrh, top->Z0->nch});
@@ -129,6 +145,29 @@ void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOL
                 (*top->North)(r,c) = (*UV->U)(3) + (top->Z0->nrh-(r-0.5))*(*UV->U)(1);
             }
         }
+//        // Print values
+//        std::cerr << "(*top->East)(r,c)" << std::endl;
+//        for (r=1; r<=top->Z0->nrh; r++)
+//        {
+//            for (c=1; c<=top->Z0->nch; c++)
+//            {
+//                std::cerr << (*top->East)(r,c) << " ";
+//            }
+//            std::cerr << std::endl;
+//        }
+//        std::cerr << "(*top->North)(r,c)" << std::endl;
+//        for (r=1; r<=top->Z0->nrh; r++)
+//        {
+//            for (c=1; c<=top->Z0->nch; c++)
+//            {
+//                std::cerr << (*top->North)(r,c) << " ";
+//            }
+//            std::cerr << std::endl;
+//        }
+//        std::cerr << "UV" << std::endl;
+//        std::cerr << (*UV->U)(1) << " " << (*UV->U)(2) << " " << (*UV->U)(3) << " " << (*UV->U)(4) << std::endl;
+//        std::cerr << (*UV->V)(1) << " " << (*UV->V)(2) << " "  << std::endl;
+        // ------------------------------------------------------------------------------------------------------------
 
     }
     else
@@ -145,7 +184,8 @@ void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOL
     flag = file_exists(flu);
     if (flag == 1) /** keyword is present and the file exists */
     {
-        land->LC.reset(read_map(1, files[flu], top->Z0.get(), UV, (double)number_novalue));
+        land->LC.reset(read_map(0, files[flu], top->Z0.get(), UV, (double)number_novalue));
+   //     land->LC.reset(read_map(1, files[flu], top->Z0.get(), UV, (double)number_novalue));
 
         /** check to have "-9999" along the borders */
         for (r=1; r<=land->LC->nrh; r++) /** first and last columns fixed */
