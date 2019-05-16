@@ -151,6 +151,8 @@ FOR A PARTICULAR PURPOSE.\n" << std::endl;
 
     // The following 2 lines are necessary since I'm passing iomanager to get_all_input
     mio::Config cfg(cfgfile);
+    cfg.addKey("GRID2DPATH", "Input", ""); /* deleting the value of GRID2DPATH retrieved from the io_it.ini file
+                                             to avoid the append of MeteoIO path to that one of GEOtop */
     mio::IOManager iomanager(cfg);
 #endif
 
