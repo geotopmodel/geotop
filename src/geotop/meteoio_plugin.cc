@@ -6,7 +6,23 @@
 extern T_INIT *UV;
 extern long number_novalue;
 // ----------------------------------------------------------------------------------------------------------------
-void copyGridToMatrix(mio::Grid2DObject& gridObject, Matrix<double>* mymatrix) 
+void meteoio_initUV(mio::DEMObject& dem, Matrix<double>* matrix)
+{
+    /**
+     * copy DEM map from MeteoIO to GEOtop
+     */
+    UV->V.reset(new Vector<double>{2});
+    (*UV->V)(1) = -1.0;
+    (*UV->V)(2) = number_novalue;  // GEOtop nodata -9999.0
+
+    UV->U.reset(new Vector<double>{4});
+    (*UV->U)(1) = dem.cellsize;
+    (*UV->U)(2) = dem.cellsize;
+    (*UV->U)(3) = dem.llcorner.getNorthing();
+    (*UV->U)(4) = dem.llcorner.getEasting();
+}
+// ----------------------------------------------------------------------------------------------------------------
+void copyGridToMatrix(mio::Grid2DObject& gridObject, Matrix<double>* mymatrix)
 {
     /**
      * copy map from MeteoIO to GEOtop
@@ -25,21 +41,5 @@ void copyGridToMatrix(mio::Grid2DObject& gridObject, Matrix<double>* mymatrix)
         }
     }
 }
+
 // ----------------------------------------------------------------------------------------------------------------
-void meteoio_copyDEM(mio::DEMObject& dem, Matrix<double>* matrix)
-{
-    /**
-     * copy DEM map from MeteoIO to GEOtop
-     */
-    UV->V.reset(new Vector<double>{2});
-    (*UV->V)(1) = -1.0;
-    (*UV->V)(2) = number_novalue;  // GEOtop nodata -9999.0
-
-    UV->U.reset(new Vector<double>{4});
-    (*UV->U)(1) = dem.cellsize;
-    (*UV->U)(2) = dem.cellsize;
-    (*UV->U)(3) = dem.llcorner.getNorthing();
-    (*UV->U)(4) = dem.llcorner.getEasting();
-
-    copyGridToMatrix(dem, matrix);
-}
