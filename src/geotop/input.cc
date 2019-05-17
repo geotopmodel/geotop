@@ -414,11 +414,11 @@ to the soil type map");
     if (flag == 1) /** keyword is present and the file exists */
     {
         // --------------------------- GEOtop 3.0 BEFORE MeteoIO reading ---------------------------
-             top->slope.reset(read_map(2, files[fslp], land->LC.get(), UV, (double)number_novalue)); /** reads in degrees */
+  //           top->slope.reset(read_map(2, files[fslp], land->LC.get(), UV, (double)number_novalue)); /** reads in degrees */
         // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
-//        iomanager.read2DGrid(grid_slope, std::string(files[fslp]) + ".asc");
-//        top->slope.reset(new Matrix<double>{grid_LC.getNy(), grid_LC.getNx()});
-//        copyGridToMatrix(grid_slope, top->slope.get());
+        iomanager.read2DGrid(grid_slope, std::string(files[fslp]) + ".asc");
+        top->slope.reset(new Matrix<double>{grid_LC.getNy(), grid_LC.getNx()});
+        copyGridToMatrix(grid_slope, top->slope.get());
     }
     else
     {
