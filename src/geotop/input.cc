@@ -316,11 +316,11 @@ to the land cover type\n");
     if (flag == 1) /** keyword is present and the file exists */
     {
         // --------------------------- GEOtop 3.0 BEFORE MeteoIO reading ---------------------------
-               top->sky.reset(read_map(2, files[fsky], land->LC.get(), UV, (double)number_novalue));
+  //             top->sky.reset(read_map(2, files[fsky], land->LC.get(), UV, (double)number_novalue));
         // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
-//        iomanager.read2DGrid(grid_sky, std::string(files[fsky]) + ".asc");
-//        top->sky.reset(new Matrix<double>{grid_LC.getNy(), grid_LC.getNx()});
-//        copyGridToMatrix(grid_sky, top->sky.get());
+        iomanager.read2DGrid(grid_sky, std::string(files[fsky]) + ".asc");
+        top->sky.reset(new Matrix<double>{grid_LC.getNy(), grid_LC.getNx()});
+        copyGridToMatrix(grid_sky, top->sky.get());
     }
     else
     {
