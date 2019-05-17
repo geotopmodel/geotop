@@ -348,11 +348,11 @@ to the land cover type\n");
     if (flag == 1) /** keyword is present and the file exists */
     {
         // --------------------------- GEOtop 3.0 BEFORE MeteoIO reading ---------------------------
-         land->delay.reset(read_map(2, files[fdelay], land->LC.get(), UV, (double)number_novalue));
+   //      land->delay.reset(read_map(2, files[fdelay], land->LC.get(), UV, (double)number_novalue));
         // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
-//        iomanager.read2DGrid(grid_delay, std::string(files[fdelay]) + ".asc");
-//        land->delay.reset(new Matrix<double>{grid_LC.getNy(), grid_LC.getNx()});
-//        copyGridToMatrix(grid_delay, land->delay.get());
+        iomanager.read2DGrid(grid_delay, std::string(files[fdelay]) + ".asc");
+        land->delay.reset(new Matrix<double>{grid_LC.getNy(), grid_LC.getNx()});
+        copyGridToMatrix(grid_delay, land->delay.get());
     }
     else
     {
