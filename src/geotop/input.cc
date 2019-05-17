@@ -368,13 +368,13 @@ to the land cover type\n");
     if (flag == 1) /** keyword is present and the file exists */
     {
         // --------------------------- GEOtop 3.0 BEFORE MeteoIO reading ---------------------------
-        M.reset(read_map(2, files[fsoil], land->LC.get(), UV, (double)number_novalue));
-        sl->type.reset(copylong_doublematrix(M.get()));
-        // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
-//        iomanager.read2DGrid(grid_type, std::string(files[fsoil]) + ".asc");
-//        sl->type.reset(new Matrix<long>{grid_LC.getNy(), grid_LC.getNx()});
-//        copyGridToMatrix(grid_type, M.get());
+//        M.reset(read_map(2, files[fsoil], land->LC.get(), UV, (double)number_novalue));
 //        sl->type.reset(copylong_doublematrix(M.get()));
+        // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
+        iomanager.read2DGrid(grid_type, std::string(files[fsoil]) + ".asc");
+        sl->type.reset(new Matrix<long>{grid_LC.getNy(), grid_LC.getNx()});
+        copyGridToMatrix(grid_type, M.get());
+        sl->type.reset(copylong_doublematrix(M.get()));
 
         /** chech to have coherent values of soiltype ( 1 < ST < n_soiltypes) */
         for (r=1; r<=land->LC->nrh; r++)
