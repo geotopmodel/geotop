@@ -5,28 +5,23 @@
 
 extern T_INIT *UV;
 extern long number_novalue;
-// ----------------------------------------------------------------------------------------------------------------
-void meteoio_initUV(mio::DEMObject& dem, Matrix<double>* matrix)
-{
-    /**
-     * copy DEM map from MeteoIO to GEOtop
-     */
-    UV->V.reset(new Vector<double>{2});
-    (*UV->V)(1) = -1.0;
-    (*UV->V)(2) = number_novalue;  // GEOtop nodata -9999.0
 
-    UV->U.reset(new Vector<double>{4});
-    (*UV->U)(1) = dem.cellsize;
-    (*UV->U)(2) = dem.cellsize;
-    (*UV->U)(3) = dem.llcorner.getNorthing();
-    (*UV->U)(4) = dem.llcorner.getEasting();
-}
+//mio::DEMObject dem;
+//mio::IOManager* io;
+//// ----------------------------------------------------------------------------------------------------------------
+//void meteoio_init(mio::IOManager& iomanager) // (1)
+//{
+//    io = &iomanager;  // pointer to the iomanager instantiated in geotop.cc
+//    io->readDEM(dem);
+//}
 // ----------------------------------------------------------------------------------------------------------------
 void copyGridToMatrix(mio::Grid2DObject& gridObject, Matrix<double>* mymatrix)
 {
     /**
      * copy map from MeteoIO to GEOtop
      */
+     std::cerr << gridObject.getNy() << " " << gridObject.getNx() << std::endl;
+
     for (std::size_t i=0; i<gridObject.getNy(); i++)
     {
         for (std::size_t j=0; j<gridObject.getNx(); j++)
@@ -41,5 +36,32 @@ void copyGridToMatrix(mio::Grid2DObject& gridObject, Matrix<double>* mymatrix)
         }
     }
 }
-
 // ----------------------------------------------------------------------------------------------------------------
+void meteoio_readDEM(mio::DEMObject& dem, Matrix<double>* matrix)
+{
+    /**
+     * copy DEM map from MeteoIO to GEOtop
+     */
+    UV->V.reset(new Vector<double>{2});
+    (*UV->V)(1) = -1.0;
+    (*UV->V)(2) = number_novalue;  // GEOtop nodata -9999.0
+
+    UV->U.reset(new Vector<double>{4});
+    (*UV->U)(1) = dem.cellsize;
+    (*UV->U)(2) = dem.cellsize;
+    (*UV->U)(3) = dem.llcorner.getNorthing();
+    (*UV->U)(4) = dem.llcorner.getEasting();
+
+    copyGridToMatrix(dem, matrix);
+}
+// ----------------------------------------------------------------------------------------------------------------
+//void meteoio_readMap(const std::string &filename, Matrix<double>* matrix) // (4)
+//{
+//    mio::Grid2DObject temp;
+//    io->read2DGrid(temp, filename + ".asc");
+//
+//    matrix = new Matrix<double>{temp.getNy(), temp.getNx()};
+//
+//    copyGridToMatrix(temp, matrix);
+//}
+
