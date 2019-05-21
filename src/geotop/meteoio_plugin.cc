@@ -20,8 +20,6 @@ void copyGridToMatrix(mio::Grid2DObject& gridObject, Matrix<double>* mymatrix)
     /**
      * copy map from MeteoIO to GEOtop
      */
-     std::cerr << gridObject.getNy() << " " << gridObject.getNx() << std::endl;
-
     for (std::size_t i=0; i<gridObject.getNy(); i++)
     {
         for (std::size_t j=0; j<gridObject.getNx(); j++)
