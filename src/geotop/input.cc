@@ -64,6 +64,11 @@ extern char *SuccessfulRunFile, *FailedRunFile;
 extern long i_sim0, i_run0, i_run;
 extern double elapsed_time_start, cum_time, max_time;
 
+#ifdef WITH_METEOIO
+mio::DEMObject Dem;
+mio::Grid2DObject grid_LC, grid_sky, grid_delay, grid_type;
+#endif
+
 //****************************************************************************************************
 //****************************************************************************************************
 //****************************************************************************************************
@@ -95,8 +100,8 @@ void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOL
         exit(1);
     }
 
-    /** reading TOPOGRAPHY */
-    mio::DEMObject dem;
+ //   meteoio_readDEM(top->Z0.get());
+
     flag = file_exists(fdem);
     if (flag == 1)  /**keyword is present and the file exists*/
     {
@@ -118,26 +123,16 @@ void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOL
 //            std::cerr << std::endl;
 //        }
         // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
-        iomanager.readDEM(dem); /** read DEM with MeteoIO */
-        top->Z0.reset(new Matrix<double>{dem.getNy(), dem.getNx()});
-        meteoio_initUV(dem, top->Z0.get()); /** copy DEM from MeteoIO to GEOtop */
-        copyGridToMatrix(dem,  top->Z0.get());
 
-//        std::cerr << dem.getNy() << " " << dem.getNx() << std::endl;
-//        std::cerr << top->Z0->nrh << " " << top->Z0->nch << std::endl;
+        /** reading TOPOGRAPHY */
+        iomanager.readDEM(Dem); /** read DEM with MeteoIO */
+        top->Z0.reset(new Matrix<double>{Dem.getNy(), Dem.getNx()});
+        meteoio_readDEM(Dem, top->Z0.get()); /** copy DEM from MeteoIO to GEOtop */
 
         // filtering
         M.reset(new Matrix<double>{top->Z0->nrh,top->Z0->nch});
         multipass_topofilter(par->lowpass, top->Z0.get(), M.get(), (double)number_novalue, 1); /** assign "-9999" to cell outside the domain */
         *top->Z0 = *M;
-
-//        // Print DEM map
-//        for(std::size_t i=top->Z0->nrl; i<= top->Z0->nrh; i++){
-//            for(std::size_t j=top->Z0->ncl; j<=top->Z0->nch; j++){
-//                std::cerr << (*top->Z0)(i,j) << " ";
-//            }
-//            std::cerr << std::endl;
-//        }
         // ------------------------------------------------------------------------------------------------------------
         /** calculate East and North matrices */
         top->East.reset(new Matrix<double>{top->Z0->nrh, top->Z0->nch});
@@ -186,7 +181,7 @@ void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOL
     }
 
     /** reading LAND COVER TYPE */
-    mio::Grid2DObject grid_LC;
+    //mio::Grid2DObject grid_LC;
     flag = file_exists(flu);
     if (flag == 1) /** keyword is present and the file exists */
     {
@@ -195,10 +190,11 @@ void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOL
 //        land->LC.reset(read_map(0, files[flu], top->Z0.get(), UV, (double)number_novalue));
         // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
         iomanager.read2DGrid(grid_LC, std::string(files[flu]) + ".asc");
-        land->LC.reset(new Matrix<double>{dem.getNy(), dem.getNx()});
+        land->LC.reset(new Matrix<double>{Dem.getNy(), Dem.getNx()});
         copyGridToMatrix(grid_LC, land->LC.get());
-//        std::cerr << dem.getNy() << " " << dem.getNx() << std::endl;
-//        std::cerr << land->LC->nrh << " " << land->LC->nch << std::endl;
+
+ //       meteoio_readMap(std::string(files[flu]), land->LC.get());
+
         // ------------------------------------------------------------------------------------------------------------
         /** check to have "-9999" along the borders */
         for (r=1; r<=land->LC->nrh; r++) /** first and last columns fixed */
@@ -246,7 +242,6 @@ to the land cover type\n");
                 }
             }
         }
-
     }
     else
     {
@@ -311,16 +306,18 @@ to the land cover type\n");
 
     /*************************************************************************************************/
     /** reading SKY VIEW FACTOR */
-    mio::Grid2DObject grid_sky;
     flag = file_exists(fsky);
     if (flag == 1) /** keyword is present and the file exists */
     {
         // --------------------------- GEOtop 3.0 BEFORE MeteoIO reading ---------------------------
-  //             top->sky.reset(read_map(2, files[fsky], land->LC.get(), UV, (double)number_novalue));
+        //             top->sky.reset(read_map(2, files[fsky], land->LC.get(), UV, (double)number_novalue));
         // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
         iomanager.read2DGrid(grid_sky, std::string(files[fsky]) + ".asc");
         top->sky.reset(new Matrix<double>{grid_LC.getNy(), grid_LC.getNx()});
         copyGridToMatrix(grid_sky, top->sky.get());
+
+ //       meteoio_readMap(std::string(files[fsky]), land->LC.get());
+
     }
     else
     {
@@ -343,16 +340,19 @@ to the land cover type\n");
 
     /**************************************************************************************************/
     /** reading DELAY */
-    mio::Grid2DObject grid_delay;
+    //   mio::Grid2DObject grid_delay;
     flag = file_exists(fdelay);
     if (flag == 1) /** keyword is present and the file exists */
     {
         // --------------------------- GEOtop 3.0 BEFORE MeteoIO reading ---------------------------
-   //      land->delay.reset(read_map(2, files[fdelay], land->LC.get(), UV, (double)number_novalue));
+        //      land->delay.reset(read_map(2, files[fdelay], land->LC.get(), UV, (double)number_novalue));
         // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
         iomanager.read2DGrid(grid_delay, std::string(files[fdelay]) + ".asc");
         land->delay.reset(new Matrix<double>{grid_LC.getNy(), grid_LC.getNx()});
         copyGridToMatrix(grid_delay, land->delay.get());
+
+     //   meteoio_readMap(std::string(files[fdelay]), land->LC.get());
+
     }
     else
     {
@@ -363,7 +363,7 @@ to the land cover type\n");
 
     /**************************************************************************************************/
     /** reading SOIL MAP */
-    mio::Grid2DObject grid_type;
+    //   mio::Grid2DObject grid_type;
     flag = file_exists(fsoil);
     if (flag == 1) /** keyword is present and the file exists */
     {
@@ -372,9 +372,11 @@ to the land cover type\n");
 //        sl->type.reset(copylong_doublematrix(M.get()));
         // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
         iomanager.read2DGrid(grid_type, std::string(files[fsoil]) + ".asc");
-        sl->type.reset(new Matrix<long>{grid_LC.getNy(), grid_LC.getNx()});
+        M.reset(new Matrix<double>{grid_LC.getNy(), grid_LC.getNx()});
         copyGridToMatrix(grid_type, M.get());
         sl->type.reset(copylong_doublematrix(M.get()));
+
+ //       meteoio_readMap(std::string(files[fsoil]), land->LC.get());
 
         /** chech to have coherent values of soiltype ( 1 < ST < n_soiltypes) */
         for (r=1; r<=land->LC->nrh; r++)
@@ -409,16 +411,41 @@ to the soil type map");
     top->dzdN.reset(new Matrix<double>{land->LC->nrh, land->LC->nch});
     find_slope((*UV->U)(1), (*UV->U)(2), top->Z0.get(), top->dzdE.get(), top->dzdN.get(), (double)number_novalue);
 
-    mio::Grid2DObject grid_slope;
+ //   mio::Grid2DObject grid_slope;
     flag = file_exists(fslp);
     if (flag == 1) /** keyword is present and the file exists */
     {
         // --------------------------- GEOtop 3.0 BEFORE MeteoIO reading ---------------------------
-  //           top->slope.reset(read_map(2, files[fslp], land->LC.get(), UV, (double)number_novalue)); /** reads in degrees */
+                  top->slope.reset(read_map(2, files[fslp], land->LC.get(), UV, (double)number_novalue)); /** reads in degrees */
         // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
-        iomanager.read2DGrid(grid_slope, std::string(files[fslp]) + ".asc");
-        top->slope.reset(new Matrix<double>{grid_LC.getNy(), grid_LC.getNx()});
-        copyGridToMatrix(grid_slope, top->slope.get());
+//        iomanager.read2DGrid(grid_slope, std::string(files[fslp]) + ".asc");
+//        top->slope.reset(new Matrix<double>{grid_LC.getNy(), grid_LC.getNx()});
+//        copyGridToMatrix(grid_slope, top->slope.get());
+
+ //       meteoio_readMap(std::string(files[fslp]), land->LC.get());
+
+//        std::cerr << "grid_slope.getNy() = " << grid_slope.getNy() << " " << "grid_slope.getNy() = " << grid_slope.getNy() << std::endl;
+//        std::cerr << "top->slope->nrl = " << top->slope->nrl << " " << "top->slope->nrh = " << top->slope->nrh << std::endl;
+//        std::cerr << "top->slope->ncl = " << top->slope->ncl << " " << "top->slope->nch = " << top->slope->nch << std::endl;
+//        std::cerr << "top->slope->n_row = " << top->slope->n_row << " " << "top->slope->n_col = " << top->slope->n_col << std::endl;
+
+//        for (std::size_t i=0; i<grid_slope.getNy(); i++)
+//        {
+//            for (std::size_t j=0; j<grid_slope.getNx(); j++)
+//            {
+//                std::cerr << grid_slope(i,j) << " ";
+//            }
+//            std::cerr << std::endl;
+//        }
+//        std::cerr << " ************************************************************************** " << std::endl;
+//        for (std::size_t i=0; i<grid_slope.getNy(); i++)
+//        {
+//            for (std::size_t j=0; j<grid_slope.getNx(); j++)
+//            {
+//                std::cerr << (*top->slope)(i+1, j+1) << " ";
+//            }
+//            std::cerr << std::endl;
+//        }
     }
     else
     {
@@ -434,12 +461,12 @@ to the soil type map");
 
     /**************************************************************************************************/
     /** ASPECT */
-    mio::Grid2DObject grid_aspect;
+//    mio::Grid2DObject grid_aspect;
     flag = file_exists(fasp);
     if (flag == 1) /** keyword is present and the file exists */
     {
         // --------------------------- GEOtop 3.0 BEFORE MeteoIO reading ---------------------------
-              top->aspect.reset(read_map(2, files[fasp], land->LC.get(), UV, (double)number_novalue));
+        top->aspect.reset(read_map(2, files[fasp], land->LC.get(), UV, (double)number_novalue));
         // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
 //        iomanager.read2DGrid(grid_aspect, std::string(files[fasp]) + ".asc");
 //        top->aspect.reset(new Matrix<double>{grid_LC.getNy(), grid_LC.getNx()});
@@ -643,7 +670,7 @@ to the soil type map");
     if (flag == 1) /** keyword is present and the file exists */
     {
         // --------------------------- GEOtop 3.0 BEFORE MeteoIO reading ---------------------------
-               IT->bed.reset(read_map(2, files[fbed], land->LC.get(), UV, (double)number_novalue));
+        IT->bed.reset(read_map(2, files[fbed], land->LC.get(), UV, (double)number_novalue));
         // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
 //        iomanager.read2DGrid(grid_bed, std::string(files[fbed]) + ".asc");
 //        IT->bed.reset(new Matrix<double>{grid_LC.getNy(), grid_LC.getNx()});
@@ -872,7 +899,7 @@ void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *l
     /**************************************************************************************************/
     /*! Reading of the Input files:                                                                   */
     /**************************************************************************************************/
-    //  meteoio_init(iomanager);
+//    meteoio_init(iomanager);
 
     if (par->point_sim!=1)  /** distributed simulation (3D) */
     {
