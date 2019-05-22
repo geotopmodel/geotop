@@ -592,19 +592,19 @@ short fixing_dates(long imeteo, double **data, double ST, double STstat,
 
         for (i=0; i<nlines; i++)
         {
-            //converting in JDfrom0
+            /** converting in JDfrom0 */
             data[i][JDfrom0col] = convert_dateeur12_JDfrom0(data[i][date12col]);
-            //setting ST
+            /** setting ST */
             data[i][JDfrom0col] += (ST - STstat) / 24.;
         }
 
-        return 1;
+        return 1; /** Conversion performed */
 
     }
     else if ( (long)data[0][JDfrom0col] != number_absent)
     {
 
-        return 0;
+        return 0; /** No conversion has been performed */
 
     }
     else
@@ -615,7 +615,7 @@ short fixing_dates(long imeteo, double **data, double ST, double STstat,
         fclose(f);
         t_error("Fatal Error! Geotop is closed. See failing report.");
 
-        return -1;
+        return -1; /** An error occurred */
 
     }
 }
