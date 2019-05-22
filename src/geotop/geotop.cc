@@ -60,9 +60,9 @@ void time_loop(ALLDATA *A);
 
 /*----------   1. Global variables  ------------*/
 
-long number_novalue;
-long number_absent;
-char *string_novalue;
+long number_novalue; // -9999
+long number_absent; // -9998
+char *string_novalue; // none
 
 std::unique_ptr<T_INIT> UV;
 
