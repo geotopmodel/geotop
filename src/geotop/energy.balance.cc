@@ -147,9 +147,20 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
     }
 
     //CLOUDINESS
+//#ifdef WITH_METEOIO
+//    std::vector<mio::MeteoData> vec_meteo;
+//    meteoio_find_actual_cloudiness(&(*A->M->st->tau_cloud_meteoST)(i),
+//                                   &((*A->M->st->tau_cloud_av_meteoST)(i)),
+//                                   &((*A->M->st->tau_cloud_yes_meteoST)(i)),
+//                                   &((*A->M->st->tau_cloud_av_yes_meteoST)(i)),
+//                                   i, A->M.get(), vec_meteo, JDb, JDe, Delta, E0,
+//                                   Et, A->P->ST, 0., A->P->Lozone,
+//                                   A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
+//#else
     find_actual_cloudiness(&(A->M->tau_cloud), &(A->M->tau_cloud_av),
                            &(A->M->tau_cloud_yes), &(A->M->tau_cloud_av_yes), A->M.get(), JDb, JDe, Delta, E0,
                            Et, A->P->ST, 0., A->P->Lozone, A->P->alpha_iqbal, A->P->beta_iqbal, 0.);
+//#endif
 
     //POINT ENERGY BALANCE
     for (i=1; i<=A->P->total_channel+A->P->total_pixel; i++)
