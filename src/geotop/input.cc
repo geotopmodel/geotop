@@ -100,7 +100,7 @@ void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOL
         exit(1);
     }
 
- //   meteoio_readDEM(top->Z0.get());
+    //   meteoio_readDEM(top->Z0.get());
 
     flag = file_exists(fdem);
     if (flag == 1)  /**keyword is present and the file exists*/
@@ -192,7 +192,7 @@ void meteoio_read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOL
         iomanager.read2DGrid(grid_LC, std::string(files[flu]) + ".asc");
         land->LC.reset(new Matrix<double>{top->Z0->nrh, top->Z0->nch});
         copyGridToMatrix(grid_LC, land->LC.get());
- //       meteoio_readMap(std::string(files[flu]), land->LC.get());
+        //       meteoio_readMap(std::string(files[flu]), land->LC.get());
 
         // ------------------------------------------------------------------------------------------------------------
         /** check to have "-9999" along the borders */
@@ -315,7 +315,7 @@ to the land cover type\n");
         top->sky.reset(new Matrix<double>{land->LC->nrh, land->LC->nch});
         copyGridToMatrix(grid_sky, top->sky.get());
 
- //       meteoio_readMap(std::string(files[fsky]), land->LC.get());
+        //       meteoio_readMap(std::string(files[fsky]), land->LC.get());
 
     }
     else
@@ -350,7 +350,7 @@ to the land cover type\n");
         land->delay.reset(new Matrix<double>{land->LC->nrh, land->LC->nch});
         copyGridToMatrix(grid_delay, land->delay.get());
 
-     //   meteoio_readMap(std::string(files[fdelay]), land->LC.get());
+        //   meteoio_readMap(std::string(files[fdelay]), land->LC.get());
 
     }
     else
@@ -375,7 +375,7 @@ to the land cover type\n");
         copyGridToMatrix(grid_type, M.get());
         sl->type.reset(copylong_doublematrix(M.get()));
 
- //       meteoio_readMap(std::string(files[fsoil]), land->LC.get());
+        //       meteoio_readMap(std::string(files[fsoil]), land->LC.get());
 
         /** chech to have coherent values of soiltype ( 1 < ST < n_soiltypes) */
         for (r=1; r<=land->LC->nrh; r++)
@@ -410,7 +410,7 @@ to the soil type map");
     top->dzdN.reset(new Matrix<double>{land->LC->nrh, land->LC->nch});
     find_slope((*UV->U)(1), (*UV->U)(2), top->Z0.get(), top->dzdE.get(), top->dzdN.get(), (double)number_novalue);
 
- //   mio::Grid2DObject grid_slope;
+    //   mio::Grid2DObject grid_slope;
     flag = file_exists(fslp);
     if (flag == 1) /** keyword is present and the file exists */
     {
@@ -421,7 +421,7 @@ to the soil type map");
         top->slope.reset(new Matrix<double>{land->LC->nrh, land->LC->nch});
         copyGridToMatrix(grid_slope, top->slope.get());
 
- //       meteoio_readMap(std::string(files[fslp]), land->LC.get());
+        //       meteoio_readMap(std::string(files[fslp]), land->LC.get());
     }
     else
     {
@@ -442,7 +442,7 @@ to the soil type map");
     if (flag == 1) /** keyword is present and the file exists */
     {
         // --------------------------- GEOtop 3.0 BEFORE MeteoIO reading ---------------------------
- //       top->aspect.reset(read_map(2, files[fasp], land->LC.get(), UV, (double)number_novalue));
+        //       top->aspect.reset(read_map(2, files[fasp], land->LC.get(), UV, (double)number_novalue));
         // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
         iomanager.read2DGrid(grid_aspect, std::string(files[fasp]) + ".asc");
         top->aspect.reset(new Matrix<double>{land->LC->nrh, land->LC->nch});
@@ -644,7 +644,7 @@ to the soil type map");
     if (flag == 1) /** keyword is present and the file exists */
     {
         // --------------------------- GEOtop 3.0 BEFORE MeteoIO reading ---------------------------
-      //  IT->bed.reset(read_map(2, files[fbed], land->LC.get(), UV, (double)number_novalue));
+        //  IT->bed.reset(read_map(2, files[fbed], land->LC.get(), UV, (double)number_novalue));
         // --------------------------- GEOtop 3.0 AFTER MeteoIO reading ---------------------------
         iomanager.read2DGrid(grid_bed, std::string(files[fbed]) + ".asc");
         IT->bed.reset(new Matrix<double>{land->LC->nrh, land->LC->nch});
@@ -936,17 +936,6 @@ void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *l
     met->data = (double ***) malloc(met->st->E->nh * sizeof(double **));
     met->numlines = (long *) malloc(met->st->E->nh * sizeof(long));
 
-    met->var = (double **) malloc(met->st->E->nh * sizeof(double *));
-
-    met->horizon = (double ***) malloc(met->st->E->nh * sizeof(double **));
-    met->horizonlines = (long *) malloc(met->st->E->nh * sizeof(long));
-
-    /** line of met->data used (stored in memory to avoid from searching from the first line) */
-    met->line_interp_WEB = (long *) malloc(met->st->E->nh*sizeof(long));
-    met->line_interp_Bsnow = (long *) malloc(met->st->E->nh*sizeof(long));
-    met->line_interp_WEB_LR = 0;
-    met->line_interp_Bsnow_LR = 0;
-
     /** look for additional meteo stations input files */
     success = read_meteostations_file(met->imeteo_stations.get(), met->st.get(), files[fmetstlist],
                                       IT->meteostations_col_names);
@@ -957,10 +946,24 @@ void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *l
     mio::Config cfg = iomanager.getConfig();
     std::string input_meteo_plugin = cfg.get("METEO", "Input");
 
-    /** effective meteo input reading and structures filling */
-#pragma omp parallel for firstprivate(added_JDfrom0, added_wind_xy, added_wind_dir, added_Tdew, added_RH, added_Pint) private(f, i, j, n, ist, temp, num_lines)
+    met->horizon = (double ***) malloc(met->st->E->nh * sizeof(double **));
+    met->horizonlines = (long *) malloc(met->st->E->nh * sizeof(long));
 
-    for (i=1; i<=met->st->E->nh; i++) /** for each meteo station ... */
+//#ifndef WITH_METEOIO
+    met->var = (double **) malloc( met->st->E->nh*sizeof(double*) );
+    /** line of met->data used (stored in memory to avoid from searching from the first line) */
+    met->line_interp_WEB = (long *) malloc( met->st->E->nh*sizeof(long) );
+    met->line_interp_Bsnow = (long *) malloc( met->st->E->nh*sizeof(long) );
+    met->line_interp_WEB_LR = 0;
+    met->line_interp_Bsnow_LR = 0;
+//#endif
+
+    long num_met_stat = met->st->E->nh;
+    geolog << "Numbers of Meteo Stations read: " << num_met_stat << std::endl;
+
+    /** effective meteo input files reading and structures filling */
+#pragma omp parallel for firstprivate(added_JDfrom0, added_wind_xy, added_wind_dir, added_Tdew, added_RH, added_Pint) private(f, i, j, n, ist, temp, num_lines)
+    for (i=1; i<=num_met_stat; i++) /** for each meteo station ... */
     {
 
         if ((*met->imeteo_stations)(1) != number_novalue)
@@ -972,6 +975,12 @@ void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *l
             ist = i;
         }
 
+        geolog << "Reading horizon for meteo station #" << i << std::endl;
+        /** read horizon */
+        met->horizon[i-1] = read_horizon(1, ist, files[fhormet], IT->horizon_col_names, &num_lines);
+        met->horizonlines[i-1] = num_lines;
+
+//#ifndef WITH_METEOIO
         /** initialize */
         met->line_interp_WEB[i-1] = 0;
         met->line_interp_Bsnow[i-1] = 0;
@@ -979,15 +988,12 @@ void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *l
         /** allocate var */
         met->var[i-1] = (double *)malloc(num_cols*sizeof(double));
 
-        /** read horizon */
-        met->horizon[i-1] = read_horizon(1, ist, files[fhormet], IT->horizon_col_names, &num_lines);
-        met->horizonlines[i-1] = num_lines;
 
         /** filename */
         if (strcmp(files[fmet], string_novalue) != 0) /** meteo files are present */
         {
 
-            /** read matrix */
+            /** (a) read matrix */
             temp = namefile_i(files[fmet], ist);
             met->data[i-1] = read_txt_matrix(temp, 33, 44, IT->met_col_names, nmet, &num_lines);
 
@@ -1001,7 +1007,7 @@ void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *l
             }
             met->numlines[i-1] = num_lines;
 
-            /** fix dates:
+            /** (b) fix dates:
              * - convert times in the same standard time set for the simulation
              * - fill JDfrom0
              */
@@ -1010,7 +1016,7 @@ void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *l
 
             check_times(ist, met->data[i-1], met->numlines[i-1], iJDfrom0);
 
-            /** calculate cloud transmissivity */
+            /** (c) calculate cloud transmissivity */
             if (strcmp(IT->met_col_names[itauC], string_novalue) != 0)
             {
                 if ((long)met->data[i-1][0][itauC] == number_absent || par->ric_cloud == 1)
@@ -1033,7 +1039,7 @@ void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *l
                 }
             }
 
-            /** calculate Wx and Wy if wind speed and direction are given */
+            /** (d) calculate Wx and Wy if wind speed and direction are given */
             if (par->wind_as_xy == 1)
             {
                 added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir,
@@ -1041,7 +1047,7 @@ void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *l
                                              IT->met_col_names[iWsy]);
             }
 
-            /** calculate wind speed and direction if Wx and Wy are given */
+            /** (e) calculate wind speed and direction if Wx and Wy are given */
             if (par->wind_as_dir == 1)
             {
                 added_wind_dir = fill_wind_dir(met->data[i-1], met->numlines[i-1], iWs, iWdir,
@@ -1049,21 +1055,21 @@ void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *l
                                                IT->met_col_names[iWdir]);
             }
 
-            /** calculate Tdew */
+            /** (f) calculate Tdew */
             if (par->vap_as_Td == 1)
             {
                 added_Tdew = fill_Tdew(i, met->st->Z.get(), met->data[i-1], met->numlines[i-1], iRh,
                                        iT, iTdew, IT->met_col_names[iTdew], par->RHmin);
             }
 
-            /** calculate RH */
+            /** (g) calculate RH */
             if (par->vap_as_RH == 1)
             {
                 added_RH = fill_RH(i,  met->st->Z.get(), met->data[i-1], met->numlines[i-1], iRh,
                                    iT, iTdew, IT->met_col_names[iRh]);
             }
 
-            /** find Precipitation Intensity */
+            /** (h) find Precipitation Intensity */
             if ( (*par->linear_interpolation_meteo)(i) == 1
                  && (long)met->data[i-1][0][iPrec] != number_absent)
             {
@@ -1082,12 +1088,13 @@ keyword LinearInterpolation at 1.\n");
                                        iJDfrom0, IT->met_col_names[iPrecInt]);
             }
 
-            /** rewrite completed files */
+            /** ---------------- rewrite completed files => NOT present in 2.1 ---------------- */
+            geolog << "Rewrite meteo files for meteo station #" << i << std::endl;
             rewrite_meteo_files(met->data[i-1], met->numlines[i-1], IT->met_col_names,
                                 temp, added_JDfrom0, added_wind_xy, added_wind_dir, added_cloud,
                                 added_Tdew, added_RH, added_Pint);
 
-            /** (re)calculate Wx and Wy if wind speed and direction are given */
+            /** (i) (re)calculate Wx and Wy if wind speed and direction are given */
             if (par->wind_as_xy != 1)
             {
                 added_wind_xy = fill_wind_xy(met->data[i-1], met->numlines[i-1], iWs, iWdir,
@@ -1095,14 +1102,14 @@ keyword LinearInterpolation at 1.\n");
                                              IT->met_col_names[iWsy]);
             }
 
-            /** (re)calculate Precipitation Intensity */
+            /** (l) (re)calculate Precipitation Intensity */
             if (par->prec_as_intensity != 1)
             {
                 added_Pint = fill_Pint(i, met->data[i-1], met->numlines[i-1], iPrec, iPrecInt,
                                        iJDfrom0, IT->met_col_names[iPrecInt]);
             }
 
-            /** (re)calculate Tdew */
+            /** (m) (re)calculate Tdew */
             if (par->vap_as_Td != 1)
             {
                 added_Tdew = fill_Tdew(i, met->st->Z.get(), met->data[i-1], met->numlines[i-1], iRh,
@@ -1114,7 +1121,7 @@ keyword LinearInterpolation at 1.\n");
         else
         {
 
-            geolog << "Warning: File meteo not in the list, meteo data not read, used default values" << std::endl;
+            geolog << "Warning: File meteo NOT in the list, meteo data not read, used default values" << std::endl;
 
             met->data[i-1] = (double **)malloc(2*sizeof(double *));
 
@@ -1131,11 +1138,13 @@ keyword LinearInterpolation at 1.\n");
             met->data[i-1][1][iJDfrom0] = 1.E10;
 
         }
+//#endif
     }
-    /** read lapse rates file */
+    /** (n) read lapse rates file */
     if (strcmp(files[fLRs], string_novalue) != 0) /** s stands for string */
     {
-        if (existing_file_wext(files[fLRs], textfile)==0)
+        //   if (existing_file_wext(files[fLRs], textfile)==0) => previously
+        if (!mio::FileUtils::fileExists(std::string(files[fLRs])+ std::string(textfile)))
             printf("Lapse rate file unavailable. Check input files. If you do not have a lapse rate file,\
  remove its name and keywords from input file\n");
         temp = join_strings(files[fLRs], textfile);
@@ -1175,7 +1184,7 @@ keyword LinearInterpolation at 1.\n");
     }
 
 
-    /** find a station with shortwave radiation data */
+    /** (o) find a station with shortwave radiation data */
     met->nstsrad=0;
     do
     {
@@ -1193,10 +1202,10 @@ keyword LinearInterpolation at 1.\n");
     }
     else
     {
-        geolog << "Shortwave radiation measurements from station " << met->nstsrad << std::endl;
+        geolog << "Shortwave radiation measurements from meteo station #" << met->nstsrad << std::endl;
     }
 
-    /** find a station with cloud data */
+    /** (p) find a station with cloud data */
     met->nstcloud=0;
     do
     {
@@ -1213,10 +1222,10 @@ keyword LinearInterpolation at 1.\n");
     }
     else
     {
-        geolog << "Cloudiness measurements from station " << met->nstcloud << std::endl;
+        geolog << "Cloudiness measurements from meteo station #" << met->nstcloud << std::endl;
     }
 
-    /** find a station with longwave radiation data */
+    /** (q) find a station with longwave radiation data */
     met->nstlrad=0;
     do
     {
@@ -1232,9 +1241,10 @@ keyword LinearInterpolation at 1.\n");
     }
     else
     {
-        geolog << "Longwave radiation measurements from station " << met->nstlrad << std::endl;
+        geolog << "Longwave radiation measurements from meteo station #" << met->nstlrad << std::endl;
     }
 
+    // ------------------------- NOT in geotop 2.1 (START) -------------------------
     /** find a station with surface temperature */
     met->nstTs=0;
     do
@@ -1251,7 +1261,7 @@ keyword LinearInterpolation at 1.\n");
     }
     else
     {
-        geolog << "Surface temperature measurements from station " << met->nstTs << std::endl;
+        geolog << "Surface temperature measurements from meteo station #" << met->nstTs << std::endl;
     }
 
     /** find a station with bottom temperature */
@@ -1270,12 +1280,27 @@ keyword LinearInterpolation at 1.\n");
     }
     else
     {
-        geolog << "Bottom temperature measurements from station " << met->nstTbottom << std::endl;
+        geolog << "Bottom temperature measurements from meteo station #" << met->nstTbottom << std::endl;
     }
+    // ------------------------- NOT in geotop 2.1 (END) -------------------------
+
+//    met->tau_cloud.reset(new Matrix<double> {top->Z0->nrh, top->Z0->nch});
+//    *met->tau_cloud = number_novalue;
+
+//    met->tau_cloud_av.resize(top->Z0.getRows(), top->Z0.getCols(), geotop::input::gDoubleNoValue);
+//    met->tau_cloud_yes.resize(top->Z0.getRows(), top->Z0.getCols(), (short)geotop::input::gDoubleNoValue);
+//    met->tau_cloud_av_yes.resize(top->Z0.getRows(), top->Z0.getCols(), (short)geotop::input::gDoubleNoValue);
+//
+//    //  vector defining which meteo station has the SW radiation information
+//    met->st->flag_SW_meteoST.resize(met->st->Z.size(), geotop::input::gDoubleNoValue);
+//    met->st->tau_cloud_av_yes_meteoST.resize(met->st->Z.size(), geotop::input::gDoubleNoValue);
+//    met->st->tau_cloud_yes_meteoST.resize(met->st->Z.size(), geotop::input::gDoubleNoValue);
+//    met->st->tau_cloud_av_meteoST.resize(met->st->Z.size(), geotop::input::gDoubleNoValue);
+//    met->st->tau_cloud_meteoST.resize(met->st->Z.size(), geotop::input::gDoubleNoValue);
+
 
     /**************************************************************************************************/
-    /** read incoming discharge */
-
+    /** (r) read incoming discharge */
     met->qinv = (double *)malloc(2*sizeof(double));
     met->qinv[0] = 0.;
     met->qinv[1] = 0.;
