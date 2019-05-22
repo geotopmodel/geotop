@@ -39,7 +39,7 @@ set(_tests
 foreach(_t ${_tests})
         add_test(NAME "${_t}"
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${_t}
-                COMMAND $<TARGET_FILE:geotop> .)
+                COMMAND $<TARGET_FILE:geotop> ${CMAKE_CURRENT_SOURCE_DIR}/${_t})
 endforeach()
 
 # setup the test_runner tests. They have an additional suite entry,
