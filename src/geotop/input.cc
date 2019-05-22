@@ -920,7 +920,7 @@ void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *l
             (*top->Qdown)(i,j) = 0.;
         }
     }
-
+    geolog << "INFO about the simulated basin:" << std::endl;
     geolog << "Valid pixels: " << par->total_pixel << std::endl;
     geolog << "Number of nodes: " << (Nl+1)*par->total_pixel << std::endl;
     geolog << "Novalue pixels: " << (Nr*Nc-par->total_pixel) << std::endl;
@@ -929,12 +929,15 @@ void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *l
 
     /**************************************************************************************************/
     /** Reading  RAIN data file, METEO data file and CLOUD data file */
-    num_cols = (long)nmet;
+    geolog << "Start Reading METEO data files..." << std::endl;
 
+    num_cols = (long)nmet;
 
     met->data = (double ***) malloc(met->st->E->nh * sizeof(double **));
     met->numlines = (long *) malloc(met->st->E->nh * sizeof(long));
+
     met->var = (double **) malloc(met->st->E->nh * sizeof(double *));
+
     met->horizon = (double ***) malloc(met->st->E->nh * sizeof(double **));
     met->horizonlines = (long *) malloc(met->st->E->nh * sizeof(long));
 
@@ -947,6 +950,12 @@ void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *l
     /** look for additional meteo stations input files */
     success = read_meteostations_file(met->imeteo_stations.get(), met->st.get(), files[fmetstlist],
                                       IT->meteostations_col_names);
+    if (success == 0)
+    {
+        geolog << "File for keyword is not assigned" << std::endl;
+    }
+    mio::Config cfg = iomanager.getConfig();
+    std::string input_meteo_plugin = cfg.get("METEO", "Input");
 
     /** effective meteo input reading and structures filling */
 #pragma omp parallel for firstprivate(added_JDfrom0, added_wind_xy, added_wind_dir, added_Tdew, added_RH, added_Pint) private(f, i, j, n, ist, temp, num_lines)
