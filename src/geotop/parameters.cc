@@ -32,8 +32,9 @@
 #include "logger.h"
 #include "timer.h"
 
-extern long number_novalue, number_absent;
-extern char *string_novalue;
+extern long number_novalue; // -9999
+extern long number_absent; // -9998
+extern char *string_novalue; // none
 
 extern const char *WORKING_DIRECTORY;
 
