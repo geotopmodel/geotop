@@ -715,8 +715,13 @@ struct METEO_STATIONS{
     std::unique_ptr<Vector<double>> ST; /** identifier for the meteo station */
     std::unique_ptr<Vector<double>> Vheight; /** height of wind sensor [m] */
     std::unique_ptr<Vector<double>> Theight; /** height of temperature sensor [m] */
-};
 
+    std::unique_ptr<Vector<double>> tau_cloud_meteoST; /** vector containing the tau_cloud at each meteo stations (measuring SW radiation)*/
+    std::unique_ptr<Vector<double>> tau_cloud_av_meteoST; /** vector containing the tau_cloud_av at each meteo stations (measuring SW radiation) */
+    std::unique_ptr<Vector<short>> tau_cloud_yes_meteoST; /** flag indicating whether the tau_cloud at each meteo stations is available */
+    std::unique_ptr<Vector<short>> tau_cloud_av_yes_meteoST; /** flag indicating whether the tau_cloud_av at each meteo stations is available */
+    std::unique_ptr<Vector<short>> flag_SW_meteoST; /** flag vector saying if a meteo station accounts for SW radiation (0=no SW, 1=SW available) */
+};
 
 struct METEO {
     std::unique_ptr<METEO_STATIONS> st;
@@ -745,11 +750,19 @@ struct METEO {
     long qinsnr;
     long qinline;
 
-    double tau_cloud;
-    double tau_cloud_av;
-    short tau_cloud_yes;
+//#ifdef WITH_METEOIO // DOVREBBE ESSERE IL CONTRARIO MA NON FUNZIONA PORCA MISERIA ...
+//    std::unique_ptr<Matrix<double>> tau_cloud; /** tau_cloud used for SW */
+//    std::unique_ptr<Matrix<double>> tau_cloud_av; /** tau_cloud used for LW (or SHORTwave?!) (averaged in a wider interval) */
+//    std::unique_ptr<Matrix<short>> tau_cloud_yes; /** it is read (1) or used default (0) */
+//    std::unique_ptr<Matrix<short>> tau_cloud_av_yes;
+//    std::unique_ptr<Matrix<double>> ILWR; /** present in geotop 2.1 */
+//#else
+    double tau_cloud; /** tau_cloud used for SW */
+    double tau_cloud_av; /** tau_cloud used for LW (or SHORTwave?!) (averaged in a wider interval) */
+    short tau_cloud_yes; /** it is read (1) or used default (0) */
     short tau_cloud_av_yes;
-
+    double ILWR; /** present in geotop 2.1 */
+//#endif
     std::unique_ptr<Matrix<double>> Tgrid;
     std::unique_ptr<Matrix<double>> Pgrid;
     std::unique_ptr<Matrix<double>> Vgrid;
