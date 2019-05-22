@@ -23,6 +23,10 @@
  */
 #include <turtle.h>
 
+#ifdef WITH_METEOIO
+#include <meteoio/MeteoIO.h>
+#endif
+
 void sun(double JDfrom0, double *E0, double *Et, double *Delta);
 
 double SolarHeight(double JD, double latitude, double Delta, double dh);
@@ -96,7 +100,27 @@ void shadow_haiden(Matrix<double> *Z, double alpha, double direction, Matrix<sho
 
 double find_albedo(double dry_albedo, double sat_albedo, double wat_content,
                    double residual_wc, double saturated_wc);
-
+//#ifdef WITH_METEOIO
+//void meteoio_find_actual_cloudiness(
+//        double* tau_cloud,
+//        double* tau_cloud_av,
+//        short* tau_cloud_yes,
+//        short* tau_cloud_av_yes,
+//        int meteo_stat_num,
+//        METEO* met,
+//        const std::vector<mio::MeteoData>& vec_meteo,
+//        double JDb,
+//        double JDe,
+//        double Delta,
+//        double E0,
+//        double Et,
+//        double ST,
+//        double A,
+//        double Lozone,
+//        double alpha,
+//        double beta,
+//        double albedo);
+//#endif
 void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av,
                             short *tau_cloud_yes, short *tau_cloud_av_yes,
                             METEO *met, double JDb, double JDe, double Delta, double E0, double Et,

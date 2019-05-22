@@ -30,6 +30,10 @@
 #include "math.optim.h"
 #include "timer.h"
 
+#ifdef WITH_METEOIO
+#include <meteoio/MeteoIO.h>
+#endif
+
 extern long number_novalue, number_absent;
 
 extern T_INIT *UV;
@@ -1060,7 +1064,103 @@ double find_albedo(double dry_albedo, double sat_albedo, double wat_content,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-
+#ifdef WITH_METEOIO
+void meteoio_find_actual_cloudiness(
+        double* tau_cloud,
+        double* tau_cloud_av,
+        short* tau_cloud_yes,
+        short* tau_cloud_av_yes,
+        int meteo_stat_num,
+        METEO* met,
+        const std::vector<mio::MeteoData> &vec_meteo,
+        double JDb,
+        double JDe,
+        double Delta,
+        double E0,
+        double Et,
+        double ST,
+        double SWrefl_surr,
+        double Lozone,
+        double alpha,
+        double beta,
+        double albedo)
+{
+  std::cerr << "meteoio_find_actual_cloudiness" << std::endl;
+//  short SWdata = 0;  // flag indicating which type of SW data available: 0=none,
+//  // 1=global, 2=beam and diff measured
+//  double tc;
+//
+//  const MeteoData &current =
+//          vec_meteo.at(meteo_stat_num - 1);  // MeteoIO starts counting at 0
+//  size_t sw_direct = current.getParameterIndex("SWdirect");
+//  size_t cloud_factor = current.getParameterIndex("CloudFactor");
+//
+//  if ((sw_direct != IOUtils::npos) &&
+//      (current(sw_direct) != IOUtils::nodata))    // check for SWb
+//  {
+//    size_t sw_diffuse = current.getParameterIndex("Swdiffuse");
+//    if ((sw_diffuse != IOUtils::npos) &&
+//        (current(sw_diffuse) != IOUtils::nodata))    // check for SWd
+//    {
+//      SWdata = 2;
+//    }
+//  }
+//  else if (current(MeteoData::ISWR) != IOUtils::nodata)
+//  {
+//    SWdata = 1;
+//  }
+//  // calculate tau_cloud instantaneous
+//  if (SWdata > 0)
+//  {
+//    tc = find_tau_cloud_station(JDb, JDe, meteo_stat_num, met, vec_meteo, Delta,
+//                                E0, Et, ST, SWrefl_surr, Lozone, alpha, beta,
+//                                albedo);
+//    if ((long)tc != geotop::input::gDoubleNoValue)
+//    {
+//      *tau_cloud_yes = 1;
+//      *tau_cloud = tc;
+//    }
+//    else
+//    {
+//      *tau_cloud_yes = 0;
+//    }
+//  }
+//  else
+//  {
+//    *tau_cloud_yes = 0;
+//  }
+//  // calculate tau_cloud average
+//  if ((cloud_factor != IOUtils::npos) &&
+//      (current(cloud_factor) != IOUtils::nodata))
+//  {
+//    tc = current(cloud_factor);
+//
+//    *tau_cloud_av_yes = 1;
+//    tc = 1. - 0.71 * tc;  // from fraction of sky covered by clouds to cloud
+//    // transmissivity after Kimball (1928)
+//    if (tc > 1) tc = 1.;
+//    if (tc < 0) tc = 0.;
+//    *tau_cloud_av = tc;
+//  }
+//  else if (current(MeteoData::TAU_CLD) != IOUtils::nodata)
+//  {
+//    tc = current(MeteoData::TAU_CLD);
+//
+//    *tau_cloud_av_yes = 1;
+//    if (tc > 1) tc = 1.;
+//    if (tc < 0) tc = 0.;
+//    *tau_cloud_av = tc;
+//  }
+//  else
+//  {
+//    *tau_cloud_av_yes = 0;
+//  }
+}
+#endif
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
 
 void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av,
                             short *tau_cloud_yes, short *tau_cloud_av_yes,
