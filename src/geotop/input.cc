@@ -66,7 +66,7 @@ extern double elapsed_time_start, cum_time, max_time;
 
 #ifdef WITH_METEOIO
 mio::DEMObject Dem;
-mio::Grid2DObject grid_LC, grid_sky, grid_delay, grid_type, grid_slope, grid_aspect, grid_net, grid_bed;
+mio::Grid2DObject grid_LC, grid_sky, grid_delay, grid_type, grid_slope, grid_aspect, grid_net, grid_bed, grid_wt;
 #endif
 
 //****************************************************************************************************
@@ -936,7 +936,7 @@ void meteoio_get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *l
     met->data = (double ***) malloc(met->st->E->nh * sizeof(double **));
     met->numlines = (long *) malloc(met->st->E->nh * sizeof(long));
 
-    /** look for additional meteo stations input files */
+    /** look for additional file with keywords */
     success = read_meteostations_file(met->imeteo_stations.get(), met->st.get(), files[fmetstlist],
                                       IT->meteostations_col_names);
     if (success == 0)
@@ -1143,8 +1143,8 @@ keyword LinearInterpolation at 1.\n");
     /** (n) read lapse rates file */
     if (strcmp(files[fLRs], string_novalue) != 0) /** s stands for string */
     {
-        //   if (existing_file_wext(files[fLRs], textfile)==0) => previously
-        if (!mio::FileUtils::fileExists(std::string(files[fLRs])+ std::string(textfile)))
+        if (existing_file_wext(files[fLRs], textfile)==0)
+            //    if (!mio::FileUtils::fileExists(std::string(files[fLRs])+ std::string(textfile))) => MeteoIO
             printf("Lapse rate file unavailable. Check input files. If you do not have a lapse rate file,\
  remove its name and keywords from input file\n");
         temp = join_strings(files[fLRs], textfile);
@@ -1183,7 +1183,7 @@ keyword LinearInterpolation at 1.\n");
         }
     }
 
-
+//#ifndef WITH_METEOIO
     /** (o) find a station with shortwave radiation data */
     met->nstsrad=0;
     do
@@ -1243,7 +1243,7 @@ keyword LinearInterpolation at 1.\n");
     {
         geolog << "Longwave radiation measurements from meteo station #" << met->nstlrad << std::endl;
     }
-
+//#endif
     // ------------------------- NOT in geotop 2.1 (START) -------------------------
     /** find a station with surface temperature */
     met->nstTs=0;
@@ -1284,21 +1284,55 @@ keyword LinearInterpolation at 1.\n");
     }
     // ------------------------- NOT in geotop 2.1 (END) -------------------------
 
-//    met->tau_cloud.reset(new Matrix<double> {top->Z0->nrh, top->Z0->nch});
-//    *met->tau_cloud = number_novalue;
+    met->mio_tau_cloud.reset(new Matrix<double> {top->Z0->nrh, top->Z0->nch});
+    *met->mio_tau_cloud = number_novalue;
 
-//    met->tau_cloud_av.resize(top->Z0.getRows(), top->Z0.getCols(), geotop::input::gDoubleNoValue);
-//    met->tau_cloud_yes.resize(top->Z0.getRows(), top->Z0.getCols(), (short)geotop::input::gDoubleNoValue);
-//    met->tau_cloud_av_yes.resize(top->Z0.getRows(), top->Z0.getCols(), (short)geotop::input::gDoubleNoValue);
-//
-//    //  vector defining which meteo station has the SW radiation information
-//    met->st->flag_SW_meteoST.resize(met->st->Z.size(), geotop::input::gDoubleNoValue);
-//    met->st->tau_cloud_av_yes_meteoST.resize(met->st->Z.size(), geotop::input::gDoubleNoValue);
-//    met->st->tau_cloud_yes_meteoST.resize(met->st->Z.size(), geotop::input::gDoubleNoValue);
-//    met->st->tau_cloud_av_meteoST.resize(met->st->Z.size(), geotop::input::gDoubleNoValue);
-//    met->st->tau_cloud_meteoST.resize(met->st->Z.size(), geotop::input::gDoubleNoValue);
+    met->mio_tau_cloud_av.reset(new Matrix<double>{top->Z0->nrh, top->Z0->nch});
+    *met->mio_tau_cloud_av = number_novalue;
 
+    met->mio_tau_cloud_yes.reset(new Matrix<short>{top->Z0->nrh, top->Z0->nch});
+    *met->mio_tau_cloud_yes = number_novalue;
 
+    //  vector defining which meteo station has the SW radiation information
+    met->st->mio_flag_SW_meteoST.reset(new Vector<short>{met->st->Z->size()});
+    *met->st->mio_flag_SW_meteoST = number_novalue;
+
+    met->st->mio_tau_cloud_av_yes_meteoST.reset(new Vector<short>{met->st->Z->size()});
+    *met->st->mio_tau_cloud_av_yes_meteoST = number_novalue;
+
+    met->st->mio_tau_cloud_yes_meteoST.reset(new Vector<short>{met->st->Z->size()});
+    *met->st->mio_tau_cloud_yes_meteoST = number_novalue;
+
+    met->st->mio_tau_cloud_av_meteoST.reset(new Vector<double>{met->st->Z->size()});
+    *met->st->mio_tau_cloud_av_meteoST = number_novalue;
+
+    met->st->mio_tau_cloud_meteoST.reset(new Vector<double>{met->st->Z->size()});
+    *met->st->mio_tau_cloud_meteoST = number_novalue;
+
+    /**************************************************************************************************/
+    // i.show details on checkpoints
+    if (par->state_pixel == 1) /** output pixels are set */
+    {
+        geolog << "CHECKPOINTS:" << std::endl;
+        geolog << "ID, r, c, Elevation[masl], LandCoverType, SoilType, Slope[deg], Aspect[deg], SkyViewFactor[-]"
+               << std::endl;
+        for (i = 1; i < long(par->rc->n_row); i++) {
+            r = (*par->rc)(i, 1);
+            c = (*par->rc)(i, 2);
+            geolog << i << "\t" << r << "\t" << c << "\t" << (*top->Z0)(r, c) << "\t" << (*land->LC)(r, c) << "\t"
+                   << (*sl->type)(r, c) << "\t" << (*top->slope)(r, c) << "\t" << (*top->aspect)(r, c) << "\t"
+                   << (*top->sky)(r, c) << std::endl;
+        }
+    }
+    // i.show meteo stations
+    geolog << "METEO STATIONS:" << std::endl;
+    geolog << "ID, East[m], North[m], Lat[deg], Lon[deg], Elev[m a.s.l.], Sky[deg], Stand_Time[h], WindSensHeight[m], TempSensHeight[m]" << std::endl;
+    for (std::size_t rr=1; rr<met->st->E->size(); rr++)
+    {
+        geolog << rr << "\t" << (*met->st->E)(rr) << "\t" << (*met->st->N)(rr) << "\t" << (*met->st->lat)(rr) << "\t"
+               << (*met->st->lon)(rr) << "\t" << (*met->st->Z)(rr) << "\t" << (*met->st->sky)(rr) << "\t"
+               << (*met->st->ST)(rr) << "\t" << (*met->st->Vheight)(rr) << "\t" << (*met->st->Theight)(rr) << std::endl;
+    }
     /**************************************************************************************************/
     /** (r) read incoming discharge */
     met->qinv = (double *)malloc(2*sizeof(double));
@@ -1325,7 +1359,6 @@ keyword LinearInterpolation at 1.\n");
     {
         par->qin = 0;
     }
-
 
     /**************************************************************************************************/
     /*! Completing the several time-indipendent input variables with the data of input-files          */
@@ -1379,6 +1412,7 @@ keyword LinearInterpolation at 1.\n");
             temp = namefile_i_we2(files[fvegpar], i);
 
             if (existing_file_wext(temp, textfile)==1)
+                //               if (mio::FileUtils::fileExists(std::string(temp) + std::string(textfile))) => MeteoIO
             {
                 printf("There is a specific vegetation parameter file for land cover type = %ld\n", i);
                 free(temp);
@@ -1425,7 +1459,7 @@ land cover %ld, meteo station %ld\n",
     }
 
     //******************************************
-    /** file with time steps */
+    /** file with time steps => DELETED in geotop 2.1 */
     if (strcmp(files[ftsteps], string_novalue) != 0)
     {
         temp=join_strings(files[ftsteps],textfile);
@@ -1492,8 +1526,9 @@ land cover %ld, meteo station %ld\n",
     lch3_cont(cnet->ch3, cnet->lch.get(), Nl, par->total_channel);
 
     /**************************************************************************************************/
-    /** Count for Richards 3D */
-    n = std::min<long>((*par->Nl_spinup)(i_sim0),Nl);
+    /** Calculates distance from the main channel */
+    /** Cont for Richards 3D */
+    n = std::min<long>((*par->Nl_spinup)(i_sim0),Nl); // NOT present in geotop 2.1
 
     /** 3D */
     top->i_cont = (long ***) malloc((n+1)*sizeof(long **)); /* tensor with dimension (n+1, Nr+1, Nc+1) */
@@ -1531,6 +1566,7 @@ land cover %ld, meteo station %ld\n",
     if (par->state_pixel == 1) /** output pixels are set */
     {
         par->jplot.reset(new Vector<long>{par->total_pixel});
+
         for (i=1; i<=par->total_pixel; i++)
         {
             for (j=1; j<=par->rc->nrh; j++)
@@ -1550,7 +1586,6 @@ land cover %ld, meteo station %ld\n",
     /**************************************************************************************************/
     /*! Completing of the initialization of SOIL structure                                            */
     /**************************************************************************************************/
-
     sl->SS.reset(new SOIL_STATE {par->total_pixel, Nl});
 
     sl->VS.reset(new STATE_VEG{});
@@ -1626,8 +1661,12 @@ land cover %ld, meteo station %ld\n",
     }
     else
     {
-
-        M = read_map(2, files[fwt0], land->LC.get(), UV, (double)number_novalue);
+        // ------------------------- BEFORE MeteoIO -------------------------
+      //  M = read_map(2, files[fwt0], land->LC.get(), UV, (double)number_novalue);
+        // -------------------------  AFTER MeteoIO -------------------------
+        iomanager.read2DGrid(grid_wt, std::string(files[fwt0]) + ".asc");
+        M = new Matrix<double>{land->LC->nrh, land->LC->nch};
+       copyGridToMatrix(grid_wt, M);
 
         for (i=1; i<=par->total_pixel; i++) /** for every valid pixel ... */
             /** same code as previous case:
