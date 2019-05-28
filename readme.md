@@ -38,6 +38,10 @@ git checkout v3.0
 git branch
 ```
 
+- to update your local repository to the newest commit, execute 
+```
+git pull origin v3.0
+```
 
 ## Compiling
 Now you can compile using a build system tool.
