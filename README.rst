@@ -167,7 +167,9 @@ When using the model, please cite and refer to the following papers describing t
 
 * Rigon, R., Bertoldi, G., Over, T.M., 2006. GEOtop: A Distributed Hydrological Model with Coupled Water and Energy Budgets.  J. Hydrometeorol. 7, 371–388. https://doi.org/10.1175/JHM497.1
 
-Here is the full list of peer-reviewed publications using the GEOtop model (updated January 2019):
+Here is the full list of peer-reviewed publications using the GEOtop model (updated May 2019):
+
+* Fullhart, A.T., Kelleners, T.J., Speckman, H.N., Beverly, D., Ewers, B.E., Frank, J.M., Massman, W.J., 2019. Measured and Modeled Above‐ and Below‐Canopy Turbulent Fluxes for a Snow‐Dominated Mountain Forest Using Geotop, Hydrological Processes. https://doi.org/10.1002/hyp.13487
 
 * Soltani, M., Laux, P., Mauder, M., Kunstmann, H., 2019. Inverse distributed modelling of streamflow and turbulent fluxes: A sensitivity and uncertainty analysis coupled with automatic optimization. J. Hydrol. 571, 856–872. https://doi.org/10.1016/j.jhydrol.2019.02.033
 
