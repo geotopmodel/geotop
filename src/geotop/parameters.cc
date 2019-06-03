@@ -30,6 +30,7 @@
 #include "pedo.funct.h"
 #include "keywords.h"
 #include "logger.h"
+#include "timer.h"
 
 extern long number_novalue, number_absent;
 extern char *string_novalue;
@@ -53,7 +54,7 @@ extern char *SuccessfulRunFile, *FailedRunFile;
 short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, INIT_TOOLS *itools, char *filename)
 {
   GEOLOG_PREFIX(__func__);
-  //variables
+
   FILE *f;
 
   short res;
@@ -83,12 +84,11 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
 
   long beg=0, end=0;
 
-  //convert keyword listed on top of the file in lower case
+  /**convert keyword listed on top of the file in lower case*/
   n = (long)num_par_number;
   keywords_num_lower_case = (char **)malloc(n*sizeof(char *));
   for (i=0; i<n; i++)
     {
-      //printf("%ld,%s\n",i,keywords_num[i]);
       keywords_num_lower_case[i] = assign_string(keywords_num[i]);
       convert_string_in_lower_case(keywords_num_lower_case[i]);
     }
@@ -97,12 +97,11 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
   keywords_char_lower_case = (char **)malloc(n*sizeof(char *));
   for (i=0; i<n; i++)
     {
-      //printf("%ld,%s\n",i,keywords_char[i]);
       keywords_char_lower_case[i] = assign_string(keywords_char[i]);
       convert_string_in_lower_case(keywords_char_lower_case[i]);
     }
 
-  //Allocation
+  /**allocation*/
   n = (long)max_charstring;
   key = (long *)malloc(n*sizeof(long));
   string = (long *)malloc(n*sizeof(long));
@@ -110,7 +109,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
   n = (long)max_numvect;
   number = (double *)malloc(n*sizeof(double));
 
-  //read how many lines there are
+  /**read how many lines there are*/
   inum=0;
   istr=0;
   f = t_fopen(filename, "r");
@@ -133,7 +132,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
   string_read=(long **)malloc(istr*sizeof(long *));
   number_read=(double **)malloc(inum*sizeof(double *));
 
-  //read single lines
+  /**read single lines*/
   f = fopen(filename, "r");
   inum=0;
   istr=0;
@@ -164,8 +163,8 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
   free(string);
   free(number);
 
-  //compare keywords number
-  n = (long)num_par_number;
+  /**compare keywords number*/
+  n = (long)num_par_number; /**number related to numerical keywords*/
   num_param_components = (long *)malloc(n*sizeof(long));
   num_param = (double **)malloc(n*sizeof(double *));
   for (i=0; i<num_par_number; i++)
@@ -173,14 +172,14 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
       ok=0;
       for (j=0; j<inum; j++)
         {
-          if ( strcmp (keywords_num_lower_case[i], keywords_num_read[j]) == 0)
+          if ( strcmp (keywords_num_lower_case[i], keywords_num_read[j]) == 0) /**parameter is read*/
             {
               ok=1;
               num_param_components[i] = number_comp_read[j];
               num_param[i] = find_number_vector(number_read[j], number_comp_read[j]);
             }
         }
-      if (ok==0) //parameter not read
+      if (ok==0) /**parameter is not read*/
         {
           num_param_components[i] = 1;
           num_param[i] = (double *)malloc(sizeof(double));
@@ -188,7 +187,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //deallocate read arrays
+  /**deallocate read arrays*/
   for (j=0; j<inum; j++)
     {
       free(number_read[j]);
@@ -198,10 +197,10 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
   free(keywords_num_read);
   free(number_comp_read);
 
-  //assign parameter
+  /**assign parameter*/
     assign_numeric_parameters(par, land, times, sl, met, itools, num_param, num_param_components, keywords_num);
 
-  //deallocate keyword arrays
+  /**deallocate keyword arrays*/
   for (i=0; i<num_par_number; i++)
     {
       free(num_param[i]);
@@ -209,8 +208,8 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
   free(num_param);
   free(num_param_components);
 
-  //compare keywords string
-  n = (long)num_par_char;
+  /**compare keywords string*/
+  n = (long)num_par_char;  /**number related to char keywords*/
   string_param = (char **)malloc(n*sizeof(char *));
   for (i=0; i<num_par_char; i++)
     {
@@ -231,7 +230,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //deallocate read arrays
+  /**deallocate read arrays*/
   for (j=0; j<istr; j++)
     {
       free(string_read[j]);
@@ -241,7 +240,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
   free(keywords_str_read);
   free(string_length_read);
 
-  //assign parameter
+  /**assign parameter*/
   end += nmet;
   itools->met_col_names = assign_string_parameter(beg, end, string_param, keywords_char);
   beg = end;
@@ -302,9 +301,9 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
 
   beg = end;
   end += 1;
-  path_rec_files = assignation_string(beg, keywords_char, string_param);//path of recovery files
+  path_rec_files = assignation_string(beg, keywords_char, string_param); /**path of recovery files*/
 
-  //deallocate keyword arrays
+  /**deallocate keyword arrays*/
   for (i=0; i<num_par_char; i++)
     {
       free(string_param[i]);
@@ -325,12 +324,12 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
     }
   free(keywords_char_lower_case);
 
-  //replace none value with some default values
+  /**replace none values with some default values*/
 
-  //Horizon
+  /**horizon file headers (input)*/
   for (j=0; j<2; j++)
     {
-      if (strcmp(itools->horizon_col_names[j], string_novalue) == 0)
+      if (strcmp(itools->horizon_col_names[j], string_novalue) == 0) /**horizon_col_names[j]="none"*/
         {
           free(itools->horizon_col_names[j]);
           if (j==0)
@@ -344,10 +343,10 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //HeaderPointFile
+  /**point file headers (output)*/
   for (j=0; j<otot; j++)
     {
-      if (strcmp(hpnt[j], string_novalue) == 0)
+      if (strcmp(hpnt[j], string_novalue) == 0) /**hpnt[j]="none"*/
         {
           free(hpnt[j]);
           if (j==odate12)
@@ -669,10 +668,10 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //HeaderBasinFile
+    /**basin file headers (output)*/
   for (j=0; j<ootot; j++)
     {
-      if (strcmp(hbsn[j], string_novalue) == 0)
+      if (strcmp(hbsn[j], string_novalue) == 0) /**hbsn[j]="none"*/
         {
           free(hbsn[j]);
           if (j==oodate12)
@@ -786,10 +785,10 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //HeaderSnowFile
+    /**snow file headers (output)*/
   for (j=0; j<10; j++)
     {
-      if (strcmp(hsnw[j], string_novalue) == 0)
+      if (strcmp(hsnw[j], string_novalue) == 0) /**hsnw[j]="none"*/
         {
           free(hsnw[j]);
           if (j==0)
@@ -819,10 +818,10 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //HeaderGlacierFile
+    /**glacier file headers (output)*/
   for (j=0; j<10; j++)
     {
-      if (strcmp(hglc[j], string_novalue) == 0)
+      if (strcmp(hglc[j], string_novalue) == 0) /**hglc[j]="none"*/
         {
 
           free(hglc[j]);
@@ -870,10 +869,10 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
     }
 
 
-  //HeaderGlacierFile
+    /**soil file headers (output)*/
   for (j=0; j<6; j++)
     {
-      if (strcmp(hsl[j], string_novalue) == 0)
+      if (strcmp(hsl[j], string_novalue) == 0) /**hsl[j]="none"*/
         {
           free(hsl[j]);
           if (j==0)
@@ -903,10 +902,10 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //Recovery Files
+    /**recovery file headers (output)*/
   for (j=rpsi; j<=rsux; j++)
     {
-      if (strcmp(files[j], string_novalue) == 0)
+      if (strcmp(files[j], string_novalue) == 0) /**files[j]="none"*/
         {
           free(files[j]);
           if (j==rpsi)
@@ -1032,7 +1031,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
         }
     }
 
-  //add path to recovery files
+  /**add path to recovery files*/
   if (strcmp(path_rec_files, string_novalue) != 0)
     {
       temp = assign_string(path_rec_files);
@@ -1049,7 +1048,7 @@ short read_inpts_par(PAR *par, LAND *land, TIMES *times, SOIL *sl, METEO *met, I
     }
   free(path_rec_files);
 
-  //add working path to the file name
+  /**add working path to the file name*/
   for (i=0; i<nfiles; i++)
     {
       if (strcmp(files[i], string_novalue) != 0)
@@ -1083,7 +1082,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
 
   //find components of times->Dt_vector
   cod = 0;
-  n = (long)max_cols_time_steps_file + 1;
+  n = (long)GTConst::max_cols_time_steps_file + 1;
   times->Dt_vector=(double *)malloc(n*sizeof(double));
   times->Dt_vector[0] =
     0.;//it is the space for the date in case of time variable time step
@@ -1290,7 +1289,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   par->free_drainage_bottom = assignation_number(41, 0, keyword, num_param, num_param_components, 0., 0);
   par->free_drainage_lateral = assignation_number(42, 0, keyword, num_param, num_param_components, 1., 0);
   par->TolVWb = assignation_number(43, 0, keyword, num_param, num_param_components, 1.E-6, 0);
-  par->RelTolVWb = RelativeErrorRichards;
+  par->RelTolVWb = GTConst::RelativeErrorRichards;
   par->MaxErrWb = 1.E99;
   par->MaxiterTol = (long) assignation_number(44, 0, keyword, num_param, num_param_components, 100., 0);
   par->TolCG = assignation_number(45, 0, keyword, num_param, num_param_components, 0.01, 0);
@@ -1678,17 +1677,17 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
     {
       if ( (long)(*sl->pa)(1,jfc,i) == number_novalue)
         {
-          (*sl->pa)(1,jfc,i) = teta_psi( (-1./3.)*1.E5/g, 0., (*sl->pa)(1,jsat,i),
+          (*sl->pa)(1,jfc,i) = teta_psi( (-1./3.)*1.E5/GTConst::g, 0., (*sl->pa)(1,jsat,i),
                                             (*sl->pa)(1,jres,i), (*sl->pa)(1,ja,i),
-                                            (*sl->pa)(1,jns,i), 1.-1./(*sl->pa)(1,jns,i), PsiMin,
+                                            (*sl->pa)(1,jns,i), 1.-1./(*sl->pa)(1,jns,i), GTConst::PsiMin,
                                             (*sl->pa)(1,jss,i));
         }
 
       if ( (long)(*sl->pa)(1,jwp,i) == number_novalue)
         {
-          (*sl->pa)(1,jwp,i) = teta_psi( -15.*1.E5/g, 0., (*sl->pa)(1,jsat,i),
+          (*sl->pa)(1,jwp,i) = teta_psi( -15.*1.E5/GTConst::g, 0., (*sl->pa)(1,jsat,i),
                                             (*sl->pa)(1,jres,i), (*sl->pa)(1,ja,i),
-                                            (*sl->pa)(1,jns,i), 1.-1./(*sl->pa)(1,jns,i), PsiMin,
+                                            (*sl->pa)(1,jns,i), 1.-1./(*sl->pa)(1,jns,i), GTConst::PsiMin,
                                             (*sl->pa)(1,jss,i));
         }
     }
@@ -1751,18 +1750,18 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
         {
           if ( (long)(*itools->pa_bed)(1,jfc,i) == number_novalue)
             {
-              (*itools->pa_bed)(1,jfc,i) = teta_psi( (-1./3.)*1.E5/g, 0.,
+              (*itools->pa_bed)(1,jfc,i) = teta_psi( (-1./3.)*1.E5/GTConst::g, 0.,
                                                         (*itools->pa_bed)(1,jsat,i), (*itools->pa_bed)(1,jres,i),
                                                         (*itools->pa_bed)(1,ja,i),
-                                                        (*itools->pa_bed)(1,jns,i), 1.-1./(*itools->pa_bed)(1,jns,i), PsiMin,
+                                                        (*itools->pa_bed)(1,jns,i), 1.-1./(*itools->pa_bed)(1,jns,i), GTConst::PsiMin,
                                                         (*itools->pa_bed)(1,jss,i));
             }
           if ( (long)(*itools->pa_bed)(1,jwp,i) == number_novalue)
             {
-              (*itools->pa_bed)(1,jwp,i) = teta_psi( -15.*1.E5/g, 0.,
+              (*itools->pa_bed)(1,jwp,i) = teta_psi( -15.*1.E5/GTConst::g, 0.,
                                                         (*itools->pa_bed)(1,jsat,i), (*itools->pa_bed)(1,jres,i),
                                                         (*itools->pa_bed)(1,ja,i),
-                                                        (*itools->pa_bed)(1,jns,i), 1.-1./(*itools->pa_bed)(1,jns,i), PsiMin,
+                                                        (*itools->pa_bed)(1,jns,i), 1.-1./(*itools->pa_bed)(1,jns,i), GTConst::PsiMin,
                                                         (*itools->pa_bed)(1,jss,i));
             }
         }
@@ -2358,6 +2357,9 @@ char *assignation_string(long i, char **keyword, char **string_param)
 
 short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
 {
+  /*
+   * read soil parameters files
+   */
   GEOLOG_PREFIX(__func__);
 
   short ok;
@@ -2367,7 +2369,7 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
   std::unique_ptr<Tensor<double>> old_sl_par;
   FILE *f;
 
-  //look if there is at least 1 soil file
+  /** look if there is at least 1 soil file */
   i = 0;
   ok = 0;
   nlinesprev = -1;
@@ -2529,17 +2531,17 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
             {
               if ( (long)(*sl->pa)(i,jfc,j) == number_novalue)
                 {
-                  (*sl->pa)(i,jfc,j) = teta_psi( (-1./3.)*1.E5/g, 0., (*sl->pa)(i,jsat,j),
+                  (*sl->pa)(i,jfc,j) = teta_psi( (-1./3.)*1.E5/GTConst::g, 0., (*sl->pa)(i,jsat,j),
                                                     (*sl->pa)(i,jres,j), (*sl->pa)(i,ja,j),
-                                                    (*sl->pa)(i,jns,j), 1.-1./(*sl->pa)(i,jns,j), PsiMin,
+                                                    (*sl->pa)(i,jns,j), 1.-1./(*sl->pa)(i,jns,j), GTConst::PsiMin,
                                                     (*sl->pa)(i,jss,j));
                 }
 
               if ( (long)(*sl->pa)(i,jwp,j) == number_novalue)
                 {
-                  (*sl->pa)(i,jwp,j) = teta_psi( -15.*1.E5/g, 0., (*sl->pa)(i,jsat,j),
+                  (*sl->pa)(i,jwp,j) = teta_psi( -15.*1.E5/GTConst::g, 0., (*sl->pa)(i,jsat,j),
                                                     (*sl->pa)(i,jres,j), (*sl->pa)(i,ja,j),
-                                                    (*sl->pa)(i,jns,j), 1.-1./(*sl->pa)(i,jns,j), PsiMin,
+                                                    (*sl->pa)(i,jns,j), 1.-1./(*sl->pa)(i,jns,j), GTConst::PsiMin,
                                                     (*sl->pa)(i,jss,j));
                 }
             }
@@ -2648,6 +2650,9 @@ short read_soil_parameters(char *name, INIT_TOOLS *IT, SOIL *sl, long bed)
 
 short read_point_file(char *name, char **key_header, PAR *par)
 {
+  /*
+   * read the file (i.e ListPoints.txt) containing the coordinates of the chosen output points
+   */
   GEOLOG_PREFIX(__func__);
 
   std::unique_ptr<Matrix<double>> chkpt2;
@@ -2724,7 +2729,15 @@ short read_point_file(char *name, char **key_header, PAR *par)
 
 short read_meteostations_file(Vector<long> *i, METEO_STATIONS *S, char *name, char **key_header)
 {
+    /*
+     * Look for additional meteo stations input files.
+     * These new infos
+     * - will overwrite previous infos
+     * - regard: East, North, latitude, longitude, elevation, sky view factor, station index
+     *   of each meteo stations.
+     */
   GEOLOG_PREFIX(__func__);
+  GEOTIMER_SECTION(__func__);
 
   double **M;
   long nlines, n, j, k;

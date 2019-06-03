@@ -1,4 +1,4 @@
-sudo: false
+sudo: required
 language:
   - cpp
 
@@ -17,10 +17,10 @@ matrix:
 #      compiler: clang
       
 before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip && unzip ninja-linux.zip ;    else  wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-mac.zip && unzip ninja-mac.zip; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-linux.zip && unzip ninja-linux.zip; else wget https://github.com/ninja-build/ninja/releases/download/v1.8.2/ninja-mac.zip && unzip ninja-mac.zip; fi
   - export PATH="$PWD:$PATH"
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then wget http://mirror.lihnidos.org/GNU/savannah/numdiff/numdiff-5.9.0.tar.gz && tar xf numdiff-5.9.0.tar.gz && cd numdiff-5.9.0 && ./configure --disable-nls && make -j2 && export PATH="$PWD:$PATH" && cd .. ; fi
-  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && bash Miniconda3-latest-Linux-x86_64.sh -b -p _miniconda;  else  wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh && bash Miniconda3-latest-MacOSX-x86_64.sh -b -p _miniconda; fi
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then wget http://mirror.lihnidos.org/GNU/savannah/numdiff/numdiff-5.9.0.tar.gz && tar xf numdiff-5.9.0.tar.gz && cd numdiff-5.9.0 && ./configure --disable-nls && make -j2 && export PATH="$PWD:$PATH" && cd ..; fi
+  - if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh && bash Miniconda3-latest-Linux-x86_64.sh -b -p _miniconda; else wget https://repo.continuum.io/miniconda/Miniconda3-latest-MacOSX-x86_64.sh && bash Miniconda3-latest-MacOSX-x86_64.sh -b -p _miniconda; fi
   - export PATH="$PWD/_miniconda/bin:$PATH"
   - conda config --set always_yes yes --set changeps1 no
   - conda update -q conda
@@ -28,14 +28,22 @@ before_install:
   - source activate py36
   - git clone https://github.com/mesonbuild/meson.git _meson
   - export PATH="$PWD/_meson:$PATH"
+  # - wget https://models.slf.ch/p/meteoio/downloads/get/MeteoIO-2.8.0-src.tar.gz && tar -xvzf MeteoIO-2.8.0-src.tar.gz
+  # - mv MeteoIO-2.8.0-src MeteoIO
+  # - cd MeteoIO
+  # - cmake -DCMAKE_INSTALL_PREFIX=$HOME/meteoio .
+  # - make -j2
+  # - sudo make install
+  # - cd ..
 
 install:
-  - meson.py -DMUTE_GEOLOG=true -DMUTE_GEOTIMER=true build
-  - cd build
+  - meson.py -DMUTE_GEOLOG=true -DMUTE_GEOTIMER=true meson-build-release
+#  - meson.py -DMUTE_GEOLOG=true -DMUTE_GEOTIMER=true -DWITH_METEOIO=true -DMETEOIO_DIR=$HOME/meteoio meson-build-release
+  - cd meson-build-release
   - ninja -j2
 
-
 script:
-  - meson.py test --suite geotop:unit_tests --print-errorlogs
-  - meson.py test --suite geotop:1D --print-errorlogs
-  - travis_wait 90 meson.py test --suite geotop:3D --print-errorlogs
+ - meson.py test --suite geotop:unit_tests --print-errorlogs
+ - meson.py test --suite geotop:1D --print-errorlogs
+ - travis_wait 90 meson.py test --suite geotop:3D --print-errorlogs
+

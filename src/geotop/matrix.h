@@ -132,18 +132,19 @@ public:
         return *this;
     }
 
+    /** returns the i-th row of the matrix */
     RowView<T> row(const std::size_t i) {
         GEO_ASSERT_IN_RANGE(i, nrl, nrh);
         return RowView<T> { &co[(i-nrl)*n_col], nch, ncl }; // RowView<T> is constructed with the passed nch and ncl
     };
 
-    /** set all elements of the vector to @p v
-       * this is useful to reinizialize all the elements of the vector to zero
+    /** set all elements of the matrix to @p m
+       * this is useful to reinitialize all the elements of the matrix to zero
        * my_matrix = 0
        */
-    Matrix<T> &operator=(const T v) {
+    Matrix<T> &operator=(const T m) {
         for (auto &x : *this)
-            x = v;
+            x = m;
         return *this;
     }
 

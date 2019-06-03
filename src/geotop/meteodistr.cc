@@ -116,7 +116,7 @@ short get_temperature(double dE, double dN, Matrix<double> *E, Matrix<double> *N
         if ((long) met->var[n - 1][Tcode] != number_absent
             && (long) met->var[n - 1][Tcode] != number_novalue) {
             met->var[n - 1][Tcode] = temperature(topo_ref, (*met->st->Z)(n),
-                                                 met->var[n - 1][Tcode], lapse_rate) + tk;
+                                                 met->var[n - 1][Tcode], lapse_rate) + GTConst::tk;
         }
     }
 
@@ -130,7 +130,7 @@ short get_temperature(double dE, double dN, Matrix<double> *E, Matrix<double> *N
     for (r = 1; r <= topo->nrh; r++) {
         for (c = 1; c <= topo->nch; c++) {
             if ((long) (*topo)(r,c) != number_novalue) {
-                (*Tair_grid)(r,c) = temperature((*topo)(r,c), topo_ref, (*Tair_grid)(r,c), lapse_rate) - tk;
+                (*Tair_grid)(r,c) = temperature((*topo)(r,c), topo_ref, (*Tair_grid)(r,c), lapse_rate) - GTConst::tk;
             }
         }
     }
@@ -139,7 +139,7 @@ short get_temperature(double dE, double dN, Matrix<double> *E, Matrix<double> *N
     for (n = 1; n <= met->st->Z->nh; n++) {
         if ((long) met->var[n - 1][Tcode] != number_absent
             && (long) met->var[n - 1][Tcode] != number_novalue) {
-            met->var[n - 1][Tcode] = temperature((*met->st->Z)(n), topo_ref, met->var[n - 1][Tcode], lapse_rate) - tk;
+            met->var[n - 1][Tcode] = temperature((*met->st->Z)(n), topo_ref, met->var[n - 1][Tcode], lapse_rate) - GTConst::tk;
         }
     }
 
@@ -176,7 +176,7 @@ short get_relative_humidity(double dE, double dN, Matrix<double> *E, Matrix<doub
         if ((long) met->var[n - 1][Tdcode] != number_absent
             && (long) met->var[n - 1][Tdcode] != number_novalue) {
             met->var[n - 1][Tdcode] = temperature(topo_ref, (*met->st->Z)(n),
-                                                  met->var[n - 1][Tdcode], lapse_rate) + tk;
+                                                  met->var[n - 1][Tdcode], lapse_rate) + GTConst::tk;
         }
     }
 
@@ -190,7 +190,7 @@ short get_relative_humidity(double dE, double dN, Matrix<double> *E, Matrix<doub
         for (c = 1; c <= topo->nch; c++) {
             if ((long) (*topo)(r,c) != number_novalue) {
                 (*RH_grid)(r,c) = temperature((*topo)(r,c), topo_ref, (*RH_grid)(r,c),
-                                            lapse_rate) - tk;
+                                            lapse_rate) - GTConst::tk;
                 (*RH_grid)(r,c) = RHfromTdew((*Tair_grid)(r,c), (*RH_grid)(r,c), (*topo)(r,c));
                 if ((*RH_grid)(r,c) < RH_min / 100.) (*RH_grid)(r,c) = RH_min / 100.;
             }
@@ -202,7 +202,7 @@ short get_relative_humidity(double dE, double dN, Matrix<double> *E, Matrix<doub
         if ((long) met->var[n - 1][Tdcode] != number_absent
             && (long) met->var[n - 1][Tdcode] != number_novalue) {
             met->var[n - 1][Tdcode] = temperature((*met->st->Z)(n), topo_ref,
-                                                  met->var[n - 1][Tdcode], lapse_rate) - tk;
+                                                  met->var[n - 1][Tdcode], lapse_rate) - GTConst::tk;
         }
     }
 
@@ -223,7 +223,7 @@ void topo_mod_winds(Matrix<double> *winddir_grid, Matrix<double> *windspd_grid,
                     double undef) {
 
     long r, c, nc = topo->nch, nr = topo->nrh;
-    double deg2rad = Pi / 180.0, dirdiff, windwt;
+    double deg2rad = GTConst::Pi / 180.0, dirdiff, windwt;
 
     std::unique_ptr<Matrix<double>> wind_slope, wind_curv;
 
@@ -335,7 +335,7 @@ short get_wind(double dE, double dN, Matrix<double> *E, Matrix<double> *N, METEO
 
     std::unique_ptr<Matrix<double>> u_grid, v_grid;
     long r, c, nc = topo->nch, nr = topo->nrh;
-    double rad2deg = 180.0 / Pi;
+    double rad2deg = 180.0 / GTConst::Pi;
     short oku, okv, ok;
 
     //Use the barnes oi scheme to interpolate the station data to
@@ -670,7 +670,7 @@ void barnes_oi(short flag, Matrix<double> *xpoint, Matrix<double> *ypoint,
     //   have assumed a gamma value of 0.2.
 
     // First-round values, Eqn (13).
-    xkappa_1 = 5.052 * pow_2(2.0 * dn / Pi);
+    xkappa_1 = 5.052 * pow_2(2.0 * dn / GTConst::Pi);
 
     // Define the maximum scanning radius to have weight defined by
     //   wt = 1.0 x 10**(-30) = exp(-rmax_1/xkappa_1)

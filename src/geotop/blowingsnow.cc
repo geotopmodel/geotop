@@ -82,9 +82,9 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
 
       //meteo distribution
       meteo_distr(met->line_interp_Bsnow, met->line_interp_Bsnow_LR, met, wat, top,
-                  par, (*par->init_date)(i_sim) + t0/secinday,
-                  (*par->init_date)(i_sim) + (t0+t)/secinday,
-                  (*par->init_date)(i_sim) + (t0+t+Dt)/secinday);
+                  par, (*par->init_date)(i_sim) + t0/GTConst::secinday,
+                  (*par->init_date)(i_sim) + (t0+t)/GTConst::secinday,
+                  (*par->init_date)(i_sim) + (t0+t+Dt)/GTConst::secinday);
 
 
       //vegetation
@@ -92,15 +92,15 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
         {
           if ((*par->vegflag)(lux)==1)
             {
-              time_interp_linear((*par->init_date)(i_sim)+t0/secinday,
-                                 (*par->init_date)(i_sim)+(t0+t)/secinday,
-                                 (*par->init_date)(i_sim)+(t0+t+Dt)/secinday,
+              time_interp_linear((*par->init_date)(i_sim)+t0/GTConst::secinday,
+                                 (*par->init_date)(i_sim)+(t0+t)/GTConst::secinday,
+                                 (*par->init_date)(i_sim)+(t0+t+Dt)/GTConst::secinday,
                                  land->vegparv[lux-1], land->vegpars[lux-1],
                                  land->NumlinesVegTimeDepData[lux-1], jdvegprop+1, 0, 0, &line_interp);
             }
         }
 
-      //loop for every pixel
+      //loop for every GTConst::Pixel
       for (r=1; r<=Nr; r++)
         {
           for (c=1; c<=Nc; c++)
@@ -111,9 +111,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
 
                   D = DEPTH(r, c, snow->S->lnum.get(), snow->S->Dzl.get());
                   wice = DEPTH(r, c, snow->S->lnum.get(), snow->S->w_ice.get());
-
-                  //U += (*met->Vgrid)(r,c)/par->total_pixel;
-
+                  
                   if (wice > par->Wmin_BS)
                     {
 
@@ -149,7 +147,7 @@ void windtrans_snow(SNOW *snow, METEO *met, WATER *wat, LAND *land, TOPO *top,
                           fsnow=0.0;
                         }
                       fc = (*land->vegpar)(jdcf) * pow(1.0-fsnow, (*land->vegpar)(jdexpveg));//canopy fraction
-                      if ((*land->vegpar)(jdLSAI)<LSAIthres) 
+                      if ((*land->vegpar)(jdLSAI) < GTConst::LSAIthres) 
                         fc=0.0;
                       if (fc>0) 
                         canopy_height_over_snow += fc*std::max<double>((*land->vegpar)(jdHveg)-D, 0.)*1.E-3;
@@ -304,8 +302,8 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
           //find west-east component
           for (c=1; c<=Nc; c++)
             {
-              (*snow->Qtrans_x)(r,c)=fabs((*snow->Qtrans)(r,c)*(-sin((*met->Vdir)(r,c)*Pi/180.)));
-              (*snow->Qsub_x)(r,c)=fabs((*snow->Qsub)(r,c)*(-sin((*met->Vdir)(r,c)*Pi/180.)));
+              (*snow->Qtrans_x)(r,c)=fabs((*snow->Qtrans)(r,c)*(-sin((*met->Vdir)(r,c)*GTConst::Pi/180.)));
+              (*snow->Qsub_x)(r,c)=fabs((*snow->Qsub)(r,c)*(-sin((*met->Vdir)(r,c)*GTConst::Pi/180.)));
             }
 
           //find when there is a wind direction inversion
@@ -324,7 +322,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
                 {
                   c++;
                 }
-              while ( (-sin((*met->Vdir)(r,c)*Pi/180.))*(-sin((*met->Vdir)(r,c0)*Pi/180.))>0 && c<Nc );
+              while ( (-sin((*met->Vdir)(r,c)*GTConst::Pi/180.))*(-sin((*met->Vdir)(r,c0)*GTConst::Pi/180.))>0 && c<Nc );
 
               num_change++;
               c0=c;
@@ -336,7 +334,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
           for (i=1; i<num_change; i++)
             {
               //east wind
-              if ( (-sin((*met->Vdir)(r,(*snow->change_dir_wind)(i))*Pi/180.)) > 0 )
+              if ( (-sin((*met->Vdir)(r,(*snow->change_dir_wind)(i))*GTConst::Pi/180.)) > 0 )
                 {
                   if (par->upwindblowingsnow==1 && (*snow->change_dir_wind)(i)!=1)
                     (*snow->Qtrans_x)(r,(*snow->change_dir_wind)(i))=0.0;
@@ -414,8 +412,8 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
           //find south-north component
           for (r=1; r<=Nr; r++)
             {
-              (*snow->Qtrans_y)(r,c)=fabs((*snow->Qtrans)(r,c)*(-cos((*met->Vdir)(r,c)*Pi/180.)));
-              (*snow->Qsub_y)(r,c)=fabs((*snow->Qsub)(r,c)*(-cos((*met->Vdir)(r,c)*Pi/180.)));
+              (*snow->Qtrans_y)(r,c)=fabs((*snow->Qtrans)(r,c)*(-cos((*met->Vdir)(r,c)*GTConst::Pi/180.)));
+              (*snow->Qsub_y)(r,c)=fabs((*snow->Qsub)(r,c)*(-cos((*met->Vdir)(r,c)*GTConst::Pi/180.)));
             }
 
           //find when there is a wind direction inversion
@@ -434,7 +432,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
                 {
                   r++;
                 }
-              while ( (-cos((*met->Vdir)(r,c)*Pi/180.))*(-cos((*met->Vdir)(r0,c)*Pi/180.))>0 && r<Nr );
+              while ( (-cos((*met->Vdir)(r,c)*GTConst::Pi/180.))*(-cos((*met->Vdir)(r0,c)*GTConst::Pi/180.))>0 && r<Nr );
 
               num_change++;
               r0=r;
@@ -446,7 +444,7 @@ void set_inhomogeneous_fetch(SNOW *snow, METEO *met, LAND *land, PAR *par,
           for (i=1; i<num_change; i++)
             {
               //south wind
-              if ( (-cos((*met->Vdir)((*snow->change_dir_wind)(i),c)*Pi/180.)) < 0 )
+              if ( (-cos((*met->Vdir)((*snow->change_dir_wind)(i),c)*GTConst::Pi/180.)) < 0 )
                 {
                   if (par->upwindblowingsnow==1 && (*snow->change_dir_wind)(i)!=1)
                     (*snow->Qtrans)((*snow->change_dir_wind)(i),c)=0.0;
@@ -729,15 +727,15 @@ void wind_packing(SNOW *snow, PAR *par, long r, long c, double Dt)
           //compactation at the surface (10%/hour if U8=8m/s U8t=4m/s => Qsalt=3.555342e-03 kg/m/s)
           CR = -A4 * (*snow->Qsalt)(r,c);
           //decrease due to oberburden
-          CR *= exp( -D4*g*overburden );
+          CR *= exp( -D4*GTConst::g*overburden );
 
           (*snow->S->Dzl)(l,r,c) *= exp(CR*Dt);
 
-          if ((*snow->S->w_ice)(l,r,c)/(rho_w*(*snow->S->Dzl)(l,r,c)*1.E-3) >
+          if ((*snow->S->w_ice)(l,r,c)/(GTConst::rho_w*(*snow->S->Dzl)(l,r,c)*1.E-3) >
               par->snow_maxpor)
             {
               (*snow->S->Dzl)(l,r,c) = 1.E3*(*snow->S->w_ice)(l,r,c)/
-                                          (rho_w*par->snow_maxpor);
+                                          (GTConst::rho_w*par->snow_maxpor);
             }
 
           overburden += ((*snow->S->w_ice)(l,r,c)+(*snow->S->w_liq)(l,r,c))/2.;

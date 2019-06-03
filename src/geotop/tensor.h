@@ -145,17 +145,17 @@ public:
         return *this;
     }
 
-    /** set all elements of the vector to @p v
-      * this is useful to reinizialize all the elements of the vector to zero
-      * my_Tensor = 0
-      */
-    Tensor<T> &operator=(const T v) {
+    /** set all elements of the tensor to @p t
+       * this is useful to reinitialize all the elements of the tensor to zero
+       * my_tensor = 0
+       */
+    Tensor<T> &operator=(const T t) {
         for (auto &x : *this)
-            x = v;
+            x = t;
         return *this;
     }
 
-    /** Given a layer (k) and a row (i), it gives all the elements corrisponding to different columns */
+    /** returns the i-th row of the k-th layer of the tensor */
     RowView<T> row(const std::size_t k, const std::size_t i) {
         GEO_ASSERT_IN_RANGE(k, ndl, ndh);
         GEO_ASSERT_IN_RANGE(i, nrl, nrh);

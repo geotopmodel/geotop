@@ -30,7 +30,7 @@ struct INIT_TOOLS
     double agesnow0;
     double rhosnow0;
     double rhoglac0;
-    double Dglac0;
+    double Dglac0; /** initial glacier depth */
     double Tglac0;
     char **met_col_names;
     char **soil_col_names;

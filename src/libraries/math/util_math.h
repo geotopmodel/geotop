@@ -217,25 +217,25 @@ inline double minimize_merit_function(double res0, double lambda1, double res1,
     if (a>0)
     {
         lambda = -b/(2*a);
-        if (lambda < lambda1*thmin)
+        if (lambda < lambda1*GTConst::thmin)
         {
-            lambda = lambda1*thmin;
+            lambda = lambda1*GTConst::thmin;
         }
-        else if (lambda > lambda1*thmax)
+        else if (lambda > lambda1*GTConst::thmax)
         {
-            lambda = lambda1*thmax;
+            lambda = lambda1*GTConst::thmax;
         }
     }
     else
     {
-        if (a * lambda1*thmin*lambda1*thmin + b * lambda1*thmin + c < a *
-                                                                      lambda1*thmax*lambda1*thmax + b * lambda1*thmax + c)
+        if (a * lambda1*GTConst::thmin*lambda1*GTConst::thmin + b * lambda1*GTConst::thmin + c < a *
+                                                                      lambda1*GTConst::thmax*lambda1*GTConst::thmax + b * lambda1*GTConst::thmax + c)
         {
-            lambda = lambda1*thmin;
+            lambda = lambda1*GTConst::thmin;
         }
         else
         {
-            lambda = lambda1*thmax;
+            lambda = lambda1*GTConst::thmax;
         }
     }
 

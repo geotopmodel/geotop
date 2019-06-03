@@ -42,18 +42,17 @@ extern long Nr, Nc;
 /******************************************************************************************************************************************/
 void sun(double JDfrom0, double *E0, double *Et, double *Delta)
 {
+  double Gamma = 2.0*GTConst::Pi*convert_JDfrom0_JD(JDfrom0)/365.25;
 
-  double Gamma = 2.0*Pi*convert_JDfrom0_JD(JDfrom0)/365.25;
-
-  //correction sun-earth distance
+  /** correction sun-earth distance */
   *E0=1.00011+0.034221*cos(Gamma)+0.00128*sin(Gamma)+0.000719*cos(
           2*Gamma)+0.000077*sin(2*Gamma);
 
-  //Correction for sideral day (rad)
+  /** correction for sideral day [rad] */
   *Et=0.000075 + 0.001868*cos(Gamma) - 0.032077*sin(Gamma) - 0.014615*cos(
           2*Gamma) - 0.04089*sin(2*Gamma);
 
-  //Solar Declination
+  /** solar declination */
   *Delta=0.006918-0.399912*cos(Gamma)+0.070257*sin(Gamma)-0.006758*cos(
           2*Gamma)+0.000907*sin(2*Gamma)-0.002697*cos(3*Gamma)+0.00148*sin(3*Gamma);
 
@@ -63,20 +62,28 @@ void sun(double JDfrom0, double *E0, double *Et, double *Delta)
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-//angles in rad
 double SolarHeight(double JD, double latitude, double Delta, double dh)
 {
-
+/**
+ * angles in rad
+ */
   double sine;
-  //solar hour [0.0-24.0]
+  /** solar hour [0.0-24.0] */
   double h = (JD-floor(JD))*24.0 + dh;
 
-  if (h>=24) h-=24.0;
-  if (h<0) h+=24.0;
+  if (h>=24)
+    h-=24.0;
 
-  sine = sin(latitude)*sin(Delta) + cos(latitude)*cos(Delta)*cos(omega*(12-h));
-  if (sine>1) sine = 1.;
-  if (sine<-1) sine = -1.;
+  if (h<0)
+    h+=24.0;
+
+  sine = sin(latitude)*sin(Delta) + cos(latitude)*cos(Delta)*cos(GTConst::omega*(12-h));
+
+  if (sine>1)
+    sine = 1.;
+
+  if (sine<-1)
+    sine = -1.;
 
   return std::max<double>(asin(sine), 0.0);
 }
@@ -93,55 +100,55 @@ double SolarHeight__(double JD, void *others) { return SolarHeight_(JD, (double 
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-//angles in rad
 double SolarAzimuth(double JD, double latitude, double Delta, double dh)
 {
-
+/**
+ * angles in rad
+ */
   double alpha, direction, sine, cosine;
-  //solar hour [0.0-24.0]
+  /** solar hour [0.0-24.0] */
   double h = (JD-floor(JD))*24.0 + dh;
 
   if (h>=24) h-=24.0;
   if (h<0) h+=24.0;
 
-  //solar height
-  sine = sin(latitude)*sin(Delta) + cos(latitude)*cos(Delta)*cos(omega*(12-h));
+  /** solar height */
+  sine = sin(latitude)*sin(Delta) + cos(latitude)*cos(Delta)*cos(GTConst::omega*(12-h));
   if (sine>1) sine = 1.;
   if (sine<-1) sine = -1.;
   alpha=asin(sine);
 
-  //solar azimuth
+  /** solar azimuth */
   if (h<=12)
   {
-    if (alpha==Pi/2.0)  //zenith
+    if (alpha==GTConst::Pi/2.0) /** zenith */
     {
-      direction=Pi/2.0;
+      direction=GTConst::Pi/2.0;
     }
     else
     {
       cosine=(sin(alpha)*sin(latitude)-sin(Delta))/(cos(alpha)*cos(latitude));
       if (cosine>1) cosine = 1.;
       if (cosine<-1) cosine = -1.;
-      direction=Pi - acos(cosine);
+      direction=GTConst::Pi - acos(cosine);
     }
   }
   else
   {
-    if (alpha==Pi/2.0) //zenith
+    if (alpha==GTConst::Pi/2.0) /** zenith */
     {
-      direction=3*Pi/2.0;
+      direction=3*GTConst::Pi/2.0;
     }
     else
     {
       cosine=(sin(alpha)*sin(latitude)-sin(Delta))/(cos(alpha)*cos(latitude));
       if (cosine>1) cosine = 1.;
       if (cosine<-1) cosine = -1.;
-      direction=Pi + acos(cosine);
+      direction=GTConst::Pi + acos(cosine);
     }
   }
 
   return direction;
-
 }
 
 double SolarAzimuth_(double JD, double *others)
@@ -158,7 +165,6 @@ double SolarAzimuth__(double JD, void *others) { return SolarAzimuth_(JD, (doubl
 
 double TauatmCosinc(double JD, double *others)
 {
-
   /*double latitude = others[0];
   double Delta = others[1];
   double dh = others[2];*/
@@ -178,9 +184,8 @@ double TauatmCosinc(double JD, double *others)
   if (height>0)
   {
     dir = SolarAzimuth_(JD, others);
-    return atm_transmittance(std::max<double>(height,asin(0.05)),P,RH,T,Lozone,alpha,beta,
-                             albedo)*std::max<double>(0.0,cos(slope)*sin(height)+sin(slope)*cos(height)*cos(
-            -aspect+dir));
+    return atm_transmittance( std::max<double>(height,asin(0.05)), P, RH, T, Lozone, alpha, beta, albedo)
+           * std::max<double>(0.0,cos(slope)*sin(height)+sin(slope)*cos(height)*cos(-aspect+dir));
   }
   else
   {
@@ -198,7 +203,6 @@ double TauatmCosinc_(double JD, void *others) { return TauatmCosinc(JD, (double 
 
 double TauatmSinalpha(double JD, double *others)
 {
-
   /*double latitude = others[0];
   double Delta = others[1];
   double dh = others[2];*/
@@ -233,7 +237,6 @@ double TauatmSinalpha_(double JD, void *others) { return TauatmSinalpha(JD, (dou
 
 double Cosinc(double JD, double *others)
 {
-
   /*double latitude = others[0];
   double Delta = others[1];
   double dh = others[2];*/
@@ -264,7 +267,6 @@ double Cosinc_(double JD, void *others) { return Cosinc(JD, (double *)others); }
 
 double Sinalpha(double JD, double *others)
 {
-
   /*double latitude = others[0];
   double Delta = others[1];
   double dh = others[2];*/
@@ -291,7 +293,6 @@ double Sinalpha_(double JD, void *others) { return Sinalpha(JD, (double *)others
 
 double Tauatm(double JD, double *others)
 {
-
   /*double latitude = others[0];
   double Delta = others[1];
   double dh = others[2];*/
@@ -321,7 +322,6 @@ void shortwave_radiation(double JDbeg, double JDend, double *others,
                          double tau_cloud, short shadow, double *SWb, double *SWd, double *cos_inc_bd,
                          double *tau_atm_sin_alpha, short *SWb_yes)
 {
-
   double kd, tau_atm, cos_inc, tau_atm_cos_inc;
   //long i;
 
@@ -335,7 +335,7 @@ void shortwave_radiation(double JDbeg, double JDend, double *others,
                                          1.E-6, 20) / (JDend - JDbeg);
   //*tau_atm_sin_alpha = tau_atm * sin_alpha;
 
-  *SWd = Isc*E0*tau_cloud*(*tau_atm_sin_alpha) * sky*kd + (1.-sky)*SWrefl_surr ;
+  *SWd = GTConst::Isc*E0*tau_cloud*(*tau_atm_sin_alpha) * sky*kd + (1.-sky)*SWrefl_surr ;
 
   if (shadow == 1)
   {
@@ -352,7 +352,7 @@ void shortwave_radiation(double JDbeg, double JDend, double *others,
     //tau_atm_cos_inc = tau_atm * cos_inc;
     //cos_inc = sin_alpha;
     //tau_atm_cos_inc = *tau_atm_sin_alpha;
-    *SWb = (1.-kd)*Isc*E0*tau_cloud*tau_atm_cos_inc;
+    *SWb = (1.-kd)*GTConst::Isc*E0*tau_cloud*tau_atm_cos_inc;
   }
 
   *cos_inc_bd = kd*sin_alpha + (1.-kd)*cos_inc;
@@ -372,7 +372,6 @@ void shortwave_radiation(double JDbeg, double JDend, double *others,
   {
     *SWb_yes = -1;
   }
-
 }
 
 /******************************************************************************************************************************************/
@@ -382,9 +381,12 @@ void shortwave_radiation(double JDbeg, double JDend, double *others,
 
 double diff2glob(double a)
 {
-
-  //Ratio diffuse to global radiation - Erbs et al.(1982)
-
+/**
+ * Ratio between
+ * - diffuse radiation
+ * - global radiation
+ * [Erbs et al.(1982)]
+ */
   double k;
   if (a<0.22)
   {
@@ -392,7 +394,7 @@ double diff2glob(double a)
   }
   else if (a<0.80)
   {
-     k = 0.9511-0.1604*a + 4.388*pow_2(a) - 16.638*pow(a,3) + 12.336*pow(a,4);
+    k = 0.9511-0.1604*a + 4.388*pow_2(a) - 16.638*pow(a,3) + 12.336*pow(a,4);
   }
   else
   {
@@ -426,32 +428,35 @@ double atm_transmittance(double X, double P, double RH, double T,
 
   m = 35. * pow( 1224.*pow(sin(X), 2.) + 1. , -0.5 );
   tau_sa = 1.021 - 0.084 * pow(m*(0.000949*P + 0.051), 0.5);
-  w = 0.493*RH*(exp(26.23-5416.0/(T+tk)))/(T+tk);
+  w = 0.493*RH*(exp(26.23-5416.0/(T+GTConst::tk)))/(T+GTConst::tk);
   tau_w = 1. - 0.077*pow(w*m, 0.3);
   tau_a = pow(0.935, m);
   tau_atm = tau_sa*tau_w*tau_a;
   return(tau_atm);*/
 
 
-  //transmissivity under cloudless sky (Iqbal par. 7.5)
+  /** transmissivity under cloudless sky (Iqbal par. 7.5) */
   double mr, ma, w, U1, U3, tau_r, tau_o, tau_g, tau_w, tau_a, tau_aa, rho_a;
   double tau_atm_n, tau_atm_dr, tau_atm_da, tau_atm_dm, tau_atm;
   double w0 = 0.9;
   double Fc = 0.84;
 
-  mr = 1./(sin(X)+0.15*(power((3.885+X*180.0/Pi),-1.253)));
-  ma = mr*P/Pa0;
-  w = 0.493*RH*(exp(26.23-5416.0/(T+tk)))/(T+tk); //cm
+  mr = 1./(sin(X)+0.15*(power((3.885+X*180.0/GTConst::Pi),-1.253)));
+  ma = mr*P/GTConst::Pa0;
+  w = 0.493*RH*(exp(26.23-5416.0/(T+GTConst::tk)))/(T+GTConst::tk); /** [cm] */
+
   U1 = w*mr;
   U3 = Lozone*mr;
+
   tau_r = exp(-.0903*power(ma,.84)*(1.+ma-power(ma,1.01)));
   tau_o = 1. - (.1611*U3*power(1.+139.48*U3, -.3035) - .002715*U3/(1.+.044*U3+.0003*U3*U3));
   tau_g = exp(-.0127*power(ma,.26));
   tau_w = 1. - 2.4959*U1/(power(1.+79.034*U1,.6828)+6.385*U1);
-  //tau_a from 7.4.11 Iqbal
-  tau_a = .12445*a - 0.0162 + (1.003 - .125*a) * exp(-b*ma*(1.089*a + .5123));
+  tau_a = .12445*a - 0.0162 + (1.003 - .125*a) * exp(-b*ma*(1.089*a + .5123)); /** from 7.4.11 Iqbal */
   tau_aa = 1. - (1. - w0)*(1. - ma + power(ma, 1.06))*(1. - tau_a);
+
   rho_a = .0685 + (1. - Fc)*(1. - tau_a/tau_aa);
+
   tau_atm_n = .9751 * tau_r * tau_o * tau_g * tau_w * tau_a;
   tau_atm_dr = .79 * tau_o * tau_g * tau_w * tau_aa * .5 * (1.-tau_r) /
                (1. - ma + power(ma, 1.02));
@@ -462,7 +467,6 @@ double atm_transmittance(double X, double P, double RH, double T,
   tau_atm = tau_atm_n + tau_atm_dr + tau_atm_da + tau_atm_dm;
 
   return (tau_atm);
-
 }
 
 /******************************************************************************************************************************************/
@@ -474,55 +478,53 @@ void longwave_radiation(short state, double pvap, double  /*RH*/, double T,
                         double k1, double k2, double taucloud, double *eps, double *eps_max,
                         double *eps_min)
 {
-
-  double taucloud_overcast=0.29;//after Kimball(1928)
+  double taucloud_overcast=0.29; /** after Kimball(1928) */
   FILE *f;
 
   if (state==1)
   {
-    *eps_min = 1.24*pow((pvap/(T+tk)),1./7.); //Brutsaert, 1975
+    *eps_min = 1.24*pow((pvap/(T+GTConst::tk)),1./7.); /** Brutsaert, 1975 */
 
   }
   else if (state==2)
   {
-    *eps_min = 1.08*(1.0-exp(-pow(pvap,(T+tk)/2016.0)));  //Satterlund, 1979
+    *eps_min = 1.08*(1.0-exp(-pow(pvap,(T+GTConst::tk)/2016.0))); /** Satterlund, 1979 */
 
   }
   else if (state==3)
   {
-    *eps_min = (0.7+5.95*0.00001*pvap*exp(1500/(T+tk)));  //Idso(1981)
+    *eps_min = (0.7+5.95*0.00001*pvap*exp(1500/(T+GTConst::tk))); /** Idso(1981) */
 
   }
   else if (state==4)
   {
-    *eps_min = (0.7+5.95*0.00001*pvap*exp(1500/(T+tk)));
-    *eps_min = -0.792 + 3.161*(*eps_min) - 1.573*(*eps_min)*
-                                           (*eps_min); //IDSO + HODGES
+    *eps_min = (0.7+5.95*0.00001*pvap*exp(1500/(T+GTConst::tk)));
+    *eps_min = -0.792 + 3.161*(*eps_min) - 1.573*(*eps_min)* (*eps_min); /** IDSO + HODGES */
 
   }
   else if (state==5)
   {
-    *eps_min = 0.765; //Koenig-Langlo & Augstein, 1994
+    *eps_min = 0.765; /** Koenig-Langlo & Augstein, 1994 */
 
   }
   else if (state==6)
   {
-    *eps_min = (0.601+5.95*0.00001*pvap*exp(1500.0/(T+tk)));//Andreas and Ackley, 1982
+    *eps_min = (0.601+5.95*0.00001*pvap*exp(1500.0/(T+GTConst::tk))); /** Andreas and Ackley, 1982 */
   }
   else if (state==7)
   {
-    *eps_min = (0.23+k1*pow((pvap*100.)/(T+tk),1./k2)); //Konzelmann (1994)
+    *eps_min = (0.23+k1*pow((pvap*100.)/(T+GTConst::tk),1./k2)); /** Konzelmann (1994) */
 
   }
   else if (state==8)
   {
-    *eps_min = (1.-(1.+46.5*pvap/(T+tk))*exp(-pow(1.2+3.*46.5*pvap/(T+tk), 0.5))); //Prata 1996
+    *eps_min = (1.-(1.+46.5*pvap/(T+GTConst::tk))*exp(-pow(1.2+3.*46.5*pvap/(T+GTConst::tk), 0.5))); /** Prata 1996 */
 
   }
   else if (state==9)
   {
-    *eps_min = ( 59.38 + 113.7*pow( (T+tk)/273.16, 6.0) + 96.96*pow((465.*pvap/(T+tk))/25., 0.5) ) /
-               (5.67E-8*pow(T+tk,4));//Dilley 1998
+    *eps_min = ( 59.38 + 113.7*pow( (T+GTConst::tk)/273.16, 6.0) + 96.96*pow((465.*pvap/(T+GTConst::tk))/25., 0.5) ) /
+               (5.67E-8*pow(T+GTConst::tk,4)); /** Dilley 1998 */
 
   }
   else
@@ -549,11 +551,13 @@ void longwave_radiation(short state, double pvap, double  /*RH*/, double T,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
-
-double SB(double T)   //Stefan-Boltzmann law
+double SB(double T)
 {
+  /**
+   * Stefan-Boltzmann Law
+   */
   double R;
-  R=5.67E-8*pow(T+tk,4);
+  R=5.67E-8*pow(T+GTConst::tk,4);
   return (R);
 }
 
@@ -565,7 +569,7 @@ double SB(double T)   //Stefan-Boltzmann law
 double dSB_dT(double T)
 {
   double dR_dT;
-  dR_dT=4.0*5.67E-8*pow(T+tk,3);
+  dR_dT=4.0*5.67E-8*pow(T+GTConst::tk,3);
   return (dR_dT);
 }
 
@@ -584,7 +588,7 @@ void rad_snow_absorption(long r, long c, Vector<double> *frac, double R,
 
   *frac=0.;
 
-  //in case of snow
+  /** in case of snow */
   if ( (*snow->lnum)(r,c) > 1)
   {
 
@@ -651,7 +655,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat,
       if ( SWb+SWd > 0 && SWd > 0)
       {
         kd = SWd / (std::max<double>(0.,SWb)+SWd);
-        tau = ( SWd - (1.-sky)*SWrefl_surr ) / ( Isc*E0*tau_atm_sin_alpha*sky*kd );
+        tau = ( SWd - (1.-sky)*SWrefl_surr ) / ( GTConst::Isc*E0*tau_atm_sin_alpha*sky*kd );
       }
 
     }
@@ -671,11 +675,11 @@ double cloud_transmittance(double JDbeg, double JDend, double lat,
 
         j++;
         kd0=kd;
-        //SW = (1-kd(T))*Isc*T*sin + sky*Kd(T)*Isc*T*sin + (1-sky)*SWsurr
+        //SW = (1-kd(T))*GTConst::Isc*T*sin + sky*Kd(T)*GTConst::Isc*T*sin + (1-sky)*SWsurr
         //T=Ta*Tc
-        //SW - (1-sky)*SWsurr = Tc * (Isc*Ta*sin) * ( (1-kd) + sky*kd )
-        //Tc = ( SW - (1-sky)*SWsurr ) / ( (Isc*Ta*sin) * ( (1-kd) + sky*kd )
-        tau = ( SW - (1.-sky)*SWrefl_surr ) / ( Isc*E0*tau_atm_sin_alpha * ( (1-kd) + sky*kd ) );
+        //SW - (1-sky)*SWsurr = Tc * (GTConst::Isc*Ta*sin) * ( (1-kd) + sky*kd )
+        //Tc = ( SW - (1-sky)*SWsurr ) / ( (GTConst::Isc*Ta*sin) * ( (1-kd) + sky*kd )
+        tau = ( SW - (1.-sky)*SWrefl_surr ) / ( GTConst::Isc*E0*tau_atm_sin_alpha * ( (1-kd) + sky*kd ) );
         if (tau > 1) tau = 1.0;
         if (tau < 0) tau = 0.0;
         kd = diff2glob(tau * tau_atm);
@@ -688,7 +692,7 @@ double cloud_transmittance(double JDbeg, double JDend, double lat,
 
   if ( (long)tau != number_novalue)
   {
-    if (tau<min_tau_cloud) tau=min_tau_cloud;
+    if (tau<GTConst::min_tau_cloud) tau=GTConst::min_tau_cloud;
   }
 
   free(others);
@@ -709,10 +713,10 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met,
 
   double P, RH, T, c;
 
-  //pressure [mbar]
-  P=pressure((*met->st->Z)(i));
+  /** pressure [mbar] */
+  P = pressure((*met->st->Z)(i));
 
-  //relative humidity
+  /** relative humidity */
   if ((long)met->var[i-1][iRh] != number_novalue
       && (long)met->var[i-1][iRh] != number_absent)
   {
@@ -737,12 +741,11 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met,
   T=met->var[i-1][iT];
   if ((long)T == number_novalue || (long)T == number_absent) T=0.0;
 
-  c = cloud_transmittance(JDbeg, JDend, (*met->st->lat)(i)*Pi/180., Delta,
-                          ((*met->st->lon)(i)*Pi/180. - ST*Pi/12. + Et)/omega, RH,
+  c = cloud_transmittance(JDbeg, JDend, (*met->st->lat)(i)*GTConst::Pi/180., Delta,
+                          ((*met->st->lon)(i)*GTConst::Pi/180. - ST*GTConst::Pi/12. + Et)/GTConst::omega, RH,
                           T, P, met->var[i-1][iSWd], met->var[i-1][iSWb], met->var[i-1][iSW], E0,
                           (*met->st->sky)(i), SWrefl_surr,
                           Lozone, alpha, beta, albedo);
-
   return c;
 }
 
@@ -753,23 +756,27 @@ double find_tau_cloud_station(double JDbeg, double JDend, long i, METEO *met,
 
 short shadows_point(double **hor, long n, double alpha, double azimuth,
                     double tol_mount, double tol_flat)
-
-/*routine that tells you whether a point is in shadow or not, depending on the solar azimuth, elevation and horizon file at that point
- * Author: Matteo Dall'Amico, May 2011
- Inputs: Matrix<double>* hor_height: matrix of horizon_height at the point
- double alpha: solar altitude (degree)
- double azimuth: solar azimuth (degree)
- double tol_mount: tolerance over a mountaneaus horizon to have a reliable cloud datum (degree)
- double tol_flat: tolerance over a mountaneaus horizon to have a reliable cloud datum (degree)
- Output: shad: 1=the point is in shadow, 0 the point is in sun
- */
 {
-  double horiz_H;// horizon elevation at a defined solar azimuth
-  double w;//weight
+/**
+ * Routine that tells you whether a point is in shadow or not, depending on the solar azimuth, elevation and horizon file at that point
+ * Author: Matteo Dall'Amico, May 2011
+ *
+ * Inputs:
+ * - Matrix<double>* hor_height: matrix of horizon_height at the point
+ * - double alpha: solar altitude [degree]
+ * - double azimuth: solar azimuth [degree]
+ * - double tol_mount: tolerance over a mountaneaus horizon to have a reliable cloud datum [degree]
+ * - double tol_flat: tolerance over a mountaneaus horizon to have a reliable cloud datum [degree]
+ *
+ * Output:
+ * - shad: 1=the point is in shadow, 0 the point is in sun
+ */
+  double horiz_H; /** horizon elevation at a defined solar azimuth */
+  double w; /** weight */
   long i,iend=0,ibeg=0;
   short shad;
 
-  /* compare the current solar azimuth with the horizon matrix */
+  /** compare the current solar azimuth with the horizon matrix */
   if (azimuth>=hor[n-1][0] || azimuth<hor[0][0])
   {
     iend=0;
@@ -801,7 +808,7 @@ short shadows_point(double **hor, long n, double alpha, double azimuth,
   }
 
   horiz_H = w * hor[iend][1] + (1.0-w) *
-                               hor[ibeg][1]; // horizon elevation at a particular time
+                               hor[ibeg][1]; /** horizon elevation at a particular time */
 
   if (alpha<tol_flat)
   {
@@ -826,19 +833,23 @@ short shadows_point(double **hor, long n, double alpha, double azimuth,
 
 void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
                    Matrix<short> *SH)
-
-/*  Author: Thomas Haiden, Year: 16 june 2003
- *  Function that calculates if each pixel (matrix of shadows) is in shadow or at sun given
- *  a solar elevation angle and a solar azimuth.
- *  Inputs: top     elevation DTM (m)
- *      alpha:    solar elevation angle (radiants)
- *      direction:  solar azimuth angle (from N clockwise, radiants)
- *      point: flag indicating whether the simulation is a point (=1) or a distributed simulation
- *  Outputs:shadow:   shadows matrix (1 shadow, 0 sun)
- *  imported by Matteo Dall'Amico on August 2009. Authorization: see email of David Whiteman on 16 june 2011
- *  revised by Stefano Endrizzi on May 2011.
- */
 {
+/*** Author: Thomas Haiden, Year: 16 june 2003
+ * Function that calculates if each pixel (matrix of shadows) is in shadow or at sun given
+ * a solar elevation angle and a solar azimuth.
+ *
+ * Inputs:
+ * - top: elevation DTM [m]
+ * - alpha: solar elevation angle [radiants]
+ * - direction: solar azimuth angle (from N clockwise) [radiants]
+ * - point: flag indicating whether the simulation is a point (=1) or a distributed simulation
+ *
+ * Outputs:
+ * - shadow: shadows matrix (1 shadow, 0 sun)
+ *
+ * Imported by Matteo Dall'Amico on August 2009. Authorization: see email of David Whiteman on 16 June 2011
+ * Revised by Stefano Endrizzi on May 2011.
+ */
   long orix,oriy=0,k,l,kk,ll,r,c,rr,cc;
   double sx,sy,sz,xp,yp,x,y,zray,ztopo,q,z1,z2;
 
@@ -1058,7 +1069,7 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av,
                             double Lozone, double alpha, double beta, double albedo)
 {
 
-  //SWdata = flag -> 0= no radiation data measured, 1=beam and diff measured, 2=global measured
+  /** SWdata = flag -> 0= no radiation data measured, 1=beam and diff measured, 2=global measured */
   short SWdata;
   double tc;
 
@@ -1117,7 +1128,7 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av,
     tc = met->var[met->nstcloud-1][iC];
 
     *tau_cloud_av_yes = 1;
-    tc = 1. - 0.71*tc;//from fraction of sky covered by clouds to cloud transmissivity after Kimball (1928)
+    tc = 1. - 0.71*tc; /** from fraction of sky covered by clouds to cloud transmissivity after Kimball (1928) */
     if (tc > 1) tc = 1.;
     if (tc < 0) tc = 0.;
     *tau_cloud_av = tc;
@@ -1141,7 +1152,6 @@ void find_actual_cloudiness(double *tau_cloud, double *tau_cloud_av,
     *tau_cloud_av_yes = 0;
 
   }
-
 }
 
 //*****************************************************************************************************************

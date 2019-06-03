@@ -88,12 +88,12 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
     if (A->I->JD_plots->nh > 1 && A->I->iplot<=A->I->JD_plots->nh)
     {
         i=2*A->I->iplot-1;
-        if ( (*A->P->init_date)(i_sim) + A->I->time/secinday+1.E-5 >=
+        if ( (*A->P->init_date)(i_sim) + A->I->time/GTConst::secinday+1.E-5 >=
              (*A->I->JD_plots)(i) &&
-             (*A->P->init_date)(i_sim) + (A->I->time+Dt)/secinday-1.E-5 <=
+             (*A->P->init_date)(i_sim) + (A->I->time+Dt)/GTConst::secinday-1.E-5 <=
              (*A->I->JD_plots)(i+1) )
         {
-            Dtplot=((*A->I->JD_plots)(i+1) - (*A->I->JD_plots)(i))*secinday;
+            Dtplot=((*A->I->JD_plots)(i+1) - (*A->I->JD_plots)(i))*GTConst::secinday;
             *W = Dt / Dtplot;
             f = fopen(logfile, "a");
             fprintf(f,"Saving plot number %ld Weight:%f \n",A->I->iplot,*W);
@@ -123,14 +123,14 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
 
     if (A->P->point_sim != 1)
     {
-        A->E->sun[0] = A->P->latitude*Pi/180.;
-        A->E->sun[2] = (A->P->longitude*Pi/180. - A->P->ST*Pi/12. + Et)/omega;
+        A->E->sun[0] = A->P->latitude*GTConst::Pi/180.;
+        A->E->sun[2] = (A->P->longitude*GTConst::Pi/180. - A->P->ST*GTConst::Pi/12. + Et)/GTConst::omega;
         A->E->hsun = adaptiveSimpsons2(SolarHeight__, A->E->sun, JDb, JDe, 1.E-6,
                                        20) / (JDe - JDb);
         A->E->dsun = adaptiveSimpsons2(SolarAzimuth__, A->E->sun, JDb, JDe, 1.E-6,
-                                       20) / (JDe - JDb) + A->P->dem_rotation*Pi/180.;
-        if (A->E->dsun < 0) A->E->dsun += 2*Pi;
-        if (A->E->dsun > 2*Pi) A->E->dsun -= 2*Pi;
+                                       20) / (JDe - JDb) + A->P->dem_rotation*GTConst::Pi/180.;
+        if (A->E->dsun < 0) A->E->dsun += 2*GTConst::Pi;
+        if (A->E->dsun > 2*GTConst::Pi) A->E->dsun -= 2*GTConst::Pi;
         A->E->sinhsun = adaptiveSimpsons2(Sinalpha_, A->E->sun, JDb, JDe, 1.E-6,
                                           20) / (JDe - JDb);
         if (A->P->cast_shadow==1)
@@ -167,7 +167,7 @@ short EnergyBalance(double Dt, double JD0, double JDb, double JDe,
             c = (*A->T->rc_cont)(i - A->P->total_channel,2);
         }
 
-        if ((*A->L->delay)(r,c) <= A->I->time/secinday)
+        if ((*A->L->delay)(r,c) <= A->I->time/GTConst::secinday)
         {
 
             cnt++;
@@ -269,7 +269,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         for (l=1; l<=Nl; l++)
         {
             (*A->C->ET)(l,j) = 0.0;
-            (*A->C->th)(l,j) = theta_from_psi((*C->P)(l,j), (*C->thi)(l,j), l, A->S->pa->matrix(sy), PsiMin);
+            (*A->C->th)(l,j) = theta_from_psi((*C->P)(l,j), (*C->thi)(l,j), l, A->S->pa->matrix(sy), GTConst::PsiMin);
             (*A->C->th)(l,j) = std::min<double>( (*A->C->th)(l,j), (*A->S->pa)(sy,jsat,l)-(*C->thi)(l,j) );
         }
 
@@ -284,7 +284,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         for (l=1; l<=Nl; l++)
         {
             (*A->S->ET)(l,r,c) = 0.0;
-            (*A->S->th)(l,j) = theta_from_psi((*L->P)(l,j), (*L->thi)(l,j), l, A->S->pa->matrix(sy), PsiMin);
+            (*A->S->th)(l,j) = theta_from_psi((*L->P)(l,j), (*L->thi)(l,j), l, A->S->pa->matrix(sy), GTConst::PsiMin);
             (*A->S->th)(l,j) = std::min<double>( (*A->S->th)(l,j),(*A->S->pa)(sy,jsat,l)-(*L->thi)(l,j) );
         }
     }
@@ -298,10 +298,10 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
 
     Precpoint=(*A->W->PrecTot)(r,c);
     //define prec as normal (not vertical)
-    Precpoint*=cos((*A->T->slope)(r,c)*Pi/180.);
+    Precpoint*=cos((*A->T->slope)(r,c)*GTConst::Pi/180.);
     //another cosine correction applied for point simulations (due to area proejection)
     if (A->P->point_sim==1 && A->P->flag1D==0)
-        Precpoint*=cos((*A->T->slope)(r,c)*Pi/180.);
+        Precpoint*=cos((*A->T->slope)(r,c)*GTConst::Pi/180.);
 
     Tdirichlet=A->M->var[A->M->nstTs-1][iTs];
     if ((long)Tdirichlet == number_novalue
@@ -350,7 +350,7 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
         fc = (*A->L->vegpar)(jdcf) * pow(1.0-fsnow, (*A->L->vegpar)(jdexpveg));
 
         //control if LSAI is too low (in order to prevent numerical problems)
-        if ((*A->L->vegpar)(jdLSAI) < LSAIthres) fc=0.0;
+        if ((*A->L->vegpar)(jdLSAI) < GTConst::LSAIthres) fc=0.0;
 
         //glacier
         if (A->P->max_glac_layers>0)
@@ -488,28 +488,28 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
     //calculation of SWin
     if (A->P->point_sim==1)
     {
-        A->E->sun[0] = (*A->T->latitude)(r,c)*Pi/180.;
-        A->E->sun[2] = ((*A->T->longitude)(r,c)*Pi/180. - A->P->ST*Pi/12. +
-                        Et)/omega;
+        A->E->sun[0] = (*A->T->latitude)(r,c)*GTConst::Pi/180.;
+        A->E->sun[2] = ((*A->T->longitude)(r,c)*GTConst::Pi/180. - A->P->ST*GTConst::Pi/12. +
+                        Et)/GTConst::omega;
         A->E->hsun = adaptiveSimpsons2(SolarHeight__, A->E->sun, JDb, JDe, 1.E-6,
                                        20) / (JDe - JDb);
         A->E->dsun = adaptiveSimpsons2(SolarAzimuth__, A->E->sun, JDb, JDe, 1.E-6,
-                                       20) / (JDe - JDb) + A->P->dem_rotation*Pi/180.;
-        if (A->E->dsun < 0) A->E->dsun += 2*Pi;
-        if (A->E->dsun > 2*Pi) A->E->dsun -= 2*Pi;
+                                       20) / (JDe - JDb) + A->P->dem_rotation*GTConst::Pi/180.;
+        if (A->E->dsun < 0) A->E->dsun += 2*GTConst::Pi;
+        if (A->E->dsun > 2*GTConst::Pi) A->E->dsun -= 2*GTConst::Pi;
         A->E->sinhsun = adaptiveSimpsons2(Sinalpha_, A->E->sun, JDb, JDe, 1.E-6,
                                           20) / (JDe - JDb);
         if (A->P->cast_shadow==1) (*A->L->shadow)(r,c)=shadows_point(
                     A->T->horizon_height[(*A->T->horizon_point)(r,c)-1],
-                    A->T->horizon_numlines[(*A->T->horizon_point)(r,c)-1], A->E->hsun*180./Pi,
-                    A->E->dsun*180/Pi, 0., 0.);
+                    A->T->horizon_numlines[(*A->T->horizon_point)(r,c)-1], A->E->hsun*180./GTConst::Pi,
+                    A->E->dsun*180/GTConst::Pi, 0., 0.);
     }
 
     A->E->sun[3] = RHpoint;
     A->E->sun[4] = Tpoint;
     A->E->sun[5] = Ppoint;
-    A->E->sun[6] = (*A->T->slope)(r,c)*Pi/180.;
-    A->E->sun[7] = (*A->T->aspect)(r,c)*Pi/180.;
+    A->E->sun[6] = (*A->T->slope)(r,c)*GTConst::Pi/180.;
+    A->E->sun[7] = (*A->T->aspect)(r,c)*GTConst::Pi/180.;
     if (A->P->albedoSWin != 0) A->E->sun[11] = (avis_b + avis_d + anir_b +
                                                 anir_d)/4.;
 
@@ -547,12 +547,12 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
                                          c);
             if ((*V->wsnow)(j)<0) (*V->wsnow)(j)=0.0;
             fsnowcan=pow((*V->wsnow)(j)/max_wcan_snow, 2./3.);
-            shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, wsn_vis,
-                                 Bsnd_vis, Bsnb_vis, avis_d, avis_b, (*A->L->ty)(lu,jvCh),
+            shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, GTConst::wsn_vis,
+                                 GTConst::Bsnd_vis, GTConst::Bsnb_vis, avis_d, avis_b, (*A->L->ty)(lu,jvCh),
                                  (*A->L->ty)(lu,jvR_vis), (*A->L->ty)(lu,jvT_vis),
                                  (*A->L->vegpar)(jdLSAI), &SWv_vis, &SWg_vis, &SWupabove_v_vis);
-            shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, wsn_nir,
-                                 Bsnd_nir, Bsnb_nir, anir_d, anir_b, (*A->L->ty)(lu,jvCh),
+            shortwave_vegetation(0.5*SWdiff, 0.5*SWbeam, cosinc, fsnowcan, GTConst::wsn_nir,
+                                 GTConst::Bsnd_nir, GTConst::Bsnb_nir, anir_d, anir_b, (*A->L->ty)(lu,jvCh),
                                  (*A->L->ty)(lu,jvR_nir), (*A->L->ty)(lu,jvT_nir),
                                  (*A->L->vegpar)(jdLSAI), &SWv_nir, &SWg_nir, &SWupabove_v_nir);
 
@@ -633,15 +633,15 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
             if (i<=A->P->total_channel)
             {
                 (*A->E->Dlayer)(l) = 1.E-3 * (*A->S->pa)(sy,jdz,l-ns-ng);
-                (*A->E->liq)(l) = (*A->C->th)(l-ns-ng,j)*(*A->E->Dlayer)(l)*rho_w;
-                (*A->E->ice)(l) = (*C->thi)(l-ns-ng,j)*(*A->E->Dlayer)(l)*rho_w;
+                (*A->E->liq)(l) = (*A->C->th)(l-ns-ng,j)*(*A->E->Dlayer)(l)*GTConst::rho_w;
+                (*A->E->ice)(l) = (*C->thi)(l-ns-ng,j)*(*A->E->Dlayer)(l)*GTConst::rho_w;
                 (*A->E->Temp)(l) = (*C->T)(l-ns-ng,j);
             }
             else
             {
                 (*A->E->Dlayer)(l) = 1.E-3*(*A->S->pa)(sy,jdz,l-ns-ng);
-                (*A->E->liq)(l) = (*A->S->th)(l-ns-ng,j)*(*A->E->Dlayer)(l)*rho_w;
-                (*A->E->ice)(l) = (*L->thi)(l-ns-ng,j)*(*A->E->Dlayer)(l)*rho_w;
+                (*A->E->liq)(l) = (*A->S->th)(l-ns-ng,j)*(*A->E->Dlayer)(l)*GTConst::rho_w;
+                (*A->E->ice)(l) = (*L->thi)(l-ns-ng,j)*(*A->E->Dlayer)(l)*GTConst::rho_w;
                 (*A->E->Temp)(l) = (*L->T)(l-ns-ng,j);
             }
         }
@@ -717,13 +717,13 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
             (*A->E->ice)(1) += ic;
             if (i<=A->P->total_channel)
             {
-                (*C->thi)(1,j) = (*A->E->ice)(1)/((*A->E->Dlayer)(1)*rho_w);
-                (*A->C->th)(1,j) = (*A->E->liq)(1)/((*A->E->Dlayer)(1)*rho_w);
+                (*C->thi)(1,j) = (*A->E->ice)(1)/((*A->E->Dlayer)(1)*GTConst::rho_w);
+                (*A->C->th)(1,j) = (*A->E->liq)(1)/((*A->E->Dlayer)(1)*GTConst::rho_w);
             }
             else
             {
-                (*L->thi)(1,j) = (*A->E->ice)(1)/((*A->E->Dlayer)(1)*rho_w);
-                (*A->S->th)(1,j) = (*A->E->liq)(1)/((*A->E->Dlayer)(1)*rho_w);
+                (*L->thi)(1,j) = (*A->E->ice)(1)/((*A->E->Dlayer)(1)*GTConst::rho_w);
+                (*A->S->th)(1,j) = (*A->E->liq)(1)/((*A->E->Dlayer)(1)*GTConst::rho_w);
             }
 
         }
@@ -783,11 +783,11 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
             {
                 k = k_thermal(  0, 1,
                                 Arithmetic_Mean((*A->E->Dlayer)(ns), (*A->E->Dlayer)(ns+1),
-                                                (*A->E->liq)(ns)/(rho_w*(*A->E->Dlayer)(ns)),
-                                                (*A->E->liq)(ns+1)/(rho_w*(*A->E->Dlayer)(ns+1))),
+                                                (*A->E->liq)(ns)/(GTConst::rho_w*(*A->E->Dlayer)(ns)),
+                                                (*A->E->liq)(ns+1)/(GTConst::rho_w*(*A->E->Dlayer)(ns+1))),
                                 Arithmetic_Mean((*A->E->Dlayer)(ns), (*A->E->Dlayer)(ns+1),
-                                                (*A->E->ice)(ns)/(rho_w*(*A->E->Dlayer)(ns)),
-                                                (*A->E->ice)(ns+1)/(rho_w*(*A->E->Dlayer)(ns+1))),
+                                                (*A->E->ice)(ns)/(GTConst::rho_w*(*A->E->Dlayer)(ns)),
+                                                (*A->E->ice)(ns+1)/(GTConst::rho_w*(*A->E->Dlayer)(ns+1))),
                                 Arithmetic_Mean((*A->E->Dlayer)(ns), (*A->E->Dlayer)(ns+1), 1.,
                                                 (*A->S->pa)(sy,jsat,1)),
                                 Arithmetic_Mean((*A->E->Dlayer)(ns), (*A->E->Dlayer)(ns+1), 0.,
@@ -842,13 +842,13 @@ short PointEnergyBalance(long i, long r, long c, double Dt, double JDb,
 
             //add new snow
             if (Psnow>0) new_snow(A->P->alpha_snow, r, c, S, Psnow,
-                                  Psnow*rho_w/rho_newlyfallensnow(Vpoint, Tpoint, Tfreezing), Tpoint);
+                                  Psnow*GTConst::rho_w/rho_newlyfallensnow(Vpoint, Tpoint, GTConst::Tfreezing), Tpoint);
 
             //NET PRECIPITATION
             (*A->W->Pnet)(r,c) += (Melt_snow + Melt_glac + Prain);
 
             //VEGETATION
-            if ( (*A->L->vegpar)(jdLSAI)>=LSAIthres && ng==0 )
+            if ( (*A->L->vegpar)(jdLSAI)>=GTConst::LSAIthres && ng==0 )
             {
 
                 snowD = DEPTH(r, c, S->lnum.get(), S->Dzl.get());
@@ -1425,9 +1425,9 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
             psim0=psi_teta((*cnet->th)(l,j)+(*SC->thi)(l,j), 0.0,
                            (*sl->pa)(sy,jsat,l), (*sl->pa)(sy,jres,l),
                            (*sl->pa)(sy,ja,l), (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l),
-                           PsiMin, (*sl->pa)(sy,jss,l));
+                           GTConst::PsiMin, (*sl->pa)(sy,jss,l));
             //max temperature at which the first particle of ice comes up
-            (*egy->Tstar)(l) = std::min<double>(psim0/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
+            (*egy->Tstar)(l) = std::min<double>(psim0/(1000.0*GTConst::Lf/(GTConst::g*(GTConst::Tfreezing+GTConst::tk))), 0.0);
         }
     }
     else
@@ -1442,9 +1442,9 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
             psim0=psi_teta((*sl->th)(l,j)+(*SL->thi)(l,j), 0.0,
                            (*sl->pa)(sy,jsat,l), (*sl->pa)(sy,jres,l),
                            (*sl->pa)(sy,ja,l), (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l),
-                           PsiMin, (*sl->pa)(sy,jss,l));
+                           GTConst::PsiMin, (*sl->pa)(sy,jss,l));
             //max temperature at which the first particle of ice comes up
-            (*egy->Tstar)(l)=std::min<double>(psim0/(1000.0*Lf/(g*(Tfreezing+tk))), 0.0);
+            (*egy->Tstar)(l)=std::min<double>(psim0/(1000.0*GTConst::Lf/(GTConst::g*(GTConst::Tfreezing+GTConst::tk))), 0.0);
         }
 
     }
@@ -1517,8 +1517,8 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
     {
 
         //conductive M-matrix (lower diagonal part of this M-matrix is stored in a vector)
-        thw = ((*egy->liq)(l) + (*egy->deltaw)(l))/(rho_w*(*egy->Dlayer)(l));
-        thi = ((*egy->ice)(l) - (*egy->deltaw)(l))/(rho_i*(*egy->Dlayer)(l));
+        thw = ((*egy->liq)(l) + (*egy->deltaw)(l))/(GTConst::rho_w*(*egy->Dlayer)(l));
+        thi = ((*egy->ice)(l) - (*egy->deltaw)(l))/(GTConst::rho_i*(*egy->Dlayer)(l));
 
         if (l > ns+ng)
         {
@@ -1547,8 +1547,8 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
         if (l>1)
         {
 
-            thwn = ((*egy->liq)(l-1) + (*egy->deltaw)(l-1))/(rho_w*(*egy->Dlayer)(l-1));
-            thin = ((*egy->ice)(l-1) - (*egy->deltaw)(l-1))/(rho_i*(*egy->Dlayer)(l-1));
+            thwn = ((*egy->liq)(l-1) + (*egy->deltaw)(l-1))/(GTConst::rho_w*(*egy->Dlayer)(l-1));
+            thin = ((*egy->ice)(l-1) - (*egy->deltaw)(l-1))/(GTConst::rho_i*(*egy->Dlayer)(l-1));
 
             if (l-1 > ns+ng)
             {
@@ -1603,7 +1603,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                     *egy->Dlayer, sl->pa->matrix(sy));
         if (l<=ns+ng
             && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
-        (*egy->Fenergy)(l) += ( Lf*(*egy->deltaw)(l) +
+        (*egy->Fenergy)(l) += ( GTConst::Lf*(*egy->deltaw)(l) +
                                 C1*(*egy->Dlayer)(l)*(*egy->Temp)(l) -
                                 C0*(*egy->Dlayer)(l)*(*egy->T0)(l) ) / Dt;
 
@@ -1613,9 +1613,9 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
     }
 
     //top boundary condition
-    (*egy->Fenergy)(sur) -= ( (1.-KNe)*EB + KNe*EB0 );
+    (*egy->Fenergy)(sur) -= ( (1.-GTConst::KNe)*EB + GTConst::KNe*EB0 );
     if (dirichlet == 1) (*egy->Fenergy)(sur) -= ( (Tgd-(*egy->Temp)(sur))*
-                                                  (1.-KNe)*kub1 + (Tgd-(*egy->T0)(sur))*KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
+                                                  (1.-GTConst::KNe)*kub1 + (Tgd-(*egy->T0)(sur))*GTConst::KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
 
     //bottom boundary condition (treated as sink)
     (*egy->Fenergy)(n) -= par->Fboundary;
@@ -1632,19 +1632,19 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
     if (dirichlet_bottom == 1)
     {
-        (*egy->Fenergy)(n) -= ( (Tbottom-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
-                                (Tbottom-(*egy->T0)(n))*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
+        (*egy->Fenergy)(n) -= ( (Tbottom-(*egy->Temp)(n))*(1.-GTConst::KNe)*kbb1 +
+                                (Tbottom-(*egy->T0)(n))*GTConst::KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
     }
     else
     {
-        (*egy->Fenergy)(n) -= ( (par->Tboundary-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
-                                (par->Tboundary-(*egy->T0)(n))*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
+        (*egy->Fenergy)(n) -= ( (par->Tboundary-(*egy->Temp)(n))*(1.-GTConst::KNe)*kbb1 +
+                                (par->Tboundary-(*egy->T0)(n))*GTConst::KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
                                                                              +par->Zboundary);
     }
 
     //include conduction in F(x0)
-    update_F_energy(sur, n, egy->Fenergy.get(), 1.-KNe, egy->Kth1.get(), &(*egy->Temp)(0));
-    update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &(*egy->T0)(0));
+    update_F_energy(sur, n, egy->Fenergy.get(), 1.-GTConst::KNe, egy->Kth1.get(), &(*egy->Temp)(0));
+    update_F_energy(sur, n, egy->Fenergy.get(), GTConst::KNe, egy->Kth0.get(), &(*egy->T0)(0));
 
     //calculate the norm
     res = norm_2(egy->Fenergy.get(), sur, n);
@@ -1681,16 +1681,16 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
             //adds apparent thermal conductivity (due to phase change) for both snow and soil
             if (l<=ns+ng) //snow
             {
-                C1 += Lf*((*egy->ice)(l)+(*egy->liq)(l))*dtheta_snow(par->alpha_snow, 1.,
+                C1 += GTConst::Lf*((*egy->ice)(l)+(*egy->liq)(l))*dtheta_snow(par->alpha_snow, 1.,
                                                                      (*egy->Temp)(l))/(*egy->Dlayer)(l);
             }
             else    //soil
             {
                 m=l-ns-ng;
                 if ((*egy->Temp)(l) <= (*egy->Tstar)(m))
-                    C1 += rho_w * Lf * (Lf/(g*tk)*1.E3) * dteta_dpsi(Psif((*egy->Temp)(l)), 0.0, (*sl->pa)(sy,jsat,m),
+                    C1 += GTConst::rho_w * GTConst::Lf * (GTConst::Lf/(GTConst::g*GTConst::tk)*1.E3) * dteta_dpsi(Psif((*egy->Temp)(l)), 0.0, (*sl->pa)(sy,jsat,m),
                                                                      (*sl->pa)(sy,jres,m), (*sl->pa)(sy,ja,m), (*sl->pa)(sy,jns,m),
-                                                                     1-1/(*sl->pa)(sy,jns,m), PsiMin, 0.0);
+                                                                     1-1/(*sl->pa)(sy,jns,m), GTConst::PsiMin, 0.0);
             }
 
             (*egy->dFenergy)(l) += C1*(*egy->Dlayer)(l) / Dt;
@@ -1698,22 +1698,22 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
         }
 
         //Upper Boundary Condition: Neumann
-        (*egy->dFenergy)(sur) -= (1.-KNe)*dEB_dT;
+        (*egy->dFenergy)(sur) -= (1.-GTConst::KNe)*dEB_dT;
 
         //Upper Boundary Condition: Dirichlet
         if (dirichlet == 1)
-            (*egy->dFenergy)(sur) += (1.-KNe)*kub1 /((*egy->Dlayer)(1)/2.);
+            (*egy->dFenergy)(sur) += (1.-GTConst::KNe)*kub1 /((*egy->Dlayer)(1)/2.);
 
         //Bottom Boundary Condition
-        (*egy->dFenergy)(n) += (1.-KNe)*kbb1 / ((*egy->Dlayer)(n)/2.+par->Zboundary);
+        (*egy->dFenergy)(n) += (1.-GTConst::KNe)*kbb1 / ((*egy->Dlayer)(n)/2.+par->Zboundary);
 
         //Update the part of Jacobian due to conduction is included in Kth1 and Kth0
-        update_diag_dF_energy(sur, n, egy->dFenergy.get(), 1.-KNe, egy->Kth1.get());
+        update_diag_dF_energy(sur, n, egy->dFenergy.get(), 1.-GTConst::KNe, egy->Kth1.get());
 
         //Extradiagonal part of the Jacobian
         for (l=sur; l<=n-1; l++)
         {
-            (*egy->udFenergy)(l) = (1.-KNe)*(*egy->Kth1)(l);
+            (*egy->udFenergy)(l) = (1.-GTConst::KNe)*(*egy->Kth1)(l);
         }
 
         //Solve tridiagonal system
@@ -1768,7 +1768,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
             {
                 lambda[1] = lambda[0];
                 res0[1] = res;
-                lambda[0] = thmax;
+                lambda[0] = GTConst::thmax;
 
             }
             else
@@ -1799,7 +1799,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                         th1 = teta_psi(Psif(std::min<double>((*egy->Tstar)(m),(*egy->Temp)(l))), 0.0,
                                        (*sl->pa)(sy,jsat,m),
                                        (*sl->pa)(sy,jres,m), (*sl->pa)(sy,ja,m), (*sl->pa)(sy,jns,m),
-                                       1-1/(*sl->pa)(sy,jns,m), PsiMin, (*sl->pa)(sy,jss,m));
+                                       1-1/(*sl->pa)(sy,jns,m), GTConst::PsiMin, (*sl->pa)(sy,jss,m));
                         if (th1 > (*cnet->th)(m,j) + (*SC->thi)(m,j)) th1 = (*cnet->th)(m,j) +
                                                                             (*SC->thi)(m,j);
                     }
@@ -1809,12 +1809,12 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                         th1 = teta_psi(Psif(std::min<double>((*egy->Tstar)(m),(*egy->Temp)(l))), 0.0,
                                        (*sl->pa)(sy,jsat,m),
                                        (*sl->pa)(sy,jres,m), (*sl->pa)(sy,ja,m), (*sl->pa)(sy,jns,m),
-                                       1-1/(*sl->pa)(sy,jns,m), PsiMin, (*sl->pa)(sy,jss,m));
+                                       1-1/(*sl->pa)(sy,jns,m), GTConst::PsiMin, (*sl->pa)(sy,jss,m));
                         if (th1 > (*sl->th)(m,j) + (*SL->thi)(m,j))
                             th1 = (*sl->th)(m,j) + (*SL->thi)(m,j);
                     }
 
-                    (*egy->deltaw)(l)=(th1-th0)*(*egy->Dlayer)(l)*rho_w;
+                    (*egy->deltaw)(l)=(th1-th0)*(*egy->Dlayer)(l)*GTConst::rho_w;
 
 
                     //snow
@@ -1850,11 +1850,11 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
                             if (i<=par->total_channel)
                             {
-                                (*egy->THETA)(m) = (*cnet->th)(m,j) + (*egy->deltaw)(l)/(rho_w*(*egy->Dlayer)(l));
+                                (*egy->THETA)(m) = (*cnet->th)(m,j) + (*egy->deltaw)(l)/(GTConst::rho_w*(*egy->Dlayer)(l));
                             }
                             else
                             {
-                                (*egy->THETA)(m) = (*sl->th)(m,j) + (*egy->deltaw)(l)/(rho_w*(*egy->Dlayer)(l));
+                                (*egy->THETA)(m) = (*sl->th)(m,j) + (*egy->deltaw)(l)/(GTConst::rho_w*(*egy->Dlayer)(l));
                             }
 
                             //add canopy transpiration
@@ -1862,7 +1862,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                                 && l <= egy->soil_transp_layer->nh )
                             {
                                 (*egy->THETA)(m) -= std::max<double>( Dt*fc*(*egy->soil_transp_layer)(m)/
-                                                          (rho_w*(*egy->Dlayer)(l)), 0.0 );
+                                                          (GTConst::rho_w*(*egy->Dlayer)(l)), 0.0 );
                                 if ((*egy->THETA)(m) < (*sl->pa)(sy,jres,m)+1.E-3) (*egy->THETA)(m) =
                                                                                            (*sl->pa)(sy,jres,m)+1.E-3;
                             }
@@ -1872,9 +1872,9 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                                 && l <= egy->soil_evap_layer_bare->nh )
                             {
                                 (*egy->THETA)(m) -= std::max<double>( Dt*(1.-fc)*(*egy->soil_evap_layer_bare)(m)/
-                                                          (rho_w*(*egy->Dlayer)(l)), 0.0 );
+                                                          (GTConst::rho_w*(*egy->Dlayer)(l)), 0.0 );
                                 (*egy->THETA)(m) -= std::max<double>( Dt*fc*(*egy->soil_evap_layer_veg)(m)/
-                                                          (rho_w*(*egy->Dlayer)(l)), 0.0 );
+                                                          (GTConst::rho_w*(*egy->Dlayer)(l)), 0.0 );
                                 if ((*egy->THETA)(m) < (*sl->pa)(sy,jres,m)+1.E-3) (*egy->THETA)(m) =
                                                                                            (*sl->pa)(sy,jres,m)+1.E-3;
                             }
@@ -1918,8 +1918,8 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
                 //conductive M-matrix (lower diagonal part of this M-matrix is stored in a vector)
 
-                thw = ((*egy->liq)(l)+(*egy->deltaw)(l))/(rho_w*(*egy->Dlayer)(l));
-                thi = ((*egy->ice)(l)-(*egy->deltaw)(l))/(rho_i*(*egy->Dlayer)(l));
+                thw = ((*egy->liq)(l)+(*egy->deltaw)(l))/(GTConst::rho_w*(*egy->Dlayer)(l));
+                thi = ((*egy->ice)(l)-(*egy->deltaw)(l))/(GTConst::rho_i*(*egy->Dlayer)(l));
 
                 if (l > ns+ng)
                 {
@@ -1944,8 +1944,8 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                 if (l>1)
                 {
 
-                    thwn = ((*egy->liq)(l-1)+(*egy->deltaw)(l-1))/(rho_w*(*egy->Dlayer)(l-1));
-                    thin = ((*egy->ice)(l-1)-(*egy->deltaw)(l-1))/(rho_i*(*egy->Dlayer)(l-1));
+                    thwn = ((*egy->liq)(l-1)+(*egy->deltaw)(l-1))/(GTConst::rho_w*(*egy->Dlayer)(l-1));
+                    thin = ((*egy->ice)(l-1)-(*egy->deltaw)(l-1))/(GTConst::rho_i*(*egy->Dlayer)(l-1));
 
                     if (l-1 > ns+ng)
                     {
@@ -1998,7 +1998,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                             *egy->Dlayer, sl->pa->matrix(sy));
                 if (l<=ns+ng
                     && (*egy->ice)(l)-(*egy->deltaw)(l)<1.E-7) C1 = Csnow_at_T_greater_than_0;
-                (*egy->Fenergy)(l) += ( Lf*(*egy->deltaw)(l) +
+                (*egy->Fenergy)(l) += ( GTConst::Lf*(*egy->deltaw)(l) +
                                         C1*(*egy->Dlayer)(l)*(*egy->Temp)(l) -
                                         C0*(*egy->Dlayer)(l)*(*egy->T0)(l) ) / Dt;
 
@@ -2006,16 +2006,16 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                 if (micro == 1 && l<=ns+1) (*egy->Fenergy)(l) -= (*egy->SWlayer)(l);
 
                 //store soil internal energy
-                if (l>ns+ng) *dUsl = *dUsl + Lf*(*egy->deltaw)(l) +
+                if (l>ns+ng) *dUsl = *dUsl + GTConst::Lf*(*egy->deltaw)(l) +
                                      C1*(*egy->Dlayer)(l)*(*egy->Temp)(l) - C0*(*egy->Dlayer)(l)*(*egy->T0)(l);
 
             }
 
 
             //top boundary condition
-            (*egy->Fenergy)(sur) -= ( (1.-KNe)*EB + KNe*EB0 );
+            (*egy->Fenergy)(sur) -= ( (1.-GTConst::KNe)*EB + GTConst::KNe*EB0 );
             if (dirichlet == 1) (*egy->Fenergy)(sur) -= ( (Tgd-(*egy->Temp)(sur))*
-                                                          (1.-KNe)*kub1 + (Tgd-(*egy->T0)(sur))*KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
+                                                          (1.-GTConst::KNe)*kub1 + (Tgd-(*egy->T0)(sur))*GTConst::KNe*kub0 ) / ((*egy->Dlayer)(1)/2.);
 
             //bottom boundary condition (treated as sink)
             (*egy->Fenergy)(n) -= par->Fboundary;
@@ -2031,18 +2031,18 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
 
             if (dirichlet_bottom == 1)
             {
-                (*egy->Fenergy)(n) -= ( (Tbottom-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
-                                        (Tbottom-(*egy->T0)(n))*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
+                (*egy->Fenergy)(n) -= ( (Tbottom-(*egy->Temp)(n))*(1.-GTConst::KNe)*kbb1 +
+                                        (Tbottom-(*egy->T0)(n))*GTConst::KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.);
             }
             else
             {
-                (*egy->Fenergy)(n) -= ( (par->Tboundary-(*egy->Temp)(n))*(1.-KNe)*kbb1 +
-                                        (par->Tboundary-(*egy->T0)(n))*KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
+                (*egy->Fenergy)(n) -= ( (par->Tboundary-(*egy->Temp)(n))*(1.-GTConst::KNe)*kbb1 +
+                                        (par->Tboundary-(*egy->T0)(n))*GTConst::KNe*kbb0 ) / ((*egy->Dlayer)(n)/2.
                                                                                      +par->Zboundary);
             }
 
-            update_F_energy(sur, n, egy->Fenergy.get(), 1.-KNe, egy->Kth1.get(), &(*egy->Temp)(0));
-            update_F_energy(sur, n, egy->Fenergy.get(), KNe, egy->Kth0.get(), &(*egy->T0)(0));
+            update_F_energy(sur, n, egy->Fenergy.get(), 1.-GTConst::KNe, egy->Kth1.get(), &(*egy->Temp)(0));
+            update_F_energy(sur, n, egy->Fenergy.get(), GTConst::KNe, egy->Kth0.get(), &(*egy->T0)(0));
             res = norm_2(egy->Fenergy.get(), sur, n);
 
             if (res <= res_av*(1.0 - ni*lambda[0])) iter_close2=1;
@@ -2218,16 +2218,16 @@ void update_soil_land(long  /*nsurf*/, long n, long i, long r, long c, double fc
         }
 
         //water pressure and contents
-        psisat = psi_saturation(std::max<double>(0., (*egy->ice)(l+n))/(rho_w*(*egy->Dlayer)(l+n)),
+        psisat = psi_saturation(std::max<double>(0., (*egy->ice)(l+n))/(GTConst::rho_w*(*egy->Dlayer)(l+n)),
                                 pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l));
         th_oversat = std::max<double>( (*S->P)(l,i) - psisat, 0.0 ) * pa(jss,l);
 
-        (*th)(l,i) = std::max<double>(0.,(*egy->liq)(l+n)+(*egy->deltaw)(l+n))/(rho_w * (*egy->Dlayer)(l+n));
+        (*th)(l,i) = std::max<double>(0.,(*egy->liq)(l+n)+(*egy->deltaw)(l+n))/(GTConst::rho_w * (*egy->Dlayer)(l+n));
 
-        (*S->thi)(l,i) = std::max<double>(0., (*egy->ice)(l+n)-(*egy->deltaw)(l+n))/(rho_w*(*egy->Dlayer)(l+n));
+        (*S->thi)(l,i) = std::max<double>(0., (*egy->ice)(l+n)-(*egy->deltaw)(l+n))/(GTConst::rho_w*(*egy->Dlayer)(l+n));
 
         (*S->P)(l,i) = psi_teta((*th)(l,i)+th_oversat, (*S->thi)(l,i),
-                                pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l), PsiMin, pa(jss,l));
+                                pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l), GTConst::PsiMin, pa(jss,l));
 
         //temperature
         (*S->T)(l,i) = (*egy->Temp)(l+n);
@@ -2268,11 +2268,11 @@ void update_soil_channel(long  /*nsurf*/, long n, long ch, double fc, double Dt,
                                 pa(ja,l), pa(jns,l), 1.-1./pa(jns,l));
         th_oversat = std::max<double>( (*S->P)(l,ch) - psisat, 0.0 ) *pa(jss,l);
 
-        (*th)(l,ch) = std::max<double>(0., (*egy->liq)(l+n)+(*egy->deltaw)(l+n))/(rho_w*(*egy->Dlayer)(l+n));
-        (*S->thi)(l,ch) = std::max<double>(0., (*egy->ice)(l+n)-(*egy->deltaw)(l+n))/(rho_w*(*egy->Dlayer)(l+n));
+        (*th)(l,ch) = std::max<double>(0., (*egy->liq)(l+n)+(*egy->deltaw)(l+n))/(GTConst::rho_w*(*egy->Dlayer)(l+n));
+        (*S->thi)(l,ch) = std::max<double>(0., (*egy->ice)(l+n)-(*egy->deltaw)(l+n))/(GTConst::rho_w*(*egy->Dlayer)(l+n));
 
         (*S->P)(l,ch) = psi_teta((*th)(l,ch)+th_oversat, (*S->thi)(l,ch),
-                                 pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l), PsiMin,
+                                 pa(jsat,l), pa(jres,l), pa(ja,l), pa(jns,l), 1.-1./pa(jns,l), GTConst::PsiMin,
                                  pa(jss,l));
 
         //temperature
@@ -2353,11 +2353,11 @@ double calc_C(long l, long nsng, double a, Vector<double> &wi, Vector<double> &w
 
     if (l<=nsng)  //snow
     {
-        C = (c_ice*(wi(l)-a*dw(l)) + c_liq*(wl(l)+a*dw(l)))/D(l);
+        C = (GTConst::c_ice*(wi(l)-a*dw(l)) + GTConst::c_liq*(wl(l)+a*dw(l)))/D(l);
     }
     else    //soil
     {
-        C = pa(jct,l-nsng)*(1.-pa(jsat,l-nsng)) + (c_ice*(wi(l)-a*dw(l)) + c_liq* (wl(l)+a*dw(l)))/D(l);
+        C = pa(jct,l-nsng)*(1.-pa(jsat,l-nsng)) + (GTConst::c_ice*(wi(l)-a*dw(l)) + GTConst::c_liq* (wl(l)+a*dw(l)))/D(l);
     }
 
     return (C);
@@ -2759,14 +2759,14 @@ double k_thermal(short snow, short a, double th_liq, double th_ice,
 
     if (snow==0 || (a!=2 && a!=3))
     {
-        k = pow ( (1.-th_sat)*sqrt(k_solid) + th_liq*sqrt(k_liq) + th_ice*sqrt(
-                k_ice) + (th_sat-th_liq-th_ice)*sqrt(k_air), 2. ) ;
+        k = pow ( (1.-th_sat)*sqrt(k_solid) + th_liq*sqrt(GTConst::k_liq) + th_ice*sqrt(
+                GTConst::k_ice) + (th_sat-th_liq-th_ice)*sqrt(GTConst::k_air), 2. ) ;
 
     }
     else
     {
 
-        r = th_liq * rho_w + th_ice * rho_i ;
+        r = th_liq * GTConst::rho_w + th_ice * GTConst::rho_i ;
 
         if (a==2)
         {
@@ -2781,7 +2781,7 @@ double k_thermal(short snow, short a, double th_liq, double th_ice,
         }
         else if (a==3)
         {
-            k = k_air + (7.75E-5 * r + 1.105E-6 * r*r) * (k_ice-k_air) ;
+            k = GTConst::k_air + (7.75E-5 * r + 1.105E-6 * r*r) * (GTConst::k_ice-GTConst::k_air) ;
         }
 
     }

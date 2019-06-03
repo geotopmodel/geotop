@@ -69,8 +69,8 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
   FILE *f;
 
   //vegetation thermal capacity
-  //C0=0.02*LSAI*c_liq + c_ice*Wcsn + c_liq*Wcrn;
-  C0=land[jcd]*LSAI*c_can + c_ice*Wcsn + c_liq*Wcrn;
+  //C0=0.02*LSAI*GTConst::c_liq + GTConst::c_ice*Wcsn + GTConst::c_liq*Wcrn;
+  C0=land[jcd]*LSAI*GTConst::c_can + GTConst::c_ice*Wcsn + GTConst::c_liq*Wcrn;
   C=C0;
 
   fwliq=pow(Wcrn/Wcrnmax,2./3.);
@@ -78,17 +78,17 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
 
   //calculates values at the instant t0 -> h0
   if (A<1)
-    {
-      *Ts=0.5*Tg0+0.5*Ta;
-      *Qs=0.5*Qg0+0.5*Qa;
-      canopy_fluxes(r, c, T00, Tg0, Ta, Qg0, Qa, zmu, zmT, z0, z0s, d0, z0r, hveg,
-                    v, LR, P, SW, LW, e, LSAI, decaycoeff0, std::forward<RowView<double>>(land),
-                    Wcrn0, Wcrnmax, Wcsn0, Wcsnmax, &subl_can, Etrans, LWv, LWg, Hv, LEv, &h0,
-                    &dhdT, Ts, Qs, Qv, ruc, std::forward<RowView<double>>(froot), theta, soil_transp_layer,
-                              chgsgn, Lobukhov, par, n, rm, rh, rv, rc, rb,
-                    u_top, decay, Locc, LWup_above_v,
-                    psi, std::forward<MatrixView<double>>(soil), &alpha, &beta, T, soil_evap_layer);
-    }
+  {
+    *Ts=0.5*Tg0+0.5*Ta;
+    *Qs=0.5*Qg0+0.5*Qa;
+    canopy_fluxes(r, c, T00, Tg0, Ta, Qg0, Qa, zmu, zmT, z0, z0s, d0, z0r, hveg,
+                  v, LR, P, SW, LW, e, LSAI, decaycoeff0, std::forward<RowView<double>>(land),
+                  Wcrn0, Wcrnmax, Wcsn0, Wcsnmax, &subl_can, Etrans, LWv, LWg, Hv, LEv, &h0,
+                  &dhdT, Ts, Qs, Qv, ruc, std::forward<RowView<double>>(froot), theta, soil_transp_layer,
+                  chgsgn, Lobukhov, par, n, rm, rh, rv, rc, rb,
+                  u_top, decay, Locc, LWup_above_v,
+                  psi, std::forward<MatrixView<double>>(soil), &alpha, &beta, T, soil_evap_layer);
+  }
 
   //calculates values at the instant t1 -> h1, through iterations
   cont=0;
@@ -103,117 +103,117 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
                 std::forward<MatrixView<double>>(soil), &alpha, &beta, T, soil_evap_layer);
 
   do
+  {
+
+    T10=T11;
+
+    //Generalized Newton-Raphson
+    cont2=0;
+    nw=1.0;
+    err0=fabs( C*(T11-T00)/par->Dt - SWv - A*h1 - (1.-A)*h0 );
+
+    //eq. C*(T11-T00)/Dt = cost + h(T10) + dh(T10)/dT * (T11-T10)
+    //eq. C*(T11-T10)/Dt + C*(T10-T00)/Dt = cost + h(T10) + dh(T10)/dT * (T11-T10)
+    //eq. T11-T10 = ( cost + h(T10) - C*(T10-T00)/Dt ) / ( C/Dt - dh/dT )
+
+    DT=( -C*(T10-T00)/par->Dt + SWv + A*h1 + (1.0-A)*h0 ) /
+       ( C/par->Dt - A*dhdT );
+
+    if (DT!=DT)
+    {
+      f = fopen(FailedRunFile, "w");
+      fprintf(f,
+              "Error:: NwRph Tcanopy T00:%f T10:%f SWv:%f h0:%f h1:%f dhdT:%f C:%f Wcsn:%f Wcrn:%f %ld %ld\n",
+              T00,T10,SWv,h0,h1,dhdT,C,Wcsn,Wcrn,r,c);
+      fclose(f);
+      t_error("Fatal Error! Geotop is closed. See failing report.");
+    }
+
+    Lobukhov0=(*Lobukhov);
+
+    do
     {
 
-      T10=T11;
+      T11 = T10 + nw*DT;
 
-      //Generalized Newton-Raphson
-      cont2=0;
-      nw=1.0;
-      err0=fabs( C*(T11-T00)/par->Dt - SWv - A*h1 - (1.-A)*h0 );
+      if (subl_can<0 && T11<0) //condensation as frost
+      {
+        Wcsn=Wcsn0-subl_can*par->Dt;
+        Wcrn=Wcrn0;
 
-      //eq. C*(T11-T00)/Dt = cost + h(T10) + dh(T10)/dT * (T11-T10)
-      //eq. C*(T11-T10)/Dt + C*(T10-T00)/Dt = cost + h(T10) + dh(T10)/dT * (T11-T10)
-      //eq. T11-T10 = ( cost + h(T10) - C*(T10-T00)/Dt ) / ( C/Dt - dh/dT )
+      }
+      else if (subl_can<0 && T11>=0)  //condensation as dew
+      {
+        Wcrn=Wcrn0-subl_can*par->Dt;
+        Wcsn=Wcsn0;
 
-      DT=( -C*(T10-T00)/par->Dt + SWv + A*h1 + (1.0-A)*h0 ) /
-         ( C/par->Dt - A*dhdT );
-
-      if (DT!=DT)
+      }
+      else    //partly evaporation, partly sublimation
+      {
+        if (fwliq+fwice>0)
         {
-          f = fopen(FailedRunFile, "w");
-          fprintf(f,
-                  "Error:: NwRph Tcanopy T00:%f T10:%f SWv:%f h0:%f h1:%f dhdT:%f C:%f Wcsn:%f Wcrn:%f %ld %ld\n",
-                  T00,T10,SWv,h0,h1,dhdT,C,Wcsn,Wcrn,r,c);
-          fclose(f);
-          t_error("Fatal Error! Geotop is closed. See failing report.");
+          Wcsn=Wcsn0-(fwice/(fwliq+fwice))*subl_can*par->Dt;
+          Wcrn=Wcrn0-(fwliq/(fwliq+fwice))*subl_can*par->Dt;
         }
-
-      Lobukhov0=(*Lobukhov);
-
-      do
+        else
         {
-
-          T11 = T10 + nw*DT;
-
-          if (subl_can<0 && T11<0) //condensation as frost
-            {
-              Wcsn=Wcsn0-subl_can*par->Dt;
-              Wcrn=Wcrn0;
-
-            }
-          else if (subl_can<0 && T11>=0)  //condensation as dew
-            {
-              Wcrn=Wcrn0-subl_can*par->Dt;
-              Wcsn=Wcsn0;
-
-            }
-          else    //partly evaporation, partly sublimation
-            {
-              if (fwliq+fwice>0)
-                {
-                  Wcsn=Wcsn0-(fwice/(fwliq+fwice))*subl_can*par->Dt;
-                  Wcrn=Wcrn0-(fwliq/(fwliq+fwice))*subl_can*par->Dt;
-                }
-              else
-                {
-                  Wcsn=Wcsn0;
-                  Wcrn=Wcrn0;
-                }
-            }
-
-          if (Wcrn>Wcrnmax) Wcrn=Wcrnmax;
-          if (Wcrn<0) Wcrn=0.0;
-          if (Wcsn>Wcsnmax) Wcsn=Wcsnmax;
-          if (Wcsn<0) Wcsn=0.0;
-
-          if (T11>0 && Wcsn>0)  //melting
-            {
-              melt_can=std::min<double>(Wcsn, c_ice*Wcsn*(T11-0.0)/Lf);
-              T11p=T11 - Lf*melt_can/C;
-              Wcsn-=melt_can;
-              Wcrn+=melt_can;
-
-            }
-          else if (T11<0 && Wcrn>0)   //freezing
-            {
-              melt_can=-std::min<double>(Wcrn, c_liq*Wcrn*(0.0-T11)/Lf);
-              T11p=T11 - Lf*melt_can/C;
-              Wcsn-=melt_can;
-              Wcrn+=melt_can;
-
-            }
-          else
-            {
-              T11p=T11;
-            }
-
-          C=land[jcd]*LSAI*c_can + c_ice*Wcsn + c_liq*Wcrn;
-          C=(C+C0)/2.;
-
-          canopy_fluxes(r, c, T11p, Tg, Ta, Qg, Qa, zmu, zmT, z0, z0s, d0, z0r, hveg, v,
-                        LR, P, SW, LW, e, LSAI, decaycoeff0,
-                        std::forward<RowView<double>>(land), Wcrn, Wcrnmax, Wcsn, Wcsnmax, &subl_can, Etrans, LWv, LWg, Hv, LEv, &h1,
-                        &dhdT, Ts, Qs, Qv, ruc,
-                        std::forward<RowView<double>>(froot), theta, soil_transp_layer, chgsgn, Lobukhov, par, n, rm, rh, rv, rc, rb,
-                        u_top, decay, Locc,
-                        LWup_above_v, psi, std::forward<MatrixView<double>>(soil), &alpha, &beta, T, soil_evap_layer);
-
-          err1=fabs(C*(T11-T00)/par->Dt - SWv - A*h1 - (1.0-A)*h0 );
-
-          nw/=3.0;
-          cont2++;
-
+          Wcsn=Wcsn0;
+          Wcrn=Wcrn0;
         }
-      while (err1>err0 && cont2<5);
+      }
 
-      if (Lobukhov0*(*Lobukhov)<0) chgsgn++;
+      if (Wcrn>Wcrnmax) Wcrn=Wcrnmax;
+      if (Wcrn<0) Wcrn=0.0;
+      if (Wcsn>Wcsnmax) Wcsn=Wcsnmax;
+      if (Wcsn<0) Wcsn=0.0;
 
-      cont++;
+      if (T11>0 && Wcsn>0)  //melting
+      {
+        melt_can=std::min<double>(Wcsn, GTConst::c_ice*Wcsn*(T11-0.0)/GTConst::Lf);
+        T11p=T11 - GTConst::Lf*melt_can/C;
+        Wcsn-=melt_can;
+        Wcrn+=melt_can;
 
-      if (fabs(T11-T10)<0.01 && err1<0.1) a=1;
+      }
+      else if (T11<0 && Wcrn>0)   //freezing
+      {
+        melt_can=-std::min<double>(Wcrn, GTConst::c_liq*Wcrn*(0.0-T11)/GTConst::Lf);
+        T11p=T11 - GTConst::Lf*melt_can/C;
+        Wcsn-=melt_can;
+        Wcrn+=melt_can;
+
+      }
+      else
+      {
+        T11p=T11;
+      }
+
+      C=land[jcd]*LSAI*GTConst::c_can + GTConst::c_ice*Wcsn + GTConst::c_liq*Wcrn;
+      C=(C+C0)/2.;
+
+      canopy_fluxes(r, c, T11p, Tg, Ta, Qg, Qa, zmu, zmT, z0, z0s, d0, z0r, hveg, v,
+                    LR, P, SW, LW, e, LSAI, decaycoeff0,
+                    std::forward<RowView<double>>(land), Wcrn, Wcrnmax, Wcsn, Wcsnmax, &subl_can, Etrans, LWv, LWg, Hv, LEv, &h1,
+                    &dhdT, Ts, Qs, Qv, ruc,
+                    std::forward<RowView<double>>(froot), theta, soil_transp_layer, chgsgn, Lobukhov, par, n, rm, rh, rv, rc, rb,
+                    u_top, decay, Locc,
+                    LWup_above_v, psi, std::forward<MatrixView<double>>(soil), &alpha, &beta, T, soil_evap_layer);
+
+      err1=fabs(C*(T11-T00)/par->Dt - SWv - A*h1 - (1.0-A)*h0 );
+
+      nw/=3.0;
+      cont2++;
 
     }
+    while (err1>err0 && cont2<5);
+
+    if (Lobukhov0*(*Lobukhov)<0) chgsgn++;
+
+    cont++;
+
+    if (fabs(T11-T10)<0.01 && err1<0.1) a=1;
+
+  }
   while (a==0 && cont<par->maxiter_canopy);
 
   /*if(fabs(T11-T10)>0.5){
@@ -228,12 +228,12 @@ void Tcanopy(long r, long c, double Tv0, double Tg, double Qg, double dQgdT, dou
                    dHgdT, Eg, dEgdT);
 
   if (*Tv!=(*Tv))
-    {
-      f = fopen(FailedRunFile, "w");
-      fprintf(f,"Error:: Tv no value %ld %ld\n",r,c);
-      fclose(f);
-      t_error("Fatal Error! Geotop is closed. See failing report.");
-    }
+  {
+    f = fopen(FailedRunFile, "w");
+    fprintf(f,"Error:: Tv no value %ld %ld\n",r,c);
+    fclose(f);
+    t_error("Fatal Error! Geotop is closed. See failing report.");
+  }
 }
 
 
@@ -284,79 +284,79 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
   //iteration for Ts
   cont2=0;
   do
+  {
+
+    cont2++;
+
+    Ts0=(*Ts);
+
+    //neglects stability corrections, if the number of iterations in Tcanopy is larger than a threshold
+    if (chgsgn>max_chgsgn) MO=4;
+
+    //apply Monin-Obukhov from canopy air to atmosphere
+    aero_resistance(zmu, zmT, z0, d0, z0r, v, Ta, Ts0, Qa, *Qs, P, LR, Lobukhov,
+                    rm, rh, rv, par->state_turb, MO, par->maxiter_Businger);
+
+    //friction speed
+    u_star=sqrt(v/(*rm));
+
+    //wind speed at the top of the canopy
+    *u_top=(u_star/GTConst::ka)*CZ(MO, hveg, z0, d0, *Lobukhov, (Psim));
+
+    //iteration for Loc (within canopy Obukhov length)
+    cont=0;
+    do
     {
 
-      cont2++;
+      cont++;
 
-      Ts0=(*Ts);
+      Loc0=Loc;
 
-      //neglects stability corrections, if the number of iterations in Tcanopy is larger than a threshold
-      if (chgsgn>max_chgsgn) MO=4;
+      //if(cont==par->maxiter_Loc) Loc=-1.E50;
 
-      //apply Monin-Obukhov from canopy air to atmosphere
-      aero_resistance(zmu, zmT, z0, d0, z0r, v, Ta, Ts0, Qa, *Qs, P, LR, Lobukhov,
-                      rm, rh, rv, par->state_turb, MO, par->maxiter_Businger);
+      veg_transmittance(par->stabcorr_incanopy, v, u_star, *u_top, hveg, z0s, z0,
+                        d0, LSAI, decaycoeff0, *Lobukhov, Loc, rb, ruc, decay);
 
-      //friction speed
-      u_star=sqrt(v/(*rm));
+      find_actual_evaporation_parameters(r, c, alpha, beta, soil_evap_layer, theta,
+                                         std::forward<MatrixView<double>>(soil), T, psi, P, *ruc, Ta, Qa, Qgsat, n);
 
-      //wind speed at the top of the canopy
-      *u_top=(u_star/ka)*CZ(MO, hveg, z0, d0, *Lobukhov, (Psim));
+      if ((*Qv)<(*Qs))  //condensation
+      {
+        R=1.0;
+      }
+      else
+      {
+        canopy_evapotranspiration(*rb, Tv, Qa, P, SW, theta, std::forward<RowView<double>>(land),
+                                  std::forward<MatrixView<double>>(soil),
+                                  std::forward<RowView<double>>(froot), &ft,
+                                  soil_transp_layer);
+        R=fw+(1.0-fw)*ft;
+      }
+      *rc = (*rb) / R;
 
-      //iteration for Loc (within canopy Obukhov length)
-      cont=0;
-      do
-        {
+      *Ts = (Ta/(*rh) + Tg/(*ruc) + Tv/(*rb)) / (1./(*rh) + 1./(*ruc) + 1./(*rb));
+      *Qs = (Qa/(*rv) + (*alpha)*Qgsat*(*beta)/(*ruc) + (*Qv)/(*rc)) / (1./(*rv) +
+                                                                        (*beta)/(*ruc) + 1./(*rc));
 
-          cont++;
+      Hg=air_cp((*Ts+Tg)/2.) * air_density((*Ts+Tg)/2., (*Qs+(*alpha)*Qgsat)/2.,
+                                           P) * (Tg-(*Ts))/(*ruc);
 
-          Loc0=Loc;
+      //      -u*^3
+      // Loc = ------------------    Below Canopy Monin-Obukhov length (Niu&Yang)
+      //       k(GTConst::g/T)(Hg/(rho*C))
 
-          //if(cont==par->maxiter_Loc) Loc=-1.E50;
-
-          veg_transmittance(par->stabcorr_incanopy, v, u_star, *u_top, hveg, z0s, z0,
-                            d0, LSAI, decaycoeff0, *Lobukhov, Loc, rb, ruc, decay);
-
-          find_actual_evaporation_parameters(r, c, alpha, beta, soil_evap_layer, theta,
-                                             std::forward<MatrixView<double>>(soil), T, psi, P, *ruc, Ta, Qa, Qgsat, n);
-
-          if ((*Qv)<(*Qs))  //condensation
-            {
-              R=1.0;
-            }
-          else
-            {
-              canopy_evapotranspiration(*rb, Tv, Qa, P, SW, theta, std::forward<RowView<double>>(land), 
-                                        std::forward<MatrixView<double>>(soil),
-                                        std::forward<RowView<double>>(froot), &ft,
-                                        soil_transp_layer);
-              R=fw+(1.0-fw)*ft;
-            }
-          *rc = (*rb) / R;
-
-          *Ts = (Ta/(*rh) + Tg/(*ruc) + Tv/(*rb)) / (1./(*rh) + 1./(*ruc) + 1./(*rb));
-          *Qs = (Qa/(*rv) + (*alpha)*Qgsat*(*beta)/(*ruc) + (*Qv)/(*rc)) / (1./(*rv) +
-                (*beta)/(*ruc) + 1./(*rc));
-
-          Hg=air_cp((*Ts+Tg)/2.) * air_density((*Ts+Tg)/2., (*Qs+(*alpha)*Qgsat)/2.,
-                                               P) * (Tg-(*Ts))/(*ruc);
-
-          //      -u*^3
-          // Loc = ------------------    Below Canopy Monin-Obukhov length (Niu&Yang)
-          //       k(g/T)(Hg/(rho*C))
-
-          Loc=-pow(u_star,3.0)/( ka*(g/(*Ts+tk))*(Hg/(air_density(*Ts,*Qs,
-                                                                  P)*air_cp(*Ts))) );
-          if (Hg==0.0 || Hg!=Hg) Loc=1.E+50;
-
-        }
-      while (fabs(Loc0-Loc)>0.01 && cont<=par->maxiter_Loc);
-
-      /*if(cont==maxiter){
-        printf("Loc not converging, set at neutrality %ld %ld\n",r,c);
-      }*/
+      Loc=-pow(u_star,3.0)/( GTConst::ka*(GTConst::g/(*Ts+GTConst::tk))*(Hg/(air_density(*Ts,*Qs,
+                                                                                         P)*air_cp(*Ts))) );
+      if (Hg==0.0 || Hg!=Hg) Loc=1.E+50;
 
     }
+    while (fabs(Loc0-Loc)>0.01 && cont<=par->maxiter_Loc);
+
+    /*if(cont==maxiter){
+      printf("Loc not converging, set at neutrality %ld %ld\n",r,c);
+    }*/
+
+  }
   while (cont2<par->maxiter_Ts && fabs((*Ts)-Ts0)>0.01);
 
   /*if(fabs((*Ts)-Ts0)>0.01){
@@ -369,39 +369,39 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
   //Et from transpiration, E-Et condensation or evaporation/sublimation from water on the canopy
   Lt=Levap(Tv);
   if (E>0)  //evaporation or sublimation
+  {
+    *Esubl=E*fw/R;
+    dEsubldT=dEdT*fw/R;
+    if (fwliq+fwice>0)
     {
-      *Esubl=E*fw/R;
-      dEsubldT=dEdT*fw/R;
-      if (fwliq+fwice>0)
-        {
-          Lv=Lt + Lf*fwice/(fwliq
-                            +fwice); //linear interpolation to decide if sublimation or condensation occurs
-        }
-      else
-        {
-          Lv=Lt;
-        }
+      Lv=Lt + GTConst::Lf*fwice/(fwliq
+                                 +fwice); //linear interpolation to decide if sublimation or condensation occurs
+    }
+    else
+    {
+      Lv=Lt;
+    }
 
-    }
+  }
   else    //condensation
+  {
+    *Esubl=E;
+    dEsubldT=dEdT;
+    if (Tv>=0)
     {
-      *Esubl=E;
-      dEsubldT=dEdT;
-      if (Tv>=0)
-        {
-          Lv=Lt;
-        }
-      else
-        {
-          Lv=Lt + Lf;
-        }
+      Lv=Lt;
     }
+    else
+    {
+      Lv=Lt + GTConst::Lf;
+    }
+  }
 
   *Etrans=E-(*Esubl);
   for (l=1; l<=soil_transp_layer->nh; l++)
-    {
-      (*soil_transp_layer)(l) = (*soil_transp_layer)(l) * (*Etrans);
-    }
+  {
+    (*soil_transp_layer)(l) = (*soil_transp_layer)(l) * (*Etrans);
+  }
 
   *LE=Lt*(*Etrans) + Lv*(*Esubl);
   *h=(*LWv) - (*H) - (*LE);
@@ -409,14 +409,14 @@ void canopy_fluxes(long r, long c, double Tv, double Tg, double Ta,
   *Locc=Loc;
 
   if (*h!=(*h))
-    {
-      f = fopen(FailedRunFile, "w");
-      fprintf(f,
-              "Error:: No value in canopy fluxes Loc:%e v:%f rm:%e Ts:%f Tv:%f Ta:%f Tg:%f Hg:%f %ld %ld\n",
-              Loc,v,*rm,*Ts,Tv,Ta,Tg,Hg,r,c);
-      fclose(f);
-      t_error("Fatal Error! Geotop is closed. See failing report.");
-    }
+  {
+    f = fopen(FailedRunFile, "w");
+    fprintf(f,
+            "Error:: No value in canopy fluxes Loc:%e v:%f rm:%e Ts:%f Tv:%f Ta:%f Tg:%f Hg:%f %ld %ld\n",
+            Loc,v,*rm,*Ts,Tv,Ta,Tg,Hg,r,c);
+    fclose(f);
+    t_error("Fatal Error! Geotop is closed. See failing report.");
+  }
 
 }
 
@@ -433,20 +433,20 @@ void shortwave_vegetation(double Sd, double Sb, double x, double fwsn,
 
   double phi1,phi2,G,K,w,wBd,wBb,xm;
   double b,c,d,f,h,s,u1,u2,u3,s1,s2,p1,p2,p3,p4,d1,d2,h1,h2,h3,h4,h5,h6,h7,h8,
-         h9,h10,Iupb,Iupd,Idwb,Idwd,Ib,Id;
+          h9,h10,Iupb,Iupd,Idwb,Idwd,Ib,Id;
 
   phi1=0.5-0.633*C-0.33*C*C;
   phi2=0.877*(1.0-2.0*phi1);
   G=phi1+phi2*x;
 
   if (C==0)
-    {
-      xm=1.0;
-    }
+  {
+    xm=1.0;
+  }
   else
-    {
-      xm=(1.0-(phi1/phi2)*log((phi1+phi2)/phi1))/phi2;
-    }
+  {
+    xm=(1.0-(phi1/phi2)*log((phi1+phi2)/phi1))/phi2;
+  }
 
   K=G/x;
 
@@ -494,17 +494,17 @@ void shortwave_vegetation(double Sd, double Sb, double x, double fwsn,
   Id=(1.0-Iupd) - (1.0-Agd)*Idwd;
 
   if (x>0)
-    {
-      *Sv=Sb*Ib + Sd*Id;
-      *Sg=Sb*(1.0-Agb)*exp(-K*L) + (Sb*Idwb+Sd*Idwd)*(1.0-Agd);
-      *Sup_above=Sb*Iupb + Sd*Iupd;
-    }
+  {
+    *Sv=Sb*Ib + Sd*Id;
+    *Sg=Sb*(1.0-Agb)*exp(-K*L) + (Sb*Idwb+Sd*Idwd)*(1.0-Agd);
+    *Sup_above=Sb*Iupb + Sd*Iupd;
+  }
   else
-    {
-      *Sv=Sd*Id;
-      *Sg=Sd*Idwd*(1.0-Agd);
-      *Sup_above=Sd*Iupd;
-    }
+  {
+    *Sv=Sd*Id;
+    *Sg=Sd*Idwd*(1.0-Agd);
+    *Sup_above=Sd*Iupd;
+  }
 
 }
 
@@ -524,12 +524,12 @@ void longwave_vegetation(double Lin, double eg, double Tg, double Tv,
   Lvdw=(1.0-ev)*Lin + ev*SB(Tv);
 
   *Lv=ev*(1.0+(1.0-eg)*(1.0-ev))*Lin + ev*eg*SB(Tg) - (2.0-ev*(1.0-eg))*ev*SB(
-        Tv);
+          Tv);
   *Lg=eg*Lvdw - eg*SB(Tg);
   *dLv_dTv=-(2.0-ev*(1.0-eg))*ev*dSB_dT(Tv);
 
   *Lup_above=(1.0-ev)*(1.0-eg)*(1.0-ev)*Lin + (1.0-ev)*eg*SB(Tg) + (1.0+
-             (1.0-ev)*(1.0-eg))*ev*SB(Tv);
+                                                                    (1.0-ev)*(1.0-eg))*ev*SB(Tv);
 }
 
 /******************************************************************************************************************************************/
@@ -543,7 +543,7 @@ void canopy_rain_interception(double rain_max_loading, double LSAI,
 
   double load;
   double coeff=
-    0.25; /*from The Partitioning of Evapotranspiration into Transpiration, Soil Evaporation, and Canopy Evaporation in a GCM:
+          0.25; /*from The Partitioning of Evapotranspiration into Transpiration, Soil Evaporation, and Canopy Evaporation in a GCM:
             Impacts on Land–Atmosphere Interaction,DAVID M. LAWRENCE, PETER E. THORNTON, KEITH W. OLESON, AND GORDON B. BONAN,
             JOURNAL OF HYDROMETEOROLOGY, DOI: 10.1175/JHM596.1*/
 
@@ -554,10 +554,10 @@ void canopy_rain_interception(double rain_max_loading, double LSAI,
   *drip = Prain - load;
 
   if ( (*storage) > (*max_storage) )
-    {
-      *drip = *drip + (*storage) - (*max_storage);
-      *storage = (*max_storage);
-    }
+  {
+    *drip = *drip + (*storage) - (*max_storage);
+    *storage = (*max_storage);
+  }
 
 }
 
@@ -582,10 +582,10 @@ void canopy_snow_interception(double snow_max_loading, double LSAI,
   *drip = Psnow - load;
 
   if ((*storage)>(*max_storage))
-    {
-      *drip = *drip - ( (*max_storage) - (*storage) );
-      *storage = (*max_storage);
-    }
+  {
+    *drip = *drip - ( (*max_storage) - (*storage) );
+    *storage = (*max_storage);
+  }
 
   unload = std::min<double>(*storage, (*storage)*(std::max<double>(0.0, Tc+3.0)/CT + v/CV)*Dt);
   if (unload<0.1) unload=0.0; //prevents very low snowfalls
@@ -619,35 +619,35 @@ void update_roughness_veg(double hc, double snowD, double zmu, double zmt,
   *hc_ris=(*hc_ris)*1.E-3;//[m]
 
   if (zmu<(*hc_ris))
-    {
-      f = fopen(FailedRunFile, "w");
-      fprintf(f,"Wind speed measurement height:%f m\n",zmu);
-      fprintf(f,"Effective vegetation height:%f m\n",*hc_ris);
-      fprintf(f,"Wind Speed must be measured above vegetation");
-      fclose(f);
-      t_error("Fatal Error! Geotop is closed. See failing report.");
-    }
+  {
+    f = fopen(FailedRunFile, "w");
+    fprintf(f,"Wind speed measurement height:%f m\n",zmu);
+    fprintf(f,"Effective vegetation height:%f m\n",*hc_ris);
+    fprintf(f,"Wind Speed must be measured above vegetation");
+    fclose(f);
+    t_error("Fatal Error! Geotop is closed. See failing report.");
+  }
 
   if (zmt<(*hc_ris))
-    {
-      f = fopen(FailedRunFile, "w");
-      fprintf(f,"Temperature measurement height:%f m\n",zmt);
-      fprintf(f,"Effective vegetation height:%f m\n",*hc_ris);
-      fprintf(f,"Temperatute must be measured above vegetation");
-      fclose(f);
-      t_error("Fatal Error! Geotop is closed. See failing report.");
-    }
+  {
+    f = fopen(FailedRunFile, "w");
+    fprintf(f,"Temperature measurement height:%f m\n",zmt);
+    fprintf(f,"Effective vegetation height:%f m\n",*hc_ris);
+    fprintf(f,"Temperatute must be measured above vegetation");
+    fclose(f);
+    t_error("Fatal Error! Geotop is closed. See failing report.");
+  }
 
   if (*hc_ris-(*d0_ris)<(*z0_ris))
-    {
-      f = fopen(FailedRunFile, "w");
-      fprintf(f,"Effective vegetation height:%f m\n",*hc_ris);
-      fprintf(f,"Effective 0 displacement height:%f m\n",*d0_ris);
-      fprintf(f,"Effective roughness length:%f m\n",*z0_ris);
-      fprintf(f,"It must be always Hcanopy-d0 >= z0");
-      fclose(f);
-      t_error("Fatal Error! Geotop is closed. See failing report.");
-    }
+  {
+    f = fopen(FailedRunFile, "w");
+    fprintf(f,"Effective vegetation height:%f m\n",*hc_ris);
+    fprintf(f,"Effective 0 displacement height:%f m\n",*d0_ris);
+    fprintf(f,"Effective roughness length:%f m\n",*z0_ris);
+    fprintf(f,"It must be always Hcanopy-d0 >= z0");
+    fclose(f);
+    t_error("Fatal Error! Geotop is closed. See failing report.");
+  }
 
 }
 
@@ -658,37 +658,38 @@ void update_roughness_veg(double hc, double snowD, double zmu, double zmt,
 
 void root(long n, double d, double slope, RowView<double> &&D, RowView<double> &&root_fraction)
 {
-
-  //n = number of soil layers (from the surface) affected by root absorption
-  //d = root depth (vertical) [mm]
-  //slope = max lateral slope [rad]
-  //D[] = soil layer thickness [mm]
-  //root_fraction[] = weighting factor assigned to each layer for transpiration, sum of all root_fraction components gives 1
-
+/**
+ * Parameters:
+ * - n = number of soil layers (from the surface) affected by root absorption
+ * - d = root depth (vertical) [mm]
+ * - slope = max lateral slope [rad]
+ * - D[] = soil layer thickness [mm]
+ * - root_fraction[] = weighting factor assigned to each layer for transpiration
+ *                     (sum of all root_fraction components gives 1)
+ */
   long l;
   double z=0.0;
-  double d_corr=d*cos(slope); //slope depth taken as ortogonal to layer boundary
+  double d_corr=d*cos(slope); /** slope depth taken as ortogonal to layer boundary */
 
   for (l=1; l<=n; l++)
+  {
+    z += D(l);
+    if ( d_corr > z )
     {
-      z += D(l);
-      if ( d_corr > z )
-        {
-          root_fraction(l) = D(l)/d_corr;
-        }
-      else
-        {
-          if ( d_corr > z-D(l) )
-            {
-              root_fraction(l) = ( d_corr - (z-D(l)) ) / d_corr;
-            }
-          else
-            {
-              root_fraction(l) = 0.0;
-            }
-        }
+      root_fraction(l) = D(l)/d_corr;
     }
-
+    else
+    {
+      if ( d_corr > z-D(l) )
+      {
+        root_fraction(l) = ( d_corr - (z-D(l)) ) / d_corr;
+      }
+      else
+      {
+        root_fraction(l) = 0.0;
+      }
+    }
+  }
 }
 
 /******************************************************************************************************************************************/
@@ -715,57 +716,57 @@ void canopy_evapotranspiration(double rbv, double Tv, double Qa, double Pa,
 
   //temperature [Best, (1998); Dickinson et al., 1991]
   if (Tv<=0)
-    {
-      fTemp=1E-12;
-    }
+  {
+    fTemp=1E-12;
+  }
   else if (Tv>=50.0)
-    {
-      fTemp=1E-12;
-    }
+  {
+    fTemp=1E-12;
+  }
   else
-    {
-      fTemp=(Tv-0.0)*(50.0-Tv)/625.0;
-    }
+  {
+    fTemp=(Tv-0.0)*(50.0-Tv)/625.0;
+  }
 
   *f=0.0;
   for (l=1; l<=fl->nh; l++)
+  {
+    //water content [Wigmosta et al., (1994); Feddes et al.(1978)]
+    if (theta(l) >= soil(jfc,l))
     {
-      //water content [Wigmosta et al., (1994); Feddes et al.(1978)]
-      if (theta(l) >= soil(jfc,l))
-        {
-          (*fl)(l) = 1.0;
-        }
-      else if (theta(l) > soil(jwp,l))
-        {
-          (*fl)(l) = (theta(l)-soil(jwp,l))/(soil(jfc,l)-soil(jwp,l));
-        }
-      else
-        {
-          (*fl)(l) = 0.0;
-        }
-
-      //stomata resistance for each layer
-      if (fS*fe*fTemp*(*fl)(l)<6.0E-11)
-        {
-          (*fl)(l)=1.0E12;
-        }
-      else
-        {
-          Rsmin=land[jrs];
-          (*fl)(l)=Rsmin/(fS*fe*fTemp*(*fl)(l));
-        }
-
-      //transpiration fraction for each layer
-      (*fl)(l)=root[l]*(rbv/(rbv+(*fl)(l)));
-
-      //transpiration for all the column (as a fraction of Epc)
-      *f+=(*fl)(l);
+      (*fl)(l) = 1.0;
     }
+    else if (theta(l) > soil(jwp,l))
+    {
+      (*fl)(l) = (theta(l)-soil(jwp,l))/(soil(jfc,l)-soil(jwp,l));
+    }
+    else
+    {
+      (*fl)(l) = 0.0;
+    }
+
+    //stomata resistance for each layer
+    if (fS*fe*fTemp*(*fl)(l)<6.0E-11)
+    {
+      (*fl)(l)=1.0E12;
+    }
+    else
+    {
+      Rsmin=land[jrs];
+      (*fl)(l)=Rsmin/(fS*fe*fTemp*(*fl)(l));
+    }
+
+    //transpiration fraction for each layer
+    (*fl)(l)=root[l]*(rbv/(rbv+(*fl)(l)));
+
+    //transpiration for all the column (as a fraction of Epc)
+    *f+=(*fl)(l);
+  }
 
   for (l=1; l<=fl->nh; l++)
-    {
-      if (*f!=0) (*fl)(l)/=(*f);
-    }
+  {
+    if (*f!=0) (*fl)(l)/=(*f);
+  }
 
 }
 
@@ -785,7 +786,7 @@ void veg_transmittance(short stabcorr_incanopy, double  /*v*/, double u_star,
               z0veg;  //height above surface at which the canopy energy/momentum sink/source are supposed to occur
   double u_veg;       //wind speed at zm
   double phi_above,
-         phi_below;//correction to neutral stability above and below the canopy
+          phi_below;//correction to neutral stability above and below the canopy
   double r;         //component of undercanopy resistance
   double Ktop;        //eddy diffusivity at the top of the canopy
   //double Cs, Cs_bare, Cs_dense, W;
@@ -793,32 +794,32 @@ void veg_transmittance(short stabcorr_incanopy, double  /*v*/, double u_star,
   //stability
   //over canopy
   if (Lo<0)
-    {
-      phi_above = pow(1.0-16.0*Hveg/Lo,-0.5);
-    }
+  {
+    phi_above = pow(1.0-16.0*Hveg/Lo,-0.5);
+  }
   else
-    {
-      phi_above = 1.0+5.0*Hveg/Lo;
-    }
+  {
+    phi_above = 1.0+5.0*Hveg/Lo;
+  }
   //under canopy
   if (Loc<0)
-    {
-      phi_below = pow(1.0-15.0*zm/Loc,-0.25);
-    }
+  {
+    phi_below = pow(1.0-15.0*zm/Loc,-0.25);
+  }
   else
-    {
-      phi_below = 1.0+4.7*zm/Loc;
-    }
+  {
+    phi_below = 1.0+4.7*zm/Loc;
+  }
 
   //adjust decay coefficient in accordance with stability under canopy
   if (stabcorr_incanopy == 1)
-    {
-      *decay = std::min<double>(1.E5, decaycoeff0*sqrt(phi_below));
-    }
+  {
+    *decay = std::min<double>(1.E5, decaycoeff0*sqrt(phi_below));
+  }
   else
-    {
-      *decay = decaycoeff0;
-    }
+  {
+    *decay = decaycoeff0;
+  }
 
   //wind speed at the canopy characteristic height (zm)
   //after Zeng
@@ -832,17 +833,17 @@ void veg_transmittance(short stabcorr_incanopy, double  /*v*/, double u_star,
   //ground resistance
   //Zeng
   //Cs_dense = 0.004;
-  //Cs_bare = (pow(z0soil*u_star/1.5E-5,-0.45)*ka/0.13);
+  //Cs_bare = (pow(z0soil*u_star/1.5E-5,-0.45)*GTConst::ka/0.13);
   //W = 1.0-exp(-LSAI);
   //Cs = W*Cs_dense + (1.0-W)*Cs_bare;
   //*rh = 1.0/( Cs * u_star);
 
   //Huntingford (with a term from Zeng)
   r = (Hveg*exp(*decay)/(d0veg*(*decay))) * (exp(-(*decay)*z0soil/Hveg)-exp(-
-                                             (*decay)*zm/Hveg));
-  Ktop = ka*u_star*(Hveg-d0veg)/phi_above;
+                                                                                    (*decay)*zm/Hveg));
+  Ktop = GTConst::ka*u_star*(Hveg-d0veg)/phi_above;
   *rh = std::min<double>(1.E20, r*d0veg/Ktop + 2.0*pow(r,
-                                           0.45)/(ka*u_star)); //2.0 comes from ln(z0/z0h)
+                                                       0.45)/(GTConst::ka*u_star)); //2.0 comes from ln(z0/z0h)
 
 }
 

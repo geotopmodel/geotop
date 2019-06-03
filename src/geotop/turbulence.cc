@@ -46,7 +46,7 @@ void aero_resistance(double zmu, double zmt, double z0, double d0,
 
   //double p=pow((1000.0/P),(0.286*(1-0.23*Qa)));
   double p=1.0;
-  //double Tpa=(Ta+tk)*p,Tp=(T+tk)*p; //potential temperatures
+  //double Tpa=(Ta+GTConst::tk)*p,Tp=(T+GTConst::tk)*p; //potential temperatures
 
   if (state_turb==0)
     {
@@ -65,14 +65,14 @@ void aero_resistance(double zmu, double zmt, double z0, double d0,
     }
   else if (state_turb==2)   //catabatic flows - OERLEMANS & GRISOGONO (2002)
     {
-      *rm=1.0/(v*ka*ka/(log((zmu-d0)/z0 )*log((zmu-d0)/z0 )));
+      *rm=1.0/(v*GTConst::ka*GTConst::ka/(log((zmu-d0)/z0 )*log((zmu-d0)/z0 )));
       if (p*(-gmT+0.0098)>0.0015)
         {
-          *rh=1/( 0.0004*(Ta-T)*pow(g/(tk*p*(gmT+0.0098)*5),0.5) );
+          *rh=1/( 0.0004*(Ta-T)*pow(GTConst::g/(GTConst::tk*p*(gmT+0.0098)*5),0.5) );
         }
       else
         {
-          *rh=1/( 0.0004*(Ta-T)*pow(g/(tk*(0.0015)*5),0.5) );
+          *rh=1/( 0.0004*(Ta-T)*pow(GTConst::g/(GTConst::tk*(0.0015)*5),0.5) );
         }
       *rv=*rh;
     }
@@ -121,7 +121,7 @@ double Psim(double z)
 {
   double x,psi;
   x=pow(1.0-15.0*z,0.25);
-  psi=2.0*log((1.0+x)/2.0)+log((1.0+x*x)/2.0)-2.0*atan(x)+0.5*Pi;
+  psi=2.0*log((1.0+x)/2.0)+log((1.0+x*x)/2.0)-2.0*atan(x)+0.5*GTConst::Pi;
   return (psi);
 }
 
@@ -180,8 +180,8 @@ void Lewis(double zmu, double zmt, double d0, double z0, double z0_z0t,
     }
 
   /* CH neutrale [m/s]*/
-  Cmn=ka*ka/(log((zmu-d0)/z0 )*log((zmu-d0)/z0 ));
-  Chn=ka*ka/(log((zmu-d0)/z0 )*log((zmt-d0)/z0t));
+  Cmn=GTConst::ka*GTConst::ka/(log((zmu-d0)/z0 )*log((zmu-d0)/z0 ));
+  Chn=GTConst::ka*GTConst::ka/(log((zmu-d0)/z0 )*log((zmt-d0)/z0t));
 
   /* calcola la funzione di stabilita' secondo la trattazione semplificata di Garrat, 1992 */
   f=(zmu/zmt-z0/zmt)/pow(zmt-z0t,0.5);
@@ -345,7 +345,7 @@ void Star(short a, double zmeas, double z0, double d0, double L, double  /*u*/,
   *z0v=z0*(*roughness)(M, N, R);
   //if(*z0v<1.0E-5) *z0v=1.0E-5;
   *c=CZ(a,zmeas,*z0v,d0,L,(Psi));
-  *var=delta*ka/(*c);
+  *var=delta*GTConst::ka/(*c);
 
 }
 
@@ -412,7 +412,7 @@ double roughQ(double M, double N, double R)
       b2=-0.180;
     }
   fr=R+N*exp(b0+b1*log(M)+b2*pow_2(log(M)));
-  //fr=R+N*exp(-ka*(7.3*pow(M,0.25)*pow(0.595,0.5)-5));
+  //fr=R+N*exp(-GTConst::ka*(7.3*pow(M,0.25)*pow(0.595,0.5)-5));
   return (fr);
 
 }
@@ -470,7 +470,7 @@ void Businger(short a, double zmu, double zmt, double d0, double z0, double v,
         }
 
       //Obukhov length
-      L=-u_star*u_star*(T+tk)/(ka*g*(T_star-0.61*Q_star*(T+tk)));
+      L=-u_star*u_star*(T+GTConst::tk)/(GTConst::ka*GTConst::g*(T_star-0.61*Q_star*(T+GTConst::tk)));
 
       cont++;
 
@@ -495,9 +495,9 @@ void Businger(short a, double zmu, double zmt, double d0, double z0, double v,
       t_error("Fatal Error! Geotop is closed. See failing report.");
     }
 
-  *rm=cm*cm/(ka*ka*v);
-  *rh=ch*cm/(ka*ka*v);
-  *rv=cv*cm/(ka*ka*v);
+  *rm=cm*cm/(GTConst::ka*GTConst::ka*v);
+  *rh=ch*cm/(GTConst::ka*GTConst::ka*v);
+  *rv=cv*cm/(GTConst::ka*GTConst::ka*v);
 
   *Lobukhov=L;
 
@@ -533,7 +533,7 @@ double latent(double Ts, double Le)
   double L;
   if (Ts<0)
     {
-      L=Le+Lf;  //sublimation
+      L=Le+GTConst::Lf;  //sublimation
     }
   else
     {
@@ -603,7 +603,7 @@ void find_actual_evaporation_parameters(long  /*R*/, long  /*C*/, double *alpha,
           for (l=1; l<=n; l++)
             {
 
-              D = D00 * pow_2((T[l]+tk)/tk) * (Pa0/P);  //molecular diffusivity water vapor [mm2/s]
+              D = GTConst::D00 * pow_2((T[l]+GTConst::tk)/GTConst::tk) * (GTConst::Pa0/P);  //molecular diffusivity water vapor [mm2/s]
               (*r)(l) = (1.E3/D) * soil(jdz,l);
 
               Qsat = SpecHumidity(SatVapPressure(T[l], P), P);
@@ -611,7 +611,7 @@ void find_actual_evaporation_parameters(long  /*R*/, long  /*C*/, double *alpha,
 
               if ( theta(l) <= soil(jfc,l) )
                 {
-                  hs = 0.5 * ( 1. - cos( Pi * ( theta(l) - soil(jres,l) ) /
+                  hs = 0.5 * ( 1. - cos( GTConst::Pi * ( theta(l) - soil(jres,l) ) /
                                          ( soil(jfc,l) - soil(jres,l) ) ) );
                 }
               else

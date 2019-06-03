@@ -31,7 +31,6 @@ extern long number_novalue;
 void i_lrc_cont(Matrix<double> *LC, long ***i, Matrix<long> *lrc, long nl,
                 long nr, long nc)
 {
-
   long cont=0;
   long l, r, c;
 
@@ -43,11 +42,11 @@ void i_lrc_cont(Matrix<double> *LC, long ***i, Matrix<long> *lrc, long nl,
             {
               for (l=0; l<=nl; l++)
                 {
-                  cont++;
-                  i[l][r][c]=cont;
-                  (*lrc)(cont,1)=l;
-                  (*lrc)(cont,2)=r;
-                  (*lrc)(cont,3)=c;
+                  cont ++;
+                  i[l][r][c] = cont;
+                  (*lrc)(cont,1) = l;
+                  (*lrc)(cont,2) = r;
+                  (*lrc)(cont,3) = c;
                 }
             }
         }
@@ -61,7 +60,6 @@ void i_lrc_cont(Matrix<double> *LC, long ***i, Matrix<long> *lrc, long nl,
 
 void j_rc_cont(Matrix<double> *LC, long **j, Matrix<long> *rc, long nr, long nc)
 {
-
   long cont=0;
   long r, c;
   for (r=1; r<=nr; r++)
@@ -70,10 +68,10 @@ void j_rc_cont(Matrix<double> *LC, long **j, Matrix<long> *rc, long nr, long nc)
         {
           if ((long)(*LC)(r,c)!=number_novalue)
             {
-              cont++;
-              j[r][c]=cont;
-              (*rc)(cont,1)=r;
-              (*rc)(cont,2)=c;
+              cont ++;
+              j[r][c] = cont;
+              (*rc)(cont,1) = r;
+              (*rc)(cont,2) = c;
             }
         }
     }
@@ -94,10 +92,10 @@ void lch3_cont(long **ch3, Matrix<long> *lch, long nl, long nch)
     {
       for (l=0; l<=nl; l++)
         {
-          cont++;
-          ch3[l][ch]=cont;
-          (*lch)(cont,1)=l;
-          (*lch)(cont,2)=ch;
+          cont ++;
+          ch3[l][ch] = cont;
+          (*lch)(cont,1) = l;
+          (*lch)(cont,2) = ch;
         }
     }
 }
@@ -110,9 +108,8 @@ void lch3_cont(long **ch3, Matrix<long> *lch, long nl, long nch)
 void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet,
                                  Matrix<double> *LC, Matrix<long> *lrc, long ***i, long n, long nch, long nl)
 {
-
   long j, jj, l, r=0, c=0;
-  long cnt=0;
+  long cnt = 0;
   long N, NCH;
 
   N = n*(nl+1);
@@ -120,54 +117,58 @@ void cont_nonzero_values_matrix2(long *tot, long *totdiag, CHANNEL *cnet,
 
   for (j=1; j<=N+NCH; j++)
     {
-
-      if (j<=N)
+      if (j <= N)
         {
-          l=(*lrc)(j,1);
-          r=(*lrc)(j,2);
-          c=(*lrc)(j,3);
+          l = (*lrc)(j,1);
+          r = (*lrc)(j,2);
+          c = (*lrc)(j,3);
         }
       else
         {
-          jj=j-N;
-          l=(*cnet->lch)(jj,1);
+          jj = j-N;
+          l = (*cnet->lch)(jj,1);
         }
 
-      //the cell itself
-      //cnt ++;
+      /** the cell itself
+      cnt ++; */
 
-      //the cell below
-      if (l<nl) cnt ++;
+      /** the cell below */
+      if (l<nl)
+        cnt ++;
 
-      if (j<=N)
+      if (j <= N)
         {
-          if ((long)(*LC)(r-1,c)!=number_novalue)
+          if ((long)(*LC)(r-1,c) != number_novalue)
             {
-              if (i[l][r-1][c]>j) cnt ++;
+              if (i[l][r-1][c] > j)
+                cnt ++;
             }
 
-          if ((long)(*LC)(r+1,c)!=number_novalue)
+          if ((long)(*LC)(r+1,c) != number_novalue)
             {
-              if (i[l][r+1][c]>j) cnt ++;
+              if (i[l][r+1][c] > j)
+                cnt ++;
             }
 
-          if ((long)(*LC)(r,c-1)!=number_novalue)
+          if ((long)(*LC)(r,c-1) != number_novalue)
             {
-              if (i[l][r][c-1]>j) cnt ++;
+              if (i[l][r][c-1] > j)
+                cnt ++;
             }
 
-          if ((long)(*LC)(r,c+1)!=number_novalue)
+          if ((long)(*LC)(r,c+1) != number_novalue)
             {
-              if (i[l][r][c+1]>j) cnt ++;
+              if (i[l][r][c+1] > j)
+                cnt ++;
             }
 
-          if (l>0 && (*cnet->ch)(r,c)>0) cnt++;
+          if (l>0 && (*cnet->ch)(r,c)>0)
+            cnt++;
         }
     }
 
   *tot = cnt;
   *totdiag = N+NCH;
-
 }
 
 /******************************************************************************************************************************************/
@@ -179,9 +180,10 @@ void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
                                  CHANNEL *cnet, Matrix<double> *LC, Matrix<long> *lrc, long ***i, long n, long nch,
                                  long nl)
 {
-
-  //Ai = line index
-  //Ap = number of values for each row
+  /**
+   * Ai = line index
+   * Ap = number of values for each row
+   */
   long j,jj,l,r=0,c=0;
   long cnt = 0;
   long N, NCH;
@@ -191,80 +193,76 @@ void cont_nonzero_values_matrix3(Vector<long> *Lp, Vector<long> *Li,
 
   for (j=1; j<=N+NCH; j++)
     {
-
-      if (j<=N)
+      if (j <= N)
         {
-          l=(*lrc)(j,1);
-          r=(*lrc)(j,2);
-          c=(*lrc)(j,3);
+          l = (*lrc)(j,1);
+          r = (*lrc)(j,2);
+          c = (*lrc)(j,3);
         }
       else
         {
-          jj=j-N;
-          l=(*cnet->lch)(jj,1);
+          jj = j-N;
+          l = (*cnet->lch)(jj,1);
         }
 
-      //the cell itself
-      //cnt++;
-      //(*Li)(cnt) = j;
+      /** the cell itself
+      cnt++;
+      (*Li)(cnt) = j; */
 
-      //the cell below
-      if (l<nl)
+      /** the cell below */
+      if (l < nl)
         {
-          cnt++;
+          cnt ++;
           (*Li)(cnt) = j+1;
         }
 
-      if (j<=N)
+      if (j <= N)
         {
-          if ((long)(*LC)(r-1,c)!=number_novalue)
+          if ((long)(*LC)(r-1,c) != number_novalue)
             {
-              if (i[l][r-1][c]>j)
+              if (i[l][r-1][c] > j)
                 {
-                  cnt++;
+                  cnt ++;
                   (*Li)(cnt) = i[l][r-1][c];
                 }
             }
 
-          if ((long)(*LC)(r+1,c)!=number_novalue)
+          if ((long)(*LC)(r+1,c) != number_novalue)
             {
-              if (i[l][r+1][c]>j)
+              if (i[l][r+1][c] > j)
                 {
-                  cnt++;
+                  cnt ++;
                   (*Li)(cnt) = i[l][r+1][c];
                 }
             }
 
-          if ((long)(*LC)(r,c-1)!=number_novalue)
+          if ((long)(*LC)(r,c-1) != number_novalue)
             {
-              if (i[l][r][c-1]>j)
+              if (i[l][r][c-1] > j)
                 {
-                  cnt++;
+                  cnt ++;
                   (*Li)(cnt) = i[l][r][c-1];
                 }
             }
 
-          if ((long)(*LC)(r,c+1)!=number_novalue)
+          if ((long)(*LC)(r,c+1) != number_novalue)
             {
-              if (i[l][r][c+1]>j)
+              if (i[l][r][c+1] > j)
                 {
-                  cnt++;
+                  cnt ++;
                   (*Li)(cnt) = i[l][r][c+1];
                 }
             }
 
           if (l>0 && (*cnet->ch)(r,c)>0)
             {
-              cnt++;
+              cnt ++;
               (*Li)(cnt) = N + cnet->ch3[l][(*cnet->ch)(r,c)];
             }
 
         }
-
       (*Lp)(j) = cnt;
     }
-
-
 }
 
 /******************************************************************************************************************************************/

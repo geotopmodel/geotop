@@ -60,7 +60,7 @@ void set_time_step(PAR *par, TIMES *times)
       if (floor(JDold)!=floor(JDnew))
         {
           time_no_interp(0, &line_interp, times->Dt_vector, times->Dt_matrix,
-                         times->numlinesDt_matrix, max_cols_time_steps_file+1, 0,
+                         times->numlinesDt_matrix, GTConst::max_cols_time_steps_file+1, 0,
                          (*par->init_date)(i_sim)+times->time/86400.);
           posix=0;
         }

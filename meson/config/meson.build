@@ -4,10 +4,10 @@ include_dirs += include_directories('.')
 _cdata = configuration_data()
 
 # user defined options
-foreach _opt : ['MUTE_GEOLOG', 'MUTE_GEOTIMER', 'MATH_OPTIM', 'WITH_OMP']
+foreach _opt : ['MUTE_GEOLOG', 'MUTE_GEOTIMER', 'MATH_OPTIM', 'WITH_OMP',
+                'WITH_METEOIO']
     _cdata.set(_opt, get_option(_opt))
 endforeach
-
 
 # check if compiler supports pragmas
 code = '''_Pragma("GCC diagnostic push")

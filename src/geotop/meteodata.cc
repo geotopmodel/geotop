@@ -27,6 +27,7 @@
 #include "rw_maps.h"
 #include "tabs.h"
 #include <logger.h>
+#include "timer.h"
 
 extern long number_absent, number_novalue;
 extern char *string_novalue;
@@ -43,7 +44,6 @@ void time_interp_linear(double t0, double tbeg, double tend, double *out,
                         long *istart)
 
 {
-
     short a0=0, abeg=0, aend=0;
     long i0, ibeg, iend, i, j;
     double t, add;
@@ -138,7 +138,6 @@ void time_interp_constant(double t0, double tbeg, double tend, double *out,
                           long *istart)
 
 {
-
     short a0=0, abeg=0, aend=0;
     long i0, ibeg, iend, i, j;
     double t, add;
@@ -245,7 +244,6 @@ void time_no_interp(short flag, long *istart, double *out, double **data,
                     long nlines, long ncols, long col_date, double tbeg)
 
 {
-
     short abeg;
     long ibeg, i;
 
@@ -294,7 +292,6 @@ void time_no_interp(short flag, long *istart, double *out, double **data,
 double integrate_meas_linear_beh(short flag, double t, long i, double **data,
                                  long col, long col_date)
 {
-
     double t0, t1, value, res;
     FILE *f;
 
@@ -332,7 +329,6 @@ double integrate_meas_linear_beh(short flag, double t, long i, double **data,
     }
 
     return (res);
-
 }
 
 /******************************************************************************************************************************************/
@@ -343,7 +339,6 @@ double integrate_meas_linear_beh(short flag, double t, long i, double **data,
 double integrate_meas_constant_beh(short flag, double t, long i,
                                    double **data, long col, long col_date)
 {
-
     double t0, value, res;
 
     if ( (long)data[i][col] != number_novalue
@@ -366,7 +361,6 @@ double integrate_meas_constant_beh(short flag, double t, long i,
     }
 
     return (res);
-
 }
 
 /******************************************************************************************************************************************/
@@ -377,7 +371,6 @@ double integrate_meas_constant_beh(short flag, double t, long i,
 long find_line_data(short flag, double t, long ibeg, double **data,
                     long col_date, long nlines, short *a)
 {
-
     long i;
     double t0, t1;
 
@@ -412,7 +405,6 @@ long find_line_data(short flag, double t, long ibeg, double **data,
     while (*a == 0);
 
     return (i);
-
 }
 
 /******************************************************************************************************************************************/
@@ -427,7 +419,6 @@ long find_line_data(short flag, double t, long ibeg, double **data,
 
 double time_in_JDfrom0(short flag, long i, long col, double **data)
 {
-
     double t;
 
     if (flag == 0)
@@ -440,7 +431,6 @@ double time_in_JDfrom0(short flag, long i, long col, double **data)
     }
 
     return (t);
-
 }
 
 /******************************************************************************************************************************************/
@@ -450,7 +440,6 @@ double time_in_JDfrom0(short flag, long i, long col, double **data)
 
 long find_station(long metvar, long nstat, double **var)
 {
-
     long i=0;
 
     while ( (long)var[i][metvar] == number_absent && i < nstat-1 )
@@ -468,14 +457,13 @@ long find_station(long metvar, long nstat, double **var)
 
 double **read_horizon(short a, long i, char *name, char **ColDescr, long *num_lines)
 {
-
     FILE *f;
     long j;
     double **hor;
     char *temp;
     short fileyes;
 
-    //check is the file exists
+    /** check is the file exists */
     if (strcmp(name, string_novalue) != 0)
     {
         fileyes=1;
@@ -499,10 +487,9 @@ double **read_horizon(short a, long i, char *name, char **ColDescr, long *num_li
         free(temp);
     }
 
-    //different cases
+    /** different cases */
     if (fileyes == -1)
     {
-
         if (a==0)
         {
             geolog << std::endl
@@ -515,20 +502,17 @@ double **read_horizon(short a, long i, char *name, char **ColDescr, long *num_li
                    << "Warning: No horizon file found for meteo station #" << i << ". "
                    << "In this case the horizon will be considered always not obscured, i.e. shadow=FALSE" << std::endl;
         }
-
         *num_lines = 4;
         hor = (double **)malloc((*num_lines)*sizeof(double *));
         for ( j=0; j<(*num_lines); j++)
         {
             hor[j] = (double *)malloc(2*sizeof(double));
-            hor[j][0] = 45.0+j*90.0;
+            hor[j][0] = 45.0 + j*90.0;
             hor[j][1] = 0.0;
         }
-
     }
     else if (fileyes == 0)
     {
-
         if (a==0)
         {
             geolog << std::endl
@@ -558,14 +542,11 @@ double **read_horizon(short a, long i, char *name, char **ColDescr, long *num_li
             hor[j][1] = 0.0;
             fprintf(f,"%f,%f\n",hor[j][0],hor[j][1]);
         }
-
         fclose(f);
         free(temp);
-
     }
     else if (fileyes==1)
     {
-
         if (a==0)
         {
             geolog << std::endl
@@ -589,11 +570,9 @@ double **read_horizon(short a, long i, char *name, char **ColDescr, long *num_li
             fclose(f);
             t_error("Fatal Error! Geotop is closed. See failing report.");
         }
-
     }
 
     return (hor);
-
 }
 
 /******************************************************************************************************************************************/
@@ -604,7 +583,6 @@ double **read_horizon(short a, long i, char *name, char **ColDescr, long *num_li
 short fixing_dates(long imeteo, double **data, double ST, double STstat,
                    long nlines, long date12col, long JDfrom0col)
 {
-
     long i;
     FILE *f;
 
@@ -640,7 +618,6 @@ short fixing_dates(long imeteo, double **data, double ST, double STstat,
         return -1;
 
     }
-
 }
 
 /******************************************************************************************************************************************/
@@ -651,7 +628,6 @@ short fixing_dates(long imeteo, double **data, double ST, double STstat,
 short fill_wind_xy(double **data, long nlines, long Wspeed, long Wdir,
                    long Wx, long Wy, char *HeaderWx, char *HeaderWy)
 {
-
     long i;
 
     //if the columns Wspeed and Wdir are present, and the columns Wx and Wy are not present
@@ -665,8 +641,8 @@ short fill_wind_xy(double **data, long nlines, long Wspeed, long Wdir,
             if ( (long)data[i][Wspeed] != number_novalue
                  && (long)data[i][Wdir] != number_novalue )
             {
-                data[i][Wx] = -data[i][Wspeed] * sin(data[i][Wdir] * Pi / 180.);
-                data[i][Wy] = -data[i][Wspeed] * cos(data[i][Wdir] * Pi / 180.);
+                data[i][Wx] = -data[i][Wspeed] * sin(data[i][Wdir] * GTConst::Pi / 180.);
+                data[i][Wy] = -data[i][Wspeed] * cos(data[i][Wdir] * GTConst::Pi / 180.);
             }
             else
             {
@@ -693,7 +669,6 @@ short fill_wind_xy(double **data, long nlines, long Wspeed, long Wdir,
     {
         return 0;
     }
-
 }
 
 /******************************************************************************************************************************************/
@@ -704,7 +679,6 @@ short fill_wind_xy(double **data, long nlines, long Wspeed, long Wdir,
 short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir,
                     long Wx, long Wy, char *HeaderWSpeed, char *HeaderWdir)
 {
-
     long i;
     double a;
 
@@ -723,7 +697,7 @@ short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir,
 
                 if (fabs(data[i][Wy]) < 1.E-10 )
                 {
-                    a = Pi/2.;
+                    a = GTConst::Pi/2.;
                 }
                 else
                 {
@@ -732,19 +706,19 @@ short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir,
 
                 if (data[i][Wx] <= 0 && data[i][Wy] <= 0 )
                 {
-                    data[i][Wdir] = a*180./Pi;
+                    data[i][Wdir] = a*180./GTConst::Pi;
                 }
                 else if (data[i][Wx] <= 0 && data[i][Wy] >= 0 )
                 {
-                    data[i][Wdir] = a*180./Pi + 90.;
+                    data[i][Wdir] = a*180./GTConst::Pi + 90.;
                 }
                 else if (data[i][Wx] >= 0 && data[i][Wy] >= 0 )
                 {
-                    data[i][Wdir] = a*180./Pi + 180.;
+                    data[i][Wdir] = a*180./GTConst::Pi + 180.;
                 }
                 else
                 {
-                    data[i][Wdir] = a*180./Pi + 270.;
+                    data[i][Wdir] = a*180./GTConst::Pi + 270.;
                 }
 
             }
@@ -777,7 +751,6 @@ short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir,
     {
         return 0;
     }
-
 }
 
 /******************************************************************************************************************************************/
@@ -788,7 +761,6 @@ short fill_wind_dir(double **data, long nlines, long Wspeed, long Wdir,
 short fill_Tdew(long imeteo, Vector<double> *Z, double **data, long nlines,
                 long RH, long Tair, long Tairdew, char *HeaderTdew, double RHmin)
 {
-
     long i;
 
     if ( (long)data[0][RH] != number_absent
@@ -836,7 +808,6 @@ short fill_Tdew(long imeteo, Vector<double> *Z, double **data, long nlines,
 short fill_RH(long imeteo, Vector<double> *Z, double **data, long nlines,
               long RH, long Tair, long Tairdew, char *HeaderRH)
 {
-
     long i;
 
     if ( (long)data[0][RH] == number_absent
@@ -883,22 +854,19 @@ short fill_RH(long imeteo, Vector<double> *Z, double **data, long nlines,
 short fill_Pint(long  /*imeteo*/, double **data, long nlines, long Prec,
                 long PrecInt, long JDfrom0, char *HeaderPrecInt)
 {
-
     long i;
 
     if ( (long)data[0][Prec] != number_absent
          && (long)data[0][PrecInt] == number_absent )
     {
-
         data[0][PrecInt] = (double)number_novalue;
 
         for (i=1; i<nlines; i++)
         {
             if ( (long)data[i][Prec] != number_novalue)
             {
-                data[i][PrecInt] = data[i][Prec] / (data[i][JDfrom0] - data[i
-                                                                            -1][JDfrom0]);//[mm/d]
-                data[i][PrecInt] /= 24.;//[mm/h]
+                data[i][PrecInt] = data[i][Prec] / (data[i][JDfrom0] - data[i-1][JDfrom0]); /** [mm/d] */
+                data[i][PrecInt] /= 24.; /** [mm/h] */
                 //printf("%ld %f %f\n",i,data[i][PrecInt],data[i][Prec]);
             }
             else
@@ -910,7 +878,6 @@ short fill_Pint(long  /*imeteo*/, double **data, long nlines, long Prec,
             {
                 data[i][Prec] = (double)number_absent;
             }
-
         }
 
         if (strcmp(HeaderPrecInt, string_novalue) != 0)
@@ -921,13 +888,10 @@ short fill_Pint(long  /*imeteo*/, double **data, long nlines, long Prec,
         {
             return 0;
         }
-
     }
     else
     {
-
         return 0;
-
     }
 }
 
@@ -938,7 +902,9 @@ short fill_Pint(long  /*imeteo*/, double **data, long nlines, long Prec,
 
 void check_times(long imeteo, double **data, long nlines, long JDfrom0)
 {
-
+    /**
+     * the simulation should start after the beginning of meteo time series
+     */
     long i;
     FILE *f;
 
@@ -966,6 +932,7 @@ void rewrite_meteo_files(double **meteo, long meteolines, char **header,
                          char *name, short added_JD, short added_wind_xy, short added_wind_dir,
                          short added_cloudiness, short added_Tdew, short added_RH, short added_Pint)
 {
+    GEOTIMER_SECTION(__func__);
 
     char *newname;
     short first_column, write;
