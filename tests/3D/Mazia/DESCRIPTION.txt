@@ -6,7 +6,7 @@ Date: 28-06-2018
 
 Name: Borden05m
 
-Description: Coarse spatial scale simulatio for the Mazia Catchment LTER (South Tyrol, Italy) http://lter.eurac.edu/en 
+Description: Coarse spatial scale simulatio for the Venosta Catchment including LTER Mazia (South Tyrol, Italy) http://lter.eurac.edu/en 
 
 Provided by Giacomo Bertoldi: giacomo.bertoldi@eurac.edu
 
