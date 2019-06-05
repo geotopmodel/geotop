@@ -4,18 +4,18 @@ Processor: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
 Author:  Elisa Bortoli (elisa.bortoli3@gmail.com)
 Date: 28-06-2018
 
-Name: Borden05m
+Name: Mazia
 
-Description: Coarse spatial scale simulatio for the Venosta Catchment including LTER Mazia (South Tyrol, Italy) http://lter.eurac.edu/en 
+Description: Coarse spatial scale simulation for the whole Venosta/Vinschgau catchment closed at Töll (about 600 km2) including LTER Mazia/Matsch (South Tyrol, Italy) http://lter.eurac.edu/en 
 
 Provided by Giacomo Bertoldi: giacomo.bertoldi@eurac.edu
 
 Input:
 Dem with patial resolution 1000 m, area about 70 km2.
-37 different meteo stations
+37 different meteo stations (data from 15/10/2010 to 15/10/2011)
 11 different land cover types
 
-Time:
+Testing Time:
 InitDateDDMMYYYYhhmm = 16/10/2010 12:00
 EndDateDDMMYYYYhhmm =  16/10/2010 16:00
 
