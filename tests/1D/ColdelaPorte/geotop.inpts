@@ -52,7 +52,7 @@ MeteoStationLongitude=46.627
 MeteoStationElevation=1325
 MeteoStationWindVelocitySensorHeight = 5
 MeteoStationTemperatureSensorHeight  = 5
-MeteoFile                   ="GEOtop_CDP_"
+MeteoFile                   	     = "meteo/GEOtop_CDP_"
 
 HeaderDateDDMMYYYYhhmmMeteo = "Date"							
 HeaderIPrec                 = "Prec"
