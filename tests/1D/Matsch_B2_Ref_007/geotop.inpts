@@ -197,7 +197,7 @@ FreeDrainageAtBottom			=	0
 ! Input files 
 
 DemFile					=	"dem"
-MeteoFile				=	"meteo"
+MeteoFile				=	"meteo/meteo"
 LandCoverMapFile			=	"landcover"
 SkyViewFactorMapFile			=	"sky"
 SlopeMapFile				=	"slope"
