@@ -1,0 +1,9 @@
+Model: GEOtop
+Compiler: gcc version 5.4.0 (Ubuntu 5.4.0-6ubuntu1~16.04.9) 
+Processor: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+Author: Elisa Bortoli (elisa.bortoli3@gmail.com)
+Date: 28-03-2018
+Name: Matsch_B2_Ref_007
+Oldname: Matsch_B2_Ref_007
+Description: Station B2 in Montacini (Mazia Valley, BZ)
+Output: ...

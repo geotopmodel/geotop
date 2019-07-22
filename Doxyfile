@@ -1,0 +1,34 @@
+PROJECT_NAME           = GEOTOP
+PROJECT_NUMBER         = 2.0
+SEARCHENGINE           = YES
+
+EXTRACT_ALL           = YES
+EXTRACT_LOCAL_CLASSES = YES
+
+SORT_MEMBER_DOCS        = NO
+ENABLE_PREPROCESSING   = YES
+MACRO_EXPANSION        = YES
+INHERIT_DOCS           = YES
+INLINE_INHERITED_MEMB  = YES
+SHOW_NAMESPACES        = YES
+HIDE_UNDOC_MEMBERS     = YES
+HIDE_UNDOC_CLASSES     = YES
+EXTRACT_STATIC         = YES
+ENABLE_PREPROCESSING   = YES
+SHOW_NAMESPACES        = YES
+FILE_PATTERNS          = *.c *.cc *.h *.cpp *.hpp
+RECURSIVE              = YES
+HAVE_DOT               = YES
+CALL_GRAPH             = YES
+GENERATE_LATEX         = YES
+HAVE_DOT               = YES
+UML_LOOK               = YES
+EXCLUDE_PATTERNS       = */.git/*
+EXCLUDE_PATTERNS       += *.cc.*
+EXCLUDE_PATTERNS       += *.h.*
+
+#INTERNAL_DOCS          = YES
+INTERNAL_DOCS          = NO
+
+OUTPUT_DIRECTORY       = doxygen_generated_doc
+

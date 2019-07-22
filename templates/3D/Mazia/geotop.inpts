@@ -1,0 +1,373 @@
+!  INPUT FOR GEOTOP V.1_225-9-Zurigo 
+! Distributed simulation Vinschgau 1000X1000m sim 
+PointSim = 0
+TimeStepEnergyAndWater = 3600
+! Meteo time series start 01-Jan-1990 and finish 31-Dec-2012
+InitDateDDMMYYYYhhmm = 16/10/2010 12:00
+EndDateDDMMYYYYhhmm =  16/10/2010 16:00
+!NumSimulationTimes	= 1
+
+!=======================================
+! GENERAL SETTINGS
+!=======================================
+
+! Catchment centroid (for Sun position) 
+Latitude = 46.61
+Longitude= 10.70
+StandardTimeSimulation	=	1
+
+! Simulation settings
+WaterBalance = 1
+EnergyBalance = 1
+
+!Output timeseries Dt in hours 
+DtPlotDischarge = 1
+DtPlotPoint = 1
+DtPlotBasin = 1
+
+!Output maps Dt in hours 
+OutputSoilMaps = 1
+!OutputSurfEBALMaps = 1
+OutputMeteoMaps = 1
+OutputSnowMaps = 1
+OutputGlacierMaps =	1
+
+!=======================================
+! METEO STATIONS
+!=======================================
+!order of stations: 
+!Temperature:
+!Schlanders --> meteo0001; Elferspitze Graun -->meteo 0002; Melag--> meteo0003; Taufers--> meteo0004;
+!Matsch -->meteo0005; Agums-Prad-->meteo0006; Schöntaufspitze --> meteo0007; Sulden --> meteo0008; Stilfser Joch --> meteo0009;
+!Martell --> meteo0010; Grawand --> meteo0011; Vernagt --> meteo0012; Naturns --> meteo0013; Grünboden-Pfelders --> meteo0014;
+!Meran-Gratsch --> meteo0015; Weißbrunnspitze --> meteo0016; Pawigl --> meteo0017;
+!Precipitation:
+!Schlanders --> meteo0018; Melag --> meteo0019; St.Valentin --> meteo0020; Marienberg --> meteo0021; Schlinig --> meteo0022;
+!Taufers --> meteo0023; Matsch --> meteo0024; Agums-Prad --> meteo0025; Sulden --> meteo0026; Laas --> meteo0027; Göflan --> meteo0028;
+!Kurzras --> meteo0029; Naturns --> meteo0030; Pfelders --> meteo0031; Meran-Gratsch --> meteo0032; Pawigl --> meteo0033; Weißbrunn --> meteo0034; 
+! Transect Station
+! B1(1000m) --> meteo0035   !B2 (1500m) --> meteo0036   ! B3 (2000m) --> meteo0037
+
+NumberOfMeteoStations=37
+MeteoStationCoordinateX=635863,613582,626323,611860,623672,621152,624957,622375,611802,632465,637174,639220,652371,660393,663324,636332,661472,635863,626323,616720,616288,612672,611860,623672,621152,622375,629729,636292,636155,652371,659362,663324,661472,640591,621671,620815,621733
+MeteoStationCoordinateY=5165317,5181426,5188431,5165895,5172466,5164300,5151212,5152605,5153797,5152929,5181201,5178015,5167937,5184194,5172718,5149389,5165961,5165317,5188431,5181393,5173583,5173341,5165895,5172466,5164300,5152605,5164018,5164894,5179372,5167937,5184669,5172718,5165961,5149772,5168733,5171506,5172112
+MeteoStationElevation=718,2926,1915,1235,1570,907,3328,1907,2660,1720,3220,1950,541,2015,333,3124,1400,718,1915,1499,1310,1690,1235,1570,907,1907,863,698,2012,541,1618,333,1400,1900,1000,1500,2000
+MeteoStationLatitude=46.6276465368386,46.7767107658,46.8374320171,46.6372804053,46.6943161162,46.6213170002,46.5028817858,46.5158873933,46.528450427,46.5168921445,46.7702533766,46.7411728814,46.6476630821,46.7919930283,46.6880790442,46.4842770277,46.6277614793,46.6276465368,46.8374320171,46.7758722394,46.7056889808,46.7041309068,46.6372804053,46.6943161162,46.6213170002,46.5158873933,46.617176234,46.6237545962,46.7540106336,46.6476630821,46.7965119514,46.6880790442,46.6277614793,46.4868470982,46.661101706,46.6862021615,46.6914872418
+MeteoStationLongitude=10.7747932846642,10.4878203941,10.6565821229,10.4614946467,10.6175260252,10.5824345065,10.6285857732,10.5953142401,10.4578161542,10.7268840782,10.7966448277,10.8224619953,10.9911780682,11.1016108946,11.1359071565,10.7762343945,11.1093386738,10.7747932847,10.6565821229,10.528902172,10.5212676088,10.4739204368,10.4614946467,10.6175260252,10.5824345065,10.5953142401,10.6943360751,10.7802698251,10.7827621134,10.9911780682,11.0882763258,11.1359071565,11.1093386738,10.8318110419,10.5903791911,10.5799216319,10.5920819967
+MeteoStationStandardTime=1
+MeteoStationWindVelocitySensorHeight=2
+MeteoStationTemperatureSensorHeight=2
+
+MeteoStationStandardTime = 1
+
+
+
+!======================================= 
+! METEO HAEDERS 
+!======================================= 
+
+HeaderDateDDMMYYYYhhmmMeteo="Date"
+HeaderJulianDayfrom0Meteo="JDfrom0"
+HeaderIPrec="Iprec"
+HeaderWindVelocity="WindSp"
+HeaderWindDirection="WindDir"
+!HeaderWindX="WindX"
+!HeaderWindY="WindY"
+HeaderRH="RH"
+HeaderAirTemp="AirT"
+HeaderAirPress="AirP"
+HeaderSWglobal="Swglob"
+HeaderCloudSWTransmissivity="CloudTrans"
+
+! fixed constant wind speed
+BaseWindSpeed = 2
+WindS	=	2
+Vmin	=	2
+
+!======================================= 
+! OUTPUT POINT SETTINGS 
+!======================================= 
+
+! Mazia Meteo stations: B1(1000m),B2(1500m),B3(2000m),M4,M5
+! Province BZ Meteo Stations: 0070 Elferspitze, 0110 Melag, 0310 Taufers, 0950 Schlanders, 0540 Agums-Prad, 1930 Naturns, 0640 Schöntaufspitze
+		
+CoordinatePointX	= 621671,620815,621733,629601,623542,613582,626323,611860,635863,621152,652371,624957
+CoordinatePointY	= 5168733,5171506,5172112,5177788,5173274,5181426,5188431,5165895,5165317,5164300,5167937,5151212
+PointID = 1,2,3,4,5,6,7,8,9,10,11,12
+
+!======================================= 
+!RATES OF DECREASE WITH ELEVATION
+!======================================= 
+!K/1000m
+!LapseRateTemp	=	6.5
+LapseRateDewTemp	=	2.5
+!mm/1000m
+LapseRatePrec	=	-0.2
+
+SnowCorrFactor = 1.3
+
+
+PrecAsIntensity = 24 
+!=======================================
+! LAND COVER
+!=======================================
+
+!Urban1,	Pasture 2,	Grassland 3,	Agricultural 4, Broad leaf forest 5,	Coniferous forest 6,	Mixed forest 7,
+!Bare Rocks 8,	Bare Soils 9,	Glacier 10,	Lake/Marsh 11
+
+NumLandCoverTypes	=	11
+SoilRoughness	=	1,10,10,10,10,10,10,10,10,1,1
+ThresSnowSoilRough	=	10,10,10,10,10,10,10,10,10,10,10
+VegHeight	=	0,200,600,600,1900,1900,1900,0,0,0,0
+ThresSnowVegUp	=	50,50,50,50,50,50,50,50,50,50,50
+ThresSnowVegDown	=	10,10,10,10,10,10,10,10,10,10,10,10
+LSAI	=	0,2,5,5,7,7,7,0,0,0,0
+CanopyFraction	=	0,0.7,1,1,1,1,1,0,0,0,0
+DecayCoeffCanopy	=	2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5,2.5
+VegSnowBurying	=	1,1,1,1,1,1,1,1,1,1,1
+RootDepth	=	0,200,300,500,700,700,700,0,0,0,0
+MinStomatalRes	=	60,60,60,60,60,60,60,60,60,60,60
+VegReflectVis	=	0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1,0.1
+VegReflNIR	=	0.58,0.58,0.58,0.58,0.58,0.58,0.58,0.58,0.58,0.58
+VegTransVis	=	0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05
+VegTransNIR	=	0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25
+LeafAngles	=	0,0,0,0,0,0,0,0,0,0,0
+CanDensSurface	=	0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5
+SoilAlbVisDry	=	0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15
+SoilAlbNIRDry	=	0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25
+SoilAlbVisWet	=	0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15,0.15
+SoilAlbNIRWet	=	0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25,0.25
+SoilEmissiv	=	0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96,0.96
+!coeff. gaukler stricker
+SurFlowResLand	=	0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05,0.05
+! esponente gaukler stricker
+SurFlowResExp	=	0.667
+!=======================================
+! SOIL
+!=======================================
+
+SoilParFile = "soil/soil"
+SoilLayerTypes = 9
+SoilMapFile = "soiltype" 
+
+! ============== header ==========
+HeaderSoilDz = "Dz"
+HeaderLateralHydrConductivity = "Kh"
+HeaderNormalHydrConductivity = "Kv"
+HeaderThetaRes = "res"
+HeaderFieldCapacity = "fc"
+HeaderThetaSat = "sat"
+HeaderAlpha = "a"
+HeaderN = "n"
+HeaderSpecificStorativity = "SS"
+HeaderWiltingPoint			=	"wilt"	
+
+
+! [mm] 
+InitWaterTableDepth = 10000 
+! [C]
+InitSoilTemp	=	4
+! [-]
+WiltingPoint	=	0.15
+
+ThermalConductivitySoilSolids	=	2.5
+!
+ThermalCapacitySoilSolids	=	2.30E+06
+! [mm^-1]
+
+FrozenSoilHydrCondReduction  = 0
+! [mm] 
+ 
+FreeDrainageAtBottom	=	1
+  
+FreeDrainageAtLateralBorder = 1					
+PointDepthFreeSurface = 1000	
+
+!=======================================
+! BEDROCK
+!=======================================
+
+NormalHydrConductivityBedrock = 1E-6
+LateralHydrConductivityBedrock = 1E-5
+ThetaResBedrock =  0.02
+ThetaSatBedrock = 0.2
+AlphaVanGenuchtenBedrock = 0.01
+NVanGenuchtenBedrock = 2
+
+
+!======================================= 
+! SNOW AND GLACIERS 
+!======================================= 
+ 
+MaxWaterEqSnowLayerContent=10
+SWEtop=40
+SWEbottom=20
+MaxSnowLayersMiddle=5
+
+InitGlacierDensity = 700
+InitGlacierTemp = -5
+
+!MaxWaterEqGlacLayerContent=50
+!GWEtop=300
+!GWEbottom=100
+! MaxGlacLayersMiddle=3
+
+!=======================================
+! CHANNELS
+!=======================================
+
+RatioChannelWidthPixelWidth	=	0.1
+! in [mm]
+ChannelDepression	=	2000
+
+ThresWaterDepthLandInf = 5
+ThresWaterDepthLandSup = 50
+
+! coeff. gaukler stricker canale
+SurFlowResChannel = 20
+
+ThresWaterDepthChannel = 100
+
+!======================================= 
+!Numerical parameters 
+!======================================= 
+ 
+RichardTol	=	1.E-6
+MinLambdaWater = 1.E-8 
+RichardMaxIter	=	1000
+ExitMinLambdaWater = 1
+UpdateHydraulicConductivity = 0
+MinRatioKactualToKSat = 1E-8
+
+MaxCourantSupFlowLand	=	0.1 
+MaxCourantSupFlowChannel	=	0.1
+MinSupWaterDepthLand	=	1 
+MinSupWaterDepthChannel	=	1 
+MinDiffSupWaterDepthLandChannel = 5
+
+!Richards
+MinTimeStep = 0.1
+!Shallow Water
+MinTimeStepSupFlow	=	0.001
+
+HeatEqTol	=	1.E-4 
+HeatEqMaxIter	=	200 
+
+CanopyMaxIter	=	3 
+BusingerMaxIter	=	3 
+TsMaxIter	=	3 
+LocMaxIter	=	3 
+
+! Morphological parameters
+SlopeWeight = 1 
+CurvatureWeight = 100
+NumLowPassFilterOnDemForAll	=	0
+NumLowPassFilterOnDemForCurv	=	0
+
+! Energy budget settings 
+FlagSkyViewFactor	=	1 
+LWinParameterization	=	4 
+MoninObukhov	=	2 
+CanopyStabCorrection	=	1 
+
+
+!=============================================================================
+!  FILE NAMES
+!=============================================================================
+
+! Input files 
+
+DemFile = "input-maps/dem"
+MeteoFile = "meteo/meteo"
+LandCoverMapFile = "input-maps/landcover"
+SkyViewFactorMapFile = "input-maps/sky"
+SlopeMapFile = "input-maps/slope"
+AspectMapFile = "input-maps/aspect"
+CurvaturesMapFile = "input-maps/curvature"
+!HorizonMeteoStationFile = "horizon/horizon"
+RiverNetwork = "input-maps/net"
+!InitGlacierDepthMapFile	=	"glacier0"
+BedrockDepthMapFile = "input-maps/bedrock2"
+
+!InitSnowDepthMapFile = "input-maps/SnowDepth"
+!InitSWEMapFile = "input-maps/SWEglacier"
+!InitSnowAgeMapFile = "input-maps/SnowAge"
+
+
+! Output files
+
+! Tabs 
+DischargeFile = "output-tabs/discharge"
+
+PointOutputFile = "output-tabs/point" 
+PointAll = 1
+
+
+SnowTempProfileFile="output-tabs/snowtemp"
+SnowLiqContentProfileFile="output-tabs/snowliq"
+SnowIceContentProfileFile="output-tabs/snowice"
+SnowDepthLayersFile="output-tabs/snowly"
+SnowAll = 1
+
+SnowCoveredAreaFile = "output-tabs/snowcover"
+
+BasinOutputFile = "output-tabs/basin" 
+
+BasinAll = 1
+
+SoilTempProfileFile="output-tabs/soiltemp"
+SoilLiqContentProfileFile = "output-tabs/thetaliq" 
+SoilIceContentProfileFile = "output-tabs/thetaice" 
+SoilAll = 1
+
+
+
+! Maps
+
+SoilAveragedTempTensorFile = "output-maps/T"
+SurfaceTempMapFile = "output-maps/Ts"
+
+
+
+!SOIL
+SoilLiqContentTensorFile = "output-maps/thetaliq"
+IceLiqContentTensorFile = "output-maps/thetaice"
+SoilTotWaterPressTensorFile = "output-maps/psi"
+LandSurfaceWaterDepthMapFile = "output-maps/hsup"
+WaterTableDepthMapFile = "output-maps/watertable"
+
+
+!SNOW
+SWEMapFile = "output-maps/SWE"
+SnowDepthMapFile = "output-maps/snowdepth"
+! SnowDurationMapFile = "output-maps/snowdur"
+!SnowMeltedMapFile= "output-maps/snowmelt"
+
+!SURFACE
+NetShortwaveRadiationMapFile = "output-maps/SWnet"
+InShortwaveRadiationMapFile= "output-maps/SWin"
+NetLongwaveRadiationMapFile = "output-maps/LWnet"
+InLongwaveRadiationMapFile= "output-maps/LWin"
+NetRadiationMapFile= "output-maps/RadNet"
+SurfaceHeatFluxMapFile = "output-maps/EB"
+SurfaceSensibleHeatFluxMapFile = "output-maps/H"
+SurfaceLatentHeatFluxMapFile = "output-maps/LE"
+EvapotranspirationFromSoilMapFile = "output-maps/ET"
+
+
+!METEO
+PrecipitationMapFile = "output-maps/Prec"
+NetPrecipitationFile = "output-maps/Pnet"
+AirTempMapFile = "output-maps/Ta"
+
+!GlacierDepthMapFile = "output-maps/glacdepth"
+!GlacierWaterEqMapFile = "output-maps/GWE"
+!GlacierMeltedMapFile = "output-maps/glacmelt"
+! ChannelSurfaceWaterDepthMapFile = "output-maps/ch"
+
+
+!=============================================================================
+!  RECOVERY FILE NAMES
+!=============================================================================
+!SubfolderRecoveryFiles="rec"
+!ContinuousRecovery=1

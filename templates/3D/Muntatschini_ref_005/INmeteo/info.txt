@@ -1,0 +1,10 @@
+B1 - meteo0001.txt
+
+B2 - meteo0002.txt
+
+B3 - meteo0003.txt
+
+P2 - meteo0004.txt
+
+startdate: 02/10/2009 00:00
+enddate:   31/12/2015 23:00

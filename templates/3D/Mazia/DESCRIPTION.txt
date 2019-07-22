@@ -1,0 +1,19 @@
+Model: GEOtop
+Compiler: c++ (gcc 5.4.0 "c++ (Ubuntu 5.4.0-6ubuntu1~16.04.9) 5.4.0 20160609")
+Processor: Intel(R) Core(TM) i7-6700HQ CPU @ 2.60GHz
+Author:  Elisa Bortoli (elisa.bortoli3@gmail.com)
+Date: 28-06-2018
+
+Name: Borden05m
+
+Description: Bored Experiment (initial waterdepth 20cm below ditch outlet -
+rainfall intensity 20 mm/hr duration 50 min). Inspired by the Burden Case
+(WRR, Kollet at al, submitted, Abdul and Gillham, 1989)
+
+Time:
+- 01/06/2000 12:00
+- 01/06/2000 12:10
+
+Output:
+- tabs (6): every 1 min (basin,discharge,point,soiltemp,soilwater)
+- maps (66): every 6 min (Prec,psiliq,thetaliq,waterchan,watersurf,watertable)
