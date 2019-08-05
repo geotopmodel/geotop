@@ -112,7 +112,7 @@ During the years, several scripts and external softwares have been developed for
 
 There are **R scripts** (https://github.com/ecor/geotopbricks) for I/O and **GEOtop** results visualization. They work for versions 2.0 and 2.1. Mainly developed by Emanuele Cordano. There is also a stable version published on CRAN as **R package** (https://cran.r-project.org/package=geotopbricks/).
 
-The **R package Topo Sub** (https://github.com/EURAC-Ecohydro/TopoSUB) allows to produce spatially-distributed GEOtop output maps from a limited number of 1D single column simulations using a clustering approach (neglecting 3D water interactions). It has been developed by Joel Fiddes (Fiddrs and Gruber, 2012) and structured as R package by Johannes Brenner.
+The **R package Topo Sub** (https://github.com/EURAC-Ecohydro/TopoSUB) allows to produce spatially-distributed GEOtop output maps from a limited number of 1D single column simulations using a clustering approach (neglecting 3D water interactions). It has been developed by Joel Fiddes (Fiddes and Gruber, 2012, https://doi.org/10.5194/gmd-5-1245-2012) and structured as R package by Johannes Brenner.
 
 There are **Matlab scripts** (https://github.com/EURAC-Ecohydro/GEOmatlab) for I/O and **GEOtop** results visualization. They work for version 1.25, most of them also for version 2.0. Mainly developed by Giacomo Bertoldi and collaborators.
 
@@ -162,6 +162,8 @@ References
 **************************************************
 
 When using the model, please cite and refer to the following papers describing the **GEOtop** model:
+
+* Fiddes, J., Aalstad, K., Westermann, S., 2019. Hyper-resolution ensemble-based snow reanalysis in mountain regions using clustering. Hydrol. Earth Syst. Sci. Discuss. 1–32. https://doi.org/10.5194/hess-2019-37
 
 * Endrizzi, S., Gruber, S., Dall’Amico, M., Rigon, R., 2014. GEOtop 2.0: simulating the combined energy and water balance at and below the land surface accounting for soil freezing, snow cover and terrain effects. Geosci. Model Dev. 7, 2831–2857. https://doi.org/10.5194/gmd-7-2831-2014
 
