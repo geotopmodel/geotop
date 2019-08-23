@@ -4,7 +4,7 @@ GEOtop
 
 |Build Status| |License (GPL version 3)|
 
-:date:  last revision March 2019
+:date:  last revision August 2019
 
 
 
@@ -163,13 +163,13 @@ References
 
 When using the model, please cite and refer to the following papers describing the **GEOtop** model:
 
-* Fiddes, J., Aalstad, K., Westermann, S., 2019. Hyper-resolution ensemble-based snow reanalysis in mountain regions using clustering. Hydrol. Earth Syst. Sci. Discuss. 1–32. https://doi.org/10.5194/hess-2019-37
-
 * Endrizzi, S., Gruber, S., Dall’Amico, M., Rigon, R., 2014. GEOtop 2.0: simulating the combined energy and water balance at and below the land surface accounting for soil freezing, snow cover and terrain effects. Geosci. Model Dev. 7, 2831–2857. https://doi.org/10.5194/gmd-7-2831-2014
 
 * Rigon, R., Bertoldi, G., Over, T.M., 2006. GEOtop: A Distributed Hydrological Model with Coupled Water and Energy Budgets.  J. Hydrometeorol. 7, 371–388. https://doi.org/10.1175/JHM497.1
 
-Here is the full list of peer-reviewed publications using the GEOtop model (updated May 2019):
+Here is the full list of peer-reviewed publications using the GEOtop model (updated August 2019):
+
+* Fiddes, J., Aalstad, K., Westermann, S., 2019. Hyper-resolution ensemble-based snow reanalysis in mountain regions using clustering. Hydrol. Earth Syst. Sci. Discuss. 1–32. https://doi.org/10.5194/hess-2019-37
 
 * Fullhart, A.T., Kelleners, T.J., Speckman, H.N., Beverly, D., Ewers, B.E., Frank, J.M., Massman, W.J., 2019. Measured and Modeled Above‐ and Below‐Canopy Turbulent Fluxes for a Snow‐Dominated Mountain Forest Using Geotop, Hydrological Processes. https://doi.org/10.1002/hyp.13487
 
