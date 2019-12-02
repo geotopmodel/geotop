@@ -157,6 +157,19 @@ GEOtop model for vegetation dynamic simulation.
 
 **GEOtop_DV** is  a Matlab extension of **GEOtop**  for modelling grassland vegetation dynamics for 1D simulations. Documentation can be found in `* Della Chiesa et al. (2014) <https://doi.org/10.1002/eco.1471>`_
 
+Operational **GEOtop** model applications 
+**************************************************
+
+Snow depth mapping
+------------------------------
+
+The **GEOtop** model (v 2.1) is the scientific basis of the `**MySnowMaps** <https://www.mysnowmaps.com/en/>`_ service, which presents real time snow depth maps and prediction fot the alps, implemented by M. Dall´Amico the `**MobyGis** <http://www.mobygis.com/>`_  company.
+
+Water budget mapping
+------------------------------
+
+A preliminary application of the **GEOtop** model (v 3.0) for mapping the water budget of the Venosta (Italy) catchment in near real time on a weekly basis has implemented in the following web-gis: https://maps.civis.bz.it/ in the framework of the European Regional Development Fund (ERDF) project DPS4ESLAB.
+
 
 References
 **************************************************
