@@ -4,7 +4,7 @@ GEOtop
 
 |Build Status| |License (GPL version 3)|
 
-:date:  last revision August 2019
+:date:  last revision December 2019
 
 
 
@@ -61,7 +61,7 @@ Useful material on **GEOtop** and his hystorical development can be found also o
 GEOtop development branches
 ***************************
 
-Currently (Agust 2018) there are several development branches in this repostory. Most used branches are the followings:
+Currently (December 2019) there are several development branches in this repostory. Most used branches are the followings:
 
 The main `**master** <https://github.com/geotopmodel/geotop>`_ branch contains the 2.1 version. It is written in c++ and it has the possibility to use the the `**MeteoIO** library <https://models.slf.ch/p/meteoio/>`_ to spatialize input meteorological variables.
 
@@ -167,7 +167,9 @@ When using the model, please cite and refer to the following papers describing t
 
 * Rigon, R., Bertoldi, G., Over, T.M., 2006. GEOtop: A Distributed Hydrological Model with Coupled Water and Energy Budgets.  J. Hydrometeorol. 7, 371–388. https://doi.org/10.1175/JHM497.1
 
-Here is the full list of peer-reviewed publications using the GEOtop model (updated August 2019):
+Here is the full list of peer-reviewed publications using the GEOtop model (updated December 2019):
+
+* Wani, J.M., Thayyen, R.J., Gruber, S., Ojha, C.S.P., Stumm, D., 2020. Single-year thermal regime and inferred permafrost occurrence in the upper Ganglass catchment of the cold-arid Himalaya, Ladakh, India. Sci. Total Environ. 703, 134631. https://doi.org/10.1016/j.scitotenv.2019.134631
 
 * Fiddes, J., Aalstad, K., Westermann, S., 2019. Hyper-resolution ensemble-based snow reanalysis in mountain regions using clustering. Hydrol. Earth Syst. Sci. Discuss. 1–32. https://doi.org/10.5194/hess-2019-37
 
