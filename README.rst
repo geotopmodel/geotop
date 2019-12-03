@@ -184,13 +184,17 @@ Here is the full list of peer-reviewed publications using the GEOtop model (upda
 
 * Wani, J.M., Thayyen, R.J., Gruber, S., Ojha, C.S.P., Stumm, D., 2020. Single-year thermal regime and inferred permafrost occurrence in the upper Ganglass catchment of the cold-arid Himalaya, Ladakh, India. Sci. Total Environ. 703, 134631. https://doi.org/10.1016/j.scitotenv.2019.134631
 
-* Fiddes, J., Aalstad, K., Westermann, S., 2019. Hyper-resolution ensemble-based snow reanalysis in mountain regions using clustering. Hydrol. Earth Syst. Sci. Discuss. 1–32. https://doi.org/10.5194/hess-2019-37
+* Zi, T., Kumar, M., Albertson, J., 2019. Intercomparing varied erosion, deposition and transport process representations for simulating sediment yield. Sci. Rep. 9, 1–13. https://doi.org/10.1038/s41598-019-48405-9
+
+* Fiddes, J., Aalstad, K., Westermann, S., 2019. Hyper-resolution ensemble-based snow reanalysis in mountain regions using clustering. Hydrol. Earth Syst. Sci. 23, 4717–4736. https://doi.org/10.5194/hess-23-4717-2019
 
 * Fullhart, A.T., Kelleners, T.J., Speckman, H.N., Beverly, D., Ewers, B.E., Frank, J.M., Massman, W.J., 2019. Measured and Modeled Above‐ and Below‐Canopy Turbulent Fluxes for a Snow‐Dominated Mountain Forest Using Geotop, Hydrological Processes. https://doi.org/10.1002/hyp.13487
 
 * Soltani, M., Laux, P., Mauder, M., Kunstmann, H., 2019. Inverse distributed modelling of streamflow and turbulent fluxes: A sensitivity and uncertainty analysis coupled with automatic optimization. J. Hydrol. 571, 856–872. https://doi.org/10.1016/j.jhydrol.2019.02.033
 
 * Formetta, G., Capparelli, G., 2019. Quantifying the three-dimensional effects of anisotropic soil horizons on hillslope hydrology and stability. J. Hydrol. 570, 329–342. https://doi.org/10.1016/j.jhydrol.2018.12.064
+
+* Kiese, R., Fersch, B., Baessler, C., Brosy, C., Butterbach-Bahl, K., Chwala, C., Dannenmann, M., Fu, J., Gasche, R., Grote, R., Jahn, C., Klatt, J., Kunstmann, H., Mauder, M., Rödiger, T., Smiatek, G., Soltani, M., Steinbrecher, R., Völksch, I., Werhahn, J., Wolf, B., Zeeman, M., Schmid, H.P., 2018. The TERENO Pre-Alpine Observatory: Integrating Meteorological, Hydrological, and Biogeochemical Measurements and Modeling. Vadose Zo. J. 17, 0. https://doi.org/10.2136/vzj2018.03.0060
 
 * Soltani, M., Laux, P., Mauder, M., Kunstmann, H., 2018. Spatiotemporal variability and empirical Copula-based dependence structure of modeled and observed coupled water and energy fluxes. Hydrol. Res. nh2018163. https://doi.org/10.2166/nh.2018.163
 
