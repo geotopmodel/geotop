@@ -53,6 +53,9 @@ You can choose between [CMake](https://cmake.org/) (Please note that you need cm
 and [Meson](http://mesonbuild.com/).
 
 ### Option 1: using CMake
+
+Note that you need to have installed in your system CMake version > 3.0 as it's written in the CMakeLists.txt (https://github.com/geotopmodel/geotop/blob/v3.0/CMakeLists.txt).
+
 - Create the build directory and go inside it:
 ```
 mkdir cmake-build
@@ -154,11 +157,16 @@ ninja
 ## Running the test cases
 Now you can run the proposed test cases.
 
+Note that you need to have **numdiff** installed on your mashine 
+```
+apt-get install -y numdiff
+```
+
 ### Option 1: using CMake
 - Know which tests are available:
 ```
  ctest -N
- ```
+```
 
 - Run a single test (i.e. Mazia):
 ```
