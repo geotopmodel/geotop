@@ -241,3 +241,12 @@ To report a problem you can open an issue on GitHub (https://github.com/geotopmo
 - configuration (type from the build folder ```ccmake ..```
   or ```meson configure```, depending on the build system tool you are using,
   and put the info in a file).
+  
+  
+## ACKNOWLEDGEMENTS
+
+Part of the GEOtop v3.0 refactoring work was developed by E. Bortoli in the framework of her MHCP thesis.
+The work was partly supported by:
+- OGS, CINECA and EURAC Research under HPC-TRES program award number 2017-20.
+- The European Regional Development Fund, Operational Programme Investment for growth and jobs ERDF 2014-2020 under Project number ERDF1094, Data Platform and Sensing Technology for Environmental Sensing LAB – DPS4ESLAB.”
+
