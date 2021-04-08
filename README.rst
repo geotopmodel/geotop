@@ -4,7 +4,7 @@ GEOtop
 
 |Build Status| |License (GPL version 3)|
 
-:date:  last revision December 2019
+:date:  last revision April 2021
 
 
 
@@ -61,7 +61,7 @@ Useful material on **GEOtop** and his hystorical development can be found also o
 GEOtop development branches
 ***************************
 
-Currently (December 2019) there are several development branches in this repostory. Most used branches are the followings:
+Currently (April 2021) there are several development branches in this repostory. Most used branches are the followings:
 
 The main `**master** <https://github.com/geotopmodel/geotop>`_ branch contains the 2.1 version. It is written in c++ and it has the possibility to use the the `**MeteoIO** library <https://models.slf.ch/p/meteoio/>`_ to spatialize input meteorological variables.
 
@@ -105,7 +105,7 @@ We have the following mailing lists:
    **GEOtopUsers** for regular users: https://groups.google.com/forum/#!forum/geotopusers
    
 
-External utilities and pre-post processing scripts
+External utilities and pre-post processing scripts in Python, R, Matlab, OMS.
 **************************************************
 
 During the years, several scripts and external softwares have been developed for preprocess **GEOtop** inputs, postprocess and visualize results. Some utilites can be found here:
@@ -114,14 +114,23 @@ There are **R scripts** (https://github.com/ecor/geotopbricks) for I/O and **GEO
 
 The **R package Topo Sub** (https://github.com/EURAC-Ecohydro/TopoSUB) allows to produce spatially-distributed GEOtop output maps from a limited number of 1D single column simulations using a clustering approach (neglecting 3D water interactions). It has been developed by Joel Fiddes (Fiddes and Gruber, 2012, https://doi.org/10.5194/gmd-5-1245-2012) and structured as R package by Johannes Brenner.
 
+A **Python wrapper** (https://github.com/stefanocampanella/GEOtoPy) for using with **GEOtop** has been developed by Stefano Campanella.
+
 There are **Matlab scripts** (https://github.com/EURAC-Ecohydro/GEOmatlab) for I/O and **GEOtop** results visualization. They work for version 1.25, most of them also for version 2.0. Mainly developed by Giacomo Bertoldi and collaborators.
 
 **GEOtop** can be embedded in the **GEOframe modelling system** (https://github.com/GEOframeOMSProjects). Mainly developed by Riccardo Rigon, Giuseppe Formetta and collaborators. For more info see: `Formetta et al. (2016a) <https://doi.org/10.3390/w8010012>`_
+
+
 
 External models extensions 
 **************************************************
 
 Thsere are several **GEOtop** model extensions, to deal with additional physical processes. 
+
+**High-Performance Optimization** for the Calibration of the GEOtop Model
+------------------------------
+
+The repository **Stefanocampanella/MHPC-project** (https://github.com/stefanocampanella/MHPC-project) contains notebooks, code and documentation for a high-performance derivative-free optimization to exploit HPC  for the calibration of parameters of the **GEOtop** model. It has been developed by Stefano Campanella in the course of his MHPC Thesis **Calibration of the GEOtop model using evolutionary algorithms on supercomputers** (https://stefanocampanella.github.io/MHPC-project/home.html)
 
 GEOtop model particle swarm optimization with **R**
 ------------------------------
@@ -140,6 +149,7 @@ and GENLINPRED used herein are freely available at  http://www.pesthomepage.org/
 
 GEOtop model for shallow  landslides triggering prediction.
 ------------------------------
+
 **GEOtop-SF** has been one of the first fully distributed hydrolgical models applied for hallow  landslides triggering prediction. A fundamental paper is `Simoni et al. (2008) <https://doi.org/10.1002/hyp.6886>`_, which is referred to the old 0.875 version of the model.
 
 A more recent implementation of GEOtop for shallow landslides prectition can be found in `Formetta et al. (2016b) <https://doi.org/10.1002/2015WR017626>`_, where GEOtop is embedded in the **GEOframe modelling system**.
@@ -180,7 +190,9 @@ When using the model, please cite and refer to the following papers describing t
 
 * Rigon, R., Bertoldi, G., Over, T.M., 2006. GEOtop: A Distributed Hydrological Model with Coupled Water and Energy Budgets.  J. Hydrometeorol. 7, 371–388. https://doi.org/10.1175/JHM497.1
 
-Here is the full list of peer-reviewed publications using the GEOtop model (updated December 2019):
+Here is the full list of peer-reviewed publications using the GEOtop model (updated April 2021):
+
+* Bright Ross, J.G., Peters, W., Ossi, F., Moorcroft, P.L.,  Cordano, E.,  Eccel, E.,  Bianchini, F.,  Ramanzin, M., and  Cagnacci, F. . Climate change and anthropogenic food manipulation interact in shifting the distribution of a large herbivore at its altitudinal range limit. Sci Rep 11, 7600 (2021). https://doi.org/10.1038/s41598-021-86720-2
 
 * Wani, J.M., Thayyen, R.J., Gruber, S., Ojha, C.S.P., Stumm, D., 2020. Single-year thermal regime and inferred permafrost occurrence in the upper Ganglass catchment of the cold-arid Himalaya, Ladakh, India. Sci. Total Environ. 703, 134631. https://doi.org/10.1016/j.scitotenv.2019.134631
 
