@@ -309,7 +309,6 @@ public:
   double Ks_channel;
   double depr_channel;
 
-  GeoVector<short> plot_discharge_with_Dt_integration;
   GeoVector<short> plot_point_with_Dt_integration;
   GeoVector<short> plot_basin_with_Dt_integration;
 
