@@ -366,7 +366,7 @@ When using the model, **please cite the following fundamental papers** describin
 
 ### GEOtop developers
 
-The GEOtop model has been developed since year 2000 by a number of people, starting from the research group of Prof. R. Rigon of the University of Trento, Italy, and then by different reseach groups worldwide. A non exaustive list of contributors include: Marco Pegoretti, Giacomo Bertoldi, Fabrizio Zanotti, Silvia Simoni, Stefano Endrizzi, Matteo dell´Amico, Emanuele Cordano, Stefan Gruber, Andrea Cozzini, Alberto Sartori, Samuel Senoner, Elisa Bortoli
+The GEOtop model has been developed since year 2000 by a number of people, starting from the research group of Prof. R. Rigon of the [University of Trento, Italy](https://www.dicam.unitn.it/en), and then by different reseach groups worldwide, in particular the [University of Zurich, CH](https://www.uzh.ch/en.html), [Eurac reseach, Italy](www.eurac.edu), the Mountaneering, MobyGIS , [WaterJade](https://www.waterjade.com/en/mobygis-en/), Rendena100 companies.   A non exaustive list of contributors include: Marco Pegoretti, Giacomo Bertoldi, Fabrizio Zanotti, Silvia Simoni, Stefano Endrizzi, Matteo dell´Amico, Emanuele Cordano, Stefan Gruber, Andrea Cozzini, Alberto Sartori, Samuel Senoner, Elisa Bortoli
 
 ### Financial support
 
