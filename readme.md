@@ -308,7 +308,7 @@ The repository [**Stefanocampanella/MHPC-project**](https://github.com/stefanoca
 
 ### GEOtop model particle swarm optimization with **R**
 
-The plugin [**R package geotopOtim2**](https://github.com/EURAC-Ecohydro/geotopOptim2) allows the automatic calibration and sensitivity analysis of the **GEOtop** 2.x hydrological model, based on the "Particle Swarm Optimisation" approach and the LHOAT "Latin-Hypercube One-factor-At-a-Time" approach. It has been mainly developed by Emanuele Cordano, Samuel Senoner, Giacomo Bertoldi. A paper is in preparation.
+The plugin [**geotopOtim2 (R Package)**](https://github.com/EURAC-Ecohydro/geotopOptim2), based on [**geotopbricks (R Package)**](https://CRAN.R-project.org/package=geotopbricks) allows the automatic calibration and sensitivity analysis of the **GEOtop** 2.x hydrological model, based on the "Particle Swarm Optimisation" approach and the LHOAT "Latin-Hypercube One-factor-At-a-Time" approach. It has been mainly developed by Emanuele Cordano, Samuel Senoner, Giacomo Bertoldi. 
 
 ### GEOtop model optimization with **PEST**  
 
@@ -366,7 +366,7 @@ When using the model, **please cite the following fundamental papers** describin
 
 ### GEOtop developers
 
-The GEOtop model has been developed since year 2000 by a number of people, starting from the research group of Prof. R. Rigon of the [University of Trento, Italy](https://www.dicam.unitn.it/en), and then by different reseach groups worldwide, in particular the [University of Zurich, CH](https://www.uzh.ch/en.html), [Eurac research, Italy](www.eurac.edu), the Mountaneering, MobyGIS , [WaterJade](https://www.waterjade.com/en/mobygis-en/), Rendena100 companies.   A non exaustive list of contributors include: Marco Pegoretti, Giacomo Bertoldi, Fabrizio Zanotti, Silvia Simoni, Stefano Endrizzi, Matteo dell´Amico, Emanuele Cordano, Stefan Gruber, Andrea Cozzini, Alberto Sartori, Samuel Senoner, Elisa Bortoli
+The GEOtop model has been developed since year 2000 by a number of people, starting from the research group of Prof. R. Rigon of the [University of Trento, Italy](https://www.dicam.unitn.it/en), and then by different reseach groups worldwide, in particular the [University of Zurich, CH](https://www.uzh.ch/en.html), [Eurac research, Italy](www.eurac.edu), the Mountaneering, MobyGIS , [WaterJade](https://www.waterjade.com/en/mobygis-en/), [Rendena100](https://www.rendena100.eu) )companies.   A non exaustive list of contributors include: Marco Pegoretti, Giacomo Bertoldi, Fabrizio Zanotti, Silvia Simoni, Stefano Endrizzi, Matteo dell´Amico, Emanuele Cordano , Stefan Gruber, Andrea Cozzini, Alberto Sartori, Samuel Senoner, Elisa Bortoli
 
 ### Financial support
 
