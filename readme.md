@@ -18,17 +18,9 @@ solutions.
 **GEOtop** is distributed under the GNU General Public License version 3.
 A copy of the license text can be found in the COPYING file.
 
-You can find more informations about GEOtop on the following website
 
-                www.geotop.org
 
-where the model is briefly described and links to papers and other useful
-websites have been collected.] 
-
-where the model is briefly described and links to papers and other useful
-websites have been collected.
-
-**GEOtop 3.0** version starts from 2.0 version (branch ```se27xx```) already validated and published
+**GEOtop 3.0** version (www.geotop.org) starts from 2.0 version (branch ```se27xx```) already validated and published
 in the Endrizzi et al. 2014 paper.
 It performs exactly as the previous version but it has some improvements in terms of:
 - usage of object-oriented approach
