@@ -3,7 +3,7 @@
 
 |Build Status| |License (GPL version 3)|
 
-:date:  last revision October 2021
+:date:  last revision April 2022
 
 
 ***********************************************************
@@ -17,7 +17,6 @@ solutions.
 
 **GEOtop** is distributed under the GNU General Public License version 3.
 A copy of the license text can be found in the COPYING file.
-
 
 
 **GEOtop 3.0** version (www.geotop.org) starts from 2.0 version (branch ```se27xx```) already validated and published
@@ -264,18 +263,19 @@ To report a problem you can open an issue on GitHub (https://github.com/geotopmo
   
 ### GEOtop users community
 
-If you want to get in contact with the users and developers community or discuss about your GEOtop application we have the following mailing lists:
+If you want to get in contact with the users and developers community or discuss about your GEOtop application we have the following **mailing lists**:
 
    **GEOtopDev** for developers and advanced users: https://groups.google.com/forum/#!forum/geotopdev
    
    **GEOtopUsers** for regular users: https://groups.google.com/forum/#!forum/geotopusers
   
 ***********************************************************
-## Documentation
+## DOCUMENTATION
+  
     
-An old version of the manual (currently under revision) can be found here:    
+A  **manual** of the model (for the version 1.2, mainly valid also for the current version) can be found here:    
 
-    http://geotopmodel.github.io/geotop/materials/geotop_manuale.pdf (updated July 2011)
+http://geotopmodel.github.io/geotop/materials/geotop_manuale.pdf (updated July 2011)
 
 in the [doc directory](https://github.com/geotopmodel/geotop/tree/master/doc) there is further documentation. 
     
@@ -288,9 +288,27 @@ http://www.ing.unitn.it/dica/tools/download/Quaderni/tutorial_input_geotop.pdf
 Useful material on **GEOtop** and his hystorical development can be found also on the R.Rigon blog:
 
 http://abouthydrology.blogspot.com/
+
+*********************************************************
+## GEOTOP MODEL I/0 SCRIPTING TOOLS and PLUGINS
+
+The GEOtop model used as I/0 ascii text files. To better analyze and exploit GEOtop outputs several tools have been prepared.
+
+### **R inteface** with the geotopbricks R package 
+
+The [**geotopbricks (R Package)**](https://CRAN.R-project.org/package=geotopbricks) develope by E. Cordano allow a full set of functions to integrate GEOtop outptus as data strctures in the R environment.
+The development version is in the following git repository https://github.com/ecor/geotopbricks
+
+### **Python wrapper** with the GEOtoPy Python package
+
+[**GEOtoPy**](https://github.com/stefanocampanella/GEOtoPy) is a small Python package developed by S. Campanella. It works as a GEOtop Python wrapper, exporting a single base class GEOtoPy.GEOtop.
+
+### **Matlab scripts** with the GEOmatlab collection
+
+[**GEOmatlab**](https://github.com/EURAC-Ecohydro/GEOmatlab) is a collection of Matlab scripts to import, analyze and plot GEOtop model output files developed by G. Bertoldi. 
    
 *********************************************************
-## External models extensions 
+## EXTERNAL MODEL EXTENSIONS 
 
 Thsere are several **GEOtop** model extensions, to deal with additional physical processes. 
 
@@ -358,7 +376,7 @@ When using the model, **please cite the following fundamental papers** describin
 
 ### GEOtop developers
 
-The GEOtop model has been developed since year 2000 by a number of people, starting from the research group of Prof. R. Rigon of the [University of Trento, Italy](https://www.dicam.unitn.it/en), and then by different reseach groups worldwide, in particular the [University of Zurich, CH](https://www.uzh.ch/en.html), [Eurac research, Italy](www.eurac.edu), the Mountaneering, MobyGIS , [WaterJade](https://www.waterjade.com/en/mobygis-en/), [Rendena100](https://www.rendena100.eu) )companies.   A non exaustive list of contributors include: Marco Pegoretti, Giacomo Bertoldi, Fabrizio Zanotti, Silvia Simoni, Stefano Endrizzi, Matteo dell´Amico, Emanuele Cordano , Stefan Gruber, Andrea Cozzini, Alberto Sartori, Samuel Senoner, Elisa Bortoli
+The GEOtop model has been developed since year 2000 by a number of people, starting from the research group of Prof. R. Rigon of the [University of Trento, Italy](https://www.dicam.unitn.it/en), and then by different reseach groups worldwide, in particular the [University of Zurich, CH](https://www.uzh.ch/en.html), [Eurac research, Italy](www.eurac.edu), the Mountaneering, MobyGIS , [WaterJade](https://www.waterjade.com/en/mobygis-en/), [Rendena100](https://www.rendena100.eu) )companies.   A non exaustive list of contributors include: Marco Pegoretti, Giacomo Bertoldi, Fabrizio Zanotti, Silvia Simoni, Stefano Endrizzi, Matteo dell´Amico, Emanuele Cordano , Stefan Gruber, Andrea Cozzini, Alberto Sartori, Samuel Senoner, Elisa Bortoli.
 
 ### Financial support
 
@@ -375,6 +393,8 @@ Here is the full list of peer-reviewed publications using the GEOtop model (upda
 * Wani, J. M., Thayyen, R. J., Ojha, C. S. P., and Gruber, S.: The surface energy balance in a cold and arid permafrost environment, Ladakh,  Himalayas, India, The Cryosphere, 15, 2273--2293, https://doi.org/10.5194/tc-15-2273-2021, 2021.
 
 * Bright Ross, J.G., Peters, W., Ossi, F., Moorcroft, P.L.,  Cordano, E.,  Eccel, E.,  Bianchini, F.,  Ramanzin, M., and  Cagnacci, F. . Climate change and anthropogenic food manipulation interact in shifting the distribution of a large herbivore at its altitudinal range limit. Sci Rep 11, 7600 (2021). https://doi.org/10.1038/s41598-021-86720-2
+
+*  Terzago, S., Andreoli, V., Arduini, G., Balsamo, G., Campo, L., Cassardo, C., Cremonese, E., Dolia, D., Gabellani, S., Hardenberg, J. von, Cella, U.M. di, Palazzi, E., Piazzi, G., Pogliotti, P., Provenzale, A., 2020. Sensitivity of snow models to the accuracy of meteorological forcings in mountain environments. Hydrology and Earth System Sciences 24, 4061–4090. https://doi.org/10.5194/hess-24-4061-2020
 
 * Wani, J.M., Thayyen, R.J., Gruber, S., Ojha, C.S.P., Stumm, D., 2020. Single-year thermal regime and inferred permafrost occurrence in the upper Ganglass catchment of the cold-arid Himalaya, Ladakh, India. Sci. Total Environ. 703, 134631. https://doi.org/10.1016/j.scitotenv.2019.134631
 
