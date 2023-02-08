@@ -195,6 +195,7 @@ Then you can then cope the the executable binary whethever you want or create a 
 ```
 cd
 mkdir -p bin/
+cd bin
 ln -s ../your_path_to_geotop_source_folder/meson-build/geotop GEOtop_V30
 ```
 Then you can modify your ```.batch_profile``` file to add the ```bin``` folder to your system ```$PATH``` variable, so simply typing ```Geotop_V30```  from anywhere you can run GEOtop.
