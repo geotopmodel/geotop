@@ -190,7 +190,7 @@ where simulation_path if the path to a folder where all the input of a simulatio
 ./geotop ../tests/1D/Matsch_B2_Ref_007/
 ```
 
-Then you can then cope the the executable binary whethever you want or create a link to the executable binary file in your binary folder in your home. For example:
+Then you can copy the executable binary whethever you want or create a link to the executable file in your binary folder in your home. For example:
 
 ```
 cd
