@@ -176,21 +176,28 @@ ninja
 ***********************************************************
 ## Running GEOtop
 
-If you have compiled the code with CMake you will have your executable called ```geotop``` in the folder ```cmake-build```
+If you have compiled the code with CMake you will have your executable called ```geotop``` in the folder ```cmake-build```,
 with meson in the folder ```meson-build```.
 
-To run the code just type
+To run the code just type:
 
 ```
 ./geotop simulation_path
 ```
-where simulation_path if the path to a folder where are all the input data of a simulation for example:
+where simulation_path if the path to a folder where all the input of a simulation are. For example:
 
 ```
 ./geotop ../tests/1D/Matsch_B2_Ref_007/
 ```
 
-You can then create a link to the executable or install itclsls
+Then you can then cope the the executable binary whethever you want or create a link to the executable binary file in your binary folder in your home. For example:
+
+```
+cd
+mkdir -p bin/
+ln -s ../your_path_to_geotop_source_folder/meson-build/geotop GEOtop_V30
+```
+Then you can modify your ```.batch_profile``` file to add the ```bin``` folder to your system ```$PATH``` variable, so simply typing ```Geotop_V30```  from anywhere you can run GEOtop.
 
 ***********************************************************
 ## Running the test cases
