@@ -27,5 +27,9 @@ SOIL_STATE::SOIL_STATE(const long n, const long nl) :
 
         P{new Matrix<double>{nl,0,n,1}},
         thi{new Matrix<double>{nl,n}},
-        T{new Matrix<double>{nl,n}} {}
+        T{new Matrix<double>{nl,n}},
+        T0{new Matrix<double>{nl,n}},  
+        Tair_internal{new Matrix<double>{nl,n}},
+        Hair_internal{new Matrix<double>{nl,n}},
+        totw0{new Matrix<double>{nl,n}} {}
 

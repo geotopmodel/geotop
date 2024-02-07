@@ -92,6 +92,7 @@ typedef struct {
     std::unique_ptr<Vector<double>> liq;
     std::unique_ptr<Vector<double>> ice;
     std::unique_ptr<Vector<double>> Temp;
+    std::unique_ptr<Vector<double>> TempAir;  /**Air temperature for the 1D Energy Balance */
     std::unique_ptr<Vector<double>> deltaw;
     std::unique_ptr<Vector<double>> SWlayer;
     std::unique_ptr<Vector<double>> soil_transp_layer;  /** its size = n° of layer in which there is transpiration */
@@ -99,17 +100,21 @@ typedef struct {
     std::unique_ptr<Vector<double>> udFenergy;
     std::unique_ptr<Vector<double>> Kth0;
     std::unique_ptr<Vector<double>> Kth1;
+    std::unique_ptr<Vector<double>> Kthcm;
     std::unique_ptr<Vector<double>> Fenergy;
     std::unique_ptr<Vector<double>> Newton_dir;
     std::unique_ptr<Vector<double>> T0;
     std::unique_ptr<Vector<double>> T1;
     std::unique_ptr<Vector<double>> Tstar;
     std::unique_ptr<Vector<double>> THETA;
+    std::unique_ptr<Vector<double>> THETACM;//** Composite medium volume content
     std::unique_ptr<Vector<double>> soil_evap_layer_bare; /** its size = n° of layer in which there is evaporation from bare soil */
     std::unique_ptr<Vector<double>> soil_evap_layer_veg; /** its size = n° of layer in which there is evaporation from vegetation */
 
     std::unique_ptr<Matrix<double>> Tgskin_surr;
     std::unique_ptr<Matrix<double>> SWrefl_surr;
+    std::unique_ptr<Matrix<double>> KSnow0; // Water content of the first snow layer
+    double iternumber;
 
 } ENERGY;
 
@@ -117,11 +122,15 @@ typedef struct {
 
 struct SOIL_STATE {
     SOIL_STATE(const long n, const long nl);
-
     std::unique_ptr<Matrix<double>> P; /** psi */
     std::unique_ptr<Matrix<double>> thi; /** theta ice */
     std::unique_ptr<Matrix<double>> T; /** temperature */
+    std::unique_ptr<Matrix<double>> T0; /** temperature previous time */
+    std::unique_ptr<Matrix<double>> Tair_internal; /**Air temperature inside the soil */
+    std::unique_ptr<Matrix<double>> Hair_internal; /**heat transfer coefficient */
+    std::unique_ptr<Matrix<double>> totw0;
 };
+
 
 /*---------------------------------------------------------------------------*/
 
@@ -139,6 +148,7 @@ struct SOIL {
     std::unique_ptr<Matrix<long>> type; /** soil type map */
     std::unique_ptr<Tensor<double>> pa;
     std::unique_ptr<Matrix<double>> T_av_tensor;
+    std::unique_ptr<Matrix<double>> Tair_av_tensor;
     std::unique_ptr<Matrix<double>> thw_av_tensor;
     std::unique_ptr<Matrix<double>> thi_av_tensor;
     std::unique_ptr<Matrix<double>> Ptot; /** total precipitation */
@@ -177,6 +187,9 @@ struct SOIL {
 /*---------------------------------------------------------------------------*/
 typedef struct {
     std::unique_ptr<Matrix<double>> Z0; /** elevation of each pixel (DEM) [m a.s.l]*/
+    std::unique_ptr<Matrix<double>> Z0S; /** elevation of each pixel (DEM) of extended Shadow DEM [m a.s.l]*/
+    //std::unique_ptr<Vector<double>> UVS;  /**UV parameters of extended Shadow DEM   */
+    
     std::unique_ptr<Tensor<double>> Z;
 
     std::unique_ptr<Matrix<double>> sky; /** sky view factor for each pixel */
@@ -223,6 +236,9 @@ typedef struct {
 
     std::unique_ptr<Matrix<double>> latitude;
     std::unique_ptr<Matrix<double>> longitude;
+    
+    long DifNxShadow; /** Number of elements (direction x) that separate the Elevation DEM with the extended shadow DEM**/
+    long DifNyShadow; /** Number of elements (direction y) that separate the Elevation DEM with the extended shadow DEM**/
 
 } TOPO;
 
@@ -271,6 +287,8 @@ typedef struct {
     std::unique_ptr<Matrix<double>> th; /** theta (SWC) */
     std::unique_ptr<Matrix<double>> ET;
     std::unique_ptr<Vector<double>> Kbottom;
+    std::unique_ptr<Vector<double>> Kthermalairbottom;
+    std::unique_ptr<Vector<double>> Kairbottom;
     SOIL_STATE *SS;
 } CHANNEL;
 
@@ -315,10 +333,51 @@ typedef struct {
     double Voutlandsub;
     double Voutlandsup;
     double Voutbottom;
+    double iternumber;
 
 } WATER;
 
+typedef struct {
+    std::unique_ptr<Matrix<double>> error;
+    std::unique_ptr<Vector<double>> Lx;
+    std::unique_ptr<Vector<double>> LxB;//Lx only considering buyancy
+    std::unique_ptr<Vector<double>> LxJair;
+    std::unique_ptr<Vector<double>> Ux;
+    std::unique_ptr<Vector<double>> P0;
+    std::unique_ptr<Vector<double>> P1;
+    std::unique_ptr<Vector<double>> MaxVel;
+    std::unique_ptr<Vector<double>> VxW;
+    std::unique_ptr<Vector<double>> VxE;
+    std::unique_ptr<Vector<double>> VyN;
+    std::unique_ptr<Vector<double>> VyS;
+    std::unique_ptr<Vector<double>> VzT;
+    std::unique_ptr<Vector<double>> VzB;
+    std::unique_ptr<Vector<double>> dP;
+    std::unique_ptr<Vector<double>> B;
+    std::unique_ptr<Vector<double>> f;
+    std::unique_ptr<Vector<double>> df;
+    std::unique_ptr<Matrix<double>> Klat;
+    std::unique_ptr<Matrix<double>> Kbottom;
+    std::unique_ptr<Vector<short>> FluxDir;
+    double Courant;
+    
+} AIRFLUX;
 
+typedef struct {
+    std::unique_ptr<Matrix<double>> error;
+    std::unique_ptr<Vector<double>> Lx;
+    std::unique_ptr<Vector<double>> Ux;
+    std::unique_ptr<Vector<double>> T0;
+    std::unique_ptr<Vector<double>> T1;
+    std::unique_ptr<Vector<double>> dT;
+    std::unique_ptr<Vector<double>> B;
+    std::unique_ptr<Vector<double>> f;
+    std::unique_ptr<Vector<double>> df;
+    std::unique_ptr<Matrix<double>> Klat;
+    std::unique_ptr<Matrix<double>> SFlux0; /*Heat flux from snow to air first layer */
+    double iternumber;
+
+} AIRENERGY;
 /*---------------------------------------------------------------------------*/
 typedef struct {
 
@@ -413,6 +472,7 @@ typedef struct {
     double longitude;
 
     double z0_snow;
+
     long n_landuses;
 
     short blowing_snow;
@@ -425,6 +485,10 @@ typedef struct {
 
     short wat_balance;
     short en_balance;
+    short air_balance;
+    short air_energy_balance;
+    short PlotAirVel;
+    double AirRichardTol;
 
     long nLC;
 
@@ -567,6 +631,7 @@ typedef struct {
     short vap_as_Td;
     long ndivdaycloud;
     short cast_shadow;
+    short ExtendedShadowCalcl;
     short wind_as_dir;
     short wind_as_xy;
 
@@ -642,6 +707,14 @@ typedef struct {
 
     short DDchannel;
     short DDland;
+    
+    double MaxK;
+    short HeatTransferModel;
+    /**Heat transfer model parameters (a, b and n)*/
+    double Ht_a;
+    double Ht_b;
+    double Ht_n;
+    double SnowDepthAirFlowLimit;
 
 } PAR;
 
@@ -785,6 +858,8 @@ struct METEO {
 struct ALLDATA {
     std::unique_ptr<SOIL> S;
     std::unique_ptr<WATER> W;
+    std::unique_ptr<AIRFLUX> AF;
+    std::unique_ptr<AIRENERGY> AE;
     std::unique_ptr<LAND> L;
     std::unique_ptr<PAR> P;
     std::unique_ptr<TOPO> T;
@@ -797,6 +872,8 @@ struct ALLDATA {
 
     ALLDATA() : S{new SOIL{}},
                 W{new WATER{}},
+                AF{new AIRFLUX{}},
+                AE{new AIRENERGY{}},
                 L{new LAND{}},
                 P{new PAR{}},
                 T{new TOPO{}},

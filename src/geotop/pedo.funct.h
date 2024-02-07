@@ -151,7 +151,7 @@ inline double k_hydr_soil(double psi, double ksat, double imp, double i, double 
   psisat = (power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // power() works but NOT Padè approximation
   TETA = 1.0/pow((1.0+pow(a*(-std::min<double>(psisat,psi)),n)),m); // power() does NOT work
 
-  k = ksat * pow(TETA,v) * pow_2((1-pow((1-pow(TETA,(1.0/m))),m))); // power() does NOT work
+  k = ksat * pow(TETA,v) * pow_2((1.0-pow((1.0-pow(TETA,(1.0/m))),m))); // power() does NOT work
 
   if (k/ksat < ratio)
     k = ratio * ksat;
@@ -169,6 +169,29 @@ inline double k_hydr_soil(double psi, double ksat, double imp, double i, double 
 
   return k;
 }
+
+
+inline double k_air_soil(double psi, double ksat, double i, double s,
+                   double r, double a, double n, double m, double v, double ratio,double ThetaAir)
+
+{
+  double k,TETA,psisat;
+
+  psisat = (power((power(1.0-i/(s-r),-1.0/m)-1.0),1.0/n))*(-1.0/a); // power() works but NOT Padè approximation
+  TETA = 1.0/pow((1.0+pow(a*(-std::min<double>(psisat,psi)),n)),m); // power() does NOT work
+  
+  k = ksat * pow((1.0-TETA),v) * pow((1.0-pow(TETA,(1.0/m))),(2.0*m)); // power() does NOT work
+  
+  if (k/ksat < ratio){
+    k = ratio * ksat;}
+    
+  if (ThetaAir<GTConst::ThetaAirMin){
+    k = ratio * ksat;}
+    
+  //printf("AIR BALANCE : %f,%f,%f,%f,%f,%f,%f,%f \n",TETA,i,s,psi,v,m,k,ksat);    
+  return k;
+}
+
 /*--------------------------------------------*/
 
 inline double psi_saturation(double i, double s, double r, double a, double n,
@@ -278,7 +301,6 @@ inline double dtheta_dpsi_from_psi(double psi, double ice, long l, MatrixView<do
   return dteta_dpsi(psi, ice, s, res, a, n, m, pmin, Ss);
 }
 
-
 /******************************************************************************************************************************************/
 inline double k_from_psi(long jK, double psi, double ice, double T, long l,
                          MatrixView<double> &&pa, double imp, double ratio)
@@ -292,6 +314,22 @@ inline double k_from_psi(long jK, double psi, double ice, double T, long l,
   const double v = pa(jv,l);
 
   return k_hydr_soil(psi, kmax, imp, ice, s, res, a, n, m, v, T, ratio);
+}
+
+/******************************************************************************************************************************************/
+
+ inline double kair_from_psi(long jK, double psi, double ice, long l,
+                         MatrixView<double> &&pa, double ratio, double ThetaAir)
+{ 
+  const double kmax = pa(jK,l);
+  const double s = pa(jsat,l);
+  const double res = pa(jres,l);
+  const double a = pa(ja,l);
+  const double n = pa(jns,l);
+  const double m = 1.-1./n;
+  const double v = pa(jv,l);
+
+  return k_air_soil(psi, kmax, ice, s, res, a, n, m, v,ratio,ThetaAir);
 }
 
 /******************************************************************************************************************************************/

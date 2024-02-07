@@ -1047,6 +1047,261 @@ void shadow_haiden(Matrix<double> *Z, double alpha, double direction,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+void shadow_haidenExtended(Matrix<double> *Z,Matrix<double> *Z2, double alpha, double direction,
+                   Matrix<short> *SH, double DifNxShadow, double DifNyShadow)
+{
+/*** Author: Thomas Haiden, Year: 16 june 2003
+ * Function that calculates if each pixel (matrix of shadows) is in shadow or at sun given
+ * a solar elevation angle and a solar azimuth.
+ *
+ * Inputs:
+ * - top: elevation DTM [m]
+ * - alpha: solar elevation angle [radiants]
+ * - direction: solar azimuth angle (from N clockwise) [radiants]
+ * - point: flag indicating whether the simulation is a point (=1) or a distributed simulation
+ *
+ * Outputs:
+ * - shadow: shadows matrix (1 shadow, 0 sun)
+ *
+ * Imported by Matteo Dall'Amico on August 2009. Authorization: see email of David Whiteman on 16 June 2011
+ * Revised by Stefano Endrizzi on May 2011.
+ * 
+ * 
+ * Modified by Gerardo Zegers -- Included a second DEM (DEMShadow-Z2) to calculate the shadow using a larger zone.
+ */
+  long orix,oriy=0,k,l,kk,ll,kk2,ll2,r,c,rr,cc,rr2,cc2;
+  double sx,sy,sz,xp,yp,x,y,zray,zrayBase,ztopo,q,z1,z2;
+
+  long nk=Nr;//y
+  long nl=Nc;//x
+  long nk2=Z2->nrh;//y
+  long nl2=Z2->nch;//x
+  double GDX = (*UV->U)(2);
+  double GDY = (*UV->U)(1);
+  //printf("SHADOOW EXTENED  %i %i %i %i \n",nk,nl,nk2,nl2);
+
+  sx=sin(direction)*cos(alpha);
+  sy=cos(direction)*cos(alpha);
+  sz=sin(alpha);
+
+  if (fabs(sx)>fabs(sy))
+  {
+
+    if (sx>0)
+    {
+      orix=1;
+    }
+    else
+    {
+      orix=-1;
+    }
+
+    if (fabs(sy)>1.E-10)
+    {
+      if (sy>0)
+      {
+        oriy=1;
+      }
+      else
+      {
+        oriy=-1;
+      }
+    }
+    else
+    {
+      orix=0;
+    }
+
+    for (k=0; k<nk; k++)
+    {
+      for (l=0; l<nl; l++)
+      {
+        //r=row(GDY*k+0.5*GDY, Nr, UV, number_novalue);
+        //c=col(GDX*l+0.5*GDX, Nc, UV, number_novalue);
+        r=Nr-k;
+        c=l+1;
+        kk=k;
+        ll=l;
+        
+        kk2=k+DifNyShadow;
+        ll2=l+DifNxShadow;
+        
+        xp=GDX*ll2+0.5*GDX;
+        yp=GDY*kk2+0.5*GDY;
+        //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
+        //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
+        rr=Nr-kk;
+        cc=ll+1;
+        
+        rr2=nk2-kk2;
+        cc2=ll2+1;
+        //printf("SHADOOW EXTENED  COMPAREA Z VS ZS%f %f \n",(*Z)(rr,cc),(*Z2)(rr2,cc2));
+        zrayBase=(*Z2)(rr2,cc2);
+        zray=(*Z2)(rr2,cc2);
+        (*SH)(r,c)=0;
+
+        while ( ((*SH)(r,c)==0) && (kk2>0)&&(kk2<nk2-1)&&(ll2>0)&&(ll2<nl2-1) )
+        {
+          q=((ll2+orix)*GDX+0.5*GDX-xp)/sx;
+          y=yp+q*sy;
+          if (fabs(y-(GDY*kk2+0.5*GDY))<GDY)
+          {
+            ll=ll+orix;
+            ll2=ll2+orix;
+            
+            xp=GDX*ll2+0.5*GDX;
+            yp=y;
+            //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
+            //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
+            rr2=nk2-kk2;
+            cc2=ll2+1;
+            //printf( "Extend Shadowa1 %i %i %i %i,\n",kk2,ll2,rr2,cc2);
+            z1=(*Z2)(rr2,cc2);
+            //rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, UV, number_novalue);
+            rr2=nk2-(kk2+oriy);
+            z2=(*Z2)(rr2,cc2);
+            ztopo=z1+(z2-z1)*(yp-(GDY*kk2+0.5*GDY))/(oriy*GDY);
+            //ztopo=(z1+z2)/2.0;
+          }
+          else
+          {
+            q=((kk2+oriy)*GDY+0.5*GDY-yp)/sy;
+            x=xp+q*sx;
+            kk=kk+oriy;
+            kk2=kk2+oriy;
+            
+            xp=x;
+            yp=GDY*kk2+0.5*GDY;
+            //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
+            //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
+            rr2=nk2-kk2;
+            cc2=ll2+1;
+            //printf( "Extend Shadowa2 %i %i %i %i,\n",kk2,ll2,rr2,cc2);
+            z1=(*Z2)(rr2,cc2);
+            //cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, UV, number_novalue);
+            cc2=ll2+orix+1;
+            z2=(*Z2)(rr2,cc2);
+            ztopo=z1+(z2-z1)*(xp-(GDX*ll2+0.5*GDX))/(orix*GDX);
+            //ztopo=(z1+z2)/2.0;
+          }
+          //zray=zrayBase+q*sz;
+          zray=zray+q*sz;
+          if (ztopo>zray) (*SH)(r,c)=1;
+        }
+      }
+    }
+
+  }
+  else
+  {
+
+    if (sy>0)
+    {
+      oriy=1;
+    }
+    else
+    {
+      oriy=-1;
+    }
+
+    if (fabs(sx)>1.E-10)
+    {
+      if (sx>0)
+      {
+        orix=1;
+      }
+      else
+      {
+        orix=-1;
+      }
+    }
+    else
+    {
+      orix=0;
+    }
+
+    for (k=0; k<nk; k++)
+    {
+      for (l=0; l<nl; l++)
+      {
+        //r=row(GDY*k+0.5*GDY, Nr, UV, number_novalue);
+        //c=col(GDX*l+0.5*GDX, Nc, UV, number_novalue);
+        r=Nr-k;
+        c=l+1;
+        kk=k;
+        ll=l;
+        
+		kk2=k+DifNyShadow;
+        ll2=l+DifNxShadow;
+        
+        xp=GDX*ll2+0.5*GDX;
+        yp=GDY*kk2+0.5*GDY;
+        //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
+        //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
+        rr2=nk2-kk2;
+        cc2=ll2+1;
+        //printf( "Extend Shadowb1 %i %i %i %i,\n",kk2,ll2,rr2,cc2);
+        zray=(*Z2)(rr2,cc2);
+        zrayBase=(*Z2)(rr2,cc2);
+        (*SH)(r,c)=0;
+
+        while ( ((*SH)(r,c)==0) &&(kk2>0)&&(kk2<nk2-1)&&(ll2>0)&&(ll2<nl2-1))
+        {
+          q=((kk2+oriy)*GDY+0.5*GDY-yp)/sy;
+          x=xp+q*sx;
+          if (fabs(x-(GDX*ll2+0.5*GDX))<GDX)
+          {
+            kk=kk+oriy;
+            kk2=kk2+oriy;
+            
+            yp=GDY*kk2+0.5*GDY;
+            xp=x;
+            //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
+            //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
+            rr2=nk2-kk2;
+            cc2=ll2+1;
+            z1=(*Z2)(rr2,cc2);
+            //cc=col(GDX*ll+0.5*GDX+orix*GDX, Nc, UV, number_novalue);
+            cc2=ll2+orix+1;
+            z2=(*Z2)(rr2,cc2);
+            ztopo=z1+(z2-z1)*(xp-(GDX*ll2+0.5*GDX))/(orix*GDX);
+            //ztopo=(z1+z2)/2.0;
+          }
+          else
+          {
+            q=((ll2+orix)*GDX+0.5*GDX-xp)/sx;
+            y=yp+q*sy;
+            ll=ll+orix;
+            ll2=ll2+orix;
+            
+            yp=y;
+            xp=GDX*ll2+0.5*GDX;
+            //rr=row(GDY*kk+0.5*GDY, Nr, UV, number_novalue);
+            //cc=col(GDX*ll+0.5*GDX, Nc, UV, number_novalue);
+            rr2=nk2-kk2;
+            cc2=ll2+1;
+            //printf( "Extend Shadowb2 %i %i %i %i,\n",kk2,ll2,rr2,cc2);
+            z1=(*Z2)(rr2,cc2);
+            //rr=row(GDY*kk+0.5*GDY+oriy*GDY, Nr, UV, number_novalue);
+            rr2=nk2-(kk2+oriy);
+            z2=(*Z2)(rr2,cc2);
+            ztopo=z1+(z2-z1)*(yp-(GDY*kk2+0.5*GDY))/(oriy*GDY);
+            //ztopo=(z1+z2)/2.0;
+          }
+          //zray=zrayBase+q*sz;
+          zray=zray+q*sz;
+          if (ztopo>zray) (*SH)(r,c)=1;
+        }
+      }
+    }
+  }
+}
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+
 double find_albedo(double dry_albedo, double sat_albedo, double wat_content,
                    double residual_wc, double saturated_wc)
 {

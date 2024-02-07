@@ -93,6 +93,9 @@ short shadows_point(double **hor_height, long hor_lines, double alpha,
                     double azimuth, double tol_mount, double tol_flat);
 
 void shadow_haiden(Matrix<double> *Z, double alpha, double direction, Matrix<short> *SH);
+void shadow_haidenExtended(Matrix<double> *Z,Matrix<double> *Z2, double alpha, double direction,
+                   Matrix<short> *SH, double DifNxShadow, double DifNyShadow);
+                   
 
 double find_albedo(double dry_albedo, double sat_albedo, double wat_content,
                    double residual_wc, double saturated_wc);

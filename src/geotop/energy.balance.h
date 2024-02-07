@@ -49,7 +49,7 @@ short SolvePointEnergyBalance(short surfacemelting, double Tgd,
                               double *Qg,
                               double *Lob, double *rh, double *rv, double *rb, double *rc, double *ruc,
                               double *u_top, double *decay, double *Locc, double *LWup_ab_v, long *lpb,
-                              double *dUsl);
+                              double *dUsl,double SFlux0);
 
 void update_soil_land(long nsurf, long n, long i, long r, long c, double fc,
                       double Dt, ENERGY *egy, MatrixView<double> &&pa, SOIL_STATE *S, Tensor<double> *ET,
@@ -111,6 +111,13 @@ void EnergyFluxes_no_rec_turbulence(double t, double Tg, long r, long c, long n,
 
 double k_thermal(short snow, short a, double th_liq, double th_ice,
                  double th_sat, double k_solid);
+
+double k_thermalcm(short snow, short a, double th_liq, double th_ice,
+                 double th_sat, double k_solid);
+                 
+double k_thermalcm2(short snow, short a, double th_liq, double th_ice,
+                 double th_sat, double k_solid);
+
 
 double flux(long i, long icol, double **met, double k, double add,
             double est);

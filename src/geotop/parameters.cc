@@ -1661,15 +1661,18 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   (*sl->pa)(1,jkt,i) = assignation_number(182, i - 1, keyword, num_param, num_param_components, 2.5, 0);
   (*sl->pa)(1,jct,i) = assignation_number(183, i - 1, keyword, num_param, num_param_components, 1.E6, 0);
   (*sl->pa)(1,jss,i) = assignation_number(184, i - 1, keyword, num_param, num_param_components, 1.E-7, 0);
+  (*sl->pa)(1,jdp,i) = assignation_number(412, i - 1, keyword, num_param, num_param_components, 0.005, 0);
 
   //other layers
   for (i=2; i<=sl->pa->nch; i++)
     {
-      for (j=2; j<=sl->pa->nrh; j++)
+      for (j=2; j<=sl->pa->nrh-1; j++)
         {
           (*sl->pa)(1,j,i) = assignation_number(171 + j - 2, i - 1, keyword, num_param, num_param_components,
                                                    (*sl->pa)(1,j,i-1), 0);
         }
+       (*sl->pa)(1,jdp,i) = assignation_number(412, i - 1, keyword, num_param, num_param_components,
+                                                   (*sl->pa)(1,sl->pa->nrh,i-1), 0);
     }
 
   //field capacity (-0.333 bar) and wilting point (-15 bar)
@@ -1690,6 +1693,8 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
                                             (*sl->pa)(1,jns,i), 1.-1./(*sl->pa)(1,jns,i), GTConst::PsiMin,
                                             (*sl->pa)(1,jss,i));
         }
+        
+      
     }
 
   //other soil types
@@ -1722,7 +1727,7 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
     {
       (*itools->pa_bed)(1,jdz,i) = (*sl->pa)(1,jdz,i);
     }
-  for (j=1; j<=nsoilprop; j++)
+  for (j=1; j<=nsoilprop-1; j++)
     {
       if (j != jdz)
         {
@@ -1730,14 +1735,19 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
                                                            (double) number_novalue, 0);
         }
     }
+    
+  (*itools->pa_bed)(1,jdp,1) = assignation_number(412, 0, keyword, num_param, num_param_components, 0.005, 0);
+    
   for (i=2; i<=nsoillayers; i++)
     {
-      for (j=1; j<=nsoilprop; j++)
+      for (j=1; j<=nsoilprop-1; j++)
         {
           if (j != jdz) (*itools->pa_bed)(1,j,i) = assignation_number(cod + j - 2, i - 1, keyword, num_param,
                                                                          num_param_components,
                                                                          (*itools->pa_bed)(1,j,i-1), 0);
         }
+        (*itools->pa_bed)(1,jdp,i) = assignation_number(412, i - 1, keyword, num_param, num_param_components,
+                                                   (*sl->pa)(1,sl->pa->nrh,i-1), 0);
     }
   //field capacity (-0.333 bar) and wilting point (-15 bar)
   for (i=1; i<=sl->pa->nch; i++)
@@ -2259,6 +2269,18 @@ void assign_numeric_parameters(PAR *par, LAND *land, TIMES *times, SOIL *sl, MET
   par->DDchannel = (short) assignation_number(403, 0, keyword, num_param, num_param_components, 1., 0);
   par->DDland = (short) assignation_number(404, 0, keyword, num_param, num_param_components, 1., 0);
   par->Tbottom = assignation_number(405, 0, keyword, num_param, num_param_components, (double) number_novalue, 0);
+  
+  par->HeatTransferModel = (short) assignation_number(406, 0, keyword, num_param, num_param_components, 1.0, 0);
+  par->air_balance = (short) assignation_number(407, 0, keyword, num_param, num_param_components, 0., 0);
+  par->air_energy_balance = (short) assignation_number(408, 0, keyword, num_param, num_param_components, 0., 0);
+  par->AirRichardTol = assignation_number(409, 0, keyword, num_param, num_param_components, 1.E-7, 0);
+  par->ExtendedShadowCalcl =  (short) assignation_number(410, 0, keyword, num_param, num_param_components, 0., 0);
+  par->MaxK = assignation_number(411, 0, keyword, num_param, num_param_components, 1.E5, 0);
+  par->Ht_a = assignation_number(413, 0, keyword, num_param, num_param_components, 2.0, 0);
+  par->Ht_b = assignation_number(414, 0, keyword, num_param, num_param_components, 0.6, 0);
+  par->Ht_n = assignation_number(415, 0, keyword, num_param, num_param_components, 0.3333, 0);
+  par->PlotAirVel = (short) assignation_number(416, 0, keyword, num_param, num_param_components, 0., 0);
+  par->SnowDepthAirFlowLimit = assignation_number(417, 0, keyword, num_param, num_param_components, 0., 0);
 }
 
 /***********************************************************/

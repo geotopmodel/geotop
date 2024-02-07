@@ -117,14 +117,42 @@ void product_using_only_strict_lower_diagonal_part(Vector<double>* product,
                                                    Vector<double>* x, Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx);
 
 /****************************************************************************************************/
+void product_using_only_strict_lower_diagonal_part2(Vector<double>* product,
+                                                   Vector<double>* x, Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx, Vector<double>* LxJair, Matrix<long> *lrc_cont, Matrix<long> *lch,long n);
+
+/****************************************************************************************************/
+void product_using_only_strict_lower_diagonal_part3(Vector<double>* product,
+                                                   Vector<double>* x, Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx,Vector<double>* LxB, Matrix<long> *lrc_cont, Matrix<long> *lch,long n);
+
+/****************************************************************************************************/
 void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(
   Vector<double>* product, Vector<double>* x, Vector<double>* y,
   Vector<long> *Li,  Vector<long> *Lp, Vector<double>* Lx);
 
 /****************************************************************************************************/
+void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector2(
+  Vector<double>* product, Vector<double>* x, Vector<double>* y,
+  Vector<long> *Li,  Vector<long> *Lp, Vector<double>* Lx, Vector<double>* LxJair, Matrix<long> *lrc_cont, Matrix<long> *lch,long n);
+
+/****************************************************************************************************/
+void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector3(
+  Vector<double>* product, Vector<double>* x, Vector<double>* y,
+  Vector<long> *Li,  Vector<long> *Lp, Vector<double>* Lx, Matrix<long> *lrc_cont, Matrix<long> *lch,long n);
+
+/****************************************************************************************************/
 void get_diag_strict_lower_matrix_plus_identity_by_vector(Vector<double>* diag,
                                                           Vector<double>* udiag, Vector<double>* y,
                                                           Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx);
+
+/****************************************************************************************************/
+void get_diag_strict_lower_matrix_plus_identity_by_vector2(Vector<double>* diag,
+                                                          Vector<double>* udiag, Vector<double>* y,
+                                                          Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx, Vector<double>* LxJair, Matrix<long> *lrc_cont, Matrix<long> *lch,long n);
+
+/****************************************************************************************************/
+void get_diag_strict_lower_matrix_plus_identity_by_vector3(Vector<double>* diag,
+                                                          Vector<double>* udiag, Vector<double>* y,
+                                                          Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx, Matrix<long> *lrc_cont, Matrix<long> *lch,long n);
 
 /****************************************************************************************************/
 long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel,
@@ -134,11 +162,35 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel,
                                                           Vector<double> *Lx);
 
 /****************************************************************************************************/
+long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector2(double tol_rel,
+                                                          double tol_min, double tol_max, Vector<double> *x,
+                                                          Vector<double> *b, Vector<double> *y, Vector<long> *Li,
+                                                          Vector<long> *Lp,
+                                                          Vector<double> *Lx,
+                                                          Vector<double> *LxJair, Matrix<long> *lrc_cont, Matrix<long> *lch,long n);
+
+/****************************************************************************************************/
+long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector3(double tol_rel,
+                                                          double tol_min, double tol_max, Vector<double> *x,
+                                                          Vector<double> *b, Vector<double> *y, Vector<long> *Li,
+                                                          Vector<long> *Lp,
+                                                          Vector<double> *Lx, Matrix<long> *lrc_cont, Matrix<long> *lch,long n);
+
+/****************************************************************************************************/
 void product_matrix_using_lower_part_by_vector_plus_vector(double k,
                                                            Vector<double> *out, Vector<double> *y, Vector<double> *x,
                                                            Vector<long> *Li, Vector<long> *Lp, Vector<double> *Lx);
 
 /****************************************************************************************************/
-void product_using_only_lower_diagonal_part2(Vector<double>* product,
-                                             Vector<double>* x, Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx);
+void product_matrix_using_lower_part_by_vector_plus_vector2(double k,
+                                                           Vector<double> *out, Vector<double> *y, Vector<double> *x,
+                                                           Vector<long> *Li, Vector<long> *Lp, Vector<double> *Lx, Vector<double> *LxJair, Matrix<long> *lrc_cont, Matrix<long> *lch,long n);
+
+/****************************************************************************************************/
+void product_matrix_using_lower_part_by_vector_plus_vector3(double k,
+                                                           Vector<double> *out, Vector<double> *y, Vector<double> *x,
+                                                           Vector<long> *Li, Vector<long> *Lp, Vector<double> *Lx,Vector<double> *LxB, Matrix<long> *lrc_cont, Matrix<long> *lch,long n);
+
+/****************************************************************************************************/
+
 #endif

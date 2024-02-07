@@ -331,7 +331,10 @@ void reset_to_zero(PAR *par, SOIL *sl, LAND *land, SNOW *snow, GLACIER *glac, EN
 
     if(par->output_soil_bin == 1){
         if(strcmp(files[fTav] , string_novalue) != 0 || strcmp(files[fTavsup] , string_novalue) != 0)
-	  (*sl->T_av_tensor) = 0.;
+        {
+		  (*sl->T_av_tensor) = 0.;
+		  (*sl->Tair_av_tensor) = 0.;
+		}
 
         if(strcmp(files[ficeav] , string_novalue) != 0)
             (*sl->thi_av_tensor) = 0.;

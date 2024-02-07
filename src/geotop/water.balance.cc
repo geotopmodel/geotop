@@ -336,10 +336,12 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
     if ( cont >= adt->P->MaxiterTol )
         out=1;
 
+
     while (out==0)
     {
 
         cont++;
+
 
         for (i=1; i<=N; i++)
         {
@@ -503,6 +505,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
                                                       0., l, adt->S->pa->matrix(sy), GTConst::PsiMin);
                 (*adt->S->th)(l,j) = std::min<double>( (*adt->S->th)(l,j),
                                                        (*adt->S->pa)(sy,jsat,l)-(*L->thi)(l,j) );
+             
             }
 
             /** volume lost at the bottom */
@@ -622,7 +625,7 @@ short Richards3D(double Dt, SOIL_STATE *L, SOIL_STATE *C, ALLDATA *adt, double *
 
         }
     }
-
+	adt->W->iternumber=cont;
     return 0;
 
 }
@@ -973,9 +976,11 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
             if (l>0)
             {
                 dz = (*adt->S->pa)(sy,jdz,l);
-                if (l==Nl && adt->P->free_drainage_bottom>0)
+                if (l==Nl && adt->P->free_drainage_bottom>0){
                     (*Kbottom_l)(r,c) = k_from_psi(jKn, (*H)(i) - (*adt->T->Z)(l,r,c), (*SL->thi)(l,c), (*SL->T)(l,c), l,
                                                    adt->S->pa->matrix(sy), adt->P->imp, adt->P->k_to_ksat );
+                    (*Kbottom_l)(r,c) = std::min<double>((*Kbottom_l)(r,c), adt->P->MaxK);
+                    }
             }
 
             /** flux from cell below */
@@ -1041,8 +1046,12 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                     kmaxn = std::min<double>(kmax, kmaxn);
 
                     kn = std::min<double>(kn, kmaxn);
-
+                    
+                    
+                    
                 }
+                // Restriction for max hydraulic K
+                kn = std::min<double>(kn, adt->P->MaxK);
                 cnt++;
                 (*Lx)(cnt) = -area*kn/dD;  //Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
             }
@@ -1133,6 +1142,7 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
 
                     kn = std::min<double>(kn, kmaxn);
                 }
+
                 cnt++;
                 (*Lx)(cnt) = -area*kn/dD;  /** Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s] */
             }
@@ -1155,9 +1165,12 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                     if ((*adt->T->pixel_type)(r,c) == 1
                         || (*adt->T->pixel_type)(r,c) == 2
                         || (*adt->T->pixel_type)(r,c) == 11
-                        || (*adt->T->pixel_type)(r,c) == 12)
+                        || (*adt->T->pixel_type)(r,c) == 12){
 
                         (*Klat)((*adt->T->BC_counter)(r,c),l) = k;
+                        (*Klat)((*adt->T->BC_counter)(r,c),l) = std::min<double>((*Klat)((*adt->T->BC_counter)(r,c),l), adt->P->MaxK);
+                        }
+                        
                 }
             }
 
@@ -1195,6 +1208,9 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                                            (*SL->T)(l,J), l, adt->S->pa->matrix(syn), adt->P->imp, adt->P->k_to_ksat);
                         kmaxn = std::min<double>(kmax, kmaxn);
                         kn = std::min<double>(kn, kmaxn);
+                        
+                        // Restriction for max hydraulic K
+						kn = std::min<double>(kn, adt->P->MaxK);
 
                         cnt++;
                         (*Lx)(cnt) = -(dn*1.E-3*dz) *kn/dD; //Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
@@ -1216,6 +1232,9 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                         }
 
                         if (dz < adt->P->thres_hsup_1) kn = 0.;
+                        
+                        // Restriction for max hydraulic K
+						kn = std::min<double>(kn, adt->P->MaxK);
 
                         cnt++;
                         (*Lx)(cnt) = -(dn*1.E-3*dz) *kn/dD; //Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
@@ -1256,6 +1275,9 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                                            (*SL->T)(l,J), l, adt->S->pa->matrix(syn), adt->P->imp, adt->P->k_to_ksat);
                         kmaxn = std::min<double>(kmax, kmaxn);
                         kn = std::min<double>(kn, kmaxn);
+                        
+                        // Restriction for max hydraulic K
+						kn = std::min<double>(kn, adt->P->MaxK);
 
                         cnt++;
                         (*Lx)(cnt) = -(dn*1.E-3*dz) *kn/dD; //Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
@@ -1276,6 +1298,9 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                         }
 
                         if (dz < adt->P->thres_hsup_1) kn = 0.;
+                        
+                        // Restriction for max hydraulic K
+						kn = std::min<double>(kn, adt->P->MaxK);
 
                         cnt++;
                         (*Lx)(cnt) = -(dn*1.E-3*dz) *kn/dD; //Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
@@ -1317,6 +1342,9 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                                            (*SL->T)(l,J), l, adt->S->pa->matrix(syn), adt->P->imp, adt->P->k_to_ksat);
                         kmaxn = std::min<double>(kmax, kmaxn);
                         kn = std::min<double>(kn, kmaxn);
+                        
+                        // Restriction for max hydraulic K
+						kn = std::min<double>(kn, adt->P->MaxK);
 
                         cnt++;
                         (*Lx)(cnt) = -(dn*1.E-3*dz) *kn/dD; /** Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s] */
@@ -1337,6 +1365,9 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                         }
 
                         if (dz < adt->P->thres_hsup_1) kn = 0.;
+                        
+                        // Restriction for max hydraulic K
+						kn = std::min<double>(kn, adt->P->MaxK);
 
                         cnt++;
                         (*Lx)(cnt) = -(dn*1.E-3*dz) *kn/dD; /** Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s] */
@@ -1377,6 +1408,9 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                                            (*SL->T)(l,J), l, adt->S->pa->matrix(syn), adt->P->imp, adt->P->k_to_ksat);
                         kmaxn = std::min<double>(kmax, kmaxn);
                         kn = std::min<double>(kn, kmaxn);
+                        
+                        // Restriction for max hydraulic K
+						kn = std::min<double>(kn, adt->P->MaxK);
 
                         cnt++;
                         (*Lx)(cnt) = -(dn*1.E-3*dz)*kn/dD; //Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
@@ -1397,6 +1431,9 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                         }
 
                         if (dz < adt->P->thres_hsup_1) kn = 0.;
+                        
+                        // Restriction for max hydraulic K
+						kn = std::min<double>(kn, adt->P->MaxK);
 
                         cnt++;
                         (*Lx)(cnt) = -(dn*1.E-3*dz)*kn/dD; //Area[m2] * k[mm/s] * dH[mm]/dD[mm], equation written in [m2*mm/s]
@@ -1434,6 +1471,9 @@ int find_matrix_K_3D(double  /*Dt*/, SOIL_STATE *SL, SOIL_STATE *SC,
                  * dD[mm] = 0.25 * ds * (1+w_dx) */
                 dD = find_3Ddistance(ds * (1.0 + adt->P->w_dx) / 4.0,
                                      1.E-3*adt->P->depr_channel) * 1.E3;//[mm]
+                                     
+                // Restriction for max hydraulic K
+				//kn = std::min<double>(kn, adt->P->MaxK);
 
                 cnt++;
                 (*Lx)(cnt) = -(2. * (*adt->C->length)((*adt->C->ch)(r,c)) * 1.E-3*dz)*kn/dD;

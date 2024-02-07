@@ -1208,6 +1208,242 @@ void product_using_only_strict_lower_diagonal_part(Vector<double>* product,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+void product_using_only_strict_lower_diagonal_part2(Vector<double>* product,
+                                                   Vector<double>* x, Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx, Vector<double>* LxJair,
+                                                   Matrix<long> *lrc_cont, Matrix<long> *lch,long n)
+{
+  long c, r, i,lr,lc;
+
+  for (i=1; i<=x->nh; i++)
+    {
+      product->co[i] = 0.0;
+    }
+
+  //Term associated to conductive transport
+  c = 1;
+  for (i=1; i<=Li->nh; i++)
+    {
+
+      r = Li->co[i];
+      
+      if (r > c)
+        {
+          
+            if ( c<=n) //land
+            {
+                lc=(*lrc_cont)(c,1);
+                lr=(*lrc_cont)(r,1);
+                if (lc>0)
+                {
+                    product->co[c] += Lx->co[i] * (x->co[r] - x->co[c]);
+                    //printf("CCC1 lc:%ld lr:%ld c:%ld - r:%ld - i:%ld Lx:%e LxJair:%e  T %e T %e  \n",lc,lr,c,r,i,Lx->co[i],LxJair->co[i],x->co[r],x->co[c]);
+                    //printf("AIR ENERGY LAYER: %d, %d ,%e\n",i,lc,Lx->co[i]);
+                    //printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+                    
+                    //Term associated to convective/advective transport
+                    if (LxJair->co[i]>0)
+                    {
+                        //Upwind//Flux OUT
+                        product->co[c] += LxJair->co[i] * ( (x->co[c]-GTConst::Tref));
+                        
+                        //printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+
+                    }
+                    else
+                    {
+                        //Downwind//Flux in
+
+                        product->co[c] += LxJair->co[i] * ((x->co[r] -GTConst::Tref));
+
+                        //printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+                    }
+                }
+            }
+            else
+            {
+                lc=(*lch)(c-n,1);
+                lr=(*lch)(r-n,1);
+                if (lc>0)
+                {
+                    product->co[c] += Lx->co[i] * (x->co[r] - x->co[c]);
+                    //printf("CCC2 lc:%ld lr:%ld c:%ld - r:%ld - i:%ld Lx:%e LxJair:%e  T %e T %e  \n",lc,lr,c,r,i,Lx->co[i],LxJair->co[i],x->co[r],x->co[c]);
+                    //printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+
+                    //Term associated to convective/advective transport
+                    if (LxJair->co[i]>0)
+                    {
+                        //Upwind
+                        product->co[c] += LxJair->co[i] * ( (x->co[c]-GTConst::Tref));
+                        //printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+
+                    }
+                    else
+                    {
+                        //Downwind
+
+                        product->co[c] += LxJair->co[i] * ((x->co[r] -GTConst::Tref));
+                        //printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+                    }
+                }
+            }
+            
+            if ( r<=n) //land
+            {
+                lr=(*lrc_cont)(r,1);
+                if (lr>0)
+                {
+                    product->co[r] += Lx->co[i] * (x->co[c] - x->co[r]);
+                    //printf("RRR3 lc:%ld lr:%ld c:%ld - r:%ld - i:%ld Lx:%e LxJair:%e  T %e T %e  \n",lc,lr,c,r,i,Lx->co[i],-LxJair->co[i],x->co[r],x->co[c]);
+                    //printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+
+                    //Term associated to convective/advective transport
+                    if (LxJair->co[i]>0)
+                    {
+                        //FLUX IN
+                        product->co[r] += LxJair->co[i] * (-(x->co[c]  -GTConst::Tref));
+                        //printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+                    }
+                    else
+                    {
+                        //FLUX OUT
+                        product->co[r] += LxJair->co[i] * ( -(x->co[r]-GTConst::Tref));
+                        //printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+                    }
+                }
+            }
+            else
+            {
+                lr=(*lch)(r-n,1);
+                if (lr>0)
+                {
+                    product->co[r] += Lx->co[i] * (x->co[c] - x->co[r]);
+                    //printf("RRR4 lc:%ld lr:%ld c:%ld - r:%ld - i:%ld Lx:%e LxJair:%e  T %e T %e  \n",lc,lr,c,r,i,Lx->co[i],-LxJair->co[i],x->co[r],x->co[c]);
+                    //printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+                    
+                    //Term associated to convective/advective transport
+                    if (LxJair->co[i]>0)
+                    {
+                        //Upwind
+                        product->co[r] += LxJair->co[i] * (-(x->co[c]  -GTConst::Tref));
+                        //printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+                    }
+                    else
+                    {
+                        //Downwind
+                        product->co[r] += LxJair->co[i] * ( -(x->co[r]-GTConst::Tref));
+                        //printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+                    };
+                }
+                
+                
+            }
+            
+        }
+        else if (r < c)
+        {
+          printf("r:%ld c:%ld i:%ld Ap[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp->co[c],Li->nh,
+                 Lp->co[x->nh],x->nh);
+          t_error("matrix is not L");
+        }
+    
+      /*if (r > c)
+        {
+          product->co[c] += Lx->co[i] * (x->co[r] - x->co[c]);
+          //printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+
+          product->co[r] += Lx->co[i] * (x->co[c] - x->co[r]);
+          //printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+          
+          //Term associated to convective/advective transport
+          if (LxJair->co[i]>0)
+            {
+            //Upwind
+          
+              product->co[c] += LxJair->co[i] * ( - x->co[c]);
+          //printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+
+              product->co[r] += LxJair->co[i] * (x->co[c]  );
+          //printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+
+            }
+            else{
+            
+            //Downwind
+            
+            product->co[c] += LxJair->co[i] * (x->co[r] );
+          //printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+
+          product->co[r] += LxJair->co[i] * ( - x->co[r]);
+          //printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+
+            }
+
+        }*/
+      
+
+      if (i<Li->nh)
+        {
+          while (i >= Lp->co[c]) c++;
+        }
+    }
+}
+
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+void product_using_only_strict_lower_diagonal_part3(Vector<double>* product,
+                                                   Vector<double>* x, Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx,Vector<double>* LxB, 
+                                                   Matrix<long> *lrc_cont, Matrix<long> *lch,long n)
+{
+  
+  /// Here we dont have to include the flux ( Lx->co[i] * (x->co[r] - x->co[c])) in the first layer. The pressure at the first layer is fixed.
+  // We have to evaluate a more efficient way to impose this condition.
+  
+  long c, r, i,lr,lc;
+
+  for (i=1; i<=x->nh; i++)
+    {
+      product->co[i] = 0.0;
+    }
+
+  c = 1;
+  for (i=1; i<=Li->nh; i++)
+    {
+
+      r = Li->co[i];
+
+      if (r > c)
+        {
+
+			product->co[c] += Lx->co[i] * (x->co[r] - x->co[c]);
+			product->co[c] += LxB->co[i];
+
+			product->co[r] += Lx->co[i] * (x->co[c] - x->co[r]);
+			product->co[r] -= LxB->co[i];
+            
+        }
+      else if (r < c)
+        {
+          printf("r:%ld c:%ld i:%ld Ap[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp->co[c],Li->nh,
+                 Lp->co[x->nh],x->nh);
+          t_error("matrix is not L");
+        }
+
+      if (i<Li->nh)
+        {
+          while (i >= Lp->co[c]) c++;
+        }
+    }
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
 void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(
   Vector<double>* product, Vector<double>* x, Vector<double>* y,
   Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx)
@@ -1216,7 +1452,7 @@ void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(
   long i, r, c;
 
   //calculate (A+Iy)*x, A described by its strict lower diagonal part
-
+  //y=f
 
   for (i=1; i<=x->nh; i++)
     {
@@ -1248,6 +1484,231 @@ void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(
 
 }
 
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+
+void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector2(
+  Vector<double>* product, Vector<double>* x, Vector<double>* y,
+  Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx, Vector<double>* LxJair,
+  Matrix<long> *lrc_cont, Matrix<long> *lch,long n)
+{
+
+  long i, r, c,lc,lr;
+
+  //calculate (A+Iy)*x, A described by its strict lower diagonal part
+  //y=f
+
+  for (i=1; i<=x->nh; i++)
+    {
+      product->co[i] = y->co[i] * x->co[i];
+    }
+
+  c = 1;
+  for (i=1; i<=Li->nh; i++)
+    {
+      r = Li->co[i];
+      
+      if (r > c)
+        {
+        
+        if ( c<=n) //land
+            {
+                lc=(*lrc_cont)(c,1);
+                if (lc>0)
+                {
+                    product->co[c] += Lx->co[i] * (x->co[r] - x->co[c]);
+                    //Term associated to convective/advective transport
+                    if (LxJair->co[i]>0)
+                    {
+                        //Upwind
+
+                        product->co[c] += LxJair->co[i] * ((x->co[c]));
+                        //printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+                    }
+                    else
+                    {
+                        //Downwind
+
+                        product->co[c] += LxJair->co[i] * (x->co[r]);
+                        //printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+                    }
+                }
+            }
+            else
+            {
+                lc=(*lch)(c-n,1);
+                if (lc>0)
+                {
+                    product->co[c] += Lx->co[i] * (x->co[r] - x->co[c]);
+                    //Term associated to convective/advective transport
+                    if (LxJair->co[i]>0)
+                    {
+                        //Upwind
+
+                        product->co[c] += LxJair->co[i] * ( (x->co[c]));
+                        //printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+                    }
+                    else
+                    {
+                        //Downwind
+
+                        product->co[c] += LxJair->co[i] * (x->co[r] );
+                        //printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+
+                    }
+                }
+            }
+            
+            if ( r<=n) //land
+            {
+                lr=(*lrc_cont)(r,1);
+                if (lr>0)
+                {
+                    product->co[r] += Lx->co[i] * (x->co[c] - x->co[r]);
+
+                    //Term associated to convective/advective transport
+                    if (LxJair->co[i]>0)
+                    {
+                        //Upwind
+                        product->co[r] += LxJair->co[i] * (-x->co[c]  );
+                        //printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+
+                    }
+                    else
+                    {
+                        //Downwind
+                        product->co[r] += LxJair->co[i] * ( -(x->co[r]));
+                        //printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+                    }
+                }
+            }
+            else
+            {
+                lr=(*lch)(r-n,1);
+                if (lr>0)
+                {
+                    product->co[r] += Lx->co[i] * (x->co[c] - x->co[r]);
+
+                    //Term associated to convective/advective transport
+                    if (LxJair->co[i]>0)
+                    {
+                        //Upwind
+                        product->co[r] += LxJair->co[i] * (-x->co[c] );
+                        //printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+
+                    }
+                    else
+                    {
+
+                        //Downwind
+                        product->co[r] += LxJair->co[i] * ( -(x->co[r]));
+                        //printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+                    }
+                }
+            }
+            
+        }
+        else if (r < c)
+        {
+          printf("r:%ld c:%ld i:%ld Lp[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp->co[c],Li->nh,
+                 Lp->co[x->nh],x->nh);
+          t_error("matrix is not L");
+        }
+
+    /*
+      if (r > c)
+        {
+          product->co[c] += Lx->co[i] * (x->co[r] - x->co[c]);
+          product->co[r] += Lx->co[i] * (x->co[c] - x->co[r]);
+          
+           //Term associated to convective/advective transport
+          if (LxJair->co[i]>0)
+            {
+            //Upwind
+          
+              product->co[c] += LxJair->co[i] * ( - x->co[c]);
+          //printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+
+              product->co[r] += LxJair->co[i] * (x->co[c]  );
+          //printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+
+            }
+            else{
+            
+            //Downwind
+            
+            product->co[c] += LxJair->co[i] * (x->co[r] );
+          //printf("c:%ld -> %e i:%ld Lx:%e r:%ld %e c:%ld %e -> %e \n",c,product->co[c],i,Lx->co[i],r,x->co[r],c,x->co[c],Lx->co[i] * (x->co[r] - x->co[c]));
+
+          product->co[r] += LxJair->co[i] * ( - x->co[r]);
+          //printf("r:%ld -> %e i:%ld Lx:%e c:%ld %e r:%ld %e -> %e \n",r,product->co[r],i,Lx->co[i],c,x->co[c],r,x->co[r],Lx->co[i] * (x->co[c] - x->co[r]));
+
+            }
+            
+        }*/
+      
+
+      if (i<Li->nh)
+        {
+          while (i >= Lp->co[c]) c++;
+        }
+    }
+
+}
+
+void product_using_only_strict_lower_diagonal_part_plus_identity_by_vector3(
+  Vector<double>* product, Vector<double>* x, Vector<double>* y,
+  Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx, Matrix<long> *lrc_cont, Matrix<long> *lch,long n)
+{
+
+  long i, r, c,lc,lr;
+
+  //calculate (A+Iy)*x, A described by its strict lower diagonal part
+  //y=f
+
+  for (i=1; i<=x->nh; i++)
+    {
+      product->co[i] = y->co[i] * x->co[i];
+    }
+
+  c = 1;
+  for (i=1; i<=Li->nh; i++)
+    {
+      r = Li->co[i];
+
+      if (r > c)
+        {
+        
+  
+			product->co[c] += Lx->co[i] * (x->co[r] - x->co[c]);
+			//printf("AIR BALANCE LAYER: %d, %d,%d  ,%e\n",i,c,lc,Lx->co[i]);
+
+			product->co[r] += Lx->co[i] * (x->co[c] - x->co[r]);
+ 
+            
+        }
+      else if (r < c)
+        {
+          printf("r:%ld c:%ld i:%ld Lp[c]:%ld tot:%ld %ld %ld\n",r,c,i,Lp->co[c],Li->nh,
+                 Lp->co[x->nh],x->nh);
+          t_error("matrix is not L");
+        }
+
+      if (i<Li->nh)
+        {
+          while (i >= Lp->co[c]) c++;
+        }
+    }
+
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
@@ -1290,6 +1751,165 @@ void get_diag_strict_lower_matrix_plus_identity_by_vector(Vector<double>* diag,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
+void get_diag_strict_lower_matrix_plus_identity_by_vector2(Vector<double>* diag,
+                                                          Vector<double>* udiag, Vector<double>* y,
+                                                          Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx, Vector<double>* LxJair, 
+                                                          Matrix<long> *lrc_cont, Matrix<long> *lch,long n)
+{
+
+  long i, r, c,lc,lr;
+  //find diagonal and upper diagonal of matrix A+Iy, where A is described by its strict lower diagonal part
+  
+
+  for (i=1; i<=diag->nh; i++)
+    {
+      diag->co[i] = y->co[i];
+      if (i<diag->nh) udiag->co[i] = 0.;
+    }
+
+  c = 1;
+  for (i=1; i<=Li->nh; i++)
+    {
+      r = Li->co[i];
+      
+      if ( c<=n) //land
+        {
+            lc=(*lrc_cont)(c,1);
+            if (lc>0)
+            {
+                diag->co[c] -= Lx->co[i];
+                 //For airflux the term activates on diag or udiag deppending on flux direction
+                //printf("AIR ENERGY LAYER: %d, %d ,%e\n",i,lc,Lx->co[i]);
+                if (LxJair->co[i]>0)
+                {
+                //Upwind
+                  diag->co[c] += LxJair->co[i];
+                }
+     
+                if (r == c+1)
+                {
+                    udiag->co[c] = Lx->co[i];
+                    if (LxJair->co[i]<0)
+                    {
+                    //downwind
+                        udiag->co[c] += LxJair->co[i];
+                    }
+                }
+            }
+        }
+        else
+        {
+            lc=(*lch)(c-n,1);
+            if (lc>0)
+            {
+                diag->co[c] -= Lx->co[i];
+                //For airflux the term activates on diag or udiag deppending on flux direction.
+                  if (LxJair->co[i]>0)
+                        {
+                        //Upwind
+                          diag->co[c] += LxJair->co[i];
+                        }
+                if (r == c+1)
+                {
+                    udiag->co[c] = Lx->co[i];
+                    if (LxJair->co[i]<0)
+                    {
+                    //downwind
+                        udiag->co[c] += LxJair->co[i];
+                    }
+                }
+            }
+        }
+        
+        if ( r<=n) //land
+        {
+            lr=(*lrc_cont)(r,1);
+            if (lr>0)
+            {
+                diag->co[r] -= Lx->co[i];
+                //For airflux the term activates on diag or udiag deppending on flux direction.
+                if (LxJair->co[i]<0)
+                    {
+                    //Upwind
+                      diag->co[r] -= LxJair->co[i];
+                    }
+            }
+        }
+        else
+        {
+            lr=(*lch)(r-n,1);
+            if (lr>0)
+            {
+                diag->co[r] -= Lx->co[i];
+                //For airflux the term activates on diag or udiag deppending on flux direction.
+                if (LxJair->co[i]>0)
+                    {
+                    //Upwind
+                      diag->co[r] -= LxJair->co[i];
+                    }
+            }
+        }
+             
+      if (i<Li->nh)
+        {
+          while (i >= Lp->co[c]) c++;
+        }
+    }
+    
+    
+
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+void get_diag_strict_lower_matrix_plus_identity_by_vector3(Vector<double>* diag,
+                                                          Vector<double>* udiag, Vector<double>* y,
+                                                          Vector<long> *Li, Vector<long> *Lp, Vector<double>* Lx,
+                                                          Matrix<long> *lrc_cont, Matrix<long> *lch,long n)
+{
+
+  long i, r, c,lr,lc;
+  //find diagonal and upper diagonal of matrix A+Iy, where A is described by its strict lower diagonal part
+
+
+  for (i=1; i<=diag->nh; i++)
+    {
+      diag->co[i] = y->co[i];
+      if (i<diag->nh) udiag->co[i] = 0.;
+    }
+
+  c = 1;
+  for (i=1; i<=Li->nh; i++)
+    {
+		r = Li->co[i];
+
+
+		diag->co[c] -= Lx->co[i];
+		//printf("AIR BALANCE LAYER: %d, %d,%d  ,%e\n",i,c,lc,Lx->co[i]);
+		//if (lc==5) printf("AIR BALANCE LAYER: %d, %d ,%e\n",i,lc,Lx->co[i]);
+		if (r == c+1) udiag->co[c] = Lx->co[i];
+                
+
+        diag->co[r] -= Lx->co[i];
+                
+
+
+      if (i<Li->nh)
+        {
+          while (i >= Lp->co[c]) c++;
+        }
+    }
+
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
 
 long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel,
                                                           double tol_min, double tol_max, Vector<double> *x,
@@ -1316,6 +1936,7 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel,
   yy.reset(new Vector<double>{x->nh});
   z.reset(new Vector<double>{x->nh});
 
+  // fill DF, diag with (df+Lx), UDiag (Lx)
   get_diag_strict_lower_matrix_plus_identity_by_vector(diag.get(), udiag.get(), y, Li, Lp,
                                                        Lx);
 
@@ -1410,15 +2031,289 @@ long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector(double tol_rel,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector2(double tol_rel,
+                                                          double tol_min, double tol_max, Vector<double> *x,
+                                                          Vector<double> *b, Vector<double> *y, Vector<long> *Li,
+                                                          Vector<long> *Lp,
+                                                          Vector<double> *Lx,Vector<double> *LxJair, Matrix<long> *lrc_cont, Matrix<long> *lch,long n)
+{
+  //solve sistem (A+Iy)*x = B, find x
+  //A M-matrix described by its lower diagonal part
+  // (mu, tol_min_GC, tol_max_GC, adt->AE->dT.get(),adt->AE->B.get(), adt->AE->df.get(), adt->T->Li.get(),
+  //adt->T->Lp.get(), adt->AE->Lx.get(),adt->AF->LxJair.get());
+  //x=dT,b=B=f,y=dF. dF dosent contain the terms associated to Lx or LxJair
+  
+  std::unique_ptr<Vector<double>> r0, r, p, v, s, t, diag, udiag, yy, z;
+  double rho, rho1, alpha, omeg, beta, norm_r0;
+  long i=0, j, maxiter;
+  short sux;
+
+  r0.reset(new Vector<double>{x->nh});
+  r.reset(new Vector<double>{x->nh});
+  p.reset(new Vector<double>{x->nh});
+  v.reset(new Vector<double>{x->nh});
+  s.reset(new Vector<double>{x->nh});
+  t.reset(new Vector<double>{x->nh});
+  diag.reset(new Vector<double>{x->nh});
+  udiag.reset(new Vector<double>{x->nh-1});
+  yy.reset(new Vector<double>{x->nh});
+  z.reset(new Vector<double>{x->nh});
+
+  // fill DF, diag with (df+Lx), UDiag (Lx)
+  get_diag_strict_lower_matrix_plus_identity_by_vector2(diag.get(), udiag.get(), y, Li, Lp,
+                                                       Lx,LxJair,lrc_cont,lch,n);
+
+  //product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(r, x, y, Li, Lp, Lx);
+  for (j=x->nl; j<=x->nh; j++ )
+    {
+      //r->co[j] = b->co[j] - r->co[j];
+      r->co[j] = b->co[j];
+      r0->co[j] = r->co[j];
+      p->co[j] = 0.;
+      v->co[j] = 0.;
+    }
+
+  norm_r0 = norm_2(r0.get(), r0->nl, r0->nh);
+
+  rho = 1.;
+  alpha = 1.;
+  omeg = 1.;
+
+  maxiter = (long)(x->nh/100.);
+  if (maxiter < 100) maxiter = 100;
+
+  while ( i<=maxiter
+          && norm_2(r.get(), r->nl, r->nh) > std::max<double>( tol_min, std::min<double>( tol_max,
+                                                            tol_rel*norm_r0) ) )
+    {
+
+      rho1 = product(r0.get(), r.get());
+
+      beta = (rho1/rho)*(alpha/omeg);
+
+      rho = rho1;
+
+      for (j=x->nl; j<=x->nh; j++ )
+        {
+          p->co[j] = r->co[j] + beta*(p->co[j] - omeg*v->co[j]);
+        }
+
+      sux=tridiag(0, 0, 0, x->nh, udiag.get(), diag.get(), udiag.get(), p.get(), yy.get());
+      if (sux==0) {
+      printf("AIR ENERGY B1\n");
+      return (-1);}
+
+      product_using_only_strict_lower_diagonal_part_plus_identity_by_vector2(v.get(), yy.get(),
+          y, Li, Lp, Lx,LxJair,lrc_cont,lch,n);
+
+      alpha = rho/product(r0.get(), v.get());
+
+      for (j=x->nl; j<=x->nh; j++ )
+        {
+          s->co[j] = r->co[j] - alpha*v->co[j];
+        }
+
+      if (norm_2(s.get(),s->nl,s->nh)>1.E-10)
+        {
+
+          sux=tridiag(0, 0, 0, x->nh, udiag.get(), diag.get(), udiag.get(), s.get(), z.get());
+          if (sux==0) { 
+          printf("AIR ENERGY B2\n");
+          return (-1);}
+
+          product_using_only_strict_lower_diagonal_part_plus_identity_by_vector2(t.get(), z.get(), y,
+              Li, Lp, Lx, LxJair,lrc_cont,lch,n);
+
+          omeg = product(t.get(), s.get())/product(t.get(), t.get());
+
+          for (j=x->nl; j<=x->nh; j++ )
+            {
+              x->co[j] += (alpha*yy->co[j] + omeg*z->co[j]);
+              r->co[j] = s->co[j] - omeg*t->co[j];
+            }
+
+        }
+      else
+        {
+
+          for (j=x->nl; j<=x->nh; j++ )
+            {
+              x->co[j] += alpha*yy->co[j];
+              r->co[j] = s->co[j];
+            }
+
+        }
+
+      i++;
+
+    }
+
+
+  return i;
+
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+long BiCGSTAB_strict_lower_matrix_plus_identity_by_vector3(double tol_rel,
+                                                          double tol_min, double tol_max, Vector<double> *x,
+                                                          Vector<double> *b, Vector<double> *y, Vector<long> *Li,
+                                                          Vector<long> *Lp,
+                                                          Vector<double> *Lx, Matrix<long> *lrc_cont, Matrix<long> *lch,long n)
+{
+  //solve sistem (A+Iy)*x = B, find x
+  //A M-matrix described by its lower diagonal part
+  //x=dT,b=B=f,y=dF.
+  std::unique_ptr<Vector<double>> r0, r, p, v, s, t, diag, udiag, yy, z;
+  double rho, rho1, alpha, omeg, beta, norm_r0;
+  long i=0, j, maxiter;
+  short sux;
+
+  r0.reset(new Vector<double>{x->nh});
+  r.reset(new Vector<double>{x->nh});
+  p.reset(new Vector<double>{x->nh});
+  v.reset(new Vector<double>{x->nh});
+  s.reset(new Vector<double>{x->nh});
+  t.reset(new Vector<double>{x->nh});
+  diag.reset(new Vector<double>{x->nh});
+  udiag.reset(new Vector<double>{x->nh-1});
+  yy.reset(new Vector<double>{x->nh});
+  z.reset(new Vector<double>{x->nh});
+
+  // fill DF, diag with (df+Lx), UDiag (Lx)
+  get_diag_strict_lower_matrix_plus_identity_by_vector3(diag.get(), udiag.get(), y, Li, Lp,
+                                                       Lx,lrc_cont,lch,n);
+
+  //product_using_only_strict_lower_diagonal_part_plus_identity_by_vector(r, x, y, Li, Lp, Lx);
+  for (j=x->nl; j<=x->nh; j++ )
+    {
+      //r->co[j] = b->co[j] - r->co[j];
+      r->co[j] = b->co[j];
+      r0->co[j] = r->co[j];
+      p->co[j] = 0.;
+      v->co[j] = 0.;
+    }
+
+  norm_r0 = norm_2(r0.get(), r0->nl, r0->nh);
+
+  rho = 1.;
+  alpha = 1.;
+  omeg = 1.;
+
+  maxiter = (long)(x->nh/100.);
+  if (maxiter < 100) maxiter = 100;
+
+  while ( i<=maxiter
+          && norm_2(r.get(), r->nl, r->nh) > std::max<double>( tol_min, std::min<double>( tol_max,
+                                                            tol_rel*norm_r0) ) )
+    {
+
+      rho1 = product(r0.get(), r.get());
+
+      beta = (rho1/rho)*(alpha/omeg);
+
+      rho = rho1;
+
+      for (j=x->nl; j<=x->nh; j++ )
+        {
+          p->co[j] = r->co[j] + beta*(p->co[j] - omeg*v->co[j]);
+        }
+
+      sux=tridiag(0, 0, 0, x->nh, udiag.get(), diag.get(), udiag.get(), p.get(), yy.get());
+      if (sux==0){
+      printf("AIR BALANCE B1\n");
+       return (-1);}
+
+      product_using_only_strict_lower_diagonal_part_plus_identity_by_vector3(v.get(), yy.get(),
+          y, Li, Lp, Lx,lrc_cont,lch,n);
+
+      alpha = rho/product(r0.get(), v.get());
+
+      for (j=x->nl; j<=x->nh; j++ )
+        {
+          s->co[j] = r->co[j] - alpha*v->co[j];
+        }
+
+      if (norm_2(s.get(),s->nl,s->nh)>1.E-10)
+        {
+
+          sux=tridiag(0, 0, 0, x->nh, udiag.get(), diag.get(), udiag.get(), s.get(), z.get());
+          if (sux==0){
+      printf("AIR BALANCE B1\n");
+       return (-1);}
+
+          product_using_only_strict_lower_diagonal_part_plus_identity_by_vector3(t.get(), z.get(), y,
+              Li, Lp, Lx,lrc_cont,lch,n);
+
+          omeg = product(t.get(), s.get())/product(t.get(), t.get());
+
+          for (j=x->nl; j<=x->nh; j++ )
+            {
+              x->co[j] += (alpha*yy->co[j] + omeg*z->co[j]);
+              r->co[j] = s->co[j] - omeg*t->co[j];
+            }
+
+        }
+      else
+        {
+
+          for (j=x->nl; j<=x->nh; j++ )
+            {
+              x->co[j] += alpha*yy->co[j];
+              r->co[j] = s->co[j];
+            }
+
+        }
+
+      i++;
+
+    }
+
+
+  return i;
+
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
 void product_matrix_using_lower_part_by_vector_plus_vector(double k,
                                                            Vector<double> *out, Vector<double> *y, Vector<double> *x,
                                                            Vector<long> *Li, Vector<long> *Lp, Vector<double> *Lx)
+{
+  //calculates k*(y + Ax), where k is coefficient,  and x vectors, and A a SPD matrix defined with its lower diagonal part
+  //y=f and x =variable 
+  long i;
+
+  product_using_only_strict_lower_diagonal_part(out, x, Li, Lp, Lx);
+
+  for (i=1; i<=x->nh; i++)
+    {
+      //printf("-> i:%ld k:%e out:%e y:%e out:%e\n",i,k,out->co[i],y->co[i],k * (out->co[i] + y->co[i]));
+      out->co[i] = k * (out->co[i] + y->co[i]);
+    }
+
+}
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
+void product_matrix_using_lower_part_by_vector_plus_vector2(double k,
+                                                           Vector<double> *out, Vector<double> *y, Vector<double> *x,
+                                                           Vector<long> *Li, Vector<long> *Lp, Vector<double> *Lx, Vector<double> *LxJair,
+                                                           Matrix<long> *lrc_cont, Matrix<long> *lch,long n)
 {
   //calculates k*(y + Ax), where k is coefficient, y and x vectors, and A a SPD matrix defined with its lower diagonal part
 
   long i;
 
-  product_using_only_strict_lower_diagonal_part(out, x, Li, Lp, Lx);
+  product_using_only_strict_lower_diagonal_part2(out, x, Li, Lp, Lx, LxJair,lrc_cont,lch,n);
 
   for (i=1; i<=x->nh; i++)
     {
@@ -1433,4 +2328,26 @@ void product_matrix_using_lower_part_by_vector_plus_vector(double k,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+//This function dont include the fluxes in the first layer (l==0)
+void product_matrix_using_lower_part_by_vector_plus_vector3(double k,
+                                                           Vector<double> *out, Vector<double> *y, Vector<double> *x,
+                                                           Vector<long> *Li, Vector<long> *Lp, Vector<double> *Lx, Vector<double> *LxB, Matrix<long> *lrc_cont,
+                                                           Matrix<long> *lch,long n)
+{
+  //calculates k*(y + Ax), where k is coefficient,  and x vectors, and A a SPD matrix defined with its lower diagonal part
+  //y=f and x =variable 
+  
+  long i;
 
+  /// Here we dont have to include the flux ( Lx->co[i] * (x->co[r] - x->co[c])) in the first layer. The pressure at the first layer is fixed.
+  // We have to evaluate a more efficient way to impose this condition.
+  
+  product_using_only_strict_lower_diagonal_part3(out, x, Li, Lp, Lx, LxB,lrc_cont,lch,n);
+
+  for (i=1; i<=x->nh; i++)
+    {
+      //printf("-> i:%ld k:%e out:%e y:%e out:%e\n",i,k,out->co[i],y->co[i],k * (out->co[i] + y->co[i]));
+      out->co[i] = k * (out->co[i] + y->co[i]);
+    }
+
+}

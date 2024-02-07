@@ -521,6 +521,103 @@ Matrix<double>* read_map(short a, char *filename, Matrix<double> *Mref,
 /******************************************************************************************************************************************/
 /******************************************************************************************************************************************/
 
+Matrix<double>* read_mapShad(short a, char *filename, 
+                         T_INIT *UVref, double *DifNxShadow , double *DifNyShadow, double no_value)
+{
+/**
+ * a=0 does not use Mref, UVref output
+ * a=1 does not check novalues, Mref e UVref input
+ * a=2 checks novalues, Mref e UVref input
+ */
+    Matrix<double> *M=nullptr;
+    long r=0, c=0, nr=0, nc=0;
+    double *header=nullptr, *m=nullptr;
+    double Dxmap=0, Dymap=0, X0map=0, Y0map=0;
+
+    if (a != 0 && a != 1
+        && a != 2)
+        t_error("Value of flag not supported in the subroutine in read_map");
+
+    if (existing_file(filename)==1)
+    {
+
+        t_error("Fluidturtle map format not supported any more");
+
+    }
+    else
+    {
+
+        header = (double *) malloc(6*sizeof(double));
+
+        if (existing_file(filename)==2) //grass ascii
+        {
+            m=read_grassascii(header, no_value, filename);
+            nr=(long)header[4];
+            nc=(long)header[5];
+            Dxmap=(header[2]-header[3])/((long)header[5]);
+            Dymap=(header[0]-header[1])/((long)header[4]);
+            X0map=header[3];
+            Y0map=header[1];
+
+        }
+        else if (existing_file(filename)==3)  //esri ascii
+        {
+            m=read_esriascii(header, no_value, filename);
+            printf("%s\n",filename);
+            nr=(long)header[1];
+            nc=(long)header[0];
+            Dxmap=header[4];
+            Dymap=header[4];
+            X0map=header[2];
+            Y0map=header[3];
+
+        }
+        else
+        {
+
+            printf("The file %s doesn't exist\n",filename);
+            t_error("Fatal error");
+
+        }
+
+        free(header);
+        if (a==1 || a==2)
+        {
+            /**check header*/
+
+        }
+        else if (a==0)
+        {
+
+            *DifNxShadow=((*UVref->U)(4)-X0map)/(*UVref->U)(2);
+            *DifNyShadow=((*UVref->U)(3)-Y0map)/(*UVref->U)(1);
+            //*DifNyShadow=10.0;
+            //*DifNyShadow=20.0;
+     
+        }
+
+        /**assign values and check novalues*/
+        M = new Matrix<double>{nr,nc};
+        for (r=1; r<=nr; r++)
+        {
+            for (c=1; c<=nc; c++)
+            {
+                (*M)(r,c)=m[(r-1)*nc+c-1];
+
+            }
+        }
+
+        free(m);
+    }
+
+    return (M);
+}
+
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+/******************************************************************************************************************************************/
+
 std::unique_ptr<Vector<double>> read_map_vector(short type, char *namefile, Matrix<double> *mask,
                                                 T_INIT *grid, double no_value, Matrix<long> *rc)
 {

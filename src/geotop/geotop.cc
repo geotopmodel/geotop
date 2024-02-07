@@ -32,8 +32,10 @@
 #include "times.h"
 #include "constants.h"
 #include "energy.balance.h"
+#include "air.energy.balance.h"
 #include "meteo.h"
 #include "water.balance.h"
+#include "air.balance.h"
 #include "snow.h"
 #include "blowingsnow.h"
 #include "tabs.h"
@@ -65,7 +67,7 @@ char *logfile = "/dev/null";
 char **files;
 
 long Nl,Nr,Nc;
-double t_meteo, t_energy, t_water, t_sub, t_sup, t_blowingsnow, t_out;
+double t_meteo, t_energy,t_energyair, t_water,t_airbalance, t_sub, t_sup, t_blowingsnow, t_out;
 
 double **odpnt, * *odp;
 long *opnt, nopnt;
@@ -169,7 +171,9 @@ FOR A PARTICULAR PURPOSE.\n" << std::endl;
 
     t_meteo=0.;
     t_energy=0.;
+    t_energyair=0.;
     t_water=0.;
+    t_airbalance=0.;
     t_sub=0.;
     t_sup=0.;
     t_out=0.;
@@ -177,7 +181,7 @@ FOR A PARTICULAR PURPOSE.\n" << std::endl;
 
 
     /*------------------    3.  Acquisition of input data and initialisation    --------------------*/
-    get_all_input(argc, argv, adt->T.get(), adt->S.get(), adt->L.get(), adt->M.get(), adt->W.get(),
+    get_all_input(argc, argv, adt->T.get(), adt->S.get(), adt->L.get(), adt->M.get(), adt->W.get(),adt->AF.get(),adt->AE.get(),
                   adt->C.get(), adt->P.get(), adt->E.get(), adt->N.get(), adt->G.get(), adt->I.get());
 
     /*-----------------   4. Time-loop for the balances of water-mass and egy   -----------------*/
@@ -202,10 +206,14 @@ void time_loop(ALLDATA *A)
 {
     GEOLOG_PREFIX(__func__);
     clock_t tstart, tend;
-    short en=0, wt=0, out;
+    short en=0,enair=0, wt=0,at=0, out,Dtaux=0;
     long i, sy, r, c, j, l;
-    double t, Dt, JD0, JDb, JDe, W, th, th0;
+    double t, Dt, JD0, JDb, JDe, W, th, th0, PreviousDt;
     double Vout, Voutsub, Voutsup, Vbottom, C0, C1;
+    double MaxCu=10.0;
+    double MaxDT=86400;
+    double IT4=0.0;
+    
     FILE* f;
 
     // double mean;
@@ -234,13 +242,16 @@ void time_loop(ALLDATA *A)
 
     // periods
     i_sim = i_sim0;
-
+    
+    if (A->P->air_balance == 0){
+		A->AF->Courant=1;
+	}
+    
     do
     {
         // runs
         A->I->time = A->P->delay_day_recover*86400.; // initialize time
         A->P->delay_day_recover = 0.;
-
         do
         {
             if ( A->I->time > ((*A->P->end_date)(i_sim)- (*A->P->init_date)(i_sim)) *86400. - 1.E-5)
@@ -270,26 +281,48 @@ void time_loop(ALLDATA *A)
                                   A->E.get(), A->M.get(), A->W.get());
                     init_run(A->S.get(), A->P.get());
                 }
+                
+                
             }
             else
             {
-                // find time step from file or inpts
-                set_time_step(A->P.get(), A->I.get());
+                
 
+                set_time_step(A->P.get(), A->I.get());
+                
+                
+				
                 // time at the beginning of the time step
                 JD0 = (*A->P->init_date)(i_sim)+A->I->time/GTConst::secinday;
 
                 // time step variables
                 t = 0.;
-                Dt = A->P->Dt;
+                if ( A->I->time ==0.0){
+				Dt = A->P->Dt;
+				}
+                //Dt = A->P->Dt;
+                // Set Dt 
 
+				if (Dt<A->P->min_Dt*0.01){
+					Dt=std::min<double>(A->P->Dt,MaxDT);
+				}
+
+				if ((Dt > std::min<double>(A->P->Dt,MaxDT)*0.9) and ((A->AF->Courant)<MaxCu)){
+					Dt = std::min<double>(A->P->Dt,MaxDT);
+				}
+
+
+                
                 // time step subdivisions
                 do
                 {
                     JDb = (*A->P->init_date)(i_sim)+(A->I->time+t)/GTConst::secinday;
 
-                    if (t + Dt > A->P->Dt)
+                    if (t + Dt > A->P->Dt){
+						PreviousDt=Dt;
+						Dtaux=1;
                         Dt = A->P->Dt - t;
+                    }
 
                     // iterations
                     do
@@ -319,8 +352,26 @@ void time_loop(ALLDATA *A)
                                     A->W.get(), A->T.get(), A->P.get(), JD0, JDb, JDe);
                         tend=clock();
                         t_meteo+=(tend-tstart)/(double)CLOCKS_PER_SEC;
+                        
+                        if (A->P->air_balance == 1 )
+                        {
+                            tstart=clock();
+                            at = air_balance(Dt, JD0, JDb, JDe, L.get(), C.get(),S.get(), A, Vsub_ch.get(),
+                                               Vsup_ch.get(), &Vout, &Voutsub, &Voutsup, &Vbottom);
+                            tend=clock();
+                            t_airbalance+=(tend-tstart)/(double)CLOCKS_PER_SEC;
+                        }
 
-                        if (A->P->en_balance == 1)
+                        if (A->P->air_energy_balance == 1 && at == 0)
+                        {
+                            tstart=clock();
+                            enair = air_energy_balance(Dt, JD0, JDb, JDe, L.get(), C.get(), S.get(), G.get(),
+                                               V.get(), a.get(), A, &W); // GZ - Necessary to review the function arguments
+                            tend=clock();
+                            t_energyair+=(tend-tstart)/(double)CLOCKS_PER_SEC;
+                        }
+
+                        if (A->P->en_balance == 1 && enair == 0 & at == 0)
                         {
                             tstart=clock();
                             en = EnergyBalance(Dt, JD0, JDb, JDe, L.get(), C.get(), S.get(), G.get(),
@@ -328,8 +379,8 @@ void time_loop(ALLDATA *A)
                             tend=clock();
                             t_energy+=(tend-tstart)/(double)CLOCKS_PER_SEC;
                         }
-
-                        if (A->P->wat_balance == 1 && en == 0)
+                        
+						if (A->P->wat_balance == 1 && en == 0 && enair == 0 & at == 0)
                         {
                             tstart=clock();
                             wt = water_balance(Dt, JD0, JDb, JDe, L.get(), C.get(), A, Vsub_ch.get(),
@@ -337,29 +388,43 @@ void time_loop(ALLDATA *A)
                             tend=clock();
                             t_water+=(tend-tstart)/(double)CLOCKS_PER_SEC;
                         }
-
-                        if (en != 0 || wt != 0)
+                        
+                        if (en != 0 || enair != 0 || wt != 0 || at != 0)
                         {
-                            if (Dt > A->P->min_Dt) Dt *= 0.5;
+                            if (Dt > A->P->min_Dt)
+                            { Dt *= 0.25;}
+                            else
+                            { t_error("Fatal Error! Reached MIN DT Geotop is closed. See failing report.");}
+                            
                             out = 0;
 
                             if (en != 0)
                             {
-                                geolog << "Energy balance not converging" << std::endl;
+                                geolog << "Composite Energy balance not converging" << std::endl;
                             }
-                            else
+                            if (enair != 0)
+                            {
+                                geolog << "Air Energy balance not converging" << std::endl;
+                            }
+                            if (wt != 0)
                             {
                                 geolog << "Water balance not converging" << std::endl;
                             }
+                            if (at != 0)
+                            {
+                                geolog << "Air balance not converging" << std::endl;
+                            }
+                            
                             geolog << "Reducing time step to "<< Dt << "s, t: "<< t <<" s" << std::endl;
                         }
                         else
                         {
                             out = 1;
+                            
                         }
-                        // printf("Dt:%f min:%f\n",Dt,A->P->min_Dt);
+
                     }
-                    while ( out == 0 && Dt > A->P->min_Dt );
+                    while ( out == 0 );
 
                     /* if (en != 0 || wt != 0) {
                f = fopen(FailedRunFile, "w");
@@ -379,7 +444,7 @@ void time_loop(ALLDATA *A)
                t_error("Fatal Error! Geotop is closed. See failing report.");
                } */
 
-                    if (en != 0 || wt != 0)
+                    if (en != 0 || wt != 0 || enair != 0 || at != 0)
                     {
                         // f = fopen(FailedRunFile, "w");
 
@@ -391,11 +456,25 @@ void time_loop(ALLDATA *A)
                         {
                             geolog <<"WARNING: Energy balance does not converge, Dt: " << Dt<< std::endl;
                         }
-                        else if (en == 0 && wt != 0)
+                        if (en == 0 && wt != 0)
                         {
                             geolog <<"WARNING: Water balance does not converge, Dt: " << Dt<< std::endl;
                         }
-                        else
+                        if (en != 0 && wt != 0)
+                        {
+                            geolog <<"WARNING: Water and energy balance do not converge, Dt: " << Dt
+                                   << std::endl;
+                        }
+                        
+                        if (enair != 0 && at == 0)
+                        {
+                            geolog <<"WARNING: Air Energy balance does not converge, Dt: " << Dt<< std::endl;
+                        }
+                        else if (en == 0 && at != 0)
+                        {
+                            geolog <<"WARNING: Air balance does not converge, Dt: " << Dt<< std::endl;
+                        }
+                        if (enair != 0 && at != 0)
                         {
                             geolog <<"WARNING: Water and energy balance do not converge, Dt: " << Dt
                                    << std::endl;
@@ -405,7 +484,8 @@ void time_loop(ALLDATA *A)
                     }
 
                     t += Dt;
-
+                    
+                    
                     if (A->P->state_pixel == 1 && A->P->dUzrun == 1)
                     {
                         for (j=1; j<=A->P->rc->nrh; j++)
@@ -470,7 +550,93 @@ void time_loop(ALLDATA *A)
                                         A->M.get(), A->P.get(), A->I.get(), A->T.get(), A->S.get());
 
                     // reset Dt
-                    if (Dt < A->P->Dt) Dt *= 2.;
+                    //printf("Current MaxCU %f \n", (A->AF->Courant));
+                    if ((A->AF->Courant)>MaxCu){
+								printf("Courant greater than MaxCU, decreasing dt: Cu,Newdt, %f,%f \n",(A->AF->Courant),Dt);
+								Dt=std::min<double>( Dt*MaxCu/(A->AF->Courant), Dt*0.9);
+								//printf("SECONDCourant greater than MaxCU, decreasing dt: Cu,Newdt, %f,%f\n",(A->AF->Courant),Dt,Dt);
+								
+                    }
+                    
+                    
+                    if (IT4==0) {
+						if (Dt < A->P->Dt){
+							if (Dtaux==1){
+								Dt=PreviousDt;
+								Dtaux=0;
+								//printf("CHANGE TIME STEP line 585");
+							}
+							
+							if (((A->AF->Courant)<MaxCu) && (Dt<std::min<double>(A->P->Dt,MaxDT))){
+							//Dt *= 1.1;
+							Dt=std::min<double>(std::min<double>( Dt*MaxCu/(A->AF->Courant), Dt*1.1),std::min<double>(A->P->Dt,MaxDT));
+							//printf("CHANGE TIME STEP line 585, DT,W,E,AE %f,%f,%f,%f \n",Dt,(A->W->iternumber),(A->E->iternumber),(A->AE->iternumber));
+							}
+						}
+                    }
+                    else{
+
+						if (Dt < A->P->Dt){
+							if (Dtaux==1){
+
+								Dt=PreviousDt;
+								Dtaux=0;
+							}
+							
+							//Check number of iterations before increasing DT
+							if (((A->W->iternumber)<50) and ((A->E->iternumber)<20) and ((A->AE->iternumber)<5)){
+							if (((A->AF->Courant)<MaxCu) && (Dt<std::min<double>(A->P->Dt,MaxDT))){
+							//Dt *= 1.1;
+							Dt=std::min<double>(std::min<double>( Dt*MaxCu/(A->AF->Courant), Dt*1.1),std::min<double>(A->P->Dt,MaxDT));
+							//printf("CHANGE TIME STEP line 590");
+							//printf("CHANGE TIME STEP line 585, DT,W,E,AE %f,%f,%f,%f \n",Dt,(A->W->iternumber),(A->E->iternumber),(A->AE->iternumber));
+							}}
+							else{
+							//printf("Limited by NIterattions W,E,AE ,%f,%f,%f \n",(A->W->iternumber),(A->E->iternumber),(A->AE->iternumber));
+							
+							if ((A->AE->iternumber)>6){
+							Dt*=0.9;
+							//printf("CHANGE TIME STEP line 597");
+							//printf("High Air ENERGY cnt CHANGE TIME STEP line 593 cnt,DT %f %f \n",(A->AE->iternumber), Dt);
+							
+							}
+							
+							}
+						
+						}
+                    }
+                    
+                    // To limit number of Water Balance or Energy Balance iterations
+                    /*
+					if ((A->W->iternumber)>120){
+						Dt*=0.5;
+						printf("High water cnt CHANGE TIME STEP line 593 cnt,DT %f %f \n",(A->W->iternumber), Dt);
+					}
+
+					if ((A->E->iternumber)>60){
+						Dt*=0.8;
+						printf("High Energy cnt CHANGE TIME STEP line 598 cnt,DT %f %f \n",(A->E->iternumber), Dt);
+					}*/
+					
+					
+					
+					//Check if the remainig dt<min_dt
+                    if ((t < A->P->Dt) && (t + Dt > A->P->Dt)){
+                    
+						if (A->P->Dt - t<0.5){
+							t=A->P->Dt;
+							//printf("Jump Cicle line 610 Dt,t,A->P->Dt - t %f %f %f %e\n",Dt,t,A->P->Dt - t,A->P->Dt - t);
+							}
+							
+						//Dont allow a decrease of dt higher than 500%
+						if (((A->P->Dt - t)/Dt)<1/500){
+							t=A->P->Dt;
+							
+							//printf("Jump Cicle line 610 Dt,t,A->P->Dt - t %f %f %f %e\n",Dt,t,A->P->Dt - t,A->P->Dt - t);
+						}
+						
+					}
+					
 
                 }
                 while (t < A->P->Dt);
@@ -486,7 +652,8 @@ void time_loop(ALLDATA *A)
 
                 tstart=clock();
                 write_output(A->I.get(), A->W.get(), A->C.get(), A->P.get(), A->T.get(), A->L.get(),
-                             A->S.get(), A->E.get(), A->N.get(), A->G.get(), A->M.get());
+                             A->S.get(), A->E.get(), A->N.get(), A->G.get(), A->M.get(),A->AF.get());
+                
                 tend=clock();
                 t_out+=(tend-tstart)/(double)CLOCKS_PER_SEC;
 

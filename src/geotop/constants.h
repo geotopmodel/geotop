@@ -35,8 +35,8 @@
 
 #define max_charstring 200000
 #define max_numvect 200000
-#define num_par_number 406
-#define num_par_char 367
+#define num_par_number 418
+#define num_par_char 369
 
 //****************************************************
 // Fixed Parameters
@@ -60,6 +60,15 @@ namespace GTConst {
     constexpr double LapseRateTair = 6.5;  /** Lapse rate for Tair [°C/m] */
     constexpr double LapseRateTdew = 2.5;  /** Lapse rate for Tdew [°C/m] */
     constexpr double LapseRatePrec = 0.0;  /** Lapse rate for Precipitation [1/m] */
+    
+    //Natural convection parameters //
+    
+    constexpr double Tref= 273.15; //Reference temperature Kelvin//
+    constexpr double rho_ref= 1.292;         /* density of air at 0 C and 1 atm [kg/m3] */
+    constexpr double beta=3.69*1.E-3; // Air thermal expansion at 0 C [K^-1] https://www.engineeringtoolbox.com/air-density-specific-weight-d_600.html
+    constexpr double ThetaAirMin=0.01;// Threshold to determine zero air content
+    constexpr double Pr_air=0.711;// Air Prandtl number at 0 C https://www.engineeringtoolbox.com/air-prandtl-number-viscosity-heat-capacity-thermal-conductivity-d_2009.html
+    
 //****************************************************
 // Constants
 //****************************************************
@@ -68,6 +77,7 @@ namespace GTConst {
     constexpr double Pa0 = 1013.25;       /* Mean atmospheric at sea level [mbar] */
     constexpr double rho_w = 1000;        /* density of water [kg/m3] */
     constexpr double rho_i = 917;         /* density of ice [kg/m3] */
+    constexpr double rho_air = 1.292;         /* density of air at 0 C and 1 atm [kg/m3] */
     constexpr double Lf = 333700.00;      /* latent heat of fusion [J/kg] */
     constexpr double Ls = 2834700.00;     /* latent heat of sublimation [J/kg] */
     constexpr double g = 9.81;      /* gravity acceleration [m/s2] */
@@ -76,12 +86,17 @@ namespace GTConst {
     constexpr double k_liq = 0.567;  /* thermal conductivity of water [W m^-1 K^-1]*/
     constexpr double k_ice = 2.290;  /* thermal conductivity of water [W m^-1 K^-1]*/
     constexpr double k_air = 0.023;  /* thermal conductivity of air   [W m^-1 K^-1]*/
+    //constexpr double k_air = 0.024332;  /* thermal conductivity of air   [W m^-1 K^-1]*/
     constexpr double c_liq = 4188.0; /* heat capacity of water    [J/(kg*K)]*/
     constexpr double c_ice = 2117.0; /* heat capacity of ice    [J/(kg*K)]*/
+    constexpr double c_air = 1006.0; /* heat capacity of air    [J/(kg*K)]*/
     constexpr double c_can = 2700.0; /* heat capacity of canopy [J/(kg*K)]*/
     constexpr double Tfreezing = 0.0; /** freezing temperature [*C] */
     constexpr double ka = 0.41;         /* Von Karman constant */
+    //constexpr double mu_l = 0.001006; /* Dynamic viscosity of water at 20 degrees Celsius*/
     constexpr double mu_l = 0.001787; /* Dynamic viscosity of water at 0 degrees Celsius*/
+    constexpr double mu_air = 1.729*1.E-5; /* Dynamic viscosity of air at 0 degrees Celsius*/ //https://www.engineersedge.com/physics/viscosity_of_air_dynamic_and_kinematic_14483.htm
+    constexpr double nu_air = 1.338*1.E-5; /* kinematic viscosity of air at 0 degrees Celsius*/ //https://www.engineersedge.com/physics/viscosity_of_air_dynamic_and_kinematic_14483.htm
     constexpr double wsn_vis = 0.8; /* snow on canopy: scattering parameters */
     constexpr double wsn_nir = 0.4;
     constexpr double Bsnd_vis = 0.5;
@@ -92,6 +107,7 @@ namespace GTConst {
     constexpr double Rwv = 461.495;  // Specific gas constant for water vapor, 461.495 J/(kg·K)
     constexpr double D00 = 21.7;  // molecular diffusivity of water vapor, 21.7 mm2/s
     constexpr double secinday = 86400.0;  // seconds in one day
+
 } // end namespace GTConst
 
 //****************************************************
@@ -146,7 +162,8 @@ constexpr unsigned int jv = jns + 1;    /*v*/
 constexpr unsigned int jkt = jv + 1;    /*thermal conductivity*/
 constexpr unsigned int jct = jkt + 1;   /*thermal capacity*/
 constexpr unsigned int jss = jct + 1;   /*soil specific storativity*/
-constexpr unsigned int nsoilprop = jss; /*number of soil properties considered*/
+constexpr unsigned int jdp = jss + 1;   /*soil mean particle diameter*/
+constexpr unsigned int nsoilprop = jdp; /*number of soil properties considered*/
 
 //****************************************************
 //land use data
@@ -323,7 +340,8 @@ constexpr unsigned int fhorpoint = fpointlist + 1; /*horizon of points for which
 constexpr unsigned int fvegpar = fhorpoint + 1; /*vegetation parameter*/
 constexpr unsigned int fqin = fvegpar + 1;
 constexpr unsigned int fdem = fqin + 1; /*digital elevation model (m)*/
-constexpr unsigned int flu = fdem + 1;  /*land use*/
+constexpr unsigned int fdemS = fdem + 1; /*digital elevation model for extended shadow calculation (m)*/
+constexpr unsigned int flu = fdemS + 1;  /*land use*/
 constexpr unsigned int fsoil = flu + 1; /*soil type map*/
 constexpr unsigned int fdelay = fsoil + 1;
 constexpr unsigned int fsky = fdelay + 1; /*sky view factor*/

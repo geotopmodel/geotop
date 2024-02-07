@@ -64,7 +64,7 @@ extern double elapsed_time_start, cum_time, max_time;
 //****************************************************************************************************
 
 void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND *land,
-                   METEO *met, WATER *wat, CHANNEL *cnet,
+                   METEO *met, WATER *wat, AIRFLUX *airF, AIRENERGY *airE, CHANNEL *cnet,
                    PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times)
 {
     /**
@@ -85,6 +85,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
     long l, r, c, i, ist, j, n, sy, num_cols, num_lines, day, month, year, hour,
             minute;
     double z, th_oversat, JD, k_snowred, maxSWE, SWE, D, cosslope, **matrix;
+    
     char *temp, *name, **temp2;
     char rec[ ]= {"_recNNNN"},crec[ ]= {"_crecNNNN"};
 
@@ -350,7 +351,7 @@ void get_all_input(long  /*argc*/, char * /*argv*/[], TOPO *top, SOIL *sl, LAND 
                                       IT->meteostations_col_names);
 
     /** effective meteo input reading and structures filling */
-#pragma omp parallel for firstprivate(added_JDfrom0, added_wind_xy, added_wind_dir, added_Tdew, added_RH, added_Pint) private(f, i, j, n, ist, temp, num_lines)
+//#pragma omp parallel for firstprivate(added_JDfrom0, added_wind_xy, added_wind_dir, added_Tdew, added_RH, added_Pint) private(f, i, j, n, ist, temp, num_lines)
 
     for (i=1; i<=met->st->E->nh; i++) /** for each meteo station ... */
     {
@@ -931,12 +932,15 @@ land cover %ld, meteo station %ld\n",
 
     sl->ET.reset(new Tensor<double>{Nl,Nr,Nc});
 
+    
+    
     if (par->output_soil_bin == 1)
     {
         if (strcmp(files[fTav], string_novalue) != 0
             || strcmp(files[fTavsup], string_novalue) != 0)
         {
             sl->T_av_tensor.reset(new Matrix<double>{Nl,par->total_pixel});
+            sl->Tair_av_tensor.reset(new Matrix<double>{Nl,par->total_pixel});
         }
 
         if (strcmp(files[ficeav], string_novalue) != 0)
@@ -1030,7 +1034,12 @@ land cover %ld, meteo station %ld\n",
         for (l=1; l<=Nl; l++)
         {
             (*sl->SS->T)(l,i) = (*sl->pa)(sy,jT,l);
-
+            (*sl->SS->T0)(l,i) = (*sl->pa)(sy,jT,l);
+            (*sl->SS->Tair_internal)(l,i) = (*sl->pa)(sy,jT,l);
+            (*sl->SS->Hair_internal)(l,i) = 0.0; 
+            
+            
+            
             (*sl->Ptot)(l,i) = (*sl->SS->P)(l,i);
             /** calculate theta from psi */
             (*sl->th)(l,i) = teta_psi((*sl->SS->P)(l,i), 0.0, (*sl->pa)(sy,jsat,l),
@@ -1067,6 +1076,7 @@ land cover %ld, meteo station %ld\n",
                                              (*sl->pa)(sy,jns,l), 1-1/(*sl->pa)(sy,jns,l),
                                              GTConst::PsiMin, (*sl->pa)(sy,jss,l));
             }
+            (*sl->SS->totw0)(l,i) = (*sl->th)(l,i)+(*sl->SS->thi)(l,i);
         }
     }
 
@@ -1169,6 +1179,8 @@ land cover %ld, meteo station %ld\n",
     cnet->ET.reset(new Matrix<double>{Nl, cnet->r->nh});
 
     cnet->Kbottom.reset(new Vector<double>{cnet->r->nh});
+    cnet->Kthermalairbottom.reset(new Vector<double>{cnet->r->nh});
+    cnet->Kairbottom.reset(new Vector<double>{cnet->r->nh});
 
     for (j=1; j<=par->total_channel; j++) /** for every channel pixel ... */
     {
@@ -1437,11 +1449,15 @@ land cover %ld, meteo station %ld\n",
     /** vectors/matrices used in energy_balance() */
     egy->Tgskin_surr.reset(new Matrix<double>{Nr,Nc});
     egy->SWrefl_surr.reset(new Matrix<double>{Nr, Nc});
+    egy->KSnow0.reset(new Matrix<double>{Nr, Nc});
 
     egy->Dlayer.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers });
     egy->liq.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers });
     egy->ice.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers });
+    egy->THETACM.reset(new Vector<double>{Nl + par->max_snow_layers + par->max_glac_layers });
+
     egy->Temp.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers,0} );
+    egy->TempAir.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers,0} );
     egy->deltaw.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers });
 
     egy->SWlayer.reset(new Vector<double>{ par->max_snow_layers + 1,0} );
@@ -1452,13 +1468,14 @@ land cover %ld, meteo station %ld\n",
     egy->udFenergy.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers - 1, 0});
     egy->Kth0.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers - 1, 0});
     egy->Kth1.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers - 1, 0});
+    egy->Kthcm.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers - 1, 0});
     egy->Fenergy.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers, 0});
     egy->Newton_dir.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers, 0});
     egy->T0.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers, 0} );
     egy->T1.reset(new Vector<double>{ Nl + par->max_snow_layers + par->max_glac_layers, 0} );
     egy->Tstar.reset(new Vector<double>{Nl}); // soil temperature at which freezing begins
     egy->THETA.reset(new Vector<double>{Nl});  // water content (updated in the iterations)
-
+    
     /** allocate vector of soil layer contributions to evaporation (up to GTConst::z_evap) */
     z = 0.;
     l = 0;
@@ -1483,6 +1500,7 @@ land cover %ld, meteo station %ld\n",
 
     /** Initialization of Liquid precipitation that reaches the soil surface [mm] */
     wat->Pnet.reset(new Matrix<double>{Nr,Nc});
+    
 
     /** Initialization of Total precipitation (rain+snow) precipitation [mm] */
     wat->PrecTot.reset(new Matrix<double>{Nr,Nc});
@@ -2426,6 +2444,11 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         top->Li.reset(new Vector<long>{i});
         top->Lp.reset(new Vector<long>{j});
         wat->Lx.reset(new Vector<double> {i});
+        airF->Lx.reset(new Vector<double>{i});
+        airF->LxB.reset(new Vector<double>{i});
+        airF->FluxDir.reset(new Vector<short>{i});
+        airF->LxJair.reset(new Vector<double>{i});
+        airE->Lx.reset(new Vector<double>{i});
         cont_nonzero_values_matrix3(top->Lp.get(), top->Li.get(), cnet, land->LC.get(), top->lrc_cont.get(),
                                     top->i_cont, par->total_pixel, par->total_channel, n);
     }
@@ -2436,6 +2459,7 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
         top->Li.reset(new Vector<long>{i});
         top->Lp.reset(new Vector<long>{j});
         wat->Lx.reset(new Vector<double>{i});
+
         for (l=1; l<=n; l++)
         {
             (*top->Li)(l) = l+1;
@@ -2452,8 +2476,44 @@ but you assigned a value of the glacier depth. The latter will be ignored." << s
     wat->df.reset(new Vector<double>{j});
 
     wat->Kbottom.reset(new Matrix<double>{Nr, Nc});
-
     wat->Klat.reset(new Matrix<double>{top->BC_DepthFreeSurface->nh, Nl});
+    
+    
+   /**************************************************************************************************/
+    /** Initialization of the struct "airf" and  "airE" (of the type AIRFLUX and AIRENERGY */
+    /*************************************************************************************************/
+
+    airF->P0.reset(new Vector<double>{j});
+    airF->P1.reset(new Vector<double>{j});
+    airF->MaxVel.reset(new Vector<double>{j});
+    airF->VxW.reset(new Vector<double>{j});
+    airF->VxE.reset(new Vector<double>{j});
+    airF->VyN.reset(new Vector<double>{j});
+    airF->VyS.reset(new Vector<double>{j});
+    airF->VzT.reset(new Vector<double>{j});
+    airF->VzB.reset(new Vector<double>{j});
+    airF->dP.reset(new Vector<double>{j});
+    airF->B.reset(new Vector<double>{j});
+    airF->f.reset(new Vector<double>{j});
+    airF->df.reset(new Vector<double>{j});
+    airF->Kbottom.reset(new Matrix<double>{Nr, Nc});
+    airF->Klat.reset(new Matrix<double>{top->BC_DepthFreeSurface->nh, Nl});
+    
+    
+    airE->T0.reset(new Vector<double>{j});
+    airE->T1.reset(new Vector<double>{j});
+    airE->dT.reset(new Vector<double>{j});
+    airE->B.reset(new Vector<double>{j});
+    airE->f.reset(new Vector<double>{j});
+    airE->df.reset(new Vector<double>{j});
+    
+    airE->SFlux0.reset(new Matrix<double>{Nr,Nc});
+    airE->Klat.reset(new Matrix<double>{top->BC_DepthFreeSurface->nh, Nl});
+    airF->Courant=0.0;
+    wat->iternumber=0.0;
+    egy->iternumber=0.0;
+    airE->iternumber=0.0;
+   
 }
 
 //***************************************************************************************************
@@ -2470,10 +2530,12 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
     short flag;
     char *temp;
     double min, max;
+    double DifNxShadow, DifNyShadow;
     FILE *f;
 
     /** reading TOPOGRAPHY */
     flag = file_exists(fdem);
+    std::cout << fdem;
     if (flag == 1)  /**keyword is present and the file exists*/
     {
         M.reset(new Matrix<double>{1,1});
@@ -2508,6 +2570,35 @@ void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT)
         t_error("Fatal Error! Geotop is closed. See failing report (11).");
 
     }
+    
+    /** reading TOPOGRAPHY Shadow Extend */
+    
+    if (par->ExtendedShadowCalcl==1){
+    
+		//top->UVS.reset(new Vector<double>{4});
+    
+		flag = file_exists(fdemS);
+		if (flag == 1)  /**keyword is present and the file exists*/
+		{
+			M.reset(new Matrix<double>{1,1});
+			top->Z0S.reset(read_mapShad(0, files[fdemS],UV,&DifNxShadow,&DifNyShadow, (double)number_novalue)); /** topography */
+			top->DifNxShadow=(long)DifNxShadow;
+			top->DifNyShadow=(long)DifNyShadow;
+			printf("SHADOW ETENDD DifDX,DifNy: %i, %i \n",top->DifNxShadow,top->DifNyShadow);
+
+			//write_map(files[fdemS], 0, par->format_out, top->Z0S.get(), top->UVS.get(), number_novalue); /** rewrite DEM file */
+	
+		}
+		else
+		{
+
+			f = fopen(FailedRunFile, "w");
+			fprintf(f, "Error: It is impossible to proceed without giving the SHADOW digital elevation model\n");
+			fclose(f);
+			t_error("Fatal Error! Geotop is closed. See failing report (11).");
+
+		}
+	}
 
     /** reading LAND COVER TYPE */
     flag = file_exists(flu);
@@ -3928,7 +4019,11 @@ void copy_soil_state(SOIL_STATE *from, SOIL_STATE *to)
         {
             (*to->P)(l,i) = (*from->P)(l,i);
             (*to->T)(l,i) = (*from->T)(l,i);
+            (*to->T0)(l,i) = (*from->T0)(l,i);
             (*to->thi)(l,i) = (*from->thi)(l,i);
+            (*to->Tair_internal)(l,i) = (*from->Tair_internal)(l,i);
+            (*to->Hair_internal)(l,i) = (*from->Hair_internal)(l,i);
+            (*to->totw0)(l,i) = (*from->totw0)(l,i);
         }
     }
 }

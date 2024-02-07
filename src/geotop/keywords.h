@@ -427,7 +427,19 @@ char *keywords_num[num_par_number] =
   "WindCompaction1D",
   "DDChannel",
   "DDLand",
-  "BottomTemperature"
+  "BottomTemperature",
+  "HeatTransferModel",
+  "AirBalance",
+  "AirEnergyBalance",
+  "AirRichardTol",
+  "ExtendedShadowCalc",
+  "MaxK",
+  "MeanParticleDiameter",
+  "Ht_a",/** Heat transfer model parameters*/
+  "Ht_b",/** /Heat transfer model parameters*/
+  "Ht_n",
+  "PlotAirVel",
+  "SnowDepthAirFlowLimit"
 };
 
 char *keywords_char[num_par_char] =
@@ -467,6 +479,7 @@ char *keywords_char[num_par_char] =
   "HeaderKthSoilSolids",
   "HeaderCthSoilSolids",
   "HeaderSpecificStorativity",
+  "HeaderMeanParticleDiameter",
   "HeaderHorizonAngle",
   "HeaderHorizonHeight",
   "TimeStepsFile",
@@ -480,6 +493,7 @@ char *keywords_char[num_par_char] =
   "TimeDependentVegetationParameterFile",
   "TimeDependentIncomingDischargeFile",
   "DemFile",
+  "ExtendedShadowDemFile",
   "LandCoverMapFile",
   "SoilMapFile",
   "DaysDelayMapFile",

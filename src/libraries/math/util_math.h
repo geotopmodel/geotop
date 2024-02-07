@@ -44,6 +44,8 @@ inline short tridiag(short a, long r, long c, long nx, Vector<double> *diag_inf,
     for (j=1; j<nx; j++) {
       printf("d[%ld]=%e %e\n",j,diag_inf->co[j],diag_sup->co[j]);
     }*/
+    
+    
     if (diag->co[1]==0.0)
     {
         printf("type=%d r=%ld c=%ld\n",a,r,c);
@@ -60,9 +62,9 @@ inline short tridiag(short a, long r, long c, long nx, Vector<double> *diag_inf,
         bet=diag->co[j]-diag_inf->co[j-1]*gam(j);
         if (bet==0.0)
         {
-            /*printf("type=%d r=%ld c=%ld\n",a,r,c);
+            printf("type=%d r=%ld c=%ld\n",a,r,c);
             printf("l=%ld diag(l)=%f diag_inf(l-1)=%f diag_sup(l-1)=%f\n",j,diag->co[j],diag_inf->co[j-1],diag_sup->co[j-1]);
-            printf("Error 2 in tridiag\n");*/
+            printf("Error 2 in tridiag\n");
             return 0;
         }
         e->co[j]=(b->co[j]-diag_inf->co[j-1]*e->co[j-1])/bet;

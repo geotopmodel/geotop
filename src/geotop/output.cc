@@ -47,6 +47,7 @@ development of the Geotop model. Any feedback will be highly appreciated.
 #include <ctime>
 #include <iostream>
 #include <iomanip>
+using namespace std;
 
 extern long number_novalue;
 extern char *string_novalue;
@@ -55,7 +56,7 @@ extern T_INIT *UV;
 extern char **files, *logfile;
 extern long Nl, Nr, Nc;
 
-extern double t_meteo, t_energy, t_water, t_sub, t_sup, t_out, t_blowingsnow;
+extern double t_meteo, t_energy,t_energyair, t_water,t_airbalance, t_sub, t_sup, t_out, t_blowingsnow;
 
 extern double **odpnt, * *odp, *odbsn, *odb;
 extern long *opnt, nopnt, *obsn, nobsn, *osnw, nosnw;
@@ -78,7 +79,7 @@ extern double elapsed_time, elapsed_time_start, cum_time, max_time;
 //****************************************************************************************************
 void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                   TOPO *top, LAND *land, SOIL *sl, ENERGY *egy, SNOW *snow, GLACIER *glac,
-                  METEO *met)
+                  METEO *met,AIRFLUX *airF)
 
 {
     GEOLOG_PREFIX(__func__);
@@ -87,6 +88,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     /* internal auxiliary variables: */
     long i,j,r=0,c=0,l,m,sy; /*counters*/
     long n_file;      /*number of file of the type "TETAxySSSlZZ"(i.e. number of the basin-time-step)*/
+    static long n_file_distributed;      /*number of file of the type "TETAxySSSlZZ"(i.e. number of the basin-time-step)*/
     char NNNNN[ ]= {"NNNNN"};
     char RRRRR[ ]= {"RRRRR"};
     char SSSSS[ ]= {"SSSSS"};
@@ -105,13 +107,38 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     // static double Qsub_ch, Qsup_ch;
     static long isavings;
     static double mass_error_tot;
-    static double t_discharge, t_basin, t_point, t_rec;
+    static double t_discharge, t_basin, t_point, t_rec,t_distributed;
     double Vchannel, Vsub, Vsup;
 
     //other variables
     std::unique_ptr<Vector<double>> V;
     Matrix<double> *M;
     double D, Dthaw, cosslope;
+    
+    
+    long nl=sl->SS->T->nrh;
+    long n2=sl->SS->T->nch;
+    
+    std::unique_ptr<Matrix<double>> VxW_Mat;
+    VxW_Mat.reset(new Matrix<double>{nl,n2});
+    
+    std::unique_ptr<Matrix<double>> VxE_Mat;
+    VxE_Mat.reset(new Matrix<double>{nl,n2});
+    
+    std::unique_ptr<Matrix<double>> VyN_Mat;
+    VyN_Mat.reset(new Matrix<double>{nl,n2});
+    
+    std::unique_ptr<Matrix<double>> VyS_Mat;
+    VyS_Mat.reset(new Matrix<double>{nl,n2});
+    
+    std::unique_ptr<Matrix<double>> VzT_Mat;
+    VzT_Mat.reset(new Matrix<double>{nl,n2});
+    
+    std::unique_ptr<Matrix<double>> VzB_Mat;
+    VzB_Mat.reset(new Matrix<double>{nl,n2});
+    
+    long N=airF->P1->nh;
+    long n=top->lrc_cont->nrh;
 
 
     //initialize static variables
@@ -938,8 +965,8 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                    << percent_done << "% completed!" << std::endl;
 
             geolog << " t_meteo:" <<t_meteo<<" s, t_energy:"<<t_energy
-                   <<" s, t_blowingsnow:"<< t_blowingsnow <<" s, t_water:"
-                   << t_water << " s, t_sub:"<< t_sub << " s, t_sup:"
+                   <<" s, t_energyair:"<<t_energyair<<" s, t_blowingsnow:"<< t_blowingsnow <<" s, t_water:"
+                   << t_water <<" s, t_air:" << t_airbalance << " s, t_sub:"<< t_sub << " s, t_sup:"
                    << t_sup << " s, t_out: " << t_out<<" s" << std::endl;
 
 
@@ -1016,6 +1043,7 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
                 for (l=1; l<=Nl; l++)
                 {
                     (*sl->T_av_tensor)(l,i) += (*sl->SS->T)(l,i)/ (((*par->output_soil)(i_sim)*3600.0)/(par->Dt));
+                    (*sl->Tair_av_tensor)(l,i) += (*sl->SS->Tair_internal)(l,i)/ (((*par->output_soil)(i_sim)*3600.0)/(par->Dt));
                 }
             }
         }
@@ -1046,341 +1074,543 @@ void write_output(TIMES *times, WATER *wat, CHANNEL *cnet, PAR *par,
     *V = double(number_novalue);
 
     // soil properties
-    if ((*par->output_soil)(i_sim)>0 && fmod(times->time+par->Dt,(*par->output_soil)(i_sim)*3600.0)<1.E-5)
+    //printf( "OUTTT i,l, Vx,Vy,Vz %i %i %f %f %f \n",i,l,(*Vx_Mat)(l,j),(*Vy_Mat)(l,j),(*Vz_Mat)(l,j));
+    //printf("OUUT TEST; time, output soil: %f, %f,%f\n",fmod(1800.0,0.5*3600.0),fmod(3600.0,0.5*3600.0),fmod(5400.0,0.5*3600.0));
+    //printf("OUUT TEST; time, output soil: %f, %f,%f\n",fmod(1800.0,(*par->output_soil)(i_sim)*3600.0),fmod(3600.0,(*par->output_soil)(i_sim)*3600.0),fmod(5400.0,(*par->output_soil)(i_sim)*3600.0));
+   
+    
+   if ((*par->output_soil)(i_sim)>0)
     {
-        n_file=(long)((times->time+par->Dt)/((*par->output_soil)(i_sim)*3600.0));
-        write_suffix(NNNNN, n_file, 1);
-        if ((*par->run_times)(i_sim) == 1)
+		t_distributed+=par->Dt;
+        //printf("OUUT TEST; time, output soil: %0.8f, %0.8f,%0.8f,%0.8f\n",times->time+par->Dt,(*par->output_soil)(i_sim)*3600.0,fmod(times->time+par->Dt,(*par->output_soil)(i_sim)*3600.0),fabs(t_distributed -(*par->output_soil)(i_sim)*3600.0));
+        if (fabs(t_distributed -(*par->output_soil)(i_sim)*3600.0)<1.E-5)
         {
-            s1 = join_strings(NNNNN, "");
-        }
-        else
-        {
-            s1 = join_strings(NNNNN, RRRRR);
-        }
-        if (par->init_date->nh == 1)
-        {
-            s2 = join_strings(s1, "");
-        }
-        else
-        {
-            s2 = join_strings(s1, SSSSS);
-        }
-        free(s1);
+        
+			//printf("ENTROOOOOOOOO  \n");
+			n_file_distributed+=1;
+			//printf("Nfile %ld \n",n_file_distributed);
+			//n_file=(long)((times->time+par->Dt)/((*par->output_soil)(i_sim)*3600.0));
+			write_suffix(NNNNN, n_file_distributed, 1);
+			if ((*par->run_times)(i_sim) == 1)
+			{
+				s1 = join_strings(NNNNN, "");
+			}
+			else
+			{
+				s1 = join_strings(NNNNN, RRRRR);
+			}
+			if (par->init_date->nh == 1)
+			{
+				s2 = join_strings(s1, "");
+			}
+			else
+			{
+				s2 = join_strings(s1, SSSSS);
+			}
+			free(s1);
 
-        // theta liq tensor
-        if (strcmp(files[fliq], string_novalue) != 0)
-        {
-            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
-            {
-                write_tensorseries_soil(1, s2, files[fliq], 0, par->format_out, sl->th.get(),
-                                        par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
-                                        sl->pa->row(1,jdz), top->slope.get(), par->output_vertical_distances);
-            }
-            else
-            {
-                write_tensorseries3_vector(s2,files[fliq], 0, par->format_out, sl->th.get(), UV,
-                                           number_novalue, top->j_cont, Nr, Nc);
-            }
-        }
+			// theta liq tensor
+			if (strcmp(files[fliq], string_novalue) != 0)
+			{
+				if ((long)(*par->soil_plot_depths)(1) != number_novalue)
+				{
+					write_tensorseries_soil(1, s2, files[fliq], 0, par->format_out, sl->th.get(),
+											par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
+											sl->pa->row(1,jdz), top->slope.get(), par->output_vertical_distances);
+				}
+				else
+				{
+					write_tensorseries3_vector(s2,files[fliq], 0, par->format_out, sl->th.get(), UV,
+											   number_novalue, top->j_cont, Nr, Nc);
+				}
+			}
 
-        // theta liq surface
-        if (strcmp(files[fliqsup], string_novalue) != 0)
-        {
-            for (i=1; i<=par->total_pixel; i++)
-            {
-                (*V)(i) = (*sl->th)(1,i);
-            }
+			// theta liq surface HERE
+			if (strcmp(files[fliqsup], string_novalue) != 0)
+			{
+				for (i=1; i<=par->total_pixel; i++)
+				{
+					(*V)(i) = (*sl->th)(1,i);
+				}
 
-            temp1=join_strings(files[fliqsup],s2);
-            write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,top->j_cont, Nr, Nc);
-            free(temp1);
-        }
+				temp1=join_strings(files[fliqsup],s2);
+				write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,top->j_cont, Nr, Nc);
+				free(temp1);
+			}
 
-        // write thw_av tensor
-        if (strcmp(files[fliqav], string_novalue) != 0)
-        {
-            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
-            {
-                write_tensorseries_soil(1, s2, files[fliqav], 0, par->format_out,
-                                        sl->thw_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
-                                        top->rc_cont.get(), sl->pa->row(1,jdz), top->slope.get(),
-                                        par->output_vertical_distances);
-            }
-            else
-            {
-                write_tensorseries3_vector(s2,files[fliqav], 0, par->format_out,
-                                           sl->thw_av_tensor.get(), UV, number_novalue, top->j_cont, Nr, Nc);
-            }
-        }
+			// write thw_av tensor
+			if (strcmp(files[fliqav], string_novalue) != 0)
+			{
+				if ((long)(*par->soil_plot_depths)(1) != number_novalue)
+				{
+					write_tensorseries_soil(1, s2, files[fliqav], 0, par->format_out,
+											sl->thw_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
+											top->rc_cont.get(), sl->pa->row(1,jdz), top->slope.get(),
+											par->output_vertical_distances);
+				}
+				else
+				{
+					write_tensorseries3_vector(s2,files[fliqav], 0, par->format_out,
+											   sl->thw_av_tensor.get(), UV, number_novalue, top->j_cont, Nr, Nc);
+				}
+			}
 
-        // initialize thw_av_tensor
-        if (strcmp(files[fliqav], string_novalue) != 0)
-            (*sl->thw_av_tensor) = 0.;
+			// initialize thw_av_tensor
+			if (strcmp(files[fliqav], string_novalue) != 0)
+				(*sl->thw_av_tensor) = 0.;
 
-        // write T tensor
-        if (strcmp(files[fT], string_novalue) != 0)
-        {
-            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
-            {
-                write_tensorseries_soil(1, s2, files[fT], 0, par->format_out, sl->SS->T.get(),
-                                        par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
-                                        sl->pa->row(1,jdz), top->slope.get(),
-                                        par->output_vertical_distances);
-            }
-            else
-            {
-                write_tensorseries3_vector(s2,files[fT], 0, par->format_out, sl->SS->T.get(), UV,
-                                           number_novalue, top->j_cont, Nr, Nc);
-            }
-        }
+			// write T tensor
+			if (strcmp(files[fT], string_novalue) != 0)
+			{
+				if ((long)(*par->soil_plot_depths)(1) != number_novalue)
+				{
+					write_tensorseries_soil(1, s2, files[fT], 0, par->format_out, sl->SS->T.get(),
+											par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
+											sl->pa->row(1,jdz), top->slope.get(),
+											par->output_vertical_distances);
+					if (par->air_energy_balance == 1){
+					write_tensorseries_soil(1, s2, join_strings(files[fT],"AIR"), 0, par->format_out, sl->SS->Tair_internal.get(),
+											par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
+											sl->pa->row(1,jdz), top->slope.get(),
+											par->output_vertical_distances);
+											
+					if (par->PlotAirVel == 1){
+						for (i=1; i<=N; i++)
+						{
 
-        // theta T surface
-        if (strcmp(files[fTsup], string_novalue) != 0)
-        {
-            for (i=1; i<=par->total_pixel; i++)
-            {
-                (*V)(i) = (*sl->SS->T)(1,i);
-            }
+							if (i<=n)  //land
+							{
+								l = (*top->lrc_cont)(i,1);
+								r = (*top->lrc_cont)(i,2);
+								c = (*top->lrc_cont)(i,3);
+								j = top->j_cont[r][c];
+								if (l>0){
+								(*VxW_Mat)(l,j)=(*airF->VxW)(i);
+								(*VxE_Mat)(l,j)=(*airF->VxE)(i);
+								
+								(*VyN_Mat)(l,j)=(*airF->VyN)(i);
+								(*VyS_Mat)(l,j)=(*airF->VyS)(i);
+								
+								(*VzT_Mat)(l,j)=(*airF->VzT)(i);
+								(*VzB_Mat)(l,j)=(*airF->VzB)(i);
+								
+								
+								
+								
+								//printf( "OUTTT i,l, Vx,Vy,Vz %i %i %f %f %f \n",i,l,(*Vx_Mat)(l,j),(*Vy_Mat)(l,j),(*Vz_Mat)(l,j));
+								}
+						
+								
+							}
+						}
+						write_tensorseries_soil(1, s2, join_strings(files[fT],"AirVxW"), 0, par->format_out, VxW_Mat.get(),
+												par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
+												sl->pa->row(1,jdz), top->slope.get(),
+												par->output_vertical_distances);
+						write_tensorseries_soil(1, s2, join_strings(files[fT],"AirVxE"), 0, par->format_out, VxE_Mat.get(),
+												par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
+												sl->pa->row(1,jdz), top->slope.get(),
+												par->output_vertical_distances);
+												
+						write_tensorseries_soil(1, s2, join_strings(files[fT],"AirVyN"), 0, par->format_out, VyN_Mat.get(),
+												par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
+												sl->pa->row(1,jdz), top->slope.get(),
+												par->output_vertical_distances);                    
+						write_tensorseries_soil(1, s2, join_strings(files[fT],"AirVyS"), 0, par->format_out, VyS_Mat.get(),
+												par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
+												sl->pa->row(1,jdz), top->slope.get(),
+												par->output_vertical_distances);
+												
+											   
+						write_tensorseries_soil(1, s2, join_strings(files[fT],"AirVzT"), 0, par->format_out, VzT_Mat.get(),
+												par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
+												sl->pa->row(1,jdz), top->slope.get(),
+												par->output_vertical_distances);
+						write_tensorseries_soil(1, s2, join_strings(files[fT],"AirVzB"), 0, par->format_out, VzB_Mat.get(),
+												par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
+												sl->pa->row(1,jdz), top->slope.get(),
+												par->output_vertical_distances);
+					}
+					}
+				}
+				else
+				{
+					write_tensorseries3_vector(s2,files[fT], 0, par->format_out, sl->SS->T.get(), UV,
+											   number_novalue, top->j_cont, Nr, Nc);
+					if (par->air_energy_balance == 1)
+					{
+						write_tensorseries3_vector(s2,join_strings(files[fT],"AIR"), 0, par->format_out, sl->SS->Tair_internal.get(), UV,
+											   number_novalue, top->j_cont, Nr, Nc);
+											   
+					
+					if (par->PlotAirVel == 1){
+						for (i=1; i<=N; i++)
+						{
 
-            temp1=join_strings(files[fTsup],s2);
-            write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,top->j_cont, Nr, Nc);
-            free(temp1);
-        }
+							if (i<=n)  //land
+							{
+								l = (*top->lrc_cont)(i,1);
+								r = (*top->lrc_cont)(i,2);
+								c = (*top->lrc_cont)(i,3);
+								j = top->j_cont[r][c];
+								if (l>0){
+								(*VxW_Mat)(l,j)=(*airF->VxW)(i);
+								(*VxE_Mat)(l,j)=(*airF->VxE)(i);
+									
+								(*VyN_Mat)(l,j)=(*airF->VyN)(i);
+								(*VyS_Mat)(l,j)=(*airF->VyS)(i);
+								
+								(*VzT_Mat)(l,j)=(*airF->VzT)(i);
+								(*VzB_Mat)(l,j)=(*airF->VzB)(i);
+								}
+						
+								
+							}
+						}
 
-        // write Tav tensor
-        if (strcmp(files[fTav], string_novalue) != 0)
-        {
-            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
-            {
-                write_tensorseries_soil(1, s2, files[fTav], 0, par->format_out,
-                                        sl->T_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
-                                        top->rc_cont.get(), sl->pa->row(1,jdz), top->slope.get(),
-                                        par->output_vertical_distances);
-            }
-            else
-            {
-                write_tensorseries3_vector(s2,files[fTav], 0, par->format_out,
-                                           sl->T_av_tensor.get(), UV, number_novalue, top->j_cont, Nr, Nc);
-            }
-        }
+						write_tensorseries3_vector(s2,join_strings(files[fT],"AirVxW"), 0, par->format_out, VxW_Mat.get(), UV,
+												number_novalue, top->j_cont, Nr, Nc);
+						write_tensorseries3_vector(s2,join_strings(files[fT],"AirVxE"), 0, par->format_out, VxE_Mat.get(), UV,
+												number_novalue, top->j_cont, Nr, Nc);
+												   
+						write_tensorseries3_vector(s2,join_strings(files[fT],"AirVyN"), 0, par->format_out, VyN_Mat.get(), UV,
+												number_novalue, top->j_cont, Nr, Nc);
+						write_tensorseries3_vector(s2,join_strings(files[fT],"AirVyS"), 0, par->format_out, VyS_Mat.get(), UV,
+												number_novalue, top->j_cont, Nr, Nc);
+						
+						write_tensorseries3_vector(s2,join_strings(files[fT],"AirVzT"), 0, par->format_out, VzT_Mat.get(), UV,
+												number_novalue, top->j_cont, Nr, Nc);
+						write_tensorseries3_vector(s2,join_strings(files[fT],"AirVzB"), 0, par->format_out, VzB_Mat.get(), UV,
+												number_novalue, top->j_cont, Nr, Nc);         
+					}                  
+					 }
+				}
+			}
 
-        // theta Tav surface
-        if (strcmp(files[fTavsup], string_novalue) != 0)
-        {
-            for (i=1; i<=par->total_pixel; i++)
-            {
-                (*V)(i) = (*sl->T_av_tensor)(1,i);
-            }
+			// theta T surface
+			if (strcmp(files[fTsup], string_novalue) != 0)
+			{
+				for (i=1; i<=par->total_pixel; i++)
+				{
+					(*V)(i) = (*sl->SS->T)(1,i);
+				}
 
-            temp1=join_strings(files[fTavsup],s2);
-            write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,top->j_cont, Nr, Nc);
-            free(temp1);
-        }
+				temp1=join_strings(files[fTsup],s2);
+				write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,top->j_cont, Nr, Nc);
+				free(temp1);
+				
 
-        // initialize T_av_tensor
-        if (strcmp(files[fTav], string_novalue) != 0 || strcmp(files[fTavsup], string_novalue) != 0)
-            (*sl->T_av_tensor) = 0.;
+				if (par->air_energy_balance == 1){
+				for (i=1; i<=par->total_pixel; i++)
+				{
+					(*V)(i) = (*sl->SS->Tair_internal)(1,i);
+				}
+				
+				temp1=join_strings(files[fTsup],"AIR");
+				temp1=join_strings(temp1,s2);
+				write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,top->j_cont, Nr, Nc);
+				free(temp1);
+				}
+				
+				//.asc file with north coordinates
+				/*
+				for (i=1; i<=par->total_pixel; i++)
+				{
+					r = (*top->rc_cont)(i,1);
+					c = (*top->rc_cont)(i,2);
+					(*V)(i) = (*top->North)(r,c);
+				}
+				temp1=join_strings(files[fTsup],"NORTH");
+				write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,top->j_cont, Nr, Nc);
+				free(temp1);
+				
+				//.asc file with east coordinates
+				for (i=1; i<=par->total_pixel; i++)
+				{
+					r = (*top->rc_cont)(i,1);
+					c = (*top->rc_cont)(i,2);
+					(*V)(i) = (*top->North)(r,c);
+				}
+				
+				temp1=join_strings(files[fTsup],"EAST");
+				write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,top->j_cont, Nr, Nc);
+				free(temp1);*/
+				
+				//.asc file with pixels altitude
+				for (l=1; l<=Nl; l++)
+				{
+					for (i=1; i<=par->total_pixel; i++)
+					{
+						
+						r = (*top->rc_cont)(i,1);
+						c = (*top->rc_cont)(i,2);
+						(*V)(i) = (*top->Z)(l,r,c)/1000;//(m)
+						
+						
+					}
 
-        // theta_ice tensor
-        if (strcmp(files[fice], string_novalue) != 0)
-        {
-            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
-            {
-                write_tensorseries_soil(1, s2, files[fice], 0, par->format_out, sl->SS->thi.get(),
-                                        par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
-                                        sl->pa->row(1,jdz), top->slope.get(),
-                                        par->output_vertical_distances);
-            }
-            else
-            {
-                write_tensorseries3_vector(s2,files[fice], 0, par->format_out, sl->SS->thi.get(),
-                                           UV, number_novalue, top->j_cont, Nr, Nc);
-            }
-        }
+					char OOOOO[ ]= {"OOOOO"};
+					temp1 = join_strings("Z",OOOOO);
+					write_suffix(temp1, l, 1);
+					temp1 = join_strings(files[fTsup], temp1);
+					write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,top->j_cont, Nr, Nc);
+					free(temp1);
+				}
+				 
 
-        // theta_ice surface
-        if (strcmp(files[ficesup], string_novalue) != 0)
-        {
-            for (i=1; i<=par->total_pixel; i++)
-            {
-                (*V)(i) = (*sl->SS->thi)(1,i);
-            }
+			}
 
-            temp1=join_strings(files[ficesup],s2);
-            write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
-                             top->j_cont, Nr, Nc);
-            free(temp1);
-        }
+			// write Tav tensor
+			if (strcmp(files[fTav], string_novalue) != 0)
+			{
+				//GZ- HERE
+				if ((long)(*par->soil_plot_depths)(1) != number_novalue)
+				{
+					write_tensorseries_soil(1, s2, files[fTav], 0, par->format_out,
+											sl->T_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
+											top->rc_cont.get(), sl->pa->row(1,jdz), top->slope.get(),
+											par->output_vertical_distances);
+											
+					/*write_tensorseries_soil(1, s2, join_strings(files[fTav],"AIR"), 0, par->format_out,
+											sl->Tair_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
+											top->rc_cont.get(), sl->pa->row(1,jdz), top->slope.get(),
+											par->output_vertical_distances);*/
+				}
+				else
+				{
+					write_tensorseries3_vector(s2,files[fTav], 0, par->format_out,
+											   sl->T_av_tensor.get(), UV, number_novalue, top->j_cont, Nr, Nc);
+											   
+					if (par->air_energy_balance == 1){
+					write_tensorseries3_vector(s2,join_strings(files[fTav],"AIR"), 0, par->format_out,
+											   sl->Tair_av_tensor.get(), UV, number_novalue, top->j_cont, Nr, Nc);}
+				}
+			}
 
-        // write thi_av tensor
-        if (strcmp(files[ficeav], string_novalue) != 0)
-        {
-            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
-            {
-                write_tensorseries_soil(1, s2, files[ficeav], 0, par->format_out,
-                                        sl->thi_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
-                                        top->rc_cont.get(), sl->pa->row(1,jdz), top->slope.get(),
-                                        par->output_vertical_distances);
-            }
-            else
-            {
-                write_tensorseries3_vector(s2,files[ficeav], 0, par->format_out,
-                                           sl->thi_av_tensor.get(), UV, number_novalue, top->j_cont, Nr, Nc);
-            }
-        }
+			// theta Tav surface
+			if (strcmp(files[fTavsup], string_novalue) != 0)
+			{
+				for (i=1; i<=par->total_pixel; i++)
+				{
+					(*V)(i) = (*sl->T_av_tensor)(1,i);
+				}
 
-        // initialize thi_av_tensor
-        if (strcmp(files[ficeav], string_novalue) != 0)
-            (*sl->thi_av_tensor) = 0.;
+				temp1=join_strings(files[fTavsup],s2);
+				write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,top->j_cont, Nr, Nc);
+				free(temp1);
+			}
 
-        // write psi tensors
-        if (strcmp(files[fpsitot], string_novalue) != 0)
-        {
-            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
-            {
-                write_tensorseries_soil(1, s2, files[fpsitot], 0, par->format_out, sl->Ptot.get(),
-                                        par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
-                                        sl->pa->row(1,jdz), top->slope.get(), par->output_vertical_distances);
-            }
-            else
-            {
-                write_tensorseries3_vector(s2,files[fpsitot], 0, par->format_out, sl->Ptot.get(),
-                                           UV, number_novalue, top->j_cont, Nr, Nc);
-            }
-        }
+			// initialize T_av_tensor
+			if (strcmp(files[fTav], string_novalue) != 0 || strcmp(files[fTavsup], string_novalue) != 0)
+			{
+				(*sl->T_av_tensor) = 0.;
+				(*sl->Tair_av_tensor)= 0.;
+			}
+			// theta_ice tensor
+			if (strcmp(files[fice], string_novalue) != 0)
+			{
+				if ((long)(*par->soil_plot_depths)(1) != number_novalue)
+				{
+					write_tensorseries_soil(1, s2, files[fice], 0, par->format_out, sl->SS->thi.get(),
+											par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
+											sl->pa->row(1,jdz), top->slope.get(),
+											par->output_vertical_distances);
+				}
+				else
+				{
+					write_tensorseries3_vector(s2,files[fice], 0, par->format_out, sl->SS->thi.get(),
+											   UV, number_novalue, top->j_cont, Nr, Nc);
+				}
+			}
 
-        if (strcmp(files[fpsiliq], string_novalue) != 0)
-        {
-            if ((long)(*par->soil_plot_depths)(1) != number_novalue)
-            {
-                write_tensorseries_soil(1, s2, files[fpsiliq], 0, par->format_out, sl->SS->P.get(),
-                                        par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
-                                        sl->pa->row(1,jdz), top->slope.get(), par->output_vertical_distances);
-            }
-            else
-            {
-                write_tensorseries3_vector(s2,files[fpsiliq], 0, par->format_out, sl->SS->P.get(),
-                                           UV, number_novalue, top->j_cont, Nr, Nc);
-            }
-        }
+			// theta_ice surface
+			if (strcmp(files[ficesup], string_novalue) != 0)
+			{
+				for (i=1; i<=par->total_pixel; i++)
+				{
+					(*V)(i) = (*sl->SS->thi)(1,i);
+				}
 
-        // calculate saturation front depth
-        if ( strcmp(files[fwtable_up], string_novalue) != 0 )
-        {
-            for (i=1; i<=par->total_pixel; i++)
-            {
-                r = (*top->rc_cont)(i,1);
-                c = (*top->rc_cont)(i,2);
-                (*V)(i) = find_watertabledepth_up(find_activelayerdepth_up(i, (*sl->type)(r,c), sl),
-                                                  i, (*sl->type)(r,c), sl); // normal
-            }
-            temp1=join_strings(files[fwtable_up],s2);
-            write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,top->j_cont, Nr, Nc);
-            free(temp1);
-        }
+				temp1=join_strings(files[ficesup],s2);
+				write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
+								 top->j_cont, Nr, Nc);
+				free(temp1);
+			}
 
-        if ( strcmp(files[fwtable_dw], string_novalue) != 0 )
-        {
+			// write thi_av tensor
+			if (strcmp(files[ficeav], string_novalue) != 0)
+			{
+				if ((long)(*par->soil_plot_depths)(1) != number_novalue)
+				{
+					write_tensorseries_soil(1, s2, files[ficeav], 0, par->format_out,
+											sl->thi_av_tensor.get(), par->soil_plot_depths.get(), top->j_cont,
+											top->rc_cont.get(), sl->pa->row(1,jdz), top->slope.get(),
+											par->output_vertical_distances);
+				}
+				else
+				{
+					write_tensorseries3_vector(s2,files[ficeav], 0, par->format_out,
+											   sl->thi_av_tensor.get(), UV, number_novalue, top->j_cont, Nr, Nc);
+				}
+			}
 
-            for (i=1; i<=par->total_pixel; i++)
-            {
-                r = (*top->rc_cont)(i,1);
-                c = (*top->rc_cont)(i,2);
-                (*V)(i) = find_watertabledepth_dw(find_activelayerdepth_up(i, (*sl->type)(r,c), sl),
-                                                  i, (*sl->type)(r,c), sl); // normal
+			// initialize thi_av_tensor
+			if (strcmp(files[ficeav], string_novalue) != 0)
+				(*sl->thi_av_tensor) = 0.;
 
-            }
-            temp1=join_strings(files[fwtable_dw],s2);
-            write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
-                             top->j_cont, Nr, Nc);
-            free(temp1);
-        }
+			// write psi tensors
+			if (strcmp(files[fpsitot], string_novalue) != 0)
+			{
+				if ((long)(*par->soil_plot_depths)(1) != number_novalue)
+				{
+					write_tensorseries_soil(1, s2, files[fpsitot], 0, par->format_out, sl->Ptot.get(),
+											par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
+											sl->pa->row(1,jdz), top->slope.get(), par->output_vertical_distances);
+				}
+				else
+				{
+					write_tensorseries3_vector(s2,files[fpsitot], 0, par->format_out, sl->Ptot.get(),
+											   UV, number_novalue, top->j_cont, Nr, Nc);
+				}
+			}
 
-        // calculate active layer depth
-        if ( strcmp(files[fthawed_up], string_novalue) != 0 )
-        {
-            for (i=1; i<=par->total_pixel; i++)
-            {
-                r = (*top->rc_cont)(i,1);
-                c = (*top->rc_cont)(i,2);
-                (*V)(i) = find_activelayerdepth_up(i, (*sl->type)(r,c), sl); // normal
-            }
-            temp1=join_strings(files[fthawed_up],s2);
-            write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
-                             top->j_cont, Nr, Nc);
-            free(temp1);
-        }
+			if (strcmp(files[fpsiliq], string_novalue) != 0)
+			{
+				if ((long)(*par->soil_plot_depths)(1) != number_novalue)
+				{
+					write_tensorseries_soil(1, s2, files[fpsiliq], 0, par->format_out, sl->SS->P.get(),
+											par->soil_plot_depths.get(), top->j_cont, top->rc_cont.get(),
+											sl->pa->row(1,jdz), top->slope.get(), par->output_vertical_distances);
+				}
+				else
+				{
+					write_tensorseries3_vector(s2,files[fpsiliq], 0, par->format_out, sl->SS->P.get(),
+											   UV, number_novalue, top->j_cont, Nr, Nc);
+				}
+			}
 
-        if ( strcmp(files[fthawed_dw], string_novalue) != 0 )
-        {
-            for (i=1; i<=par->total_pixel; i++)
-            {
-                r = (*top->rc_cont)(i,1);
-                c = (*top->rc_cont)(i,2);
-                (*V)(i) = find_activelayerdepth_dw(i, (*sl->type)(r,c), sl); // normal
-            }
-            temp1=join_strings(files[fthawed_dw],s2);
-            write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
-                             top->j_cont, Nr, Nc);
-            free(temp1);
-        }
+			// calculate saturation front depth
+			if ( strcmp(files[fwtable_up], string_novalue) != 0 )
+			{
+				for (i=1; i<=par->total_pixel; i++)
+				{
+					r = (*top->rc_cont)(i,1);
+					c = (*top->rc_cont)(i,2);
+					(*V)(i) = find_watertabledepth_up(find_activelayerdepth_up(i, (*sl->type)(r,c), sl),
+													  i, (*sl->type)(r,c), sl); // normal
+				}
+				temp1=join_strings(files[fwtable_up],s2);
+				write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,top->j_cont, Nr, Nc);
+				free(temp1);
+			}
 
-        // WATER OVER THE SURFACE
-        if ( strcmp(files[fhsupland], string_novalue) != 0 )
-        {
-            for (i=1; i<=par->total_pixel; i++)
-            {
-                r = (*top->rc_cont)(i,1);
-                c = (*top->rc_cont)(i,2);
-                (*V)(i) = std::max<double>(0, (*sl->SS->P)(0,i)) / cos((*top->slope)(r,c) * GTConst::Pi/180.);
-            }
-            temp1 = join_strings(files[fhsupland], s2);
-            write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
-                             top->j_cont, Nr, Nc);
-            free(temp1);
-        }
+			if ( strcmp(files[fwtable_dw], string_novalue) != 0 )
+			{
 
-        if ( strcmp(files[fhsupch], string_novalue) != 0 )
-        {
-            for (i=1; i<=par->total_pixel; i++)
-            {
-                r = (*top->rc_cont)(i,1);
-                c = (*top->rc_cont)(i,2);
-                if ((*cnet->ch)(r,c)!=0)
-                {
-                    (*V)(i) = (*cnet->SS->P)(0,(*cnet->ch)(r,c)) / cos((*top->slope)(r,c) *GTConst::Pi/180.);
-                }
-                else
-                {
-                    (*V)(i) = (double)number_novalue;
-                }
-            }
+				for (i=1; i<=par->total_pixel; i++)
+				{
+					r = (*top->rc_cont)(i,1);
+					c = (*top->rc_cont)(i,2);
+					(*V)(i) = find_watertabledepth_dw(find_activelayerdepth_up(i, (*sl->type)(r,c), sl),
+													  i, (*sl->type)(r,c), sl); // normal
 
-            temp1 = join_strings(files[fhsupch], s2);
-            write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
-                             top->j_cont, Nr, Nc);
-            free(temp1);
-        }
+				}
+				temp1=join_strings(files[fwtable_dw],s2);
+				write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
+								 top->j_cont, Nr, Nc);
+				free(temp1);
+			}
 
-        if (strcmp(files[fpnet], string_novalue) != 0)
-        {
-            temp1=join_strings(files[fpnet], s2);
-            write_map_vector(temp1, 0, par->format_out, sl->Pnetcum.get(), UV, number_novalue,
-                             top->j_cont, Nr, Nc);
-            *(sl->Pnetcum) = 0.0;
-            free(temp1);
-        }
+			// calculate active layer depth
+			if ( strcmp(files[fthawed_up], string_novalue) != 0 )
+			{
+				for (i=1; i<=par->total_pixel; i++)
+				{
+					r = (*top->rc_cont)(i,1);
+					c = (*top->rc_cont)(i,2);
+					(*V)(i) = find_activelayerdepth_up(i, (*sl->type)(r,c), sl); // normal
+				}
+				temp1=join_strings(files[fthawed_up],s2);
+				write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
+								 top->j_cont, Nr, Nc);
+				free(temp1);
+			}
 
-        if (strcmp(files[fevap], string_novalue) != 0)
-        {
-            temp1=join_strings(files[fevap], s2);
-            write_map_vector(temp1, 0, par->format_out, sl->ETcum.get(), UV, number_novalue,
-                             top->j_cont, Nr, Nc);
-            *(sl->ETcum) = 0.0;
-            free(temp1);
-        }
-        free(s2);
+			if ( strcmp(files[fthawed_dw], string_novalue) != 0 )
+			{
+				for (i=1; i<=par->total_pixel; i++)
+				{
+					r = (*top->rc_cont)(i,1);
+					c = (*top->rc_cont)(i,2);
+					(*V)(i) = find_activelayerdepth_dw(i, (*sl->type)(r,c), sl); // normal
+				}
+				temp1=join_strings(files[fthawed_dw],s2);
+				write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
+								 top->j_cont, Nr, Nc);
+				free(temp1);
+			}
+
+			// WATER OVER THE SURFACE
+			if ( strcmp(files[fhsupland], string_novalue) != 0 )
+			{
+				for (i=1; i<=par->total_pixel; i++)
+				{
+					r = (*top->rc_cont)(i,1);
+					c = (*top->rc_cont)(i,2);
+					(*V)(i) = std::max<double>(0, (*sl->SS->P)(0,i)) / cos((*top->slope)(r,c) * GTConst::Pi/180.);
+				}
+				temp1 = join_strings(files[fhsupland], s2);
+				write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
+								 top->j_cont, Nr, Nc);
+				free(temp1);
+			}
+
+			if ( strcmp(files[fhsupch], string_novalue) != 0 )
+			{
+				for (i=1; i<=par->total_pixel; i++)
+				{
+					r = (*top->rc_cont)(i,1);
+					c = (*top->rc_cont)(i,2);
+					if ((*cnet->ch)(r,c)!=0)
+					{
+						(*V)(i) = (*cnet->SS->P)(0,(*cnet->ch)(r,c)) / cos((*top->slope)(r,c) *GTConst::Pi/180.);
+					}
+					else
+					{
+						(*V)(i) = (double)number_novalue;
+					}
+				}
+
+				temp1 = join_strings(files[fhsupch], s2);
+				write_map_vector(temp1, 0, par->format_out, V.get(), UV, number_novalue,
+								 top->j_cont, Nr, Nc);
+				free(temp1);
+			}
+
+			if (strcmp(files[fpnet], string_novalue) != 0)
+			{
+				temp1=join_strings(files[fpnet], s2);
+				write_map_vector(temp1, 0, par->format_out, sl->Pnetcum.get(), UV, number_novalue,
+								 top->j_cont, Nr, Nc);
+				*(sl->Pnetcum) = 0.0;
+				free(temp1);
+			}
+
+			if (strcmp(files[fevap], string_novalue) != 0)
+			{
+				temp1=join_strings(files[fevap], s2);
+				write_map_vector(temp1, 0, par->format_out, sl->ETcum.get(), UV, number_novalue,
+								 top->j_cont, Nr, Nc);
+				*(sl->ETcum) = 0.0;
+				free(temp1);
+			}
+			free(s2);
+		
+		t_distributed=0.0;
+		}
+		
+		
+		
     }
 
     // snow properties

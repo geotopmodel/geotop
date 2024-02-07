@@ -40,6 +40,7 @@ add_executable(geotop
         src/geotop/clouds.cc
         src/geotop/deallocate.cc
         src/geotop/energy.balance.cc
+        src/geotop/air.energy.balance.cc
         src/geotop/geotop.cc
         src/geotop/indices.cc
         src/geotop/input.cc
@@ -58,6 +59,7 @@ add_executable(geotop
         src/geotop/turbulence.cc
         src/geotop/vegetation.cc
         src/geotop/water.balance.cc
+        src/geotop/air.balance.cc
         src/libraries/ascii/import_ascii.cc
         src/libraries/ascii/init.cc
         src/libraries/ascii/rw_maps.cc
@@ -74,6 +76,7 @@ add_executable(geotop
         src/geotop/vegetation.h
         src/geotop/clouds.h
         src/geotop/water.balance.h
+        src/geotop/air.balance.h
         src/geotop/channels.h
         src/geotop/constants.h
         src/geotop/deallocate.h
@@ -82,6 +85,7 @@ add_executable(geotop
         src/geotop/radiation.h
         src/geotop/input.h
         src/geotop/energy.balance.h
+        src/geotop/air.energy.balance.h
         src/geotop/turbulence.h
         src/geotop/meteo.h
         src/geotop/meteodata.h

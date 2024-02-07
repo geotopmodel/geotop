@@ -8,6 +8,9 @@ project('geotop','cpp',
         version: '3.0')
 
 
+# Add '-fsanitize=undefined' to the compiler flags
+#cpp_args = ['-fsanitize=undefined']
+
 # the following lists will be populated through the inclusion of the
 # meson.build int the subfolders
 
@@ -15,7 +18,7 @@ project('geotop','cpp',
 # src_files    : all the files needed to compile geotop
 # deps         : all the external dependencies required (e.g., boost, meteoio)
 
-# we initialize them as empty lists
+# we initialize them as empty listsc
 
 include_dirs = []
 src_files    = []

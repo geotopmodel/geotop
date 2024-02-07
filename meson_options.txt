@@ -1,7 +1,7 @@
 option('MUTE_GEOLOG', type: 'boolean', value: false)
 option('MUTE_GEOTIMER', type: 'boolean', value: false)
 option('MATH_OPTIM', type: 'boolean', value: false)
-option('WITH_OMP', type: 'boolean', value: false, description: 'Enable openMP framework')
+option('WITH_OMP', type: 'boolean', value: true, description: 'Enable openMP framework')
 
 option('WITH_METEOIO', type: 'boolean', value: false, description: 'Use MeteoIO library')
 option('METEOIO_DIR', type: 'string', value: '', description: 'Path to prefix of MeteoIO library')

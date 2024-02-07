@@ -46,7 +46,7 @@ struct INIT_TOOLS
 
 
 void get_all_input(long argc, char *argv[], TOPO *top, SOIL *sl, LAND *land,
-                   METEO *met, WATER *wat, CHANNEL *cnet,
+                   METEO *met, WATER *wat, AIRFLUX *airF, AIRENERGY *airE, CHANNEL *cnet,
                    PAR *par, ENERGY *egy, SNOW *snow, GLACIER *glac, TIMES *times);
 
 void read_inputmaps(TOPO *top, LAND *land, SOIL *sl, PAR *par, INIT_TOOLS *IT);
