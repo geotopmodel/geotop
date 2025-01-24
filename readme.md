@@ -459,7 +459,9 @@ This last work was partly supported by:
 **************************************
 ## REFERENCES
 
-Here is the full list of peer-reviewed publications that we know that are using the GEOtop model. Please let as know if some are missed! (updated December 2024):
+Here is the full list of peer-reviewed publications that we know that are using the GEOtop model. Please let as know if some are missed! (updated January 2025):
+
+* Li, Y., Rangarajan, S., Rahardjo, H. et al. Database of soil properties incorporating organic content from roots and soil organisms for regional slope stabilisation. Sci Rep 15, 1066 (2025). https://doi.org/10.1038/s41598-025-85250-5
 
 * Cheng, Y.; Li, Y. Application of Capillary Barrier Systems for Slope Stabilization Under Extreme Rainfall: A Case Study of National Highway 10, India. Infrastructures (2024), 9, 201. https://doi.org/10.3390/infrastructures9110201
  
