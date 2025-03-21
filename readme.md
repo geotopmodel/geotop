@@ -459,7 +459,9 @@ This last work was partly supported by:
 **************************************
 ## REFERENCES
 
-Here is the full list of peer-reviewed publications that we know that are using the GEOtop model. Please let as know if some are missed! (updated January 2025):
+Here is the full list of peer-reviewed publications that we know that are using the GEOtop model. Please let as know if some are missed! (updated March 2025):
+
+* Dall’Amico, M., Tasin, S., Di Paolo, F., Brian M., Leoni, P., Tornatore, F., Formetta, G., Wani, J.M., Rigon, R., and Gaia Roati. G.:  30-years (1991-2021) Snow Water Equivalent Dataset in the Po River District, Italy. Sci Data 12, 374 (2025). https://doi.org/10.1038/s41597-025-04633-5
 
 * Li, Y., Rangarajan, S., Rahardjo, H. et al. Database of soil properties incorporating organic content from roots and soil organisms for regional slope stabilisation. Sci Rep 15, 1066 (2025). https://doi.org/10.1038/s41598-025-85250-5
 
