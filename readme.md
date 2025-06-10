@@ -417,6 +417,17 @@ https://github.com/TanZiTT/GEOtopSed
 
 **GEOtop_DV** is  a Matlab extension of **GEOtop**  for modelling grassland vegetation dynamics for 1D simulations. Documentation can be found in [Della Chiesa et al. (2014)](https://doi.org/10.1002/eco.1471)
 
+## GEOtop model integration with the meteorological preprocessing from the Meteo-IO libraries.
+
+[**GEOtop V3.1**](https://github.com/geotopmodel/geotop/tree/v2.2.1-old-master) is  a developmment branch  **GEOtop** with the meteorological preprocessing from the **Meteo-IO** libraries integrated.
+This GEOtop version **is no longer supported since 2021**. 
+It is written in c++ and it has the possibility to use the [**MeteoIO** library](https://models.slf.ch/p/meteoio/) to spatialize input meteorological variables. 
+For the latest developments in Meteo-IO, check here: https://meteoio.slf.ch/
+
+This version is successfully used for operational snow mapping by the [**WaterJade company**](https://waterjade.com/en/waterjade-analytics-2/#cta) for operational snow forecasting and in the [**MySnowMaps**](http://www.mysnowmaps.com/en/) app. 
+However, this branch is not fully stable when the model is used with full 3D water and energy budget settings.
+
+
 **************************************************
 ## Operational **GEOtop** model applications 
 
