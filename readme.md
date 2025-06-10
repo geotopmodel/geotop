@@ -424,9 +424,9 @@ The GEOtop model has been also used for operational application:
 
 ### Snow depth mapping
 
-The **GEOtop** model (v 2.1) is the scientific basis of the [**MySnowMaps**](https://www.mysnowmaps.com/en/) service, which presents real time snow depth maps and prediction for the Alps, implemented by M. Dall´Amico the [**MobyGis**](http://www.mobygis.com/)  company.
+The **GEOtop** model (v 2.1) is the scientific basis of the [**MySnowMaps**](https://www.mysnowmaps.com/en/) service, which presents real-time snow depth maps and predictions for the Alps, implemented by M. Dall´Amico the [**Waterjade**](https://waterjade.com/)  company, wich offers professional services for snow and water resources forecasting and mapping: https://waterjade.com/en/waterjade-analytics-2/ 
 
-The **GEOtop** model (v 2.1) has been also used by P. Pogliotti for the ARPA Valle d´Aosta (Italy) to monitor in real-time meltwater avaliabilty for hydropower.
+The **GEOtop** model (v 2.1) has been also used by P. Pogliotti for the ARPA Valle d´Aosta (Italy) to monitor in real-time meltwater availability for hydropower.
 
 
 ### Water budget mapping
