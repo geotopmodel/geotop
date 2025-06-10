@@ -4,12 +4,12 @@ GEOtop
 
 |Build Status| |License (GPL version 3)|
 
-:date:  last revision April 2021
+:date:  last revision April 2025
 
 
 
 **GEOtop** is a distributed model of the mass and energy balance of the
-hydrological cycle, which is applicable to simulations in continuum in
+hydrological cycle, which applies to simulations in the continuum in
 small catchments. **GEOtop** deals with the effects of topography on the
 interaction between energy balance and hydrological cycle with peculiar
 solutions.
@@ -17,17 +17,31 @@ solutions.
 **GEOtop** is distributed under the GNU General Public License version 3.
 A copy of the license text can be found in the COPYING file.
 
-You can find more informations about GEOtop on the following website
+You can find more information about GEOtop on the following website
 
                 www.geotop.org 
 
 where the model is briefly described and links to papers and other useful
-websites have been collected.
+Websites have been collected.
+
+**GEOtop** (master branch v.2.1)
+************
+This is a version of **GEOtop** with the meteorological preprocessing from the **Meteo-IO** libraries integrated.
+
+This GEOtop version **is no longer supported since 2021**. 
+
+For the latest developments in Meteo-IO, check here: https://meteoio.slf.ch/
+
+It is written in c++ and it has the possibility to use the `**MeteoIO** library <https://models.slf.ch/p/meteoio/>`_ to spatialize input meteorological variables.
+
+This version is successfully used for operational snow mapping by the `WaterJade company` for operational snow forecasting and in the `**MySnowMaps** <http://www.mysnowmaps.com/en/>`_ app. 
+However, this branch is not fully stable when the model is used with full 3D water and energy budget settings.
+
 
 Installation
 ************
 
-If you want to build **GEOtop** (master branch v.2.1) from sources in your own machine:
+If you want to build **GEOtop** (master branch v.2.1) from sources on your own machine:
 
     see here: https://github.com/geotopmodel/geotop/blob/master/doc/Install.rst 
 
@@ -61,9 +75,9 @@ Useful material on **GEOtop** and his hystorical development can be found also o
 GEOtop development branches
 ***************************
 
-Currently (April 2021) there are several development branches in this repostory. Most used branches are the followings:
+Currently (April 2025) there are several development branches in this repostory. Most used branches are the followings:
 
-The main `**master** <https://github.com/geotopmodel/geotop>`_ branch contains the 2.1 version. It is written in c++ and it has the possibility to use the the `**MeteoIO** library <https://models.slf.ch/p/meteoio/>`_ to spatialize input meteorological variables.
+The version `**2.1 - old master ** <https://github.com/geotopmodel/geotop/tree/v2.2.1-old-master>`_ branch contains the 2.1 version. It is written in c++ and it has the possibility to use the `**MeteoIO** library <https://models.slf.ch/p/meteoio/>`_ to spatialize input meteorological variables.
 
 This version is successfully used for operational snow mapping in the `**MySnowMaps** <http://www.mysnowmaps.com/en/>`_ app. 
 However, this branch is not fully stable when the model is used with full 3D water and energy budget settings.
@@ -71,7 +85,7 @@ However, this branch is not fully stable when the model is used with full 3D wat
 The `**se27xx** <https://github.com/geotopmodel/geotop/tree/se27xx>`_ branch contains the code 2.0 version which has been used for the publication  `Endrizzi et al. (2014) <https://doi.org/10.5194/gmd-7-2831-2014>`_, with some minor bug fixing. It is the most stable GEOtop version and the current benchmark for the development versions.
 To install this version see https://github.com/geotopmodel/geotop/blob/se27xx/README.rst
 
-The new `**v3.0** GEOtop development branch v3.0 (beta), written in C++, can be found in the git repo https://github.com/geotopmodel/geotop/tree/v3.0 at . You can find the compiling, running and testing instructions at https://github.com/geotopmodel/geotop/blob/v3.0/readme.md
+The new **Master version** **v3.0** GEOtop development branch v3.0 (beta), written in C++, can be found in the git repo https://github.com/geotopmodel/geotop/tree/v3.0. You can find the compiling, running and testing instructions at https://github.com/geotopmodel/geotop/blob/v3.0/readme.md
 
 The 3.0 version starts from version se27xx, already validated and published in the Endrizzi et al. 2014 paper.
 It performs exactly as the se27xx, but it has some improvements in terms of:
@@ -181,7 +195,7 @@ Water budget mapping
 A preliminary application of the **GEOtop** model (v 3.0) for mapping the water budget of the Venosta (Italy) catchment in near real time on a weekly basis has implemented in the following web-gis: https://maps.civis.bz.it/ in the framework of the European Regional Development Fund (ERDF) project DPS4ESLAB.
 
 
-References
+References 
 **************************************************
 
 When using the model, please cite and refer to the following papers describing the **GEOtop** model:
@@ -190,7 +204,7 @@ When using the model, please cite and refer to the following papers describing t
 
 * Rigon, R., Bertoldi, G., Over, T.M., 2006. GEOtop: A Distributed Hydrological Model with Coupled Water and Energy Budgets.  J. Hydrometeorol. 7, 371–388. https://doi.org/10.1175/JHM497.1
 
-Here is the full list of peer-reviewed publications using the GEOtop model (updated Mai 2021):
+Here is the full list of peer-reviewed publications using the GEOtop model (updated Mai 2021 -  for more recent references see the branch master V3.0):
 
 * Wani, J. M., Thayyen, R. J., Ojha, C. S. P., and Gruber, S.: The surface energy balance in a cold and arid permafrost environment, Ladakh,  Himalayas, India, 15, 2273--2293, https://doi.org/10.5194/tc-15-2273-2021, 2021.
 
