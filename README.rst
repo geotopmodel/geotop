@@ -34,7 +34,7 @@ For the latest developments in Meteo-IO, check here: https://meteoio.slf.ch/
 
 It is written in c++ and it has the possibility to use the `**MeteoIO** library <https://models.slf.ch/p/meteoio/>`_ to spatialize input meteorological variables.
 
-This version is successfully used for operational snow mapping by the `WaterJade company` for operational snow forecasting and in the `**MySnowMaps** <http://www.mysnowmaps.com/en/>`_ app. 
+This version is successfully used for operational snow mapping by the `WaterJade company<https://waterjade.com/en/waterjade-analytics-2/#cta>` for operational snow forecasting and in the `**MySnowMaps** <http://www.mysnowmaps.com/en/>`_ app. 
 However, this branch is not fully stable when the model is used with full 3D water and energy budget settings.
 
 
