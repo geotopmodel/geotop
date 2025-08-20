@@ -1663,7 +1663,7 @@ void geotop::input::ConfigStore::init()
   initValue("SpecificStorativityBedrock",
             std::vector<double>(5, geotop::input::gDoubleNoValue));
 
-  initValue("DtPlotDischarge", std::vector<double> {0});
+  initValue("DtPlotDischarge", double(0));
 
   initValue("VMualem", std::vector<double> {0.5});
 

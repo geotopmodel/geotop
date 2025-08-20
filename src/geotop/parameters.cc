@@ -1410,27 +1410,18 @@ static void assign_numeric_parameters(Par *par,
 
   par->ST = getDoubleValueWithDefault(lConfigStore, "StandardTimeSimulation",
                                       0., false);
-  // this below is a scalar:
-  //
 
-  //    par->Dtplot_discharge.resize(par->init_date.size() + 1, 0);
-  par->Dtplot_discharge = 0;
-
-  std::vector<double> lDtPlotDischarge = getDoubleVectorValueWithDefault(
-                                           lConfigStore, "DtPlotDischarge", 0., true, 1, false);
-  par->Dtplot_discharge = lDtPlotDischarge[0];
-
-  par->plot_discharge_with_Dt_integration.resize(2, 0);
+  par->Dtplot_discharge = getDoubleValueWithDefault(lConfigStore, "DtPlotDischarge",
+                                                    0., false);
 
   par->state_discharge = 0;
   par->Dtplot_discharge *= 3600.;
-  if (par->Dtplot_discharge > 1.E-5 && par->Dtplot_discharge <= minDt)
+  if (par->Dtplot_discharge > 1.E-5 && par->Dtplot_discharge < par->Dt)
     {
-      par->plot_discharge_with_Dt_integration[1] = 1;
-    }
-  else
-    {
-      par->plot_discharge_with_Dt_integration[1] = 0;
+      lg->logsf(geotop::logger::WARNING,
+                "Dtplot_discharge %.0f seconds will be increased to Dt %.0f",
+                par->Dtplot_discharge,par->Dt);
+      par->Dtplot_discharge = par->Dt;
     }
   if (par->Dtplot_discharge > 1.E-5) par->state_discharge = 1;
 

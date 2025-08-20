@@ -1,0 +1,8 @@
+Model: GEOtop
+Compiler:   
+Processor: 
+Author: S.Endrizzi&S.Cozzini modified by SSenoner 
+Date: 2019-01-04
+Name: PureDrainageDischarge
+Description: Pure Drainage test case modified by addind discharge output
+Output: ...

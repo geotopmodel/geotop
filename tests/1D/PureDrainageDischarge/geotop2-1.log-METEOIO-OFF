@@ -1,0 +1,1659 @@
+THIS IS THE INITIAL STATEMENT:
+
+GEOtop 2.1  31 december 2016 
+
+Copyright (c), 2016 - GEOtop Foundation 
+
+
+GEOtop 2.1 is a free software and is distributed under GNU General Public License v. 3.0 <http://www.gnu.org/licenses/>
+WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+
+########################## INFO ABOUT COMPILATION #################################
+This GEOtop version  was compiled at:  Jan  4 2019  18:03:04
+The compiler gives a __cplusplus value of % 
+The Git revision hash of the source code is: TRIEST_release-248-geaa345c0 
+This version does NOT USE METEO-IO library for interpolation: METEOIO-OFF 
+This run starts at: Sun Jan  6 15:51:59 2019
+##### Please report the above lines if you ask for help ############################
+[NOTICE]: Configuration file parsing completed. 3579 characters parsed.
+[NOTICE]: Full match!
+[NOTICE]: TimeStepEnergyAndWater[0] = 3.600000e+03
+[NOTICE]: InitDateDDMMYYYYhhmm[0] = 1.806201e+11
+[NOTICE]: SimulationHours[1] = 1.000000e+00
+[NOTICE]: EndDateDDMMYYYYhhmm[0] = 7.072014e+10
+[NOTICE]: StandardTimeSimulation[1] = 1.000000e+00
+[NOTICE]: DtPlotDischarge[0] = 5.000000e-01
+[WARNING]: Dtplot_discharge 1800 seconds will be increased to Dt 3600
+[NOTICE]: DtPlotPoint[0] = 1.000000e+00
+[NOTICE]: DtPlotBasin[0] = 0.000000e+00
+[NOTICE]: NumLowPassFilterOnDemForAll[1] = 0.000000e+00
+[NOTICE]: NumLowPassFilterOnDemForCurv[1] = 0.000000e+00
+[NOTICE]: FlagSkyViewFactor[1] = 0.000000e+00
+[NOTICE]: FormatOutputMaps[1] = 3.000000e+00
+[NOTICE]: PointSim[1] = 1.000000e+00
+[NOTICE]: RecoverSim[1] = 0.000000e+00
+[NOTICE]: NumLandCoverTypes[1] = 1.000000e+00
+[NOTICE]: SoilRoughness[0] = 1.000000e+02
+[NOTICE]: ThresSnowSoilRough[0] = 1.000000e+01
+[NOTICE]: VegHeight[0] = 1.800000e+03
+[NOTICE]: ThresSnowVegUp[0] = 0.000000e+00
+[NOTICE]: ThresSnowVegDown[0] = 1.000000e+03
+[NOTICE]: LSAI[0] = 6.000000e-01
+[NOTICE]: CanopyFraction[0] = 0.000000e+00
+[NOTICE]: DecayCoeffCanopy[0] = 2.500000e+00
+[NOTICE]: VegSnowBurying[0] = 1.000000e+00
+[NOTICE]: RootDepth[0] = 1.000000e+03
+[NOTICE]: MinStomatalRes[0] = 6.000000e+01
+[NOTICE]: VegReflectVis[0] = 1.000000e-01
+[NOTICE]: VegReflNIR[0] = 5.800000e-01
+[NOTICE]: VegTransVis[0] = 5.000000e-02
+[NOTICE]: VegTransNIR[0] = 2.500000e-01
+[NOTICE]: LeafAngles[0] = 0.000000e+00
+[NOTICE]: CanDensSurface[0] = 2.000000e+00
+[NOTICE]: SoilAlbVisDry[0] = 2.000000e-01
+[NOTICE]: SoilAlbNIRDry[0] = 2.000000e-01
+[NOTICE]: SoilAlbVisWet[0] = 2.000000e-01
+[NOTICE]: SoilAlbNIRWet[0] = 2.000000e-01
+[NOTICE]: SoilEmissiv[0] = 9.600000e-01
+[NOTICE]: SurFlowResLand[0] = 5.000000e-01
+[NOTICE]: RoughElemXUnitArea[0] = 0.000000e+00
+[NOTICE]: RoughElemDiam[0] = 5.000000e+01
+[NOTICE]: FrozenSoilHydrCondReduction[1] = 7.000000e+00
+[NOTICE]: FreeDrainageAtBottom[1] = 0.000000e+00
+[NOTICE]: FreeDrainageAtLateralBorder[1] = 0.000000e+00
+[NOTICE]: RichardTol[1] = 1.000000e-06
+[NOTICE]: RichardMaxIter[1] = 1.500000e+03
+[NOTICE]: RichardInitForc[1] = 1.000000e-02
+[NOTICE]: MinLambdaWater[1] = 1.000000e-07
+[NOTICE]: MaxTimesMinLambdaWater[1] = 0.000000e+00
+[NOTICE]: ExitMinLambdaWater[1] = 1.000000e+00
+[NOTICE]: MinTimeStep[1] = 1.000000e+01
+[NOTICE]: SurFlowResExp[1] = 6.666667e-01
+[NOTICE]: ThresWaterDepthLandInf[1] = 0.000000e+00
+[NOTICE]: ThresWaterDepthLandSup[1] = 0.000000e+00
+[NOTICE]: SurFlowResChannel[1] = 2.000000e+01
+[NOTICE]: ThresWaterDepthChannel[1] = 5.000000e+01
+[NOTICE]: RatioChannelWidthPixelWidth[1] = 1.000000e-01
+[NOTICE]: ChannelDepression[1] = 5.000000e+02
+[NOTICE]: MaxCourantSupFlowLand[1] = 1.000000e-01
+[NOTICE]: MaxCourantSupFlowChannel[1] = 1.000000e-01
+[NOTICE]: MinSupWaterDepthLand[1] = 1.000000e+00
+[NOTICE]: MinSupWaterDepthChannel[1] = 1.000000e+00
+[NOTICE]: MinDiffSupWaterDepthLandChannel[1] = 1.000000e+00
+[NOTICE]: MinTimeStepSupFlow[1] = 1.000000e-02
+[NOTICE]: Latitude[1] = 4.025000e+01
+[NOTICE]: Longitude[1] = 1.631000e+01
+[NOTICE]: Vmin[1] = 5.000000e-01
+[NOTICE]: RHmin[1] = 1.000000e+01
+[NOTICE]: AlphaSnow[1] = 1.000000e+05
+[NOTICE]: HighestNodeCorrespondsToLayer[1] = 0.000000e+00
+[NOTICE]: HeatEqTol[1] = 1.000000e-06
+[NOTICE]: HeatEqMaxIter[1] = 7.000000e+02
+[NOTICE]: MinLambdaEnergy[1] = 1.000000e-05
+[NOTICE]: MaxTimesMinLambdaEnergy[1] = 0.000000e+00
+[NOTICE]: ExitMinLambdaEnergy[1] = 0.000000e+00
+[NOTICE]: DEMRotationAngle[1] = 0.000000e+00
+[NOTICE]: CanopyMaxIter[1] = 3.000000e+00
+[NOTICE]: BusingerMaxIter[1] = 5.000000e+00
+[NOTICE]: TsMaxIter[1] = 2.000000e+00
+[NOTICE]: LocMaxIter[1] = 3.000000e+00
+[NOTICE]: CanopyStabCorrection[1] = 1.000000e+00
+[NOTICE]: Iobsint[1] = 1.000000e+00
+[NOTICE]: Dn[1] = 1.000000e+00
+[NOTICE]: SlopeWeight[1] = 0.000000e+00
+[NOTICE]: CurvatureWeight[1] = 0.000000e+00
+[NOTICE]: SlopeWeightD[1] = 0.000000e+00
+[NOTICE]: CurvatureWeightD[1] = 0.000000e+00
+[NOTICE]: SlopeWeightI[1] = 0.000000e+00
+[NOTICE]: CurvatureWeightI[1] = 0.000000e+00
+[NOTICE]: ZeroTempAmplitDepth[1] = 1.000000e+20
+[NOTICE]: ZeroTempAmplitTemp[1] = 2.000000e+01
+[NOTICE]: BottomBoundaryHeatFlux[1] = 0.000000e+00
+[NOTICE]: InitSWE[1] = 0.000000e+00
+[NOTICE]: InitSnowDensity[1] = 2.500000e+02
+[NOTICE]: InitSnowTemp[1] = 0.000000e+00
+[NOTICE]: InitSnowAge[1] = 0.000000e+00
+[NOTICE]: ThresTempRain[1] = 3.000000e+00
+[NOTICE]: ThresTempSnow[1] = 0.000000e+00
+[NOTICE]: DewTempOrNormTemp[1] = 0.000000e+00
+[NOTICE]: AlbExtParSnow[1] = 1.000000e+01
+[NOTICE]: FreshSnowReflVis[1] = 9.500000e-01
+[NOTICE]: FreshSnowReflNIR[1] = 6.500000e-01
+[NOTICE]: IrriducibleWatSatSnow[1] = 2.000000e-02
+[NOTICE]: SnowEmissiv[1] = 9.800000e-01
+[NOTICE]: SnowRoughness[1] = 1.000000e-01
+[NOTICE]: SnowCorrFactor[1] = 1.300000e+00
+[NOTICE]: RainCorrFactor[1] = 1.000000e+00
+[NOTICE]: MaxSnowPorosity[1] = 7.000000e-01
+[NOTICE]: DrySnowDefRate[1] = 1.000000e+00
+[NOTICE]: SnowDensityCutoff[1] = 1.000000e+02
+[NOTICE]: WetSnowDefRate[1] = 1.500000e+00
+[NOTICE]: SnowViscosity[1] = 1.000000e+06
+[NOTICE]: FetchUp[1] = 1.000000e+03
+[NOTICE]: FetchDown[1] = 1.000000e+02
+[NOTICE]: BlowingSnowSoftLayerIceContent[1] = 0.000000e+00
+[NOTICE]: TimeStepBlowingSnow[1] = 3.600000e+03
+[NOTICE]: SnowSMIN[1] = 3.000000e+01
+[NOTICE]: SnowSMAX[1] = 8.000000e+01
+[NOTICE]: SnowCURV[1] = -2.000000e+02
+[NOTICE]: MaxWaterEqSnowLayerContent[1] = 5.000000e+00
+[NOTICE]: MaxSnowLayersMiddle[1] = 1.000000e+01
+[NOTICE]: SWEbottom[1] = 2.000000e+01
+[NOTICE]: SWEtop[1] = 5.000000e+01
+[NOTICE]: Max snow layer number: 24, of which 4 at the bottom, 10 in the middle, and 10 at the top.
+[NOTICE]: Infinite Snow layer numbers are numbers: 
+	5 6 7 8 9 10 11 12 13 14 
+[NOTICE]: InitGlacierDepth[1] = 0.000000e+00
+[NOTICE]: InitGlacierDensity[1] = 8.000000e+02
+[NOTICE]: InitGlacierTemp[1] = -3.000000e+00
+[NOTICE]: IrriducibleWatSatGlacier[1] = 2.000000e-02
+[NOTICE]: MaxWaterEqGlacLayerContent[1] = 5.000000e+00
+[NOTICE]: MaxGlacLayersMiddle[1] = 0.000000e+00
+[NOTICE]: GWEbottom[1] = 0.000000e+00
+[NOTICE]: GWEtop[1] = 0.000000e+00
+[NOTICE]: Max glac layer number: 0, of which 0 at the bottom, 0 in the middle, and 0 at the top.
+[NOTICE]: Infinite Glac layer numbers are numbers: 
+	
+[NOTICE]: LWinParameterization[1] = 9.000000e+00
+[NOTICE]: MoninObukhov[1] = 1.000000e+00
+[NOTICE]: Surroundings[1] = 0.000000e+00
+[NOTICE]: WaterBalance[1] = 1.000000e+00
+[NOTICE]: EnergyBalance[1] = 1.000000e+00
+[NOTICE]: BlowingSnow[1] = 0.000000e+00
+[NOTICE]: MinIceContentForBlowingSnow[1] = 8.000000e+00
+[NOTICE]: CoordinatePointX[0] = -9.999000e+03
+[NOTICE]: CoordinatePointY[0] = -9.999000e+03
+[NOTICE]: PointID[0] = -9.999000e+03
+[NOTICE]: PointElevation[0] = -9.999000e+03
+[NOTICE]: PointLandCoverType[0] = -9.999000e+03
+[NOTICE]: PointSoilType[0] = -9.999000e+03
+[NOTICE]: PointSlope[0] = -9.999000e+03
+[NOTICE]: PointAspect[0] = -9.999000e+03
+[NOTICE]: PointSkyViewFactor[0] = -9.999000e+03
+[NOTICE]: PointCurvatureNorthSouthDirection[0] = -9.999000e+03
+[NOTICE]: PointCurvatureWestEastDirection[0] = -9.999000e+03
+[NOTICE]: PointCurvatureNorthwestSoutheastDirection[0] = -9.999000e+03
+[NOTICE]: PointCurvatureNortheastSouthwestDirection[0] = -9.999000e+03
+[NOTICE]: PointDepthFreeSurface[0] = -9.999000e+03
+[NOTICE]: PointHorizon[0] = -9.999000e+03
+[NOTICE]: PointMaxSWE[0] = -9.999000e+03
+[NOTICE]: PointLatitude[0] = -9.999000e+03
+[NOTICE]: PointLongitude[0] = -9.999000e+03
+[NOTICE]: PointBedrock[0] = -9.999000e+03
+[NOTICE]: CoordinatePointX[0] = -9.999000e+03
+[NOTICE]: CoordinatePointY[0] = -9.999000e+03
+[NOTICE]: PointID[0] = -9.999000e+03
+[NOTICE]: PointElevation[0] = -9.999000e+03
+[NOTICE]: PointLandCoverType[0] = -9.999000e+03
+[NOTICE]: PointSoilType[0] = -9.999000e+03
+[NOTICE]: PointSlope[0] = -9.999000e+03
+[NOTICE]: PointAspect[0] = -9.999000e+03
+[NOTICE]: PointSkyViewFactor[0] = -9.999000e+03
+[NOTICE]: PointCurvatureNorthSouthDirection[0] = -9.999000e+03
+[NOTICE]: PointCurvatureWestEastDirection[0] = -9.999000e+03
+[NOTICE]: PointCurvatureNorthwestSoutheastDirection[0] = -9.999000e+03
+[NOTICE]: PointCurvatureNortheastSouthwestDirection[0] = -9.999000e+03
+[NOTICE]: PointDepthFreeSurface[0] = -9.999000e+03
+[NOTICE]: PointHorizon[0] = -9.999000e+03
+[NOTICE]: PointMaxSWE[0] = -9.999000e+03
+[NOTICE]: PointLatitude[0] = -9.999000e+03
+[NOTICE]: PointLongitude[0] = -9.999000e+03
+[NOTICE]: PointBedrock[0] = -9.999000e+03
+[NOTICE]: OutputSoilMaps[0] = 1.000000e+00
+[NOTICE]: OutputSnowMaps[0] = 1.000000e+00
+[NOTICE]: OutputGlacierMaps[0] = 0.000000e+00
+[NOTICE]: OutputSurfEBALMaps[0] = 0.000000e+00
+[NOTICE]: OutputVegetationMaps[0] = 0.000000e+00
+[NOTICE]: OutputMeteoMaps[0] = 0.000000e+00
+[NOTICE]: SpecialPlotBegin[0] = 0.000000e+00
+[NOTICE]: SpecialPlotEnd[0] = 0.000000e+00
+[NOTICE]: SoilLayerTypes[1] = 1.000000e+00
+[NOTICE]: InitWaterTableDepth[0] = 5.000000e+03
+[NOTICE]: DefaultSoilTypeLand[1] = 1.000000e+00
+[NOTICE]: DefaultSoilTypeChannel[1] = 1.000000e+00
+[NOTICE]: SoilLayerThicknesses[0] = -9.999000e+03
+[NOTICE]: SoilLayerNumber[1] = 5.000000e+00
+[NOTICE]: InitSoilPressure[0] = -9.999000e+03
+[NOTICE]: InitSoilPressure[1] = -9.999000e+03
+[NOTICE]: InitSoilPressure[2] = -9.999000e+03
+[NOTICE]: InitSoilPressure[3] = -9.999000e+03
+[NOTICE]: InitSoilPressure[4] = -9.999000e+03
+[NOTICE]: InitSoilTemp[0] = 1.400000e+01
+[NOTICE]: NormalHydrConductivity[0] = 1.000000e-04
+[NOTICE]: LateralHydrConductivity[0] = 1.000000e-04
+[NOTICE]: ThetaRes[0] = 5.000000e-02
+[NOTICE]: WiltingPoint[0] = -9.999000e+03
+[NOTICE]: WiltingPoint[1] = -9.999000e+03
+[NOTICE]: WiltingPoint[2] = -9.999000e+03
+[NOTICE]: WiltingPoint[3] = -9.999000e+03
+[NOTICE]: WiltingPoint[4] = -9.999000e+03
+[NOTICE]: FieldCapacity[0] = -9.999000e+03
+[NOTICE]: FieldCapacity[1] = -9.999000e+03
+[NOTICE]: FieldCapacity[2] = -9.999000e+03
+[NOTICE]: FieldCapacity[3] = -9.999000e+03
+[NOTICE]: FieldCapacity[4] = -9.999000e+03
+[NOTICE]: ThetaSat[0] = 5.000000e-01
+[NOTICE]: AlphaVanGenuchten[0] = 4.000000e-03
+[NOTICE]: AlphaVanGenuchten[1] = 4.000000e-03
+[NOTICE]: AlphaVanGenuchten[2] = 4.000000e-03
+[NOTICE]: AlphaVanGenuchten[3] = 4.000000e-03
+[NOTICE]: AlphaVanGenuchten[4] = 4.000000e-03
+[NOTICE]: NVanGenuchten[0] = 1.300000e+00
+[NOTICE]: VMualem[0] = 5.000000e-01
+[NOTICE]: ThermalConductivitySoilSolids[0] = 2.500000e+00
+[NOTICE]: ThermalCapacitySoilSolids[0] = 2.300000e+06
+[NOTICE]: SpecificStorativity[0] = 1.000000e-07
+[NOTICE]: InitSoilPressure[0] = -9.999000e+03
+[NOTICE]: InitSoilPressure[1] = -9.999000e+03
+[NOTICE]: InitSoilPressure[2] = -9.999000e+03
+[NOTICE]: InitSoilPressure[3] = -9.999000e+03
+[NOTICE]: InitSoilPressure[4] = -9.999000e+03
+[NOTICE]: InitSoilPressure[5] = -9.999000e+03 (default)
+[NOTICE]: InitSoilTemp[0] = 1.400000e+01
+[NOTICE]: InitSoilTemp[1] = 1.400000e+01 (default)
+[NOTICE]: InitSoilTemp[2] = 1.400000e+01 (default)
+[NOTICE]: InitSoilTemp[3] = 1.400000e+01 (default)
+[NOTICE]: InitSoilTemp[4] = 1.400000e+01 (default)
+[NOTICE]: InitSoilTemp[5] = 1.400000e+01 (default)
+[NOTICE]: NormalHydrConductivity[0] = 1.000000e-04
+[NOTICE]: NormalHydrConductivity[1] = 1.000000e-04 (default)
+[NOTICE]: NormalHydrConductivity[2] = 1.000000e-04 (default)
+[NOTICE]: NormalHydrConductivity[3] = 1.000000e-04 (default)
+[NOTICE]: NormalHydrConductivity[4] = 1.000000e-04 (default)
+[NOTICE]: NormalHydrConductivity[5] = 1.000000e-04 (default)
+[NOTICE]: LateralHydrConductivity[0] = 1.000000e-04
+[NOTICE]: LateralHydrConductivity[1] = 1.000000e-04 (default)
+[NOTICE]: LateralHydrConductivity[2] = 1.000000e-04 (default)
+[NOTICE]: LateralHydrConductivity[3] = 1.000000e-04 (default)
+[NOTICE]: LateralHydrConductivity[4] = 1.000000e-04 (default)
+[NOTICE]: LateralHydrConductivity[5] = 1.000000e-04 (default)
+[NOTICE]: ThetaRes[0] = 5.000000e-02
+[NOTICE]: ThetaRes[1] = 5.000000e-02 (default)
+[NOTICE]: ThetaRes[2] = 5.000000e-02 (default)
+[NOTICE]: ThetaRes[3] = 5.000000e-02 (default)
+[NOTICE]: ThetaRes[4] = 5.000000e-02 (default)
+[NOTICE]: ThetaRes[5] = 5.000000e-02 (default)
+[NOTICE]: WiltingPoint[0] = -9.999000e+03
+[NOTICE]: WiltingPoint[1] = -9.999000e+03
+[NOTICE]: WiltingPoint[2] = -9.999000e+03
+[NOTICE]: WiltingPoint[3] = -9.999000e+03
+[NOTICE]: WiltingPoint[4] = -9.999000e+03
+[NOTICE]: WiltingPoint[5] = -9.999000e+03 (default)
+[NOTICE]: FieldCapacity[0] = -9.999000e+03
+[NOTICE]: FieldCapacity[1] = -9.999000e+03
+[NOTICE]: FieldCapacity[2] = -9.999000e+03
+[NOTICE]: FieldCapacity[3] = -9.999000e+03
+[NOTICE]: FieldCapacity[4] = -9.999000e+03
+[NOTICE]: FieldCapacity[5] = -9.999000e+03 (default)
+[NOTICE]: ThetaSat[0] = 5.000000e-01
+[NOTICE]: ThetaSat[1] = 5.000000e-01 (default)
+[NOTICE]: ThetaSat[2] = 5.000000e-01 (default)
+[NOTICE]: ThetaSat[3] = 5.000000e-01 (default)
+[NOTICE]: ThetaSat[4] = 5.000000e-01 (default)
+[NOTICE]: ThetaSat[5] = 5.000000e-01 (default)
+[NOTICE]: AlphaVanGenuchten[0] = 4.000000e-03
+[NOTICE]: AlphaVanGenuchten[1] = 4.000000e-03
+[NOTICE]: AlphaVanGenuchten[2] = 4.000000e-03
+[NOTICE]: AlphaVanGenuchten[3] = 4.000000e-03
+[NOTICE]: AlphaVanGenuchten[4] = 4.000000e-03
+[NOTICE]: AlphaVanGenuchten[5] = 4.000000e-03 (default)
+[NOTICE]: NVanGenuchten[0] = 1.300000e+00
+[NOTICE]: NVanGenuchten[1] = 1.300000e+00 (default)
+[NOTICE]: NVanGenuchten[2] = 1.300000e+00 (default)
+[NOTICE]: NVanGenuchten[3] = 1.300000e+00 (default)
+[NOTICE]: NVanGenuchten[4] = 1.300000e+00 (default)
+[NOTICE]: NVanGenuchten[5] = 1.300000e+00 (default)
+[NOTICE]: VMualem[0] = 5.000000e-01
+[NOTICE]: VMualem[1] = 5.000000e-01 (default)
+[NOTICE]: VMualem[2] = 5.000000e-01 (default)
+[NOTICE]: VMualem[3] = 5.000000e-01 (default)
+[NOTICE]: VMualem[4] = 5.000000e-01 (default)
+[NOTICE]: VMualem[5] = 5.000000e-01 (default)
+[NOTICE]: ThermalConductivitySoilSolids[0] = 2.500000e+00
+[NOTICE]: ThermalConductivitySoilSolids[1] = 2.500000e+00 (default)
+[NOTICE]: ThermalConductivitySoilSolids[2] = 2.500000e+00 (default)
+[NOTICE]: ThermalConductivitySoilSolids[3] = 2.500000e+00 (default)
+[NOTICE]: ThermalConductivitySoilSolids[4] = 2.500000e+00 (default)
+[NOTICE]: ThermalConductivitySoilSolids[5] = 2.500000e+00 (default)
+[NOTICE]: ThermalCapacitySoilSolids[0] = 2.300000e+06
+[NOTICE]: ThermalCapacitySoilSolids[1] = 2.300000e+06 (default)
+[NOTICE]: ThermalCapacitySoilSolids[2] = 2.300000e+06 (default)
+[NOTICE]: ThermalCapacitySoilSolids[3] = 2.300000e+06 (default)
+[NOTICE]: ThermalCapacitySoilSolids[4] = 2.300000e+06 (default)
+[NOTICE]: ThermalCapacitySoilSolids[5] = 2.300000e+06 (default)
+[NOTICE]: SpecificStorativity[0] = 1.000000e-07
+[NOTICE]: SpecificStorativity[1] = 1.000000e-07 (default)
+[NOTICE]: SpecificStorativity[2] = 1.000000e-07 (default)
+[NOTICE]: SpecificStorativity[3] = 1.000000e-07 (default)
+[NOTICE]: SpecificStorativity[4] = 1.000000e-07 (default)
+[NOTICE]: SpecificStorativity[5] = 1.000000e-07 (default)
+[NOTICE]: InitSoilPressureBedrock[0] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[1] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[2] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[3] = -9.999000e+03
+[NOTICE]: InitSoilPressureBedrock[4] = -9.999000e+03
+[NOTICE]: InitSoilTempBedrock[0] = 1.400000e+01
+[NOTICE]: InitSoilTempBedrock[1] = 1.400000e+01 (default)
+[NOTICE]: InitSoilTempBedrock[2] = 1.400000e+01 (default)
+[NOTICE]: InitSoilTempBedrock[3] = 1.400000e+01 (default)
+[NOTICE]: InitSoilTempBedrock[4] = 1.400000e+01 (default)
+[NOTICE]: NormalHydrConductivityBedrock[0] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[1] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[2] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[3] = -9.999000e+03
+[NOTICE]: NormalHydrConductivityBedrock[4] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[0] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[1] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[2] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[3] = -9.999000e+03
+[NOTICE]: LateralHydrConductivityBedrock[4] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[0] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[1] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[2] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[3] = -9.999000e+03
+[NOTICE]: ThetaResBedrock[4] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[0] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[1] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[2] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[3] = -9.999000e+03
+[NOTICE]: WiltingPointBedrock[4] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[0] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[1] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[2] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[3] = -9.999000e+03
+[NOTICE]: FieldCapacityBedrock[4] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[0] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[1] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[2] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[3] = -9.999000e+03
+[NOTICE]: ThetaSatBedrock[4] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[0] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[1] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[2] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[3] = -9.999000e+03
+[NOTICE]: AlphaVanGenuchtenBedrock[4] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[0] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[1] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[2] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[3] = -9.999000e+03
+[NOTICE]: NVanGenuchtenBedrock[4] = -9.999000e+03
+[NOTICE]: VMualemBedrock[0] = -9.999000e+03
+[NOTICE]: VMualemBedrock[1] = -9.999000e+03
+[NOTICE]: VMualemBedrock[2] = -9.999000e+03
+[NOTICE]: VMualemBedrock[3] = -9.999000e+03
+[NOTICE]: VMualemBedrock[4] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[0] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[1] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[2] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[3] = -9.999000e+03
+[NOTICE]: ThermalConductivitySoilSolidsBedrock[4] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[0] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[1] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[2] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[3] = -9.999000e+03
+[NOTICE]: ThermalCapacitySoilSolidsBedrock[4] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[0] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[1] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[2] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[3] = -9.999000e+03
+[NOTICE]: SpecificStorativityBedrock[4] = -9.999000e+03
+[NOTICE]: MeteoStationsID[0] = -9.999000e+03
+[NOTICE]: NumberOfMeteoStations[1] = 1.000000e+00
+[NOTICE]: MeteoStationCoordinateX[0] = 6.099041e+05
+[NOTICE]: MeteoStationCoordinateY[0] = 4.345653e+06
+[NOTICE]: MeteoStationLatitude[0] = 4.025000e+01
+[NOTICE]: MeteoStationLongitude[0] = 1.631000e+01
+[NOTICE]: MeteoStationElevation[0] = 3.000000e+02
+[NOTICE]: MeteoStationSkyViewFactor[0] = 1.000000e+00
+[NOTICE]: MeteoStationStandardTime[0] = 1.000000e+00
+[NOTICE]: MeteoStationWindVelocitySensorHeight[0] = 1.000000e+01
+[NOTICE]: MeteoStationTemperatureSensorHeight[0] = 2.000000e+00
+[NOTICE]: LapseRateTemp[0] = 6.500000e+00
+[NOTICE]: LapseRateDewTemp[0] = -9.999000e+03
+[NOTICE]: LapseRatePrec[0] = -2.000000e-01
+[NOTICE]: LapseRateTemp[0] = 6.500000e+00
+[NOTICE]: LapseRateDewTemp[0] = -9.999000e+03
+[NOTICE]: LapseRatePrec[0] = -2.000000e-01
+[NOTICE]: MinPrecIncreaseFactorWithElev[1] = 1.000000e-01
+[NOTICE]: MaxPrecDecreaseFactorWithElev[1] = 4.400000e+00
+[NOTICE]: PointAll[1] = 1.000000e+00
+[NOTICE]: BasinAll[1] = 0.000000e+00
+[NOTICE]: DateBasin[1] = -1.000000e+00
+[NOTICE]: JulianDayFromYear0Basin[1] = -1.000000e+00
+[NOTICE]: TimeFromStartBasin[1] = -1.000000e+00
+[NOTICE]: PeriodBasin[1] = -1.000000e+00
+[NOTICE]: RunBasin[1] = -1.000000e+00
+[NOTICE]: PRainNetBasin[1] = -1.000000e+00
+[NOTICE]: PSnowNetBasin[1] = -1.000000e+00
+[NOTICE]: PRainBasin[1] = -1.000000e+00
+[NOTICE]: PSnowBasin[1] = -1.000000e+00
+[NOTICE]: PNetBasin[1] = -1.000000e+00
+[NOTICE]: AirTempBasin[1] = -1.000000e+00
+[NOTICE]: TSurfBasin[1] = -1.000000e+00
+[NOTICE]: TvegBasin[1] = -1.000000e+00
+[NOTICE]: EvapSurfaceBasin[1] = -1.000000e+00
+[NOTICE]: TraspCanopyBasin[1] = -1.000000e+00
+[NOTICE]: LEBasin[1] = -1.000000e+00
+[NOTICE]: HBasin[1] = -1.000000e+00
+[NOTICE]: SWNetBasin[1] = -1.000000e+00
+[NOTICE]: LWNetBasin[1] = -1.000000e+00
+[NOTICE]: LEvBasin[1] = -1.000000e+00
+[NOTICE]: HvBasin[1] = -1.000000e+00
+[NOTICE]: SWvBasin[1] = -1.000000e+00
+[NOTICE]: LWvBasin[1] = -1.000000e+00
+[NOTICE]: SWinBasin[1] = -1.000000e+00
+[NOTICE]: LWinBasin[1] = -1.000000e+00
+[NOTICE]: MassErrorBasin[1] = -1.000000e+00
+[NOTICE]: MeanTimeStep[1] = -1.000000e+00
+[NOTICE]: SoilPlotDepths[0] = -9.999000e+03
+[NOTICE]: SnowPlotDepths[0] = -9.999000e+03
+[NOTICE]: GlacPlotDepths[0] = -9.999000e+03
+[NOTICE]: SnowAll[1] = 1.000000e+00
+[NOTICE]: GlacAll[1] = 0.000000e+00
+[NOTICE]: SnowAll[1] = 1.000000e+00
+[NOTICE]: SnowAll[1] = 1.000000e+00
+[NOTICE]: SnowAll[1] = 1.000000e+00
+[NOTICE]: SnowAll[1] = 1.000000e+00
+[NOTICE]: SnowAll[1] = 1.000000e+00
+[NOTICE]: SnowAll[1] = 1.000000e+00
+[NOTICE]: IDPointGlac[0] = -1.000000e+00
+[NOTICE]: TempGlac[0] = -1.000000e+00
+[NOTICE]: IceContentGlac[0] = -1.000000e+00
+[NOTICE]: WatContentGlac[0] = -1.000000e+00
+[NOTICE]: SoilAll[1] = 1.000000e+00
+[NOTICE]: RicalculateCloudiness[1] = 0.000000e+00
+[NOTICE]: DewTemperatureAsRH[1] = 1.000000e+00
+[NOTICE]: RHAsDewTemperature[1] = 0.000000e+00
+[NOTICE]: NumberDayIntervalsToCalculateCloudiness[1] = 3.000000e+00
+[NOTICE]: CalculateCastShadow[1] = 1.000000e+00
+[NOTICE]: WindAsSpeedAndDirection[1] = 1.000000e+00
+[NOTICE]: WindAsWindXAndWindY[1] = 0.000000e+00
+[NOTICE]: SnowAgingCoeffVis[1] = 2.000000e-01
+[NOTICE]: SnowAgingCoeffNIR[1] = 5.000000e-01
+[NOTICE]: DepthFreeSurfaceAtTheBoundary[1] = 0.000000e+00
+[NOTICE]: PrecAsIntensity[1] = 0.000000e+00
+[NOTICE]: LinearInterpolation[0] = 0.000000e+00
+[NOTICE]: OutputDepthsVertical[1] = 0.000000e+00
+[NOTICE]: UpwindBorderBlowingSnow[1] = 0.000000e+00
+[NOTICE]: UpdateHydraulicConductivity[1] = 0.000000e+00
+[NOTICE]: ContinuousRecovery[1] = 0.000000e+00
+[NOTICE]: ActualOrProjectedArea[1] = 0.000000e+00
+[NOTICE]: MinRatioKactualToKSat[1] = 0.000000e+00
+[NOTICE]: RunIfAnOldRunIsPresent[1] = 1.000000e+00
+[NOTICE]: MaxCourantSupFlowChannelLand[1] = 1.000000e-01
+[NOTICE]: MinDiffSupWaterDepthChannelLand[1] = 1.000000e+00
+[NOTICE]: SpinUpLayerBottom[0] = 1.000000e+04
+[NOTICE]: InitInNewPeriods[1] = 0.000000e+00
+[NOTICE]: KonzelmannA[1] = 4.840000e-01
+[NOTICE]: KonzelmannB[1] = 8.000000e+00
+[NOTICE]: Lozone[1] = 3.000000e-01
+[NOTICE]: AngstromAlpha[1] = 1.300000e+00
+[NOTICE]: AngstromBeta[1] = 1.000000e-01
+[NOTICE]: ConsiderAlbedoInSWin[1] = 0.000000e+00
+[NOTICE]: ConsiderMicrometeorology[1] = 1.000000e+00
+[NOTICE]: SurfaceEnergyFlux[1] = -9.999000e+03 (default)
+[NOTICE]: ConvectiveHeatTransferCoefficient[1] = -9.999000e+03 (default)
+[NOTICE]: SurfaceTemperature[1] = -9.999000e+03 (default)
+[NOTICE]: BaseAirTemperature[1] = 5.000000e+00
+[NOTICE]: BaseRelativeHumidity[1] = 7.000000e+01
+[NOTICE]: BaseWindSpeed[1] = 5.000000e-01
+[NOTICE]: BaseWindDirection[1] = 0.000000e+00
+[NOTICE]: BaseIPrec[1] = 0.000000e+00
+[NOTICE]: DefaultSoilTypeBedrock[1] = 1.000000e+00
+[NOTICE]: MinPrecToRestoreFreshSnowAlbedo[1] = 1.000000e+01
+[NOTICE]: SnowThermalConductivityPar[1] = 1.000000e+00
+[NOTICE]: WindCompaction1D[1] = 0.000000e+00
+[NOTICE]: DDChannel[1] = 1.000000e+00
+[NOTICE]: DDLand[1] = 1.000000e+00
+[NOTICE]: HeaderDateDDMMYYYYhhmmMeteo = POSIX
+[NOTICE]: HeaderJulianDayfrom0Meteo = JD
+[NOTICE]: HeaderIPrec = Iprec
+[NOTICE]: HeaderPrec = none
+[NOTICE]: HeaderWindVelocity = WindSp
+[NOTICE]: HeaderWindDirection = WindDir
+[NOTICE]: HeaderWindX = none
+[NOTICE]: HeaderWindY = none
+[NOTICE]: HeaderRH = RH
+[NOTICE]: HeaderAirTemp = AirT
+[NOTICE]: HeaderDewTemp = none
+[NOTICE]: HeaderSWglobal = Swglob
+[NOTICE]: HeaderSWdirect = none
+[NOTICE]: HeaderSWdiffuse = none
+[NOTICE]: HeaderCloudSWTransmissivity = CloudTrans
+[NOTICE]: HeaderCloudFactor = none
+[NOTICE]: HeaderLWin = none
+[NOTICE]: HeaderSWnet = none
+[NOTICE]: HeaderSurfaceTemperature = none
+[NOTICE]: HeaderSoilDz = Dz
+[NOTICE]: HeaderSoilInitPres = none
+[NOTICE]: HeaderSoilInitTemp = none
+[NOTICE]: HeaderNormalHydrConductivity = Kv
+[NOTICE]: HeaderLateralHydrConductivity = Kh
+[NOTICE]: HeaderThetaRes = res
+[NOTICE]: HeaderWiltingPoint = none
+[NOTICE]: HeaderFieldCapacity = fc
+[NOTICE]: HeaderThetaSat = sat
+[NOTICE]: HeaderAlpha = a
+[NOTICE]: HeaderN = n
+[NOTICE]: HeaderV = none
+[NOTICE]: HeaderKthSoilSolids = none
+[NOTICE]: HeaderCthSoilSolids = none
+[NOTICE]: HeaderSpecificStorativity = SS
+[NOTICE]: HeaderHorizonAngle = azimuth
+[NOTICE]: HeaderHorizonHeight = horizon_ele
+[NOTICE]: TimeStepsFile = none
+[NOTICE]: SoilParFile = soil/soil
+[NOTICE]: MeteoFile = meteo/meteo
+[NOTICE]: MeteoStationsListFile = none
+[NOTICE]: LapseRateFile = none
+[NOTICE]: HorizonMeteoStationFile = none
+[NOTICE]: PointFile = listpoints
+[NOTICE]: HorizonPointFile = none
+[NOTICE]: TimeDependentVegetationParameterFile = none
+[NOTICE]: TimeDependentIncomingDischargeFile = none
+[NOTICE]: DemFile = input_maps/pit
+[NOTICE]: LandCoverMapFile = none
+[NOTICE]: SoilMapFile = none
+[NOTICE]: DaysDelayMapFile = none
+[NOTICE]: SkyViewFactorMapFile = input_maps/sky
+[NOTICE]: SlopeMapFile = none
+[NOTICE]: RiverNetwork = none
+[NOTICE]: AspectMapFile = none
+[NOTICE]: CurvaturesMapFile = none
+[NOTICE]: BedrockDepthMapFile = none
+[NOTICE]: InitWaterTableDepthMapFile = none
+[NOTICE]: InitSnowDepthMapFile = none
+[NOTICE]: InitSWEMapFile = none
+[NOTICE]: InitSnowAgeMapFile = none
+[NOTICE]: InitGlacierDepthMapFile = none
+[NOTICE]: DischargeFile = output-tabs/discharge
+[NOTICE]: BasinOutputFile = none
+[NOTICE]: BasinOutputFileWriteEnd = none
+[NOTICE]: PointOutputFile = output-tabs/point
+[NOTICE]: PointOutputFileWriteEnd = none
+[NOTICE]: SoilTempProfileFile = output-tabs/soiltemp
+[NOTICE]: SoilTempProfileFileWriteEnd = none
+[NOTICE]: SoilAveragedTempProfileFile = none
+[NOTICE]: SoilAveragedTempProfileFileWriteEnd = none
+[NOTICE]: SoilLiqWaterPressProfileFile = output-tabs/soilpsi
+[NOTICE]: SoilLiqWaterPressProfileFileWriteEnd = none
+[NOTICE]: SoilTotWaterPressProfileFile = none
+[NOTICE]: SoilTotWaterPressProfileFileWriteEnd = none
+[NOTICE]: SoilLiqContentProfileFile = output-tabs/thetaliq
+[NOTICE]: SoilLiqContentProfileFileWriteEnd = none
+[NOTICE]: SoilAveragedLiqContentProfileFile = none
+[NOTICE]: SoilAveragedLiqContentProfileFileWriteEnd = none
+[NOTICE]: SoilIceContentProfileFile = none
+[NOTICE]: SoilIceContentProfileFileWriteEnd = none
+[NOTICE]: SoilAveragedIceContentProfileFile = none
+[NOTICE]: SoilAveragedIceContentProfileFileWriteEnd = none
+[NOTICE]: SoilSaturationRatioProfileFile = none
+[NOTICE]: SnowTempProfileFile = none
+[NOTICE]: SnowLiqContentProfileFile = none
+[NOTICE]: SnowIceContentProfileFile = none
+[NOTICE]: SnowDepthLayersFile = none
+[NOTICE]: SnowTempProfileFileWriteEnd = none
+[NOTICE]: SnowLiqContentProfileFileWriteEnd = none
+[NOTICE]: SnowIceContentProfileFileWriteEnd = none
+[NOTICE]: SnowDepthLayersFileWriteEnd = none
+[NOTICE]: GlacierProfileFile = none
+[NOTICE]: GlacierProfileFileWriteEnd = none
+[NOTICE]: SnowCoveredAreaFile = none
+[NOTICE]: RunSoilAveragedTemperatureFile = none
+[NOTICE]: RunSoilAveragedTotalSoilMoistureFile = none
+[NOTICE]: RunSoilAveragedInternalEnergyFile = none
+[NOTICE]: RunSoilAveragedSnowWaterEquivalentFile = none
+[NOTICE]: RunSoilMaximumTemperatureFile = none
+[NOTICE]: RunSoilMinimumTemperatureFile = none
+[NOTICE]: RunSoilMaximumTotalSoilMoistureFile = none
+[NOTICE]: RunSoilMinimumTotalSoilMoistureFile = none
+[NOTICE]: SoilTempTensorFile = none
+[NOTICE]: FirstSoilLayerTempMapFile = none
+[NOTICE]: SoilAveragedTempTensorFile = none
+[NOTICE]: FirstSoilLayerAveragedTempMapFile = none
+[NOTICE]: SoilLiqContentTensorFile = none
+[NOTICE]: FirstSoilLayerLiqContentMapFile = none
+[NOTICE]: SoilAveragedLiqContentTensorFile = none
+[NOTICE]: SoilIceContentTensorFile = none
+[NOTICE]: FirstSoilLayerIceContentMapFile = none
+[NOTICE]: SoilAveragedIceContentTensorFile = none
+[NOTICE]: LandSurfaceWaterDepthMapFile = none
+[NOTICE]: ChannelSurfaceWaterDepthMapFile = none
+[NOTICE]: NetRadiationMapFile = none
+[NOTICE]: InLongwaveRadiationMapFile = none
+[NOTICE]: NetLongwaveRadiationMapFile = none
+[NOTICE]: NetShortwaveRadiationMapFile = none
+[NOTICE]: InShortwaveRadiationMapFile = none
+[NOTICE]: DirectInShortwaveRadiationMapFile = none
+[NOTICE]: ShadowFractionTimeMapFile = none
+[NOTICE]: SurfaceHeatFluxMapFile = none
+[NOTICE]: SurfaceSensibleHeatFluxMapFile = none
+[NOTICE]: SurfaceLatentHeatFluxMapFile = none
+[NOTICE]: SurfaceTempMapFile = none
+[NOTICE]: PrecipitationMapFile = none
+[NOTICE]: CanopyInterceptedWaterMapFile = none
+[NOTICE]: SoilLiqWaterPressTensorFile = none
+[NOTICE]: SoilTotWaterPressTensorFile = none
+[NOTICE]: SnowDepthMapFile = none
+[NOTICE]: GlacierDepthMapFile = none
+[NOTICE]: SnowMeltedMapFile = none
+[NOTICE]: SnowSublMapFile = none
+[NOTICE]: GlacierMeltedMapFile = none
+[NOTICE]: GlacierSublimatedMapFile = none
+[NOTICE]: AirTempMapFile = none
+[NOTICE]: WindSpeedMapFile = none
+[NOTICE]: WindDirMapFile = none
+[NOTICE]: RelHumMapFile = none
+[NOTICE]: SWEMapFile = none
+[NOTICE]: GlacierWaterEqMapFile = none
+[NOTICE]: SnowDurationMapFile = none
+[NOTICE]: ThawedSoilDepthMapFile = none
+[NOTICE]: ThawedSoilDepthFromAboveMapFile = none
+[NOTICE]: WaterTableDepthMapFile = none
+[NOTICE]: WaterTableDepthFromAboveMapFile = none
+[NOTICE]: HNMapFile = none
+[NOTICE]: NetPrecipitationMapFile = none
+[NOTICE]: EvapotranspirationFromSoilMapFile = none
+[NOTICE]: SpecificPlotSurfaceHeatFluxMapFile = none
+[NOTICE]: SpecificPlotTotalSensibleHeatFluxMapFile = none
+[NOTICE]: SpecificPlotTotalLatentHeatFluxMapFile = none
+[NOTICE]: SpecificPlotSurfaceSensibleHeatFluxMapFile = none
+[NOTICE]: SpecificPlotSurfaceLatentHeatFluxMapFile = none
+[NOTICE]: SpecificPlotVegSensibleHeatFluxMapFile = none
+[NOTICE]: SpecificPlotVegLatentHeatFluxMapFile = none
+[NOTICE]: SpecificPlotIncomingShortwaveRadMapFile = none
+[NOTICE]: SpecificPlotNetSurfaceShortwaveRadMapFile = none
+[NOTICE]: SpecificPlotNetVegShortwaveRadMapFile = none
+[NOTICE]: SpecificPlotIncomingLongwaveRadMapFile = none
+[NOTICE]: SpecificPlotNetSurfaceLongwaveRadMapFile = none
+[NOTICE]: SpecificPlotNetVegLongwaveRadMapFile = none
+[NOTICE]: SpecificPlotCanopyAirTempMapFile = none
+[NOTICE]: SpecificPlotSurfaceTempMapFile = none
+[NOTICE]: SpecificPlotVegTempMapFile = none
+[NOTICE]: SpecificPlotAboveVegAirTempMapFile = none
+[NOTICE]: SpecificPlotWindSpeedMapFile = none
+[NOTICE]: SpecificPlotWindDirMapFile = none
+[NOTICE]: SpecificPlotRelHumMapFile = none
+[NOTICE]: SpecificPlotSnowDepthMapFile = none
+[NOTICE]: SpecificPlotSurfaceWaterContentMapFile = none
+[NOTICE]: RecoverSoilWatPres = none
+[NOTICE]: RecoverSoilIceCont = none
+[NOTICE]: RecoverSoilTemp = none
+[NOTICE]: RecoverSnowLayerThick = none
+[NOTICE]: RecoverSnowLiqMass = none
+[NOTICE]: RecoverSnowIceMass = none
+[NOTICE]: RecoverSnowTemp = none
+[NOTICE]: RecoverGlacierLayerThick = none
+[NOTICE]: RecoverGlacierLiqMass = none
+[NOTICE]: RecoverGlacierIceMass = none
+[NOTICE]: RecoverGlacierTemp = none
+[NOTICE]: RecoverSnowLayerNumber = none
+[NOTICE]: RecoverGlacierLayerNumber = none
+[NOTICE]: RecoverNonDimensionalSnowAge = none
+[NOTICE]: RecoverLiqWaterOnCanopy = none
+[NOTICE]: RecoverSnowOnCanopy = none
+[NOTICE]: RecoverVegTemp = none
+[NOTICE]: RecoverSoilWatPresChannel = none
+[NOTICE]: RecoverSoilIceContChannel = none
+[NOTICE]: RecoverSoilTempChannel = none
+[NOTICE]: RecoverRunSoilAveragedTemperatureFile = none
+[NOTICE]: RecoverRunSoilAveragedTotalSoilMoistureFile = none
+[NOTICE]: RecoverRunSoilAveragedInternalEnergyFile = none
+[NOTICE]: RecoverRunSoilAveragedSnowWaterEquivalentFile = none
+[NOTICE]: RecoverRunSoilMaximumTemperatureFile = none
+[NOTICE]: RecoverRunSoilMinimumTemperatureFile = none
+[NOTICE]: RecoverRunSoilMaximumTotalSoilMoistureFile = none
+[NOTICE]: RecoverRunSoilMinimumTotalSoilMoistureFile = none
+[NOTICE]: RecoverTime = none
+[NOTICE]: SuccessfulRecoveryFile = none
+[NOTICE]: HeaderDatePoint = none
+[NOTICE]: HeaderJulianDayFromYear0Point = none
+[NOTICE]: HeaderTimeFromStartPoint = none
+[NOTICE]: HeaderPeriodPoint = none
+[NOTICE]: HeaderRunPoint = none
+[NOTICE]: HeaderIDPointPoint = none
+[NOTICE]: HeaderPsnowPoint = none
+[NOTICE]: HeaderPrainPoint = none
+[NOTICE]: HeaderPsnowNetPoint = none
+[NOTICE]: HeaderPrainNetPoint = none
+[NOTICE]: HeaderPrainOnSnowPoint = none
+[NOTICE]: HeaderWindSpeedPoint = none
+[NOTICE]: HeaderWindDirPoint = none
+[NOTICE]: HeaderRHPoint = none
+[NOTICE]: HeaderAirPressPoint = none
+[NOTICE]: HeaderAirTempPoint = none
+[NOTICE]: HeaderTDewPoint = none
+[NOTICE]: HeaderTsurfPoint = none
+[NOTICE]: HeaderTvegPoint = none
+[NOTICE]: HeaderTCanopyAirPoint = none
+[NOTICE]: HeaderSurfaceEBPoint = none
+[NOTICE]: HeaderSoilHeatFluxPoint = none
+[NOTICE]: HeaderSWinPoint = none
+[NOTICE]: HeaderSWbeamPoint = none
+[NOTICE]: HeaderSWdiffPoint = none
+[NOTICE]: HeaderLWinPoint = none
+[NOTICE]: HeaderLWinMinPoint = none
+[NOTICE]: HeaderLWinMaxPoint = none
+[NOTICE]: HeaderSWNetPoint = none
+[NOTICE]: HeaderLWNetPoint = none
+[NOTICE]: HeaderHPoint = none
+[NOTICE]: HeaderLEPoint = none
+[NOTICE]: HeaderCanopyFractionPoint = none
+[NOTICE]: HeaderLSAIPoint = none
+[NOTICE]: Headerz0vegPoint = none
+[NOTICE]: Headerd0vegPoint = none
+[NOTICE]: HeaderEstoredCanopyPoint = none
+[NOTICE]: HeaderSWvPoint = none
+[NOTICE]: HeaderLWvPoint = none
+[NOTICE]: HeaderHvPoint = none
+[NOTICE]: HeaderLEvPoint = none
+[NOTICE]: HeaderHgUnvegPoint = none
+[NOTICE]: HeaderLEgUnvegPoint = none
+[NOTICE]: HeaderHgVegPoint = none
+[NOTICE]: HeaderLEgVegPoint = none
+[NOTICE]: HeaderEvapSurfacePoint = none
+[NOTICE]: HeaderTraspCanopyPoint = none
+[NOTICE]: HeaderWaterOnCanopyPoint = none
+[NOTICE]: HeaderSnowOnCanopyPoint = none
+[NOTICE]: HeaderQVegPoint = none
+[NOTICE]: HeaderQSurfPoint = none
+[NOTICE]: HeaderQAirPoint = none
+[NOTICE]: HeaderQCanopyAirPoint = none
+[NOTICE]: HeaderLObukhovPoint = none
+[NOTICE]: HeaderLObukhovCanopyPoint = none
+[NOTICE]: HeaderWindSpeedTopCanopyPoint = none
+[NOTICE]: HeaderDecayKCanopyPoint = none
+[NOTICE]: HeaderSWupPoint = none
+[NOTICE]: HeaderLWupPoint = none
+[NOTICE]: HeaderHupPoint = none
+[NOTICE]: HeaderLEupPoint = none
+[NOTICE]: HeaderSnowDepthPoint = none
+[NOTICE]: HeaderSWEPoint = none
+[NOTICE]: HeaderSnowDensityPoint = none
+[NOTICE]: HeaderSnowTempPoint = none
+[NOTICE]: HeaderSnowMeltedPoint = none
+[NOTICE]: HeaderSnowSublPoint = none
+[NOTICE]: HeaderSWEBlownPoint = none
+[NOTICE]: HeaderSWESublBlownPoint = none
+[NOTICE]: HeaderGlacDepthPoint = none
+[NOTICE]: HeaderGWEPoint = none
+[NOTICE]: HeaderGlacDensityPoint = none
+[NOTICE]: HeaderGlacTempPoint = none
+[NOTICE]: HeaderGlacMeltedPoint = none
+[NOTICE]: HeaderGlacSublPoint = none
+[NOTICE]: HeaderLowestThawedSoilDepthPoint = none
+[NOTICE]: HeaderHighestThawedSoilDepthPoint = none
+[NOTICE]: HeaderLowestWaterTableDepthPoint = none
+[NOTICE]: HeaderHighestWaterTableDepthPoint = none
+[NOTICE]: HeaderDateBasin = none
+[NOTICE]: HeaderJulianDayFromYear0Basin = none
+[NOTICE]: HeaderTimeFromStartBasin = none
+[NOTICE]: HeaderPeriodBasin = none
+[NOTICE]: HeaderRunBasin = none
+[NOTICE]: HeaderPRainNetBasin = none
+[NOTICE]: HeaderPSnowNetBasin = none
+[NOTICE]: HeaderPRainBasin = none
+[NOTICE]: HeaderPSnowBasin = none
+[NOTICE]: HeaderPNetBasin = none
+[NOTICE]: HeaderAirTempBasin = none
+[NOTICE]: HeaderTSurfBasin = none
+[NOTICE]: HeaderTvegBasin = none
+[NOTICE]: HeaderEvapSurfaceBasin = none
+[NOTICE]: HeaderTraspCanopyBasin = none
+[NOTICE]: HeaderLEBasin = none
+[NOTICE]: HeaderHBasin = none
+[NOTICE]: HeaderSWNetBasin = none
+[NOTICE]: HeaderLWNetBasin = none
+[NOTICE]: HeaderLEvBasin = none
+[NOTICE]: HeaderHvBasin = none
+[NOTICE]: HeaderSWvBasin = none
+[NOTICE]: HeaderLWvBasin = none
+[NOTICE]: HeaderSWinBasin = none
+[NOTICE]: HeaderLWinBasin = none
+[NOTICE]: HeaderMeanTimeStep = none
+[NOTICE]: HeaderTimeStepAverage = none
+[NOTICE]: HeaderDateSnow = none
+[NOTICE]: HeaderJulianDayFromYear0Snow = none
+[NOTICE]: HeaderTimeFromStartSnow = none
+[NOTICE]: HeaderPeriodSnow = none
+[NOTICE]: HeaderRunSnow = none
+[NOTICE]: HeaderIDPointSnow = none
+[NOTICE]: HeaderTempSnow = none
+[NOTICE]: HeaderIceContentSnow = none
+[NOTICE]: HeaderWatContentSnow = none
+[NOTICE]: HeaderDepthSnow = none
+[NOTICE]: HeaderDateGlac = none
+[NOTICE]: HeaderJulianDayFromYear0Glac = none
+[NOTICE]: HeaderTimeFromStartGlac = none
+[NOTICE]: HeaderPeriodGlac = none
+[NOTICE]: HeaderRunGlac = none
+[NOTICE]: HeaderIDPointGlac = none
+[NOTICE]: HeaderTempGlac = none
+[NOTICE]: HeaderIceContentGlac = none
+[NOTICE]: HeaderWatContentGlac = none
+[NOTICE]: HeaderDepthGlac = none
+[NOTICE]: HeaderDateSoil = none
+[NOTICE]: HeaderJulianDayFromYear0Soil = none
+[NOTICE]: HeaderTimeFromStartSoil = none
+[NOTICE]: HeaderPeriodSoil = none
+[NOTICE]: HeaderRunSoil = none
+[NOTICE]: HeaderIDPointSoil = none
+[NOTICE]: HeaderCoordinatePointX = xcoord
+[NOTICE]: HeaderCoordinatePointY = ycoord
+[NOTICE]: HeaderPointID = ID
+[NOTICE]: HeaderPointElevation = zcoord
+[NOTICE]: HeaderPointLandCoverType = landcover
+[NOTICE]: HeaderPointSoilType = soiltype
+[NOTICE]: HeaderPointSlope = slope
+[NOTICE]: HeaderPointAspect = aspect
+[NOTICE]: HeaderPointSkyViewFactor = sky
+[NOTICE]: HeaderPointCurvatureNorthSouthDirection = none
+[NOTICE]: HeaderPointCurvatureWestEastDirection = none
+[NOTICE]: HeaderPointCurvatureNorthwestSoutheastDirection = none
+[NOTICE]: HeaderPointCurvatureNortheastSouthwestDirection = none
+[NOTICE]: HeaderPointDepthFreeSurface = none
+[NOTICE]: HeaderPointHorizon = none
+[NOTICE]: HeaderPointMaxSWE = none
+[NOTICE]: HeaderPointLatitude = none
+[NOTICE]: HeaderPointLongitude = none
+[NOTICE]: HeaderPointBedrockDepth = bedrock
+[NOTICE]: HeaderDateDDMMYYYYhhmmLapseRates = none
+[NOTICE]: HeaderLapseRateTemp = none
+[NOTICE]: HeaderLapseRateDewTemp = none
+[NOTICE]: HeaderLapseRatePrec = none
+[NOTICE]: HeaderIDMeteoStation = none
+[NOTICE]: HeaderMeteoStationCoordinateX = none
+[NOTICE]: HeaderMeteoStationCoordinateY = none
+[NOTICE]: HeaderMeteoStationLatitude = none
+[NOTICE]: HeaderMeteoStationLongitude = none
+[NOTICE]: HeaderMeteoStationElevation = none
+[NOTICE]: HeaderMeteoStationSkyViewFactor = none
+[NOTICE]: HeaderMeteoStationStandardTime = none
+[NOTICE]: SuccessfulRunFile = none
+[NOTICE]: FailedRunFile = none
+[NOTICE]: SubfolderRecoveryFiles = rec
+[NOTICE]: file index SPAR (soil parameter) 1
+[NOTICE]: file name assigned : /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/soil/soil 
+
+[NOTICE]: Column 1 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/soil/soil0001.txt assigned to Dz
+[NOTICE]: Column 3 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/soil/soil0001.txt assigned to Kv
+[NOTICE]: Column 2 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/soil/soil0001.txt assigned to Kh
+[NOTICE]: Column 4 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/soil/soil0001.txt assigned to res
+[NOTICE]: Column 5 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/soil/soil0001.txt assigned to sat
+[NOTICE]: Column 6 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/soil/soil0001.txt assigned to a
+[NOTICE]: Column 7 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/soil/soil0001.txt assigned to n
+[NOTICE]: Column 8 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/soil/soil0001.txt assigned to SS
+[NOTICE]: Soil Layers: 7
+[NOTICE]: -> Soil Type: 1
+[NOTICE]: HeaderSoilDz: 
+[NOTICE]: 1000.000000(1.00e+03)
+[NOTICE]: 1000.000000(1.00e+03)
+[NOTICE]: 1000.000000(1.00e+03)
+[NOTICE]: 1000.000000(1.00e+03)
+[NOTICE]: 1000.000000(1.00e+03)
+[NOTICE]: 1000.000000(1.00e+03)
+[NOTICE]: 1000.000000(1.00e+03)
+[NOTICE]: HeaderSoilInitPres: 
+[NOTICE]: -9999.000000(-1.00e+04)
+[NOTICE]: -9999.000000(-1.00e+04)
+[NOTICE]: -9999.000000(-1.00e+04)
+[NOTICE]: -9999.000000(-1.00e+04)
+[NOTICE]: -9999.000000(-1.00e+04)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: HeaderSoilInitTemp: 
+[NOTICE]: 14.000000(1.40e+01)
+[NOTICE]: 14.000000(1.40e+01)
+[NOTICE]: 14.000000(1.40e+01)
+[NOTICE]: 14.000000(1.40e+01)
+[NOTICE]: 14.000000(1.40e+01)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: HeaderNormalHydrConductivity: 
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: HeaderLateralHydrConductivity: 
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: HeaderThetaRes: 
+[NOTICE]: 0.100000(1.00e-01)
+[NOTICE]: 0.100000(1.00e-01)
+[NOTICE]: 0.100000(1.00e-01)
+[NOTICE]: 0.100000(1.00e-01)
+[NOTICE]: 0.100000(1.00e-01)
+[NOTICE]: 0.100000(1.00e-01)
+[NOTICE]: 0.100000(1.00e-01)
+[NOTICE]: HeaderWiltingPoint: 
+[NOTICE]: 0.115651(1.16e-01)
+[NOTICE]: 0.115651(1.16e-01)
+[NOTICE]: 0.115651(1.16e-01)
+[NOTICE]: 0.115651(1.16e-01)
+[NOTICE]: 0.115651(1.16e-01)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: HeaderFieldCapacity: 
+[NOTICE]: 0.254134(2.54e-01)
+[NOTICE]: 0.254134(2.54e-01)
+[NOTICE]: 0.254134(2.54e-01)
+[NOTICE]: 0.254134(2.54e-01)
+[NOTICE]: 0.254134(2.54e-01)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: HeaderThetaSat: 
+[NOTICE]: 0.600000(6.00e-01)
+[NOTICE]: 0.600000(6.00e-01)
+[NOTICE]: 0.600000(6.00e-01)
+[NOTICE]: 0.600000(6.00e-01)
+[NOTICE]: 0.600000(6.00e-01)
+[NOTICE]: 0.600000(6.00e-01)
+[NOTICE]: 0.600000(6.00e-01)
+[NOTICE]: HeaderAlpha: 
+[NOTICE]: 0.001000(1.00e-03)
+[NOTICE]: 0.001000(1.00e-03)
+[NOTICE]: 0.001000(1.00e-03)
+[NOTICE]: 0.001000(1.00e-03)
+[NOTICE]: 0.001000(1.00e-03)
+[NOTICE]: 0.001000(1.00e-03)
+[NOTICE]: 0.001000(1.00e-03)
+[NOTICE]: HeaderN: 
+[NOTICE]: 1.800000(1.80e+00)
+[NOTICE]: 1.800000(1.80e+00)
+[NOTICE]: 1.800000(1.80e+00)
+[NOTICE]: 1.800000(1.80e+00)
+[NOTICE]: 1.800000(1.80e+00)
+[NOTICE]: 1.800000(1.80e+00)
+[NOTICE]: 1.800000(1.80e+00)
+[NOTICE]: HeaderV: 
+[NOTICE]: 0.500000(5.00e-01)
+[NOTICE]: 0.500000(5.00e-01)
+[NOTICE]: 0.500000(5.00e-01)
+[NOTICE]: 0.500000(5.00e-01)
+[NOTICE]: 0.500000(5.00e-01)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: HeaderKthSoilSolids: 
+[NOTICE]: 2.500000(2.50e+00)
+[NOTICE]: 2.500000(2.50e+00)
+[NOTICE]: 2.500000(2.50e+00)
+[NOTICE]: 2.500000(2.50e+00)
+[NOTICE]: 2.500000(2.50e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: HeaderCthSoilSolids: 
+[NOTICE]: 2300000.000000(2.30e+06)
+[NOTICE]: 2300000.000000(2.30e+06)
+[NOTICE]: 2300000.000000(2.30e+06)
+[NOTICE]: 2300000.000000(2.30e+06)
+[NOTICE]: 2300000.000000(2.30e+06)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: HeaderSpecificStorativity: 
+[NOTICE]: 0.000001(1.00e-06)
+[NOTICE]: 0.000001(1.00e-06)
+[NOTICE]: 0.000001(1.00e-06)
+[NOTICE]: 0.000001(1.00e-06)
+[NOTICE]: 0.000001(1.00e-06)
+[NOTICE]: 0.000001(1.00e-06)
+[NOTICE]: 0.000001(1.00e-06)
+[NOTICE]: Soil Bedrock Layers: 7
+[NOTICE]: -> Soil Type: 1
+[NOTICE]: HeaderSoilDz: 
+[NOTICE]: 1000.000000(1.00e+03)
+[NOTICE]: 1000.000000(1.00e+03)
+[NOTICE]: 1000.000000(1.00e+03)
+[NOTICE]: 1000.000000(1.00e+03)
+[NOTICE]: 1000.000000(1.00e+03)
+[NOTICE]: 1000.000000(1.00e+03)
+[NOTICE]: 1000.000000(1.00e+03)
+[NOTICE]: HeaderSoilInitPres: 
+[NOTICE]: -9999.000000(-1.00e+04)
+[NOTICE]: -9999.000000(-1.00e+04)
+[NOTICE]: -9999.000000(-1.00e+04)
+[NOTICE]: -9999.000000(-1.00e+04)
+[NOTICE]: -9999.000000(-1.00e+04)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: HeaderSoilInitTemp: 
+[NOTICE]: 14.000000(1.40e+01)
+[NOTICE]: 14.000000(1.40e+01)
+[NOTICE]: 14.000000(1.40e+01)
+[NOTICE]: 14.000000(1.40e+01)
+[NOTICE]: 14.000000(1.40e+01)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: HeaderNormalHydrConductivity: 
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: HeaderLateralHydrConductivity: 
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: 0.010000(1.00e-02)
+[NOTICE]: HeaderThetaRes: 
+[NOTICE]: 0.100000(1.00e-01)
+[NOTICE]: 0.100000(1.00e-01)
+[NOTICE]: 0.100000(1.00e-01)
+[NOTICE]: 0.100000(1.00e-01)
+[NOTICE]: 0.100000(1.00e-01)
+[NOTICE]: 0.100000(1.00e-01)
+[NOTICE]: 0.100000(1.00e-01)
+[NOTICE]: HeaderWiltingPoint: 
+[NOTICE]: 0.115651(1.16e-01)
+[NOTICE]: 0.115651(1.16e-01)
+[NOTICE]: 0.115651(1.16e-01)
+[NOTICE]: 0.115651(1.16e-01)
+[NOTICE]: 0.115651(1.16e-01)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: HeaderFieldCapacity: 
+[NOTICE]: 0.254134(2.54e-01)
+[NOTICE]: 0.254134(2.54e-01)
+[NOTICE]: 0.254134(2.54e-01)
+[NOTICE]: 0.254134(2.54e-01)
+[NOTICE]: 0.254134(2.54e-01)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: HeaderThetaSat: 
+[NOTICE]: 0.600000(6.00e-01)
+[NOTICE]: 0.600000(6.00e-01)
+[NOTICE]: 0.600000(6.00e-01)
+[NOTICE]: 0.600000(6.00e-01)
+[NOTICE]: 0.600000(6.00e-01)
+[NOTICE]: 0.600000(6.00e-01)
+[NOTICE]: 0.600000(6.00e-01)
+[NOTICE]: HeaderAlpha: 
+[NOTICE]: 0.001000(1.00e-03)
+[NOTICE]: 0.001000(1.00e-03)
+[NOTICE]: 0.001000(1.00e-03)
+[NOTICE]: 0.001000(1.00e-03)
+[NOTICE]: 0.001000(1.00e-03)
+[NOTICE]: 0.001000(1.00e-03)
+[NOTICE]: 0.001000(1.00e-03)
+[NOTICE]: HeaderN: 
+[NOTICE]: 1.800000(1.80e+00)
+[NOTICE]: 1.800000(1.80e+00)
+[NOTICE]: 1.800000(1.80e+00)
+[NOTICE]: 1.800000(1.80e+00)
+[NOTICE]: 1.800000(1.80e+00)
+[NOTICE]: 1.800000(1.80e+00)
+[NOTICE]: 1.800000(1.80e+00)
+[NOTICE]: HeaderV: 
+[NOTICE]: 0.500000(5.00e-01)
+[NOTICE]: 0.500000(5.00e-01)
+[NOTICE]: 0.500000(5.00e-01)
+[NOTICE]: 0.500000(5.00e-01)
+[NOTICE]: 0.500000(5.00e-01)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: HeaderKthSoilSolids: 
+[NOTICE]: 2.500000(2.50e+00)
+[NOTICE]: 2.500000(2.50e+00)
+[NOTICE]: 2.500000(2.50e+00)
+[NOTICE]: 2.500000(2.50e+00)
+[NOTICE]: 2.500000(2.50e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: HeaderCthSoilSolids: 
+[NOTICE]: 2300000.000000(2.30e+06)
+[NOTICE]: 2300000.000000(2.30e+06)
+[NOTICE]: 2300000.000000(2.30e+06)
+[NOTICE]: 2300000.000000(2.30e+06)
+[NOTICE]: 2300000.000000(2.30e+06)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: 0.000000(0.00e+00)
+[NOTICE]: HeaderSpecificStorativity: 
+[NOTICE]: 0.000001(1.00e-06)
+[NOTICE]: 0.000001(1.00e-06)
+[NOTICE]: 0.000001(1.00e-06)
+[NOTICE]: 0.000001(1.00e-06)
+[NOTICE]: 0.000001(1.00e-06)
+[NOTICE]: 0.000001(1.00e-06)
+[NOTICE]: 0.000001(1.00e-06)
+[NOTICE]: /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/listpoints.txt
+[NOTICE]: Column 2 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/listpoints.txt assigned to xcoord
+[NOTICE]: Column 3 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/listpoints.txt assigned to ycoord
+[NOTICE]: Column 1 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/listpoints.txt assigned to ID
+[NOTICE]: Column 4 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/listpoints.txt assigned to zcoord
+[NOTICE]: Column 5 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/listpoints.txt assigned to landcover
+[NOTICE]: Column 6 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/listpoints.txt assigned to soiltype
+[NOTICE]: Column 7 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/listpoints.txt assigned to slope
+[NOTICE]: Column 8 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/listpoints.txt assigned to aspect
+[NOTICE]: Column 9 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/listpoints.txt assigned to sky
+[NOTICE]: Column 10 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/listpoints.txt assigned to bedrock
+[WARNING]: File /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/input_maps/pit not existing
+[WARNING]: Dem file not present
+[NOTICE]: File for keyword : BedrockDepthMapFile  not present in file list
+[WARNING]: Bedrock depth file not present
+[WARNING]: Dem file is not present, and therefore it is not possible to calculate curvature
+
+POINTS:
+ID,East[m],North[m],Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-],CurvatureN-S[1/m],CurvatureW-E[1/m],CurvatureNW-SE[1/m],CurvatureNE-SW[1/m],DepthFreeSurface[mm],Hor,maxSWE[mm],Lat[deg],Long[deg]
+609882.500000,4345618.000000,1.000000,300.000000,1.000000,1.000000,0.000000,0.000000,1.000000,0.000000,0.000000,0.000000,0.000000,0.000000,1.000000,10000000000.000000,40.250000,16.310000,
+[WARNING]: No horizon file found for point type #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+[NOTICE]: INFO about the simulated basin:
+[NOTICE]: Valid pixels: 1
+[NOTICE]: Number of nodes: 8
+[NOTICE]: Novalue pixels: 0
+[NOTICE]: Basin area:        1e-06 km2
+[NOTICE]: Start Reading METEO data files...
+[NOTICE]:  File for keyword MeteoStationsListFile is not assigned
+[NOTICE]: Numbers of Meteo Stations read: 1
+[NOTICE]: Reading horizon for : 1 meteo station
+[WARNING]: No horizon file found for meteo station #1. In this case the horizon will be considered always not obscured, i.e. shadow=FALSE
+[NOTICE]: Column 1 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/meteo/meteo0001.txt assigned to POSIX
+[NOTICE]: Column 2 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/meteo/meteo0001.txt assigned to JD
+[NOTICE]: Column 3 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/meteo/meteo0001.txt assigned to Iprec
+[NOTICE]: Column 4 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/meteo/meteo0001.txt assigned to WindSp
+[NOTICE]: Column 5 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/meteo/meteo0001.txt assigned to WindDir
+[NOTICE]: Column 6 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/meteo/meteo0001.txt assigned to RH
+[NOTICE]: Column 7 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/meteo/meteo0001.txt assigned to AirT
+[NOTICE]: Column 8 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/meteo/meteo0001.txt assigned to Swglob
+[NOTICE]: Column 9 in file /home/ssenoner/geotop/tests/1D/PureDrainageDischarge/meteo/meteo0001.txt assigned to CloudTrans
+[NOTICE]: Read meteo data for meteo station #: 1 with number of lines=5743
+[NOTICE]: Initial date of meteo data : 17/06/2014 12:00
+[NOTICE]: Final date of meteo data   : 07/07/2014 10:30
+[NOTICE]: Shortwave radiation measurements from station 1
+
+[NOTICE]: Cloudiness measurements from station 1
+[WARNING]: No longwave radiation measurements available
+
+CHECKPOINTS:ID,r,c,Elevation[masl],LandCoverType,SoilType,Slope[deg],Aspect[deg],SkyViewFactor[-]
+1,1,1,         300,1,1,           0,           0,           1
+
+METEO STATIONS:
+ID,East[m],North[m],Lat[deg],Lon[deg],Elev[m a.s.l.],Sky[deg],Stand_Time[h],WindSensHeight[m],TempSensHeight[m]
+1,      609904, 4.34565e+06,       40.25,       16.31,         300,           1,           1,          10,           2
+[NOTICE]: Channel pixels: 0
+[NOTICE]: INPUT: printing delay_day_recover 0.000000
+
+[NOTICE]: Checking for map files undefined...
+[WARNING]: File InLongwaveRadiationMapFile [usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File InLongwaveRadiationMapFile[usually defined in output_maps/LWin] NOT DEFINED
+[WARNING]: File  with fradSWin identifier NOT DEFINED
+[WARNING]: File  SurfaceLatentHeatFluxMapFile [= maps/LE] NOT DEFINED
+[WARNING]: File SurfaceSensibleHeatFluxMapFile [= maps/H] NOT DEFINED
+[WARNING]: File  with fG identifier  NOT DEFINED
+[WARNING]: File  with fTs identifier  NOT DEFINED
+[WARNING]: File  with fradSWin identifier  NOT DEFINED
+[WARNING]: File  with fradSwinbeam identifier  NOT DEFINED
+[WARNING]: File ShadowFractionTimeMapFile [= maps/Shadow???] NOT DEFINED
+[WARNING]: 10 mapfiles undefined: see above for names of missing files
+[NOTICE]: Soil water evaporates from the first 1 layers
+[NOTICE]: Soil water transpires from the first 7 layers
+[NOTICE]: Duration of preprocessing phase: 0.281250
+
+[NOTICE]: 18/6/2014 20:00 0.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/6/2014 21:00 0.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/6/2014 22:00 0.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 18/6/2014 23:00 0.91% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 0:00 1.14% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 1:00 1.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 2:00 1.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 3:00 1.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 4:00 2.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 5:00 2.28% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 6:00 2.51% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 7:00 2.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 8:00 2.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 9:00 3.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 10:00 3.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 11:00 3.65% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 12:00 3.88% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 13:00 4.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 14:00 4.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 15:00 4.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 16:00 4.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 17:00 5.02% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 18:00 5.25% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 19:00 5.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 20:00 5.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 21:00 5.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 22:00 6.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 19/6/2014 23:00 6.39% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 0:00 6.62% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 1:00 6.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 2:00 7.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 3:00 7.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 4:00 7.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 5:00 7.76% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 6:00 7.99% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 7:00 8.22% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 8:00 8.45% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 9:00 8.68% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 10:00 8.90% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 11:00 9.13% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 12:00 9.36% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 13:00 9.59% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 14:00 9.82% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 15:00 10.05% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 16:00 10.27% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 17:00 10.50% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 18:00 10.73% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 19:00 10.96% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 20:00 11.19% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 21:00 11.42% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 22:00 11.64% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 20/6/2014 23:00 11.87% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 0:00 12.10% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 1:00 12.33% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 2:00 12.56% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 3:00 12.79% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 4:00 13.01% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 5:00 13.24% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 6:00 13.47% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 7:00 13.70% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 8:00 13.93% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 9:00 14.16% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 10:00 14.38% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 11:00 14.61% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 12:00 14.84% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 13:00 15.07% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 14:00 15.30% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 15:00 15.53% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 16:00 15.75% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 17:00 15.98% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 18:00 16.21% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 19:00 16.44% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 20:00 16.67% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 21:00 16.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 22:00 17.12% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 21/6/2014 23:00 17.35% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 0:00 17.58% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 1:00 17.81% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 2:00 18.04% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 3:00 18.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 4:00 18.49% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 5:00 18.72% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 6:00 18.95% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 7:00 19.18% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 8:00 19.41% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 9:00 19.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 10:00 19.86% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 11:00 20.09% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 12:00 20.32% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 13:00 20.55% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 14:00 20.78% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 15:00 21.00% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 16:00 21.23% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 17:00 21.46% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 18:00 21.69% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 19:00 21.92% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 20:00 22.15% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 21:00 22.37% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 22:00 22.60% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 22/6/2014 23:00 22.83% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 0:00 23.06% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 1:00 23.29% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 2:00 23.52% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 3:00 23.74% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 4:00 23.97% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 5:00 24.20% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 6:00 24.43% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 7:00 24.66% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 8:00 24.89% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 9:00 25.11% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 10:00 25.34% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 11:00 25.57% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 12:00 25.80% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 13:00 26.03% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 14:00 26.26% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 15:00 26.48% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 16:00 26.71% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 17:00 26.94% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 18:00 27.17% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 19:00 27.40% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 20:00 27.63% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 21:00 27.85% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 22:00 28.08% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 23/6/2014 23:00 28.31% - Time elapsed (h:m:s)  0:00:00 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 0:00 28.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 1:00 28.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 2:00 29.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 3:00 29.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 4:00 29.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 5:00 29.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 6:00 29.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 7:00 30.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 8:00 30.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 9:00 30.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 10:00 30.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 11:00 31.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 12:00 31.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 13:00 31.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 14:00 31.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 15:00 31.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 16:00 32.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 17:00 32.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 18:00 32.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 19:00 32.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 20:00 33.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 21:00 33.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 22:00 33.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 24/6/2014 23:00 33.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 0:00 34.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 1:00 34.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 2:00 34.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 3:00 34.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 4:00 34.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 5:00 35.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 6:00 35.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 7:00 35.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 8:00 35.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 9:00 36.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 10:00 36.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 11:00 36.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 12:00 36.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 13:00 36.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 14:00 37.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 15:00 37.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 16:00 37.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 17:00 37.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 18:00 38.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 19:00 38.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 20:00 38.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 21:00 38.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 22:00 39.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 25/6/2014 23:00 39.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 0:00 39.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 1:00 39.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 2:00 39.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 3:00 40.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 4:00 40.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 5:00 40.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 6:00 40.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 7:00 41.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 8:00 41.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 9:00 41.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 10:00 41.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 11:00 42.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 12:00 42.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 13:00 42.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 14:00 42.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 15:00 42.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 16:00 43.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 17:00 43.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 18:00 43.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 19:00 43.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 20:00 44.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 21:00 44.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 22:00 44.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 26/6/2014 23:00 44.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 0:00 44.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 1:00 45.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 2:00 45.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 3:00 45.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 4:00 45.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 5:00 46.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 6:00 46.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 7:00 46.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 8:00 46.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 9:00 47.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 10:00 47.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 11:00 47.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 12:00 47.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 13:00 47.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 14:00 48.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 15:00 48.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 16:00 48.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 17:00 48.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 18:00 49.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 19:00 49.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 20:00 49.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 21:00 49.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 22:00 50.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 27/6/2014 23:00 50.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 0:00 50.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 1:00 50.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 2:00 50.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 3:00 51.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 4:00 51.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 5:00 51.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 6:00 51.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 7:00 52.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 8:00 52.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 9:00 52.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 10:00 52.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 11:00 52.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 12:00 53.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 13:00 53.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 14:00 53.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 15:00 53.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 16:00 54.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 17:00 54.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 18:00 54.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 19:00 54.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 20:00 55.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 21:00 55.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 22:00 55.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 28/6/2014 23:00 55.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 0:00 55.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 1:00 56.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 2:00 56.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 3:00 56.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 4:00 56.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 5:00 57.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 6:00 57.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 7:00 57.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 8:00 57.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 9:00 57.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 10:00 58.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 11:00 58.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 12:00 58.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 13:00 58.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 14:00 59.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 15:00 59.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 16:00 59.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 17:00 59.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 18:00 60.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 19:00 60.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 20:00 60.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 21:00 60.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 22:00 60.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 29/6/2014 23:00 61.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 0:00 61.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 1:00 61.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 2:00 61.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 3:00 62.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 4:00 62.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 5:00 62.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 6:00 62.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 7:00 63.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 8:00 63.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 9:00 63.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 10:00 63.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 11:00 63.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 12:00 64.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 13:00 64.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 14:00 64.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 15:00 64.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 16:00 65.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 17:00 65.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 18:00 65.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 19:00 65.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 20:00 65.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 21:00 66.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 22:00 66.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 30/6/2014 23:00 66.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 0:00 66.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 1:00 67.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 2:00 67.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 3:00 67.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 4:00 67.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 5:00 68.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 6:00 68.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 7:00 68.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 8:00 68.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 9:00 68.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 10:00 69.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 11:00 69.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 12:00 69.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 13:00 69.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 14:00 70.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 15:00 70.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 16:00 70.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 17:00 70.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 18:00 71.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 19:00 71.23% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 20:00 71.46% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 21:00 71.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 22:00 71.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 1/7/2014 23:00 72.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 0:00 72.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 1:00 72.60% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 2:00 72.83% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 3:00 73.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 4:00 73.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 5:00 73.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 6:00 73.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 7:00 73.97% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 8:00 74.20% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 9:00 74.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 10:00 74.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 11:00 74.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 12:00 75.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 13:00 75.34% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 14:00 75.57% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 15:00 75.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 16:00 76.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 17:00 76.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 18:00 76.48% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 19:00 76.71% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 20:00 76.94% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 21:00 77.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 22:00 77.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 2/7/2014 23:00 77.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 0:00 77.85% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 1:00 78.08% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 2:00 78.31% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 3:00 78.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 4:00 78.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 5:00 79.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 6:00 79.22% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 7:00 79.45% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 8:00 79.68% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 9:00 79.91% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 10:00 80.14% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 11:00 80.37% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 12:00 80.59% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 13:00 80.82% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 14:00 81.05% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 15:00 81.28% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 16:00 81.51% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 17:00 81.74% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 18:00 81.96% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 19:00 82.19% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 20:00 82.42% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 21:00 82.65% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 22:00 82.88% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 3/7/2014 23:00 83.11% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 0:00 83.33% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 1:00 83.56% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 2:00 83.79% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 3:00 84.02% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 4:00 84.25% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 5:00 84.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 6:00 84.70% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 7:00 84.93% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 8:00 85.16% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 9:00 85.39% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 10:00 85.62% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 11:00 85.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 12:00 86.07% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 13:00 86.30% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 14:00 86.53% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 15:00 86.76% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 16:00 86.99% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 17:00 87.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 18:00 87.44% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 19:00 87.67% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 20:00 87.90% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 21:00 88.13% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 22:00 88.36% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 4/7/2014 23:00 88.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 0:00 88.81% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 1:00 89.04% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 2:00 89.27% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 3:00 89.50% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 4:00 89.73% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 5:00 89.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 6:00 90.18% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 7:00 90.41% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 8:00 90.64% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 9:00 90.87% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 10:00 91.10% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 11:00 91.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 12:00 91.55% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 13:00 91.78% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 14:00 92.01% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 15:00 92.24% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 16:00 92.47% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 17:00 92.69% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 18:00 92.92% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 19:00 93.15% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 20:00 93.38% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 21:00 93.61% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 22:00 93.84% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 5/7/2014 23:00 94.06% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 0:00 94.29% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 1:00 94.52% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 2:00 94.75% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 3:00 94.98% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 4:00 95.21% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 5:00 95.43% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 6:00 95.66% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 7:00 95.89% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 8:00 96.12% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 9:00 96.35% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 10:00 96.58% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 11:00 96.80% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 12:00 97.03% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 13:00 97.26% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 14:00 97.49% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 15:00 97.72% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 16:00 97.95% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 17:00 98.17% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 18:00 98.40% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 19:00 98.63% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 20:00 98.86% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 21:00 99.09% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 22:00 99.32% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 6/7/2014 23:00 99.54% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/7/2014 0:00 99.77% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: 7/7/2014 1:00 100.00% - Time elapsed (h:m:s)  0:00:01 Time remaining (h:m)  0:00
+[NOTICE]: Duration of simulation: 0.687500
+
+[NOTICE]: Close files
+[NOTICE]: Deallocating global variables
+[NOTICE]: Deallocating soil
+[NOTICE]: Deallocating top
+[NOTICE]: Deallocating land
+[NOTICE]: Deallocating water
+[NOTICE]: Deallocating channel network
+[NOTICE]: Deallocating UV
+[NOTICE]: Deallocating egy
+[NOTICE]: Deallocating snow
+[NOTICE]: Deallocating glacier
+[NOTICE]: Deallocating met
+[NOTICE]: Deallocating times
+[NOTICE]: Deallocating par
+[NOTICE]: Deallocating novalues
+[NOTICE]: End of simulation!
+
